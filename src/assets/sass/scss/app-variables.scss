@@ -1,0 +1,188 @@
+$padding-base: 1rem !default;
+$margin-base: 1rem !default;
+
+$padding-base-vertical: 0.5rem !default;
+$padding-base-horizontal: 0.75rem !default;
+
+$padding-large-vertical: 0.6rem !default;
+$padding-large-horizontal: 1rem !default;
+
+$padding-small-vertical: 0.4rem !default;
+$padding-small-horizontal: 0.75rem !default;
+
+$padding-xs-vertical: 0.1rem !default;
+$padding-xs-horizontal: 0.33rem !default;
+
+$line-height-large: 1.3333333 !default; // extra decimals for Win 8.1 Chrome
+$line-height-small: 1.5 !default;
+
+$border-radius: 0.125rem !default;
+$border-radius-sm: 0.0625rem !default;
+
+$border-radius-base: 4px !default;
+$border-radius-large: 6px !default;
+$border-radius-small: 3px !default;
+$border-radius-extreme: 30px !default;
+
+//** Global color for active items (e.g., navs or dropdowns).
+$component-active-color: #fff !default;
+//** Global background color for active items (e.g., navs or dropdowns).
+$component-active-bg: #f9423a !default;
+
+//** Width of the `border` for generating carets that indicator dropdowns.
+$caret-width-base: 4px !default;
+//** Carets increase slightly in size for larger components.
+$caret-width-large: 5px !default;
+
+// Line Height
+$line-height-base: 1.5 !default;
+$line-height-computed: ($font-size-base * $line-height-base) !default;
+
+//  Transitions
+$general-transition-time: 300ms !default;
+
+$slow-transition-time: 370ms !default;
+$fast-transition-time: 150ms !default;
+
+$transition-linear: linear !default;
+$transition-bezier: cubic-bezier(0.34, 1.61, 0.7, 1) !default;
+$transition-ease: ease 0s;
+
+//variables for social
+$social-facebook: #3b5998;
+$social-twitter: #55acee;
+$social-pinterest: #cc2127;
+$social-google: #dd4b39;
+$social-linkedin: #0976b4;
+$social-dribbble: #ea4c89;
+$social-github: #333333;
+$social-youtube: #e52d27;
+$social-instagram: #125688;
+$social-reddit: #ff4500;
+$social-tumblr: #35465c;
+$social-behance: #1769ff;
+
+$transparent-bg: transparent !default;
+
+$background-light-grey: #e8e7e3 !default;
+$background-lighter-grey: #f0efeb !default;
+$font-background-light-grey: #9c9b99 !default;
+$font-hover-background-light-grey: #5e5e5c !default;
+
+// variables from lbd
+
+$transition-ease-in: ease-in !default;
+$transition-ease-out: ease-out !default;
+$ultra-fast-transition-time: 60ms !default;
+$navbar-padding-a: 10px 15px;
+$padding-zero: 0px !default;
+$sidebar-width: calc(100% - 250px) !default;
+$topbar-back: topbar-back !default;
+$bottombar-back: bottombar-back !default;
+$topbar-x: topbar-x !default;
+$bottombar-x: bottombar-x !default;
+$margin-bottom: 0 0 10px 0 !default;
+$margin-base-vertical: 15px !default;
+
+// Shadows
+$shadow-umbra-opacity: 0.2 !default;
+$shadow-penumbra-opacity: 0.14 !default;
+$shadow-ambient-opacity: 0.12 !default;
+
+// Declare the following for reuse with both mixins and the bootstrap variables
+$shadow-focus: 0 0 8px rgba($black, 0.18), 0 8px 16px rgba($black, 0.36);
+
+$shadow-2dp: 0 2px 2px 0 rgba($black, $shadow-penumbra-opacity),
+  0 3px 1px -2px rgba($black, $shadow-umbra-opacity),
+  0 1px 5px 0 rgba($black, $shadow-ambient-opacity);
+
+$shadow-3dp: 0 3px 4px 0 rgba($black, $shadow-penumbra-opacity),
+  0 3px 3px -2px rgba($black, $shadow-umbra-opacity),
+  0 1px 8px 0 rgba($black, $shadow-ambient-opacity);
+
+$shadow-4dp: 0 4px 5px 0 rgba($black, $shadow-penumbra-opacity),
+  0 1px 10px 0 rgba($black, $shadow-ambient-opacity),
+  0 2px 4px -1px rgba($black, $shadow-umbra-opacity);
+
+$shadow-6dp: 0 6px 10px 0 rgba($black, $shadow-penumbra-opacity),
+  0 1px 18px 0 rgba($black, $shadow-ambient-opacity),
+  0 3px 5px -1px rgba($black, $shadow-umbra-opacity);
+
+$shadow-8dp: 0 8px 10px 1px rgba($black, $shadow-penumbra-opacity),
+  0 3px 14px 2px rgba($black, $shadow-ambient-opacity),
+  0 5px 5px -3px rgba($black, $shadow-umbra-opacity);
+
+$shadow-16dp: 0 16px 24px 2px rgba($black, $shadow-penumbra-opacity),
+  0 6px 30px 5px rgba($black, $shadow-ambient-opacity),
+  0 8px 10px -5px rgba($black, $shadow-umbra-opacity);
+
+$shadow-24dp: 0 9px 46px 8px rgba($black, $shadow-penumbra-opacity),
+  0 11px 15px -7px rgba($black, $shadow-ambient-opacity),
+  0 24px 38px 3px rgba($black, $shadow-umbra-opacity);
+
+///////////////////////////////////////////////
+
+// Variables for Dark Layout
+
+$bg-color-dark: #101010;
+$dl-text-color: #bdbdc7;
+//$dl-text-color: #119f05 !important;
+$dl-bg-color: rgb(0, 0, 0);
+$dl-headings-color: #fff;
+$dl-text-muted-color: #b1b1bb;
+$dl-border-color: #616279;
+$dl-p-color: #fff !important;
+$dl-link-color: #f9423a;
+
+//////////////////////////////////////////////
+
+// Variables For Transparent Layout
+// Variables For Transparent Layout
+$bg-hibiscus: linear-gradient(
+  to right bottom,
+  #f05f57,
+  #c83d5c,
+  #99245a,
+  #671351,
+  #360940
+);
+$bg-purple-pizzazz: linear-gradient(
+  to right bottom,
+  #662d86,
+  #8b2a8a,
+  #ae2389,
+  #cf1d83,
+  #ed1e79
+);
+$bg-blue-lagoon: linear-gradient(
+  to right bottom,
+  #144e68,
+  #006d83,
+  #008d92,
+  #00ad91,
+  #57ca85
+);
+$bg-electric-violet: linear-gradient(
+  to left top,
+  #4a00e0,
+  #600de0,
+  #7119e1,
+  #8023e1,
+  #8e2de2
+);
+$bg-portage: linear-gradient(
+  to left top,
+  #97abff,
+  #798ce5,
+  #5b6ecb,
+  #3b51b1,
+  #123597
+);
+$bg-tundora: linear-gradient(
+  to left top,
+  #474747,
+  #4a4a4a,
+  #4c4d4d,
+  #4f5050,
+  #525352
+);

@@ -1,0 +1,764 @@
+body {
+  &.layout-dark {
+    // Main
+    background-color: $bg-color-dark;
+    color: $dl-text-color;
+    height: 100%;
+
+    main {
+      color: $dl-text-color;
+    }
+
+    .bg-white {
+      background-color: $dl-bg-color !important;
+      color: $component-active-bg !important;
+    }
+    
+    body::-webkit-scrollbar-track {
+      background: orange;        /* color of the tracking area */
+    }
+    
+    body::-webkit-scrollbar-thumb {
+      background-color: blue;    /* color of the scroll thumb */
+      border-radius: 20px;       /* roundness of the scroll thumb */
+      border: 3px solid orange;  /* creates padding around scroll thumb */
+    }
+
+    p, span{
+      color:$dl-p-color;
+    }
+
+    a,.info{
+      color: $dl-link-color !important;
+    }
+
+    .nav-tabs .nav-link.active{
+      border-bottom: 2px solid $dl-headings-color !important;
+    }
+    .content-sub-header,
+    .table td,
+    .list-group-item-action,
+    .nav-tabs .nav-link.active,
+    .content-sub-header {
+      color: $dl-text-color;
+    }
+
+    .text-muted {
+      color: $dl-text-muted-color !important;
+    }
+
+    //Typo & tables
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    .content-header,
+    .table th {
+      color: $dl-headings-color;
+    }
+
+    vg-player {
+      background: transparent !important;
+    }
+
+    // Navbar
+    .navbar {
+      .navbar-nav .nav-item,
+      .nav-link,
+      i {
+        color: $dl-headings-color !important;
+      }
+    }
+
+    // Alerts
+    .alert {
+      p {
+        color: $black !important;
+      }
+    }
+
+    // Badges
+
+    .badge {
+      color: $dl-headings-color;
+    }
+
+    .badge-light {
+      color: $dl-bg-color !important;
+    }
+
+    // Cards
+    .card,
+    .card-footer {
+      background: $dl-bg-color;
+    }
+
+    // Charts & SVG
+    svg {
+      stroke: $dl-headings-color !important;
+    }
+
+    .ct-grid {
+      stroke: #ffffff38;
+    }
+
+    .ct-label {
+      color: #77798e;
+    }
+
+    // Table & DataTables
+    .table {
+      thead th {
+        border-bottom: 2px solid $dl-headings-color;
+      }
+
+      th,
+      td {
+        border-top: 2px solid $dl-headings-color;
+      }
+
+      .bg-light {
+        th {
+          color: $black !important;
+        }
+      }
+    }
+
+    // Data Tables
+
+    table.dataTable tr.group td {
+      background: $bg-color-dark;
+    }
+
+    .dataTables_length {
+      .form-control {
+        color: $dl-headings-color;
+      }
+    }
+
+    .ngx-datatable .datatable-header .datatable-header-cell .sort-btn {
+      color: $dl-text-color !important;
+    }
+
+    // Smart Table
+
+    .ng2-smart-filter {
+      .form-control {
+        height: auto !important;
+      }
+    }
+
+    .input-group-text {
+      border-color: $dl-border-color;
+    }
+
+    // Forms
+    label {
+      color: $dl-text-color;
+    }
+
+    .search {
+      border-radius: 1.5rem;
+      background: $dl-bg-color;
+      color: $dl-text-color;
+      border: 2px solid $dl-border-color;
+    }
+
+    .custom-select {
+      margin-bottom: 0.3125rem;
+      margin-left: 0.3125rem;
+    }
+
+    .custom-radio {
+      margin-left: 0.3125rem;
+    }
+
+    form {
+      &.form-bordered .form-group > div {
+        border-left-color: $dl-border-color;
+      }
+
+      &.form-bordered .form-group {
+        border-bottom-color: $dl-border-color;
+      }
+
+      & .form-actions {
+        border-top-color: $dl-border-color;
+        border-bottom-color: $dl-border-color;
+      }
+
+      &.striped-rows .form-group:nth-child(even) {
+        background: $bg-color-dark;
+      }
+
+      // Wizard
+
+      &.wizard > .steps > ul > .current > a {
+        color: $white !important;
+      }
+    }
+
+    // Angular Wizard
+    aw-wizard-navigation-bar.horizontal ul.steps-indicator li div a {
+      font-family: "Montserrat", "Segoe UI", Roboto, "Helvetica Neue", Arial,
+        sans-serif;
+    }
+
+    .form-control,
+    .type-zone,
+    .ng2-tag-input__text-input {
+      background: $dl-bg-color !important;
+      color: $dl-text-color !important;
+      border: 2px solid $dl-border-color !important;
+    }
+
+    .input-group-text {
+      background: $dl-bg-color !important;
+      color: $dl-text-color !important;
+      border-color: $dl-border-color !important;
+    }
+
+    // Buttons
+
+    .btn-light {
+      color: $dl-bg-color !important;
+    }
+
+    .btn-flat {
+      background-color: $bg-color-dark !important;
+    }
+
+    .buttons-copy,
+    .buttons-csv,
+    .buttons-excel,
+    .buttons-pdf,
+    .buttons-print {
+      background: $bg-color-dark !important;
+      color: $dl-text-color !important;
+      outline: none !important;
+    }
+
+    // Email Application
+    .email-application {
+      .email-app-sidebar,
+      .email-app-list-mails,
+      .email-app-mail-content {
+        background-color: $dl-bg-color;
+        border-right: 1px solid $dl-text-color;
+        border-color: $dl-border-color;
+      }
+
+      .email-app-menu .form-group-compose,
+      .email-app-list-mails .email-actions {
+        border-bottom: 1px solid $dl-border-color;
+      }
+
+      .email-app-list-mails .email-actions {
+        border-top: 1px solid $dl-border-color;
+      }
+
+      .list-group-item.active,
+      .list-group-item.active:focus,
+      .list-group-item.active:hover {
+        background-color: $component-active-bg;
+        border-color: $component-active-bg;
+        color: $white;
+      }
+
+      .list-group-item-action {
+        color: $dl-text-color;
+
+        &.bg-blue-grey {
+          background-color: $bg-color-dark !important;
+        }
+
+        &.email-app-sender {
+          background-color: $bg-color-dark !important;
+        }
+      }
+    }
+
+    // Chat application
+    .chat-application {
+      .chat-app-window,
+      .chat-sidebar,
+      .chat-fixed-search {
+        background-color: $dl-bg-color;
+      }
+
+      .chat-name,
+      .chat-sidebar,
+      .chat-fixed-search {
+        border-color: $dl-border-color;
+      }
+
+      .bg-blue-grey.bg-lighten-5 {
+        background-color: #4f5069 !important;
+      }
+
+      .chats .chat-left .chat-content {
+        p {
+          color: $black;
+        }
+      }
+
+      .chats .chat-content {
+        p {
+          color: $white;
+        }
+      }
+    }
+
+    // List Group
+    .list-group {
+      .list-group-item {
+        background-color: inherit;
+      }
+
+      button {
+        color: $dl-text-color !important;
+      }
+    }
+
+    // Media
+
+    .media-list.media-bordered .media {
+      border-top-color: $dl-border-color;
+    }
+
+    // Drop Down
+
+    .dropdown-menu {
+      background-color: $bg-color-dark;
+
+      .dropdown-item {
+        color: $dl-text-color;
+
+        &:hover {
+          background-color: $component-active-bg;
+        }
+      }
+
+      button {
+        color: $dl-text-color;
+      }
+    }
+
+    .dropdown-divider {
+      border-top-color: $dl-border-color;
+    }
+
+    .dropdown-header {
+      background-color: $bg-color-dark;
+      color: $dl-headings-color;
+    }
+
+    // Modal
+    .modal {
+      .modal-header {
+        background: $dl-bg-color;
+        border-bottom: 1px solid $dl-border-color;
+
+        .close {
+          color: $dl-text-color;
+        }
+      }
+
+      .modal-body {
+        background: $dl-bg-color;
+
+        p {
+          color: $dl-text-color;
+        }
+      }
+
+      .modal-footer {
+        background: $dl-bg-color;
+        border-top: 1px solid $dl-border-color;
+      }
+    }
+
+    // Collapse / Accordion
+
+    .accordion {
+      .btn-link {
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+
+    // Nav Tabs
+
+    .nav-tabs,
+    .nav-link {
+      border-bottom-color: $dl-border-color;
+      color: $dl-text-color;
+
+      .active {
+        color: $dl-text-color !important;
+        border-color: $dl-border-color;
+      }
+    }
+
+    .tab-content {
+      .tabpane,
+      .active {
+        background: $dl-bg-color !important;
+      }
+    }
+
+    // Sweet Alerts
+
+    .swal2-modal {
+      h2 {
+        color: $dl-bg-color !important;
+      }
+    }
+
+    // Editor
+    .snow-container {
+      .quill-toolbar {
+        .ql-formats {
+          .ql-picker {
+            color: $dl-text-color !important;
+          }
+        }
+      }
+    }
+
+    // Pagination
+    .pagination {
+      .page-item {
+        &.active {
+          .page-link {
+            background-color: $component-active-bg;
+          }
+        }
+
+        .page-link {
+          background-color: $dl-bg-color;
+          color: $dl-text-color;
+          border-color: $dl-border-color;
+        }
+      }
+    }
+
+    // Progress
+
+    .progress {
+      background: $bg-color-dark;
+    }
+
+    // Tooltip And PopOver
+
+    .tooltip,
+    .popover {
+      color: $dl-headings-color !important;
+    }
+
+    // Date Picker
+
+    // Date Picker
+    .ngb-dp-header,
+    .ngb-dp-weekdays,
+    .ngb-dp-month-name {
+      background: $bg-color-dark !important;
+    }
+
+    .ngb-dp-months {
+      .ngb-dp-week {
+        .ngb-dp-day {
+          .btn-light {
+            color: $white !important;
+
+            &:hover {
+              background-color: $bg-color-dark;
+            }
+          }
+        }
+      }
+    }
+
+    // Time Picker
+
+    .ngb-tp-hour,
+    .ngb-tp-minute,
+    .ngb-tp-second,
+    .ng-untouched {
+      .form-control {
+        color: $dl-text-color !important;
+      }
+    }
+
+    .ngb-tp-meridian {
+      .btn-outline-primary {
+        margin-bottom: 0;
+      }
+    }
+
+    // Switchery
+    .switch {
+      margin-left: 0.3125rem;
+    }
+
+    // Calendar
+
+    // Month View
+
+    .cal-month-view {
+      .cal-header {
+        .cal-cell {
+          &:hover {
+            background-color: $dl-bg-color;
+          }
+        }
+      }
+    }
+
+    .cal-month-view .cal-cell-row {
+      &:hover {
+        background-color: $dl-bg-color;
+        color: $dl-text-color;
+      }
+
+      .cal-day-cell.cal-weekend .cal-day-number {
+        color: $dl-text-color;
+      }
+
+      .cal-cell-top {
+        &:hover {
+          background-color: $bg-color-dark;
+        }
+      }
+
+      .cal-today {
+        background-color: $bg-color-dark;
+      }
+    }
+
+    .cal-day-cell.cal-out-month .cal-day-number {
+      opacity: 0.2;
+    }
+
+    .cal-month-view .cal-open-day-events {
+      background-color: $bg-color-dark;
+    }
+
+    // Week View
+
+    .cal-week-view {
+      .cal-event {
+        .cal-event-title {
+          color: $dl-text-color;
+        }
+
+        background-color: $bg-color-dark !important;
+        border-color: $dl-border-color !important;
+      }
+
+      .cal-hour-odd {
+        background-color: $bg-color-dark;
+      }
+
+      .cal-time-events
+        .cal-day-columns:not(.cal-resize-active)
+        .cal-hour-segment:hover {
+        background-color: transparent !important;
+      }
+
+      .cal-day-headers .cal-header {
+        background-color: $dl-bg-color;
+        color: $dl-text-muted-color;
+
+        &:hover {
+          background-color: $dl-bg-color;
+          color: $dl-text-muted-color;
+        }
+      }
+
+      .cal-day-headers .cal-today {
+        background-color: $bg-color-dark;
+
+        &:hover {
+          background-color: $bg-color-dark;
+        }
+      }
+
+      .cal-header.cal-weekend span {
+        color: $dl-text-muted-color;
+      }
+    }
+
+    // Day View
+
+    .cal-day-view {
+      .cal-event {
+        .cal-event-title {
+          color: $dl-text-color;
+        }
+
+        background-color: $bg-color-dark !important;
+        border-color: $dl-border-color !important;
+      }
+
+      .cal-hour-odd {
+        background-color: $bg-color-dark;
+      }
+
+      .cal-time-events
+        .cal-day-columns:not(.cal-resize-active)
+        .cal-hour-segment:hover {
+        background-color: transparent !important;
+      }
+    }
+
+    // Timeline
+
+    .cd-horizontal-timeline {
+      .events {
+        a {
+          color: $dl-text-color;
+        }
+      }
+
+      .cd-timeline-navigation a {
+        top: 60%;
+
+        &:after {
+          top: 23%;
+        }
+      }
+    }
+
+    // Taskboard
+
+    .taskboard-app-form {
+      background-color: transparent !important;
+    }
+
+    #coming-soon {
+      .card-title.text-dark {
+        color: $white !important;
+      }
+
+      .card-body,
+      #clockFlat,
+      .cs-text-divider {
+        span.text-dark,
+        p.text-dark {
+          color: $white !important;
+        }
+      }
+    }
+
+    .customizer {
+      color: $black !important;
+
+      #rtl-icon {
+        span.white {
+          color: $white !important;
+        }
+      }
+
+      a,
+      p,
+      span,
+      label,
+      h4,
+      h6,
+      hr,
+      .customizer-close i {
+        color: $black !important;
+      }
+
+      hr {
+        border-color: rgba(0, 0, 0, 0.2) !important;
+      }
+    }
+
+    // Notification Dropdown
+    .notification-dropdown{
+      .noti-text{
+        color: #FFF;
+      }
+      .noti-container{
+        &:hover{
+          i{
+            color: #FFF !important;
+          }
+        }
+      }
+    }
+
+
+    // Notification Sidebar
+
+    .notification-sidebar {
+      &.open {
+        background: $bg-color-dark !important;
+        box-shadow: 0px 0px 20px 3px #00000061 !important;
+      }
+
+      .tab-content {
+        .active {
+          background: $bg-color-dark !important;
+        }
+      }
+      .notification-sidebar-close {
+        .ft-x {
+          color: $white !important;
+        }
+      }
+
+      .nav-link.active {
+        color: $component-active-bg !important;
+      }
+
+      #activity {
+        #timeline.timeline-left .timeline-line {
+          background-color: #5e617d;
+        }
+      }
+      .switch {
+        border: none !important;
+      }
+    }
+
+    // For Auth Pages in dark layout
+
+    .forgot-password-bg,
+    #login,
+    #regestration,
+    #lock-screen,
+    #coming-soon,
+    #maintenance {
+      background-image: url("../../assets/img/gallery/dark-bg.jpg") !important;
+
+      .fg-image,
+      .login-img,
+      .register-img,
+      .lock-screen-img {
+        background: #494b62 !important;
+      }
+    }
+
+    // Hamburger Icon
+
+    .navbar {
+      .navbar-toggle {
+        .icon-bar {
+          color: $white;
+        }
+      }
+    }
+  }
+}

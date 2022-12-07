@@ -1,0 +1,9 @@
+.popover{
+    border-color: rgba(0,157,160,0.2);
+    padding: 0;
+    .popover-header{
+        background-color: theme-color("primary");
+        border-color: theme-color("primary");
+        color: white;
+    }
+}

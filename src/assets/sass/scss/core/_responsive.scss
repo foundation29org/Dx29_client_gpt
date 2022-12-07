@@ -1,0 +1,243 @@
+@media (min-width: 992px) {
+	.main-panel{
+		.main-content{
+			padding-left:250px;
+		}
+	}
+
+  .navbar {
+    .navbar-header{
+      padding-left: 240px;
+    }
+    .navbar-container{
+      padding-left: 250px;
+    }
+  }
+  footer{
+    padding-left: 250px;
+    margin-top: 2rem;
+  }
+
+  .sidebar-sm{
+    .main-panel .main-content{
+        padding-left: 220px;
+    }
+    .navbar {
+      .navbar-header{
+        padding-left: 210px;
+      }
+      .navbar-container{
+        padding-left: 220px;
+      }
+    }
+    footer{
+      padding-left: 220px;
+    }
+  }
+
+  .sidebar-lg{
+    .main-panel .main-content{
+        padding-left: 280px;
+    }
+    .navbar {
+      .navbar-header{
+        padding-left: 270px;
+      }
+      .navbar-container{
+        padding-left: 280px;
+      }
+    }
+    footer{
+      padding-left: 280px;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .app-sidebar{
+    transition: transform .4s cubic-bezier(.25,.8,.25,1);
+  }
+  .navbar{
+    padding: 0 25px;
+  }
+  .navbar-toggle {
+    display: block;
+  }
+	.navbar-toggle .icon-bar {
+    display: block;
+    position: relative;
+    background: #fff;
+    width: 24px;
+    height: 2px;
+    border-radius: 1px;
+    margin: 0 auto;
+  }
+
+  .navbar-header .navbar-toggle {
+    margin: 10px 15px 10px 0;
+    width: 40px;
+    height: 40px;
+  }
+  .navbar-header .navbar-collapse-toggle {
+    margin: 20px 0px 10px 15px;
+  }
+  .navbar-form{
+    margin-top: .75rem !important;
+  }
+
+  @-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  @-moz-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  .bar1,
+  .bar2,
+  .bar3 {
+    outline: 1px solid transparent;
+  }
+
+  @-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  @-moz-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+}
+
+@media (min-width: 320px) {
+  .navbar-header{
+    float: left;
+  }
+  .navbar-right{
+    float: right !important;
+  }
+  .navbar-nav>li{
+    float: left;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-form{
+    display: none;
+  }
+  .notification-dropdown{
+    width: 300px;
+    .noti-wrapper{
+      white-space: initial;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .navbar-right{
+    display: none;
+  }
+  .notification-dropdown{
+    width: 250px;
+  }
+}
+
+[dir="rtl"]{
+  @media (min-width: 992px) {
+    .main-panel{
+      .main-content{
+        padding-right:250px;
+        padding-left: 0 !important;
+      }
+    }
+
+    .navbar {
+      .navbar-header{
+        padding-right: 240px;
+        padding-left: 0  !important;
+      }
+      .navbar-container{
+        padding-right: 250px;
+        padding-left: 0  !important;
+      }
+    }
+    footer{
+      padding-right: 250px;
+      padding-left: 0  !important;
+    }
+
+    .sidebar-sm{
+      .main-panel .main-content{
+          padding-right: 220px;
+          padding-left: 0  !important;
+      }
+      .navbar {
+        .navbar-header{
+          padding-right: 210px;
+          padding-left: 0  !important;
+        }
+        .navbar-container{
+          padding-right: 220px;
+          padding-left: 0  !important;
+        }
+      }
+      footer{
+        padding-right: 220px;
+        padding-left: 0  !important;
+      }
+    }
+
+    .sidebar-lg{
+      .main-panel .main-content{
+          padding-right: 280px;
+          padding-left: 0  !important;
+      }
+      .navbar {
+        .navbar-header{
+          padding-right: 270px;
+          padding-left: 0  !important;
+        }
+        .navbar-container{
+          padding-right: 280px;
+          padding-left: 0  !important;
+        }
+      }
+      footer{
+        padding-right: 280px;
+        padding-left: 0  !important;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .navbar-header .navbar-toggle {
+      margin: 10px 0 10px 15px;
+    } 
+    .navbar-header .navbar-collapse-toggle {
+       margin: 20px 15px 10px 0px;
+    }
+  }
+
+
+
+  @media (min-width: 320px) {
+    .navbar-header{
+      float: right;
+    }
+    .navbar-right{
+      float: left !important;
+    }
+    .navbar-nav>li{
+      float: right;
+    }
+  }
+
+}

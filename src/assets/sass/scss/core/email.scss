@@ -1,0 +1,256 @@
+//Variables
+$sideber-border: #E4E7ED;
+$sideber-width: 500px;
+
+.email-application {
+  .email-app-sidebar {
+    z-index: 3;
+    background: white;
+    position: fixed;
+    width: 250px;
+    height: calc(100vh - 150px);
+    border-right: 1px solid $sideber-border;
+
+    .email-app-sidebar-content {
+      position: relative;
+      height: 100%;
+      padding: 20px 25px;
+    }
+  }
+
+  .content-overlay.show {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  .email-app-content {
+    margin-top: 0px;
+    padding: 0px;
+    min-height: 100%;
+  }
+
+  .email-app-list-mails {
+    position: relative;
+    padding: 0px;
+    width: 100%;
+    overflow-y: hidden;
+    background-color: #ffffff;
+    height: calc(100vh - 212px);
+  }
+
+  .email-app-mail-content {
+    float: left;
+    width: 100%;
+    position: relative;
+    padding: 0px;
+    background-color: #ffffff;
+    min-height: calc(100vh - 212px);
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+  }
+
+  .email-app-mail-content-detail {
+    position: relative;
+    padding: 30px;
+    max-height: calc(100vh - 212px);
+    overflow-y: auto;
+  }
+
+  .hide-email-content {
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -webkit-transform: translate3d(-110%, 0, 0);
+    transform: translate3d(-110%, 0, 0);
+  }
+
+  .email-app-menu {
+    .form-group-compose {
+      border-bottom: 1px solid $sideber-border;
+    }
+
+    .list-group-messages {
+      border-bottom: 1px solid $sideber-border;
+
+      a {
+        padding: 0.85rem 1rem;
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .email-app-list {
+    position: relative;
+    height: 100%;
+    padding: 1rem 0;
+
+    p {
+      margin-bottom: 0.2rem;
+    }
+  }
+
+  .list-group-item.active,
+  .list-group-item.active:hover,
+  .list-group-item.active:focus {
+    color: #FFF;
+  }
+
+  .avatar-md {
+    width: 40px;
+  }
+
+  .avatar img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border: 0;
+    border-radius: 1000px;
+  }
+
+  .avatar-md span.text-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .avatar span.text-circle {
+    text-align: center;
+    vertical-align: middle;
+    color: #FFF;
+    font-size: 1.2rem;
+    background: #BABFC7;
+    display: table-cell;
+  }
+
+  .email-app-content-wrapper {
+    overflow-y: scroll;
+    height: calc(100% - 30px);
+
+    .email-app-options,
+    .email-app-title {
+      border-bottom: 1px solid $sideber-border;
+    }
+  }
+
+  .chat-fixed-search {
+    // position: fixed;
+    z-index: 999;
+    background: $white;
+    padding: 2rem 1rem;
+
+    fieldset {
+      border-bottom: 1px solid $sideber-border;
+    }
+  }
+
+}
+
+
+@include media-breakpoint-up(lg) {
+  .email-app-list-mails {
+    width: 30% !important;
+    border-right: 1px solid #e6ecf5;
+    float: left;
+  }
+
+  .email-application .email-app-mail-content {
+    width: 70%;
+  }
+}
+
+@include media-breakpoint-between(md, lg) {
+  .email-app-list-mails {
+    width: 35% !important;
+    border-right: 1px solid #e6ecf5;
+    float: left;
+  }
+
+  .email-application .email-app-mail-content {
+    width: 65%;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .email-app-content {
+    margin-left: 250px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .email-app-mail-content {
+    position: absolute !important;
+    top: 0 !important;
+    left: 7px !important;
+    width: 98% !important;
+    height: 100%;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    max-height: calc(100vh - 150px);
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .email-application {
+    .email-app-sidebar {
+      left: 0;
+    }
+  }
+}
+
+[dir="rtl"] {
+  .email-application {
+    .email-app-sidebar {
+      border-left: 1px solid $sideber-border;
+      border-right: 0px;
+    }
+
+    .email-app-mail-content {
+      float: right;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    .email-app-list-mails {
+      border-left: 1px solid #e6ecf5;
+      float: right;
+      border-right: 0px;
+    }
+  }
+
+  @include media-breakpoint-between(md, lg) {
+    .email-app-list-mails {
+      border-left: 1px solid #e6ecf5;
+      float: right;
+      border-right: 0px;
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+    .email-app-content {
+      margin-right: 250px;
+      margin-left: 0px;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .email-app-mail-content {
+      right: 15px !important;
+      left: auto;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .email-application {
+      .email-app-sidebar {
+        right: 0;
+        left: auto;
+      }
+    }
+  }
+}

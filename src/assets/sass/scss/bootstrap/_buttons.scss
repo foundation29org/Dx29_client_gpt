@@ -1,0 +1,35 @@
+.btn{
+  &[class*="btn-"]{
+    margin-bottom: 1rem;
+  }
+}
+.btn-group-vertical{
+  .btn{
+    &[class*="btn-"]{
+      margin-bottom: 0;
+    }
+  }
+}
+.input-group{
+  .btn{
+    &[class*="btn-"]{
+      margin-bottom: 0;
+    }
+  }
+  margin-bottom: 1rem;  
+}
+// Custom round buttons
+.btn-round{
+  border-radius: $border-radius-extreme;
+}
+
+.btn:active, .btn.active{
+	background-image: initial;
+}
+button:hover{
+  cursor: pointer;
+}
+
+.btn-group>.btn.active{
+  z-index: 0;
+}

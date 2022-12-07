@@ -1,0 +1,162 @@
+p {
+  font-size: 1.1rem;
+}
+
+.background-img{
+  min-height: 76vh !important;
+  background-image: url("assets/img/home/background2.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+
+.img-1{
+  position: absolute;
+  left: 60%;
+  top: 45%;
+  max-width: 100%;
+  max-width: -moz-available;          /* For Mozzila */
+  max-width: -webkit-fill-available;  /* For Chrome */
+  max-width: stretch;
+}
+
+.img-2{
+  position: absolute;
+  width: 80%;
+}
+
+.img-3{
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  z-index: -1;
+}
+
+.avatar{
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.gradient-custom{
+  background-image: linear-gradient(45deg, #68aab842, #FFF) !important;
+}
+
+.h-80{
+  height: 80px;
+}
+
+.ng-touched.ng-invalid {
+  border-color: #A6A9AE;
+}
+
+.btn-white.btn-raised, .btn-white.btn-fab {
+  background-color: #fff !important;
+  color: #000 !important;
+  border-color: #fff;
+  width: 200px;
+  border: 1px solid #dee2e6 !important;
+  border-radius: 1rem;
+}
+
+.btn-white:hover {
+  color: #ffffff !important;
+  background-color: #33658a !important;
+  border-color: #4a87b6 !important;
+}
+
+.btn-white:focus, .btn-white.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem #5eb1f0 !important;
+}
+
+.btn-primary.btn-raised{
+  border-radius: 1rem;
+  height: 50px;
+}
+
+.w-reg-img{
+  max-width: 100%;
+}
+
+.img-logos{
+  align-content: center;
+  align-items: center;
+}
+
+.img-responsive{
+  max-height: 80px;
+    opacity: 0.5;
+    filter: brightness( 100% ) contrast( 100% ) saturate( 0% ) blur( 0px ) hue-rotate( 0deg );
+    max-width: 100%;
+    max-width: -moz-available;          /* For Mozzila */
+    max-width: -webkit-fill-available;  /* For Chrome */
+    max-width: stretch;
+}
+
+.pad-logos{
+  padding: 2.25rem !important;
+}
+
+
+.img-responsive:hover{
+  opacity: 1;
+  filter: brightness( 100% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );
+}
+
+.margin-img-sm{
+  margin-left: 12%;
+}
+
+.responsive2{
+    max-height: 150px;
+    max-width: 100%;
+    max-width: -moz-available;          /* For Mozzila */
+    max-width: -webkit-fill-available;  /* For Chrome */
+    max-width: stretch;
+}
+
+@media (max-width: 768px) {
+  .margin-left-0{
+    margin-left: 0px !important;
+  }
+  .w-reg-img{
+    max-width: 4em;
+  }
+}
+
+  @media ( max-width: 575px ){
+    .pad-logos{
+      padding: 0rem !important;
+    }
+    
+    .full-height-vh{
+      height:auto !important;
+    }
+
+    .reg-panel{
+      padding-right: 0px;
+    } 
+  }
+
+  @media ( max-width: 449px ){
+    .card-body{
+      padding: 0rem;
+    }
+    .card-title{
+      font-size: 1.2rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+
+    .mt-3{
+      margin-top: 1rem !important;
+    }
+
+    .py-3{
+      padding-top: 1rem !important;
+    }
+  }
+
+  
+  

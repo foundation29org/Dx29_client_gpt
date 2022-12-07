@@ -1,0 +1,78 @@
+// Remove this SCSS from production
+.main-content {
+    .color-palette {
+        .color-group {
+            li{
+                list-style-type: none;
+                &.main-color{
+                    border-bottom: 4px solid #fafafa;
+                }
+                &.color{
+                    padding: 10px 15px 11px;
+                    margin: 0;
+                    &.main-color{
+                        .name{
+                            display: block;
+                            margin-bottom: 53px;
+                            font-size: 2rem;
+                        }
+                    }
+                    .hex{
+                        float: right;
+                        text-transform: uppercase;
+                        display: block;
+                    }
+                }
+            }
+            &:last-child {
+                li{
+                    &.main-color{
+                        border-bottom: 4px solid #fafafa;
+                    }
+                    &.color{
+                        padding: 10px 15px 11px;
+                        margin: 0;
+                        &.main-color{
+                            .name{
+                                display: block;
+                                margin-bottom: 53px;
+                                font-size: 2rem;
+                            }
+                        }
+                        .hex{
+                            float: right;
+                            text-transform: uppercase;
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+        .light-strong{
+            span{
+                color: #fff;
+            }
+        }
+        .dark{
+            span{
+                color: rgba(0,0,0,.87);
+            }
+        }
+        span{
+            color: rgba(255,255,255,.87);
+            font-size: 14px;
+            font-weight: 500;
+            &.light-strong{
+                color: #fff;
+            }
+            &.dark{
+                color: rgba(0,0,0,.87);
+            }
+        }
+    }
+}
+
+#kbModal-body{
+    height: 500px;
+    overflow-y: scroll;
+}

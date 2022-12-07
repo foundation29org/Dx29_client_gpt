@@ -1,0 +1,87 @@
+{
+    "benign": {
+        "name": "Benign",
+        "desc": "As recommended by ACMG/AMP for variants interpreted for Mendelian disorders.",
+        "color": "white"
+    },
+    "benign_or_likely_benign": {
+        "name": "Benign or likely benign",
+        "desc": "As recommended by ACMG/AMP for variants interpreted for Mendelian disorders.",
+        "color": "#A8ACB1"
+    },
+    "likely_benign": {
+        "name": "Likely benign",
+        "desc": "As recommended by ACMG/AMP for variants interpreted for Mendelian disorders.",
+        "color": "#A8ACB1"
+    },
+    "uncertain_significance": {
+        "name": "Uncertain significance",
+        "desc": "As recommended by ACMG/AMP for variants interpreted for Mendelian disorders.",
+        "color": "#5760d3"
+    },
+    "uncertain": {
+        "name": "Uncertain significance",
+        "desc": "As recommended by ACMG/AMP for variants interpreted for Mendelian disorders.",
+        "color": "#5760d3"
+    },
+    "likely_pathogenic": {
+        "name": "Likely pathogenic",
+        "desc": "As recommended by ACMG/AMP for variants interpreted for Mendelian disorders.",
+        "color": "orange"
+    },
+    "pathogenic_or_likely_pathogenic": {
+        "name": "Pathogenic or likely pathogenic",
+        "desc": "As recommended by ACMG/AMP for variants interpreted for Mendelian disorders.",
+        "color": "orange"
+    },
+    "pathogenic": {
+        "name": "Pathogenic",
+        "desc": "As recommended by ACMG/AMP for variants interpreted for Mendelian disorders. Variants that are pathogenic with low penetrance may be submitted as \"Pathogenic\"; please also include information about the penetrance in a \"Comment on clinical significance\".",
+        "color": "red"
+    },
+    "conflicting_pathogenicity_interpretations": {
+        "name": "Conflicting pathogenicity interpretations",
+        "desc": "As recommended by ACMG/AMP for variants interpreted for Mendelian disorders. Variants that are pathogenic with low penetrance may be submitted as \"Pathogenic\"; please also include information about the penetrance in a \"Comment on clinical significance\".",
+        "color": "red"
+    },
+    "drug_response": {
+        "name": "drug response",
+        "desc": "A general term for a variant that affects a drug response, not a disease. We anticipate adding more specific drug response terms based on a recommendation by CPIC.",
+        "color": "#A8ACB1"
+    },
+    "association": {
+        "name": "association",
+        "desc": "For variants identified in a GWAS study and further interpreted for their clinical significance.",
+        "color": "#A8ACB1"
+    },
+    "risk factor": {
+        "name": "risk factor",
+        "desc": "For variants that are interpreted not to cause a disorder but to increase the risk.",
+        "color": "#A8ACB1"
+    },
+    "protective": {
+        "name": "protective",
+        "desc": "For variants that decrease the risk of a disorder, including infections.",
+        "color": "#A8ACB1"
+    },
+    "affects": {
+        "name": "Affects",
+        "desc": "For variants that cause a non-disease phenotype, such as lactose intolerance.",
+        "color": "#A8ACB1"
+    },
+    "conflicting data from submitters": {
+        "name": "conflicting data from submitters",
+        "desc": "Only for submissions from a consortium, where groups within the consortium have conflicting intepretations of a variant but provide a single submission to ClinVar.",
+        "color": "#A8ACB1"
+    },
+    "other": {
+        "name": "other",
+        "desc": "If ClinVar does not have the appropriate term for your submission, we ask that you submit \"other\" as clinical significance and contact us to discuss if there are other terms we should add.",
+        "color": "#A8ACB1"
+    },
+    "not_provided": {
+        "name": "not provided",
+        "desc": "For submissions without an interpretation of clinical significance.",
+        "color": "#A8ACB1"
+    }
+}

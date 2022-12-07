@@ -1,0 +1,368 @@
+form{
+    label{
+        color: #75787d;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 500;
+    }
+    .labelfocus{
+        color: #000;
+    }
+    .form-group{
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control{
+        border: 1px solid #A6A9AE;
+        color: #75787d;
+
+        &::-webkit-input-placeholder {
+           color: darken($body-bg, 20%);
+        }
+
+        &:-moz-placeholder { /* Firefox 18- */
+           color: darken($body-bg, 20%);
+        }
+
+        &::-moz-placeholder {  /* Firefox 19+ */
+           color: darken($body-bg, 20%);
+        }
+
+        &:-ms-input-placeholder {
+           color: darken($body-bg, 20%);
+        }
+
+        &:focus{
+            border-color: #000;
+        }
+    }
+    .form-control-position{
+        position: absolute;
+        top: 2px;
+        right: 0;
+        z-index: 2;
+        display: block;
+        width: 2.5rem;
+        height: 2.5rem;
+        line-height: 2.5rem;
+        text-align: center;
+    }
+    .has-icon-left{
+        .form-control-position{
+            right: auto;
+            left: inherit;
+        }
+        .form-control{
+            padding-right: .85rem;
+            padding-left: 2.95rem;
+        }
+    }
+    .has-icon-right{
+        .form-control{
+            padding-right: 2.5rem;
+        }
+    }
+    .form-section{
+        color: theme-color('dark');
+        line-height: 3rem;
+        font-size: 1.2rem;
+        letter-spacing: 0.5px;
+        font-weight: 400;
+        margin-bottom: 20px;
+        border-bottom: 1px solid theme-color('dark');
+
+        i{
+            font-size: 20px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+
+    /* .form-body{
+        overflow: hidden;
+    } */
+
+    .form-actions{
+        border-top: 1px solid darken($body-bg, 10%);
+        padding: 20px 0;
+        margin-top: 20px;
+
+        &.filled{
+            background-color: $body-bg;
+        }
+        &.center{
+            text-align: center;
+        }
+        &.right{
+            text-align: right;
+        }
+
+        &.top{
+            border-top: 0;
+            border-bottom: 1px solid darken($body-bg, 10%);
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        @include media-breakpoint-down(sm) {
+            .buttons-group{
+                float: left !important;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    &.form-horizontal{
+        .form-group{
+            @include media-breakpoint-up(sm) {
+                .label-control{
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+    &.row-separator{
+        .form-group{
+            margin: 0;
+            border-bottom: 1px solid darken($body-bg, 3%);
+            .label-control{
+                padding-top: 1.5rem;
+            }
+            > div{
+                padding: 1.2rem;
+                padding-right: 0;
+            }
+            &.last{
+                border-bottom: 0;
+            }
+        }
+    }
+
+    &.form-bordered{
+        .form-group{
+            margin: 0;
+            border-bottom: 1px solid darken($body-bg, 3%);
+            .label-control{
+                padding-top: 1.5rem;
+            }
+            > div{
+                padding: 1.2rem;
+                padding-right: 0;
+                border-left: 1px solid darken($body-bg, 3%);
+            }
+            &.last{
+                border-bottom: 0;
+            }
+        }
+    }
+
+    &.striped-rows{
+        .form-group{
+            margin: 0;
+
+            .label-control{
+                padding-top: 1.5rem;
+            }
+
+            > div{
+                padding: 1.2rem;
+                padding-right: 0;
+            }
+
+            &:nth-child(even){
+                background-color: $body-bg;
+            }
+        }
+    }
+
+    &.striped-labels{
+        .form-group{
+            margin: 0;
+
+            .label-control{
+                padding-top: 1.5rem;
+            }
+
+            > div{
+                padding: 1.2rem;
+                padding-right: 0;
+                background-color: white;
+            }
+
+            &:nth-child(even){
+                background-color: $body-bg;
+            }
+        }
+    }
+}
+
+select.form-control {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+
+/* 
+TODO:M: To check with latest bootstrap version and remove it. 
+Bootstrap Enhance */
+// Custom checkbox
+.custom-control{
+  display: block;
+  &.inline{
+    display: inline;
+  }
+}
+.custom-checkbox input:disabled:checked ~ .custom-control-indicator{
+  opacity: 0.5;
+}
+.custom-checkbox input:disabled ~ .custom-control-indicator{
+  cursor: not-allowed;
+}
+.custom-control-input > input:focus ~ .custom-control-indicator{
+  padding: 0.51rem;
+}
+.custom-control-indicator{
+  width: 1.1rem;
+  height: 1.075rem;
+  line-height: 1.05rem;
+  top: 0.085rem;
+  + .custom-control-description{
+    margin-left: 1rem;
+  }
+}
+.form-control{
+    &:disabled,
+    &[readonly]{
+        background-color: #ECEFF1;
+    }
+}
+.input-group-addon {
+    background-color: #ECEFF1;
+}
+
+.form-control-xl{
+    padding: 0.8rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+}
+
+select.form-control-xl:not([size]):not([multiple]){
+    height: calc(3.25rem + 2px);
+}
+
+.input-group-addon input[type="radio"], .input-group-addon input[type="checkbox"]{
+    margin-top: -4px;
+    margin-left: -1rem;
+}
+
+.form-control-xl, .input-group-xl > .form-control, .input-group-xl > .input-group-addon, .input-group-xl > .input-group-btn > .btn{
+    padding: 0.8rem 1rem;
+}
+
+.ng-touched.ng-invalid{
+    border-color: theme-color("danger");
+}
+
+[dir="rtl"]{
+    form{  
+        .form-control-position{      
+            left: 0;
+            right: auto;        
+        }
+        .has-icon-left{
+            .form-control-position{
+                left: auto;
+                right: inherit;
+            }
+            .form-control{
+                padding-left: .85rem;
+                padding-right: 2.95rem;
+            }
+        }
+        .has-icon-right{
+            .form-control{
+                padding-left: 2.5rem;
+                padding-right: auto;
+            }
+        }
+        
+
+        .form-actions{ 
+            &.right{
+                text-align: left;
+            }       
+
+            @include media-breakpoint-down(sm) {
+                .buttons-group{
+                    float: right !important;               
+                }
+            }
+        }
+
+        &.form-horizontal{
+            .form-group{
+                @include media-breakpoint-up(sm) {
+                    .label-control{
+                        text-align: left;
+                    }
+                }
+            }
+        }
+
+        &.row-separator{
+            .form-group{           
+                > div{                
+                    padding-left: 0;
+                    padding-right: auto;
+                }            
+            }
+        }
+
+        &.form-bordered{
+            .form-group{
+                
+                > div{               
+                    padding-left: 0;
+                    padding-right: auto;
+                    border-right: 1px solid darken($body-bg, 3%);
+                }           
+            }
+        }
+
+        &.striped-rows{
+            .form-group{            
+                > div{               
+                    padding-left: 0;
+                    padding-right: auto;
+                }
+                
+            }
+        }
+
+        &.striped-labels{
+            .form-group{           
+                > div{                
+                    padding-left: 0;
+                    padding-right: auto;
+                }           
+            }
+        }
+    }
+
+    .custom-control-indicator{  
+    + .custom-control-description{
+        margin-right: 1rem;
+        margin-left: auto;
+    }
+    }
+
+
+    .input-group-addon input[type="radio"], .input-group-addon input[type="checkbox"]{   
+        margin-right: -1rem;
+        margin-left: auto;
+    }
+
+}

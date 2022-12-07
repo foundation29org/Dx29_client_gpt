@@ -1,0 +1,42 @@
+// Theme Colors
+$theme-colors: (primary: #f9423a,
+success: #0CC27E,
+info: #33658a,
+warning: #FF8D60,
+danger: #f9423a,
+secondary: #b0b6bb,
+light: #f8f9fa,
+dark: #343a40);
+
+// Spacing
+
+$spacer: 1.5rem;
+
+$spacers: (0: 0,
+1: ($spacer * .25),
+2: ($spacer * .50),
+3: $spacer,
+4: ($spacer * 1.5),
+5: ($spacer * 3)) !default;
+
+// Body
+$body-bg: #f5f5f5;
+
+// Fonts
+$font-family-sans-serif: "Montserrat",
+"Segoe UI",
+Roboto,
+"Helvetica Neue",
+Arial,
+sans-serif;
+$font-family-content: "Rubik",
+"Segoe UI",
+Roboto,
+"Helvetica Neue",
+Arial,
+sans-serif;
+
+$card-spacer-y : 1.5rem;
+$card-spacer-x : 1.5rem;
+
+$font-size-root: 15px;

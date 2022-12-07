@@ -1,0 +1,98 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 4;
+  background-color: #FFF;
+  @include card-shadow();
+}
+
+.app-sidebar {
+  z-index: 5;
+}
+
+.main-panel {
+  margin-top: 65px;
+}
+
+.layout-dark {
+  .navbar {
+    background-color: $bg-color-dark;
+    box-shadow: 0 6px 0px 0 rgba(0, 0, 0, 0.1), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+  }
+}
+
+.layout-dark.layout-transparent {
+  &.bg-glass-1 {
+    .navbar {
+      background-image: url('../img/gallery/bg-glass-1.jpg');
+      box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.05), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  &.bg-glass-2 {
+    .navbar {
+      background-image: url('../img/gallery/bg-glass-2.jpg');
+      box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.05), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  &.bg-glass-3 {
+    .navbar {
+      background-image: url('../img/gallery/bg-glass-3.jpg');
+      box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.05), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  &.bg-glass-4 {
+    .navbar {
+      background-image: url('../img/gallery/bg-glass-4.jpg');
+      box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.05), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  &.bg-hibiscus {
+    .navbar {
+      background-image: $bg-hibiscus;
+      box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.05), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  &.bg-purple-pizzazz {
+    .navbar {
+      background-image: $bg-purple-pizzazz;
+      box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.05), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  &.bg-blue-lagoon {
+    .navbar {
+      background-image: $bg-blue-lagoon;
+      box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.05), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  &.bg-electric-violet {
+    .navbar {
+      background-image: $bg-electric-violet;
+      box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.05), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  &.bg-portage {
+    .navbar {
+      background-image: $bg-portage;
+      box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.05), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+
+  &.bg-tundora {
+    .navbar {
+      background-image: $bg-tundora;
+      box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.05), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+}

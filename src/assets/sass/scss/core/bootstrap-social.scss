@@ -1,0 +1,673 @@
+@import "../mixins/buttons";
+
+$bs-height-base: ($line-height-computed + $padding-base-vertical * 2) !default;
+$bs-height-lg: (floor($font-size-lg * $line-height-base) + $padding-large-vertical * 2) !default;
+$bs-height-sm: (floor($font-size-sm * 1.5) + $padding-small-vertical * 2) !default;
+$bs-height-xs: (floor($font-size-sm * 1.2) + $padding-small-vertical + 1) !default;
+
+.btn-social {
+  position: relative;
+  padding-left: ($bs-height-base + $padding-base-horizontal);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+
+  > :first-child {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    bottom: 0;
+    width: $bs-height-base;
+    line-height: ($bs-height-base + 0.2);
+    font-size: 1.6em;
+    text-align: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  &.btn-lg {
+    padding-left: ($bs-height-lg + $padding-large-horizontal);
+
+    > :first-child {
+      line-height: $bs-height-lg;
+      width: $bs-height-lg;
+      font-size: 1.8em;
+    }
+  }
+
+  &.btn-sm {
+    padding-left: ($bs-height-sm + $padding-small-horizontal);
+
+    > :first-child {
+      line-height: $bs-height-sm;
+      width: $bs-height-sm;
+      font-size: 1.4em;
+    }
+  }
+
+  &.btn-xs {
+    padding-left: ($bs-height-xs + $padding-small-horizontal);
+
+    > :first-child {
+      line-height: $bs-height-xs;
+      width: $bs-height-xs;
+      font-size: 1.2em;
+    }
+  }
+}
+
+.btn-social-icon {
+  @extend .btn-social;
+  height: ($bs-height-base + 0.25);
+  width: ($bs-height-base + 0.25);
+  padding: 0;
+
+  > :first-child {
+    border: none;
+    text-align: center;
+    width: 100% !important;
+  }
+
+  &.btn-lg {
+    height: $bs-height-lg;
+    width: $bs-height-lg;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.btn-sm {
+    height: ($bs-height-sm + 2);
+    width: ($bs-height-sm + 2);
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.btn-xs {
+    height: ($bs-height-xs + 2);
+    width: ($bs-height-xs + 2);
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+// Social button Mixin
+@mixin btn-social($color-bg, $color: #fff) {
+  background-color: $color-bg;
+  @include button-variant($color, $color-bg, rgba(0, 0, 0, .2));
+}
+
+@mixin btn-social-flat($color) {
+  color: $color !important;
+  background-color: transparent !important;
+  border: none !important;
+
+  span {
+    border: none !important;
+  }
+
+  &:hover {
+    color: darken($color, 25%) !important;
+    background-color: transparent !important;
+  }
+}
+
+// Social Outline Button Mixin
+@mixin btn-social-outline($color-bg) {
+  border: 1px solid $color-bg !important;
+  color: $color-bg !important;
+}
+
+// Social Outline Button Hover Mixin
+@mixin btn-hover-outline($color-bg) {
+  color: darken($color-bg, 20%);
+  border: 1px solid darken($color-bg, 20%) !important;
+  background-color: transparent !important;
+}
+
+// Flat Social Button Hover Mixin
+@mixin btn-social-flat-active($color-bg) {
+  background-color: transparent !important;
+}
+
+
+.btn-adn {
+  @include btn-social(#d87a68);
+}
+
+.btn-bitbucket {
+  @include btn-social(#205081);
+}
+
+.btn-dropbox {
+  @include btn-social(#1087dd);
+}
+
+.btn-facebook {
+  @include btn-social(#3b5998);
+}
+
+.btn-flickr {
+  @include btn-social(#ff0084);
+}
+
+.btn-foursquare {
+  @include btn-social(#f94877);
+}
+
+.btn-github {
+  @include btn-social(#444444);
+}
+
+.btn-google {
+  @include btn-social(#dd4b39);
+}
+
+.btn-instagram {
+  @include btn-social(#3f729b);
+}
+
+.btn-linkedin {
+  @include btn-social(#007bb6);
+}
+
+.btn-microsoft {
+  @include btn-social(#2672ec);
+}
+
+.btn-odnoklassniki {
+  @include btn-social(#f4731c);
+}
+
+.btn-openid {
+  @include btn-social(#f7931e);
+}
+
+.btn-pinterest {
+  @include btn-social(#cb2027);
+}
+
+.btn-reddit {
+  @include btn-social(#eff7ff, #000);
+}
+
+.btn-soundcloud {
+  @include btn-social(#ff5500);
+}
+
+.btn-tumblr {
+  @include btn-social(#2c4762);
+}
+
+.btn-twitter {
+  @include btn-social(#55acee);
+}
+
+.btn-vimeo {
+  @include btn-social(#1ab7ea);
+}
+
+.btn-vk {
+  @include btn-social(#587ea3);
+}
+
+.btn-yahoo {
+  @include btn-social(#720e9e);
+}
+
+// Social Outline button
+.btn-outline-adn {
+  @include btn-social-outline(#d87a68);
+}
+
+.btn-outline-bitbucket {
+  @include btn-social-outline(#205081);
+}
+
+.btn-outline-dropbox {
+  @include btn-social-outline(#1087dd);
+}
+
+.btn-outline-facebook {
+  @include btn-social-outline(#3b5998);
+}
+
+.btn-outline-flickr {
+  @include btn-social-outline(#ff0084);
+}
+
+.btn-outline-foursquare {
+  @include btn-social-outline(#f94877);
+}
+
+.btn-outline-github {
+  @include btn-social-outline(#444444);
+}
+
+.btn-outline-google {
+  @include btn-social-outline(#dd4b39);
+}
+
+.btn-outline-instagram {
+  @include btn-social-outline(#3f729b);
+}
+
+.btn-outline-linkedin {
+  @include btn-social-outline(#007bb6);
+}
+
+.btn-outline-microsoft {
+  @include btn-social-outline(#2672ec);
+}
+
+.btn-outline-odnoklassniki {
+  @include btn-social-outline(#f4731c);
+}
+
+.btn-outline-openid {
+  @include btn-social-outline(#f7931e);
+}
+
+.btn-outline-pinterest {
+  @include btn-social-outline(#cb2027);
+}
+
+.btn-outline-reddit {
+  @include btn-social-outline(#ff4500);
+}
+
+.btn-outline-soundcloud {
+  @include btn-social-outline(#ff5500);
+}
+
+.btn-outline-tumblr {
+  @include btn-social-outline(#2c4762);
+}
+
+.btn-outline-twitter {
+  @include btn-social-outline(#55acee);
+}
+
+.btn-outline-vimeo {
+  @include btn-social-outline(#1ab7ea);
+}
+
+.btn-outline-vk {
+  @include btn-social-outline(#587ea3);
+}
+
+.btn-outline-yahoo {
+  @include btn-social-outline(#720e9e);
+}
+
+// Social Outline hover button
+.btn-outline-adn:hover {
+  @include btn-hover-outline(#d87a68);
+}
+
+.btn-outline-bitbucket:hover {
+  @include btn-hover-outline(#205081);
+}
+
+.btn-outline-dropbox:hover {
+  @include btn-hover-outline(#1087dd);
+}
+
+.btn-outline-facebook:hover {
+  @include btn-hover-outline(#3b5998);
+}
+
+.btn-outline-flickr:hover {
+  @include btn-hover-outline(#ff0084);
+}
+
+.btn-outline-foursquare:hover {
+  @include btn-hover-outline(#f94877);
+}
+
+.btn-outline-github:hover {
+  @include btn-hover-outline(#444444);
+}
+
+.btn-outline-google:hover {
+  @include btn-hover-outline(#dd4b39);
+}
+
+.btn-outline-instagram:hover {
+  @include btn-hover-outline(#3f729b);
+}
+
+.btn-outline-linkedin:hover {
+  @include btn-hover-outline(#007bb6);
+}
+
+.btn-outline-microsoft:hover {
+  @include btn-hover-outline(#2672ec);
+}
+
+.btn-outline-odnoklassniki:hover {
+  @include btn-hover-outline(#f4731c);
+}
+
+.btn-outline-openid:hover {
+  @include btn-hover-outline(#f7931e);
+}
+
+.btn-outline-pinterest:hover {
+  @include btn-hover-outline(#cb2027);
+}
+
+.btn-outline-reddit:hover {
+  @include btn-hover-outline(#ff4500);
+}
+
+.btn-outline-soundcloud:hover {
+  @include btn-hover-outline(#ff5500);
+}
+
+.btn-outline-tumblr:hover {
+  @include btn-hover-outline(#2c4762);
+}
+
+.btn-outline-twitter:hover {
+  @include btn-hover-outline(#55acee);
+}
+
+.btn-outline-vimeo:hover {
+  @include btn-hover-outline(#1ab7ea);
+}
+
+.btn-outline-vk:hover {
+  @include btn-hover-outline(#587ea3);
+}
+
+.btn-outline-yahoo:hover {
+  @include btn-hover-outline(#720e9e);
+}
+
+// Flat Buttons
+.btn-adn-flat {
+  @include btn-social-flat(#d87a68);
+}
+
+.btn-bitbucket-flat {
+  @include btn-social-flat(#205081);
+}
+
+.btn-dropbox-flat {
+  @include btn-social-flat(#1087dd);
+}
+
+.btn-facebook-flat {
+  @include btn-social-flat(#3b5998);
+}
+
+.btn-flickr-flat {
+  @include btn-social-flat(#ff0084);
+}
+
+.btn-foursquare-flat {
+  @include btn-social-flat(#f94877);
+}
+
+.btn-github-flat {
+  @include btn-social-flat(#444444);
+}
+
+.btn-google-flat {
+  @include btn-social-flat(#dd4b39);
+}
+
+.btn-instagram-flat {
+  @include btn-social-flat(#3f729b);
+}
+
+.btn-linkedin-flat {
+  @include btn-social-flat(#007bb6);
+}
+
+.btn-microsoft-flat {
+  @include btn-social-flat(#2672ec);
+}
+
+.btn-odnoklassniki-flat {
+  @include btn-social-flat(#f4731c);
+}
+
+.btn-openid-flat {
+  @include btn-social-flat(#f7931e);
+}
+
+.btn-pinterest-flat {
+  @include btn-social-flat(#cb2027);
+}
+
+.btn-reddit-flat {
+  @include btn-social-flat(#ff4500);
+}
+
+.btn-soundcloud-flat {
+  @include btn-social-flat(#ff5500);
+}
+
+.btn-tumblr-flat {
+  @include btn-social-flat(#2c4762);
+}
+
+.btn-twitter-flat {
+  @include btn-social-flat(#55acee);
+}
+
+.btn-vimeo-flat {
+  @include btn-social-flat(#1ab7ea);
+}
+
+.btn-vk-flat {
+  @include btn-social-flat(#587ea3);
+}
+
+.btn-yahoo-flat {
+  @include btn-social-flat(#720e9e);
+}
+
+
+// Flat Buttons with .active , On active, on focus, on active and focus, on active and hover
+.btn-adn-flat.active,
+.btn-adn-flat:active,
+.btn-adn-flat:focus,
+.btn-adn-flat:active:focus,
+.btn-adn-flat:active:hover {
+  @include btn-social-flat-active(#d87a68);
+}
+
+.btn-bitbucket-flat.active,
+.btn-bitbucket-flat:active,
+.btn-bitbucket-flat:focus,
+.btn-bitbucket-flat:active:focus,
+.btn-bitbucket-flat:active:hover {
+  @include btn-social-flat-active(#205081);
+}
+
+.btn-dropbox-flat.active,
+.btn-dropbox-flat:active,
+.btn-dropbox-flat:focus,
+.btn-dropbox-flat:active:focus,
+.btn-dropbox-flat:active:hover {
+  @include btn-social-flat-active(#1087dd);
+}
+
+.btn-facebook-flat.active,
+.btn-facebook-flat:active,
+.btn-facebook-flat:focus,
+.btn-facebook-flat:active:focus,
+.btn-facebook-flat:active:hover {
+  @include btn-social-flat-active(#3b5998);
+}
+
+.btn-flickr-flat.active,
+.btn-flickr-flat:active,
+.btn-flickr-flat:focus,
+.btn-flickr-flat:active:focus,
+.btn-flickr-flat:active:hover {
+  @include btn-social-flat-active(#ff0084);
+}
+
+.btn-foursquare-flat.active,
+.btn-foursquare-flat:active,
+.btn-foursquare-flat:focus,
+.btn-foursquare-flat:active:focus,
+.btn-foursquare-flat:active:hover {
+  @include btn-social-flat-active(#f94877);
+}
+
+.btn-github-flat.active,
+.btn-github-flat:active,
+.btn-github-flat:focus,
+.btn-github-flat:active:focus,
+.btn-github-flat:active:hover {
+  @include btn-social-flat-active(#444444);
+}
+
+.btn-google-flat.active,
+.btn-google-flat:active,
+.btn-google-flat:focus,
+.btn-google-flat:active:focus,
+.btn-google-flat:active:hover {
+  @include btn-social-flat-active(#dd4b39);
+}
+
+.btn-instagram-flat.active,
+.btn-instagram-flat:active,
+.btn-instagram-flat:focus,
+.btn-instagram-flat:active:focus,
+.btn-instagram-flat:active:hover {
+  @include btn-social-flat-active(#3f729b);
+}
+
+.btn-linkedin-flat.active,
+.btn-linkedin-flat:active,
+.btn-linkedin-flat:focus,
+.btn-linkedin-flat:active:focus,
+.btn-linkedin-flat:active:hover {
+  @include btn-social-flat-active(#007bb6);
+}
+
+.btn-microsoft-flat.active,
+.btn-microsoft-flat:active,
+.btn-microsoft-flat:focus,
+.btn-microsoft-flat:active:focus,
+.btn-microsoft-flat:active:hover {
+  @include btn-social-flat-active(#2672ec);
+}
+
+.btn-odnoklassniki-flat.active,
+.btn-odnoklassniki-flat:active,
+.btn-odnoklassniki-flat:focus,
+.btn-odnoklassniki-flat:active:focus,
+.btn-odnoklassniki-flat:active:hover {
+  @include btn-social-flat-active(#f4731c);
+}
+
+.btn-openid-flat.active,
+.btn-openid-flat:active,
+.btn-openid-flat:focus,
+.btn-openid-flat:active:focus,
+.btn-openid-flat:active:hover {
+  @include btn-social-flat-active(#f7931e);
+}
+
+.btn-pinterest-flat.active,
+.btn-pinterest-flat:active,
+.btn-pinterest-flat:focus,
+.btn-pinterest-flat:active:focus,
+.btn-pinterest-flat:active:hover {
+  @include btn-social-flat-active(#cb2027);
+}
+
+.btn-reddit-flat.active,
+.btn-reddit-flat:active,
+.btn-reddit-flat:focus,
+.btn-reddit-flat:active:focus,
+.btn-reddit-flat:active:hover {
+  @include btn-social-flat-active(#ff4500);
+}
+
+.btn-soundcloud-flat.active,
+.btn-soundcloud-flat:active,
+.btn-soundcloud-flat:focus,
+.btn-soundcloud-flat:active:focus,
+.btn-soundcloud-flat:active:hover {
+  @include btn-social-flat-active(#ff5500);
+}
+
+.btn-tumblr-flat.active,
+.btn-tumblr-flat:active,
+.btn-tumblr-flat:focus,
+.btn-tumblr-flat:active:focus,
+.btn-tumblr-flat:active:hover {
+  @include btn-social-flat-active(#2c4762);
+}
+
+.btn-twitter-flat.active,
+.btn-twitter-flat:active,
+.btn-twitter-flat:focus,
+.btn-twitter-flat:active:focus,
+.btn-twitter-flat:active:hover {
+  @include btn-social-flat-active(#55acee);
+}
+
+.btn-vimeo-flat.active,
+.btn-vimeo-flat:active,
+.btn-vimeo-flat:focus,
+.btn-vimeo-flat:active:focus,
+.btn-vimeo-flat:active:hover {
+  @include btn-social-flat-active(#1ab7ea);
+}
+
+.btn-vk-flat.active,
+.btn-vk-flat:active,
+.btn-vk-flat:focus,
+.btn-vk-flat:active:focus,
+.btn-vk-flat:active:hover {
+  @include btn-social-flat-active(#587ea3);
+}
+
+.btn-yahoo-flat.active,
+.btn-yahoo-flat:active,
+.btn-yahoo-flat:focus,
+.btn-yahoo-flat:active:focus,
+.btn-yahoo-flat:active:hover {
+  @include btn-social-flat-active(#720e9e);
+}
+
+[dir="rtl"] {
+
+  .btn-social {
+    padding-right: ($bs-height-base + $padding-base-horizontal);
+    padding-left: auto;
+    text-align: right;
+
+    > :first-child {
+      right: 0;
+      left: auto;
+      border-left: 1px solid rgba(0, 0, 0, 0.2);
+      border-right: 0px;
+    }
+
+    &.btn-lg {
+      padding-right: ($bs-height-lg + $padding-large-horizontal);
+      padding-left: 0px;
+    }
+
+    &.btn-sm {
+      padding-right: ($bs-height-sm + $padding-small-horizontal);
+      padding-left: 0px;
+    }
+
+    &.btn-xs {
+      padding-right: ($bs-height-xs + $padding-small-horizontal);
+      padding-left: 0px;
+    }
+  }
+
+}

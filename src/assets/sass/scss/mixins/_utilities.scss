@@ -1,0 +1,109 @@
+@function calc-top($line-height-base, $font-size, $component-height) {
+  @return (($line-height-base * $font-size) - $component-height) / 2; // vertical center of line-height
+}
+
+// Emulate the less #contrast function
+// TODO: this may be useful for the inverse theme, but if not, remove (it is unused after the removal of fullpalette)
+// contrast-color and brightness borrowed from compass
+// Copyright (c) 2009-2014 Christopher M. Eppstein
+// Complies with license: https://github.com/Compass/compass/blob/stable/LICENSE.markdown
+@function contrast-color($color, $dark: $contrasted-dark-default, $light: $contrasted-light-default, $threshold: null) {
+  @if $threshold {
+    // Deprecated in Compass 0.13
+    @warn "The $threshold argment to contrast-color is no longer needed and will be removed in the next release.";
+  }
+
+  @if $color == null {
+    @return null;
+  } @else {
+    $color-brightness: brightness($color);
+    $dark-text-brightness: brightness($dark);
+    $light-text-brightness: brightness($light);
+    @return if(abs($color-brightness - $light-text-brightness) > abs($color-brightness - $dark-text-brightness), $light, $dark);
+  }
+}
+
+@function brightness($color) {
+  @if type-of($color) == color {
+    @return (red($color) * 0.299 + green($color) * 0.587 + blue($color) * 0.114) / 255 * 100%;
+  } @else {
+    @return unquote("brightness(#{$color})");
+  }
+}
+
+@mixin set-background-color($color){
+  background-color: $color;
+  @include set-sidebar-background($color);
+  @include set-font-icon-color($color);
+}
+
+@mixin set-active-color($color){
+  background-color: $color;
+}
+
+@mixin set-sidebar-background($color){
+  $overlay-opacity: .9;
+  @if $color == #000000 {
+    $overlay-opacity: .8;
+  }
+
+  .sidebar-background{
+    &:after{
+      background: $color;
+      opacity: $overlay-opacity;
+    }
+  } 
+}
+
+@mixin set-gradient-background-color($start-color, $end-color){
+  @include gradient-directional($start-color, $end-color);
+  $overlay-opacity: .9;
+  .sidebar-background{
+    &:after{
+      @include gradient-directional($start-color, $end-color);
+      opacity: $overlay-opacity;
+    }
+  }
+  @include set-font-icon-color($start-color);
+}
+
+@mixin set-font-icon-color($color){
+  $sidebar-font-color : $white;
+  @if $color == #ffffff {
+    $sidebar-font-color: $black;
+  }
+
+  .navigation i, .navigation li > a{
+    color: $sidebar-font-color;
+  }
+
+  .logo-text{
+    color: $sidebar-font-color;
+  }
+
+  .sidebar-header a.nav-toggle{
+    color: $sidebar-font-color;
+  }
+
+  .sidebar-header a.nav-close{
+    color: $sidebar-font-color;
+  }
+}
+
+@mixin set-anchor-color($color){
+  .navigation{
+    li{
+      a{
+        color: $color;
+      }
+    }
+  }
+}
+@mixin set-logo-text-color($color){
+  .logo-text{
+    color: $color;
+  }
+  .sidebar-header a.nav-toggle{
+    color: $color;
+  }
+}

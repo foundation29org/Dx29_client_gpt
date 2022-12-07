@@ -1,0 +1,158 @@
+// Overrides user components-variables
+@import "~bootstrap/scss/functions";
+
+@import "../variables/variables";
+@import "~bootstrap/scss/variables";
+$white-color: (
+  "base": #ffffff
+);
+$black-color: (
+  "base": #000000
+);
+$primary-color: (
+  "lighten-4": #EFDEFF,
+  "lighten-3": #DCBDFF,
+  "lighten-2": #C89CFF,
+  "lighten-1": #B583FF,
+  "base": #975AFF,
+  "darken-1": #7441DB,
+  "darken-2": #562DB7,
+  "darken-3": #3B1C93,
+  "darken-4": #28117A
+);
+$secondary-color: (
+  "lighten-4": #EAF0F9,
+  "lighten-3": #D6E1F3,
+  "lighten-2": #B5C3DB,
+  "lighten-1": #8F9DB8,
+  "base": #616D89,
+  "darken-1": #465375,
+  "darken-2": #303C62,
+  "darken-3": #1E294F,
+  "darken-4": #121A41
+);
+$success-color: (
+  "lighten-4": #E0FBDA,
+  "lighten-3": #BDF8B6,
+  "lighten-2": #8EEC8D,
+  "lighten-1": #6CD975,
+  "base": #40C057,
+  "darken-1": #2EA54F,
+  "darken-2": #208A47,
+  "darken-3": #146F3E,
+  "darken-4": #0C5C38
+);
+$danger-color: (
+  "lighten-4": #FEE8DC,
+  "lighten-3": #FECBBA,
+  "lighten-2": #FCA897,
+  "lighten-1": #F9877C,
+  "base": #F55252,
+  "darken-1": #D23B48,
+  "darken-2": #B02940,
+  "darken-3": #8E1A38,
+  "darken-4": #750F33
+);
+$warning-color: (
+  "lighten-4": #FEEFD0,
+  "lighten-3": #FEDBA1,
+  "lighten-2": #FCC173,
+  "lighten-1": #FAA750,
+  "base": #F77E17,
+  "darken-1": #D46010,
+  "darken-2": #B1460B,
+  "darken-3": #8F2F07,
+  "darken-4": #762004
+);
+$info-color: (
+  "lighten-4": #D5F1FD,
+  "lighten-3": #ACE0FC,
+  "lighten-2": #81C8F7,
+  "lighten-1": #60AFF0,
+  "base": #2F8BE6,
+  "darken-1": #226CC5,
+  "darken-2": #1750A5,
+  "darken-3": #0E3885,
+  "darken-4": #09276E
+);
+$light: (
+  "base": #DBDEE5
+);
+$dark: (
+  "base": #1A051D
+);
+
+$grey-color: (
+  "lighten-4": #f5f5f5,
+  "lighten-3": #eee,
+  "lighten-2": #e0e0e0,
+  "lighten-1": #bdbdbd,
+  "base": #9e9e9e,
+  "darken-1": #757575,
+  "darken-2": #616161,
+  "darken-3": #424242,
+  "darken-4": #212121
+);
+
+$shades: (
+  "black": #000000,
+  "white": #ffffff,
+  "transparent": transparent
+);
+
+$colors: (
+  "white": $white-color,
+  "black": $black-color,
+  "primary": $primary-color,
+  "secondary": $secondary-color,
+  "success": $success-color,
+  "danger": $danger-color,
+  "warning": $warning-color,
+  "info": $info-color,
+  "light": $light,
+  "dark": $dark,
+  "grey": $grey-color
+);
+
+$gradient-colors: (
+  gradient-mint: (
+    "start-color": #226CC5,
+    "end-color": #6CD975
+  ),
+  gradient-pomegranate: (
+    "start-color": #465375,
+    "end-color": #F55252
+  ),
+  gradient-blackberry: (
+    "start-color": #303C62,
+    "end-color": #B5C3DB
+  ),
+  gradient-king-yna: (
+    "start-color": #7441DB,
+    "end-color": #F9877C
+  ),
+  gradient-ibiza-sunset: (
+    "start-color": #B02940,
+    "end-color": #FCC173
+  ),
+  gradient-flickr: (
+    "start-color": #F77E17,
+    "end-color": #2F8BE6
+  ),
+  gradient-purple-bliss: (
+    "start-color": #562DB7,
+    "end-color": #60AFF0
+  ),
+  gradient-man-of-steel: (
+    "start-color": #2F3EA0,
+    "end-color": #AE342D
+  ),
+  gradient-purple-love: (
+    "start-color": #7441DB,
+    "end-color": #C89CFF
+  ),
+  gradient-starfall: (
+    "start-color": #D23B48,
+    "end-color": #2F8BE6
+  )
+);

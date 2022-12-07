@@ -1,0 +1,19 @@
+.navbar-expand-lg .navbar-nav .nav-link {
+  padding-right: .5rem;
+  padding-left: .5rem;
+}
+
+.logo-img {
+  width: 60px;
+}
+
+.navbar-header{
+  padding-left: 0px;
+  width: unset !important;
+}
+
+@media ( max-width: 991.98px ){
+.navbar-container {
+    width: unset !important;
+  }
+}

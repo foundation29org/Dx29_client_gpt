@@ -1,0 +1,81 @@
+html {
+  font-size: $font-size-root;
+  width: 100%;
+}
+
+body {
+  font-family: $font-family-content;
+  font-weight: 300;
+  line-height: 1.5em;
+  color: rgba(0, 0, 0, 0.87);
+  min-height: 100vh;
+  &.inverse {
+    background: #333333;
+    &, .form-control {
+      color: $white;
+    }
+    .modal,
+    .panel-default,
+    .card {
+      &,
+      .form-control {
+        background-color: initial;
+        color: initial;
+      }
+    }
+
+  }
+}
+
+.wrapper{
+
+    &.wrapper-full-page{
+        height: auto;
+        min-height: 100vh;
+    }
+}
+
+.content-wrapper{
+  padding:0 15px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: $font-family-base;
+  font-weight: 300;
+  line-height: 1.15em;
+}
+
+.serif-font{
+    font-family: $font-family-sans-serif;
+}
+
+.page-header {
+    height: 60vh;
+    background-position: center center;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+a{
+  color: theme-color("primary");
+  &:hover,
+  &:focus{
+      color: darken(theme-color("primary"), 5%);
+      text-decoration: none;
+  }
+
+  &.text-info{
+      &:hover, &:focus{
+          color: darken(theme-color("info"), 5%);
+      }
+  }
+}
+
+p{
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+}

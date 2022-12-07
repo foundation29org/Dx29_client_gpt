@@ -1,0 +1,781 @@
+body {
+  &.layout-dark {
+    &.layout-transparent {
+      &.bg-glass-1 {
+        background-image: url("../../assets/img/gallery/bg-glass-1.jpg");
+        background-size: cover;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s;
+      }
+
+      &.bg-glass-2 {
+        background-image: url("../../assets/img/gallery/bg-glass-2.jpg");
+        background-size: cover;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s;
+      }
+
+      &.bg-glass-3 {
+        background-image: url("../../assets/img/gallery/bg-glass-3.jpg");
+        background-size: cover;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s;
+      }
+
+      &.bg-glass-4 {
+        background-image: url("../../assets/img/gallery/bg-glass-4.jpg");
+        background-size: cover;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s;
+      }
+
+      &.bg-hibiscus {
+        background-image: $bg-hibiscus;
+        background-size: cover;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s;
+      }
+
+      &.bg-purple-pizzazz {
+        background-image: $bg-purple-pizzazz;
+        background-size: cover;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s;
+      }
+
+      &.bg-blue-lagoon {
+        background-image: $bg-blue-lagoon;
+        background-size: cover;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s;
+      }
+
+      &.bg-electric-violet {
+        background-image: $bg-electric-violet;
+        background-size: cover;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s;
+      }
+
+      &.bg-portage {
+        background-image: $bg-portage;
+        background-size: cover;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s;
+      }
+
+      &.bg-tundora {
+        background-image: $bg-tundora;
+        background-size: cover;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s;
+      }
+
+      .card {
+        &.gradient-ibiza-sunset,
+        &.gradient-blackberry,
+        &.gradient-green-tea,
+        &.gradient-pomegranate {
+          box-shadow: 0 6px 0px 0 rgba(0, 0, 0, 0.01),
+            0 15px 32px 0 rgba(0, 0, 0, 0.14);
+        }
+      }
+
+      .card,
+      .language-markup,
+      .language-css,
+      .language-js,
+      .language-javascript,
+      .card-footer,
+      .nav-link.active,
+      .ql-syntax {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+      }
+
+      .form-control {
+        background-color: rgba(0, 0, 0, 0.15) !important;
+        border-color: $white !important;
+        color: $white !important;
+
+        &::placeholder {
+          color: $white !important;
+        }
+      }
+
+      .input-group-text {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+      }
+
+      .tab-pane.active,
+      .handle {
+        background: transparent !important;
+      }
+
+      .wrapper,
+      .wrapper.nav-collapsed.menu-collapsed {
+        .sidebar-background {
+          background: transparent !important;
+          opacity: 0.2 !important;
+        }
+      }
+
+      .wrapper.nav-collapsed {
+        .sidebar-background {
+          background: $black !important;
+          opacity: 0.8 !important;
+          transition: all 0.5s ease;
+        }
+      }
+
+      p,
+      span,
+      i,
+      div,
+      label,
+      hr,
+      .btn,
+      .text-muted,
+      .ct-label,
+      .chart-info .text-uppercase,
+      .grey,
+      .card-title,
+      .card-block,
+      .card-body,
+      .blue-grey,
+      .card-text,
+      .fonticon-classname,
+      .fonticon-unit,
+      .dropdown-item.active,
+      .nav-link,
+      .nav-link.active {
+        color: $white !important;
+      }
+
+      .table {
+        &.table-bordered {
+          border-color: rgba($color: $white, $alpha: 0.3);
+        }
+
+        tbody {
+          tr {
+            td {
+              color: $white;
+            }
+          }
+        }
+
+        tr {
+          th,
+          td {
+            border-color: rgba($color: $white, $alpha: 0.3);
+          }
+        }
+      }
+
+      .email-application,
+      .chat-application {
+        .email-app-sidebar,
+        .email-app-list-mails,
+        .email-search-box,
+        .email-app-mail-content,
+        .chat-sidebar,
+        .chat-fixed-search,
+        .chat-name,
+        .chat-app-window,
+        .chat-app-form.bg-blue-grey {
+          background-color: rgba(0, 0, 0, 0.2) !important;
+          border-color: rgba($color: $white, $alpha: 0.3);
+        }
+
+        .email-app-menu {
+          .form-group {
+            border-bottom: 1px solid rgba($color: $white, $alpha: 0.3);
+          }
+
+          .list-group-messages {
+            border-color: rgba($color: $white, $alpha: 0.3);
+          }
+        }
+
+        .email-app-list {
+          .users-list-padding {
+            .list-group-item.bg-blue-grey {
+              background-color: rgba(0, 0, 0, 0.5) !important;
+            }
+          }
+        }
+
+        .list-group-item-action.email-app-sender {
+          background-color: rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .chats {
+          .chat-left {
+            .chat-content {
+              background: rgba(0, 0, 0, 0.2) !important;
+
+              &:before {
+                border-right-color: rgba(0, 0, 0, 0.2) !important;
+              }
+            }
+          }
+        }
+      }
+
+      .chat-sidebar-content {
+        .users-list-padding {
+          .list-group-item.bg-blue-grey {
+            background-color: rgba(0, 0, 0, 0.5) !important;
+          }
+        }
+      }
+
+      hr,
+      .list-group-item,
+      .form-section {
+        border-color: rgba($color: $white, $alpha: 0.3);
+      }
+
+      .btn-light,
+      .btn-icon.btn-pure {
+        i {
+          color: $dl-bg-color !important;
+        }
+      }
+
+      .alert-secondary,
+      .alert-dark,
+      .alert-light,
+      .badge-light {
+        color: $dl-bg-color !important;
+      }
+
+      .media-list.media-bordered .media {
+        border-top-color: rgba($color: $white, $alpha: 0.3);
+      }
+
+      // Date Picker
+
+      .picker {
+        .picker__holder {
+          .picker__frame {
+            .picker__table {
+              tbody {
+                tr {
+                  td {
+                    .picker__day {
+                      color: $black !important;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      #datepicker,
+      #ng-tables {
+        .ng-pristine {
+          color: $black !important;
+        }
+      }
+
+      // Time Picker
+
+      .picker {
+        .picker__holder {
+          .picker__frame {
+            .picker__box {
+              .picker__list {
+                .picker__list-item {
+                  color: $black;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // For Ratings
+
+      ngb-rating {
+        .star.full {
+          color: #f9423a !important;
+        }
+      }
+
+      // For App Customizer
+
+      app-customizer {
+        a,
+        p,
+        span,
+        label,
+        h4,
+        h6,
+        hr,
+        .customizer-close i {
+          color: $black !important;
+        }
+
+        hr {
+          border-color: rgba(0, 0, 0, 0.2) !important;
+        }
+      }
+
+      // Popover
+
+      .popover-body,
+      .swal2-content,
+      .noUi-tooltip,
+      .dz-message,
+      .step,
+      .ql-picker-item,
+      .color-group .color.dark,
+      .btn-light {
+        color: $black !important;
+
+        p,
+        span {
+          color: $black !important;
+        }
+      }
+
+      // For Sweet Alerts
+
+      .swal2-modal {
+        h2 {
+          i {
+            color: $black !important;
+          }
+        }
+
+        .swal2-icon.swal2-info {
+          .swal2-icon-text {
+            color: map-get($map: $theme-colors, $key: info) !important;
+          }
+        }
+
+        .swal2-icon.swal2-warning {
+          .swal2-icon-text {
+            color: map-get($map: $theme-colors, $key: warning) !important;
+          }
+        }
+
+        .swal2-icon.swal2-question {
+          .swal2-icon-text {
+            color: map-get($map: $theme-colors, $key: secondary) !important;
+          }
+        }
+      }
+
+      #swal2-content {
+        color: $black !important;
+      }
+
+      .timeline-card {
+        .media {
+          border-bottom-color: transparent;
+        }
+      }
+
+      .form-horizontal {
+        &.form-bordered {
+          .form-section {
+            border-bottom: 1px solid rgba($color: $white, $alpha: 0.3);
+          }
+
+          .form-group {
+            border-bottom: 1px solid rgba($color: $white, $alpha: 0.3);
+          }
+
+          .form-group > div {
+            border-left: 1px solid rgba($color: $white, $alpha: 0.3);
+          }
+        }
+
+        &.striped-rows {
+          .form-group:nth-child(even) {
+            background-color: rgba($color: $black, $alpha: 0.2);
+          }
+        }
+      }
+
+      .dataTable {
+        tr {
+          td {
+            input {
+              background-color: rgba($color: $black, $alpha: 0.2);
+              color: $white;
+            }
+          }
+        }
+
+        tfoot {
+          tr {
+            th {
+              input {
+                background-color: rgba($color: $black, $alpha: 0.2);
+              }
+            }
+          }
+        }
+      }
+
+      #coming-soon {
+        .card.card-transparent {
+          background: transparent !important;
+        }
+      }
+
+      // Error
+
+      #error {
+        p.text-dark {
+          color: $black !important;
+        }
+      }
+
+      // Maintenance
+
+      #maintenance {
+        p.text-dark {
+          color: $black !important;
+        }
+      }
+
+      // Invoice
+
+      #invoice-items-details {
+        .table {
+          tr.bg-grey.bg-lighten-4 {
+            background-color: rgba(0, 0, 0, 0.2) !important;
+          }
+        }
+      }
+
+      // Forgot Password Page
+
+      #forgot-password {
+        .gradient-red-pink {
+          background-image: none !important;
+        }
+      }
+
+      #hover-effects {
+        figure {
+          figcaption {
+            .icon-links {
+              a {
+                i {
+                  color: $black !important;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Time Picker Angular
+
+      .ngb-tp {
+        .ngb-tp-input-container {
+          .form-control {
+            color: $white !important;
+          }
+        }
+      }
+
+      // Ng Select
+
+      .ng-select {
+        .ng-select-container .ng-value-container .ng-placeholder {
+          color: $black !important;
+        }
+
+        .ng-value {
+          .ng-value-label,
+          .ng-value-icon {
+            color: $black !important;
+          }
+        }
+      }
+
+      // Angular Select
+
+      .ng-dropdown-panel {
+        .ng-dropdown-panel-items {
+          .ng-option {
+            span.ng-option-label,
+            b {
+              color: rgba(0, 0, 0, 0.87) !important;
+            }
+          }
+        }
+      }
+
+      // Angular Input Tags
+
+      .ng2-tags-container {
+        .tag-wrapper {
+          .tag__text {
+            color: $black !important;
+          }
+        }
+      }
+
+      // Angular Form Wizard
+
+      .board {
+        .board-inner {
+          .nav.nav-tabs {
+            border-bottom-color: $white;
+          }
+        }
+      }
+
+      // Arch Wizard
+
+      aw-wizard-navigation-bar.horizontal {
+        ul.steps-indicator {
+          li div a {
+            color: $white !important;
+          }
+        }
+      }
+
+      // Calendar
+
+      // Month View
+
+      mwl-calendar-open-day-events,
+      .cal-month-view {
+        .cal-cell-row {
+          &:hover {
+            background: transparent;
+          }
+
+          .cal-cell {
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.3);
+            }
+          }
+
+          .cal-cell-top {
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.5);
+            }
+          }
+        }
+
+        .cal-open-day-events,
+        .cal-today {
+          background: rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      // Week view
+
+      .cal-week-view {
+        .cal-day-headers {
+          .cal-header {
+            background: rgba($color: $black, $alpha: 0.2);
+
+            &.cal-today {
+              background: rgba($color: $black, $alpha: 0.5);
+            }
+          }
+        }
+
+        .cal-hour-odd {
+          background-color: rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      // Toastr
+
+      .toast-container {
+        .text-danger {
+          color: map-get($map: $theme-colors, $key: danger) !important;
+        }
+      }
+
+      // Buttons
+
+      .btn-reddit,
+      .fa.fa-reddit {
+        color: $black !important;
+      }
+
+      // Notification Sidebar
+
+      .notification-sidebar {
+        &.open {
+          background: rgba(0, 0, 0, 0.8) !important;
+        }
+        .notification-sidebar-close {
+          .ft-x {
+            color: $white !important;
+          }
+        }
+
+        p,
+        span,
+        h6 {
+          color: $white !important;
+        }
+
+        .nav.nav-tabs {
+          .nav-item {
+            a {
+              color: $component-active-bg !important;
+            }
+
+            .nav-link.active {
+              color: $white !important;
+              background: transparent !important;
+            }
+          }
+        }
+      }
+      // Editor
+      .ql-toolbar.ql-snow {
+        .ql-formats {
+          .ql-picker {
+            color: $dl-text-color !important;
+          }
+
+          .ql-picker-label {
+            border: 1px solid $white;
+          }
+
+          svg {
+            stroke: transparent !important;
+
+            .ql-stroke,
+            .ql-stroke,
+            rect.ql-fill {
+              stroke: $white;
+            }
+
+            polyline.ql-even {
+              fill: $white;
+            }
+
+            .ql-fill {
+              fill: $white;
+            }
+          }
+
+          button.ql-active {
+            border: 1px solid $white;
+          }
+        }
+      }
+
+      .forgot-password-bg,
+      #login,
+      #regestration,
+      #lock-screen,
+      #coming-soon,
+      #maintenance {
+        background-image: none !important;
+
+        .fg-image,
+        .login-img,
+        .register-img,
+        .lock-screen-img {
+          background: rgba($color: $black, $alpha: 0.2) !important;
+        }
+
+        .col-lg-6.d-none.d-lg-block {
+          background: $white;
+        }
+
+        .bg-white {
+          background-color: rgba($color: $black, $alpha: 0.2) !important;
+        }
+      }
+
+      // Tour
+      .hopscotch-bubble {
+        .hopscotch-bubble-number {
+          color: $black !important;
+        }
+      }
+    }
+  }
+}
+
+// for sidebar from 993px and above
+
+@media (min-width: 993px) {
+  .layout-dark.layout-transparent {
+    .app-sidebar {
+      background: transparent !important;
+    }
+  }
+}
+
+// for sidebar from 992px and below
+
+@media (max-width: 992px) {
+  // for sidebar
+  .layout-dark.layout-transparent {
+    .app-sidebar {
+      background: rgba(0, 0, 0, 0.8) !important;
+      transition: all 0.5s ease !important;
+    }
+  }
+}
+
+// Exclusive for transparent
+body.layout-transparent {
+  .customizer {
+    color: $black !important;
+
+    .sb-color-options,
+    .sb-options,
+    .sb-bg-img,
+    .toggle-sb-bg-img {
+      display: none;
+    }
+
+    .tl-color-options,
+    .cz-tl-bg-color,
+    .tl-bg-img {
+      display: block !important;
+    }
+  }
+}

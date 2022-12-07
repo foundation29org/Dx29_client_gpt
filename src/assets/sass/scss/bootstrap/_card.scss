@@ -1,0 +1,266 @@
+//https://www.google.com/design/spec/components/cards.html#cards-content-blocks
+.card {
+  border: 0;
+  margin: 18px 0;
+  @include card-shadow();
+  border-radius: $border-radius-base;
+
+  @extend %std-font;
+
+  &[class*="gradient-"] {
+
+    .card-header,
+    .card-footer {
+      background-color: initial;
+    }
+  }
+
+  .card-header {
+    padding: 1.5rem;
+    padding-bottom: 0;
+    border-bottom: none;
+    background-color: transparent;
+  }
+
+  .card-subtitle {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  // .card-body {
+  //   padding: 0;
+  //   height: auto;
+  // }
+
+  // .card-block {
+  //   padding: 1.5rem;
+  // }
+
+  .card-bordered {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  &.card-transparent {
+    background-color: transparent !important;
+  }
+
+  .card {
+    box-shadow: none;
+  }
+
+  .card-img {
+    position: relative;
+
+    .card-title {
+      color: #fff;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      max-width: 100%;
+      padding: 24px;
+    }
+
+    &.overlap {
+      margin-top: -40px;
+    }
+  }
+
+  .btn-floating {
+    display: inline-block;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+    background-color: theme-color("primary");
+    border-radius: 50%;
+    transition: .3s;
+    cursor: pointer;
+    vertical-align: middle;
+    font-size: 1rem;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+
+    &.btn {
+      margin: 0;
+    }
+
+    i {
+      width: inherit;
+      display: inline-block;
+      text-align: center;
+      color: #fff;
+      font-size: 2rem;
+      line-height: 40px;
+    }
+
+    &.btn-large {
+      width: 56px;
+      height: 56px;
+
+      &.halfway-fab {
+        bottom: -28px;
+      }
+
+      i {
+        line-height: 56px;
+      }
+    }
+
+    &.halfway-fab {
+      position: absolute;
+      right: 24px;
+      bottom: -20px;
+    }
+  }
+
+  .card-reveal {
+    padding: 24px;
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    overflow-y: auto;
+    left: 0;
+    top: 100%;
+    height: 100%;
+    z-index: 3;
+    transition: height 1s ease-in-out;
+    display: none;
+
+    .card-title {
+      cursor: pointer;
+    }
+  }
+
+  &.horizontal {
+    .card-body {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
+
+    .card-img {
+      max-width: 50%;
+
+      img {
+        border-radius: 2px 0 0 2px;
+        max-width: 100%;
+        width: auto;
+      }
+    }
+  }
+
+  .card-stacked {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    position: relative;
+  }
+
+  // any h* will signal the larger size should render as 24sp
+  @include headings() {
+    &.card-title {
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.05rem;
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  .card-footer {
+    // assume footer is the set of actions?
+    padding: 1rem 1.5rem;
+    background: white;
+    overflow: hidden;
+  }
+
+  &.card-inverse {
+
+    .card-blockquote .blockquote-footer,
+    .card-link,
+    .card-subtitle,
+    .card-text,
+    .card-title,
+    .card-footer,
+    a,
+    a:hover,
+    label,
+    span,
+    .form-group:hover,
+    div,
+    input {
+      color: #fff;
+    }
+
+    .form-group.is-focused {
+
+      .checkbox label,
+      label.checkbox-inline,
+      .radio label,
+      label.radio-inline {
+        color: #fff;
+      }
+    }
+
+    hr {
+      border-color: #fff;
+    }
+
+    .checkbox {
+      label {
+        color: #fff;
+
+        .checkbox-decorator {
+          .check {
+            border-color: rgba(255, 255, 255, 0.54);
+          }
+        }
+      }
+    }
+
+    input {
+
+      &::-webkit-input-placeholder,
+      &::-moz-placeholder,
+      &:-ms-input-placeholder,
+      &:-moz-placeholder {
+        color: #fff;
+      }
+    }
+  }
+}
+
+
+[dir="rtl"] {
+  .card {
+    text-align: right;
+
+    .card-img {
+      .card-title {
+        right: 0;
+        left: auto;
+      }
+    }
+
+    .btn-floating {
+      &.halfway-fab {
+        left: 24px;
+        right: auto;
+      }
+    }
+
+    .card-reveal {
+      right: 0;
+      left: auto;
+    }
+  }
+}

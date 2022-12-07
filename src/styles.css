@@ -1,0 +1,392 @@
+/* You can add global styles to this file, and also import other style files */
+
+/*
+.card {
+  background-color: #353535 !important;
+  color: gray !important;
+}
+
+.modal-content{
+  background-color: #353535 !important;
+  color: gray !important;
+}*/
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Rubik", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+p{
+  font-size: 1rem;
+}
+
+footer{
+  margin-top: 1em;
+}
+
+body {
+  /* Disables pull-to-refresh but allows overscroll glow effects. */
+  overscroll-behavior-y: contain;
+  background-color: #fff;
+}
+
+.spinner-absolute{
+  position: absolute;
+  right: 6%;
+  margin-top: 0.175rem !important;
+}
+
+.btn-raised {
+  border-radius: 1rem;
+}
+
+.nav-tabs .nav-link.active {
+  color: #33658a;
+}
+
+.alert-warning {
+  border: 1px solid #dee2e6 !important;
+  background-color: #A1CBEA !important;
+  color: #282828 !important;
+}
+
+.mat-expansion-panel-content {
+  font: inherit;
+}
+
+:host ::ng-deep a{
+  color: #33658a !important;
+}
+
+a:hover, a:focus {
+  color: #b0b6bb;
+  text-decoration: none;
+}
+
+.swal2-styled {
+  border-radius: 1.5rem !important;
+}
+
+.swal2-actions:not(.swal2-loading) .swal2-styled:hover {
+  background-color: #b0b6bb !important;
+}
+
+.swal2-icon.swal2-warning {
+  border-color: #F9423A !important;
+  color: #F9423A !important;
+}
+
+.tab-content {
+  min-height: 430px !important;
+}
+
+a{
+  color: #33658a;
+}
+
+.btn-outline-secondary:hover {
+  color: #ffffff;
+}
+
+.nav-tabs .nav-link {
+  padding-top: 0.75rem !important;
+  color: #b0b6bb;
+  border-top-color: none;
+  border-right-color: #b0b6bb;
+  border-bottom-color: #b0b6bb;
+  border-left-color: #b0b6bb;
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+}
+
+.color-footer{
+  background-color: #ededed;
+}
+
+.hr-custom{
+  background-color: #33658a; 
+  height: 3px; 
+  border: 0;
+  width: 30%;
+}
+
+.hr-custom-secondary{
+  background-color: #b0b6bb; 
+  height: 3px; 
+  border: 0;
+  width: 30%;
+}
+
+.bt-nav{
+  width: 100px;
+}
+
+.bt-custom-md{
+  width: 170px;
+}
+
+.btn-primary:hover {
+  background-color: #b0b6bb !important;
+  border-color: #a9b3bb !important;
+}
+
+.btn-info-nohover{
+  background-color: #33658a !important;
+  color: #fff !important;
+  border-color: #33658a;
+}
+
+.btn-info-nohover:focus, .btn-info-nohover.focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.btn-info:hover {
+  background-color: #b0b6bb !important;
+  border-color: #a9b3bb !important;
+}
+
+.btn-info:focus, .btn-info.focus {
+  box-shadow: 0 0 0 0.2rem #b0b6bb;
+}
+
+.btn-info:not(:disabled):not(.disabled):active:focus, .btn-info:not(:disabled):not(.disabled).active:focus, .show > .btn-info.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem #b0b6bb;
+}
+
+.btn-info:not(:disabled):not(.disabled):active, .btn-info:not(:disabled):not(.disabled).active, .show > .btn-info.dropdown-toggle {
+  border-color: #b0b6bb;
+}
+
+
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem #b0b6bb !important;
+}
+
+
+.btn-active-info {
+  color: #fff;
+  background-color: #33658a;
+  border-color: #205883;
+  box-shadow: 0 0 0 0.2rem rgba(250, 94, 88, 0.5);
+}
+
+.secondary{
+  color:#b0b6bb;
+}
+
+.badge-secondary {
+  color: #fff;
+  background-color: #b0b6bb;
+}
+
+.btn-primary {
+  color: #fff !important;
+}
+
+.btn-info {
+  background-color: #33658a !important;
+  color: #fff !important;
+  border-color: #33658a;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #b0b6bb;
+  border-color: #b0b6bb;
+}
+
+.fijado{
+  position: sticky;
+  top: 80px;
+  height: 100%;
+}
+.popover{
+  min-width: 300px;
+  max-width: 600px;
+}
+
+ .pointer{
+   cursor: pointer;
+ }
+
+ .avatar{
+   width: 40px;
+   height: 40px;
+ }
+
+ .btn-no-style{
+   background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+ }
+
+.labelLower{
+  text-transform: lowercase;
+}
+/*.modal-dialog {
+    max-width: 90%;
+}*/
+
+.vertical-horizontal-align {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.fa-1_5x{
+  font-size: 1.5em;
+}
+
+.fa-1_5x:hover {
+     -webkit-transform: scale(2.2);
+     -moz-transform: scale(2.2);
+     -o-transform: scale(2.2);
+     -ms-transform: scale(2.2);
+     transform: scale(2.2)
+}
+
+.smart-table-container{
+    overflow-x: scroll;
+}
+
+.center-elements{
+  text-align: center;
+}
+
+.right-elements{
+  text-align: right;
+}
+.left-elements{
+  text-align: left;
+}
+
+.textExtractedNcr > a > b{
+  background-color: #f9423a;
+}
+.textExtractedNcr >  b{
+  background-color: #f9423a;
+}
+mark{
+  text-decoration: underline;
+  -webkit-text-decoration-color: #f9423a; /* Safari */  
+  text-decoration-color: #f9423a;
+  background-color: #FFF;
+  text-decoration-thickness: 3px;
+}
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+     z-index: 99999 !important;
+  }
+
+ .mat-expansion-panel-body {
+      padding: 0 !important;
+  }
+
+  .almost-full-height-vh{
+    height: 84vh !important;
+  }
+  .almost-xl-height-vh{
+    height: 60vh !important;
+  }
+
+  .ModalClass-xl .modal-dialog {
+    max-width: 98% !important;
+  }
+  .ModalClass-lg .modal-dialog {
+    max-width: 65% !important;
+  }
+
+  .ModalClass-sm .modal-dialog {
+    max-width: 45% !important;
+  }
+
+  @media ( max-width: 900px ){
+    .ModalClass-lg .modal-dialog {
+      max-width: 98% !important;
+    }
+
+    .ModalClass-sm .modal-dialog {
+      max-width: 98% !important;
+    }
+  }
+
+@media ( max-width: 575px ){
+  body{
+    font-size: 0.8rem !important;
+  }
+  p {
+    font-size: 0.8rem !important;
+  }
+  h1, .h1 {
+    font-size: 1.4rem;
+  }
+  h2, .h2 {
+    font-size: 1.3rem;
+  }
+  h3, .h3 {
+    font-size: 1.2rem;
+  }
+  h4, .h4 {
+    font-size: 1.1rem;
+  }
+  h5, .h5 {
+    font-size: 1rem;
+  }
+
+  .btn{
+    font-size: 0.9rem;
+  }
+
+  .spinner-absolute{
+    position: absolute;
+    right: 15%;
+    margin-top: 0.175rem !important;
+  }
+
+  .none-laterals-m{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+  }
+}
+
+@media ( max-height: 550px ){
+  .full-height-vh{
+  	height: 100% !important;
+  }
+  .almost-full-height-vh{
+    height: 100% !important;
+  }
+}
+
+.form .form-actions {
+    border-top: none;
+  }
+
+.bt-n{
+  border-top: none;
+}
+
+.inactiveLink {
+   pointer-events: unset;
+   cursor: auto !important;
+}
+/* You can add global styles to this file, and also import other style files */
+
+/* @import url("assets/css/bootstrap.min.css"); */
+/* @import url("../src/assets/css/prism.min.css");
+@import url("../src/assets/css/sweetalert2.min.css");
+@import url("../src/assets/css/bootstrap-timepicker.min.css");
+@import url("../src/assets/css/wizard.css");
+@import url("../src/assets/css/leaflet.css");
+@import url("../src/assets/css/jquery-jvectormap-2.0.3.css");
+@import url("../src/assets/css/ng2-toastr.min.css");
+@import url("../src/assets/css/nouislider.min.css");
+@import url("../src/assets/css/data-table/index.css");
+@import url("../src/assets/css/data-table/icons.css");
+@import url("../src/assets/css/demo.css"); */

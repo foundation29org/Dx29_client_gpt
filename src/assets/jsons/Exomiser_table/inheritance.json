@@ -1,0 +1,71 @@
+{
+    "AUTOSOMAL_DOMINANT": {
+        "name": "Autosomal dominant",
+        "name short": "AD",
+        "desc": "A mode of inheritance that is observed for traits related to a gene encoded on one of the autosomes (i.e., the human chromosomes 1-22) in which a trait manifests in heterozygotes. In the context of medical genetics, an autosomal dominant disorder is caused when a single copy of the mutant allele is present. Males and females are affected equally, and can both transmit the disorder with a risk of 50% for each child of inheriting the mutant allele.",
+        "link": "https://hpo.jax.org/app/browse/term/HP:0000006",
+        "id": "HP:0000006"
+    },
+    "AUTOSOMAL_RECESSIVE": {
+        "name": "Autosomal recessive",
+        "name short": "AR",
+        "desc": "A mode of inheritance that is observed for traits related to a gene encoded on one of the autosomes (i.e., the human chromosomes 1-22) in which a trait manifests in individuals with two pathogenic alleles, either homozygotes (two copies of the same mutant allele) or compound heterozygotes (whereby each copy of a gene has a distinct mutant allele).",
+        "link": "https://hpo.jax.org/app/browse/term/HP:0000007",
+        "id": "HP:0000007"
+    },
+    "AUTOSOMAL_RECESSIVE_COMP_HET": {
+        "name": "Autosomal recessive compound heterozygous",
+        "name short": "AR COM HET",
+        "desc": "",
+        "link": "",
+        "id": ""
+    },
+    "AUTOSOMAL_RECESSIVE_HOM_ALT": {
+        "name": "Autosomal recessive homozygous alternate",
+        "name short": "AR HOM ALT",
+        "desc": "",
+        "link": "",
+        "id": ""
+    },
+    "X_RECESSIVE": {
+        "name": "X-linked recessive",
+        "name short": "XR",
+        "desc": "A mode of inheritance that is observed for recessive traits related to a gene encoded on the X chromosome. In the context of medical genetics, X-linked recessive disorders manifest in males (who have one copy of the X chromosome and are thus hemizygotes), but generally not in female heterozygotes who have one mutant and one normal allele.",
+        "link": "https://hpo.jax.org/app/browse/term/HP:0001419",
+        "id": "HP:0001419"
+    },
+    "X_RECESSIVE_COMP_HET": {
+        "name": "X-linked recessive compound heterozygous",
+        "name short": "XR COMP HET",
+        "desc": "",
+        "link": "",
+        "id": ""
+    },
+    "X_RECESSIVE_HOM_ALT": {
+        "name": "X-linked recessive homozygous alternate",
+        "name short": "XR HOM ALT",
+        "desc": "",
+        "link": "",
+        "id": ""
+    },
+    "X_DOMINANT": {
+        "name": "X-linked dominant inheritance",
+        "name short": "XD",
+        "desc": "A mode of inheritance that is observed for dominant traits related to a gene encoded on the X chromosome. In the context of medical genetics, X-linked dominant disorders tend to manifest very severely in affected males. The severity of manifestation in females may depend on the degree of skewed X inactivation.",
+        "link": "https://hpo.jax.org/app/browse/term/HP:0001423",
+        "id": "HP:0001423"
+    },
+    "MITOCHONDRIAL": {
+        "name": "Mitochondrial inheritance",
+        "name short": "MT",
+        "desc": "A mode of inheritance that is observed for traits related to a gene encoded on the mitochondrial genome. Because the mitochondrial genome is essentially always maternally inherited, a mitochondrial condition can only be transmitted by females, although the condition can affect both sexes. The proportion of mutant mitochondria can vary (heteroplasmy).",
+        "link": "https://hpo.jax.org/app/browse/term/HP:0001427",
+        "id": "HP:0001427"
+    },
+    "ANY": {
+        "name": "Any inheritance mode",
+        "name short": "ANY",
+        "desc": "Inheritance mode could not be determined.",
+        "link": ""
+    }
+}

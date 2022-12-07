@@ -1,0 +1,22 @@
+[
+    {"term":"A","code":"Ala","description":"Alanina"},
+    {"term":"R","code":"Arg","description":"Arginina"},
+    {"term":"N","code":"Asn","description":"Asparagina"},
+    {"term":"D","code":"Asp","description":"Aspartato"},
+    {"term":"C","code":"Cys","description":"Cisteína"},
+    {"term":"Q","code":"Gln","description":"Glutamina"},
+    {"term":"E","code":"Glu","description":"Ácido glutámico"},
+    {"term":"G","code":"Gly","description":"Glicina"},
+    {"term":"H","code":"His","description":"Histidina"},
+    {"term":"I","code":"Ile","description":"Isoleucina"},
+    {"term":"L","code":"Leu","description":"Leucina"},
+    {"term":"K","code":"Lys","description":"Lisina"},
+    {"term":"M","code":"Met","description":"Metionina"},
+    {"term":"F","code":"Phe","description":"Fenilalanina"},
+    {"term":"P","code":"Pro","description":"Prolina"},
+    {"term":"S","code":"Ser","description":"Serina"},
+    {"term":"T","code":"Thr","description":"Treonina"},
+    {"term":"W","code":"Trp","description":"Triptófano"},
+    {"term":"Y","code":"Tyr","description":"Tirosina"},
+    {"term":"V","code":"Val","description":"Valina"}
+]

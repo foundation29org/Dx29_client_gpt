@@ -1,0 +1,155 @@
+<!-- Sidebar Header starts -->
+<div class="sidebar-header">
+    <div class="logo clearfix">
+        <a [routerLink]="redirectUrl" class="logo-text float-left">
+            <div class="logo-img" style="display:none;">
+                <img [src]=urlLogo style="height: 40px;" />
+            </div>
+            <div class="logo-img2">
+                <img [src]=urlLogo2 style="height: 40px;" />
+            </div>
+
+        </a>
+        <a class="nav-toggle d-none d-lg-none d-xl-block" id="sidebarToggle" href="javascript:;">
+            <i #toggleIcon appSidebarToggle class="ft-toggle-right toggle-icon" data-toggle="expanded"></i>
+        </a>
+        <a class="black nav-close d-block d-lg-none" id="sidebarClose" href="javascript:;">
+            <i class="ft-x"></i>
+        </a>
+    </div>
+</div>
+<!-- Sidebar Header Ends -->
+
+<!-- Sidebar Content starts -->
+<div class="sidebar-content" [perfectScrollbar]>
+    <div class="nav-container">
+        <ul class="navigation" appSidebarList  *ngIf="!isClinicalPage">
+            <!-- First level menu -->
+             <li *ngFor="let menuItem of menuItems" [ngClass]="[menuItem.class]" [routerLinkActive]="menuItem.submenu.length != 0 ? '' : 'active'"
+                [routerLinkActiveOptions]="{exact: true}">
+                <div *ngIf="!menuItem.isAnchorLink;then option1 else option2"></div>
+  			        <ng-template #option1>
+                  <a [routerLink]="menuItem.class === '' ? [menuItem.path] : null" *ngIf="!menuItem.isExternalLink; else externalLinkBlock">
+                      <i [ngClass]="[menuItem.icon]"></i>
+                      <span class="menu-title">{{menuItem.title | translate }}</span>
+                      <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
+                  </a>
+  			        </ng-template>
+                <ng-template #option2>
+                  <a [href]="menuItem.class === '' ? [menuItem.path] : null" *ngIf="!menuItem.isExternalLink; else externalLinkBlock">
+                      <i [ngClass]="[menuItem.icon]"></i>
+                      <span class="menu-title">{{menuItem.title | translate }}</span>
+                      <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
+                  </a>
+  			        </ng-template>
+                <ng-template #externalLinkBlock>
+                    <a [href]="[menuItem.path]" target="_blank">
+                        <i [ngClass]="[menuItem.icon]"></i>
+                        <span class="menu-title">{{menuItem.title | translate }}</span>
+                        <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
+                    </a>
+                </ng-template>
+                <!-- Second level menu -->
+                <ul class="menu-content" *ngIf="menuItem.submenu.length > 0">
+                    <li *ngFor="let menuSubItem of menuItem.submenu" [routerLinkActive]="menuSubItem.submenu.length > 0 ? '' : 'active'" [ngClass]="[menuSubItem.class]">
+                      <div *ngIf="!menuSubItem.isAnchorLink;then option3 else option4"></div>
+                      <ng-template #option3>
+                        <a [routerLink]="menuSubItem.submenu.length > 0 ? null : [menuSubItem.path]" *ngIf="!menuSubItem.isExternalLink; else externalSubLinkBlock">
+                            <i [ngClass]="[menuSubItem.icon]"></i>
+                            <span class="menu-title">{{menuSubItem.title | translate }}</span>
+                            <span *ngIf="menuSubItem.badge != '' " [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span>
+                        </a>
+                      </ng-template>
+                      <ng-template #option4>
+                        <a [href]="menuSubItem.submenu.length > 0 ? null : [menuSubItem.path]" *ngIf="!menuSubItem.isExternalLink; else externalSubLinkBlock">
+                            <i [ngClass]="[menuSubItem.icon]"></i>
+                            <span class="menu-title">{{menuSubItem.title | translate }}</span>
+                            <span *ngIf="menuSubItem.badge != '' " [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span>
+                        </a>
+                      </ng-template>
+                        <ng-template #externalSubLinkBlock>
+                            <a [href]="[menuSubItem.path]">
+                                <i [ngClass]="[menuSubItem.icon]"></i>
+                                <span class="menu-title">{{menuSubItem.title | translate }}</span>
+                                <span *ngIf="menuSubItem.badge != '' " [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span>
+                            </a>
+                        </ng-template>
+                        <!-- Third level menu -->
+                        <ul class="menu-content" *ngIf="menuSubItem.submenu.length > 0">
+                            <li *ngFor="let menuSubsubItem of menuSubItem.submenu" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                                [ngClass]="[menuSubsubItem.class]">
+                                <a [routerLink]="[menuSubsubItem.path]" *ngIf="!menuSubsubItem.isExternalLink; else externalSubSubLinkBlock">
+                                    <i [ngClass]="[menuSubsubItem.icon]"></i>
+                                    <span class="menu-title">{{menuSubsubItem.title | translate }}</span>
+                                    <span *ngIf="menuSubsubItem.badge != '' " [ngClass]="[menuSubsubItem.badgeClass]">{{menuSubsubItem.badge}}</span>
+                                </a>
+                                <ng-template #externalSubSubLinkBlock>
+                                    <a [href]="[menuSubsubItem.path]">
+                                        <i [ngClass]="[menuSubsubItem.icon]"></i>
+                                        <span class="menu-title">{{menuSubsubItem.title | translate }}</span>
+                                        <span *ngIf="menuSubsubItem.badge != '' " [ngClass]="[menuSubsubItem.badgeClass]">{{menuSubsubItem.badge}}</span>
+                                    </a>
+                                </ng-template>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul *ngIf="isClinicalPage" class="navigation" appSidebarList  >
+          <li>
+            <a [routerLink]="redirectUrl" title="{{'diagnosis.BackCases' | translate }}">
+              <i class="fa fa-arrow-left"></i>
+              <span class="menu-title">{{'diagnosis.BackCases' | translate }}</span>
+            </a>
+          </li>
+          <li style="border-top: 1px solid rgba(0, 0, 0, 0.125);">
+            <div class="ml-2 mr-1 pt-3 pb-3">
+              <img class="avatar float-left mr-1" src="assets/img/avatar/png/sm/{{selectedPatient.avatar}}.png" />
+              <span class="nav-item" style="line-height: 1rem;">
+                <span class="d-block font-weight-bold mb-1">
+                  <span class="text-wrap"> {{selectedPatient.patientName}}</span>
+                </span>
+                <span class="text-muted">
+                  <span class="">{{'topnavbar.age' | translate }}: </span>
+                  <span *ngIf="age!=null">
+                    <span *ngIf="age.years>0">{{age.years}} {{'topnavbar.year' | translate }}<span *ngIf="age.years>1">s</span> <span *ngIf="age.months>0">, </span></span>
+                    <span *ngIf="age.months>0">{{age.months}} <span *ngIf="age.months<=1">{{'topnavbar.month' | translate }}</span><span *ngIf="age.months>1">{{'topnavbar.months' | translate }}</span></span>
+                    <span *ngIf="age.months==0 && age.years==0">0 {{'topnavbar.months' | translate }}</span>
+                  </span>
+                  <span *ngIf="age==null">
+                    -
+                  </span>
+                </span>
+              </span>
+            </div>
+          </li>
+          <li style="border-top: 1px solid rgba(0, 0, 0, 0.125);" [ngClass]="(actualStep !='1.0')?'cursor-pointer btn-header':'inactiveLink active'">
+              <a class="btn-no-style" title="{{(maxStep>='5.0' ) ? ('diagnosis.Symptoms'|translate) : 'no permitido'}}" [disabled]="(maxStep<'5.0')" (click)="goToStep('1.0', false, null)">1. {{'topnavbar.Symptoms' | translate }}</a>
+          </li>
+          <li [ngClass]="(actualStep !='2.0')?'cursor-pointer btn-header':'inactiveLink active'">
+              <a class="btn-no-style" title="{{(maxStep>='5.0' ) ? ('diagnosis.Genetics'|translate) : 'no permitido'}}" [disabled]="(maxStep<'5.0')" (click)="goToStep('2.0', false, null)">2. {{'topnavbar.Genetics' | translate }}</a>
+          </li>
+          <li [ngClass]="(actualStep !='3.0' && actualStep !='3.1' && actualStep !='3.2')?'cursor-pointer btn-header':'inactiveLink active'">
+              <a class="btn-no-style" title="{{(maxStep>='5.0' ) ? 'Analizar' : 'no permitido'}}" [disabled]="(maxStep<'5.0')" (click)="goToStep('3.0', false, null)">3. {{'analysissection.title' | translate }}</a>
+          </li>
+          <li [ngClass]="(actualStep !='5.0')?'cursor-pointer btn-header':'inactiveLink active'">
+              <a class="btn-no-style" title="{{(maxStep>='5.0' ) ? 'Diagnoses' : 'no permitido'}}" [disabled]="(maxStep<'5.0')" (click)="goToStep('5.0', false, null)">4. {{'topnavbar.Diagnoses' | translate }}</a>
+          </li>
+          <li [ngClass]="(actualStep !='6.0')?'cursor-pointer btn-header':'inactiveLink active'">
+            <a class="btn-no-style menu-title"  title="{{(maxStep>'5.0' ) ? ('diagnosis.Summary'|translate) : 'no permitido'}}" [disabled]="(maxStep<'5.0')" (click)="goToStep('6.0', false, null)">
+              5. {{'topnavbar.Summary' | translate }}
+            </a>
+          </li>
+          <li class="mt-3" style="border-top: 1px solid rgba(0, 0, 0, 0.125);">
+          </li>
+          <li [ngClass]="(actualStep !='4.0')?'cursor-pointer btn-header':'inactiveLink active'">
+              <a class="btn-no-style" title="{{(maxStep>='5.0' ) ? 'Reports' : 'no permitido'}}" [disabled]="(maxStep<'5.0')" (click)="goToReports()">{{'topnavbar.Reports' | translate }}</a>
+          </li>
+          <!--<li [ngClass]="(maxStep>='5.0' )?'cursor-pointer btn-header':'inactiveLink active'">
+              <a class="btn-no-style"  title="{{(maxStep>='5.0' ) ? 'Wizard' : 'no permitido'}}" [disabled]="(maxStep<'5.0')" (click)="startWizardAgain();">{{'topnavbar.Wizard' | translate }}</a>
+          </li>-->
+        </ul>
+    </div>
+</div>
+<!-- Sidebar Content Ends -->

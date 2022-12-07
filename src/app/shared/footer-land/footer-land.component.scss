@@ -1,0 +1,34 @@
+
+
+.empty-padding-left{
+  padding-left: 0px;
+  margin: 0.5em;
+}
+
+.redes-line {border-right: 1px solid #efefef;position: relative;height: 100%; margin-right: 20px;}
+
+@media (max-width: 1091px) {
+  .btn-about{
+    display: block !important;
+    margin-top: 1.5rem !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .column {
+    width: 100%;
+  }
+
+  .vertical-horizontal-align{
+    position: relative !important;
+  }
+  .form-contact{
+    margin-top: 1.5rem !important;
+    padding-top: 1.5rem !important;
+    border-top: 1px solid #efefef;
+  }
+  .panel-about{
+    text-align: center;
+  }
+}
+

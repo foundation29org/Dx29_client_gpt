@@ -1,0 +1,101 @@
+.navbar {
+  z-index: 3; // required to make the shadow overlap the below content (need is visible in mobile drawer overlay)
+  border: 0;
+  border-radius: 0;
+
+  .navbar-brand {
+    position: relative;
+  }
+
+  .navbar-nav{
+    display: block;
+    margin-right: -18px;
+    .dropdown-menu{
+      position: absolute;
+    }
+  }
+
+  .navbar-toggle{
+    background-color: transparent;
+    border: none;
+    .icon-bar{
+      background-color: inherit;
+      border: 1px solid;
+
+      & + .icon-bar{
+        margin-top: 4px;
+      }
+    }
+     
+       
+  }    
+
+  .notification{
+    position: absolute;
+    top:-1px;
+    right:13px;
+  }
+}
+
+@media (max-width: 767px) {    
+    //For responsive mega menu
+    #navbar-mobile.navbar-collapse {           
+        .navbar-nav {
+            margin: 0;
+            flex-flow: row wrap;
+            .dropdown-menu {
+                position: absolute;
+            }
+            .nav-item {
+                float: left;
+            }
+        }
+    }
+}
+
+/* For sm screen*/
+    @include media-breakpoint-down(md) {
+        .navbar-header {
+            width: 100% !important;                    
+        }      
+            .navbar-container {
+                width: 100%;
+                display: table;
+                padding: 0rem 1rem;
+                margin: 0;
+                height: auto;
+            }
+
+    }
+
+    // Media queries for device support
+// =========================================
+@include media-breakpoint-down(md) {
+    .header-navbar {        
+        .navbar-container {           
+            ul.navbar-nav {
+                li {
+                    float: right !important;                   
+                    > a.nav-link {
+                        padding: 0.5rem 0.5rem;                        
+                    } 
+                }
+            }
+        }
+    }
+}
+
+[dir="rtl"]{
+    @include media-breakpoint-down(md) {
+        .header-navbar {        
+            .navbar-container {           
+                ul.navbar-nav {
+                    li {
+                        float: left !important;                   
+                        
+                    }
+                }
+            }
+        }
+    }
+}

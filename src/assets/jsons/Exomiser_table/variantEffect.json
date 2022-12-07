@@ -1,0 +1,499 @@
+    {
+        "FRAMESHIFT_ELONGATION" : {
+            "name" : "Frameshift elongation",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001909",
+            "id" : "SO:0001909",
+            "desc" : "A frameshift variant that causes the translational reading frame to be extended relative to the reference feature (is a {@link #FRAMESHIFT_VARIANT}, internal_feature_elongation).",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "FRAMESHIFT_TRUNCATION" : {
+            "name" : "Frameshift truncation",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001910",
+            "id" : "SO:0001910",
+            "desc" : "A frameshift variant that causes the translational reading frame to be shortened relative to the reference feature (is a {@link #FRAMESHIFT_VARIANT}, internal_feature_truncation).",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "FRAMESHIFT_VARIANT" : {
+            "name" : "Frameshift variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001589",
+            "id" : "SO:0001589",
+            "desc" : "A sequence variant which causes a disruption of the translational reading frame, because the number of nucleotides inserted or deleted is not a multiple of three (is a: protein_altering_variant).\nUsed for frameshift variant for the case where there is no stop codon any more and the rare case in which the transcript length is retained.",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "INTERNAL_FEATURE_ELONGATION" : {
+            "name" : "Internal feature elongation",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001908",
+            "id" : "SO:0001908",
+            "desc" : "A sequence variant that causes the extension of a genomic feature from within the feature rather than from the terminus of the feature, with regard to the reference sequence.\nIn Jannovar, used to annotate a {@link #COMPLEX_SUBSTITUTION} that does not lead to a frameshift and increases the transcript length.",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "FEATURE_TRUNCATION" : {
+            "name" : "Feature truncation",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001906",
+            "id" : "SO:0001906",
+            "desc" : "A sequence variant that causes the reduction of a genomic feature, with regard to the reference sequence (is a: feature_variant).\nThe term INTERNAL_FEATURE_TRUNCATION would be more fitting but is not available in SO.\nIn Jannovar, used to annotate a {@link #COMPLEX_SUBSTITUTION} that does not lead to a frameshift and decreases the transcript length and structural variants.",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "TRANSCRIPT_AMPLIFICATION" : {
+            "name" : "Transcript amplification",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001880",
+            "id" : "SO:0001880",
+            "desc" : "A feature amplification of a region containing a transcript.\nIn Jannovar, used together with {@link #STRUCTURAL_VARIANT} to denote an SV copy number gain.",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "COPY_NUMBER_CHANGE" : {
+            "name" : "Copy number change",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001563",
+            "id" : "SO:0001563",
+            "desc" : "A sequence variant where copies of a feature (CNV) are either increased or decreased.\nIn Jannovar, used together with {@link #STRUCTURAL_VARIANT} to denote an SV copy number gain.",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "MNV" : {
+            "name" : "MNV",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002007",
+            "id" : "SO:0002007",
+            "desc" : "A MNV is a multiple nucleotide variant (substitution) in which the inserted sequence is the same length as the replaced sequence (is a: substitution).\nIn Jannovar, only used for marking MNVs in coding regions.",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "COMPLEX_SUBSTITUTION" : {
+            "name" : "Complex substitution",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:1000005",
+            "id" : "SO:1000005",
+            "desc" : "When no simple or well defined DNA mutation event describes the observed DNA change, the keyword \"complex\" should be used. Usually there are multiple equally plausible explanations for the change (is a: substitution).\nUsed together with {@link #INTERNAL_FEATURE_ELONGATION} or {@link #FEATURE_TRUNCATION} to describe an variant that does not lead to a frameshift but a changed transcript length. Used together with {@link #FRAMESHIFT_ELONGATION} or {@link #FRAMESHIFT_TRUNCATION} if the substitution leads to a frameshift variant.",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "STOP_GAINED" : {
+            "name" : "Stop gained",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001587",
+            "id" : "SO:0001587",
+            "desc" : "A sequence variant whereby at least one base of a codon is changed, resulting in a premature stop codon, leading to a shortened transcript (is a: nonsynonymous_variant, feature_truncation).",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "STOP_LOST" : {
+            "name" : "Stop lost",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001578",
+            "id" : "SO:0001578",
+            "desc" : "A sequence variant where at least one base of the terminator codon (stop) is changed, resulting in an elongated transcript (is a: nonsynonymous variant, terminator_codon_variant, feature_elongation).",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "START_LOST" : {
+            "name" : "Start lost",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002012",
+            "id" : "SO:0002012",
+            "desc" : "A codon variant that changes at least one base of the canonical start codon (is a: initiator_codon_variant).",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "SPLICE_ACCEPTOR_VARIANT" : {
+            "name" : "Splice acceptor variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001574",
+            "id" : "SO:0001574",
+            "desc" : "A splice variant that changes the 2 base region at the 3' end of an intron (is a {@link #SPLICE_REGION_VARIANT}).",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "SPLICE_DONOR_VARIANT" : {
+            "name" : "Splice donor variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001575",
+            "id" : "SO:0001575",
+            "desc" : "A splice variant that changes the 2 base pair region at the 5' end of an intron (is a {@link #SPLICE_REGION_VARIANT}).",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "RARE_AMINO_ACID_VARIANT" : {
+            "name" : "Rare amino acid variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002008",
+            "id" : "SO:0002008",
+            "desc" : "A sequence variant whereby at least one base of a codon encoding a rare amino acid is changed, resulting in a different encoded amino acid (children: selenocysteine_loss, pyrrolysine_loss).",
+            "impact" : "High",
+            "color" : "red"
+        },
+        "MISSENSE_VARIANT" : {
+            "name" : "Missense variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001583",
+            "id" : "SO:0001583",
+            "desc" : "A sequence variant, that changes one or more bases, resulting in a different amino acid sequence but where the length is preserved.",
+            "impact" : "Moderate",
+            "color" : "orange"
+        },
+        "INFRAME_INSERTION" : {
+            "name" : "Inframe insertion",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001821",
+            "id" : "SO:0001821",
+            "desc" : "An inframe non synonymous variant that inserts bases into in the coding sequence (is a: inframe_indel, internal_feature_elongation).",
+            "impact" : "Moderate",
+            "color" : "orange"
+        },
+        "DISRUPTIVE_INFRAME_INSERTION" : {
+            "name" : "Disruptive inframe insertion",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001824",
+            "id" : "SO:0001824",
+            "desc" : "An inframe increase in cds length that inserts one or more codons into the coding sequence within an existing codon (is a: {@link #INFRAME_INSERTION}).",
+            "impact" : "Moderate",
+            "color" : "orange"
+        },
+        "INFRAME_DELETION" : {
+            "name" : "Inframe deletion",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001822",
+            "id" : "SO:0001822",
+            "desc" : "An inframe non synonymous variant that deletes bases from the coding sequence (is a: inframe_indel, feature_truncation).",
+            "impact" : "Moderate",
+            "color" : "orange"
+        },
+        "DISRUPTIVE_INFRAME_DELETION" : {
+            "name" : "Disruptive inframe deletion",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001826",
+            "id" : "SO:0001826",
+            "desc" : "An inframe decrease in cds length that deletes bases from the coding sequence starting within an existing codon (is a: {@link #INFRAME_DELETION}).",
+            "impact" : "Moderate",
+            "color" : "orange"
+        },
+        "THREE_PRIME_UTR_TRUNCATION" : {
+            "name" : "3' UTR truncation",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002015",
+            "id" : "SO:0002015",
+            "desc" : "A sequence variant that causes the reduction of a the 3'UTR with regard to the reference sequence.",
+            "impact" : "Moderate",
+            "color" : "orange"
+        },
+        "FIVE_PRIME_UTR_TRUNCATION" : {
+            "name" : "5' UTR truncation",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002013",
+            "id" : "SO:0002013",
+            "desc" : "A sequence variant that causes the reduction of a the 5'UTR with regard to the reference sequence.",
+            "impact" : "Moderate",
+            "color" : "orange"
+        },
+        "SPLICE_REGION_VARIANT" : {
+            "name" : "Splice region variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001630",
+            "id" : "SO:0001630",
+            "desc" : "A sequence variant in which a change has occurred within the region of the splice site, either within 1-3 bases of the exon or 3-8 bases of the intron (is a: {@link #SPLICING_VARIANT}).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "STOP_RETAINED_VARIANT" : {
+            "name" : "Stop retained variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001567",
+            "id" : "SO:0001567",
+            "desc" : "A sequence variant where at least one base in the terminator codon is changed, but the terminator remains (is a: {@link #SYNONYMOUS_VARIANT}, terminator_codon_variant).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "INITIATOR_CODON_VARIANT" : {
+            "name" : "Initiator codon variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001582",
+            "id" : "SO:0001582",
+            "desc" : "A codon variant that changes at least one base of the first codon of a transcript (is a: {@link #CODING_SEQUENCE_VARIANT}, children: start_retained_variant, start_lost).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "SYNONYMOUS_VARIANT" : {
+            "name" : "Synonymous variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001819",
+            "id" : "SO:0001819",
+            "desc" : "A sequence variant where there is no resulting change to the encoded amino acid (is a: {@link #CODING_SEQUENCE_VARIANT}, children: start_retained_variant, stop_retained_variant).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "CODING_TRANSCRIPT_INTRON_VARIANT" : {
+            "name" : "Coding transcript intron variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001969",
+            "id" : "SO:0001969",
+            "desc" : "A sequence variant that changes non-coding intro sequence in a non-coding transcript (is a: {@link #CODING_TRANSCRIPT_VARIANT}, {@link #INTRON_VARIANT}).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "FIVE_PRIME_UTR_PREMATURE_START_CODON_GAIN_VARIANT" : {
+            "name" : "5' UTR premature start codon gain variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001983",
+            "id" : "SO:0001983",
+            "desc" : "A 5' UTR variant where a premature start codon is introduced, moved or lost (is a: {@link #FIVE_PRIME_UTR_EXON_VARIANT} or {@link #FIVE_PRIME_UTR_INTRON_VARIANT}).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "FIVE_PRIME_UTR_EXON_VARIANT" : {
+            "name" : "5' UTR exon variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002092",
+            "id" : "SO:0002092",
+            "desc" : "A UTR variant of the 5' UTR (is a: 5_prime_UTR_variant; is a: UTR_variant).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "THREE_PRIME_UTR_EXON_VARIANT" : {
+            "name" : "3' UTR exon variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002089",
+            "id" : "SO:0002089",
+            "desc" : "A UTR variant of the 3' UTR (is a: 3_prime_UTR_variant; is a: UTR_variant).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "FIVE_PRIME_UTR_INTRON_VARIANT" : {
+            "name" : "5' UTR intron variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002091",
+            "id" : "SO:0002091",
+            "desc" : "A UTR variant between 5' UTRs (is a: 5_prime_UTR_variant; is a: UTR_variant).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "THREE_PRIME_UTR_INTRON_VARIANT" : {
+            "name" : "3' UTR intron variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002090",
+            "id" : "SO:0002090",
+            "desc" : "A UTR variant between 3' UTRs (is a: 3_prime_UTR_variant; is a: UTR_variant).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "NON_CODING_TRANSCRIPT_EXON_VARIANT" : {
+            "name" : "Non coding transcript exon variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001792",
+            "id" : "SO:0001792",
+            "desc" : "A sequence variant that changes non-coding exon sequence in a non-coding transcript (is a: {@link #NON_CODING_TRANSCRIPT_VARIANT}, {@link #EXON_VARIANT}).",
+            "impact" : "Low",
+            "color" : "green"
+        },
+        "NON_CODING_TRANSCRIPT_INTRON_VARIANT" : {
+            "name" : "Non coding transcript intron variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001970",
+            "id" : "SO:0001970",
+            "desc" : "A sequence variant that changes non-coding intro sequence in a non-coding transcript (is a: {@link #NON_CODING_TRANSCRIPT_VARIANT}, {@link #INTRON_VARIANT}).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+
+        "DIRECT_TANDEM_DUPLICATION" : {
+            "name" : "Direct tandem duplication",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:1000039",
+            "id" : "SO:1000039",
+            "desc" : "A tandem duplication where the individual regions are in the same orientation (is a: tandem_duplication).\nIn Jannovar used, as an additional marker to describe that a duplication is a tandem duplication.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "MOBILE_ELEMENT_DELETION" : {
+            "name" : "Mobile element deletion",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002066",
+            "id" : "SO:0002066",
+            "desc" : "A deletion of a mobile element when comparing a reference sequence (has mobile element) to a individual sequence (does not have mobile element).\nIn Jannovar used, as an additional marker to describe that a deletion is a mobile element deletion.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "MOBILE_ELEMENT_INSERTION" : {
+            "name" : "Mobile element insertion",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001837",
+            "id" : "SO:0001837",
+            "desc" : "A kind of insertion where the inserted sequence is a mobile element.\nIn Jannovar used, as an additional marker to describe that an insertion is a mobile element insertion.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "UPSTREAM_GENE_VARIANT" : {
+            "name" : "Upstream gene variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001631",
+            "id" : "SO:0001631",
+            "desc" : "A sequence variant located 5' of a gene (is a: {@link #INTERGENIC_VARIANT}).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "DOWNSTREAM_GENE_VARIANT" : {
+            "name" : "Downstream gene variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001632",
+            "id" : "SO:0001632",
+            "desc" : "A sequence variant located 3' of a gene (is a: {@link #INTERGENIC_VARIANT}).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "INTERGENIC_VARIANT" : {
+            "name" : "Intergenic variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001628",
+            "id" : "SO:0001628",
+            "desc" : "A sequence variant located in the intergenic region, between genes (is a: feature_variant).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "TFBS_ABLATION" : {
+            "name" : "TFBS ablation",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001895",
+            "id" : "SO:0001895",
+            "desc" : "An ablation whereby the deleted region includes a transcription factor binding site.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "TFBS_AMPLIFICATION" : {
+            "name" : "TFBS amplification",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001892",
+            "id" : "SO:0001892",
+            "desc" : "An amplification of a region containing a transcription factor binding site.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "TF_BINDING_SITE_VARIANT" : {
+            "name" : "TF binding site variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001782",
+            "id" : "SO:0001782",
+            "desc" : "A sequence variant located within a transcription factor binding site (is a: {@link #REGULATORY_REGION_VARIANT}).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "REGULATORY_REGION_VARIANT" : {
+            "name" : "Regulatory region variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001566",
+            "id" : "SO:0001566",
+            "desc" : "A sequence variant located within a regulatory region (is a: feature_variant).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "REGULATORY_REGION_ABLATION" : {
+            "name" : "Regulatory region ablation",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001894",
+            "id" : "SO:0001894",
+            "desc" : "A feature ablation whereby the deleted region includes a regulatory region.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "REGULATORY_REGION_AMPLIFICATION" : {
+            "name" : "Regulatory region amplification",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001891",
+            "id" : "SO:0001891",
+            "desc" : "Amplification of a region containing a regulatory region.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "CONSERVED_INTRON_VARIANT" : {
+            "name" : "Conserved intron variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002018",
+            "id" : "SO:0002018",
+            "desc" : "A transcript variant occurring within a conserved region of an intron (is a: {@link #INTRON_VARIANT}).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "INTRAGENIC_VARIANT" : {
+            "name" : "Intragenic variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002011",
+            "id" : "SO:0002011",
+            "desc" : "A variant that occurs within a gene but falls outside of all transcript features. This occurs when alternate transcripts of a gene do not share overlapping sequence (is a: {@link #TRANSCRIPT_VARIANT}).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "CONSERVED_INTERGENIC_VARIANT" : {
+            "name" : "Conserved intergenic variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0002017",
+            "id" : "SO:0002017",
+            "desc" : "A sequence variant located in a conserved intergenic region, between genes (is a: {@link #INTERGENIC_VARIANT}).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "STRUCTURAL_VARIANT" : {
+            "name" : "Structural variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001537",
+            "id" : "SO:0001537",
+            "desc" : "A sequence variant that changes one or more sequence features (is a: sequence variant).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "CODING_SEQUENCE_VARIANT" : {
+            "name" : "Coding sequence variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001580",
+            "id" : "SO:0001580",
+            "desc" : "A sequence variant that changes the coding sequence (is a: {@link #CODING_TRANSCRIPT_VARIANT}, {@link #EXON_VARIANT}).\nSequence Ontology does <b>not</b> have a term for CODING_TRANSCRIPT_EXON_VARIANT, so we use this.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "INTRON_VARIANT" : {
+            "name" : "Intron variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001627",
+            "id" : "SO:0001627",
+            "desc" : "A transcript variant occurring within an intron (is a: {@link #TRANSCRIPT_VARIANT}).\nJannovar uses {@link #CODING_TRANSCRIPT_INTRON_VARIANT} and {@link #NON_CODING_TRANSCRIPT_INTRON_VARIANT} instead.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "EXON_VARIANT" : {
+            "name" : "Exon variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001791",
+            "id" : "SO:0001791",
+            "desc" : "A sequence variant that changes exon sequence (is a: {@link #TRANSCRIPT_VARIANT}).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "SPLICING_VARIANT" : {
+            "name" : "Splicing variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001568",
+            "id" : "SO:0001568",
+            "desc" : "A sequence variant that changes the process of splicing (is a: {@link #GENE_VARIANT}).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "MIRNA" : {
+            "name" : "miRNA",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0000276",
+            "id" : "SO:0000276",
+            "desc" : "Variant affects a miRNA (is a: miRNA_primary_transcript, small_regulatory_ncRNA).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "GENE_VARIANT" : {
+            "name" : "Gene variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001564",
+            "id" : "SO:0001564",
+            "desc" : "A sequence variant where the structure of the gene is changed (is a: feature_variant).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "CODING_TRANSCRIPT_VARIANT" : {
+            "name" : "Coding transcript variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001968",
+            "id" : "SO:0001968",
+            "desc" : "A transcript variant of a protein coding transcript (is a: {@link #TRANSCRIPT_VARIANT}).\nUsed, e.g., for marking SVs as affecting coding transcripts.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "NON_CODING_TRANSCRIPT_VARIANT" : {
+            "name" : "Non coding transcript variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001619",
+            "id" : "SO:0001619",
+            "desc" : "Used, e.g., for marking splicing variants as non-coding or SVs as affecting non-coding transcripts.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "TRANSCRIPT_VARIANT" : {
+            "name" : "Transcript variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001576",
+            "id" : "SO:0001576",
+            "desc" : "A sequence variant that changes the structure of the transcript.",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "INTERGENIC_REGION" : {
+            "name" : "Intergenic region",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0000605",
+            "id" : "SO:0000605",
+            "desc" : "A region containing or overlapping no genes that is bounded on either side by a gene, or bounded by a gene and the end of the chromosome (is a: biological_region).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "CHROMOSOME" : {
+            "name" : "Chromosome",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0000340",
+            "id" : "SO:0000340",
+            "desc" : "Structural unit composed of a nucleic acid molecule which controls its own replication through the interaction of specific proteins at one or more origins of replication (is a: replicon).",
+            "impact" : "Modifier",
+            "color" : "blue"
+        },
+        "SEQUENCE_VARIANT" : {
+            "name" : "Sequence variant",
+            "link" : "http://www.sequenceontology.org/browser/current_svn/term/SO:0001060",
+            "id" : "SO:0001060",
+            "desc" : "Top level term for variants, can be used for marking \"uknown effect\".",
+            "impact" : "Modifier",
+            "color" : "blue"
+        }
+    }

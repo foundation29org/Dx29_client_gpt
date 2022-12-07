@@ -1,0 +1,33 @@
+<!-- Navbar (Header) Starts -->
+<nav class="header-navbar navbar navbar-expand-lg navbar-light bg-faded" style="min-height: 3em;padding: 1.4em;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <img style="cursor:pointer;" class="logo-img" src='assets/img/logo-Dx29.png' routerLink="/."/>
+        </div>
+        <div class="navbar-container">
+            <div class="navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav m-r-0">
+                    <li class="nav-item mr-2">
+                        <a href="javascript:;" class="nav-link" routerLink="/.">
+                            <i class="ft-home font-medium-3 blue-grey darken-4"></i>
+                            <p class="d-none">Home</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right">
+                        <a class="nav-link position-relative colorlink" id="dropdownLang" ngbDropdownToggle>
+                            <i class="ft-flag font-medium-3 blue-grey darken-4 iconcolor"></i>
+                            <p class="d-none">{{'generics.Lang' | translate }}</p>
+                        </a>
+                        <div ngbDropdownMenu aria-labelledby="dropdownLang" class="dropdownLang">
+                            <a *ngFor="let lang of langs" class="dropdown-item py-1 lang" href="javascript:;" (click)="ChangeLanguage(lang.code)">
+                                <span>{{lang.name}}</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Navbar (Header) Ends -->

@@ -1,0 +1,7 @@
+{
+    "whitelist_variant": {
+        "name" : "Known pathogenic variant",
+        "desc" : "A variant that is known to be pathogenic in ClinVar.",
+        "color" : "red"
+    }
+}

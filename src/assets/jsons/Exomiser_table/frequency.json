@@ -1,0 +1,205 @@
+{
+    "THOUSAND_GENOMES": {
+        "name": "Thousand genomes",
+        "link": "http://www.1000genomes.org/"
+    },
+    "TOPMED": {
+        "name": "TOPMed",
+        "link": "https://www.nhlbi.nih.gov/science/trans-omics-precision-medicine-topmed-program"
+    },
+    "UK10K": {
+        "name": "UK 10K",
+        "link": "http://www.uk10k.org/"
+    },
+    "ESP_AFRICAN_AMERICAN": {
+        "name": "ESP - African American",
+        "nameShort": "African American",
+        "category": "NHLBI GO Exome Sequencing Project (ESP)",
+        "categoryShort": "ESP",
+        "link": "https://evs.gs.washington.edu/EVS/"
+    },
+    "ESP_EUROPEAN_AMERICAN": {
+        "name": "ESP - European",
+        "nameShort": "European",
+        "category": "NHLBI GO Exome Sequencing Project (ESP)",
+        "categoryShort": "ESP",
+        "link": "https://evs.gs.washington.edu/EVS/"
+    },
+    "ESP_ALL": {
+        "name": "ESP - All",
+        "nameShort": "All",
+        "category": "NHLBI GO Exome Sequencing Project (ESP)",
+        "categoryShort": "ESP",
+        "link": "https://evs.gs.washington.edu/EVS/"
+    },
+    "EXAC_AFRICAN_INC_AFRICAN_AMERICAN": {
+        "name": "ExAC - African",
+        "nameShort": "African",
+        "category": "ExAC",
+        "link": "http://exac.broadinstitute.org"
+    },
+    "EXAC_AMERICAN": {
+        "name": "ExAC - American",
+        "nameShort": "American",
+        "category": "ExAC",
+        "link": "http://exac.broadinstitute.org"
+    },
+    "EXAC_SOUTH_ASIAN": {
+        "name": "ExAC - South American",
+        "nameShort": "South American",
+        "category": "ExAC",
+        "link": "http://exac.broadinstitute.org"
+    },
+    "EXAC_EAST_ASIAN": {
+        "name": "ExAC - East Asian",
+        "nameShort": "East Asian",
+        "category": "ExAC",
+        "link": "http://exac.broadinstitute.org"
+    },
+    "EXAC_FINNISH": {
+        "name": "ExAC - Finnish",
+        "nameShort": "Finnish",
+        "category": "ExAC",
+        "link": "http://exac.broadinstitute.org"
+    },
+    "EXAC_NON_FINNISH_EUROPEAN": {
+        "name": "ExAC - European (non Finnish)",
+        "nameShort": "European (non Finnish)",
+        "category": "ExAC",
+        "link": "http://exac.broadinstitute.org"
+    },
+    "EXAC_OTHER": {
+        "name": "ExAC - Other",
+        "nameShort": "Other",
+        "category": "ExAC",
+        "link": "http://exac.broadinstitute.org"
+    },
+    "GNOMAD_E_AFR": {
+        "name": "gnomAD - E - African",
+        "nameShort": "African",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Exome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_E_AMR": {
+        "name": "gnomAD - E - American",
+        "nameShort": "American",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Exome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_E_ASJ": {
+        "name": "gnomAD - E - Ashkenazi Jewish",
+        "nameShort": "Ashkenazi Jewish",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Exome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_E_EAS": {
+        "name": "gnomAD - E - East Asian",
+        "nameShort": "East Asian",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Exome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_E_FIN": {
+        "name": "gnomAD - E - Finnish",
+        "nameShort": "Finnish",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Exome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_E_NFE": {
+        "name": "gnomAD - E - European (Non Finnish)",
+        "nameShort": "European (non Finnish)",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Exome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_E_OTH": {
+        "name": "gnomAD - E - Other",
+        "nameShort": "Other",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Exome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_E_SAS": {
+        "name": "gnomAD - E - South Asian",
+        "nameShort": "South Asian",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Exome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_G_AFR": {
+        "name": "gnomAD - Genome - African",
+        "nameShort": "African",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Genome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_G_AMR": {
+        "name": "gnomAD - Genome - American",
+        "nameShort": "American",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Genome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_G_ASJ": {
+        "name": "gnomAD - Genome - Ashkenazi Jewish",
+        "nameShort": "Ashkenazi Jewish",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Genome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_G_EAS": {
+        "name": "gnomAD - Genome - East Asian",
+        "nameShort": "East Asian",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Genome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_G_FIN": {
+        "name": "gnomAD - Genome - Finnish",
+        "nameShort": "Finnish",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Genome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_G_NFE": {
+        "name": "gnomAD - Genome - European (non Finnish)",
+        "nameShort": "European (non Finnish)",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Genome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_G_OTH": {
+        "name": "gnomAD - Genome - Other",
+        "nameShort": "Other",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Genome",
+        "link": "https://gnomad.broadinstitute.org/"
+    },
+    "GNOMAD_G_SAS": {
+        "name": "gnomAD - Genome - South Asian",
+        "nameShort": "South Asian",
+        "category": "Genome Aggregation Database (gnomAD)",
+        "categoryShort": "gnomAD",
+        "subcategory": "Genome",
+        "link": "https://gnomad.broadinstitute.org/"
+    }
+}

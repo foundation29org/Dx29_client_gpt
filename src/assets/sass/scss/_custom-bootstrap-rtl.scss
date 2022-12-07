@@ -1,0 +1,64 @@
+
+[dir="rtl"]{    
+// Margin and Padding
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $prop, $abbrev in (margin: m, padding: p) {
+      @each $size, $length in $spacers {
+
+        .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
+        .#{$abbrev}r#{$infix}-#{$size},
+        .#{$abbrev}x#{$infix}-#{$size} {
+          #{$prop}-left: $length !important;
+          #{$prop}-right: auto !important;
+        }        
+        .#{$abbrev}l#{$infix}-#{$size},
+        .#{$abbrev}x#{$infix}-#{$size} {
+          #{$prop}-right: $length !important;
+          #{$prop}-left: auto !important;
+        }
+      }
+    }
+   
+  }
+}
+
+// stylelint-disable declaration-no-important
+
+//
+// Border
+//
+
+.border-right   { border-left: $border-width solid $border-color !important; }
+.border-left    { border-right: $border-width solid $border-color !important; }
+
+.border-right-0  { border-left: 0 !important; }
+.border-left-0   { border-right: 0 !important; }
+
+//
+// Lists
+//
+
+.list-inline-item { 
+  &:not(:last-child) {
+    margin-left: $list-inline-padding;
+    margin-right: auto;
+  }
+}
+
+dd { 
+  margin-left: auto;
+  margin-right: 0; // Undo browser default
+}
+
+.pull-right {
+    float: left !important;
+}
+.pull-left {
+    float: right !important;
+}
+
+}

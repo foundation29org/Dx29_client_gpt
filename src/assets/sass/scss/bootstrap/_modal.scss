@@ -1,0 +1,15 @@
+// Modals
+// https://www.google.com/design/spec/components/dialogs.html#dialogs-specs
+
+.modal-content {
+  border-radius: $border-radius;
+  .modal-footer {
+    .btn {
+      margin: 0;
+    }
+
+    .btn + .btn {
+      margin-left: 8px;
+    }
+  }
+}

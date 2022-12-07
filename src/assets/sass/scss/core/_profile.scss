@@ -1,0 +1,87 @@
+#user-profile {
+  .profile-with-cover {
+      position: relative;
+    .profil-cover-details {
+        margin-top: -50px;
+        .profile-image {
+          img.img-border{
+            border: 5px solid #fff;
+          }
+        }
+    }
+    .profile-cover-buttons{
+      position: absolute;
+      top: 250px;
+      right: 0;
+    }
+  }
+}
+.profile-section {
+  .profile-menu {
+    position: relative;
+    top: -30px;
+    padding-bottom: 0;
+    padding-left: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-content: space-around;
+    li {
+      a {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  #user-profile {
+    .profile-section {
+      .profile-menu {
+        top: 0px;
+      }
+    }
+    .profile-with-cover {
+      .profile-cover-buttons{       
+        top: 15px;
+        right: 0;
+      }
+    }
+
+    h3.card-title{
+      font-size: 1rem;
+    }
+
+  }
+}
+
+[dir="rtl"]{
+  #user-profile {
+    .profile-with-cover {   
+      .profile-cover-buttons{    
+        left: 0;
+        right: auto;
+      }
+    }
+  }
+  .profile-section {
+    .profile-menu {
+      padding-right: 15px;
+      padding-left: auto;
+    }
+  }
+
+  @media (max-width: 550px) {
+    #user-profile {    
+      .profile-with-cover {
+        .profile-cover-buttons{ 
+          left: 0;
+          right: auto;
+        }
+      }
+    }
+  }
+}
