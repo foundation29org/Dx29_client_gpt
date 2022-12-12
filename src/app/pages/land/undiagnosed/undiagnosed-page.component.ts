@@ -644,7 +644,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     callOpenAi(){
         //var resp= {"id":"cmpl-6MfILJTSmgXJK0pXe4YYpsFST9SjE","object":"text_completion","created":1670859973,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive inflammation and atrophy of one hemisphere of the brain, resulting in seizures, paralysis, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by a port-wine stain on the face, seizures, and progressive neurological decline. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by seizures, spasticity, and cognitive decline. \n4. West Syndrome (5%): A rare neurological disorder characterized by infantile spasms, developmental delay, and cognitive decline. \n5. Alexander Disease (2%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":157,"total_tokens":217}}
-        let resp= {"id":"cmpl-6MfFhhtrDO88K3e4dnJzxsUskRjZX","object":"text_completion","created":1670859809,"model":"text-davinci-003","choices":[{"text":".\n\n1. Síndrome de Rasmussen (50%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos, hemiplejía progresiva y deterioro cognitivo.\n\n2. Síndrome de Aicardi (25%): Hemiplejía progresiva, epilepsia focal resistente a los medicamentos y deterioro cognitivo.\n\n3. Síndrome de Landau-Kleffner (15%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos y deterioro cognitivo.\n\n4. Síndrome de West (10%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos y hemiplejía progresiva.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":107,"completion_tokens":185,"total_tokens":292}}
+        /*let resp= {"id":"cmpl-6MfFhhtrDO88K3e4dnJzxsUskRjZX","object":"text_completion","created":1670859809,"model":"text-davinci-003","choices":[{"text":".\n\n1. Síndrome de Rasmussen (50%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos, hemiplejía progresiva y deterioro cognitivo.\n\n2. Síndrome de Aicardi (25%): Hemiplejía progresiva, epilepsia focal resistente a los medicamentos y deterioro cognitivo.\n\n3. Síndrome de Landau-Kleffner (15%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos y deterioro cognitivo.\n\n4. Síndrome de West (10%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos y hemiplejía progresiva.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":107,"completion_tokens":185,"total_tokens":292}}
 
           let parseChoices = resp.choices[0].text.split("\n");
           let test = resp.choices[0].text.charAt(0)
@@ -661,9 +661,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
           this.substepExtract = '4';
           this.currentStep = this.steps[1];
           this.callingOpenai = false;
-          window.scrollTo(0, 0);
+          window.scrollTo(0, 0);*/
         // call api POST openai
-       /* console.log(this.lang);
+        console.log(this.lang);
        this.callingOpenai = true;
         var introText = 'Build an ordered list of rare diseases based on this medical description and order this list by probability. Indicates the probability with a percentage. \n '
         if(this.lang=='es'){
@@ -692,7 +692,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             }, (err) => {
                 console.log(err);
                 this.callingOpenai = false;
-            }));*/
+            }));
 
     }
 
