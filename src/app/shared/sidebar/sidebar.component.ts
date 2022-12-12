@@ -200,7 +200,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
         title: this.translate.instant("diagnosis.wizardquestionlaunch"),
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#33658a',
+        confirmButtonColor: '#00B4CC',
         cancelButtonColor: '#B0B6BB',
         confirmButtonText: this.translate.instant("generics.Yes"),
         cancelButtonText: this.translate.instant("generics.No"),

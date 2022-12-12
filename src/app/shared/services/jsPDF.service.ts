@@ -44,7 +44,7 @@ export class jsPDFService {
         // Cabecera inicial
         var img_logo = new Image();
         img_logo.src = "assets/img/logo-Dx29.png"
-        doc.addImage(img_logo, 'png', 20, 10, 29, 17);
+        doc.addImage(img_logo, 'png', 20, 10, 39, 27);
         doc.setFont(undefined, 'normal');
         doc.setFontSize(10);
         var actualDate = new Date();
@@ -871,17 +871,17 @@ export class jsPDFService {
         // Cabecera inicial
         var img_logo = new Image();
         img_logo.src = "assets/img/logo-Dx29.png"
-        doc.addImage(img_logo, 'png', 20, 10, 29, 17);
+        doc.addImage(img_logo, 'png', 10, 13, 54, 16);
         doc.setFont(undefined, 'normal');
         doc.setFontSize(10);
         var actualDate = new Date();
         var dateHeader = this.getFormatDate(actualDate);
         if(lang=='es'){
-            this.writeHeader(doc, 89, 2, this.translate.instant("land.diagnosed.timeline.RegDate"));
-            this.writeDataHeader(doc, 82, 7, dateHeader);
+            this.writeHeader(doc, 89, 0, this.translate.instant("land.diagnosed.timeline.RegDate"));
+            this.writeDataHeader(doc, 82, 5, dateHeader);
         }else{
-            this.writeHeader(doc, 93, 2, this.translate.instant("land.diagnosed.timeline.RegDate"));
-            this.writeDataHeader(doc, 88, 7, dateHeader);
+            this.writeHeader(doc, 93, 0, this.translate.instant("land.diagnosed.timeline.RegDate"));
+            this.writeDataHeader(doc, 88, 5, dateHeader);
         }
 
        //Add QR
