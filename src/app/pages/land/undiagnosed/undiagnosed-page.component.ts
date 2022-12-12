@@ -198,16 +198,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
         this.getLocationInfo();
         this.loadSponsors();
-        this.initQuestions();
     }
 
     initQuestions(){
         this.questions = [
-            {id: 1, question: 'What are the common symptoms for'},
-            {id: 2, question: 'Give me more information for'},
-            {id: 3, question: 'There are clinical trials for'},
-            {id: 4, question: 'There are patient organizations for'}
+            {id: 1, question: this.translate.instant("land.q1")},
+            {id: 2, question: this.translate.instant("land.q2")},
+            {id: 3, question: this.translate.instant("land.q3")},
+            {id: 4, question: this.translate.instant("land.q4")}
         ];
+
+        window.scrollTo(0, 0);
     }
 
 
@@ -257,6 +258,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.currentStep = this.steps[foundElementIndex - 1];
         console.log(this.currentStep)
         document.getElementById('initsteps').scrollIntoView(true);
+        this.clearText();
     }
 
     navigate(step){
@@ -331,13 +333,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.eventsService.on('changelang', function (lang) {
             this.lang = lang;
             this.modelTemp = '';
-            if (this.temporalSymptoms.length > 0 && this.originalLang != lang) {
+            if (this.currentStep.stepIndex == 2 && this.originalLang != lang) {
                 Swal.fire({
                     title: this.translate.instant("land.Language has changed"),
                     text: this.translate.instant("land.Do you want to start over"),
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#33658a',
+                    confirmButtonColor: '#00B4CC',
                     cancelButtonColor: '#B0B6BB',
                     confirmButtonText: this.translate.instant("generics.Yes"),
                     cancelButtonText: this.translate.instant("generics.No"),
@@ -350,11 +352,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         this.restartInitVars();
                         this.loadTranslations();
                         this.currentStep = this.steps[0];
-                        this.focusTextArea();
+                        //this.focusTextArea();
                     } else {
 
                     }
                 });
+            }else{
+                this.loadTranslations();
             }
         }.bind(this));
     }
@@ -368,8 +372,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             this.steps[1].title = res;
             console.log(this.steps);
             this.showDisclaimer();
+            this.initQuestions();
         });
-        
     }
 
     showDisclaimer(){
@@ -407,7 +411,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
       }
 
     ngAfterViewInit() {
-        this.focusTextArea();
+        //this.focusTextArea();
     }
 
     ngOnDestroy() {
@@ -540,7 +544,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     text: self.translate.instant("parser.OcrOnlyText"),
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#33658a',
+                    confirmButtonColor: '#00B4CC',
                     cancelButtonColor: '#B0B6BB',
                     confirmButtonText: self.translate.instant("generics.Yes"),
                     cancelButtonText: self.translate.instant("generics.No"),
@@ -580,7 +584,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         text: this.translate.instant("patdiagdashboard.Analyzed as") + '" "' + lang + '", "' + this.translate.instant("patdiagdashboard.detected as") + '" "' + res[0].language + '". "' + this.translate.instant("patdiagdashboard.do you want us to do it"),
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#33658a',
+                        confirmButtonColor: '#00B4CC',
                         cancelButtonColor: '#B0B6BB',
                         confirmButtonText: this.translate.instant("generics.Yes"),
                         cancelButtonText: this.translate.instant("generics.No"),
@@ -624,10 +628,29 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
 
-    callOpenAi(){
-        /*var resp= {"id":"cmpl-6MaZL7TA5SqqMMqgrzDnDWmNCEAKT","object":"text_completion","created":1670841807,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive inflammation and atrophy of one hemisphere of the brain, resulting in seizures, paralysis, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by a port-wine stain on the face, seizures, and progressive neurological decline. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by seizures, spasticity, and cognitive decline. \n4. Alexander Disease (5%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline. \n5. Leigh Syndrome (5%): A rare neurological disorder characterized by progressive brain and muscle degeneration, seizures, and cognitive decline. \n6. Canavan Disease (2%): A rare neurological disorder characterized by progressive brain degeneration, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":186,"total_tokens":246}}
+    copyText(par){
+        if(par=='opt1'){
+            this.medicalText = this.translate.instant("land.p1.1")
+        }else{
+            this.medicalText = this.translate.instant("land.p1.2")
+        }
+        console.log(this.medicalText);
+        this.focusTextArea();
+    }
 
-          var parseChoices = resp.choices[0].text.split("\n");
+    clearText(){
+        this.medicalText = '';
+    }
+
+    callOpenAi(){
+        //var resp= {"id":"cmpl-6MfILJTSmgXJK0pXe4YYpsFST9SjE","object":"text_completion","created":1670859973,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive inflammation and atrophy of one hemisphere of the brain, resulting in seizures, paralysis, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by a port-wine stain on the face, seizures, and progressive neurological decline. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by seizures, spasticity, and cognitive decline. \n4. West Syndrome (5%): A rare neurological disorder characterized by infantile spasms, developmental delay, and cognitive decline. \n5. Alexander Disease (2%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":157,"total_tokens":217}}
+        let resp= {"id":"cmpl-6MfFhhtrDO88K3e4dnJzxsUskRjZX","object":"text_completion","created":1670859809,"model":"text-davinci-003","choices":[{"text":".\n\n1. Síndrome de Rasmussen (50%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos, hemiplejía progresiva y deterioro cognitivo.\n\n2. Síndrome de Aicardi (25%): Hemiplejía progresiva, epilepsia focal resistente a los medicamentos y deterioro cognitivo.\n\n3. Síndrome de Landau-Kleffner (15%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos y deterioro cognitivo.\n\n4. Síndrome de West (10%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos y hemiplejía progresiva.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":107,"completion_tokens":185,"total_tokens":292}}
+
+          let parseChoices = resp.choices[0].text.split("\n");
+          let test = resp.choices[0].text.charAt(0)
+          if(test=='.'){
+                parseChoices.shift();
+          }
           this.topRelatedConditions = [];
           for (let i = 0; i < parseChoices.length; i++) {
             if(parseChoices[i]!=''){
@@ -636,18 +659,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
           }
           console.log(this.topRelatedConditions);
           this.substepExtract = '4';
-                this.currentStep = this.steps[1];
-                this.callingOpenai = false;
-             */   
-
+          this.currentStep = this.steps[1];
+          this.callingOpenai = false;
+          window.scrollTo(0, 0);
         // call api POST openai
+       /* console.log(this.lang);
        this.callingOpenai = true;
         var introText = 'Build an ordered list of rare diseases based on this medical description and order this list by probability. Indicates the probability with a percentage. \n '
+        if(this.lang=='es'){
+            introText = 'Construye una lista ordenada de enfermedades raras basada en esta descripción médica y ordena esta lista por probabilidad. Indica la probabilidad con un porcentaje. \n '
+        }
         var value = {value: introText+ "Symptoms: "+this.medicalText}
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
                 console.log(res);
-                var parseChoices = res.choices[0].text.split("\n");
+                let parseChoices = res.choices[0].text.split("\n");
+                let test = res.choices[0].text.charAt(0)
+                if(test=='.'){
+                        parseChoices.shift();
+                }
                 this.topRelatedConditions = [];
                 for (let i = 0; i < parseChoices.length; i++) {
                     if(parseChoices[i]!=''){
@@ -658,10 +688,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 this.substepExtract = '4';
                 this.currentStep = this.steps[1];
                 this.callingOpenai = false;
+                window.scrollTo(0, 0);
             }, (err) => {
                 console.log(err);
                 this.callingOpenai = false;
-            }));
+            }));*/
+
     }
 
     showQuestion(question){
@@ -811,7 +843,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                                 text: this.translate.instant("land.Do you want to add the symptoms manually"),
                                 icon: 'warning',
                                 showCancelButton: true,
-                                confirmButtonColor: '#33658a',
+                                confirmButtonColor: '#00B4CC',
                                 cancelButtonColor: '#B0B6BB',
                                 confirmButtonText: this.translate.instant("land.add the symptoms manually"),
                                 cancelButtonText: this.translate.instant("land.try again"),
@@ -1015,7 +1047,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             title: this.translate.instant("generics.Are you sure delete") + " " + this.temporalSymptoms[index].name + " ?",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#33658a',
+            confirmButtonColor: '#00B4CC',
             cancelButtonColor: '#B0B6BB',
             confirmButtonText: this.translate.instant("generics.Accept"),
             cancelButtonText: this.translate.instant("generics.Cancel"),
@@ -1319,7 +1351,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.medicalText = '';
         this.substepExtract = '0';
         this.restartAllVars();
-        this.focusTextArea();
+        //this.focusTextArea();
     }
 
     getPlainInfoSymptoms() {
@@ -1398,7 +1430,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         //split number on string like 1.dravet 2.duchenne
         this.selectedDisease = this.topRelatedConditions[this.selectedInfoDiseaseIndex].split(/\d+\./)[1];
         //split ( on selected disease
-        this.selectedDisease = this.selectedDisease.split('(')[0];
+        this.selectedDisease = this.selectedDisease.split(' (')[0];
 
     }
 
@@ -1419,7 +1451,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             title: this.translate.instant("generics.Are you sure delete") + " " + this.topRelatedConditions[index] + " ?",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#33658a',
+            confirmButtonColor: '#00B4CC',
             cancelButtonColor: '#B0B6BB',
             confirmButtonText: this.translate.instant("generics.Accept"),
             cancelButtonText: this.translate.instant("generics.Cancel"),

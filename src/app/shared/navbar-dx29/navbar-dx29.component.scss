@@ -9,7 +9,7 @@
 }
 
 .logo-img {
-  width: 80px;
+  width: 250px;
 }
 
 .custom-navbar{
@@ -57,7 +57,7 @@ i{
     }
 
     .logo-img{
-      width: 60px;
+      width: 180px;
     }
 
     .text-logo{
@@ -93,35 +93,6 @@ i{
     display: block;
     position: inherit;
   }
-
-}
-
-@media (max-width: 412px) {
-  .logo-img{
-    width: 40px;
-  }
-  .navbar-toggle{
-    margin-top: 0rem !important;
-  }
-
-}
-
-@media (max-width: 400px) {
-  
-  .btn-navbar{
-    padding: 0.175rem 0.35rem;
-  }
-  .logo-img{
-    width: 40px;
-    display: none;
-  }
-  .navbar .navbar-nav{
-    display: -webkit-box !important;
-  }
-  
-  .navbar .container, .navbar .container-fluid, .navbar .container-sm, .navbar .container-md, .navbar .container-lg, .navbar .container-xl {
-    flex-wrap: initial !important;
-}
 
 }
 

@@ -7,46 +7,47 @@
               <div class="row center-elements pad-logos">
                 <div class="col-md-4 mb-3 p-4">
                   <em class="fa fa-sun-o fa-2x"></em>
-                  <h4 class="mt-2">Examples</h4>
-                  <div class="card custom-card-1 p-2">
-                    <span>The patient is thirteen months old. First focal seizure at three months. Multiple tonic-clonic seizures. Febrile seizures. One status epilepticus at eight months. A hemiconvulsion at nine months.</span>
+                  <h4 class="mt-2">{{'land.p1.title' | translate }}</h4>
+                  <div class="card custom-card-1 custom-card-2 p-2 pointer" (click)="copyText('opt1')">
+                    <span>{{'land.p1.1' | translate }}</span> <em class="fa-solid fa-arrow-right-long"></em>
                   </div>
-                  <div class="card custom-card-1 p-2">
-                    <span>Girl. 11 years. unilateral hemispheric atrophy, associated with drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline</span>
+                  <div class="card custom-card-1 custom-card-2 p-2 pointer" (click)="copyText('opt2');">
+                    <span>{{'land.p1.2' | translate }}</span> <em class="fa-solid fa-arrow-right-long"></em>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3 p-4">
                   <em class="fa fa-rocket fa-2x"></em>
-                  <h4 class="mt-2">Capabilities</h4>
+                  <h4 class="mt-2">{{'land.p2.title' | translate }}</h4>
                   <div class="card custom-card-1 p-2">
-                    <span>Provide explanation for proposed condition</span>
+                    <span>{{'land.p2.1' | translate }}</span>
                   </div>
                   <div class="card custom-card-1 p-2">
-                    <span>Allows user to provide follow-up corrections</span>
+                    <span>{{'land.p2.2' | translate }}</span>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3 p-4">
                   <em class="fa fa-exclamation-triangle fa-2x"></em>
-                  <h4 class="mt-2">Limitations</h4>
+                  <h4 class="mt-2">{{'land.p3.title' | translate }}</h4>
                   <div class="card custom-card-1 p-2">
-                    <span>May occasionally generate incorrect information</span>
+                    <span>{{'land.p3.1' | translate }}</span>
                   </div>
                   <div class="card custom-card-1 p-2">
-                    <span>Cannot be used for diagnosis without human supervision</span>
+                    <span>{{'land.p3.2' | translate }}</span>
                   </div>
                 </div>
               </div>
   
               <div class="row mb-5 m-0">
-                <div class="col-md-12 justify-content-center align-items-center text-center">
+                <div class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
                   <!--copy input control gpt websites-->
                   <div class="search">
-                    <input #inputTextArea type="text" class="searchTerm" [(ngModel)]="medicalText" name="medicalText" placeholder="Type here!" (keyup.enter)="callOpenAi()">
+                    <input #inputTextArea type="text" class="searchTerm" [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}" (keyup.enter)="callOpenAi()">
                     <button type="submit" class="searchButton" [disabled]="callingOpenai" (click)="callOpenAi();" [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
                      <em *ngIf="!callingOpenai" class="fa fa-search"></em>
                      <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
                     </button>
                   </div>
+                  <span *ngIf="medicalText.length>0" class="text-muted pointer" (click)="clearText()">{{'generics.Delete' | translate }}</span>
                 </div>
                 <!--<div class="col-md-12 align-items-center text-center">
                   <div class="form-steps-container">
@@ -68,7 +69,7 @@
   </section>
   <section *ngIf="currentStep.stepIndex == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8">
     <div class="mt-2 row">
-      <div class="col-12 pt-3 pb-3">
+      <div class="col-12 pt-3">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
             <div [ngClass]="(substepExtract!='4')?'gray-background':'light-background'" style="min-height:0px;">
@@ -119,7 +120,7 @@
                               <td class="col-md-12" id="{{disease.id}}">
                                 <span class="float-right ml-1">
                                   <button (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
-                                  class="btn-outline-secondary btn btn-sm mr-1 mb-0 btn-fab round"
+                                  class="btn-outline-info btn btn-sm mr-1 mb-0 btn-fab round"
                                   title="{{'generics.More information' | translate }} ({{disease.id}})">
                                   <em class="fa fa-info w-13"></em>
                                 </button>
@@ -141,11 +142,11 @@
                   </div>
             </div>
           </span>
-          <span class="col-md-12 p-1 footer-symtoms center-elements" *ngIf="topRelatedConditions.length>0">
-            <button type="button" class="mt-2 ml-2 btn round bt-nav" (click)="goPrevious()" [class.cursor-not-allowed]="currentStep.stepIndex==1" [disabled]="currentStep.stepIndex==1" [ngClass]="(currentStep.stepIndex!=1)?'btn-info':'btn-secondary'">{{'generics.Back' | translate }}</button>
-          </span>
         </div>
       </div>
+      <span class="col-md-12 center-elements" *ngIf="topRelatedConditions.length>0">
+        <button type="button" class="btn round bt-nav" (click)="goPrevious()" [class.cursor-not-allowed]="currentStep.stepIndex==1" [disabled]="currentStep.stepIndex==1" [ngClass]="(currentStep.stepIndex!=1)?'btn-info':'btn-secondary'">{{'generics.Back' | translate }}</button>
+      </span>
     </div>
   </section>
 </div>
@@ -290,20 +291,20 @@
     </button>
   </div>
   <div class="modal-body content-wrapper p-2 mt-2">
-    <h6>Select a question:</h6>
+    <h6><strong>{{'land.Select a question' | translate }}:</strong></h6>
     <!--Shows a list of selectable panels-->
     <div class="list-group">
       <a href="#" class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
         (click)="showQuestion(question)" [disabled]="loadingAnswerOpenai">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{{question.question}} {{ selectedDisease }}</h5>
+          <h5 class="mb-1">{{question.question}} {{ selectedDisease }}?</h5>
         </div>
       </a>
       <div *ngIf="loadingAnswerOpenai" class="mt-3">
         <em class="fa fa-spinner fa-2x fa-spin fa-fw"></em>
       </div>
       <div *ngIf="!loadingAnswerOpenai && answerOpenai!=''" class="mt-3">
-        <h6>Answer:</h6>
+        <h6><strong>{{'land.Answer' | translate }}:</strong></h6>
         <p>
           {{answerOpenai}}
         </p>
@@ -312,7 +313,7 @@
   </div>
   <div class="modal-footer">
     <div class="col-md-12 center-elements">
-      <button type="button" class="btn btn-info round" (click)="closeDiseaseUndiagnosed()">{{'generics.Close' | translate }}</button>
+      <button type="button" class="btn btn-info bt-nav round" (click)="closeDiseaseUndiagnosed()">{{'generics.Close' | translate }}</button>
     </div>
   </div>
 </ng-template>
@@ -340,7 +341,7 @@
       </div>
       <div class="modal-footer row">
           <div class="form-actions col-md-12 center-elements">
-                  <button type="button" class="btn round btn-info" (click)="c('Close click');">{{'generics.Close' | translate }}</button>
+                  <button type="button" class="btn round btn-info bt-nav" (click)="c('Close click');">{{'generics.Close' | translate }}</button>
           </div>
       </div>
 </ng-template>
