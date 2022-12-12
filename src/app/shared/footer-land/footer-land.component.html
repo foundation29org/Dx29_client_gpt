@@ -69,9 +69,9 @@
             </div>
             <div *ngIf="!sending" class="center-elements">
               <div *ngIf="f.valid;then formValid else formError"></div>
-              <ng-template #formValid><button class="btn btn-primary round" type="submit"> {{'support.Send' |
+              <ng-template #formValid><button class="btn btn-info round" type="submit"> {{'support.Send' |
                   translate }}</button></ng-template>
-              <ng-template #formError><button class="btn btn-primary round" type="button"
+              <ng-template #formError><button class="btn btn-info round" type="button"
                   (click)="submitInvalidForm()"> {{'support.Send' | translate }}</button></ng-template>
             </div>
             <div class="form-actions" *ngIf="sending" class="center-elements">
