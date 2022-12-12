@@ -1,6 +1,5 @@
-<section style="padding-bottom: 70px !important;">
+<section class="white" style="padding-bottom: 70px !important;padding-top: 70px !important;background-color: #353540;">
   <div class="col-12 d-flex justify-content-center">
-    <img class="img-2 " src="assets/img/land/road.png" />
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
         <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
@@ -8,7 +7,7 @@
             {{'land.aboutUs.title' | translate }}
             <hr class="hr-custom">
           </h1>
-          <span class="row margin-left-0 p-2 offset-md-2 col-md-8" style="background: #fff;">
+          <span class="row margin-left-0 p-2 offset-md-2 col-md-8">
             <p>{{'land.aboutUs.p1' | translate }}</p>
             <p>{{'land.aboutUs.p2' | translate }}</p>
             <p>{{'land.aboutUs.p3' | translate }}</p>
@@ -19,8 +18,8 @@
               </div>
               <div *ngIf="!sending" class="mt-2">
                 <div *ngIf="f.valid;then formValid else formError"></div>
-                <ng-template #formValid><button class="btn btn-primary btn-lg round" (click)="onSubmitRevolution();lauchEvent('Home - Submit Revolution');"><strong>{{'land.aboutUs.Sign up' | translate }}</strong></button></ng-template>
-                <ng-template #formError><button class="btn btn-primary btn-lg round" type="button" (click)="submitInvalidForm()"><strong>{{'land.aboutUs.Sign up' | translate }}</strong></button></ng-template>
+                <ng-template #formValid><button class="btn btn-info btn-lg round" (click)="onSubmitRevolution();lauchEvent('Home - Submit Revolution');"><strong>{{'land.aboutUs.Sign up' | translate }}</strong></button></ng-template>
+                <ng-template #formError><button class="btn btn-info btn-lg round" type="button" (click)="submitInvalidForm()"><strong>{{'land.aboutUs.Sign up' | translate }}</strong></button></ng-template>
               </div>
               <div class="form-actions" *ngIf="sending">
                   <span ><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
@@ -33,7 +32,7 @@
 </div>
 </section>
 
-<section style="padding-bottom: 70px !important;">
+<section style="padding-bottom: 70px !important;padding-top: 70px !important;">
   <div class="col-12 d-flex justify-content-center">
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
@@ -135,13 +134,12 @@
         </div>
       </div>
     </div>
-    <button class="mb-0 mt-2 btn btn-primary round btn-lg" (click)="registerToDx29()"><strong>{{'land.swal.button' |
+    <button class="mb-0 mt-2 btn btn-info round btn-lg" (click)="registerToDx29()"><strong>{{'land.swal.button' |
       translate }}</strong></button>
   </div>
 </section>
-<section style="padding-bottom: 70px !important;">
+<section class="white" style="padding-bottom: 70px !important;padding-top: 70px !important;background-color: #353540;">
   <div class="col-12 d-flex justify-content-center">
-    <img class="img-2 " src="assets/img/land/f29.png" />
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
         <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
@@ -149,7 +147,7 @@
             {{'land.aboutUs.titlef29' | translate }}
             <hr class="hr-custom">
           </h1>
-          <span class="row p-2 margin-left-0 offset-md-2 col-md-8" style="background: #fff;">
+          <span class="row p-2 margin-left-0 offset-md-2 col-md-8">
             <p>{{'land.aboutUs.p1f29' | translate }}</p>
             <p>{{'land.aboutUs.p2f29' | translate }}</p>
             <p>{{'land.aboutUs.p3f29' | translate }}</p>
@@ -159,7 +157,7 @@
         <div class="col-lg-12 col-md-12 py-2">
           <div class="col-md-12">
             <div class="center-elements">
-              <button (click)="lauchEvent('Info foundation29');openWeb();" class="mt-2 mr-2 ml-2 btn btn-primary btn-lg round mb-1"
+              <button (click)="lauchEvent('Info foundation29');openWeb();" class="mt-2 mr-2 ml-2 btn btn-info btn-lg round mb-1"
                     type="button"><strong>{{'land.aboutUs.Who are we' | translate }}</strong>
               </button>
             </div>
@@ -170,7 +168,7 @@
 </div>
 </section>
 
-<section style="padding-bottom: 30px !important;" class="d-none d-sm-block">
+<section style="padding-bottom: 30px !important;padding-top: 70px !important;" class="d-none d-sm-block">
   <img class="img-3" src="assets/img/land/last.jpg" />
   <div class="col-12 d-flex justify-content-center">
     <div class="card-body" style="max-width: 1200px;">
@@ -286,7 +284,7 @@
   </div>
 </section>
 
-<section style="padding-bottom: 30px !important;" class="d-none d-sm-block">
+<section style="padding-top: 70px !important;" class="d-none d-sm-block">
   <img class="img-3" src="assets/img/land/last.jpg" />
   <div class="col-12 d-flex justify-content-center">
     <div class="card-body" style="max-width: 1200px;">
