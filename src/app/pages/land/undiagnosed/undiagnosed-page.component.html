@@ -1,289 +1,155 @@
 <a id="initsteps" class="anchorSteps"></a>
-<section>
-  <div class="mt-2 row m-0">
-    <div class="col-12">
-          <div class="card-body">
-            <ngb-alert type="warning" class="mb-2" [dismissible]="false" *ngIf="lang=='es'">
-              <div class="center-elements">
-                <span [innerHTML]="'InfoSystem.Spanishtranslations2' | translate"></span>
-              </div>
-            </ngb-alert>
-            <div class="row m-0">
-              <div class="col-lg-12 justify-content-center align-items-center text-center">    
-                <h1 class="card-title mb-0 text-bold-500">
-                  <span>{{'land.title' | translate }}</span>
-                  <hr class="hr-custom">
-                </h1>
-                
-                <p [innerHTML]="'land.subtitle' | translate"></p>
-              </div>
-              <div class="col-md-12 align-items-center text-center">
-                <div class="form-steps-container">
-                  <span *ngFor="let step of steps; let i = index;" class="forstep" (click)="navigate(step)" [ngClass]="{ 'pointer': (step.stepIndex != currentStep.stepIndex )}">
-                      <div [ngClass]="{ 'step-complete': step.isComplete, 'step-incomplete': !step.isComplete, 'step-current': ((currentStep)?.stepIndex >= step.stepIndex && i < (steps)?.length - 1), 'step-final': ((currentStep)?.stepIndex >= step.stepIndex && i == (steps)?.length - 1),  'step-bubble-prev': (currentStep)?.stepIndex >= step.stepIndex,  'step-bubble-next': ((currentStep)?.stepIndex < step.stepIndex && i <= (steps)?.length - 1), 'margin-bubble-final': (step.stepIndex == 2)}"
-                          class="step-bubble">
-                          <span *ngIf="i < (steps)?.length - 1" class="white">{{ step.stepIndex }}</span>
-                          <span *ngIf="i == (steps)?.length - 1" class="white"><em class="fa fa-check"></em></span>
-                        </div>
-                      <div *ngIf="i < (steps)?.length - 1" class="step-divider" [ngClass]="((i < (steps)?.length - 1) && step.stepIndex>=currentStep.stepIndex)?'step-divider-prev':'step-divider-next'"></div>
-                      <span class="step-title" [ngClass]="{ 'mt-2': (step.stepIndex != 2), 'margin-step-title mt-025': (step.stepIndex == 2), 'step-title-next': ((currentStep)?.stepIndex < step.stepIndex), 'step-title-prev': ((currentStep)?.stepIndex >= step.stepIndex), 'success': ((currentStep)?.stepIndex >= step.stepIndex && i == (steps)?.length - 1)}">{{step.title}} </span>
-                  </span>
+<div class="vertical-center" style="background-color: #353540;">
+  <section *ngIf="currentStep.stepIndex == 1" class="">
+    <div class="mt-4 row m-0">
+      <div class="col-12">
+            <div class="card-body">
+              <div class="row center-elements pad-logos">
+                <div class="col-md-4 mb-3 p-4">
+                  <em class="fa fa-sun-o fa-2x"></em>
+                  <h4 class="mt-2">Examples</h4>
+                  <div class="card custom-card-1 p-2">
+                    <span>The patient is thirteen months old. First focal seizure at three months. Multiple tonic-clonic seizures. Febrile seizures. One status epilepticus at eight months. A hemiconvulsion at nine months.</span>
+                  </div>
+                  <div class="card custom-card-1 p-2">
+                    <span>Girl. 11 years. unilateral hemispheric atrophy, associated with drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline</span>
+                  </div>
                 </div>
+                <div class="col-md-4 mb-3 p-4">
+                  <em class="fa fa-rocket fa-2x"></em>
+                  <h4 class="mt-2">Capabilities</h4>
+                  <div class="card custom-card-1 p-2">
+                    <span>Provide explanation for proposed condition</span>
+                  </div>
+                  <div class="card custom-card-1 p-2">
+                    <span>Allows user to provide follow-up corrections</span>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3 p-4">
+                  <em class="fa fa-exclamation-triangle fa-2x"></em>
+                  <h4 class="mt-2">Limitations</h4>
+                  <div class="card custom-card-1 p-2">
+                    <span>May occasionally generate incorrect information</span>
+                  </div>
+                  <div class="card custom-card-1 p-2">
+                    <span>Cannot be used for diagnosis without human supervision</span>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row mb-5 m-0">
+                <div class="col-md-12 justify-content-center align-items-center text-center">
+                  <!--copy input control gpt websites-->
+                  <div class="search">
+                    <input #inputTextArea type="text" class="searchTerm" [(ngModel)]="medicalText" name="medicalText" placeholder="Type here!" (keyup.enter)="callOpenAi()">
+                    <button type="submit" class="searchButton" [disabled]="callingOpenai" (click)="callOpenAi();" [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
+                     <em *ngIf="!callingOpenai" class="fa fa-search"></em>
+                     <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
+                    </button>
+                  </div>
+                </div>
+                <!--<div class="col-md-12 align-items-center text-center">
+                  <div class="form-steps-container">
+                    <span *ngFor="let step of steps; let i = index;" class="forstep" (click)="navigate(step)" [ngClass]="{ 'pointer': (step.stepIndex != currentStep.stepIndex )}">
+                        <div [ngClass]="{ 'step-complete': step.isComplete, 'step-incomplete': !step.isComplete, 'step-current': ((currentStep)?.stepIndex >= step.stepIndex && i < (steps)?.length - 1), 'step-final': ((currentStep)?.stepIndex >= step.stepIndex && i == (steps)?.length - 1),  'step-bubble-prev': (currentStep)?.stepIndex >= step.stepIndex,  'step-bubble-next': ((currentStep)?.stepIndex < step.stepIndex && i <= (steps)?.length - 1), 'margin-bubble-final': (step.stepIndex == 2)}"
+                            class="step-bubble">
+                            <span *ngIf="i < (steps)?.length - 1" class="white">{{ step.stepIndex }}</span>
+                            <span *ngIf="i == (steps)?.length - 1" class="white"><em class="fa fa-check"></em></span>
+                          </div>
+                        <div *ngIf="i < (steps)?.length - 1" class="step-divider" [ngClass]="((i < (steps)?.length - 1) && step.stepIndex>=currentStep.stepIndex)?'step-divider-prev':'step-divider-next'"></div>
+                        <span class="step-title" [ngClass]="{ 'mt-2': (step.stepIndex != 2), 'margin-step-title mt-025': (step.stepIndex == 2), 'step-title-next': ((currentStep)?.stepIndex < step.stepIndex), 'step-title-prev': ((currentStep)?.stepIndex >= step.stepIndex), 'success': ((currentStep)?.stepIndex >= step.stepIndex && i == (steps)?.length - 1)}">{{step.title}} </span>
+                    </span>
+                  </div>
+                </div>-->
               </div>
             </div>
-          </div>
-    </div>
-  </div>
-</section>
-<section *ngIf="currentStep.stepIndex == 1" class="step-section offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
-  <div *ngIf="substepExtract=='0' || substepExtract=='4'"
-    class="mb-2 shadow rounded-lg light-background border box-panels">
-    <div class="row">
-      <div class="col-md-12">
-        <ngb-tabset justify="justified"> 
-          <ngb-tab>
-            <ng-template ngbTabTitle>
-              <span>
-                <i class="fa fa-language" aria-hidden="true"></i>
-                <span class="d-none d-sm-inline ml-1">{{'land.Text' | translate }}</span>
-                <span class="d-block d-sm-none no-line-height">{{'land.Text' | translate }}</span>
-              </span>
-            </ng-template>
-            <ng-template ngbTabContent>
-              <div class="p-2">
-                <textarea #inputTextArea class="form-control data-hj-allow" style="height:320px;" [(ngModel)]="medicalText"
-                  name="medicalText" placeholder="{{'land.placeholder' | translate }}"></textarea>
-              </div>
-              <div class="text-center mt-2">
-                <button type="button" class="btn btn-lg btn-info round" [disabled]="callingOpenai"
-                  [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
-                  (click)="callOpenAi();">{{'land.Look for diseases' | translate }} <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em></button>
-              </div>
-            </ng-template>
-          </ngb-tab>
-          <ngb-tab>
-            <ng-template ngbTabTitle>
-              <span>
-                <i class="fas fa-search" aria-hidden="true"></i>
-                <span class="d-none d-sm-inline ml-1">{{'land.Quick search' | translate }}</span>
-                <span class="d-block d-sm-none no-line-height">{{'land.Quick search' | translate }}</span>
-              </span>
-            </ng-template>
-            <ng-template ngbTabContent>
-              <div>
-                <ng-template #rt let-r="result" let-t="term">
-                  <strong title="{{r.name}}">{{ r.name}}</strong>
-                  <span *ngIf="r.desc!=null" class="d-block" title="{{r.desc}}">{{ (r.desc.length>140)? (r.desc |
-                    slice:0:140)+'...':(r.desc) }}</span>
-                </ng-template>
-                <div class="mt-2" style="padding-bottom: 1rem !important;">
-                  <span class="d-none d-sm-inline ml-2 mr-2"><i class="fas fa-search"></i></span>
-                  <input #input type="text"
-                    #inputManualSymptoms class="form-control ml-1 inputSearch2 d-inline data-hj-allow" [(ngModel)]="modelTemp"
-                    [ngbTypeahead]="searchSymptoms" [resultTemplate]="rt" [inputFormatter]="formatter1" (paste)="searchSymptoms"
-                    placeholder="{{'symptomssection.manualinput' | translate }}"
-                    (selectItem)="selected($event)" (focusout)="focusOutFunctionSymptom()"/>
-                    <em *ngIf="callListOfSymptoms" class="fa fa-spinner fa-spin fa-2x fa-fw secondary spinner-absolute"></em>
-                    <span *ngIf="nothingFoundSymptoms">
-                      <span *ngIf="(modelTemp).trim().length>3">
-                        <span class="d-block">{{'dashboardpatient.Nothing found. Try again.' | translate }}</span>
-                      </span>
-                    </span>
-                </div>
-              </div>
-              <div *ngIf="temporalSymptoms.length>0">
-                <thead class="pr-1 pl-1">
-                  <tr>
-                    <th id="headerTable" style="border-top-style: none;padding-bottom: 4px;">
-                      <span class="icons-title-symptoms ml-1" style="font-weight: normal;">{{'land.SelectSymptoms' | translate }}</span>
-                      <span class="float-right icons-opt-symptoms">
-                      <em class="mt-1 fa fa-refresh grey ml-2 mr-2" title="{{'land.Start over' | translate }}"
-                        (click)="restartInitVars()" style="cursor: pointer;"></em>
-                        <em class="mt-1 fas fa-copy grey mr-2" title="{{'land.Copy symptoms' | translate }}"
-                        (click)="copySymptoms()" style="cursor: pointer;"></em>
-                        <em class="mt-1 fa fa-download grey mr-2"
-                        title="{{'land.Download symptoms' | translate }}" (click)="downloadSymptoms()"
-                        style="cursor: pointer;"></em>
-                      </span>
-                    </th>
-                  </tr>
-                </thead>
-                <div class="table-cont">
-                  <table class="table mb-0 table-wrapper-scroll-y my-custom-scrollbar bg-white"
-                    aria-labelledby="HPO">
-                    <tbody>
-                      <tr *ngFor="let hpo of temporalSymptoms ; let i = index">
-                        <td>
-                          <span>
-                            <span class="float-right ml-1">
-                              <button (click)="showMoreInfoSymptomPopup(i, contentInfoSymptomNcr);"
-                                class="btn-outline-secondary btn btn-sm mr-1 mb-0 btn-fab round"
-                                title="{{'generics.More information' | translate }} ({{hpo.id}})">
-                                <em class="fa fa-info w-13"></em>
-                              </button>
-                              <button (click)="deleteSymptom(hpo, i)"
-                                class="btn btn-sm mr-1 mb-0 btn-fab round btn-outline-danger"
-                                href="javascript:void(0)"
-                                title="{{'generics.Delete' | translate }}">
-                                <em class="fa fa-trash w-13"></em>
-                              </button>
-                            </span>
-                            <span>
-                              <button (click)="changeStateSymptom(i)"
-                                class="btn btn-sm mr-1 mb-0 btn-fab round white"
-                                [ngClass]="(hpo.checked==true)?'btn-info-nohover':'btn-secondary'"
-                                href="javascript:void(0)" title="{{'phenotype.Click to check it' | translate }}">
-                                <em class="fa fa-check w-13"></em>
-                              </button>
-                              <span class="ml-1 custom-bold pointer" (click)="showMoreInfoSymptomPopup(i, contentInfoSymptomNcr);">{{hpo.name}}</span>
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div *ngIf="temporalSymptoms.length==0" class="white-space">
-                <tbody></tbody>
-              </div>
-              <div class="col-md-12 p-1 footer-symtoms shadow center-elements">
-                <button type="button" class="btn btn-lg btn-info round mt-2 mb-0" [ngClass]="(numberOfSymtomsChecked < minSymptoms)?'btn-secondary':'btn-info'" (click)="directCalculate();" [disabled]="callingOpenai">{{'land.Look for diseases' | translate }} <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em></button>
-              </div>
-
-            </ng-template>
-          </ngb-tab>
-          <ngb-tab>
-            <ng-template ngbTabTitle>
-              <span>
-                <i class="fas fa-file"></i> 
-                <span class="d-none d-sm-inline ml-1">{{'land.Documents' | translate}}</span>
-                <span class="d-block d-sm-none no-line-height">{{'land.Documents' | translate}}</span>
-              </span>
-              </ng-template>
-            <ng-template ngbTabContent>
-              <div class="container-custom m-2" appDnd (fileDropped)="onFileDropped($event)">
-                <input type="file" #fileDropRef id="fileDropRef" multiple (change)="onFileChangePDF($event);"
-                  accept=".pdf, .docx, .jpg, .png, .gif, .tiff, .tif, .bmp, .dib, .bpg, .psd, .jpeg, .jpe, .jfif" />
-                <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="arrow-alt-from-bottom"
-                  role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
-                  class="secondary svg-inline--fa fa-arrow-alt-from-bottom fa-w-12 fa-fw fa-2x">
-                  <path fill="currentColor"
-                    d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM332.1 128H256V51.9l76.1 76.1zM48 464V48h160v104c0 13.3 10.7 24 24 24h104v288H48z"
-                    class=""></path>
-                </svg>
-                <h3 class="mt-2">{{'land.Drag and drop file here' | translate }}</h3>
-                <h3>{{'land.or' | translate }}</h3>
-                <buttom class="btn btn-lg btn-info round"
-                  style="text-transform: none;letter-spacing: 0px;cursor: pointer;"
-                  for="fileDropRef">{{'land.Browse for file' | translate }}</buttom>
-                <h3 class="mt-2 d-block">{{'land.Accepted files' | translate }}</h3>
-                <span class="mt-2 ml-2 font-small-3 text-muted">{{'land.descripReports' | translate }}</span>
-              </div>
-              
-              <!--<mat-checkbox
-                  class="example-margin mt-0" name="lucky" [(ngModel)]="lucky">
-                <label (click)="changeLucky()" style="cursor: pointer;">
-                  <span>Voy a tener suerte</span>
-                </label>
-              </mat-checkbox>-->
-            </ng-template>
-          </ngb-tab>
-        </ngb-tabset>
       </div>
     </div>
-    
-  </div>
-  <div *ngIf="substepExtract!='0' && substepExtract!='4'" class="mb-2 shadow rounded-lg light-background border d-flex" style="min-height: 490px;">
-    <div class="mr-2 section w-100  mb-2 align-self-center">
-      <span class="d-block pt-2 center-elements font-medium-3">{{'land.The symptoms found will be shown here' |
-        translate }}</span>
-      <span class="d-block pt-2 center-elements">
-        <em class="fa fa-spinner fa-spin fa-3x fa-fw secondary"></em>
-        <span class="d-block overlay-text col-md-12 font-medium-3 mt-2">{{'land.Calculating' | translate
-          }}...</span>
-        <span class="d-block font-medium-3 mt-1 pb-2">{{'land.pleaseWait' | translate }}</span>
-      </span>
-    </div>
-  </div>
-</section>
-<section *ngIf="currentStep.stepIndex == 2" class="step-section offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
-  <span class="card mt-0 mb-0 shadow rounded-lg border" style="min-height: 38vh;">
-    <div [ngClass]="(substepExtract!='4')?'gray-background':'light-background'" style="min-height:0px;">
-          <div *ngIf="!loadingCalculate && topRelatedConditions.length==0"
-            class="section w-100 pt-1 pl-2 mb-2 align-self-center">
-            <span class="d-block pt-2 center-elements font-medium-3">{{'land.Suggested diseases will be shown here' |
-              translate }}</span>
-            <div class="col-md-12 center-elements mt-4" *ngIf="substepExtract!='0'">
-              <button type="button" class="btn btn-info round btn-lg pb-2 font-medium-3" (click)="calculate();"
-                [attr.title]="(numberOfSymtomsChecked<minSymptoms) ? getLiteral('land.You need to select more symptoms') : getLiteral('land.See suggested diseases')">
-                <span>{{'land.See suggested diseases' | translate }}</span>
-              </button>
-            </div>
-          </div>
-          <div *ngIf="loadingCalculate && substepExtract!='0'" class="col-md-12 align-self-center center-elements">
-            <em class="fa fa-spinner fa-spin fa-3x fa-fw secondary"></em>
-            <p class="d-block overlay-text col-md-12 font-medium-3 mt-2">{{'land.Calculating' | translate }}...</p>
-            <p class="d-block font-medium-3 mt-1">{{'land.pleaseWait2' | translate }}
-            </p>
-          </div>
-          <div *ngIf="substepExtract!='0' && !loadingCalculate" class="section maintxt">
-            <span *ngIf="topRelatedConditions.length>0">
-              <table class="col-md-12 table mb-0 bg-white" aria-labelledby="get diagnosis">
-                <thead>
-                  <tr>
-                    <th id="headerTable" style="border-top-style: none;">
-                      <span class="d-block">
-                        <span>{{'land.step3' | translate }}</span>
-                        <span class="float-right">
-                          <em class="mt-1 fas fa-copy grey mr-2" title="{{'land.Copy results' | translate }}"
-                          (click)="copyResults()" style="cursor: pointer;"></em>
-                          <em class="mt-1 fa fa-download grey mr-2"
-                          title="{{'land.Download results' | translate }}" (click)="downloadResults()"
-                          style="cursor: pointer;"></em>
-                        </span>
-                      </span>
-                      <span class="text-muted d-block" style="font-weight: initial;">
-                        <span>{{'land.step3descript' | translate }}</span>
-                      </span>
-                    </th>
-                  </tr>
-                </thead>
-              </table>
-              <div class="table-cont">
-                <table class="table mb-0 bg-white" aria-labelledby="rare disease">
-                  <tbody>
-                    <tr *ngFor="let disease of topRelatedConditions ; let i = index" class="d-flex">
-                      <td class="col-md-12" id="{{disease.id}}">
-                        <span class="float-right ml-1">
-                          <button (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
-                          class="btn-outline-secondary btn btn-sm mr-1 mb-0 btn-fab round"
-                          title="{{'generics.More information' | translate }} ({{disease.id}})">
-                          <em class="fa fa-info w-13"></em>
-                        </button>
-                          <button (click)="deleteDisease(disease, i)"
-                                  class="btn btn-sm mr-1 mb-0 btn-fab round btn-outline-danger"
-                                  href="javascript:void(0)"
-                                  title="{{'generics.Delete' | translate }}">
-                                  <em class="fa fa-trash w-13"></em>
+  </section>
+  <section *ngIf="currentStep.stepIndex == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8">
+    <div class="mt-2 row">
+      <div class="col-12 pt-3 pb-3">
+        <div class="card rounded-lg border shadow">
+          <span class="mt-0 mb-0">
+            <div [ngClass]="(substepExtract!='4')?'gray-background':'light-background'" style="min-height:0px;">
+                  <div *ngIf="!loadingCalculate && topRelatedConditions.length==0"
+                    class="section w-100 pt-1 pl-2 mb-2 align-self-center">
+                    <span class="d-block pt-2 center-elements font-medium-3">{{'land.Suggested diseases will be shown here' |
+                      translate }}</span>
+                    <div class="col-md-12 center-elements mt-4" *ngIf="substepExtract!='0'">
+                      <button type="button" class="btn btn-info round btn-lg pb-2 font-medium-3" (click)="calculate();"
+                        [attr.title]="(numberOfSymtomsChecked<minSymptoms) ? getLiteral('land.You need to select more symptoms') : getLiteral('land.See suggested diseases')">
+                        <span>{{'land.See suggested diseases' | translate }}</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="loadingCalculate && substepExtract!='0'" class="col-md-12 align-self-center center-elements">
+                    <em class="fa fa-spinner fa-spin fa-3x fa-fw secondary"></em>
+                    <p class="d-block overlay-text col-md-12 font-medium-3 mt-2">{{'land.Calculating' | translate }}...</p>
+                    <p class="d-block font-medium-3 mt-1">{{'land.pleaseWait2' | translate }}
+                    </p>
+                  </div>
+                  <div *ngIf="substepExtract!='0' && !loadingCalculate" class="section maintxt">
+                    <span *ngIf="topRelatedConditions.length>0">
+                      <table class="col-md-12 table mb-0 bg-white" aria-labelledby="get diagnosis">
+                        <thead>
+                          <tr>
+                            <th id="headerTable" style="border-top-style: none;">
+                              <span class="d-block">
+                                <span>{{'land.step3' | translate }}</span>
+                                <span class="float-right">
+                                  <em class="mt-1 fas fa-copy grey mr-2" title="{{'land.Copy results' | translate }}"
+                                  (click)="copyResults()" style="cursor: pointer;"></em>
+                                  <em class="mt-1 fa fa-download grey mr-2"
+                                  title="{{'land.Download results' | translate }}" (click)="downloadResults()"
+                                  style="cursor: pointer;"></em>
+                                </span>
+                              </span>
+                              <span class="text-muted d-block" style="font-weight: initial;">
+                                <span>{{'land.step3descript' | translate }}</span>
+                              </span>
+                            </th>
+                          </tr>
+                        </thead>
+                      </table>
+                      <div class="table-cont">
+                        <table class="table mb-0 bg-white" aria-labelledby="rare disease">
+                          <tbody>
+                            <tr *ngFor="let disease of topRelatedConditions ; let i = index" class="d-flex">
+                              <td class="col-md-12" id="{{disease.id}}">
+                                <span class="float-right ml-1">
+                                  <button (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
+                                  class="btn-outline-secondary btn btn-sm mr-1 mb-0 btn-fab round"
+                                  title="{{'generics.More information' | translate }} ({{disease.id}})">
+                                  <em class="fa fa-info w-13"></em>
                                 </button>
-                        </span>
-                        <span class="custom-bold ml-1" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
-                        style="cursor: pointer;" title="{{'generics.More information' | translate }} ({{disease}})">{{disease}}</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </span>
-          </div>
+                                  <button (click)="deleteDisease(disease, i)"
+                                          class="btn btn-sm mr-1 mb-0 btn-fab round btn-outline-danger"
+                                          href="javascript:void(0)"
+                                          title="{{'generics.Delete' | translate }}">
+                                          <em class="fa fa-trash w-13"></em>
+                                        </button>
+                                </span>
+                                <span class="custom-bold ml-1" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
+                                style="cursor: pointer;" title="{{'generics.More information' | translate }} ({{disease}})">{{disease}}</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </span>
+                  </div>
+            </div>
+          </span>
+          <span class="col-md-12 p-1 footer-symtoms center-elements" *ngIf="topRelatedConditions.length>0">
+            <button type="button" class="mt-2 ml-2 btn round bt-nav" (click)="goPrevious()" [class.cursor-not-allowed]="currentStep.stepIndex==1" [disabled]="currentStep.stepIndex==1" [ngClass]="(currentStep.stepIndex!=1)?'btn-info':'btn-secondary'">{{'generics.Back' | translate }}</button>
+          </span>
         </div>
-  </span>
+      </div>
+    </div>
+  </section>
+</div>
 
-  <span class="col-md-12 p-1 footer-symtoms shadow rounded-lg" *ngIf="topRelatedConditions.length>0">
-    <button type="button" class="mt-2 ml-2 btn round float-left bt-nav" (click)="goPrevious()" [class.cursor-not-allowed]="currentStep.stepIndex==1" [disabled]="currentStep.stepIndex==1" [ngClass]="(currentStep.stepIndex!=1)?'btn-info':'btn-secondary'">{{'generics.Previous' | translate }}</button>
-  </span>
-</section>
 <ng-template #contentInfoSymptomNcr let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
     <div class="content-header text-left">
@@ -423,12 +289,12 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body content-wrapper p-2">
+  <div class="modal-body content-wrapper p-2 mt-2">
     <h6>Select a question:</h6>
     <!--Shows a list of selectable panels-->
     <div class="list-group">
       <a href="#" class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
-        (click)="showQuestion(question, topRelatedConditions[selectedInfoDiseaseIndex])" [disabled]="loadingAnswerOpenai">
+        (click)="showQuestion(question)" [disabled]="loadingAnswerOpenai">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{question.question}} {{ selectedDisease }}</h5>
         </div>
@@ -444,4 +310,38 @@
       </div>
     </div>
   </div>
+  <div class="modal-footer">
+    <div class="col-md-12 center-elements">
+      <button type="button" class="btn btn-info round" (click)="closeDiseaseUndiagnosed()">{{'generics.Close' | translate }}</button>
+    </div>
+  </div>
 </ng-template>
+<ng-template #contentIntro let-c="close" let-d="dismiss" appendTo="body">
+  <div class="modal-body">
+        <div class="row text-left">
+          <div class="card-body col-md-12">
+            
+             
+            <div class="row">
+              <div class="col-sm-12">
+                <p class="" [innerHTML]="'land.disclaimer' | translate"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 center-elements">
+            <mat-checkbox
+                class="example-margin" name="terms2" ngModel required #terms2="ngModel" id="terms2" (change)="showOptions($event)">
+              <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
+                <span>{{'land.check' | translate }}</span>
+              </label>
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer row">
+          <div class="form-actions col-md-12 center-elements">
+                  <button type="button" class="btn round btn-info" (click)="c('Close click');">{{'generics.Close' | translate }}</button>
+          </div>
+      </div>
+</ng-template>
+<button id="openModalIntro" [hidden]="true" (click)="showPanelIntro(contentIntro)">.</button>

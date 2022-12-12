@@ -135,8 +135,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     nothingFoundSymptoms: boolean = false;
     selectedNoteSymptom = null;
 
-    //@ViewChild("inputTextArea") inputTextAreaElement: ElementRef;
-    @ViewChild("inputManualSymptoms") inputTextAreaElement: ElementRef;
+    @ViewChild("inputTextArea") inputTextAreaElement: ElementRef;
+    @ViewChild("inputManualSymptoms") inputTextAreaElement2: ElementRef;
     @ViewChild("inputManualSymptoms") inputManualSymptomsElement: ElementRef;
 
     myuuid: string = uuidv4();
@@ -373,13 +373,38 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     showDisclaimer(){
-        Swal.fire({
+        console.log(localStorage.getItem('hideIntroLogins'))
+        if(localStorage.getItem('hideIntroLogins') == null || !localStorage.getItem('hideIntroLogins')){
+            document.getElementById("openModalIntro").click();
+          }
+
+        /*Swal.fire({
             html: this.translate.instant("land.disclaimer"),
             showCancelButton: false,
             showConfirmButton: true,
             allowOutsideClick: false
-        })
+        })*/
     }
+
+    showOptions($event){
+        if($event.checked){
+          localStorage.setItem('hideIntroLogins', 'true')
+        }else{
+          localStorage.setItem('hideIntroLogins', 'false')
+        }
+      }
+
+    showPanelIntro(content){
+        if(this.modalReference!=undefined){
+          this.modalReference.close();
+        }
+        let ngbModalOptions: NgbModalOptions = {
+              backdrop : 'static',
+              keyboard : false,
+              windowClass: 'ModalClass-sm'
+        };
+        this.modalReference = this.modalService.open(content, ngbModalOptions);
+      }
 
     ngAfterViewInit() {
         this.focusTextArea();
@@ -600,25 +625,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
 
     callOpenAi(){
-        /*var resp= {
-            "id": "cmpl-6KlrKIKTvOI0DCjNvdGeAKZQXOv3E",
-            "object": "text_completion",
-            "created": 1670408550,
-            "model": "text-davinci-003",
-            "choices": [
-              {
-                "text": "\n\n1. Dravet Syndrome \n2. Lennox-Gastaut Syndrome \n3. West Syndrome \n4. Epilepsy with Myoclonic-Astatic Seizures \n5. Lafora Disease \n6. Myoclonic-Astatic Epilepsy \n7. Ohtahara Syndrome \n8. Early Infantile Epileptic Encephalopathy \n9. Infantile Spasms \n10. Rasmussen Syndrome",
-                "index": 0,
-                "logprobs": null,
-                "finish_reason": "stop"
-              }
-            ],
-            "usage": {
-              "prompt_tokens": 42,
-              "completion_tokens": 102,
-              "total_tokens": 144
-            }
-          }
+        /*var resp= {"id":"cmpl-6MaZL7TA5SqqMMqgrzDnDWmNCEAKT","object":"text_completion","created":1670841807,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive inflammation and atrophy of one hemisphere of the brain, resulting in seizures, paralysis, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by a port-wine stain on the face, seizures, and progressive neurological decline. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by seizures, spasticity, and cognitive decline. \n4. Alexander Disease (5%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline. \n5. Leigh Syndrome (5%): A rare neurological disorder characterized by progressive brain and muscle degeneration, seizures, and cognitive decline. \n6. Canavan Disease (2%): A rare neurological disorder characterized by progressive brain degeneration, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":186,"total_tokens":246}}
 
           var parseChoices = resp.choices[0].text.split("\n");
           this.topRelatedConditions = [];
@@ -629,11 +636,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
           }
           console.log(this.topRelatedConditions);
           this.substepExtract = '4';
-          this.currentStep = this.steps[1];*/
+                this.currentStep = this.steps[1];
+                this.callingOpenai = false;
+             */   
 
         // call api POST openai
-        this.callingOpenai = true;
-        var introText = 'Provide a ranked list of rare diseases diagnosis for this patient based on probability: \n '
+       this.callingOpenai = true;
+        var introText = 'Build an ordered list of rare diseases based on this medical description and order this list by probability. Indicates the probability with a percentage. \n '
         var value = {value: introText+ "Symptoms: "+this.medicalText}
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
@@ -655,13 +664,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             }));
     }
 
-    showQuestion(question, disease){
+    showQuestion(question){
         /*var testRes= {"id":"cmpl-6KmXVRaPvar50l7SgRNVTiosKsCiQ","object":"text_completion","created":1670411165,"model":"text-davinci-003","choices":[{"text":"\n\nCommon symptoms of Dravet Syndrome include:\n\n-Frequent and/or prolonged seizures\n-Developmental delays\n-Speech delays\n-Behavioral and social challenges\n-Sleep disturbances\n-Growth and nutrition issues\n-Sensory integration dysfunction\n-Movement and balance issues\n-Weak muscle tone (hypotonia)\n-Delayed motor skills","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":13,"completion_tokens":80,"total_tokens":93}}
         this.answerOpenai = testRes.choices[0].text;*/
         
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
-        var introText = question.question+ ' ' + disease+'?';
+        var introText = question.question+ ' ' + this.selectedDisease+'?';
         var value = {value: introText}
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
@@ -1388,6 +1397,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.modalReference = this.modalService.open(contentInfoDisease, ngbModalOptions);
         //split number on string like 1.dravet 2.duchenne
         this.selectedDisease = this.topRelatedConditions[this.selectedInfoDiseaseIndex].split(/\d+\./)[1];
+        //split ( on selected disease
+        this.selectedDisease = this.selectedDisease.split('(')[0];
 
     }
 
