@@ -1,9 +1,49 @@
 @import "../../../../assets/sass/scss/bootstrap/timeline-vertical";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+.vertical-center{
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchButton {
+  width: 40px;
+  height: 50px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
 .anchorSteps{
   margin-top: -60px;
   position: absolute;
+}
+
+section {
+  /* Margin bottom by footer height */
+  color:#FFF !important;
 }
 
 .white-space{
@@ -206,8 +246,8 @@
   background-image: linear-gradient(45deg, #68aab842, #FFF) !important;
 }
 
-.card{
-  background-color: #fffc !important;
+.custom-card-1{
+  background-color: #3f3f4a !important;
 }
 
 /* Provide sufficient contrast against white background */
@@ -323,8 +363,6 @@ body {
   }
   tbody {
     display:block;
-    max-height:260px;
-    min-height:260px;
     overflow-y:auto;
   }
   thead, tbody tr {
@@ -338,16 +376,16 @@ body {
   }
 
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    font-size: 14px;
+    font-size: 20px;
   }
   ::-moz-placeholder { /* Firefox 19+ */
-    font-size: 14px;
+    font-size: 20px;
   }
   :-ms-input-placeholder { /* IE 10+ */
-    font-size: 14px;
+    font-size: 20px;
   }
   :-moz-placeholder { /* Firefox 18- */
-    font-size: 14px;
+    font-size: 20px;
   }
 
   caption{
