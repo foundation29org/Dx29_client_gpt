@@ -3,7 +3,7 @@
 
 .vertical-center{
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
+  min-height: calc(100vh - 65px); /* These two lines are counted as one :-)       */
 
   display: flex;
   align-items: center;
@@ -252,6 +252,10 @@ section {
 
 .custom-card-2:hover {
   background-color: #202123 !important;
+}
+
+.diseaseClass:hover {
+  background-color: #00B4CC !important;
 }
 
 /* Provide sufficient contrast against white background */
