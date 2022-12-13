@@ -18,17 +18,17 @@
         <div class="navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav m-r-0">
                 <li class="nav-item mr-2">
-                    <a class="nav-link" [ngClass]="(!isHomePage)?'black':'black text-bold-500'" routerLink="/." (click)="lauchEvent('Role - Home')">
+                    <a class="nav-link" [ngClass]="(!isHomePage)?'black':'black text-bold-500'" routerLink="/." (click)="lauchEvent('Page - Home')">
                       <span>{{'menu.Dashboard' | translate }}</span>
                     </a>
                 </li>
                 <li class="nav-item mr-2">
-                  <a class="nav-link" [ngClass]="(!isAboutPage)?'black':'black text-bold-500'" routerLink="/aboutus" (click)="lauchEvent('Role - About us')">
+                  <a class="nav-link" [ngClass]="(!isAboutPage)?'black':'black text-bold-500'" routerLink="/aboutus" (click)="lauchEvent('Page - About us')">
                     <span>{{'menu.About us' | translate }}</span>
                   </a>
                 </li>
                 <li class="nav-item mr-2">
-                  <a class="nav-link btn btn-info round white" style="width: 120px;" href="https://www.foundation29.org/donate/" target="_blank">
+                  <a class="nav-link btn btn-info round white" style="width: 120px;" href="https://www.foundation29.org/donate/" target="_blank" (click)="lauchEvent('Page - Donate')">
                     <span>{{'land.Donate' | translate }} <em class="ml-1 fa fa-heart"></em></span>
                   </a>
               </li>

@@ -8,10 +8,10 @@
                 <div class="col-md-4 mb-3 p-4">
                   <em class="fa fa-sun-o fa-2x"></em>
                   <h4 class="mt-2">{{'land.p1.title' | translate }}</h4>
-                  <div class="card custom-card-1 custom-card-2 p-2 pointer" (click)="copyText('opt1')">
+                  <div class="card custom-card-1 custom-card-2 p-2 pointer" (click)="copyText('opt1');lauchEvent('Copy sample 1');">
                     <span>{{'land.p1.1' | translate }}</span> <em class="fa-solid fa-arrow-right-long"></em>
                   </div>
-                  <div class="card custom-card-1 custom-card-2 p-2 pointer" (click)="copyText('opt2');">
+                  <div class="card custom-card-1 custom-card-2 p-2 pointer" (click)="copyText('opt2');lauchEvent('Copy sample 2');">
                     <span>{{'land.p1.2' | translate }}</span> <em class="fa-solid fa-arrow-right-long"></em>
                   </div>
                 </div>
@@ -49,19 +49,6 @@
                   </div>
                   <span *ngIf="medicalText.length>0" class="text-muted pointer" (click)="clearText()">{{'generics.Delete' | translate }}</span>
                 </div>
-                <!--<div class="col-md-12 align-items-center text-center">
-                  <div class="form-steps-container">
-                    <span *ngFor="let step of steps; let i = index;" class="forstep" (click)="navigate(step)" [ngClass]="{ 'pointer': (step.stepIndex != currentStep.stepIndex )}">
-                        <div [ngClass]="{ 'step-complete': step.isComplete, 'step-incomplete': !step.isComplete, 'step-current': ((currentStep)?.stepIndex >= step.stepIndex && i < (steps)?.length - 1), 'step-final': ((currentStep)?.stepIndex >= step.stepIndex && i == (steps)?.length - 1),  'step-bubble-prev': (currentStep)?.stepIndex >= step.stepIndex,  'step-bubble-next': ((currentStep)?.stepIndex < step.stepIndex && i <= (steps)?.length - 1), 'margin-bubble-final': (step.stepIndex == 2)}"
-                            class="step-bubble">
-                            <span *ngIf="i < (steps)?.length - 1" class="white">{{ step.stepIndex }}</span>
-                            <span *ngIf="i == (steps)?.length - 1" class="white"><em class="fa fa-check"></em></span>
-                          </div>
-                        <div *ngIf="i < (steps)?.length - 1" class="step-divider" [ngClass]="((i < (steps)?.length - 1) && step.stepIndex>=currentStep.stepIndex)?'step-divider-prev':'step-divider-next'"></div>
-                        <span class="step-title" [ngClass]="{ 'mt-2': (step.stepIndex != 2), 'margin-step-title mt-025': (step.stepIndex == 2), 'step-title-next': ((currentStep)?.stepIndex < step.stepIndex), 'step-title-prev': ((currentStep)?.stepIndex >= step.stepIndex), 'success': ((currentStep)?.stepIndex >= step.stepIndex && i == (steps)?.length - 1)}">{{step.title}} </span>
-                    </span>
-                  </div>
-                </div>-->
               </div>
             </div>
       </div>
@@ -72,25 +59,8 @@
       <div class="col-12 pt-3">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
-            <div [ngClass]="(substepExtract!='4')?'gray-background':'light-background'" style="min-height:0px;">
-                  <div *ngIf="!loadingCalculate && topRelatedConditions.length==0"
-                    class="section w-100 pt-1 pl-2 mb-2 align-self-center">
-                    <span class="d-block pt-2 center-elements font-medium-3">{{'land.Suggested diseases will be shown here' |
-                      translate }}</span>
-                    <div class="col-md-12 center-elements mt-4" *ngIf="substepExtract!='0'">
-                      <button type="button" class="btn btn-info round btn-lg pb-2 font-medium-3" (click)="calculate();"
-                        [attr.title]="(numberOfSymtomsChecked<minSymptoms) ? getLiteral('land.You need to select more symptoms') : getLiteral('land.See suggested diseases')">
-                        <span>{{'land.See suggested diseases' | translate }}</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div *ngIf="loadingCalculate && substepExtract!='0'" class="col-md-12 align-self-center center-elements">
-                    <em class="fa fa-spinner fa-spin fa-3x fa-fw secondary"></em>
-                    <p class="d-block overlay-text col-md-12 font-medium-3 mt-2">{{'land.Calculating' | translate }}...</p>
-                    <p class="d-block font-medium-3 mt-1">{{'land.pleaseWait2' | translate }}
-                    </p>
-                  </div>
-                  <div *ngIf="substepExtract!='0' && !loadingCalculate" class="section maintxt">
+            <div class="light-background" style="min-height:0px;">
+                  <div class="section maintxt">
                     <span *ngIf="topRelatedConditions.length>0">
                       <table class="col-md-12 table mb-0 bg-white" aria-labelledby="get diagnosis">
                         <thead>
@@ -124,12 +94,12 @@
                                   title="{{'generics.More information' | translate }} ({{disease.id}})">
                                   <em class="fa fa-info w-13"></em>
                                 </button>
-                                  <button (click)="deleteDisease(disease, i)"
+                                  <!--<button (click)="deleteDisease(disease, i)"
                                           class="btn btn-sm mr-1 mb-0 btn-fab round btn-outline-danger"
                                           href="javascript:void(0)"
                                           title="{{'generics.Delete' | translate }}">
                                           <em class="fa fa-trash w-13"></em>
-                                        </button>
+                                        </button>-->
                                 </span>
                                 <span class="custom-bold ml-1" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
                                 style="cursor: pointer;" title="{{'generics.More information' | translate }} ({{disease}})">{{disease}}</span>
@@ -150,136 +120,6 @@
     </div>
   </section>
 </div>
-
-<ng-template #contentInfoSymptomNcr let-c="close" let-d="dismiss" appendTo="body">
-  <div class="modal-header" id="idHeader">
-    <div class="content-header text-left">
-      <h4>{{temporalSymptoms[selectedInfoSymptomIndex].name }} - {{temporalSymptoms[selectedInfoSymptomIndex].id }}</h4>
-    </div>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal();">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body content-wrapper p-2" id="idBody">
-    <div class="row col-md-12" class="p-2">
-      <span
-        *ngIf="temporalSymptoms[selectedInfoSymptomIndex].def!=null || temporalSymptoms[selectedInfoSymptomIndex].comment!=''">
-        <h5><strong>{{'generics.Description' | translate }}</strong></h5>
-        <span
-          *ngIf="temporalSymptoms[selectedInfoSymptomIndex].def!=null">{{temporalSymptoms[selectedInfoSymptomIndex].def}}
-        </span>
-        <span
-          *ngIf="temporalSymptoms[selectedInfoSymptomIndex].comment!=''">{{temporalSymptoms[selectedInfoSymptomIndex].comment}}</span>
-      </span>
-      <span
-        *ngIf="temporalSymptoms[selectedInfoSymptomIndex].def==null && temporalSymptoms[selectedInfoSymptomIndex].comment==''">
-        <h5><strong>{{'generics.Description' | translate }}</strong></h5>
-        <span> {{'symptomssection.No description' | translate }} </span>
-      </span>
-    </div>
-
-    <div *ngIf="temporalSymptoms[selectedInfoSymptomIndex].synonyms!=undefined" class="p-2">
-      <h5><strong>{{'generics.Synonyms' | translate }}</strong></h5>
-      <span *ngIf="temporalSymptoms[selectedInfoSymptomIndex].synonyms.length>0">
-        <p *ngFor="let synonym of temporalSymptoms[selectedInfoSymptomIndex].synonyms ; let j = index"
-          [ngClass]="(j==temporalSymptoms[selectedInfoSymptomIndex].synonyms.length-1)?'mb-0':''">
-          <span>{{j+1}}. </span> <span *ngIf="synonym.label">{{synonym.label}}</span> <span
-            *ngIf="!synonym.label">{{synonym}}</span>
-        </p>
-      </span>
-      <span *ngIf="temporalSymptoms[selectedInfoSymptomIndex].synonyms.length==0">
-        {{'symptomssection.No synonyms' | translate }}
-      </span>
-    </div>
-    <div class="p-2">
-      <h5><strong>{{'land.Where did we get this symptom from' | translate }}</strong></h5>
-      <span *ngIf="temporalSymptoms[selectedInfoSymptomIndex].inputType=='manual'">
-        {{'land.The symptom was added manually' | translate }}
-      </span>
-      <span *ngIf="temporalSymptoms[selectedInfoSymptomIndex].inputType=='ncr'">
-        <span *ngFor="let text of temporalSymptoms[selectedInfoSymptomIndex].text ; let j = index">
-          <span *ngIf="(text.source && j== 0) && langToExtract==lang" class="mb-0">"{{text.source}}"</span>
-          <span *ngIf="!text.source && j== 0 || langToExtract!=lang" class="mb-0">"{{text.text |
-            slice:(text.positions[0]-40):(text.positions[0]-1)}} <b>{{text.text |
-              slice:(text.positions[0]):(text.positions[1])}}</b> {{text.text |
-            slice:(text.positions[1]+1):(text.positions[1]+40)}}"</span>
-        </span>
-        <div class="mt-2">
-          <button *ngIf="!ncrResultView" type="button" class="btn btn-info round mb-0"
-            (click)="showCompleteNcrResultView(temporalSymptoms[selectedInfoSymptomIndex], 'ncr')">{{'patdiagdashboard.Show
-            full text' | translate }}</button>
-          <button *ngIf="ncrResultView" type="button" class="btn btn-info round mb-0"
-            (click)="showCompleteNcrResultView(null, 'ncr')">{{'patdiagdashboard.Hide full text' | translate }}</button>
-        </div>
-        <div *ngIf="ncrResultView">
-          <span class="animate-bottom" *ngIf="showButtonScroll" id="buttomScroll">
-            <button type="button" class="btn btn-info round mb-0" (click)="goToTop()">Go top</button>
-          </span>
-          <div class="mt-2 text-center">
-            <a id="initpos"></a>
-            <div style="text-align: justify;" class="textExtractedNcr" [innerHTML]=resultTextNcrCopy></div>
-          </div>
-        </div>
-      </span>
-      <span *ngIf="temporalSymptoms[selectedInfoSymptomIndex].inputType=='ncrOld'">
-        <div class="mt-2">
-          <button *ngIf="!ncrResultView" type="button" class="btn btn-info round mb-0"
-            (click)="showCompleteNcrOldResultView(temporalSymptoms[selectedInfoSymptomIndex])">{{'patdiagdashboard.Show
-            full text' | translate }}</button>
-          <button *ngIf="ncrResultView" type="button" class="btn btn-info round mb-0"
-            (click)="showCompleteNcrOldResultView(null)">{{'patdiagdashboard.Hide full text' | translate }}</button>
-        </div>
-        <div *ngIf="ncrResultView">
-          <span class="animate-bottom" *ngIf="showButtonScroll" id="buttomScroll">
-            <button type="button" class="btn btn-info round mb-0" (click)="goToTop()">Go top</button>
-          </span>
-          <div class="mt-2 text-center">
-            <a id="initpos"></a>
-            <div style="text-align: justify;" class="textExtractedNcr" [innerHTML]=resultTextNcrCopy></div>
-          </div>
-        </div>
-      </span>
-      <span *ngIf="temporalSymptoms[selectedInfoSymptomIndex].inputType=='textAnalytics'">
-        <span *ngFor="let text of temporalSymptoms[selectedInfoSymptomIndex].text ; let j = index">
-          <span *ngIf="(text.source && j== 0) && text.language!=lang" class="mb-0">"{{text.source | 
-            slice:(text.positions[0]-40):(text.positions[0]-1)}} {{text.source |
-              slice:(text.positions[0]):(text.positions[1])}} {{text.source |
-            slice:(text.positions[1]+1):(text.positions[1]+40)}}"
-
-          </span>
-          <span *ngIf="!text.source && j== 0 || text.language==lang" class="mb-0">"{{text.text |
-            slice:(text.positions[0]-40):(text.positions[0]-1)}} <b>{{text.text |
-              slice:(text.positions[0]):(text.positions[1])}}</b> {{text.text |
-            slice:(text.positions[1]+1):(text.positions[1]+40)}}"
-          </span>
-        </span>
-        <div class="mt-2">
-          <button *ngIf="!ncrResultView" type="button" class="btn btn-info round mb-0"
-            (click)="showCompleteNcrResultView(temporalSymptoms[selectedInfoSymptomIndex], 'textAnalytics')">{{'patdiagdashboard.Show
-            full text' | translate }}</button>
-          <button *ngIf="ncrResultView" type="button" class="btn btn-info round mb-0"
-            (click)="showCompleteNcrResultView(null, 'textAnalytics')">{{'patdiagdashboard.Hide full text' | translate }}</button>
-        </div>
-        <div *ngIf="ncrResultView">
-          <span class="animate-bottom" *ngIf="showButtonScroll" id="buttomScroll">
-            <button type="button" class="btn btn-info round mb-0" (click)="goToTop()">Go top</button>
-          </span>
-          <div class="mt-2 text-center">
-            <a id="initpos"></a>
-            <div style="text-align: justify;" class="textExtractedNcr" [innerHTML]=resultTextNcrCopy></div>
-          </div>
-        </div>
-      </span>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <span>{{'land.See more information about the symptom' | translate }} <a
-        href="https://hpo.jax.org/app/browse/term/{{temporalSymptoms[selectedInfoSymptomIndex].id}}" target="_blank"
-        title=" {{temporalSymptoms[selectedInfoSymptomIndex].name}} ({{temporalSymptoms[selectedInfoSymptomIndex].id}}):">{{'land.here'
-        | translate }}
-        <i class="ft-external-link"></i></a></span>
-  </div>
-</ng-template>
 
 <ng-template #contentInfoDisease let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">

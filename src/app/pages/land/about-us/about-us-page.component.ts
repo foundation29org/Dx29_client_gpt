@@ -28,7 +28,7 @@ export class AboutUsPageComponent implements OnDestroy {
     email: string = '';
     showErrorForm: boolean = false;
     sending: boolean = false;
-    @ViewChild('f') donorDataForm: NgForm;
+    @ViewChild('f') mainForm: NgForm;
 
     constructor( public googleAnalyticsService: GoogleAnalyticsService, private searchService: SearchService, public translate: TranslateService, private http: HttpClient, public toastr: ToastrService) {
         this._startTime = Date.now();
@@ -59,63 +59,38 @@ export class AboutUsPageComponent implements OnDestroy {
         this.subscription.unsubscribe();
     }
 
-    registerToDx29(){
-        this.lauchEvent("Registration");
-        this.lauchEvent("Registration Home - Event");
-        window.location.href = environment.urlDxv2 + "/Identity/Account/Register";
-    }
-
     openWeb(){
-        var lang = sessionStorage.getItem('lang');
-        if(lang=='es'){
-            window.open('https://www.foundation29.org', '_blank');
-        }else{
-            window.open('https://www.foundation29.org/en/', '_blank');
-        }
-    }
-
-    onSubmitRevolution() {
-        this.showErrorForm = false;
-        this.sending = true;
-        var params: any = {}
-        params.Email = (this.email).toLowerCase();
-        params.Lang = sessionStorage.getItem('lang');
-        var d = new Date(Date.now());
-        var a = d.toString();
-        params.Date = a;
-        this.subscription.add(this.http.post('https://prod-59.westeurope.logic.azure.com:443/workflows/2d7a82d83b4c4b92a8270a84540b0213/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=fnADjHH0yXxYxonVtre2_yrUFyQ0LR4cX2PJSnPwmrM', params)
-            .subscribe((res: any) => {
-                this.sending = false;
-                //Swal.fire('', this.translate.instant("land.diagnosed.general.msgSend"), "success");
-                Swal.fire({
-                    icon: 'success',
-                    html: this.translate.instant("land.diagnosed.DonorData.msgform"),
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    allowOutsideClick: false
-                })
-                setTimeout(function () {
-                    Swal.close();
-                    //window.location.href = 'https://foundation29.org/';
-                }, 2000);
-                this.email = '';
-            }, (err) => {
-                console.log(err);
-                this.sending = false;
-                this.toastr.error('', this.translate.instant("generics.error try again"));
-            }));
-
+        window.open('https://www.foundation29.org', '_blank');
     }
 
     submitInvalidForm() {
-        this.showErrorForm = true;
-        if (!this.donorDataForm) { return; }
-        const base = this.donorDataForm;
+        if (!this.mainForm) { return; }
+        const base = this.mainForm;
         for (const field in base.form.controls) {
-            if (!base.form.controls[field].valid) {
-                base.form.controls[field].markAsTouched()
-            }
+          if (!base.form.controls[field].valid) {
+              base.form.controls[field].markAsTouched()
+          }
         }
-    }
+      }
+  
+      sendMsg(){
+          this.sending = true;
+  
+          //this.mainForm.value.email = (this.mainForm.value.email).toLowerCase();
+          //this.mainForm.value.lang=this.translate.store.currentLang;
+  
+          var params = this.mainForm.value;
+          this.subscription.add( this.http.post(environment.serverapi+'/api/homesupport/', params)
+          .subscribe( (res : any) => {
+            this.sending = false;
+            this.toastr.success('', this.translate.instant("generics.Data saved successfully"));
+            this.mainForm.reset();
+            this.lauchEvent('Send email');
+           }, (err) => {
+             console.log(err);
+             this.sending = false;
+             this.toastr.error('', this.translate.instant("generics.error try again"));
+           }));
+      }
 
 }

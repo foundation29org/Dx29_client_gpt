@@ -11,20 +11,6 @@
             <p>{{'land.aboutUs.p1' | translate }}</p>
             <p>{{'land.aboutUs.p2' | translate }}</p>
             <p>{{'land.aboutUs.p3' | translate }}</p>
-            <form class="form offset-md-2 col-md-8" #f="ngForm">
-              <div class="">
-                <input class="form-control" type="email" id="Email" name="Email" placeholder="{{'generics.Email' | translate }}" ngModel required #Email="ngModel" email name="Email" [(ngModel)]="email">
-                <small class="danger" *ngIf="!Email.valid && showErrorForm">{{'generics.entervalidemail' | translate }}</small>
-              </div>
-              <div *ngIf="!sending" class="mt-2">
-                <div *ngIf="f.valid;then formValid else formError"></div>
-                <ng-template #formValid><button class="btn btn-info btn-lg round" (click)="onSubmitRevolution();lauchEvent('Home - Submit Revolution');"><strong>{{'land.aboutUs.Sign up' | translate }}</strong></button></ng-template>
-                <ng-template #formError><button class="btn btn-info btn-lg round" type="button" (click)="submitInvalidForm()"><strong>{{'land.aboutUs.Sign up' | translate }}</strong></button></ng-template>
-              </div>
-              <div class="form-actions" *ngIf="sending">
-                  <span ><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
-              </div>
-            </form>
           </span>
         </div>
       </div>
@@ -33,112 +19,6 @@
 </section>
 
 <section style="padding-bottom: 70px !important;padding-top: 70px !important;">
-  <div class="col-12 d-flex justify-content-center">
-    <div class="card-body" style="max-width: 1200px;">
-      <div class="row m-0">
-        <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
-          <h1 class="card-title text-bold-500">
-            {{'preland.t4title' | translate }}
-            <hr class="hr-custom">
-          </h1>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="p-3 center-elements">
-    <div class="row reg-panel d-block d-md-none" (click)="registerToDx29()">
-        <div class="row pb-2 pt-2">
-          <div class="offset-1 col-2">
-            <img class="w-reg-img" src='assets/img/home/reg/func1.jpg' />
-          </div>
-          <span class="col-8 text-left">
-            <p class="mb-0"><strong>{{'land.table.t1' | translate }}</strong></p>
-            <p class="d-block">{{'land.table.d1' | translate }}</p>
-          </span>
-        </div>
-        <div class="row pb-2 pt-2">
-          <div class="offset-1 col-2">
-            <img class="w-reg-img" src='assets/img/home/reg/func2.jpg' />
-          </div>
-          <span class="col-8 text-left">
-            <p class="mb-0"><strong>{{'land.table.t2' | translate }}</strong></p>
-            <p class="d-block">{{'land.table.d2' | translate }}</p>
-          </span>
-        </div>
-      <div class="row pb-2 pt-2">
-        <div class="offset-1 col-2">
-          <img class="w-reg-img" src='assets/img/home/reg/func3.jpg' />
-        </div>
-        <span class="col-8 text-left">
-          <p class="mb-0"><strong>{{'land.table.t3' | translate }}</strong></p>
-          <p class="d-block">{{'land.table.d3' | translate }}</p>
-        </span>
-      </div>
-      <div class="row pb-2 pt-2">
-        <div class="offset-1 col-2">
-          <img class="w-reg-img" src='assets/img/home/reg/func4.jpg' />
-        </div>
-        <span class="col-8 text-left">
-          <p class="mb-0"><strong>{{'land.table.t4' | translate }}</strong></p>
-          <p class="d-block">{{'land.table.d4' | translate }}</p>
-        </span>
-      </div>
-    </div>
-    <div class="row reg-panel d-none d-md-block" (click)="registerToDx29()">
-      <div class="col-md-12 offset-lg-1 col-lg-10 offset-xl-2 col-xl-8">
-        <div class="row">
-          <div class="col-sm-6 pb-3 pt-3">
-            <div class="row">
-              <div class="col-3 mt-1">
-                <img class="w-reg-img" src='assets/img/home/reg/func1.jpg' />
-              </div>
-              <span class="col-9 text-left" style="display: inline-block;">
-                <p class="mb-0"><strong>{{'land.table.t1' | translate }}</strong></p>
-                <p class="d-block">{{'land.table.d1' | translate }}</p>
-              </span>
-            </div>
-          </div>
-          <div class="col-sm-6 pb-3 pt-3">
-            <div class="row">
-              <div class="col-3 mt-1">
-                <img class="w-reg-img" src='assets/img/home/reg/func2.jpg' />
-              </div>
-              <span class="col-9 text-left" style="display: inline-block;">
-                <p class="mb-0"><strong>{{'land.table.t2' | translate }}</strong></p>
-                <p class="d-block">{{'land.table.d2' | translate }}</p>
-              </span>
-            </div>
-          </div>
-          <div class="col-sm-6 pb-3 pt-3">
-            <div class="row">
-              <div class="col-3 mt-1">
-                <img class="w-reg-img" src='assets/img/home/reg/func3.jpg' />
-              </div>
-              <span class="col-9 text-left" style="display: inline-block;">
-                <p class="mb-0"><strong>{{'land.table.t3' | translate }}</strong></p>
-                <p class="d-block">{{'land.table.d3' | translate }}</p>
-              </span>
-            </div>
-          </div>
-          <div class="col-sm-6 pb-3 pt-3">
-            <div class="row">
-              <div class="col-3 mt-1">
-                <img class="w-reg-img" src='assets/img/home/reg/func4.jpg' />
-              </div>
-              <span class="col-9 text-left" style="display: inline-block;">
-                <p class="mb-0"><strong>{{'land.table.t4' | translate }}</strong></p>
-                <p class="d-block">{{'land.table.d4' | translate }}</p>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button class="mb-0 mt-2 btn btn-info round btn-lg" (click)="registerToDx29()"><strong>{{'land.swal.button' |
-      translate }}</strong></button>
-  </div>
-</section>
-<section class="white" style="padding-bottom: 70px !important;padding-top: 70px !important;background-color: #353540;">
   <div class="col-12 d-flex justify-content-center">
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
@@ -165,149 +45,69 @@
         </div>
       </div>
     </div>
-</div>
+  </div>
 </section>
-
-<section style="padding-bottom: 30px !important;padding-top: 70px !important;" class="d-none d-sm-block">
-  <img class="img-3" src="assets/img/land/last.jpg" />
+<section class="white" style="padding-bottom: 70px !important;padding-top: 70px !important;background-color: #353540;">
   <div class="col-12 d-flex justify-content-center">
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
         <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
           <h1 class="card-title text-bold-500">
-            {{'preland.t5' | translate }}
+            {{'homedx.Contact us' | translate }}
             <hr class="hr-custom">
           </h1>
         </div>
-      </div>
-    </div>
-    
-  </div>
-  <div class="col-12 justify-content-center center-elements offset-md-2 col-md-8">
-    <h4><strong>{{'preland.Institutions' | translate }}</strong></h4>
-    <div class="row center-elements pad-logos">
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/header-logo.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/badge.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/paris-call.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/sick.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/monarch.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/nhs.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/nih.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/et.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/1280px-CatSalut.svg_-1024x446.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/osa.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/favpng_university-of-utah-logo-brand-product.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/salud.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4 margin-img-sm">
-        <img class="img-responsive" src='assets/img/home/logos/ui-idiscc.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/ie.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/WG-Lab1.png'>
-      </div>
-    </div>
-    <h4 class="mt-2"><strong>{{'preland.Patient associations' | translate }}</strong></h4>
-    <div class="row center-elements pad-logos">
-      <div class="col-6 col-sm-4 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/parent.png'>
-      </div>
-      <div class="col-6 col-sm-4 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/fede.png'>
-      </div>
-      <div class="col-6 col-sm-4 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/logo_sanfilippo.png'>
-      </div>
-      
-    </div>
-    <h4 class="mt-2"><strong>{{'preland.Other partners' | translate }}</strong></h4>
-    <div class="row center-elements pad-logos">
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/Microsoft-Logo.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/takeda.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/gw.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/ucb.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/garri.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/ilitia-1.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/playconcepts.jpg'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/design.png'>
-      </div>
-      <div class="offset-sm-1 col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/illumina-logo.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/barra.png'>
-      </div>
-      <div class="col-6 col-sm-3 mb-3 p-4">
-        <img class="img-responsive" src='assets/img/home/logos/KyowaKirin.png'>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section style="padding-top: 70px !important;" class="d-none d-sm-block">
-  <img class="img-3" src="assets/img/land/last.jpg" />
-  <div class="col-12 d-flex justify-content-center">
-    <div class="card-body" style="max-width: 1200px;">
-      <div class="row m-0">
-        <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
-          <h1 class="card-title text-bold-500">
-            {{'preland.t6' | translate }}
-            <hr class="hr-custom">
-          </h1>
+        <div class="col-lg-12 col-md-12 py-2">
+          <div class="offset-md-2 col-md-8">
+            <div class="center-elements">
+              <form class="form" (ngSubmit)="sendMsg()" #f="ngForm">
+                <div class="form-body">
+                  <div class="">
+                    <div class="">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="userName" id="userName"
+                          placeholder="{{'generics.Name' | translate }}" ngModel required #userName="ngModel">
+                        <small class="form-text text-muted danger"
+                          *ngIf="!userName.valid && (userName.dirty || userName.touched)">{{'generics.required' | translate
+                          }}</small>
+                      </div>
+                    </div>
+                    <div class="">
+                      <div class="form-group">
+                        <input type="email" class="form-control" name="email" id="email"
+                          placeholder="{{'generics.Email' | translate }}" ngModel required email #email="ngModel">
+                        <small class="form-text text-muted danger"
+                          *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate
+                          }}</small>
+                      </div>
+                    </div>
+                    <div class="">
+                      <div class="form-group">
+                        <textarea name="description" id="textarea1"
+                          placeholder="{{'support.Message' | translate }}" class="form-control" ngModel
+                          required #description="ngModel"></textarea>
+                        <small class="form-text text-muted danger"
+                          *ngIf="!description.valid && (description.dirty || description.touched)">{{'generics.required' |
+                          translate }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!sending" class="center-elements">
+                  <div *ngIf="f.valid;then formValid else formError"></div>
+                  <ng-template #formValid><button class="btn btn-info round" type="submit"> {{'support.Send' |
+                      translate }}</button></ng-template>
+                  <ng-template #formError><button class="btn btn-info round" type="button"
+                      (click)="submitInvalidForm()"> {{'support.Send' | translate }}</button></ng-template>
+                </div>
+                <div class="form-actions" *ngIf="sending" class="center-elements">
+                  <span><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    
-  </div>
-  <div class="col-12 justify-content-center center-elements">
-    <div class="row center-elements pad-logos">
-      <div class="offset-sm-4 col-4 col-sm-4 mb-3 p-2">
-        <a href="https://ametic.es/es/prensa/carme-artigas-clausura-el-evento-de-ia-de-ametic-y-senala-la-inteligencia-artificial-como-la" target="_blank"><img class="responsive2" src='assets/img/home/logos/Premio-AMETIC-transparente.png'></a>
-        <h2 class="mt-2"><strong>Ametic</strong></h2>
-        <h6 class="mb-1"><strong>Artificial Intelligence Summit</strong></h6>
-        <p>R+D+I Ametic IA Award 2021</p>
-      </div>
-    </div>
-
   </div>
 </section>
