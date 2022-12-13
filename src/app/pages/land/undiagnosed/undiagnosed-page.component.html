@@ -1,7 +1,7 @@
 <a id="initsteps" class="anchorSteps"></a>
 <div class="vertical-center" style="background-color: #353540;">
   <section *ngIf="currentStep.stepIndex == 1" class="">
-    <div class="mt-4 row m-0">
+    <div class="row m-0">
       <div class="col-12">
             <div class="card-body">
               <div class="row center-elements pad-logos">
@@ -48,6 +48,7 @@
                     </button>
                   </div>
                   <span *ngIf="medicalText.length>0" class="text-muted pointer" (click)="clearText()">{{'generics.Delete' | translate }}</span>
+                  <span *ngIf="medicalText.length==0" style="height: 20px;color:#202123">.</span>
                 </div>
               </div>
             </div>
@@ -87,7 +88,7 @@
                         <table class="table mb-0 bg-white" aria-labelledby="rare disease">
                           <tbody>
                             <tr *ngFor="let disease of topRelatedConditions ; let i = index" class="d-flex">
-                              <td class="col-md-12" id="{{disease.id}}">
+                              <td class="col-md-12 diseaseClass pointer" id="{{disease.id}}">
                                 <span class="float-right ml-1">
                                   <button (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
                                   class="btn-outline-info btn btn-sm mr-1 mb-0 btn-fab round"
