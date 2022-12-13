@@ -1,6 +1,10 @@
 @import "../../../../assets/sass/scss/bootstrap/timeline-vertical";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+:host ::ng-deep ._hj-v4Fsu__MinimizedWidgetMiddle__right{
+  --hjFeedbackAccentColor: #00B4CC;
+}
+
 .vertical-center{
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: calc(100vh - 65px); /* These two lines are counted as one :-)       */
@@ -255,7 +259,11 @@ section {
 }
 
 .diseaseClass:hover {
-  background-color: #00B4CC !important;
+  background-color: #00B4CC3D !important;
+}
+
+.list-group-item-action:hover {
+  background-color: #00B4CC3D !important;
 }
 
 /* Provide sufficient contrast against white background */

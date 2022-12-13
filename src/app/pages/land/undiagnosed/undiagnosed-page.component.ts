@@ -48,6 +48,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     private subscription: Subscription = new Subscription();
     medicalText: string = '';
+    medicalText2: string = '';
     modalReference: NgbModalRef;
     topRelatedConditions: any = [];
     lang: string = 'en';
@@ -64,9 +65,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     currentStep: any = {};
     questions: any = [];
     answerOpenai: string = '';
+    showErrorCall1: boolean = false;
+    showErrorCall2: boolean = false;
     callingOpenai: boolean = false;
     loadingAnswerOpenai: boolean = false;
     selectedDisease: string = '';
+    showInputRecalculate: boolean = false;
+    options: any = [];
+    optionSelected: any = {};
 
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -95,14 +101,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.questions = [
             {id: 1, question: this.translate.instant("land.q1")},
             {id: 2, question: this.translate.instant("land.q2")},
-            {id: 3, question: this.translate.instant("land.q3")},
-            {id: 4, question: this.translate.instant("land.q4")}
+            {id: 3, question: this.translate.instant("land.q3")}
+        ];
+
+        window.scrollTo(0, 0);
+    }
+
+    initOptions(){
+        this.options = [
+            {id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1")},
+            {id: 2, value: this.translate.instant("land.option2"), label: this.translate.instant("land.labelopt2")},
+            {id: 3, value: this.translate.instant("land.option3"), label: this.translate.instant("land.labelopt3")},
+            {id: 4, value: this.translate.instant("land.option4"), label: this.translate.instant("land.labelopt4")}
         ];
 
         window.scrollTo(0, 0);
     }
 
     goPrevious() {
+        this.showInputRecalculate = false;
         var foundElementIndex = this.searchService.searchIndex(this.steps, 'stepIndex', this.currentStep.stepIndex);
         this.currentStep = this.steps[foundElementIndex - 1];
         document.getElementById('initsteps').scrollIntoView(true);
@@ -166,7 +183,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         this.currentStep = this.steps[0];
                         //this.focusTextArea();
                     } else {
-
+                        this.loadTranslations();
                     }
                 });
             }else{
@@ -185,6 +202,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             console.log(this.steps);
             this.showDisclaimer();
             this.initQuestions();
+            this.initOptions()
         });
     }
 
@@ -234,11 +252,22 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     clearText(){
         this.medicalText = '';
+        this.showErrorCall1 = false;
+    }
+
+    verifCallOpenAi(){
+        this.showErrorCall1 = false;
+        if(this.callingOpenai || this.medicalText.length<5){
+            this.showErrorCall1 = true;
+        }
+        if(!this.showErrorCall1){
+            this.callOpenAi();
+        }
     }
 
     callOpenAi(){
         //var resp= {"id":"cmpl-6MfILJTSmgXJK0pXe4YYpsFST9SjE","object":"text_completion","created":1670859973,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive inflammation and atrophy of one hemisphere of the brain, resulting in seizures, paralysis, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by a port-wine stain on the face, seizures, and progressive neurological decline. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by seizures, spasticity, and cognitive decline. \n4. West Syndrome (5%): A rare neurological disorder characterized by infantile spasms, developmental delay, and cognitive decline. \n5. Alexander Disease (2%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":157,"total_tokens":217}}
-        /*let resp= {"id":"cmpl-6MfFhhtrDO88K3e4dnJzxsUskRjZX","object":"text_completion","created":1670859809,"model":"text-davinci-003","choices":[{"text":".\n\n1. Síndrome de Rasmussen (50%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos, hemiplejía progresiva y deterioro cognitivo.\n\n2. Síndrome de Aicardi (25%): Hemiplejía progresiva, epilepsia focal resistente a los medicamentos y deterioro cognitivo.\n\n3. Síndrome de Landau-Kleffner (15%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos y deterioro cognitivo.\n\n4. Síndrome de West (10%): Atrofia hemisférica unilateral, epilepsia focal resistente a los medicamentos y hemiplejía progresiva.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":107,"completion_tokens":185,"total_tokens":292}}
+        /*let resp= {"id":"cmpl-6N2qhS30XcdC2k2siIo1iG6ch1cOk","object":"text_completion","created":1670950515,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive unilateral hemispheric atrophy, drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by unilateral facial port-wine stains, seizures, and neurological deficits. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by the absence of the corpus callosum, seizures, and neurological deficits. \n4. Alexander Disease (5%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline. \n5. Leigh Syndrome (5%): A rare neurological disorder characterized by progressive brain and spinal cord degeneration, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":163,"total_tokens":223}}
 
           let parseChoices = resp.choices[0].text.split("\n");
           let test = resp.choices[0].text.charAt(0)
@@ -266,8 +295,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
                 console.log(res);
-                let parseChoices = res.choices[0].text.split("\n");
-                let test = res.choices[0].text.charAt(0)
+                let parseChoices0 = res.choices[0].text.split("\n\n");
+                parseChoices0.shift();
+                console.log(parseChoices0);
+                let parseChoices = parseChoices0[0].split("\n");
+                console.log(parseChoices);
+                let test = parseChoices[0].charAt(0)
                 if(test=='.'){
                         parseChoices.shift();
                 }
@@ -308,6 +341,33 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 this.loadingAnswerOpenai = false;
             }));
        
+    }
+
+    recalculate(option){
+        this.showInputRecalculate = true;
+        this.optionSelected = this.options[option];
+        this.focusTextArea();
+        document.getElementById('optionssteps').scrollIntoView(true);
+    }
+
+    clearText2(){
+        this.medicalText2 = '';
+        this.showErrorCall2 = false;
+    }
+
+    verifCallOpenAi2(){
+        this.showErrorCall2 = false;
+        if(this.callingOpenai || this.medicalText2.length==0){
+            this.showErrorCall2 = true;
+        }
+        if(!this.showErrorCall2){
+            this.callOpenAi2();
+        }
+    }
+
+    callOpenAi2(){
+        this.medicalText = this.medicalText+ '. '+this.optionSelected.value+ ' ' +this.medicalText2;
+        this.callOpenAi();
     }
 
     focusTextArea() {

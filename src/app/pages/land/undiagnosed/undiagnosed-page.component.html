@@ -41,14 +41,15 @@
                 <div class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
                   <!--copy input control gpt websites-->
                   <div class="search">
-                    <input #inputTextArea type="text" class="searchTerm" [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}" (keyup.enter)="callOpenAi()">
-                    <button type="submit" class="searchButton" [disabled]="callingOpenai" (click)="callOpenAi();" [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
+                    <input #inputTextArea type="text" class="searchTerm" [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}" (keyup.enter)="verifCallOpenAi()">
+                    <button type="submit" class="searchButton" (click)="verifCallOpenAi();" [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
                      <em *ngIf="!callingOpenai" class="fa fa-search"></em>
                      <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
                     </button>
                   </div>
-                  <span *ngIf="medicalText.length>0" class="text-muted pointer" (click)="clearText()">{{'generics.Delete' | translate }}</span>
-                  <span *ngIf="medicalText.length==0" style="height: 20px;color:#202123">.</span>
+                  <span *ngIf="medicalText.length>=5" class="text-muted pointer" (click)="clearText()">{{'generics.Delete' | translate }}</span>
+                  <span *ngIf="medicalText.length<5" style="height: 20px;color:#202123">.</span>
+                  <span *ngIf="showErrorCall1 && medicalText.length<5" style="height: 20px;color:#f9423a">{{'land.required' | translate }}</span>
                 </div>
               </div>
             </div>
@@ -56,8 +57,11 @@
     </div>
   </section>
   <section *ngIf="currentStep.stepIndex == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8">
-    <div class="mt-2 row">
-      <div class="col-12 pt-3">
+    <div class="mt-4 row">
+      <span class="col-md-12 pt-4" *ngIf="topRelatedConditions.length>0">
+        <button type="button" class="btn round bt-nav btn-info" (click)="goPrevious()">{{'generics.Back' | translate }}</button>
+      </span>
+      <div class="col-12">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
             <div class="light-background" style="min-height:0px;">
@@ -88,19 +92,13 @@
                         <table class="table mb-0 bg-white" aria-labelledby="rare disease">
                           <tbody>
                             <tr *ngFor="let disease of topRelatedConditions ; let i = index" class="d-flex">
-                              <td class="col-md-12 diseaseClass pointer" id="{{disease.id}}">
+                              <td class="col-md-12 diseaseClass pointer" id="{{disease.id}}" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
                                 <span class="float-right ml-1">
-                                  <button (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
+                                  <button
                                   class="btn-outline-info btn btn-sm mr-1 mb-0 btn-fab round"
                                   title="{{'generics.More information' | translate }} ({{disease.id}})">
                                   <em class="fa fa-info w-13"></em>
                                 </button>
-                                  <!--<button (click)="deleteDisease(disease, i)"
-                                          class="btn btn-sm mr-1 mb-0 btn-fab round btn-outline-danger"
-                                          href="javascript:void(0)"
-                                          title="{{'generics.Delete' | translate }}">
-                                          <em class="fa fa-trash w-13"></em>
-                                        </button>-->
                                 </span>
                                 <span class="custom-bold ml-1" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
                                 style="cursor: pointer;" title="{{'generics.More information' | translate }} ({{disease}})">{{disease}}</span>
@@ -115,10 +113,38 @@
           </span>
         </div>
       </div>
-      <span class="col-md-12 center-elements" *ngIf="topRelatedConditions.length>0">
-        <button type="button" class="btn round bt-nav" (click)="goPrevious()" [class.cursor-not-allowed]="currentStep.stepIndex==1" [disabled]="currentStep.stepIndex==1" [ngClass]="(currentStep.stepIndex!=1)?'btn-info':'btn-secondary'">{{'generics.Back' | translate }}</button>
-      </span>
     </div>
+    <div class="col-12 d-flex justify-content-center">
+      <div class="card-body" style="max-width: 1200px;">
+        <div class="row m-0">
+          <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
+            <h1 class="card-title text-bold-500">
+              {{'land.Recalculate the list' | translate }}
+              <hr class="hr-custom">
+            </h1>
+            <span class="row mt-2">
+              <span class="col-md-3" *ngFor="let option of options; let i = index">
+                <button type="button" class="btn round btn-block btn-info" style="min-height: 80px;" (click)="recalculate(i);" [disabled]="currentStep.stepIndex==1">{{option.label}}</button>
+              </span>
+            </span>
+            <span class="row mt-2" *ngIf="showInputRecalculate">
+              <label>{{optionSelected.value}} </label>
+              <div class="search">
+                <input #inputTextArea type="text" class="searchTerm" [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}" (keyup.enter)="callOpenAi2()">
+                <button type="submit" class="searchButton" (click)="verifCallOpenAi2();" [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
+                 <em *ngIf="!callingOpenai" class="fa fa-search"></em>
+                 <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
+                </button>
+              </div>
+              <span *ngIf="medicalText2.length>0" class="text-muted pointer" (click)="clearText2()">{{'generics.Delete' | translate }}</span>
+              <span *ngIf="medicalText2.length==0" style="height: 20px;color:#202123">.</span>
+              <span *ngIf="showErrorCall2 && medicalText2.length==0" style="height: 20px;color:#f9423a">{{'land.required' | translate }}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <a id="optionssteps"></a>
+  </div>
   </section>
 </div>
 
@@ -135,12 +161,12 @@
     <h6><strong>{{'land.Select a question' | translate }}:</strong></h6>
     <!--Shows a list of selectable panels-->
     <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
+      <button class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
         (click)="showQuestion(question)" [disabled]="loadingAnswerOpenai">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{question.question}} {{ selectedDisease }}?</h5>
         </div>
-      </a>
+      </button>
       <div *ngIf="loadingAnswerOpenai" class="mt-3">
         <em class="fa fa-spinner fa-2x fa-spin fa-fw"></em>
       </div>
