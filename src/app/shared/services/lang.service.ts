@@ -24,27 +24,4 @@ export class LangService {
            return {};
          })
     }
-
-    getAllLangs(){
-      //load the available languages
-      return this.http.get('assets/jsons/all-languages.json')
-        .map( (res : any) => {
-            return res;
-         }, (err) => {
-           console.log(err);
-           return {};
-         })
-    }
-
-    loadDataJson(lang: string){
-      //cargar las palabras del idioma
-      return this.http.get(environment.api+'/assets/i18n/'+lang+'.json')
-        .map( (res : any) => {
-            return { lang: lang, jsonData: res };
-         }, (err) => {
-           console.log(err);
-           return {};
-         })
-    }
-
 }
