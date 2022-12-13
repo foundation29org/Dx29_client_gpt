@@ -78,8 +78,8 @@ export class AboutUsPageComponent implements OnDestroy {
   
           //this.mainForm.value.email = (this.mainForm.value.email).toLowerCase();
           //this.mainForm.value.lang=this.translate.store.currentLang;
-  
           var params = this.mainForm.value;
+          params.lang = sessionStorage.getItem('lang');
           this.subscription.add( this.http.post(environment.serverapi+'/api/homesupport/', params)
           .subscribe( (res : any) => {
             this.sending = false;
