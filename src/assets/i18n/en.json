@@ -2189,6 +2189,8 @@
     "q1": "What are the common symptoms for",
     "q2": "Give me more information for",
     "q3": "There are clinical trials for",
+    "Indicates the quality of the result": "Indicates the quality of the result",
+    "thanks": "You made a great contribution to the rare disease community. Thank you!",
     "Recalculate the list": "Recalculate the list",
     "option1": "And the patient also has these symptoms:",
     "labelopt1": "Add a symptom",
@@ -2582,6 +2584,15 @@
       "description": "Self-Phenotyping, Diagnosis, Share your Report with your Doctor",
       "title": "Undiagnosed Patients: Speed up your Diagnosis"
     }
+  },
+  "cookie": {
+    "header": "Cookies used on the Application!",
+    "message": "This Application uses cookies to ensure you get the best experience on our Application.",
+    "dismiss": "Got it!",
+    "allow": "Allow cookies",
+    "deny": "Decline",
+    "link": "Learn more",
+    "policy": "Cookie Policy"
   }
 }
 

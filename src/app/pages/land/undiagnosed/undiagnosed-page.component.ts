@@ -73,6 +73,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     showInputRecalculate: boolean = false;
     options: any = [];
     optionSelected: any = {};
+    sendingVote: boolean = false;
 
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -103,8 +104,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             {id: 2, question: this.translate.instant("land.q2")},
             {id: 3, question: this.translate.instant("land.q3")}
         ];
-
-        window.scrollTo(0, 0);
     }
 
     initOptions(){
@@ -162,6 +161,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.loadTranslations();
         this.eventsService.on('changelang', function (lang) {
             this.lang = lang;
+            this.loadTranslations();
             if (this.currentStep.stepIndex == 2 && this.originalLang != lang) {
                 Swal.fire({
                     title: this.translate.instant("land.Language has changed"),
@@ -179,15 +179,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     if (result.value) {
                         this.originalLang = lang;
                         this.restartInitVars();
-                        this.loadTranslations();
                         this.currentStep = this.steps[0];
                         //this.focusTextArea();
-                    } else {
-                        this.loadTranslations();
                     }
                 });
-            }else{
-                this.loadTranslations();
             }
         }.bind(this));
     }
@@ -197,13 +192,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             this.steps[0].title = res;
             console.log(this.steps);
         });
-        this.translate.get('land.step3').subscribe((res: string) => {
+        this.translate.get('land.step3').subscribe(async (res: string) => {
             this.steps[1].title = res;
             console.log(this.steps);
             this.showDisclaimer();
+            await this.delay(500);
             this.initQuestions();
             this.initOptions()
         });
+    }
+
+    delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     showDisclaimer(){
@@ -267,7 +267,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     callOpenAi(){
         //var resp= {"id":"cmpl-6MfILJTSmgXJK0pXe4YYpsFST9SjE","object":"text_completion","created":1670859973,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive inflammation and atrophy of one hemisphere of the brain, resulting in seizures, paralysis, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by a port-wine stain on the face, seizures, and progressive neurological decline. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by seizures, spasticity, and cognitive decline. \n4. West Syndrome (5%): A rare neurological disorder characterized by infantile spasms, developmental delay, and cognitive decline. \n5. Alexander Disease (2%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":157,"total_tokens":217}}
-        /*let resp= {"id":"cmpl-6N2qhS30XcdC2k2siIo1iG6ch1cOk","object":"text_completion","created":1670950515,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive unilateral hemispheric atrophy, drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by unilateral facial port-wine stains, seizures, and neurological deficits. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by the absence of the corpus callosum, seizures, and neurological deficits. \n4. Alexander Disease (5%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline. \n5. Leigh Syndrome (5%): A rare neurological disorder characterized by progressive brain and spinal cord degeneration, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":163,"total_tokens":223}}
+        let resp= {"id":"cmpl-6N2qhS30XcdC2k2siIo1iG6ch1cOk","object":"text_completion","created":1670950515,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive unilateral hemispheric atrophy, drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by unilateral facial port-wine stains, seizures, and neurological deficits. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by the absence of the corpus callosum, seizures, and neurological deficits. \n4. Alexander Disease (5%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline. \n5. Leigh Syndrome (5%): A rare neurological disorder characterized by progressive brain and spinal cord degeneration, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":163,"total_tokens":223}}
 
           let parseChoices = resp.choices[0].text.split("\n");
           let test = resp.choices[0].text.charAt(0)
@@ -283,9 +283,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
           console.log(this.topRelatedConditions);
           this.currentStep = this.steps[1];
           this.callingOpenai = false;
-          window.scrollTo(0, 0);*/
+          window.scrollTo(0, 0);
         // call api POST openai
-        console.log(this.lang);
+        /*console.log(this.lang);
        this.callingOpenai = true;
         var introText = 'Build an ordered list of rare diseases based on this medical description and order this list by probability. Indicates the probability with a percentage. \n '
         if(this.lang=='es'){
@@ -318,7 +318,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             }, (err) => {
                 console.log(err);
                 this.callingOpenai = false;
-            }));
+            }));*/
 
     }
 
@@ -463,5 +463,35 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     getLiteral(literal) {
         return this.translate.instant(literal);
+    }
+
+    vote(valueVote){
+        this.sendingVote = true;
+        console.log(valueVote)
+        var introText = 'Build an ordered list of rare diseases based on this medical description and order this list by probability. Indicates the probability with a percentage. \n '
+        if(this.lang=='es'){
+            introText = 'Construye una lista ordenada de enfermedades raras basada en esta descripción médica y ordena esta lista por probabilidad. Indica la probabilidad con un porcentaje. \n '
+        }
+        var value = {value: introText+ "Symptoms: "+this.medicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote:valueVote}
+        this.subscription.add(this.apiDx29ServerService.opinion(value)
+            .subscribe((res: any) => {
+                console.log(res);
+                this.lauchEvent("Vote: "+ valueVote);
+                this.sendingVote = false;
+                Swal.fire({
+                    icon: 'success',
+                    html: this.translate.instant("land.thanks"),
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                })
+                setTimeout(function () {
+                    Swal.close();
+                }, 2000);
+            }, (err) => {
+                console.log(err);
+                this.callingOpenai = false;
+                this.sendingVote = false;
+            }));
     }
 }

@@ -17,6 +17,12 @@ import { EventsService } from 'app/shared/services/events.service';
 import { NgxHotjarService } from 'ngx-hotjar';
 
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import {
+  NgcCookieConsentService,
+  NgcNoCookieLawEvent,
+  NgcInitializeEvent,
+  NgcStatusChangeEvent,
+} from "ngx-cookieconsent";
 
 @Component({
   selector: 'app-root',
@@ -35,7 +41,16 @@ export class AppComponent implements OnInit, OnDestroy {
   tituloEvent: string = '';
   role: string = '';
   //Set toastr container ref configuration for toastr positioning on screen
-  constructor(private http: HttpClient, public toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, public translate: TranslateService, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, private langService: LangService, private eventsService: EventsService, protected $hotjar: NgxHotjarService, private meta: Meta) {
+
+  //keep refs to subscriptions to be able to unsubscribe later
+  private popupOpenSubscription: Subscription;
+  private popupCloseSubscription: Subscription;
+  private initializeSubscription: Subscription;
+  private statusChangeSubscription: Subscription;
+  private revokeChoiceSubscription: Subscription;
+  private noCookieLawSubscription: Subscription;
+
+  constructor(private http: HttpClient, public toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, public translate: TranslateService, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, private langService: LangService, private eventsService: EventsService, protected $hotjar: NgxHotjarService, private meta: Meta, private ccService: NgcCookieConsentService) {
 
     if (sessionStorage.getItem('lang')) {
       this.translate.use(sessionStorage.getItem('lang'));
@@ -220,12 +235,83 @@ export class AppComponent implements OnInit, OnDestroy {
         this.changeMeta();
       })();
 
+      this.translate
+      .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.policy'])
+      .subscribe(data => {
+
+        this.ccService.getConfig().content = this.ccService.getConfig().content || {} ;
+        // Override default messages with the translated ones
+        this.ccService.getConfig().content.header = data['cookie.header'];
+        this.ccService.getConfig().content.message = data['cookie.message'];
+        this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
+        this.ccService.getConfig().content.allow = data['cookie.allow'];
+        this.ccService.getConfig().content.deny = data['cookie.deny'];
+        this.ccService.getConfig().content.link = data['cookie.link'];
+        this.ccService.getConfig().content.policy = data['cookie.policy'];
+        this.ccService.getConfig().content.href = environment.serverapi+'/privacy-policy';
+        this.ccService.destroy();//remove previous cookie bar (with default messages)
+        this.ccService.init(this.ccService.getConfig()); // update config with translated messages
+      });
+
 
     }.bind(this));
 
     this.eventsService.on('changeEscenarioHotjar', function (obj) {
       this.testHotjarTrigger(obj);
     }.bind(this));
+
+    this.ccService.getConfig().cookie.domain = window.location.hostname;
+
+    // subscribe to cookieconsent observables to react to main events
+    this.popupOpenSubscription = this.ccService.popupOpen$.subscribe(() => {
+      // you can use this.ccService.getConfig() to do stuff...
+    });
+
+    this.popupCloseSubscription = this.ccService.popupClose$.subscribe(() => {
+      // you can use this.ccService.getConfig() to do stuff...
+    });
+
+    this.initializeSubscription = this.ccService.initialize$.subscribe(
+      (event: NgcInitializeEvent) => {
+        // you can use this.ccService.getConfig() to do stuff...
+      }
+    );
+
+    this.statusChangeSubscription = this.ccService.statusChange$.subscribe(
+      (event: NgcStatusChangeEvent) => {
+        // you can use this.ccService.getConfig() to do stuff...
+      }
+    );
+
+    this.revokeChoiceSubscription = this.ccService.revokeChoice$.subscribe(
+      () => {
+        // you can use this.ccService.getConfig() to do stuff...
+      }
+    );
+
+    this.noCookieLawSubscription = this.ccService.noCookieLaw$.subscribe(
+      (event: NgcNoCookieLawEvent) => {
+        // you can use this.ccService.getConfig() to do stuff...
+      }
+    );
+
+    this.translate
+      .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.policy'])
+      .subscribe(data => {
+
+        this.ccService.getConfig().content = this.ccService.getConfig().content || {} ;
+        // Override default messages with the translated ones
+        this.ccService.getConfig().content.header = data['cookie.header'];
+        this.ccService.getConfig().content.message = data['cookie.message'];
+        this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
+        this.ccService.getConfig().content.allow = data['cookie.allow'];
+        this.ccService.getConfig().content.deny = data['cookie.deny'];
+        this.ccService.getConfig().content.link = data['cookie.link'];
+        this.ccService.getConfig().content.policy = data['cookie.policy'];
+        this.ccService.getConfig().content.href = environment.serverapi+'/privacy-policy';
+        this.ccService.destroy();//remove previous cookie bar (with default messages)
+        this.ccService.init(this.ccService.getConfig()); // update config with translated messages
+      });
   }
 
   delay(ms: number) {
@@ -248,6 +334,14 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.subscriptionTestForce) {
       this.subscriptionTestForce.unsubscribe();
     }
+
+    // unsubscribe to cookieconsent observables to prevent memory leaks
+    this.popupOpenSubscription.unsubscribe();
+    this.popupCloseSubscription.unsubscribe();
+    this.initializeSubscription.unsubscribe();
+    this.statusChangeSubscription.unsubscribe();
+    this.revokeChoiceSubscription.unsubscribe();
+    this.noCookieLawSubscription.unsubscribe();
   }
 
   changeMeta() {

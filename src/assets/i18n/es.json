@@ -2190,6 +2190,8 @@
     "q1": "¿Cuáles son los síntomas comunes de",
     "q2": "¿Dame más información para",
     "q3": "¿Hay ensayos clínicos para",
+    "Indicates the quality of the result": "Indica la calidad del resultado",
+    "thanks": "Has hecho una gran contribución a la comunidad de enfermedades raras. ¡Gracias!",
     "Recalculate the list": "Recalcular la lista",
     "option1": "Y el paciente también tiene estos síntomas:",
     "labelopt1": "Agregar un síntoma",
@@ -2585,5 +2587,14 @@
       "description": "Autofenotipo, Diagnóstico, Comparte tu informe con tu médico",
       "title": "Pacientes sin diagnosticar: Acelera tu Diagnóstico"
     }
+  },
+  "cookie": {
+    "header": "¡Cookies utilizadas en la Aplicación!",
+    "message": "Esta aplicación utiliza cookies para garantizar que obtenga la mejor experiencia en nuestra aplicación.",
+    "dismiss": "¡Entendido!",
+    "allow": "Permitir cookies",
+    "deny": "Rechazar",
+    "link": "Más información",
+    "policy": "Política de cookies"
   }
 }

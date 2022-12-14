@@ -114,6 +114,13 @@
         </div>
       </div>
     </div>
+    <div class="col-md-12 center-elements">
+      <h6>{{'land.Indicates the quality of the result' | translate }}</h6>
+      <span *ngIf="!sendingVote">
+        <button class="mr-1 btn btn-info" (click)="vote('up')" [disabled]="sendingVote"><em class="fas fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down')" [disabled]="sendingVote"><em class="fas fa-thumbs-down"></em></button>
+      </span>
+      <span *ngIf="sendingVote" class="d-block"><em class="fa fa-spinner fa-spin fa-fw fa-2x"></em></span>
+    </div>
     <div class="col-12 d-flex justify-content-center">
       <div class="card-body" style="max-width: 1200px;">
         <div class="row m-0">
