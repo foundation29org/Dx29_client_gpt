@@ -41,6 +41,23 @@ import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { NgxHotjarModule } from 'ngx-hotjar';
 import {GoogleAnalyticsService} from './shared/services/google-analytics.service';
+import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
+
+const cookieConfig:NgcCookieConsentConfig = {
+  cookie: {
+    domain: 'localhost' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+  },
+  palette: {
+    popup: {
+      background: '#fff'
+    },
+    button: {
+      background: '#00B4CC'
+    }
+  },
+  theme: 'edgeless',
+  type: 'opt-out'
+};
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -71,7 +88,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       }),
       Angulartics2Module.forRoot(),
       PerfectScrollbarModule,
-      NgxHotjarModule.forRoot(environment.hotjarSiteId)
+      NgxHotjarModule.forRoot(environment.hotjarSiteId),
+      NgcCookieConsentModule.forRoot(cookieConfig)
     ],
     providers: [
       {

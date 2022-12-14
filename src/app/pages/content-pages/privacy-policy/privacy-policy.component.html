@@ -1,21 +1,21 @@
 <section>
   <a id="initpos"></a>
-  <div class="modal-header mt-2">
+  <div class="modal-header mt-5">
     <h4 class="modal-title">{{'registration.Privacy Policy' | translate }}</h4>
-      <button type="button" class="pull-right btn btn-secondary btn-raised" (click)="back()">{{'generics.Back' | translate }}</button>
+      <button type="button" class="pull-right btn btn-info btn-raised" (click)="back()">{{'generics.Back' | translate }}</button>
   </div>
   <div class="modal-body">
    <h5>{{'policy.CONTENT' | translate }}</h5>
    <ol>
-     <li><a class="primary" (click)="goTo('step1')">{{'policy.step1' | translate }}</a></li>
-     <li><a class="primary" (click)="goTo('step2')">{{'policy.step2' | translate }}</a></li>
-     <li><a class="primary" (click)="goTo('step3')">{{'policy.step3' | translate }}</a></li>
-     <li><a class="primary" (click)="goTo('step4')">{{'policy.step4' | translate }}</a></li>
-     <li><a class="primary" (click)="goTo('step5')">{{'policy.step5' | translate }}</a></li>
+     <li><a class="info" (click)="goTo('step1')">{{'policy.step1' | translate }}</a></li>
+     <li><a class="info" (click)="goTo('step2')">{{'policy.step2' | translate }}</a></li>
+     <li><a class="info" (click)="goTo('step3')">{{'policy.step3' | translate }}</a></li>
+     <li><a class="info" (click)="goTo('step4')">{{'policy.step4' | translate }}</a></li>
+     <li><a class="info" (click)="goTo('step5')">{{'policy.step5' | translate }}</a></li>
    </ol>
    <a id="step1"></a>
    <div>
-     <h6 class="primary">1. {{'policy.step1' | translate }}</h6>
+     <h6 class="info">1. {{'policy.step1' | translate }}</h6>
      <p>
        {{'policy.step1-1' | translate }}:
      </p>
@@ -27,7 +27,7 @@
    </div>
    <a id="step2"></a>
    <div>
-     <h6 class="primary">2. {{'policy.step2' | translate }}</h6>
+     <h6 class="info">2. {{'policy.step2' | translate }}</h6>
      <p>
        {{'policy.step2-1' | translate }}:
      </p>
@@ -42,14 +42,14 @@
    </div>
    <a id="step3"></a>
    <div>
-     <h6 class="primary">3. {{'policy.step3' | translate }}</h6>
+     <h6 class="info">3. {{'policy.step3' | translate }}</h6>
      <p>
        {{'policy.step3-1' | translate }}
      </p>
    </div>
    <a id="step4"></a>
    <div>
-     <h6 class="primary">4. {{'policy.step4' | translate }}</h6>
+     <h6 class="info">4. {{'policy.step4' | translate }}</h6>
      {{'policy.step4-1' | translate }}:
      <ul>
         <li>
@@ -73,7 +73,7 @@
    </div>
    <a id="step5"></a>
    <div>
-     <h6 class="primary">5. {{'policy.step5' | translate }}</h6>
+     <h6 class="info">5. {{'policy.step5' | translate }}</h6>
      <p>
        {{'policy.step5-1' | translate }}
      </p>
@@ -88,6 +88,6 @@
    </p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary btn-raised" (click)="back()">{{'generics.Back' | translate }}</button>
+    <button type="button" class="btn btn-info btn-raised" (click)="back()">{{'generics.Back' | translate }}</button>
   </div>
 </section>

@@ -15,4 +15,14 @@ export class ApiDx29ServerService {
           return err;
         })
     }
+
+    opinion(info) {
+      return this.http.post(environment.serverapi + '/api/opinion', info)
+        .map((res: any) => {
+          return res;
+        }, (err) => {
+          console.log(err);
+          return err;
+        })
+    }
 }
