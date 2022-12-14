@@ -6,7 +6,6 @@ import { ContentPagesRoutingModule } from "./content-pages-routing.module";
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ErrorPageComponent } from "./error/error-page.component";
-import { TermsConditionsPageComponent } from "./terms-conditions/terms-conditions-page.component";
 import { DataProcessingAgreementComponent } from "./data-processing-agreement/data-processing-agreement.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -27,10 +26,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     ],
     declarations: [
         ErrorPageComponent,
-        TermsConditionsPageComponent,
         DataProcessingAgreementComponent,
         PrivacyPolicyPageComponent
     ],
-    entryComponents:[TermsConditionsPageComponent, DataProcessingAgreementComponent]
+    entryComponents:[DataProcessingAgreementComponent]
 })
 export class ContentPagesModule { }
