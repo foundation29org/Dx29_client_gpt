@@ -472,7 +472,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         if(this.lang=='es'){
             introText = 'Construye una lista ordenada de enfermedades raras basada en esta descripción médica y ordena esta lista por probabilidad. Indica la probabilidad con un porcentaje. \n '
         }
-        var value = {value: introText+ "Symptoms: "+this.medicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote:valueVote}
+        var value = {value: introText+ "Symptoms: "+this.medicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote:valueVote, topRelatedConditions: this.topRelatedConditions}
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 console.log(res);
