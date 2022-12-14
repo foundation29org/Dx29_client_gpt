@@ -16,7 +16,6 @@
                     <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right">
                         <a class="nav-link position-relative colorlink" id="dropdownLang" ngbDropdownToggle>
                             <i class="ft-flag font-medium-3 blue-grey darken-4 iconcolor"></i>
-                            <p class="d-none">{{'generics.Lang' | translate }}</p>
                         </a>
                         <div ngbDropdownMenu aria-labelledby="dropdownLang" class="dropdownLang">
                             <a *ngFor="let lang of langs" class="dropdown-item py-1 lang" href="javascript:;" (click)="ChangeLanguage(lang.code)">

@@ -8,25 +8,13 @@
 
 
 <url>
-  <loc>https://www.dx29.ai/</loc>
-  <lastmod>2021-09-16T11:06:38+00:00</lastmod>
+  <loc>https://dxgpt.app/</loc>
+  <lastmod>2022-12-14T11:06:38+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://www.dx29.ai/diagnosed</loc>
-  <lastmod>2021-09-16T11:06:38+00:00</lastmod>
+  <loc>https://dxgpt.app/aboutus</loc>
+  <lastmod>2022-12-14T11:06:38+00:00</lastmod>
   <priority>0.80</priority>
 </url>
-<url>
-  <loc>https://www.dx29.ai/undiagnosed</loc>
-  <lastmod>2021-09-16T11:06:38+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://www.dx29.ai/undiagnosed;role=physicians</loc>
-  <lastmod>2021-09-16T11:06:38+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-
-
 </urlset>
