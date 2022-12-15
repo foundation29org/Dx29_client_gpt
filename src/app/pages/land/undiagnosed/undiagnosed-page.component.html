@@ -64,51 +64,46 @@
       <div class="col-12">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
-            <div class="light-background" style="min-height:0px;">
-                  <div class="section maintxt">
-                    <span *ngIf="topRelatedConditions.length>0">
-                      <table class="col-md-12 table mb-0 bg-white" aria-labelledby="get diagnosis">
-                        <thead>
-                          <tr>
-                            <th id="headerTable" style="border-top-style: none;">
-                              <span class="d-block">
-                                <span>{{'land.step3' | translate }}</span>
-                                <span class="float-right">
-                                  <em class="mt-1 fas fa-copy grey mr-2" title="{{'land.Copy results' | translate }}"
-                                  (click)="copyResults()" style="cursor: pointer;"></em>
-                                  <em class="mt-1 fa fa-download grey mr-2"
-                                  title="{{'land.Download results' | translate }}" (click)="downloadResults()"
-                                  style="cursor: pointer;"></em>
-                                </span>
-                              </span>
-                              <span class="text-muted d-block" style="font-weight: initial;">
-                                <span>{{'land.step3descript' | translate }}</span>
-                              </span>
-                            </th>
-                          </tr>
-                        </thead>
-                      </table>
-                      <div class="table-cont">
-                        <table class="table mb-0 bg-white" aria-labelledby="rare disease">
-                          <tbody>
-                            <tr *ngFor="let disease of topRelatedConditions ; let i = index" class="d-flex">
-                              <td class="col-md-12 diseaseClass pointer" id="{{disease.id}}" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
-                                <span class="float-right ml-1">
-                                  <button
-                                  class="btn-outline-info btn btn-sm mr-1 mb-0 btn-fab round"
-                                  title="{{'generics.More information' | translate }} ({{disease.id}})">
-                                  <em class="fa fa-info w-13"></em>
-                                </button>
-                                </span>
-                                <span class="custom-bold ml-1" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
-                                style="cursor: pointer;" title="{{'generics.More information' | translate }} ({{disease}})">{{disease}}</span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </span>
-                  </div>
+            <div class="section maintxt" style="min-height:0px;">
+              <span *ngIf="topRelatedConditions.length>0">
+                <table class="col-md-12 table mb-0 white" aria-labelledby="get diagnosis" style="background-color: #353540;">
+                  <thead>
+                    <tr>
+                      <th id="headerTable" style="border-top-style: none;">
+                        <span class="d-block">
+                          <span>{{'diagnosis.Proposed diagnoses' | translate }}</span>
+                          <span class="float-right">
+                            <em class="mt-1 fas fa-copy info mr-2" title="{{'land.Copy results' | translate }}"
+                            (click)="copyResults()" style="cursor: pointer;"></em>
+                            <em class="mt-1 fa fa-download info mr-2"
+                            title="{{'land.Download results' | translate }}" (click)="downloadResults()"
+                            style="cursor: pointer;"></em>
+                          </span>
+                        </span>
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+                <div class="table-cont">
+                  <table class="table mb-0 bg-white" aria-labelledby="rare disease">
+                    <tbody>
+                      <tr *ngFor="let disease of topRelatedConditions ; let i = index" class="d-flex">
+                        <td class="col-md-12 diseaseClass pointer" id="{{disease.id}}" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
+                          <span class="float-right ml-1">
+                            <button
+                            class="btn-outline-info btn btn-sm mr-1 mb-0 btn-fab round"
+                            title="{{'generics.More information' | translate }} ({{disease.id}})">
+                            <em class="fa fa-info w-13"></em>
+                          </button>
+                          </span>
+                          <span class="custom-bold ml-1" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
+                          style="cursor: pointer;" title="{{'generics.More information' | translate }} ({{disease}})">{{disease}}</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </span>
             </div>
           </span>
         </div>
