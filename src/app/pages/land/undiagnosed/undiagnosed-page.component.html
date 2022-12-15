@@ -107,7 +107,7 @@
             </div>
           </span>
           <span class="card-footer center-elements" style="background-color: #353540;">
-            <button type="button" class="btn round btn-sm btn-info mb-0" [disabled]="loadingRecommendedTest" (click)="getRecommendedTest(contentRecommendedTest)">{{'land.recommended diagnosis test' | translate }}</button>
+            <button type="button" style="max-width: 300px;" class="btn round btn-sm btn-info mb-0" [disabled]="loadingRecommendedTest" (click)="getRecommendedTest(contentRecommendedTest)">{{'land.recommended diagnosis test' | translate }}</button>
             <span *ngIf="loadingRecommendedTest" class="d-block"><em class="fa fa-spinner fa-spin fa-fw fa-2x"></em></span>
           </span>
         </div>
