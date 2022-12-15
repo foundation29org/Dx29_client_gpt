@@ -75,6 +75,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     options: any = [];
     optionSelected: any = {};
     sendingVote: boolean = false;
+    loadingRecommendedTest: boolean = false;
+    recommendedTests: any = [];
 
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -111,8 +113,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.options = [
             {id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1")},
             {id: 2, value: this.translate.instant("land.option2"), label: this.translate.instant("land.labelopt2")},
-            {id: 3, value: this.translate.instant("land.option3"), label: this.translate.instant("land.labelopt3")},
-            {id: 4, value: this.translate.instant("land.option4"), label: this.translate.instant("land.labelopt4")}
+            {id: 3, value: this.translate.instant("land.option3"), label: this.translate.instant("land.labelopt3")}
         ];
 
         window.scrollTo(0, 0);
@@ -271,7 +272,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     callOpenAi(){
         //var resp= {"id":"cmpl-6MfILJTSmgXJK0pXe4YYpsFST9SjE","object":"text_completion","created":1670859973,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive inflammation and atrophy of one hemisphere of the brain, resulting in seizures, paralysis, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by a port-wine stain on the face, seizures, and progressive neurological decline. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by seizures, spasticity, and cognitive decline. \n4. West Syndrome (5%): A rare neurological disorder characterized by infantile spasms, developmental delay, and cognitive decline. \n5. Alexander Disease (2%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":157,"total_tokens":217}}
-        /*let resp= {"id":"cmpl-6N2qhS30XcdC2k2siIo1iG6ch1cOk","object":"text_completion","created":1670950515,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive unilateral hemispheric atrophy, drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by unilateral facial port-wine stains, seizures, and neurological deficits. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by the absence of the corpus callosum, seizures, and neurological deficits. \n4. Alexander Disease (5%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline. \n5. Leigh Syndrome (5%): A rare neurological disorder characterized by progressive brain and spinal cord degeneration, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":163,"total_tokens":223}}
+        let resp= {"id":"cmpl-6N2qhS30XcdC2k2siIo1iG6ch1cOk","object":"text_completion","created":1670950515,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive unilateral hemispheric atrophy, drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by unilateral facial port-wine stains, seizures, and neurological deficits. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by the absence of the corpus callosum, seizures, and neurological deficits. \n4. Alexander Disease (5%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline. \n5. Leigh Syndrome (5%): A rare neurological disorder characterized by progressive brain and spinal cord degeneration, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":163,"total_tokens":223}}
 
           let parseChoices = resp.choices[0].text.split("\n");
           let test = resp.choices[0].text.charAt(0)
@@ -287,9 +288,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
           console.log(this.topRelatedConditions);
           this.currentStep = this.steps[1];
           this.callingOpenai = false;
-          window.scrollTo(0, 0);*/
+          window.scrollTo(0, 0);
         // call api POST openai
-        console.log(this.lang);
+        /*console.log(this.lang);
        this.callingOpenai = true;
         var introText = 'Build an ordered list of rare diseases based on this medical description and order this list by probability. Indicates the probability with a percentage. \n '
         if(this.lang=='es'){
@@ -329,7 +330,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             }, (err) => {
                 console.log(err);
                 this.callingOpenai = false;
-            }));
+            }));*/
 
     }
 
@@ -553,4 +554,90 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         },
         100);
       }
+
+
+      getRecommendedTest(contentRecommendedTest){
+        /*var testRes= {"id":"cmpl-6NmJuArnVJyKUlxBZ1sPJtVvp4YZj","object":"text_completion","created":1671125306,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome: Magnetic Resonance Imaging (MRI)\n2. Sturge-Weber Syndrome: Magnetic Resonance Imaging (MRI) and Computed Tomography (CT) Scan\n3. Aicardi Syndrome: Magnetic Resonance Imaging (MRI) and Electroencephalography (EEG)\n4. Alexander Disease: Magnetic Resonance Imaging (MRI) and Genetic Testing\n5. Leigh Syndrome: Magnetic Resonance Imaging (MRI) and Genetic Testing","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":42,"completion_tokens":96,"total_tokens":138}}
+        let parseChoices0 = testRes.choices[0].text.split("\n\n");
+                parseChoices0.shift();
+                console.log(parseChoices0);
+                let parseChoices = parseChoices0;
+                console.log(parseChoices0[0].indexOf("\n"));
+                if(parseChoices0[0].indexOf("\n")!=-1){
+                    parseChoices = parseChoices0[0].split("\n");
+                    let test = parseChoices[0].charAt(0)
+                    if(test=='.'){
+                            parseChoices.shift();
+                    }
+                }
+                this.recommendedTests = [];
+                for (let i = 0; i < parseChoices.length; i++) {
+                    if(parseChoices[i]!=''){
+                        this.recommendedTests.push(parseChoices[i])
+                    }
+                }
+                this.loadingRecommendedTest = false;
+                let ngbModalOptions: NgbModalOptions = {
+                    backdrop: 'static',
+                    keyboard: false,
+                    windowClass: 'ModalClass-lg'// xl, lg, sm
+                };
+                if (this.modalReference != undefined) {
+                    this.modalReference.close();
+                    this.modalReference = undefined;
+                }
+                this.modalReference = this.modalService.open(contentRecommendedTest, ngbModalOptions);*/
+        
+        var listDiseases = "";
+        for (let i = 0; i < this.topRelatedConditions.length; i++) {
+            listDiseases = listDiseases + this.topRelatedConditions[i].split(' (')[0];
+            if (i + 1 < this.topRelatedConditions.length) {
+                listDiseases = listDiseases + ", ";
+            }
+        }
+        
+        var introText = this.translate.instant("land.recommended diagnosis test") + ": " + listDiseases;
+        this.loadingRecommendedTest = true;
+        var value = {value: introText, myuuid: this.myuuid, operation: 'recommended diagnosis test', lang: this.lang}
+        this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
+            .subscribe((res: any) => {
+                console.log(res);
+
+                let parseChoices0 = res.choices[0].text.split("\n\n");
+                parseChoices0.shift();
+                console.log(parseChoices0);
+                let parseChoices = parseChoices0;
+                console.log(parseChoices0[0].indexOf("\n"));
+                if(parseChoices0[0].indexOf("\n")!=-1){
+                    parseChoices = parseChoices0[0].split("\n");
+                    let test = parseChoices[0].charAt(0)
+                    if(test=='.'){
+                            parseChoices.shift();
+                    }
+                }
+                this.recommendedTests = [];
+                for (let i = 0; i < parseChoices.length; i++) {
+                    if(parseChoices[i]!=''){
+                        this.recommendedTests.push(parseChoices[i])
+                    }
+                }
+                this.loadingRecommendedTest = false;
+                let ngbModalOptions: NgbModalOptions = {
+                    backdrop: 'static',
+                    keyboard: false,
+                    windowClass: 'ModalClass-lg'// xl, lg, sm
+                };
+                if (this.modalReference != undefined) {
+                    this.modalReference.close();
+                    this.modalReference = undefined;
+                }
+                this.modalReference = this.modalService.open(contentRecommendedTest, ngbModalOptions);
+
+                this.lauchEvent("Recommended test");
+            }, (err) => {
+                console.log(err);
+                this.loadingRecommendedTest = false;
+            }));
+       
+    }
 }
