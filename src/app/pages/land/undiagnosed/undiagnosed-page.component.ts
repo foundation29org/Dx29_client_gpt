@@ -49,6 +49,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     private subscription: Subscription = new Subscription();
     medicalText: string = '';
     medicalText2: string = '';
+    copyMedicalText: string = '';
     modalReference: NgbModalRef;
     topRelatedConditions: any = [];
     lang: string = 'en';
@@ -117,11 +118,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         window.scrollTo(0, 0);
     }
 
-    goPrevious() {
+    async goPrevious() {
         this.showInputRecalculate = false;
-        var foundElementIndex = this.searchService.searchIndex(this.steps, 'stepIndex', this.currentStep.stepIndex);
-        this.currentStep = this.steps[foundElementIndex - 1];
+        this.currentStep = this.steps[0];
         document.getElementById('initsteps').scrollIntoView(true);
+        await this.delay(200);
         this.clearText();
     }
 
@@ -248,11 +249,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }
         console.log(this.medicalText);
         this.focusTextArea();
+        this.resizeTextArea();
     }
 
     clearText(){
         this.medicalText = '';
+        this.copyMedicalText = '';
         this.showErrorCall1 = false;
+        document.getElementById("textarea1").setAttribute( "style", "height:50px;overflow-y:hidden; width: 100%;");
     }
 
     verifCallOpenAi(){
@@ -294,16 +298,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         var value = {value: introText+ "Symptoms: "+this.medicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang}
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
+                if(this.currentStep.stepIndex==1){
+                    this.copyMedicalText = this.medicalText;
+                }
                 console.log(res);
                 let parseChoices0 = res.choices[0].text.split("\n\n");
                 parseChoices0.shift();
                 console.log(parseChoices0);
-                let parseChoices = parseChoices0[0].split("\n");
-                console.log(parseChoices);
-                let test = parseChoices[0].charAt(0)
-                if(test=='.'){
-                        parseChoices.shift();
+                let parseChoices = parseChoices0;
+                console.log(parseChoices0[0].indexOf("\n"));
+                if(parseChoices0[0].indexOf("\n")!=-1){
+                    parseChoices = parseChoices0[0].split("\n");
+                    let test = parseChoices[0].charAt(0)
+                    if(test=='.'){
+                            parseChoices.shift();
+                    }
                 }
+                console.log(parseChoices);
                 this.topRelatedConditions = [];
                 for (let i = 0; i < parseChoices.length; i++) {
                     if(parseChoices[i]!=''){
@@ -353,6 +364,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     clearText2(){
         this.medicalText2 = '';
         this.showErrorCall2 = false;
+        document.getElementById("textarea2").setAttribute( "style", "height:50px;overflow-y:hidden; width: 100%;");
     }
 
     verifCallOpenAi2(){
@@ -366,7 +378,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     callOpenAi2(){
-        this.medicalText = this.medicalText+ '. '+this.optionSelected.value+ ' ' +this.medicalText2;
+        this.medicalText = this.copyMedicalText+ '. '+this.optionSelected.value+ ' ' +this.medicalText2;
         this.callOpenAi();
     }
 
@@ -389,6 +401,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     restartInitVars() {
         this.medicalText = '';
+        this.copyMedicalText = '';
         this.restartAllVars();
         //this.focusTextArea();
     }
@@ -494,4 +507,50 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 this.sendingVote = false;
             }));
     }
+
+    async resizeTextArea(){
+        setTimeout(() =>
+        {
+          $('.autoajustable').each(function () {
+            let height = this.scrollHeight;
+            if(height<50){
+                height = 50;
+            }
+            document.getElementById("textarea1").setAttribute( "style", "height:" + (height) + "px;overflow-y:hidden; width: 100%;");
+         }).on('input', function () {
+            let height = this.scrollHeight;
+            if(height<50){
+                height = 50;
+            }
+             this.style.height = 'auto';
+             this.style.height = (height) + 'px';
+         });
+    
+        },
+        100);
+      }
+
+      resizeTextArea2(){
+
+        setTimeout(() =>
+        {
+          $('.autoajustable2').each(function () {
+            let height = this.scrollHeight;
+            if(height<50){
+                height = 50;
+            }
+            document.getElementById("textarea2").setAttribute( "style", "height:" + (height) + "px;overflow-y:hidden; width: 100%;");
+            
+         }).on('input', function () {
+            let height = this.scrollHeight;
+            if(height<50){
+                height = 50;
+            }
+             this.style.height = 'auto';
+             this.style.height = (height) + 'px';
+         });
+    
+        },
+        100);
+      }
 }
