@@ -75,8 +75,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     options: any = [];
     optionSelected: any = {};
     sendingVote: boolean = false;
-    loadingRecommendedTest: boolean = false;
-    recommendedTests: any = [];
 
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -554,90 +552,4 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         },
         100);
       }
-
-
-      getRecommendedTest(contentRecommendedTest){
-        /*var testRes= {"id":"cmpl-6NmJuArnVJyKUlxBZ1sPJtVvp4YZj","object":"text_completion","created":1671125306,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome: Magnetic Resonance Imaging (MRI)\n2. Sturge-Weber Syndrome: Magnetic Resonance Imaging (MRI) and Computed Tomography (CT) Scan\n3. Aicardi Syndrome: Magnetic Resonance Imaging (MRI) and Electroencephalography (EEG)\n4. Alexander Disease: Magnetic Resonance Imaging (MRI) and Genetic Testing\n5. Leigh Syndrome: Magnetic Resonance Imaging (MRI) and Genetic Testing","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":42,"completion_tokens":96,"total_tokens":138}}
-        let parseChoices0 = testRes.choices[0].text.split("\n\n");
-                parseChoices0.shift();
-                console.log(parseChoices0);
-                let parseChoices = parseChoices0;
-                console.log(parseChoices0[0].indexOf("\n"));
-                if(parseChoices0[0].indexOf("\n")!=-1){
-                    parseChoices = parseChoices0[0].split("\n");
-                    let test = parseChoices[0].charAt(0)
-                    if(test=='.'){
-                            parseChoices.shift();
-                    }
-                }
-                this.recommendedTests = [];
-                for (let i = 0; i < parseChoices.length; i++) {
-                    if(parseChoices[i]!=''){
-                        this.recommendedTests.push(parseChoices[i])
-                    }
-                }
-                this.loadingRecommendedTest = false;
-                let ngbModalOptions: NgbModalOptions = {
-                    backdrop: 'static',
-                    keyboard: false,
-                    windowClass: 'ModalClass-lg'// xl, lg, sm
-                };
-                if (this.modalReference != undefined) {
-                    this.modalReference.close();
-                    this.modalReference = undefined;
-                }
-                this.modalReference = this.modalService.open(contentRecommendedTest, ngbModalOptions);*/
-        
-        var listDiseases = "";
-        for (let i = 0; i < this.topRelatedConditions.length; i++) {
-            listDiseases = listDiseases + this.topRelatedConditions[i].split(' (')[0];
-            if (i + 1 < this.topRelatedConditions.length) {
-                listDiseases = listDiseases + ", ";
-            }
-        }
-        
-        var introText = this.translate.instant("land.recommended diagnosis test") + ": " + listDiseases;
-        this.loadingRecommendedTest = true;
-        var value = {value: introText, myuuid: this.myuuid, operation: 'recommended diagnosis test', lang: this.lang}
-        this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
-            .subscribe((res: any) => {
-                console.log(res);
-
-                let parseChoices0 = res.choices[0].text.split("\n\n");
-                parseChoices0.shift();
-                console.log(parseChoices0);
-                let parseChoices = parseChoices0;
-                console.log(parseChoices0[0].indexOf("\n"));
-                if(parseChoices0[0].indexOf("\n")!=-1){
-                    parseChoices = parseChoices0[0].split("\n");
-                    let test = parseChoices[0].charAt(0)
-                    if(test=='.'){
-                            parseChoices.shift();
-                    }
-                }
-                this.recommendedTests = [];
-                for (let i = 0; i < parseChoices.length; i++) {
-                    if(parseChoices[i]!=''){
-                        this.recommendedTests.push(parseChoices[i])
-                    }
-                }
-                this.loadingRecommendedTest = false;
-                let ngbModalOptions: NgbModalOptions = {
-                    backdrop: 'static',
-                    keyboard: false,
-                    windowClass: 'ModalClass-lg'// xl, lg, sm
-                };
-                if (this.modalReference != undefined) {
-                    this.modalReference.close();
-                    this.modalReference = undefined;
-                }
-                this.modalReference = this.modalService.open(contentRecommendedTest, ngbModalOptions);
-
-                this.lauchEvent("Recommended test");
-            }, (err) => {
-                console.log(err);
-                this.loadingRecommendedTest = false;
-            }));
-       
-    }
 }
