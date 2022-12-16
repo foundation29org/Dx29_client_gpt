@@ -41,7 +41,7 @@
                 <div class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
                   <!--copy input control gpt websites-->
                   <div class="search">
-                    <textarea #inputTextArea id="textarea1" type="text" class="autoajustable searchTerm" [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea()" (keyup.enter)="verifCallOpenAi()"></textarea>
+                    <textarea #inputTextArea id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow" [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea()" (keyup.enter)="verifCallOpenAi()"></textarea>
                     <button type="submit" class="searchButton" (click)="verifCallOpenAi();" [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
                      <em *ngIf="!callingOpenai" class="fa fa-search"></em>
                      <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
@@ -136,7 +136,7 @@
             <span class="row mt-2" *ngIf="showInputRecalculate">
               <label>{{optionSelected.value}} </label>
               <div class="search">
-                <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm" [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}" (keyup.enter)="callOpenAi2()" (ngModelChange)="resizeTextArea2()"></textarea>
+                <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow" [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}" (keyup.enter)="callOpenAi2()" (ngModelChange)="resizeTextArea2()"></textarea>
                 <button type="submit" class="searchButton" (click)="verifCallOpenAi2();" [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
                  <em *ngIf="!callingOpenai" class="fa fa-search"></em>
                  <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
