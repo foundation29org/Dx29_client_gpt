@@ -25,6 +25,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
 import { catchError, debounceTime, distinctUntilChanged, map, tap, switchMap, merge, mergeMap, concatMap } from 'rxjs/operators'
 import { KeyValue } from '@angular/common';
+import { SlowBuffer } from 'buffer';
 
 
 var $primary = "#975AFF",
@@ -75,6 +76,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     options: any = [];
     optionSelected: any = {};
     sendingVote: boolean = false;
+    selectorRare: boolean = false;
+    selectorOption: string = '';
+    optionRare: string = '';
+    optionCommon: string = '';
+    symtpmsLabel: string = '';
 
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -200,6 +206,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             this.initQuestions();
             this.initOptions()
         });
+
+        this.translate.get('land.rare').subscribe((res: string) => {
+            this.optionRare = res;
+        });
+        this.translate.get('land.common').subscribe((res: string) => {
+            this.optionCommon = res;
+        });
+        this.translate.get('land.Symptoms').subscribe((res: string) => {
+            this.symtpmsLabel = res;
+        });
     }
 
     delay(ms: number) {
@@ -289,12 +305,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
           window.scrollTo(0, 0);*/
         // call api POST openai
         console.log(this.lang);
-       this.callingOpenai = true;
-        var introText = 'Build an ordered list of rare diseases based on this medical description and order this list by probability. Indicates the probability with a percentage. \n '
-        if(this.lang=='es'){
-            introText = 'Construye una lista ordenada de enfermedades raras basada en esta descripción médica y ordena esta lista por probabilidad. Indica la probabilidad con un porcentaje. \n '
+        this.callingOpenai = true;
+        let paramIntroText = this.optionRare;
+        if(this.selectorRare){
+            paramIntroText = this.optionCommon;
         }
-        var value = {value: introText+ "Symptoms: "+this.medicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang}
+        let introText = this.translate.instant("land.prom1", {
+            value: paramIntroText
+        })
+        var value = {value: introText+ this.symtpmsLabel+" "+this.medicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang}
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
                 if(this.currentStep.stepIndex==1){
@@ -480,11 +499,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     vote(valueVote){
         this.sendingVote = true;
         console.log(valueVote)
-        var introText = 'Build an ordered list of rare diseases based on this medical description and order this list by probability. Indicates the probability with a percentage. \n '
-        if(this.lang=='es'){
-            introText = 'Construye una lista ordenada de enfermedades raras basada en esta descripción médica y ordena esta lista por probabilidad. Indica la probabilidad con un porcentaje. \n '
+        let paramIntroText = this.optionRare;
+        if(this.selectorRare){
+            paramIntroText = this.optionCommon;
         }
-        var value = {value: introText+ "Symptoms: "+this.medicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote:valueVote, topRelatedConditions: this.topRelatedConditions}
+        let introText = this.translate.instant("land.prom1", {
+            value: paramIntroText
+        })
+        var value = {value: introText+ this.symtpmsLabel+" "+this.medicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote:valueVote, topRelatedConditions: this.topRelatedConditions}
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 console.log(res);
@@ -551,5 +573,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     
         },
         100);
+      }
+
+      selectorRareEvent(event){
+        this.selectorRare= event;
       }
 }
