@@ -18,6 +18,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {DndDirective} from "app/shared/directives/dnd.directive";
 import { MyFilterPipe } from 'app/shared/services/my-filter.pipe';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 @NgModule({
     exports: [
@@ -38,7 +39,14 @@ import { MyFilterPipe } from 'app/shared/services/my-filter.pipe';
         MatRadioModule,
         NgApexchartsModule,
         MatDatepickerModule,
-        MatNativeDateModule 
+        MatNativeDateModule,
+        UiSwitchModule.forRoot({
+            size: 'medium',
+            color: '#00B4CC',
+            switchColor: '#fff',
+            defaultBgColor: '#fff',
+            defaultBoColor : '#00B4CC'
+          })
     ],
     declarations: [
         AboutUsPageComponent,

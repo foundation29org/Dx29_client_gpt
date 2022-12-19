@@ -2,8 +2,14 @@
 <div class="vertical-center" style="background-color: #353540;">
   <section *ngIf="currentStep.stepIndex == 1" class="">
     <div class="row m-0">
+
       <div class="col-12">
             <div class="card-body">
+              <div class="row mt-3">
+                <div class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
+                  <h4>{{'land.title' | translate }}</h4>
+                </div>
+              </div>
               <div class="row center-elements pad-logos">
                 <div class="col-md-4 mb-3 p-4">
                   <em class="fa fa-sun-o fa-2x"></em>
@@ -47,9 +53,13 @@
                      <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
                     </button>
                   </div>
-                  <span *ngIf="medicalText.length>=5" class="text-muted pointer" (click)="clearText()">{{'generics.Delete' | translate }}</span>
-                  <span *ngIf="medicalText.length<5" style="height: 20px;color:#202123">.</span>
+                  <!--<span *ngIf="medicalText.length>=5" class="text-muted pointer" (click)="clearText()">{{'generics.Delete' | translate }}</span>
+                  <span *ngIf="medicalText.length<5" style="height: 20px;color:#202123">.</span>-->
                   <span *ngIf="showErrorCall1 && medicalText.length<5" style="height: 20px;color:#f9423a">{{'land.required' | translate }}</span>
+                  <p class="text-left mb-0 mt-2">{{'land.titleOptions' | translate }}</p>
+                  <p class="text-left">
+                    <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
+                  </p>
                 </div>
               </div>
             </div>
