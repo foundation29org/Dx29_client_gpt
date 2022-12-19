@@ -209,8 +209,8 @@
     "titleOptions": "Puedes seleccionar entre enfermedades raras y enfermedades más comunes:",
     "opt1": "Raras",
     "opt2": "Comunes",
-    "rare": "Enfermedas raras",
-    "common": "Enfermedades comunes",
+    "rare": "enfermedas raras",
+    "common": "enfermedades",
     "Symptoms": "Síntomas:",
     "prom1": "Construye una lista ordenada de {{value}} basada en esta descripción médica y ordena esta lista por probabilidad. Indica la probabilidad con un porcentaje. \n ",
     "aboutUs":{

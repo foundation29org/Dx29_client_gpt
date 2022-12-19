@@ -209,8 +209,8 @@
     "titleOptions": "You can switch between rare diseases and more common diseases:",
     "opt1": "Rare",
     "opt2": "Common",
-    "rare": "Rare diseases",
-    "common": "Common diseases",
+    "rare": "rare diseases",
+    "common": "diseases",
     "Symptoms": "Symptoms:",
     "prom1": "Build an ordered list of {{value}} based on this medical description and order this list by probability. Indicates the probability with a percentage. \n ",
     "aboutUs":{
