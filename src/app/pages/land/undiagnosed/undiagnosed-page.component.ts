@@ -268,6 +268,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     clearText(){
+        this.medicalText2 = '';
+        this.showInputRecalculate =false;
         this.medicalText = '';
         this.copyMedicalText = '';
         this.showErrorCall1 = false;
@@ -425,7 +427,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     showMoreInfoDiseasePopup(diseaseIndex, contentInfoDisease) {
-        
+        this.answerOpenai = '';
         this.selectedInfoDiseaseIndex = diseaseIndex;
         var nameEvent = 'Undiagnosed - Select Disease - '+this.topRelatedConditions[this.selectedInfoDiseaseIndex];
         this.lauchEvent(nameEvent);
