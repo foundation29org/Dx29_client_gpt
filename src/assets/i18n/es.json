@@ -198,6 +198,7 @@
     "step1": "Introduce tus síntomas",
     "step3": "Explora enfermedades",
     "step3descript": "Estas enfermedades coinciden con tus síntomas. Esta es una lista de sugerencias solamente con fines informativos.",
+    "nofound": "No se han encontrado resultados, intentelo con otras palabras.",
     "Extract": "Extraer",
     "placeholderError": "Escribe síntomas, corta y pega texto o usa un infome.",
     "Copy results": "Copiar resultados",

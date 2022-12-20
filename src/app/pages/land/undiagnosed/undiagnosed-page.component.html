@@ -61,6 +61,7 @@
                     <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
                   </p>
                 </div>
+                <a id="optioninput1"></a>
               </div>
             </div>
       </div>
@@ -71,6 +72,7 @@
       <span class="col-md-12 pt-4" *ngIf="topRelatedConditions.length>0">
         <button type="button" class="btn round bt-nav btn-info" (click)="goPrevious()">{{'generics.Back' | translate }}</button>
       </span>
+      <a id="step2"></a>
       <div class="col-12">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
@@ -114,6 +116,9 @@
                   </table>
                 </div>
               </span>
+              <span *ngIf="topRelatedConditions.length==0">
+                <p>{{'land.nofound' | translate }}</p>
+              </span>
             </div>
           </span>
         </div>
@@ -155,8 +160,8 @@
           </div>
         </div>
       </div>
-      <a id="optionssteps"></a>
   </div>
+  <a id="optionssteps"></a>
   </section>
 </div>
 
