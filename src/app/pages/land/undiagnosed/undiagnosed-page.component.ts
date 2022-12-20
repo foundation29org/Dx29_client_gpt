@@ -126,7 +126,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     async goPrevious() {
         this.showInputRecalculate = false;
         this.currentStep = this.steps[0];
-        document.getElementById('initsteps').scrollIntoView(true);
+        document.getElementById('initsteps').scrollIntoView({behavior: "smooth"});
         await this.delay(200);
         this.clearText();
     }
@@ -263,7 +263,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             this.medicalText = this.translate.instant("land.p1.2")
         }
         console.log(this.medicalText);
-        this.focusTextArea();
+        document.getElementById('optioninput1').scrollIntoView({behavior: "smooth"});
+        //this.focusTextArea();
         this.resizeTextArea();
     }
 
@@ -350,11 +351,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     }
                 }
                 console.log(this.topRelatedConditions);
-                this.currentStep = this.steps[1];
+                if(this.currentStep.stepIndex==1){
+                    this.currentStep = this.steps[1];
+                }
                 this.callingOpenai = false;
-                window.scrollTo(0, 0);
-                this.lauchEvent("Search Disease");
                 Swal.close();
+                //window.scrollTo(0, 0);
+                this.lauchEvent("Search Disease");
+                this.scrollTo();
             }, (err) => {
                 console.log(err);
                 this.callingOpenai = false;
@@ -362,6 +366,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             }));
 
     }
+    
+    async scrollTo(){
+        await this.delay(400);
+        document.getElementById('step2').scrollIntoView({behavior: "smooth"});
+    }
+
+
+    
 
     showQuestion(question){
         /*var testRes= {"id":"cmpl-6KmXVRaPvar50l7SgRNVTiosKsCiQ","object":"text_completion","created":1670411165,"model":"text-davinci-003","choices":[{"text":"\n\nCommon symptoms of Dravet Syndrome include:\n\n-Frequent and/or prolonged seizures\n-Developmental delays\n-Speech delays\n-Behavioral and social challenges\n-Sleep disturbances\n-Growth and nutrition issues\n-Sensory integration dysfunction\n-Movement and balance issues\n-Weak muscle tone (hypotonia)\n-Delayed motor skills","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":13,"completion_tokens":80,"total_tokens":93}}
@@ -384,11 +396,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
        
     }
 
-    recalculate(option){
+    async recalculate(option){
         this.showInputRecalculate = true;
         this.optionSelected = this.options[option];
-        this.focusTextArea();
-        document.getElementById('optionssteps').scrollIntoView(true);
+        //this.focusTextArea();
+        await this.delay(200);
+        document.getElementById('optionssteps').scrollIntoView({behavior: "smooth"});
     }
 
     clearText2(){

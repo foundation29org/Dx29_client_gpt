@@ -198,6 +198,7 @@
     "step1": "Enter your symptoms",
     "step3": "Explore diseases",
     "step3descript": "These diseases match your symptoms. This is a list of suggestions for informational purposes only",
+    "nofound": "No results found, please try other words.",
     "Extract": "Extract",
     "placeholderError": "Type symptoms, cut and paste text or use a medical record.",
     "Copy results": "Copy results",
