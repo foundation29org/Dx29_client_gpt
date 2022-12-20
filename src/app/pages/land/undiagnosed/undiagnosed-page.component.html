@@ -68,11 +68,11 @@
     </div>
   </section>
   <section *ngIf="currentStep.stepIndex == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8">
+    <a id="step2"></a>
     <div class="mt-4 row">
       <span class="col-md-12 pt-4" *ngIf="topRelatedConditions.length>0">
         <button type="button" class="btn round bt-nav btn-info" (click)="goPrevious()">{{'generics.Back' | translate }}</button>
       </span>
-      <a id="step2"></a>
       <div class="col-12">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
