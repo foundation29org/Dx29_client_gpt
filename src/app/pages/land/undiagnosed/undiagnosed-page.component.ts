@@ -306,6 +306,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
           this.callingOpenai = false;
           window.scrollTo(0, 0);*/
         // call api POST openai
+        
+        Swal.fire({
+            html: '<p>'+this.translate.instant("land.swal")+'</p>'+'<p><em class="fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false
+        })
+
         console.log(this.lang);
         this.callingOpenai = true;
         let paramIntroText = this.optionRare;
@@ -346,9 +354,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 this.callingOpenai = false;
                 window.scrollTo(0, 0);
                 this.lauchEvent("Search Disease");
+                Swal.close();
             }, (err) => {
                 console.log(err);
                 this.callingOpenai = false;
+                Swal.close();
             }));
 
     }
