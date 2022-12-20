@@ -95,8 +95,8 @@
     "step5": "ASSIGNMENT OF DATA",
     "step1-1": "In accordance with current regulations, the interested party is informed that the information provided will be processed by Fundación 29 de Febrero (hereinafter, 'F29'), whose contact information is as follows",
     "step1-2": "Registered office",
-    "step2-1": "When users provide personal data through the forms on the Dx29 website, their personal data will be processed for the following purposes",
-    "step2-2": "When users provide personal data through the user account creation form, the purpose is to manage the registration and administration of the user account registered in the application. For this, your personal data will be processed until you inform us of your wish to cancel your status as a registered user of Dx29.",
+    "step2-1": "When users provide personal data through the forms on the DxGPT website, their personal data will be processed for the following purposes",
+    "step2-2": "When users provide personal data through the user account creation form, the purpose is to manage the registration and administration of the user account registered in the application. For this, your personal data will be processed until you inform us of your wish to cancel your status as a registered user of DxGPT.",
     "step2-3": "Unless you indicate your will against, the legal preservation terms of the personal data indicated above will apply, so it is your responsibility to keep them updated, since they will be used to make communications about the additions, deletions or modifications of accounts registered.",
     "step3-1": "Your data will be treated on the basis of the execution of the contract in the cases of user registration: without the processing of these data we could not carry out the aforementioned services.",
     "step4-1": "The interested party has the right to",
@@ -112,10 +112,10 @@
   },
   "dataprocessing": {
     "I agree with the": "I agree with the",
-    "data processing by DX29": "data processing by Dx29",
-    "title": "DATA PROCESSING AGREEMENT - Dx29",
-    "p1-1": "The service provided by Fundación 29 de Febrero through the tool Dx29 is focused on helping clinicians and genetists during the process of diagnosing rare diseases, reducing time and making it more precise. Using artificial intelligence algorithms, it helps specialists to incorporate patient information to identify symptoms and find connections between them, guiding them in the identification of new symptoms. Finally, Dx29 suggests a classified list of pathologies for the professional to consider carrying out new tests and thus confirm the final diagnosis. The algorithms used during this process are improved periodically with the data provided by the specialists.",
-    "p1-2": "The users are professional specialists, related to medicine and genetics (hereinafter, 'the user' / 'the users'), who want to use the service provided by Dx29. As such, they are CONTROLLER of their patient's data.",
+    "data processing by DX29": "data processing by DxGPT",
+    "title": "DATA PROCESSING AGREEMENT - DxGPT",
+    "p1-1": "The service provided by Fundación 29 de Febrero through the tool DxGPT is focused on helping clinicians and genetists during the process of diagnosing rare diseases, reducing time and making it more precise. Using artificial intelligence algorithms, it helps specialists to incorporate patient information to identify symptoms and find connections between them, guiding them in the identification of new symptoms. Finally, DxGPT suggests a classified list of pathologies for the professional to consider carrying out new tests and thus confirm the final diagnosis. The algorithms used during this process are improved periodically with the data provided by the specialists.",
+    "p1-2": "The users are professional specialists, related to medicine and genetics (hereinafter, 'the user' / 'the users'), who want to use the service provided by DxGPT. As such, they are CONTROLLER of their patient's data.",
     "p1-3": "In this way Fundación 29 will be the PROCESSOR of the data to provide the service with the purpose expressed in the first paragraph.",
     "p1-4": "For the provision of such service it is necessary that the PROCESSOR have access and perform patient’s personal data processing.",
     "p1-5": "Both parties, CONTROLLER and PROCESSOR, acknowledge complying with all the obligations derived from the community and national regulations in matters of data protection, especially those related to the right of information, consent and duty of secrecy, and the adoption of security measures technical and organizational measures that guarantee the security of personal data.",
@@ -161,10 +161,10 @@
     "Donate": "Donate"
   },
   "footer":{
-    "Dx29info": "Dx29 is a search and reference tool provided for informational purposes and not intended to replace the clinician’s judgement or experience. It should not be used to diagnose or treat medical conditions."
+    "Dx29info": "DxGPT is a search and reference tool provided for informational purposes and not intended to replace the clinician’s judgement or experience. It should not be used to diagnose or treat medical conditions."
   },
   "land":{
-    "disclaimer": "<p><strong>Dx29 Powered by GPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-3 linguistic model as a predictive model for a tool to support the diagnosis of rare diseases. It is designed to provide general information and suggestions based on the symptoms provided. The tool is not intended to replace professional medical advice, diagnosis or treatment and should never be used to make diagnostic judgments for real patients.</p><p>Because AI can give variable results, diagnostic accuracy and suggestions from the tool may vary, so it is important to consult a qualified healthcare professional to ensure an accurate and appropriate diagnosis. Use of this tool is at the user's own risk and Fundación 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts the risks associated with the use of the artificial intelligence-based diagnostic decision support tool.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-3 linguistic model as a predictive model for a tool to support the diagnosis of rare diseases. It is designed to provide general information and suggestions based on the symptoms provided. The tool is not intended to replace professional medical advice, diagnosis or treatment and should never be used to make diagnostic judgments for real patients.</p><p>Because AI can give variable results, diagnostic accuracy and suggestions from the tool may vary, so it is important to consult a qualified healthcare professional to ensure an accurate and appropriate diagnosis. Use of this tool is at the user's own risk and Fundación 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts the risks associated with the use of the artificial intelligence-based diagnostic decision support tool.</p>",
     "check": "Dont show this message again",
     "required": "You have to enter a text before continuing",
     "swal": "We are calling the AI, it may take a few seconds to respond, please wait.",
@@ -231,10 +231,10 @@
     "diagnosed":{
       "timeline":{
         "title":"We are going to help you build a timeline of your symptoms. This data can improve your disease management and help other patients like you on their diagnostic odyssey. There are 2 easy steps:",
-        "subtitlea": "In this report, the Dx29 user describes the patient's symptoms with the aim of improving patient-physician communication.",
+        "subtitlea": "In this report, the DxGPT user describes the patient's symptoms with the aim of improving patient-physician communication.",
         "subtitleb": "It is recommended to take the report to the next medical visit so that both the patient and the physician can help to further",
         "subtitlec": "refine the contents.",
-        "subtitle1": "This report has been generated with Dx29, a diagnostic assistance tool through precision symptom description",
+        "subtitle1": "This report has been generated with DxGPT, a diagnostic assistance tool through precision symptom description",
         "subtitle2": "developed by Foundation 29 of February (www.foundation29.org). Together we accelerate the process of diagnosis of rare",
         "subtitle3": "diseases and their treatment in an easy and simple way.",
         "footer1": "We are a non-profit organisation that designs and creates tools for patients to manage their own data, revolutionising the",
@@ -252,7 +252,7 @@
     "home":{
       "keywords": "diagnosis, diagnose, rare disease, syndrome, disease, prognosis, symptoms, HPO, epilepsy, seizures, status epilepticus, developmental delay, tremors, palpitations, tonic-clonic, myoclonic, pediatrics, genetics, neurology, symptom extraction, genetic disease, genetic disease",
       "description": "Extraction and curing of HPO symptoms from text and documents. AI that helps the diagnosis of rare diseases. Totally free for doctors and patients.",
-      "title": "Dx29: Extract symptoms and help diagnosis"
+      "title": "DxGPT: Extract symptoms and help diagnosis"
     },
     "physicians":{
       "keywords": "medical condition, symptom checker, Symptoms of syndrome, rare disease, online diagnosis",

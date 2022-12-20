@@ -95,8 +95,8 @@
     "step5": "CESIÓN DE LOS DATOS",
     "step1-1": "De conformidad con la normativa vigente, se informa al interesado, de que los datos facilitados serán tratados por Fundación 29 de Febrero (en adelante, 'F29'), cuyos datos de contacto son los siguientes",
     "step1-2": "Domicilio social",
-    "step2-1": "Cuando los usuarios faciliten datos personales a través de los formularios de la página web de Dx29, sus datos personales serán tratados para las siguientes finalidades",
-    "step2-2": "Cuando los usuarios proporcionan datos personales a través del formulario de creación de cuenta de usuario, la finalidad es gestionar el alta y la administración de la cuenta de usuario registrado en la aplicación. Para ello se tratarán sus datos personales hasta que nos comunique su voluntad se darse de baja de su condición de usuario registrado de Dx29.",
+    "step2-1": "Cuando los usuarios faciliten datos personales a través de los formularios de la página web de DxGPT, sus datos personales serán tratados para las siguientes finalidades",
+    "step2-2": "Cuando los usuarios proporcionan datos personales a través del formulario de creación de cuenta de usuario, la finalidad es gestionar el alta y la administración de la cuenta de usuario registrado en la aplicación. Para ello se tratarán sus datos personales hasta que nos comunique su voluntad se darse de baja de su condición de usuario registrado de DxGPT.",
     "step2-3": "Salvo que usted nos indique su voluntad en contra, se aplicarán los plazos de conservación legales de los datos personales indicados anteriormente, por lo que es su responsabilidad mantenerlos actualizados, puesto que serán utilizados para realizar comunicaciones acerca de las altas, bajas o modificaciones de cuentas registradas.",
     "step3-1": "Sus datos serán tratados sobre la base de la ejecución del contrato en los supuestos de alta de usuario: sin el tratamiento de estos datos no podríamos llevar a cabo los servicios mencionados.",
     "step4-1": "El interesado tiene derecho a",
@@ -112,10 +112,10 @@
   },
   "dataprocessing": {
     "I agree with the": "Estoy de acuerdo con el",
-    "data processing by DX29": "tratamiento de datos por Dx29.",
-    "title": "ACUERDO DE TRATAMIENTO DE DATOS POR PARTE DE Dx29",
-    "p1-1": "El servicio prestado por Fundación 29 de Febrero a través de la herramienta Dx29 está enfocado a ayudar a profesionales de la medicina y la genética durante el proceso de diagnóstico de enfermedades raras, reduciendo el tiempo y haciéndolo más preciso. Usando algoritmos de inteligencia artificial, ayuda a los especialistas a incorporar información del paciente para identificar síntomas y buscar conexiones entre los mismos, guiándoles en la identificación de nuevos síntomas. Finalmente, Dx29 sugiere una lista clasificada de patologías para que el profesional considere la realización de nuevas pruebas y así confirmar el diagnóstico final. Los algoritmos utilizados durante este proceso se mejoran periódicamente con los datos aportados por los especialistas.",
-    "p1-2": "Los usuarios son profesionales especialistas, relacionados con la medicina y la genética (en adelante, 'el usuario' / 'los usuarios'), que quieren hacer uso del servicio prestado por Dx29. Como tales, son RESPONSABLES DEL TRATAMIENTO de los datos de sus pacientes",
+    "data processing by DX29": "tratamiento de datos por DxGPT.",
+    "title": "ACUERDO DE TRATAMIENTO DE DATOS POR PARTE DE DxGPT",
+    "p1-1": "El servicio prestado por Fundación 29 de Febrero a través de la herramienta DxGPT está enfocado a ayudar a profesionales de la medicina y la genética durante el proceso de diagnóstico de enfermedades raras, reduciendo el tiempo y haciéndolo más preciso. Usando algoritmos de inteligencia artificial, ayuda a los especialistas a incorporar información del paciente para identificar síntomas y buscar conexiones entre los mismos, guiándoles en la identificación de nuevos síntomas. Finalmente, DxGPT sugiere una lista clasificada de patologías para que el profesional considere la realización de nuevas pruebas y así confirmar el diagnóstico final. Los algoritmos utilizados durante este proceso se mejoran periódicamente con los datos aportados por los especialistas.",
+    "p1-2": "Los usuarios son profesionales especialistas, relacionados con la medicina y la genética (en adelante, 'el usuario' / 'los usuarios'), que quieren hacer uso del servicio prestado por DxGPT. Como tales, son RESPONSABLES DEL TRATAMIENTO de los datos de sus pacientes",
     "p1-3": "De esta forma Fundación 29 será el ENCARGADO DEL TRATAMIENTO de los datos para proveer del servicio con la finalidad expresada en el párrafo primero.",
     "p1-4": "Para la prestación de dicho servicio es necesario que el ENCARGADO tenga acceso y realice tratamientos de datos de carácter personal de los pacientes",
     "p1-5": "Ambas partes, RESPONSABLE y ENCARGADO, reconocen cumplir con todas las obligaciones derivadas de la normativa comunitaria y nacional en materia de protección de datos, en especial las relativas al derecho de información, consentimiento y deber de secreto, y a la adopción de las medidas de seguridad técnicas y organizativas que garanticen la seguridad de los datos personales.",
@@ -161,10 +161,10 @@
     "Donate": "Donar"
   },
   "footer":{
-    "Dx29info": "Dx29 es una herramienta de búsqueda y referencia que se proporciona con fines informativos y no pretende sustituir el juicio o la experiencia del clínico. No debe utilizarse para diagnosticar o tratar afecciones médicas."
+    "Dx29info": "DxGPT es una herramienta de búsqueda y referencia que se proporciona con fines informativos y no pretende sustituir el juicio o la experiencia del clínico. No debe utilizarse para diagnosticar o tratar afecciones médicas."
   },
   "land":{
-    "disclaimer": "<p><strong>Dx29 Powered by GPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo lingúistico GPT-3 de OpenAI como modelo predictivo para una herramienta de ayuda al diagnóstico de enfermedades raras. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende sustituir el consejo, diagnóstico o tratamiento médico profesional y nunca se deber usar para realizar juicios diagnósticos para paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y acepta los riesgos asociados al uso de la herramienta de ayuda a la toma de decisiones diagnósticas basada en inteligencia artificial.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo lingúistico GPT-3 de OpenAI como modelo predictivo para una herramienta de ayuda al diagnóstico de enfermedades raras. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende sustituir el consejo, diagnóstico o tratamiento médico profesional y nunca se deber usar para realizar juicios diagnósticos para paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y acepta los riesgos asociados al uso de la herramienta de ayuda a la toma de decisiones diagnósticas basada en inteligencia artificial.</p>",
     "check": "No volver a mostrar este mensaje",
     "required": "Tienes que introducir un texto antes de continuar",
     "swal": "Estamos llamando a la IA, puede tardar unos segundos en responder, por favor, espere.",
@@ -231,10 +231,10 @@
     "diagnosed":{
       "timeline":{
         "title":"Vamos a ayudarte a construir una línea de tiempo de sus síntomas. Estos datos pueden mejorar la gestión de tu enfermedad y ayudar a otros pacientes como usted en su odisea diagnóstica. Hay dos pasos sencillos:",
-        "subtitlea": "En este informe, el usuario de Dx29 describe los síntomas del paciente con el objetivo de mejorar la comunicación médico-paciente.",
+        "subtitlea": "En este informe, el usuario de DxGPT describe los síntomas del paciente con el objetivo de mejorar la comunicación médico-paciente.",
         "subtitleb": "Se recomienda llevar el informe a la siguiente visita médica para que tanto el paciente como el médico ayuden a precisar más los",
         "subtitlec": "contenidos.",
-        "subtitle1": "Este informe ha sido generado con Dx29, una herramienta de asistencia al diagnóstico a través de la descripción sintomatológica",
+        "subtitle1": "Este informe ha sido generado con DxGPT, una herramienta de asistencia al diagnóstico a través de la descripción sintomatológica",
         "subtitle2": "de precisión desarrollada por Fundación 29 de Febrero (www.foundation29.org). Juntos aceleramos el proceso de diagnóstico de",
         "subtitle3": "enfermedades raras y su tratamiento de una forma fácil y sencilla.",
         "footer1": "Somos una organización sin ánimo de lucro que diseña y crea herramientas para la gestión de los pacientes de sus propios datos,",
@@ -252,7 +252,7 @@
     "home":{
       "keywords": "diagnóstico, diagnosticar, enfermedad rara, síndrome, enfermedad, pronóstico, síntomas, HPO, epilepsia, crisis epiléptica, status epiléctico, convulsiones, retraso en el desarrollo, temblores, palpitaciones, tónica-clónica, mioclónica, pediatría, genética, neurología, extracción de síntomas, enfermedad genética",
       "description": "Extracción y curado de síntomas HPO desde texto y documentos. IA que ayuda al diagnóstico de enfermedades raras. Totalmente gratuita para médicos y pacientes.",
-      "title": "Dx29: Extrae síntomas y ayuda al diagnóstico"
+      "title": "DxGPT: Extrae síntomas y ayuda al diagnóstico"
     },
     "physicians":{
       "keywords": "Comprobador de síntomas, diagnostico genético virtual, diagnosticar enfermedades raras, síntomas de enfermedades raras, enfermedades raras",

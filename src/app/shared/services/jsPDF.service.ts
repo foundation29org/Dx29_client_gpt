@@ -64,7 +64,7 @@ export class jsPDFService {
         doc.setFont(undefined, 'normal');
         doc.setFontSize(10);
         doc.setTextColor(51, 101, 138)
-        doc.textWithLink("www.dx29.ai", 148, 290, { url: 'https://app.dx29.ai/Identity/Account/Register' });
+        doc.textWithLink("https://dxgpt.app", 148, 290, { url: 'https://dxgpt.app' });
         doc.setTextColor(0, 0, 0);
     }
 
@@ -190,7 +190,7 @@ export class jsPDFService {
             this.writelinePreFooter(doc, this.translate.instant("land.diagnosed.timeline.footer4"), lineText += 5);
         }
         lineText = this.checkIfNewPage(doc, lineText);
-        lineText += 10;
+        /*lineText += 10;
         lineText = this.checkIfNewPage(doc, lineText);
         this.writelinePreFooter(doc, this.translate.instant("land.diagnosed.timeline.footer5"), lineText);
         doc.setFillColor(249,66,58);
@@ -202,14 +202,14 @@ export class jsPDFService {
         
         doc.setTextColor(255, 255, 255);
         doc.setFontSize(10);
-        var url = "https://app.dx29.ai/Identity/Account/Register";
+        var url = "https://dxgpt.app";
         if(this.lang=='en'){
             doc.textWithLink(this.translate.instant("menu.Register"), 54, lineText, { url: url });
         }else{
             doc.textWithLink(this.translate.instant("menu.Register"), 59, lineText, { url: url });
         }
         
-        lineText = this.checkIfNewPage(doc, lineText);
+        lineText = this.checkIfNewPage(doc, lineText);*/
         doc.setTextColor(0, 0, 0)
         lineText += 5;
         doc.setFontSize(9);
@@ -313,7 +313,7 @@ export class jsPDFService {
 
         // Save file
         var date = this.getDate();
-        doc.save('Dx29_Report_' + date + '.pdf');
+        doc.save('DxGPT_Report_' + date + '.pdf');
 
     }
 
