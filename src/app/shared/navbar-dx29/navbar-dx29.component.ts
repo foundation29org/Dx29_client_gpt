@@ -163,7 +163,7 @@ export class NavbarD29Component implements OnInit, AfterViewInit, OnDestroy {
 
   lauchEvent(category) {
     var secs = this.getElapsedSeconds();
-    gtag('event', sessionStorage.getItem('uuid'), { "event_category": category, "event_label": secs });
+    gtag('event', category, { 'myuuid': sessionStorage.getItem('uuid'), 'event_label': secs });
   }
 
   getElapsedSeconds() {

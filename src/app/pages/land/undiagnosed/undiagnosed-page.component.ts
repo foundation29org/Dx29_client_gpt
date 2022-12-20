@@ -155,11 +155,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         if(category == "Info Disease"){
             var subcate = 'Info Disease - '+this.selectedDisease;
             this.eventList.push({ name: subcate });
-            gtag('event', this.myuuid, { "event_category": subcate, "event_label": secs });
+            gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
         }
         if (!savedEvent) {
             this.eventList.push({ name: category });
-            gtag('event', this.myuuid, { "event_category": category, "event_label": secs });
+            gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
         }
     }
 
