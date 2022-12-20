@@ -167,7 +167,7 @@
     "disclaimer": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-3 linguistic model as a predictive model for a tool to support the diagnosis of rare diseases. It is designed to provide general information and suggestions based on the symptoms provided. The tool is not intended to replace professional medical advice, diagnosis or treatment and should never be used to make diagnostic judgments for real patients.</p><p>Because AI can give variable results, diagnostic accuracy and suggestions from the tool may vary, so it is important to consult a qualified healthcare professional to ensure an accurate and appropriate diagnosis. Use of this tool is at the user's own risk and Fundación 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts the risks associated with the use of the artificial intelligence-based diagnostic decision support tool.</p>",
     "check": "Dont show this message again",
     "required": "You have to enter a text before continuing",
-    "swal": "We are calling the AI, it may take a few seconds to respond, please wait.",
+    "swal": "DxGPT is calculating. Please wait a few seconds for it to finish",
     "q1": "What are the common symptoms for",
     "q2": "Give me more information for",
     "q3": "Provide a diagnosis test for",
