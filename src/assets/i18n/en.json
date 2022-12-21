@@ -9,6 +9,7 @@
   },
   "generics":{
     "Email": "Email",
+    "Optional": "Optional",
     "Name": "Name",
     "Delete": "Delete",
     "Data saved successfully": "Data saved successfully.",
@@ -18,6 +19,8 @@
     "entervalidemail": "Please enter a valid email!",
     "required": "This field is required",
     "Back": "Back",
+    "Save": "Save",
+    "Send": "Enviar",
     "Close": "Close",
     "More information": "Further information",
     "Foundation 29": "Foundation 29"
@@ -174,6 +177,8 @@
     "recommended diagnosis test": "What is the recommended diagnostic test for each of these diseases?",
     "Indicates the quality of the result": "Indicates the quality of the result",
     "thanks": "You made a great contribution to the rare disease community. Thank you!",
+    "whynotexpected": "Why the results were not as expected?",
+    "msgimprove": "In order to improve, we need your opinion",
     "Recalculate the list": "Do you want to improve these results?",
     "option1": "And the patient also has these symptoms:",
     "labelopt1": "Add a symptom",
