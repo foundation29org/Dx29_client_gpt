@@ -81,6 +81,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     optionRare: string = '';
     optionCommon: string = '';
     symtpmsLabel: string = '';
+    feedBack1input: string = '';
+    feedBack2input: string = '';
+    sending: boolean = false;
 
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -196,11 +199,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     loadTranslations() {
         this.translate.get('land.step1').subscribe((res: string) => {
             this.steps[0].title = res;
-            console.log(this.steps);
         });
         this.translate.get('land.step3').subscribe(async (res: string) => {
             this.steps[1].title = res;
-            console.log(this.steps);
             this.showDisclaimer();
             await this.delay(500);
             this.initQuestions();
@@ -262,7 +263,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }else{
             this.medicalText = this.translate.instant("land.p1.2")
         }
-        console.log(this.medicalText);
         document.getElementById('optioninput1').scrollIntoView({behavior: "smooth"});
         //this.focusTextArea();
         this.resizeTextArea();
@@ -315,7 +315,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             allowOutsideClick: false
         })
 
-        console.log(this.lang);
         this.callingOpenai = true;
         let paramIntroText = this.optionRare;
         if(this.selectorRare){
@@ -330,12 +329,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 if(this.currentStep.stepIndex==1){
                     this.copyMedicalText = this.medicalText;
                 }
-                console.log(res);
                 let parseChoices0 = res.choices[0].text.split("\n\n");
                 parseChoices0.shift();
-                console.log(parseChoices0);
                 let parseChoices = parseChoices0;
-                console.log(parseChoices0[0].indexOf("\n"));
                 if(parseChoices0[0].indexOf("\n")!=-1){
                     parseChoices = parseChoices0[0].split("\n");
                     let test = parseChoices[0].charAt(0)
@@ -343,14 +339,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                             parseChoices.shift();
                     }
                 }
-                console.log(parseChoices);
                 this.topRelatedConditions = [];
                 for (let i = 0; i < parseChoices.length; i++) {
                     if(parseChoices[i]!=''){
                         this.topRelatedConditions.push(parseChoices[i])
                     }
                 }
-                console.log(this.topRelatedConditions);
                 if(this.currentStep.stepIndex==1){
                     this.currentStep = this.steps[1];
                 }
@@ -385,7 +379,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         var value = {value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang}
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
-                console.log(res);
                  this.answerOpenai = res.choices[0].text;
                 this.loadingAnswerOpenai = false;
                 this.lauchEvent("Info Disease");
@@ -521,9 +514,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         return this.translate.instant(literal);
     }
 
-    vote(valueVote){
+    vote(valueVote, contentFeedbackDown){
+          //this.modalReference =this.modalService.open(contentFeedbackDown, { size: 'sm' });
+          //this.modalReference = this.modalService.open(contentFeedbackDown, ngbModalOptions);
+          
         this.sendingVote = true;
-        console.log(valueVote)
         let paramIntroText = this.optionRare;
         if(this.selectorRare){
             paramIntroText = this.optionCommon;
@@ -534,25 +529,61 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         var value = {value: introText+ this.symtpmsLabel+" "+this.medicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote:valueVote, topRelatedConditions: this.topRelatedConditions}
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
-                console.log(res);
                 this.lauchEvent("Vote: "+ valueVote);
                 this.sendingVote = false;
-                Swal.fire({
-                    icon: 'success',
-                    html: this.translate.instant("land.thanks"),
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    allowOutsideClick: false
-                })
-                setTimeout(function () {
-                    Swal.close();
-                }, 2000);
+                if(valueVote=='down'){
+                    this.modalReference =this.modalService.open(contentFeedbackDown);
+                }else{
+                    Swal.fire({
+                        icon: 'success',
+                        html: this.translate.instant("land.thanks"),
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    })
+                    setTimeout(function () {
+                        Swal.close();
+                    }, 2000);
+                }
+                
             }, (err) => {
                 console.log(err);
                 this.callingOpenai = false;
                 this.sendingVote = false;
             }));
     }
+
+    onSubmitFeedbackDown(){
+        this.sending = true;
+        var value = {email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info:this.feedBack1input}
+        this.subscription.add(this.apiDx29ServerService.feedback(value)
+        .subscribe((res: any) => {
+            this.lauchEvent("Feedback");
+            this.sending = false;
+            this.feedBack1input = '';
+            this.feedBack2input = '';
+            if (this.modalReference != undefined) {
+                this.modalReference.close();
+                this.modalReference = undefined;
+              }
+    
+              Swal.fire({
+                icon: 'success',
+                html: this.translate.instant("land.thanks"),
+                showCancelButton: false,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            })
+            setTimeout(function () {
+                Swal.close();
+            }, 2000);
+        }, (err) => {
+            console.log(err);
+            this.sending = false;
+        }));
+        
+       
+      }
 
     async resizeTextArea(){
         setTimeout(() =>

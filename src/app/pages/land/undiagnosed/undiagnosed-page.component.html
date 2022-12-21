@@ -127,7 +127,7 @@
     <div class="col-md-12 center-elements mt-4">
       <h6>{{'land.Indicates the quality of the result' | translate }}</h6>
       <span *ngIf="!sendingVote">
-        <button class="mr-1 btn btn-info" (click)="vote('up')" [disabled]="sendingVote"><em class="fas fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down')" [disabled]="sendingVote"><em class="fas fa-thumbs-down"></em></button>
+        <button class="mr-1 btn btn-info" (click)="vote('up', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-thumbs-down"></em></button>
       </span>
       <span *ngIf="sendingVote" class="d-block"><em class="fa fa-spinner fa-spin fa-fw fa-2x"></em></span>
     </div>
@@ -230,5 +230,55 @@
                   <button type="button" class="btn round btn-info bt-nav" (click)="c('Close click');">{{'generics.Close' | translate }}</button>
           </div>
       </div>
+</ng-template>
+<ng-template #contentFeedbackDown let-c="close" let-d="dismiss">
+	<form class="form" #fFeedbackDown="ngForm">
+		<div class="modal-header">
+			<h4 class="modal-title">{{'land.msgimprove' | translate }}</h4>
+		</div>
+		<div class="modal-body">
+			<div class="">
+
+				<div class="form-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<span>{{'land.whynotexpected' | translate }}*</span>
+								<div>
+                  <textarea #inputTextArea id="textarea1" type="text" class="autoajustable data-hj-allow" style="width: 100%;" ngModel required feedBack1 #feedBack1="ngModel" [(ngModel)]="feedBack1input" name="feedBack1" (ngModelChange)="resizeTextArea()"></textarea>
+                  <!--<input type="text" id="feedBack1" class="form-control w-50" name="feedBack1"
+									required feedBack1 #feedBack1="ngModel" ngModel [(ngModel)]="feedBack1input">-->
+									<small class="form-text text-muted danger"
+										*ngIf="!feedBack1.valid && (feedBack1.dirty || feedBack1.touched)">{{'generics.required'
+										| translate }}</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<span class="mb-0">{{'generics.Email' | translate }} ({{'generics.Optional' | translate }})</span>
+                <input type="email" class="form-control" name="email" id="email" placeholder="{{'generics.Email' | translate }}" ngModel email #email="ngModel" autocomplete="email" [(ngModel)]="feedBack2input">
+                <small class="form-text text-muted danger" *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate }}</small>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<!--<span *ngIf="!fFeedbackDown.valid" class="form-text text-muted danger">{{'generics.requiredfieldsmissing' | translate
+				}}</span>-->
+		</div>
+		<div class="modal-footer">
+			<div class="col-md-12 center-elements" *ngIf="!sending">
+				<div>
+					<button class="btn btn-info"	[disabled]="!fFeedbackDown.valid" (click)="onSubmitFeedbackDown();">{{'generics.Send' | translate }}</button>
+				</div>
+			</div>
+			<div class="col-md-12 center-elements" *ngIf="sending">
+				<div>
+					<p class="centerSpinner"><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></p>
+				</div>
+			</div>
+		</div>
+	</form>
 </ng-template>
 <button id="openModalIntro" [hidden]="true" (click)="showPanelIntro(contentIntro)">.</button>

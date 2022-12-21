@@ -9,6 +9,7 @@
   },
   "generics":{
     "Email": "Correo electrónico",
+    "Optional": "Opcional",
     "Name": "Nombre",
     "Delete": "Eliminar",
     "Data saved successfully": "Datos guardados correctamente.",
@@ -18,6 +19,8 @@
     "entervalidemail": "¡Por favor introduzca una dirección de correo electrónico válida!",
     "required": "Este campo es requerido",
     "Back": "Atrás",
+    "Save": "Guardar",
+    "Send": "Send",
     "Close": "Cerrar",
     "More information": "Más información",
     "Foundation 29": "Fundación 29"
@@ -174,6 +177,8 @@
     "recommended diagnosis test": "¿Cuál es la prueba diagnóstica recomendada para cada una de estas enfermedades?",
     "Indicates the quality of the result": "Indica la calidad del resultado",
     "thanks": "Has hecho una gran contribución a la comunidad de enfermedades raras. ¡Gracias!",
+    "whynotexpected": "¿Porqué los que los resultados no eran los esperados?",
+    "msgimprove": "Para poder mejorar, necesitamos tu opinion",
     "Recalculate the list": "¿Quieres mejorar estos resultados?",
     "option1": "Y el paciente también tiene estos síntomas:",
     "labelopt1": "Agregar un síntoma",
