@@ -18,7 +18,7 @@
         <div class="navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav m-r-0">
                 <li class="nav-item mr-2">
-                    <a class="nav-link" [ngClass]="(!isHomePage)?'black':'black text-bold-500'" routerLink="/." (click)="lauchEvent('Page - Home')">
+                    <a class="nav-link" [ngClass]="(!isHomePage)?'black':'black text-bold-500'" routerLink="/." (click)="lauchEvent('Page - Home'); goBackEvent();">
                       <span>{{'menu.Dashboard' | translate }}</span>
                     </a>
                 </li>

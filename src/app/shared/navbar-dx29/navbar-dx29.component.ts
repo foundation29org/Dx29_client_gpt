@@ -172,4 +172,9 @@ export class NavbarD29Component implements OnInit, AfterViewInit, OnDestroy {
     return seconds;
   };
 
+  goBackEvent() {
+    var eventsLang = this.inj.get(EventsService);
+    eventsLang.broadcast('backEvent', true);
+  }
+
 }
