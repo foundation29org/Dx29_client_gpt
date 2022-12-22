@@ -194,6 +194,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 });
             }
         }.bind(this));
+
+        this.eventsService.on('backEvent', function (event) {
+            if(this.currentStep.stepIndex == 2){
+                this.goPrevious();
+            }
+          }.bind(this));
     }
 
     loadTranslations() {
