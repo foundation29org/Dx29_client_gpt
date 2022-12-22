@@ -50,7 +50,7 @@
                     <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
                   </p>
                   <div class="search">
-                    <textarea #inputTextArea id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow" [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea()" (keyup.enter)="verifCallOpenAi('step1')"></textarea>
+                    <textarea #inputTextArea id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow" [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea()"></textarea>
                     <button type="submit" class="searchButton" (click)="verifCallOpenAi('step1');" [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')" [disabled]="callingOpenai">
                      <em *ngIf="!callingOpenai" class="fa fa-search"></em>
                      <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
@@ -147,7 +147,7 @@
             <span class="row mt-2" *ngIf="showInputRecalculate">
               <label>{{optionSelected.value}} </label>
               <div class="search">
-                <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow" [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}" (keyup.enter)="verifCallOpenAi2()" (ngModelChange)="resizeTextArea2()"></textarea>
+                <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow" [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea2()"></textarea>
                 <button type="submit" class="searchButton" (click)="verifCallOpenAi2();" [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
                  <em *ngIf="!callingOpenai" class="fa fa-search"></em>
                  <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
