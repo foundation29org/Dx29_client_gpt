@@ -19,8 +19,10 @@
     "entervalidemail": "Please enter a valid email!",
     "required": "This field is required",
     "Back": "Back",
+    "Cancel": "Cancel",
     "Save": "Save",
     "Send": "Enviar",
+    "Next": "Siguiente",
     "Close": "Close",
     "More information": "Further information",
     "Foundation 29": "Foundation 29"

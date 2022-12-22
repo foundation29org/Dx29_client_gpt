@@ -271,23 +271,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     clearText(){
         this.medicalText2 = '';
         this.showInputRecalculate =false;
-        this.medicalText = '';
+        //this.medicalText = '';
         this.copyMedicalText = '';
         this.showErrorCall1 = false;
         document.getElementById("textarea1").setAttribute( "style", "height:50px;overflow-y:hidden; width: 100%;");
     }
 
-    verifCallOpenAi(){
+    verifCallOpenAi(step){
         this.showErrorCall1 = false;
         if(this.callingOpenai || this.medicalText.length<5){
             this.showErrorCall1 = true;
         }
         if(!this.showErrorCall1){
-            this.callOpenAi();
+            this.callOpenAi(step);
         }
     }
 
-    callOpenAi(){
+    callOpenAi(step){
         //var resp= {"id":"cmpl-6MfILJTSmgXJK0pXe4YYpsFST9SjE","object":"text_completion","created":1670859973,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive inflammation and atrophy of one hemisphere of the brain, resulting in seizures, paralysis, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by a port-wine stain on the face, seizures, and progressive neurological decline. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by seizures, spasticity, and cognitive decline. \n4. West Syndrome (5%): A rare neurological disorder characterized by infantile spasms, developmental delay, and cognitive decline. \n5. Alexander Disease (2%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":157,"total_tokens":217}}
         /*let resp= {"id":"cmpl-6N2qhS30XcdC2k2siIo1iG6ch1cOk","object":"text_completion","created":1670950515,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive unilateral hemispheric atrophy, drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by unilateral facial port-wine stains, seizures, and neurological deficits. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by the absence of the corpus callosum, seizures, and neurological deficits. \n4. Alexander Disease (5%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline. \n5. Leigh Syndrome (5%): A rare neurological disorder characterized by progressive brain and spinal cord degeneration, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":163,"total_tokens":223}}
 
@@ -326,7 +326,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         var value = {value: introText+ this.symtpmsLabel+" "+this.medicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang}
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
-                if(this.currentStep.stepIndex==1){
+                if(this.currentStep.stepIndex==1 || step=='step2'){
                     this.copyMedicalText = this.medicalText;
                 }
                 let parseChoices0 = res.choices[0].text.split("\n\n");
@@ -357,6 +357,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 console.log(err);
                 this.callingOpenai = false;
                 Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    text: this.translate.instant("generics.error try again"),
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    allowOutsideClick: false
+                })
             }));
 
     }
@@ -415,7 +422,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     callOpenAi2(){
         this.medicalText = this.copyMedicalText+ '. '+this.optionSelected.value+ ' ' +this.medicalText2;
-        this.callOpenAi();
+        this.callOpenAi('step1');
     }
 
     focusTextArea() {
@@ -548,7 +555,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 
             }, (err) => {
                 console.log(err);
-                this.callingOpenai = false;
                 this.sendingVote = false;
             }));
     }
@@ -583,6 +589,26 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }));
         
        
+      }
+
+      closeFeedback(){
+        console.log('entra');
+        /*this.feedBack1input = '';
+        this.feedBack2input = '';*/
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+          }
+          Swal.fire({
+            icon: 'success',
+            html: this.translate.instant("land.thanks"),
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false
+        })
+        setTimeout(function () {
+            Swal.close();
+        }, 2000);
       }
 
     async resizeTextArea(){
@@ -633,5 +659,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
       selectorRareEvent(event){
         this.selectorRare= event;
+      }
+
+      selectorRareEvent2(event){
+        this.selectorRare= event;
+        this.verifCallOpenAi('step2');
       }
 }

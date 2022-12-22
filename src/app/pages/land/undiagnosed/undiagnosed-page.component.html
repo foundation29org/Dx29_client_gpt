@@ -45,10 +45,13 @@
   
               <div class="row mb-5 m-0">
                 <div class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-                  <!--copy input control gpt websites-->
+                  <p class="text-left mb-0 mt-2">{{'land.titleOptions' | translate }}</p>
+                  <p class="text-left">
+                    <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
+                  </p>
                   <div class="search">
-                    <textarea #inputTextArea id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow" [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea()" (keyup.enter)="verifCallOpenAi()"></textarea>
-                    <button type="submit" class="searchButton" (click)="verifCallOpenAi();" [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
+                    <textarea #inputTextArea id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow" [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea()" (keyup.enter)="verifCallOpenAi('step1')"></textarea>
+                    <button type="submit" class="searchButton" (click)="verifCallOpenAi('step1');" [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')" [disabled]="callingOpenai">
                      <em *ngIf="!callingOpenai" class="fa fa-search"></em>
                      <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
                     </button>
@@ -56,10 +59,6 @@
                   <!--<span *ngIf="medicalText.length>=5" class="text-muted pointer" (click)="clearText()">{{'generics.Delete' | translate }}</span>
                   <span *ngIf="medicalText.length<5" style="height: 20px;color:#202123">.</span>-->
                   <span *ngIf="showErrorCall1 && medicalText.length<5" style="height: 20px;color:#f9423a">{{'land.required' | translate }}</span>
-                  <p class="text-left mb-0 mt-2">{{'land.titleOptions' | translate }}</p>
-                  <p class="text-left">
-                    <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
-                  </p>
                 </div>
                 <a id="optioninput1"></a>
               </div>
@@ -77,7 +76,6 @@
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
             <div class="section maintxt" style="min-height:0px;">
-              <span *ngIf="topRelatedConditions.length>0">
                 <table class="col-md-12 table mb-0 white" aria-labelledby="get diagnosis" style="background-color: #353540;">
                   <thead>
                     <tr>
@@ -96,7 +94,7 @@
                     </tr>
                   </thead>
                 </table>
-                <div class="table-cont">
+                <div class="table-cont" *ngIf="topRelatedConditions.length>0">
                   <table class="table mb-0 bg-white" aria-labelledby="rare disease">
                     <tbody>
                       <tr *ngFor="let disease of topRelatedConditions ; let i = index" class="d-flex">
@@ -115,10 +113,12 @@
                     </tbody>
                   </table>
                 </div>
-              </span>
-              <span *ngIf="topRelatedConditions.length==0">
-                <p>{{'land.nofound' | translate }}</p>
-              </span>
+                <span *ngIf="topRelatedConditions.length==0">
+                  <p>{{'land.nofound' | translate }}</p>
+                </span>
+                <div class="col-md-12 mb-0 white p-2" style="background-color: #353540;">
+                    <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent2($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
+                </div>
             </div>
           </span>
         </div>
@@ -147,7 +147,7 @@
             <span class="row mt-2" *ngIf="showInputRecalculate">
               <label>{{optionSelected.value}} </label>
               <div class="search">
-                <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow" [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}" (keyup.enter)="callOpenAi2()" (ngModelChange)="resizeTextArea2()"></textarea>
+                <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow" [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}" (keyup.enter)="verifCallOpenAi2()" (ngModelChange)="resizeTextArea2()"></textarea>
                 <button type="submit" class="searchButton" (click)="verifCallOpenAi2();" [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
                  <em *ngIf="!callingOpenai" class="fa fa-search"></em>
                  <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
@@ -232,45 +232,34 @@
       </div>
 </ng-template>
 <ng-template #contentFeedbackDown let-c="close" let-d="dismiss">
-	<form class="form" #fFeedbackDown="ngForm">
 		<div class="modal-header">
 			<h4 class="modal-title">{{'land.msgimprove' | translate }}</h4>
 		</div>
 		<div class="modal-body">
-			<div class="">
-
-				<div class="form-body">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<span>{{'land.whynotexpected' | translate }}*</span>
-								<div>
-                  <textarea #inputTextArea id="textarea1" type="text" class="autoajustable data-hj-allow" style="width: 100%;" ngModel required feedBack1 #feedBack1="ngModel" [(ngModel)]="feedBack1input" name="feedBack1" (ngModelChange)="resizeTextArea()"></textarea>
-                  <!--<input type="text" id="feedBack1" class="form-control w-50" name="feedBack1"
-									required feedBack1 #feedBack1="ngModel" ngModel [(ngModel)]="feedBack1input">-->
-									<small class="form-text text-muted danger"
-										*ngIf="!feedBack1.valid && (feedBack1.dirty || feedBack1.touched)">{{'generics.required'
-										| translate }}</small>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-								<span class="mb-0">{{'generics.Email' | translate }} ({{'generics.Optional' | translate }})</span>
-                <input type="email" class="form-control" name="email" id="email" placeholder="{{'generics.Email' | translate }}" ngModel email #email="ngModel" autocomplete="email" [(ngModel)]="feedBack2input">
-                <small class="form-text text-muted danger" *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate }}</small>
-							</div>
-						</div>	
-					</div>
-				</div>
-			</div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <span>{{'land.whynotexpected' | translate }}*</span>
+          <div>
+            <textarea #inputTextArea id="textarea1" type="text" class="autoajustable data-hj-allow" style="width: 100%;" [(ngModel)]="feedBack1input" (ngModelChange)="resizeTextArea()"></textarea>
+            <small class="form-text text-muted danger" *ngIf="feedBack1input==''">{{'generics.required' | translate }}</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <span class="mb-0">{{'generics.Email' | translate }} ({{'generics.Optional' | translate }})</span>
+          <input type="email" class="form-control" name="email" id="email" placeholder="{{'generics.Email' | translate }}" ngModel email #email="ngModel" autocomplete="email" [(ngModel)]="feedBack2input">
+          <small class="form-text text-muted danger" *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate }}</small>
+        </div>
+      </div>
 			<!--<span *ngIf="!fFeedbackDown.valid" class="form-text text-muted danger">{{'generics.requiredfieldsmissing' | translate
 				}}</span>-->
 		</div>
 		<div class="modal-footer">
 			<div class="col-md-12 center-elements" *ngIf="!sending">
 				<div>
-					<button class="btn btn-info"	[disabled]="!fFeedbackDown.valid" (click)="onSubmitFeedbackDown();">{{'generics.Send' | translate }}</button>
+          <button class="btn btn-secondary mr-1" type="button" (click)="closeFeedback()">{{'generics.Cancel' | translate }}</button>
+					<button class="btn btn-info ml-1"	[disabled]="feedBack1input==''" (click)="onSubmitFeedbackDown();">{{'generics.Send' | translate }}</button>
 				</div>
 			</div>
 			<div class="col-md-12 center-elements" *ngIf="sending">
@@ -279,6 +268,5 @@
 				</div>
 			</div>
 		</div>
-	</form>
 </ng-template>
 <button id="openModalIntro" [hidden]="true" (click)="showPanelIntro(contentIntro)">.</button>
