@@ -77,6 +77,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     optionSelected: any = {};
     sendingVote: boolean = false;
     selectorRare: boolean = false;
+    prevSelectorRare: boolean = false;
     selectorOption: string = '';
     optionRare: string = '';
     optionCommon: string = '';
@@ -316,10 +317,26 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         
         Swal.fire({
             html: '<p>'+this.translate.instant("land.swal")+'</p>'+'<p><em class="fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
-            showCancelButton: false,
+            showCancelButton: true,
             showConfirmButton: false,
             allowOutsideClick: false
-        })
+        }).then(function(event){
+            console.log(event);
+            console.log('entra')
+            console.log(Swal.DismissReason.cancel)
+            console.log(event.dismiss)
+            if(event.dismiss == Swal.DismissReason.cancel){
+                
+                // function when confirm button clicked
+                this.callingOpenai = false;
+                this.subscription.unsubscribe();
+                this.subscription = new Subscription();
+                if(step=='step2'){
+                    this.selectorRare = this.prevSelectorRare;
+                }
+            }
+            
+         }.bind(this));
 
         this.callingOpenai = true;
         let paramIntroText = this.optionRare;
@@ -668,6 +685,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
       }
 
       selectorRareEvent2(event){
+        this.prevSelectorRare = this.selectorRare;
         this.selectorRare= event;
         this.verifCallOpenAi('step2');
       }

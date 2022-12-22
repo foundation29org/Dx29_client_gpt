@@ -148,7 +148,7 @@
               <label>{{optionSelected.value}} </label>
               <div class="search">
                 <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow" [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea2()"></textarea>
-                <button type="submit" class="searchButton" (click)="verifCallOpenAi2();" [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
+                <button type="submit" class="searchButton" (click)="verifCallOpenAi2();" [disabled]="callingOpenai" [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
                  <em *ngIf="!callingOpenai" class="fa fa-search"></em>
                  <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
                 </button>
