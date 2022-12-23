@@ -56,6 +56,7 @@
                      <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
                     </button>
                   </div>
+                  <p class="text-left">{{'land.Recommendations' | translate }}</p>
                   <!--<span *ngIf="medicalText.length>=5" class="text-muted pointer" (click)="clearText()">{{'generics.Delete' | translate }}</span>
                   <span *ngIf="medicalText.length<5" style="height: 20px;color:#202123">.</span>-->
                   <span *ngIf="showErrorCall1 && medicalText.length<5" style="height: 20px;color:#f9423a">{{'land.required' | translate }}</span>
@@ -72,6 +73,13 @@
       <span class="col-md-12 pt-4" *ngIf="topRelatedConditions.length>0">
         <button type="button" class="btn round bt-nav btn-info" (click)="goPrevious()">{{'generics.Back' | translate }}</button>
       </span>
+      <div class="col-md-12 center-elements">
+        <h6>{{'land.Indicates the quality of the result' | translate }}</h6>
+        <span *ngIf="!sendingVote">
+          <button class="mr-1 btn btn-info" (click)="vote('up', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-thumbs-down"></em></button>
+        </span>
+        <span *ngIf="sendingVote" class="d-block"><em class="fa fa-spinner fa-spin fa-fw fa-2x"></em></span>
+      </div>
       <div class="col-12">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
@@ -124,13 +132,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-12 center-elements mt-4">
-      <h6>{{'land.Indicates the quality of the result' | translate }}</h6>
-      <span *ngIf="!sendingVote">
-        <button class="mr-1 btn btn-info" (click)="vote('up', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-thumbs-down"></em></button>
-      </span>
-      <span *ngIf="sendingVote" class="d-block"><em class="fa fa-spinner fa-spin fa-fw fa-2x"></em></span>
-    </div>
+    
     <div class="col-12 d-flex justify-content-center">
       <div class="card-body" style="max-width: 1200px;">
         <div class="row m-0">
