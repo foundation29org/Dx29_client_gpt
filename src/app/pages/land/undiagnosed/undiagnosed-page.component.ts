@@ -686,7 +686,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         let introText = this.translate.instant("land.prom1", {
             value: paramIntroText
         })
-        var value = { value: introText + this.symtpmsLabel + " " + this.medicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions }
+        var value = { value: introText + this.symtpmsLabel + " " + this.medicalText+ " Call Text: "+ this.premedicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Vote: " + valueVote);
