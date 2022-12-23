@@ -35,4 +35,37 @@ export class ApiDx29ServerService {
           return err;
         })
     }
+
+    getDetectLanguage(text){
+      var jsonText = [{ "text": text }];
+        return this.http.post(environment.serverapi+'/api/getDetectLanguage', jsonText)
+        .map( (res : any) => {
+            return res;
+        }, (err) => {
+            console.log(err);
+            return err;
+        })
+    }
+
+    getTranslationDictionary(lang,info){
+      var body = {lang:lang, info: info}
+        return this.http.post(environment.serverapi+'/api/translation', body)
+        .map( (res : any) => {
+            return res;
+        }, (err) => {
+            console.log(err);
+            return err;
+        })
+    }
+
+    getSegmentation(lang,textf){
+      var body = {lang:lang, info: textf}
+      return this.http.post(environment.serverapi+'/api/translation/segments', body)
+      .map( (res : any) => {
+          return res;
+      }, (err) => {
+          console.log(err);
+          return err;
+      })
+  }
 }
