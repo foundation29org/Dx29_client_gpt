@@ -369,7 +369,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         // call api POST openai
 
         Swal.fire({
-            html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p><em class="fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
+            html: '<p>' + this.translate.instant("land.swal") + '</p>'+ '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p><em class="fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
             showCancelButton: true,
             showConfirmButton: false,
             allowOutsideClick: false
