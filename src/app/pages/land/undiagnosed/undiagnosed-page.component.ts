@@ -408,7 +408,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 let parseChoices0 = res.choices[0].text.split("\n\n");
                 parseChoices0.shift();
                 if(this.lang!='en'){
+                    console.log(parseChoices0);
                     var jsontestLangText = [{ "Text": parseChoices0[0] }]
+                    if(parseChoices0.length>1){
+                        var sendInfo='';
+                        for (let i = 0; i < parseChoices0.length; i++) {
+                            sendInfo = sendInfo+parseChoices0[i]+'\n';
+                        }
+                        jsontestLangText = [{ "Text": sendInfo}]
+                    }
+                    
                     this.subscription.add(this.apiDx29ServerService.getSegmentation(this.lang,jsontestLangText)
                     .subscribe( (res2 : any) => {
                         console.log(res2)

@@ -145,7 +145,7 @@
               </span>
             </span>
             <span class="row mt-2" *ngIf="showInputRecalculate">
-              <label>{{optionSelected.value}} </label>
+              <label>{{optionSelected.label}} </label>
               <div class="search">
                 <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow" [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea2()"></textarea>
                 <button type="submit" class="searchButton" (click)="verifCallOpenAi2();" [disabled]="callingOpenai" [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
