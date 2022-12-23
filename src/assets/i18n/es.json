@@ -182,7 +182,7 @@
     "whynotexpected": "¿Porqué resultados no eran los esperados?",
     "msgimprove": "Para poder mejorar, necesitamos tu opinion",
     "Recalculate the list": "¿Quieres mejorar estos resultados?",
-    "option1": "And the patient also has these symptoms::",
+    "option1": "And the patient also has these symptoms:",
     "labelopt1": "Agregar un síntoma",
     "option2": "And the patient has a gene mutation:",
     "labelopt2": "Indicar si el paciente tiene una mutación en un gen determinado",
