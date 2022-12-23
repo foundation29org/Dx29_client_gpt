@@ -279,6 +279,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     clearText() {
         this.medicalText2 = '';
+        this.medicalText2Copy = '';
         this.showInputRecalculate = false;
         //this.medicalText = '';
         this.copyMedicalText = '';
@@ -299,7 +300,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     preparingCallOpenAi(step) {
         this.callingOpenai = true;
-        if(step=='step3'){
+        if(step=='step3'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
             this.premedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy;
         }else{
             this.premedicalText = this.medicalText;
@@ -510,6 +511,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     clearText2() {
         this.medicalText2 = '';
+        this.medicalText2Copy = '';
         this.showErrorCall2 = false;
         document.getElementById("textarea2").setAttribute("style", "height:50px;overflow-y:hidden; width: 100%;");
     }
