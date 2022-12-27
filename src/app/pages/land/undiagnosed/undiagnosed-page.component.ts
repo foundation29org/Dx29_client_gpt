@@ -127,6 +127,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         ];
 
         window.scrollTo(0, 0);
+
     }
 
     async goPrevious() {
@@ -372,6 +373,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             html: '<p>' + this.translate.instant("land.swal") + '</p>'+ '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p><em class="fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
             showCancelButton: true,
             showConfirmButton: false,
+            cancelButtonText: this.translate.instant("generics.Cancel"),
             allowOutsideClick: false
         }).then(function (event) {
             console.log(event);
