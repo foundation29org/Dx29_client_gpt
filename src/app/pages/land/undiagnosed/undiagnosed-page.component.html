@@ -181,7 +181,7 @@
     <!--Shows a list of selectable panels-->
     <div class="list-group">
       <button class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
-        (click)="showQuestion(question)" [disabled]="loadingAnswerOpenai">
+        (click)="showQuestion(question, i)" [disabled]="loadingAnswerOpenai">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{question.question}} {{ selectedDisease }}</h5>
         </div>

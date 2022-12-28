@@ -115,7 +115,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.questions = [
             { id: 1, question: this.translate.instant("land.q1") },
             { id: 2, question: this.translate.instant("land.q2") },
-            { id: 3, question: this.translate.instant("land.q3") }
+            { id: 3, question: this.translate.instant("land.q3") },
+            { id: 4, question: this.translate.instant("land.q4") }
         ];
     }
 
@@ -492,13 +493,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
 
 
-    showQuestion(question) {
+    showQuestion(question, index) {
         /*var testRes= {"id":"cmpl-6KmXVRaPvar50l7SgRNVTiosKsCiQ","object":"text_completion","created":1670411165,"model":"text-davinci-003","choices":[{"text":"\n\nCommon symptoms of Dravet Syndrome include:\n\n-Frequent and/or prolonged seizures\n-Developmental delays\n-Speech delays\n-Behavioral and social challenges\n-Sleep disturbances\n-Growth and nutrition issues\n-Sensory integration dysfunction\n-Movement and balance issues\n-Weak muscle tone (hypotonia)\n-Delayed motor skills","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":13,"completion_tokens":80,"total_tokens":93}}
         this.answerOpenai = testRes.choices[0].text;*/
 
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
         var introText = question.question + ' ' + this.selectedDisease + '?';
+        if(index==3){
+            introText = introText + ' ' + this.translate.instant("land.q4info");
+        }
         var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
