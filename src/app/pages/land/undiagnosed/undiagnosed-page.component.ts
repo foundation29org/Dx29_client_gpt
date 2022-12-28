@@ -501,14 +501,48 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.loadingAnswerOpenai = true;
         var introText = question.question + ' ' + this.selectedDisease + '?';
         if(index==3){
-            introText = introText + ' ' + this.translate.instant("land.q4info");
+            introText = this.premedicalText+'. What other symptoms could you find out to make a differential diagnosis of '+this.selectedDisease + ' Order the list with the most probable on the top';
         }
         var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
-                this.answerOpenai = res.choices[0].text;
-                this.loadingAnswerOpenai = false;
-                this.lauchEvent("Info Disease");
+                let parseChoices0 = res.choices[0].text.split("\n\n");
+                parseChoices0.shift();
+                if(this.lang!='en'){
+                    console.log(parseChoices0);
+                    var jsontestLangText = [{ "Text": parseChoices0[0] }]
+                    if(parseChoices0.length>1){
+                        var sendInfo='';
+                        for (let i = 0; i < parseChoices0.length; i++) {
+                            sendInfo = sendInfo+parseChoices0[i]+'\n';
+                        }
+                        jsontestLangText = [{ "Text": sendInfo}]
+                    }
+                    
+                    this.subscription.add(this.apiDx29ServerService.getSegmentation(this.lang,jsontestLangText)
+                    .subscribe( (res2 : any) => {
+                        console.log(res2)
+                        if (res2[0] != undefined) {
+                            if (res2[0].translations[0] != undefined) {
+                                parseChoices0 = res2[0].translations[0].text;
+                            }
+                        }
+                        this.answerOpenai = parseChoices0;
+                        this.loadingAnswerOpenai = false;
+                        this.lauchEvent("Info Disease");
+                    }, (err) => {
+                        console.log(err);
+                        this.answerOpenai = res.choices[0].text;
+                        this.loadingAnswerOpenai = false;
+                        this.lauchEvent("Info Disease");
+                    }));
+                }else{
+                    this.answerOpenai = res.choices[0].text;
+                    this.loadingAnswerOpenai = false;
+                    this.lauchEvent("Info Disease");
+                }
+
+                
             }, (err) => {
                 console.log(err);
                 this.loadingAnswerOpenai = false;
