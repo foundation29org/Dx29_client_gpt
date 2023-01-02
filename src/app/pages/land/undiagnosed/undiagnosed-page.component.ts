@@ -57,6 +57,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     topRelatedConditions: any = [];
     lang: string = 'en';
     originalLang: string = 'en';
+    detectedLang: string = 'en';
     selectedInfoDiseaseIndex: number = -1;
     minSymptoms: number = 2;
     _startTime: any;
@@ -307,42 +308,38 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }else{
             this.premedicalText = this.medicalText;
         }
-        
-        if (this.lang != 'en') {
-            var testLangText = this.premedicalText.substr(0, 4000)
-            if (testLangText.length > 0) {
-                this.subscription.add(this.apiDx29ServerService.getDetectLanguage(testLangText)
-                    .subscribe((res: any) => {
-                        if (res[0].language != 'en') {
-                            var info = [{ "Text": this.premedicalText }]
-                            this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(res[0].language, info)
-                                .subscribe((res2: any) => {
-                                    console.log(res2);
-                                    var textToTA = this.premedicalText.replace(/\n/g, " ");
-                                    if (res2[0] != undefined) {
-                                        if (res2[0].translations[0] != undefined) {
-                                            textToTA = res2[0].translations[0].text;
-                                        }
+        var testLangText = this.premedicalText.substr(0, 4000)
+        if (testLangText.length > 0) {
+            this.subscription.add(this.apiDx29ServerService.getDetectLanguage(testLangText)
+                .subscribe((res: any) => {
+                    if (res[0].language != 'en') {
+                        this.detectedLang = res[0].language;
+                        var info = [{ "Text": this.premedicalText }]
+                        this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(res[0].language, info)
+                            .subscribe((res2: any) => {
+                                console.log(res2);
+                                var textToTA = this.premedicalText.replace(/\n/g, " ");
+                                if (res2[0] != undefined) {
+                                    if (res2[0].translations[0] != undefined) {
+                                        textToTA = res2[0].translations[0].text;
                                     }
-                                    this.premedicalText = textToTA;
-                                    console.log(this.premedicalText)
-                                    this.callOpenAi(step);
-                                }, (err) => {
-                                    console.log(err);
-                                    this.callOpenAi(step);
-                                }));
-                        } else {
-                            this.callOpenAi(step);
-                        }
+                                }
+                                this.premedicalText = textToTA;
+                                console.log(this.premedicalText)
+                                this.callOpenAi(step);
+                            }, (err) => {
+                                console.log(err);
+                                this.callOpenAi(step);
+                            }));
+                    } else {
+                        this.callOpenAi(step);
+                    }
 
-                    }, (err) => {
-                        console.log(err);
-                        this.toastr.error('', this.translate.instant("generics.error try again"));
-                        this.callingOpenai = false;
-                    }));
-            } else {
-                this.callOpenAi(step);
-            }
+                }, (err) => {
+                    console.log(err);
+                    this.toastr.error('', this.translate.instant("generics.error try again"));
+                    this.callingOpenai = false;
+                }));
         } else {
             this.callOpenAi(step);
         }
@@ -410,7 +407,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 }
                 let parseChoices0 = res.choices[0].text.split("\n\n");
                 parseChoices0.shift();
-                if(this.lang!='en'){
+                if(this.detectedLang!='en'){
                     console.log(parseChoices0);
                     var jsontestLangText = [{ "Text": parseChoices0[0] }]
                     if(parseChoices0.length>1){
@@ -421,7 +418,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         jsontestLangText = [{ "Text": sendInfo}]
                     }
                     
-                    this.subscription.add(this.apiDx29ServerService.getSegmentation(this.lang,jsontestLangText)
+                    this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang,jsontestLangText)
                     .subscribe( (res2 : any) => {
                         console.log(res2)
                         if (res2[0] != undefined) {
@@ -508,39 +505,55 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             .subscribe((res: any) => {
                 let parseChoices0 = res.choices[0].text.split("\n\n");
                 parseChoices0.shift();
-                if(this.lang!='en' && index==3){
-                    console.log(parseChoices0);
-                    var jsontestLangText = [{ "Text": parseChoices0[0] }]
-                    if(parseChoices0.length>1){
-                        var sendInfo='';
-                        for (let i = 0; i < parseChoices0.length; i++) {
-                            sendInfo = sendInfo+parseChoices0[i]+'\n';
-                        }
-                        jsontestLangText = [{ "Text": sendInfo}]
-                    }
-                    
-                    this.subscription.add(this.apiDx29ServerService.getSegmentation(this.lang,jsontestLangText)
-                    .subscribe( (res2 : any) => {
-                        console.log(res2)
-                        if (res2[0] != undefined) {
-                            if (res2[0].translations[0] != undefined) {
-                                parseChoices0 = res2[0].translations[0].text;
+                if(index==3){
+                    this.subscription.add(this.apiDx29ServerService.getDetectLanguage(this.premedicalText)
+                    .subscribe((reslang: any) => {
+                        this.detectedLang = reslang[0].language;
+                        if (reslang[0].language != 'en' && index==3) {
+                            console.log(parseChoices0);
+                            var jsontestLangText = [{ "Text": parseChoices0[0] }]
+                            if(parseChoices0.length>1){
+                                var sendInfo='';
+                                for (let i = 0; i < parseChoices0.length; i++) {
+                                    sendInfo = sendInfo+parseChoices0[i]+'\n';
+                                }
+                                jsontestLangText = [{ "Text": sendInfo}]
                             }
+                            
+                            this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang,jsontestLangText)
+                            .subscribe( (res2 : any) => {
+                                console.log(res2)
+                                if (res2[0] != undefined) {
+                                    if (res2[0].translations[0] != undefined) {
+                                        parseChoices0 = res2[0].translations[0].text;
+                                    }
+                                }
+                                this.answerOpenai = parseChoices0;
+                                this.loadingAnswerOpenai = false;
+                                this.lauchEvent("Info Disease");
+                            }, (err) => {
+                                console.log(err);
+                                this.answerOpenai = res.choices[0].text;
+                                this.loadingAnswerOpenai = false;
+                                this.lauchEvent("Info Disease");
+                            }));
+                        }else{
+                            this.answerOpenai = res.choices[0].text;
+                            this.loadingAnswerOpenai = false;
+                            this.lauchEvent("Info Disease");
                         }
-                        this.answerOpenai = parseChoices0;
-                        this.loadingAnswerOpenai = false;
-                        this.lauchEvent("Info Disease");
-                    }, (err) => {
-                        console.log(err);
-                        this.answerOpenai = res.choices[0].text;
-                        this.loadingAnswerOpenai = false;
-                        this.lauchEvent("Info Disease");
-                    }));
+                        }, (err) => {
+                            this.answerOpenai = res.choices[0].text;
+                            this.loadingAnswerOpenai = false;
+                            this.lauchEvent("Info Disease");
+                            
+                        }));
                 }else{
                     this.answerOpenai = res.choices[0].text;
                     this.loadingAnswerOpenai = false;
                     this.lauchEvent("Info Disease");
                 }
+                
 
                 
             }, (err) => {
@@ -577,44 +590,41 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     callOpenAi2() {
         //this.medicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2;
-        this.medicalText2Copy = this.medicalText2;
-        if(this.lang != 'en'){
-            if (this.medicalText2.length > 0) {
-                this.subscription.add(this.apiDx29ServerService.getDetectLanguage(this.medicalText2)
-                    .subscribe((res: any) => {
-                        if (res[0].language != 'en') {
-                            var info = [{ "Text": this.medicalText2 }]
-                            this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(res[0].language, info)
-                                .subscribe((res2: any) => {
-                                    console.log(res2);
-                                    var textToTA = this.medicalText2.replace(/\n/g, " ");
-                                    if (res2[0] != undefined) {
-                                        if (res2[0].translations[0] != undefined) {
-                                            textToTA = res2[0].translations[0].text;
-                                        }
+        if (this.medicalText2.length > 0) {
+            this.medicalText2Copy = this.medicalText2;
+            this.subscription.add(this.apiDx29ServerService.getDetectLanguage(this.medicalText2)
+                .subscribe((res: any) => {
+                    if (res[0].language != 'en') {
+                        this.detectedLang = res[0].language;
+                        var info = [{ "Text": this.medicalText2 }]
+                        this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(res[0].language, info)
+                            .subscribe((res2: any) => {
+                                console.log(res2);
+                                var textToTA = this.medicalText2.replace(/\n/g, " ");
+                                if (res2[0] != undefined) {
+                                    if (res2[0].translations[0] != undefined) {
+                                        textToTA = res2[0].translations[0].text;
                                     }
-                                    this.medicalText2Copy = textToTA;
-                                    console.log(this.medicalText2)
-                                    this.preparingCallOpenAi('step3');
-                                }, (err) => {
-                                    console.log(err);
-                                    this.preparingCallOpenAi('step3');
-                                }));
-                        } else {
-                            this.preparingCallOpenAi('step3');
-                        }
-
-                    }, (err) => {
+                                }
+                                this.medicalText2Copy = textToTA;
+                                console.log(this.medicalText2)
+                                this.preparingCallOpenAi('step3');
+                            }, (err) => {
+                                console.log(err);
+                                this.preparingCallOpenAi('step3');
+                            }));
+                    } else {
                         this.preparingCallOpenAi('step3');
-                        
-                    }));
-            } else {
-                this.preparingCallOpenAi('step3');
-            }
-            
-        }else{
+                    }
+
+                }, (err) => {
+                    this.preparingCallOpenAi('step3');
+                    
+                }));
+        } else {
             this.preparingCallOpenAi('step3');
         }
+            
         
     }
 
@@ -754,7 +764,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     onSubmitFeedbackDown() {
         this.sending = true;
-        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input }
+        let paramIntroText = this.optionRare;
+        if (this.selectorRare) {
+            paramIntroText = this.optionCommon;
+        }
+        let introText = this.translate.instant("land.prom1", {
+            value: paramIntroText
+        })
+        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: introText + this.symtpmsLabel + " " + this.medicalText+ " Call Text: "+ this.premedicalText, topRelatedConditions: this.topRelatedConditions }
         this.subscription.add(this.apiDx29ServerService.feedback(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Feedback");
