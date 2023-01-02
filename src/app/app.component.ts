@@ -126,23 +126,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
     //evento que escucha si ha habido un error de conexión
     this.eventsService.on('http-error', function (error) {
-      var msg1 = 'No internet connection';
-      var msg2 = 'Trying to connect ...';
-
+      var msg1 = 'Oops, an unexpected error has occurred';
+      var msg2 = 'Try again, please';
+      this.sendEmailError(error);
       if (sessionStorage.getItem('lang')) {
         var actuallang = sessionStorage.getItem('lang');
         if (actuallang == 'es') {
-          msg1 = 'Sin conexión a Internet';
-          msg2 = 'Intentando conectar ...';
-        } else if (actuallang == 'pt') {
-          msg1 = 'Sem conexão à internet';
-          msg2 = 'Tentando se conectar ...';
-        } else if (actuallang == 'de') {
-          msg1 = 'Keine Internetverbindung';
-          msg2 = 'Versucht zu verbinden ...';
-        } else if (actuallang == 'nl') {
-          msg1 = 'Geen internet verbinding';
-          msg2 = 'Proberen te verbinden ...';
+          msg1 = 'Vaya, se ha producido un error inesperado';
+          msg2 = 'Por favor, inténtalo de nuevo';
         }
       }
       if (error.message) {
@@ -312,6 +303,15 @@ export class AppComponent implements OnInit, OnDestroy {
         this.ccService.destroy();//remove previous cookie bar (with default messages)
         this.ccService.init(this.ccService.getConfig()); // update config with translated messages
       });
+  }
+
+  sendEmailError(error) {
+    var params = {value:error, lang:sessionStorage.getItem('lang')};
+    this.subscription.add( this.http.post(environment.serverapi+'/api/senderror/', params)
+    .subscribe( (res : any) => {
+     }, (err) => {
+      console.log(err);
+     }));
   }
 
   delay(ms: number) {
