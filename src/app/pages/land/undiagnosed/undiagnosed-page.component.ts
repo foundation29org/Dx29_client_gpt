@@ -88,6 +88,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     feedBack1input: string = '';
     feedBack2input: string = '';
     sending: boolean = false;
+    symptomsDifferencial: any = [];
 
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -493,7 +494,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     showQuestion(question, index) {
         /*var testRes= {"id":"cmpl-6KmXVRaPvar50l7SgRNVTiosKsCiQ","object":"text_completion","created":1670411165,"model":"text-davinci-003","choices":[{"text":"\n\nCommon symptoms of Dravet Syndrome include:\n\n-Frequent and/or prolonged seizures\n-Developmental delays\n-Speech delays\n-Behavioral and social challenges\n-Sleep disturbances\n-Growth and nutrition issues\n-Sensory integration dysfunction\n-Movement and balance issues\n-Weak muscle tone (hypotonia)\n-Delayed motor skills","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":13,"completion_tokens":80,"total_tokens":93}}
         this.answerOpenai = testRes.choices[0].text;*/
-
+        this.symptomsDifferencial = [];
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
         var introText = question.question + ' ' + this.selectedDisease + '?';
@@ -506,48 +507,40 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 let parseChoices0 = res.choices[0].text.split("\n\n");
                 parseChoices0.shift();
                 if(index==3){
-                    this.subscription.add(this.apiDx29ServerService.getDetectLanguage(this.premedicalText)
-                    .subscribe((reslang: any) => {
-                        this.detectedLang = reslang[0].language;
-                        if (reslang[0].language != 'en' && index==3) {
-                            console.log(parseChoices0);
-                            var jsontestLangText = [{ "Text": parseChoices0[0] }]
-                            if(parseChoices0.length>1){
-                                var sendInfo='';
-                                for (let i = 0; i < parseChoices0.length; i++) {
-                                    sendInfo = sendInfo+parseChoices0[i]+'\n';
-                                }
-                                jsontestLangText = [{ "Text": sendInfo}]
+
+                    if (this.detectedLang != 'en' && index==3) {
+                        console.log(parseChoices0);
+                        var jsontestLangText = [{ "Text": parseChoices0[0] }]
+                        if(parseChoices0.length>1){
+                            var sendInfo='';
+                            for (let i = 0; i < parseChoices0.length; i++) {
+                                sendInfo = sendInfo+parseChoices0[i]+'\n';
                             }
-                            
-                            this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang,jsontestLangText)
-                            .subscribe( (res2 : any) => {
-                                console.log(res2)
-                                if (res2[0] != undefined) {
-                                    if (res2[0].translations[0] != undefined) {
-                                        parseChoices0 = res2[0].translations[0].text;
-                                    }
-                                }
-                                this.answerOpenai = parseChoices0;
-                                this.loadingAnswerOpenai = false;
-                                this.lauchEvent("Info Disease");
-                            }, (err) => {
-                                console.log(err);
-                                this.answerOpenai = res.choices[0].text;
-                                this.loadingAnswerOpenai = false;
-                                this.lauchEvent("Info Disease");
-                            }));
-                        }else{
-                            this.answerOpenai = res.choices[0].text;
-                            this.loadingAnswerOpenai = false;
-                            this.lauchEvent("Info Disease");
+                            jsontestLangText = [{ "Text": sendInfo}]
                         }
-                        }, (err) => {
-                            this.answerOpenai = res.choices[0].text;
+                        
+                        this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang,jsontestLangText)
+                        .subscribe( (res2 : any) => {
+                            console.log(res2)
+                            if (res2[0] != undefined) {
+                                if (res2[0].translations[0] != undefined) {
+                                    parseChoices0 = res2[0].translations[0].text;
+                                }
+                            }
+                            this.getDifferentialDiagnosis(parseChoices0);
                             this.loadingAnswerOpenai = false;
                             this.lauchEvent("Info Disease");
-                            
+                        }, (err) => {
+                            console.log(err);
+                            this.getDifferentialDiagnosis(res.choices[0].text);
+                            this.loadingAnswerOpenai = false;
+                            this.lauchEvent("Info Disease");
                         }));
+                    }else{
+                        this.getDifferentialDiagnosis(res.choices[0].text);
+                        this.loadingAnswerOpenai = false;
+                        this.lauchEvent("Info Disease");
+                    }
                 }else{
                     this.answerOpenai = res.choices[0].text;
                     this.loadingAnswerOpenai = false;
@@ -561,6 +554,66 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 this.loadingAnswerOpenai = false;
             }));
 
+    }
+
+    getDifferentialDiagnosis(info){
+        let parseChoices0 = info;
+        if (info.indexOf("\n\n") != -1) {
+            parseChoices0 = info.split("\n\n");
+            parseChoices0.shift();
+        }
+        
+        this.symptomsDifferencial = [];
+        var parseChoices = [];
+        if (parseChoices0[0].indexOf("\n") != -1) {
+            parseChoices = parseChoices0[0].split("\n");
+            let test = parseChoices[0].charAt(0)
+            if (test == '.') {
+                parseChoices.shift();
+            }
+        }else{
+            parseChoices = parseChoices0.split("\n");
+            let test = parseChoices[0].charAt(0)
+            if (test == '.') {
+                parseChoices.shift();
+            }
+        }
+        this.symptomsDifferencial = [];
+        for (let i = 0; i < parseChoices.length; i++) {
+            if (parseChoices[i] != '') {
+                var name = parseChoices[i].split(".")[1];
+                this.symptomsDifferencial.push({name:name, checked: false})
+            }
+        }
+    }
+
+    changeSymptom(event,index){
+     console.log(event);
+     console.log(index)   
+    }
+
+    recalculateDifferencial(){
+        var newSymptoms = '';
+        for(let i=0;i<this.symptomsDifferencial.length;i++){
+            if(this.symptomsDifferencial[i].checked){
+                newSymptoms= newSymptoms+this.symptomsDifferencial[i].name+', ';
+            }
+        }
+        if(newSymptoms!=''){
+            this.optionSelected = this.options[0];
+            this.closeDiseaseUndiagnosed();
+            this.medicalText2 = newSymptoms;
+            this.verifCallOpenAi2();
+        }else{
+            Swal.fire({
+                icon: 'error',
+                text: this.translate.instant("land.Select at least one symptom"),
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            })
+        }
+        
     }
 
     async recalculate(option) {
@@ -654,6 +707,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     showMoreInfoDiseasePopup(diseaseIndex, contentInfoDisease) {
         this.answerOpenai = '';
+        this.symptomsDifferencial = [];
         this.selectedInfoDiseaseIndex = diseaseIndex;
         var nameEvent = 'Undiagnosed - Select Disease - ' + this.topRelatedConditions[this.selectedInfoDiseaseIndex];
         this.lauchEvent(nameEvent);

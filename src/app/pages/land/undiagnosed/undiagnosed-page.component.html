@@ -196,11 +196,32 @@
           {{answerOpenai}}
         </p>
       </div>
+      <div *ngIf="!loadingAnswerOpenai && symptomsDifferencial.length>0" class="mt-3">
+        <h6><strong>{{'land.Select the symptoms' | translate }}:</strong></h6>
+        <div class="row">
+          <div *ngFor="let symptom of symptomsDifferencial; let j = index" class="col-md-6 col-xl-4">
+            <div class="custom-control custom-checkbox">
+              <mat-checkbox
+                  class="example-margin" name="customCheck{{j}}" [(ngModel)]="symptom.checked" id="customCheck{{j}}" (change)="changeSymptom($event,j)">
+                <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
+                  <span>{{symptom.name}}</span>
+                </label>
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 center-elements">
+            <button type="button" class="btn btn-info bt-nav round" (click)="recalculateDifferencial()" [disabled]="loadingAnswerOpenai">{{'land.Recalculate' | translate }}</button>
+          </div>
+        </div>
+      </div>
+      
     </div>
   </div>
   <div class="modal-footer">
     <div class="col-md-12 center-elements">
-      <button type="button" class="btn btn-info bt-nav round" (click)="closeDiseaseUndiagnosed()">{{'generics.Close' | translate }}</button>
+      <button type="button" class="btn btn-secondary bt-nav round" (click)="closeDiseaseUndiagnosed()">{{'generics.Close' | translate }}</button>
     </div>
   </div>
 </ng-template>
