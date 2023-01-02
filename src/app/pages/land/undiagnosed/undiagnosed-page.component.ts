@@ -333,6 +333,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                                 this.callOpenAi(step);
                             }));
                     } else {
+                        this.detectedLang = 'en';
                         this.callOpenAi(step);
                     }
 
@@ -507,7 +508,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 let parseChoices0 = res.choices[0].text.split("\n\n");
                 parseChoices0.shift();
                 if(index==3){
-
                     if (this.detectedLang != 'en' && index==3) {
                         console.log(parseChoices0);
                         var jsontestLangText = [{ "Text": parseChoices0[0] }]
@@ -542,7 +542,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         this.lauchEvent("Info Disease");
                     }
                 }else{
-                    this.answerOpenai = res.choices[0].text;
+                    if(parseChoices0.length>1){
+                        var sendInfo='';
+                        for (let i = 0; i < parseChoices0.length; i++) {
+                            sendInfo = sendInfo+parseChoices0[i]+'\n';
+                        }
+                        this.answerOpenai = sendInfo;
+                    }else if(parseChoices0.length==1){
+                        this.answerOpenai = parseChoices0[0] 
+                    }else{
+                        this.answerOpenai = res.choices[0].text;
+                    }
+                    
                     this.loadingAnswerOpenai = false;
                     this.lauchEvent("Info Disease");
                 }
@@ -600,6 +611,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             }
         }
         if(newSymptoms!=''){
+            this.lauchEvent("Recalculate Differencial");
             this.optionSelected = this.options[0];
             this.closeDiseaseUndiagnosed();
             this.medicalText2 = newSymptoms;
