@@ -415,12 +415,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 if(this.detectedLang!='en'){
                     console.log(parseChoices0);
                     var jsontestLangText = [{ "Text": parseChoices0[0] }]
-                    if(parseChoices0.length>1){
+                    if(parseChoices0.length>1 && Array.isArray(parseChoices0)){
                         var sendInfo='';
                         for (let i = 0; i < parseChoices0.length; i++) {
                             sendInfo = sendInfo+parseChoices0[i]+'\n';
                         }
                         jsontestLangText = [{ "Text": sendInfo}]
+                    }
+                    if(!Array.isArray(parseChoices0)){
+                        jsontestLangText = [{ "Text": parseChoices0 }]
                     }
                     
                     this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang,jsontestLangText)
@@ -458,13 +461,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     continueCallOpenAi(parseChoices0){
         let parseChoices = parseChoices0;
         console.log(parseChoices);
-        if (parseChoices0[0].indexOf("\n") != -1) {
-            parseChoices = parseChoices0[0].split("\n");
-            let test = parseChoices[0].charAt(0)
-            if (test == '.') {
-                parseChoices.shift();
-            }
-        }else{
+        if(!Array.isArray(parseChoices0)){
             if (parseChoices0.indexOf("\n") != -1) {
                 parseChoices = parseChoices0.split("\n");
                 let test = parseChoices[0].charAt(0)
@@ -472,7 +469,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     parseChoices.shift();
                 }
             }
+        }else{
+            if (parseChoices0[0].indexOf("\n") != -1) {
+                parseChoices = parseChoices0[0].split("\n");
+                let test = parseChoices[0].charAt(0)
+                if (test == '.') {
+                    parseChoices.shift();
+                }
+            }
         }
+        
         this.topRelatedConditions = [];
         for (let i = 0; i < parseChoices.length; i++) {
             if (parseChoices[i] != '') {
