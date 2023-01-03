@@ -201,11 +201,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.tituloEvent = event['title'];
           var titulo = this.translate.instant(this.tituloEvent);
           this.titleService.setTitle(titulo);
-          if (event.title == 'homedx.Donate') {
-            this.meta.updateTag({ name: 'description', content: this.translate.instant("donate.descriptionSeo") });
-          } else {
-            this.changeMeta();
-          }
+          this.changeMeta();
 
         })();
 
@@ -345,25 +341,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   changeMeta() {
-    var URLactual = window.location.href;
-    if (URLactual.indexOf("clinician") != -1 || this.role == "physicians") {
-      this.meta.updateTag({ name: 'keywords', content: this.translate.instant("seo.physicians.keywords") });
-      this.meta.updateTag({ name: 'description', content: this.translate.instant("seo.physicians.description") });
-      this.meta.updateTag({ name: 'title', content: this.translate.instant("seo.physicians.title") });
-    } else {
-      if (this.role == '' || this.role == undefined) {
-        this.meta.updateTag({ name: 'keywords', content: this.translate.instant("seo.home.keywords") });
-        this.meta.updateTag({ name: 'description', content: this.translate.instant("seo.home.description") });
-        this.meta.updateTag({ name: 'title', content: this.translate.instant("seo.home.title") });
-      } else if (this.role == "diagnosed") {
-        this.meta.updateTag({ name: 'keywords', content: this.translate.instant("seo.diagnosed.keywords") });
-        this.meta.updateTag({ name: 'description', content: this.translate.instant("seo.diagnosed.description") });
-        this.meta.updateTag({ name: 'title', content: this.translate.instant("seo.diagnosed.title") });
-      } else if (this.role == "undiagnosed") {
-        this.meta.updateTag({ name: 'keywords', content: this.translate.instant("seo.undiagnosed.keywords") });
-        this.meta.updateTag({ name: 'description', content: this.translate.instant("seo.undiagnosed.description") });
-        this.meta.updateTag({ name: 'title', content: this.translate.instant("seo.undiagnosed.title") });
-      }
-    }
+    this.meta.updateTag({ name: 'keywords', content: this.translate.instant("seo.home.keywords") });
+    this.meta.updateTag({ name: 'description', content: this.translate.instant("seo.home.description") });
+    this.meta.updateTag({ name: 'title', content: this.translate.instant("seo.home.title") });
   }
 }
