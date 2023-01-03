@@ -264,24 +264,9 @@
   },
   "seo":{
     "home":{
-      "keywords": "diagnosis, diagnose, rare disease, syndrome, disease, prognosis, symptoms, HPO, epilepsy, seizures, status epilepticus, developmental delay, tremors, palpitations, tonic-clonic, myoclonic, pediatrics, genetics, neurology, symptom extraction, genetic disease, genetic disease",
-      "description": "Extraction and curing of HPO symptoms from text and documents. AI that helps the diagnosis of rare diseases. Totally free for doctors and patients.",
-      "title": "DxGPT: Extract symptoms and help diagnosis"
-    },
-    "physicians":{
-      "keywords": "medical condition, symptom checker, Symptoms of syndrome, rare disease, online diagnosis",
-      "description": "Store your Patients' Cases and Analyse Genetic Info for Free",
-      "title": "Physicians: Create your free Account"
-    },
-    "diagnosed":{
-      "keywords": "medical condition, Clinical Trials, Symptoms of syndrome, rare disease, patient group",
-      "description": "Your Rare Disease's: Symptoms, Clinical Trials and Patient Groups",
-      "title": "Diagnosed Patients: Get More Info"
-    },
-    "undiagnosed":{
-      "keywords": "rare diagnosis, symptom checker, Symptoms of syndrome, rare disease, online diagnosis",
-      "description": "Self-Phenotyping, Diagnosis, Share your Report with your Doctor",
-      "title": "Undiagnosed Patients: Speed up your Diagnosis"
+      "keywords": "diagnosis, diagnose, rare disease, GPT, syndrome, disease, prognosis, symptoms, HPO, epilepsy, seizures, status epilepticus, developmental delay, pediatrics, genetics, neurology, genetic disease",
+      "description": "DxGPT is a diagnostic decision support software based on GPT-3. AI that helps the diagnosis of diseases. Totally free for doctors and patients.",
+      "title": "DxGPT: diagnostic decision support software based on GPT-3"
     }
   },
   "cookie": {
