@@ -58,6 +58,17 @@ export class ApiDx29ServerService {
         })
     }
 
+    getTranslationInvert(lang,info){
+      var body = {lang:lang, info: info}
+        return this.http.post(environment.serverapi+'/api/translationinvert', body)
+        .map( (res : any) => {
+            return res;
+        }, (err) => {
+            console.log(err);
+            return err;
+        })
+    }
+
     getSegmentation(lang,textf){
       var body = {lang:lang, info: textf}
       return this.http.post(environment.serverapi+'/api/translation/segments', body)

@@ -510,6 +510,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
         var introText = question.question + ' ' + this.selectedDisease + '?';
+        if(index==0){
+            introText = 'What are the common symptoms for'+ this.selectedDisease +'? Order the list with the most probable on the top';
+        }
+        if(index==1){
+            introText = 'Give me more information for'+ this.selectedDisease;
+        }
+        if(index==2){
+            introText = 'Provide a diagnosis test for'+ this.selectedDisease;
+        }
         if(index==3){
             introText = this.premedicalText+'. What other symptoms could you find out to make a differential diagnosis of '+this.selectedDisease + ' Order the list with the most probable on the top';
         }
@@ -525,12 +534,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     if (this.detectedLang != 'en' && index==3) {
                         console.log(parseChoices0);
                         var jsontestLangText = [{ "Text": parseChoices0[0] }]
-                        if(parseChoices0.length>1){
+                        if(parseChoices0.length>1 && Array.isArray(parseChoices0)){
                             var sendInfo='';
                             for (let i = 0; i < parseChoices0.length; i++) {
                                 sendInfo = sendInfo+parseChoices0[i]+'\n';
                             }
                             jsontestLangText = [{ "Text": sendInfo}]
+                        }
+                        if(!Array.isArray(parseChoices0)){
+                            jsontestLangText = [{ "Text": parseChoices0 }]
                         }
                         
                         this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang,jsontestLangText)
@@ -556,20 +568,57 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         this.lauchEvent("Info Disease");
                     }
                 }else{
-                    if(parseChoices0.length>1){
+                    var tempInfo = res.choices[0].text;
+                    if(parseChoices0.length>1 && Array.isArray(parseChoices0)){
                         var sendInfo='';
                         for (let i = 0; i < parseChoices0.length; i++) {
                             sendInfo = sendInfo+parseChoices0[i]+'\n';
                         }
-                        this.answerOpenai = sendInfo;
+                        tempInfo= sendInfo;
                     }else if(parseChoices0.length==1){
-                        this.answerOpenai = parseChoices0[0] 
+                        tempInfo = parseChoices0[0] 
+                    }
+                    if(this.detectedLang!='en'){
+                        var info = [{ "Text": tempInfo}]
+                        this.subscription.add(this.apiDx29ServerService.getTranslationInvert(this.detectedLang, info)
+                        .subscribe((res2: any) => {
+                            console.log(res2);
+                            var textToTA = this.premedicalText.replace(/\n/g, " ");
+                            if (res2[0] != undefined) {
+                                if (res2[0].translations[0] != undefined) {
+                                    textToTA = res2[0].translations[0].text;
+                                }
+                            }
+                            this.answerOpenai = textToTA;
+                           
+                            this.loadingAnswerOpenai = false;
+                            this.lauchEvent("Info Disease");
+                        }, (err) => {
+                            console.log(err);
+                            if(parseChoices0.length>1 && Array.isArray(parseChoices0)){
+                                var sendInfo='';
+                                for (let i = 0; i < parseChoices0.length; i++) {
+                                    sendInfo = sendInfo+parseChoices0[i]+'\n';
+                                }
+                                this.answerOpenai = sendInfo;
+                            }else if(parseChoices0.length==1){
+                                this.answerOpenai = parseChoices0[0] 
+                            }else{
+                                this.answerOpenai = res.choices[0].text;
+                            }
+                            
+                            this.loadingAnswerOpenai = false;
+                            this.lauchEvent("Info Disease");
+                        }));
                     }else{
-                        this.answerOpenai = res.choices[0].text;
+                        this.answerOpenai = tempInfo;
+                            
+                        this.loadingAnswerOpenai = false;
+                        this.lauchEvent("Info Disease");
                     }
                     
-                    this.loadingAnswerOpenai = false;
-                    this.lauchEvent("Info Disease");
+
+                    
                 }
                 
 
@@ -615,8 +664,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     changeSymptom(event,index){
-     console.log(event);
-     console.log(index)   
+     console.log(event); 
     }
 
     recalculateDifferencial(){
@@ -884,9 +932,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     closeFeedback() {
-        console.log('entra');
-        /*this.feedBack1input = '';
-        this.feedBack2input = '';*/
         if (this.modalReference != undefined) {
             this.modalReference.close();
             this.modalReference = undefined;
