@@ -1162,7 +1162,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         } else {
                             this.langToExtract = this.langDetected
                             if (this.medicalText != '') {
-                                this.callTextAnalitycs2();
+                                this.preCallTextAnalitycs();
                             } else {
                                 Swal.fire(this.translate.instant("parser.No text has been detected in the file"), '', "error");
                             }
@@ -1176,7 +1176,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         this.langToExtract = lang;
                     }
                     if (this.medicalText != '') {
-                        this.callTextAnalitycs2();
+                        this.preCallTextAnalitycs();
                     } else {
                         Swal.fire(this.translate.instant("parser.No text has been detected in the file"), '', "error");
                     }
@@ -1188,7 +1188,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             }));
     }
 
-    callTextAnalitycs2() {
+
+    preCallTextAnalitycs() {
         Swal.fire({
             title: this.translate.instant("generics.Please wait"),
             html: '<i class="fa fa-spinner fa-spin fa-3x fa-fw info"></i>',
@@ -1198,6 +1199,33 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }).then((result) => {
 
         });
+        console.log(this.langDetected);
+        if(this.langDetected!='en'){
+            var info = [{ "Text": this.medicalText }]
+            this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(this.langDetected, info)
+                .subscribe((res2: any) => {
+                    console.log(res2);
+                    var textToTA = this.medicalText.replace(/\n/g, " ");
+                    if (res2[0] != undefined) {
+                        if (res2[0].translations[0] != undefined) {
+                            textToTA = res2[0].translations[0].text;
+                        }
+                    }
+                    this.medicalText = textToTA;
+                    console.log(this.medicalText)
+                    this.callTextAnalitycs2();
+                }, (err) => {
+                    console.log(err);
+                    this.callTextAnalitycs2();
+                }));
+        }else{
+            this.callTextAnalitycs2();
+        }
+        
+
+    }
+    
+    callTextAnalitycs2() {
         this.callingTextAnalytics = true;
         var info = this.medicalText.replace(/\n/g, " ");
         var jsontestLangText = { "text": info };
@@ -1239,15 +1267,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                   drugs.push(actualDrug);
                   foundDrug = true;
                 }
-                if (this.resTextAnalyticsSegments.entities[j].category == 'SymptomOrSign') {
+                if (this.resTextAnalyticsSegments.entities[j].category == 'SymptomOrSign' && this.resTextAnalyticsSegments.entities[j].confidenceScore >= 0.85) {
                     foundSyntoms = true;
-                    symtoms.push(this.resTextAnalyticsSegments.entities[j].text);
+                    if(this.resTextAnalyticsSegments.entities[j].assertion !=undefined){
+                        if(this.resTextAnalyticsSegments.entities[j].assertion.certainty !=undefined){
+                            if(this.resTextAnalyticsSegments.entities[j].assertion.certainty == 'negative'){
+                                foundSyntoms = false;
+                            }
+                        }
+                    }
+                    if(foundSyntoms){
+                        symtoms.push(this.resTextAnalyticsSegments.entities[j].text);
+                    }
+                    
                 }
               }
 
             this.medicalText = '';
             if(foundDrug){
-                this.medicalText = 'The patient takes the following drugs: ';
+                this.medicalText = 'The patient takes the following medicines: ';
                 for(let i=0;i<drugs.length;i++){
                     this.medicalText = this.medicalText + drugs[i].name + " " + drugs[i].dose + " " + drugs[i].strength + " " + drugs[i].link + ", ";
                 }

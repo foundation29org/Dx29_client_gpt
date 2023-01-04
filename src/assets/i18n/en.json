@@ -185,7 +185,7 @@
     "check": "Dont show this message again",
     "Recommendations": "For best results, indicate when and why you think the symptoms appeared.",
     "required": "You have to enter a text before continuing",
-    "searchFile": "Or search a report and get a proposed diagnosis",
+    "searchFile": "You can also upload a complete report. This functionality is in testing and may give unexpected results. DxGPT will suggest the diagnosis that the model considers most appropriate for that patient. In order to be respectful of the data protection law we do not store personal patient data and the data is deleted at the end of this session. We would be interested in your feedback for future developments.",
     "Browse for file": "Browse for file",
     "Accepted files": "Accepted files: pdf, docx, images",
     "error extension": "The uploaded file must have a .pdf, .docx extension, or image files",
