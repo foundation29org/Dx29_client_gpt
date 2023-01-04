@@ -25,7 +25,8 @@
     "Next": "Siguiente",
     "Close": "Close",
     "More information": "Further information",
-    "Foundation 29": "Foundation 29"
+    "Foundation 29": "Foundation 29",
+    "Please wait": "Please wait ..."
   },
   "navbar":{
     "Toggle navigation": "Toggle navigation"
@@ -173,6 +174,10 @@
     "check": "Dont show this message again",
     "Recommendations": "For best results, indicate when and why you think the symptoms appeared.",
     "required": "You have to enter a text before continuing",
+    "searchFile": "Or search a report and get a proposed diagnosis",
+    "Browse for file": "Busque el archivo",
+    "Accepted files": "Ficheros aceptados: pdf, docx, imágenes",
+    "Extracting the text from the document": "Extracting the text from the document",
     "swal": "DxGPT is calculating. Please wait a few seconds for it to finish",
     "swal2": "We are having high demand, if it takes more than 30 seconds, cancel and try again.",
     "q1": "What are the common symptoms for",
@@ -181,7 +186,7 @@
     "q4": "What other symptoms could you find out to make a differential diagnosis of",
     "q4info": "Order the list with the most probable on the top",
     "recommended diagnosis test": "What is the recommended diagnostic test for each of these diseases?",
-    "Indicates the quality of the result": "Indicates the quality of the result",
+    "Indicates the quality of the result": "Indicate the quality of the result",
     "thanks": "You made a great contribution to the rare disease community. Thank you!",
     "whynotexpected": "Why the results were not as expected?",
     "msgimprove": "In order to improve, we need your opinion",

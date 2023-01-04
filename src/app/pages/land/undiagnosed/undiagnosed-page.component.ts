@@ -36,7 +36,8 @@ var $primary = "#975AFF",
     $label_color_light = "#E6EAEE";
 var themeColors = [$primary, $warning, $success, $danger, $info];
 declare let gtag: any;
-
+declare var JSZipUtils: any;
+declare var Docxgen: any;
 
 @Component({
     selector: 'app-undiagnosed-page',
@@ -89,11 +90,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     feedBack2input: string = '';
     sending: boolean = false;
     symptomsDifferencial: any = [];
+    callingTextAnalytics: boolean = false;
+    resTextAnalyticsSegments: any;
+    langToExtract: string = '';
+    parserObject: any = { parserStrategy: 'Auto', callingParser: false, file: undefined };
+    langDetected: string = '';
 
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
         this.lang = sessionStorage.getItem('lang');
         this.originalLang = sessionStorage.getItem('lang');
+
+        $.getScript("./assets/js/docs/jszip-utils.js").done(function (script, textStatus) {
+            //console.log("finished loading and running jszip-utils.js. with a status of" + textStatus);
+        });
+
+        $.getScript("./assets/js/docs/docxtemplater.v2.1.5.js").done(function (script, textStatus) {
+            //console.log("finished loading and running docxtemplater.js. with a status of" + textStatus);
+        });
+
         //this.googleAnalyticsService.eventEmitter("OpenDx - init: "+result, "general", this.myuuid);
         //this.googleAnalyticsService.eventEmitter("OpenDx - init", "general", this.myuuid, 'init', 5);
         this._startTime = Date.now();
@@ -1001,4 +1016,257 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.selectorRare = event;
         this.verifCallOpenAi('step2');
     }
+
+
+    onFileChangePDF(event) {
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]); // read file as data url
+            reader.onload = (event2: any) => { // called once readAsDataURL is completed
+                var the_url = event2.target.result
+
+                var extension = (event.target.files[0]).name.substr((event.target.files[0]).name.lastIndexOf('.'));
+                extension = extension.toLowerCase();
+                this.langToExtract = '';
+                if (event.target.files[0].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || extension == '.docx') {
+                    this.loadFile(the_url, function (err, content) {
+                        if (err) { console.log(err); };
+                        var doc = new Docxgen(content);
+                        var text = doc.getFullText();
+                        this.detectLanguage(text, 'otherdocs');
+                        this.medicalText = text;
+                        this.showPanelExtractor = true;
+                        this.expanded = true;
+                    }.bind(this))
+                } else if (event.target.files[0].type == 'application/pdf' || extension == '.pdf' || extension == '.jpg' || extension == '.png' || extension == '.gif' || extension == '.tiff' || extension == '.tif' || extension == '.bmp' || extension == '.dib' || extension == '.bpg' || extension == '.psd' || extension == '.jpeg' || extension == '.jpe' || extension == '.jfif') {
+                    this.parserObject.file = event.target.files[0]
+                    if (extension == '.jpg' || extension == '.png' || extension == '.gif' || extension == '.tiff' || extension == '.tif' || extension == '.bmp' || extension == '.dib' || extension == '.bpg' || extension == '.psd' || extension == '.jpeg' || extension == '.jpe' || extension == '.jfif') {
+                        this.parserObject.parserStrategy = 'OcrOnly';
+                    } else {
+                        this.parserObject.parserStrategy = 'OcrOnly';//Auto
+                    }
+
+                    this.callParser();
+
+                } else {
+                    Swal.fire(this.translate.instant("dashboardpatient.error extension"), '', "error");
+                }
+
+            }
+
+        }
+    }
+
+    callParser() {
+        Swal.fire({
+            title: this.translate.instant("generics.Please wait"),
+            html: '<p>'+this.translate.instant("land.Extracting the text from the document")+'</p><i class="fa fa-spinner fa-spin fa-3x fa-fw info"></i>',
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false
+        }).then((result) => {
+
+        });
+
+        this.parserObject.callingParser = true;
+        var self = this;
+        var oReq = new XMLHttpRequest();
+        var lang = this.lang;
+        if (this.langToExtract != '') {
+            lang = this.langToExtract;
+        }
+
+        oReq.open("PUT", environment.f29api + '/api/Document/Parse?Timeout=5000&language=' + lang + '&Strategy=' + this.parserObject.parserStrategy, true);
+
+        var self = this;
+        oReq.onload = function (oEvent) {
+            Swal.close();
+            self.langToExtract = '';
+            self.parserObject.callingParser = false;
+            // Uploaded.
+            let file = oEvent.target;
+            var target: any = {};
+            target = file;
+            //target--> status, strategy, content
+            if (target.response.content == undefined) {
+                self.medicalText = '';
+            } else {
+                self.medicalText = target.response.content
+                self.medicalText = self.medicalText.split("\n").join(" ");
+            }
+
+            if (target.response.status == 'RequireOcr') {
+                self.parserObject.parserStrategy = 'OcrOnly';
+                Swal.fire({
+                    title: self.translate.instant("parser.OcrOnlyTitle"),
+                    text: self.translate.instant("parser.OcrOnlyText"),
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#33658a',
+                    cancelButtonColor: '#B0B6BB',
+                    confirmButtonText: self.translate.instant("generics.Yes"),
+                    cancelButtonText: self.translate.instant("generics.No"),
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        self.callParser();
+                    } else {
+                        var testLangText = self.medicalText.substr(0, 4000)
+                        self.detectLanguage(testLangText, 'parser');
+                    }
+                });
+
+            } else {
+                self.parserObject.parserStrategy = 'Auto'
+                var testLangText = self.medicalText.substr(0, 4000)
+                self.detectLanguage(testLangText, 'parser');
+            }
+        };
+        oReq.send(this.parserObject.file);
+        const rt = "json";
+        oReq.responseType = rt;
+    }
+
+    loadFile(url, callback) {
+        JSZipUtils.getBinaryContent(url, callback);
+    }
+
+    detectLanguage(testLangText, method) {
+        this.subscription.add(this.apiDx29ServerService.getDetectLanguage(testLangText)
+            .subscribe((res: any) => {
+                var lang = this.lang;
+                this.langDetected = res[0].language;
+                if (this.langDetected != lang && this.parserObject.parserStrategy != 'Auto') {
+
+
+                    Swal.fire({
+                        title: this.translate.instant("patdiagdashboard.We have detected that the document is in another language"),
+                        text: this.translate.instant("patdiagdashboard.Analyzed as") + '" "' + lang + '", "' + this.translate.instant("patdiagdashboard.detected as") + '" "' + res[0].language + '". "' + this.translate.instant("patdiagdashboard.do you want us to do it"),
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#33658a',
+                        cancelButtonColor: '#B0B6BB',
+                        confirmButtonText: this.translate.instant("generics.Yes"),
+                        cancelButtonText: this.translate.instant("generics.No"),
+                        showLoaderOnConfirm: true,
+                        allowOutsideClick: false,
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            this.langToExtract = this.langDetected
+                            if (method == 'parser') {
+                                this.callParser();
+                            }
+                        } else {
+                            this.langToExtract = this.langDetected
+                            if (this.medicalText != '') {
+                                this.callTextAnalitycs2();
+                            } else {
+                                Swal.fire(this.translate.instant("patdiagdashboard.No text has been detected in the file"), '', "error");
+                            }
+                        }
+                    });
+
+                } else {
+                    if (this.langDetected != lang) {
+                        this.langToExtract = this.langDetected
+                    } else {
+                        this.langToExtract = lang;
+                    }
+                    if (this.medicalText != '') {
+                        this.callTextAnalitycs2();
+                    } else {
+                        Swal.fire(this.translate.instant("patdiagdashboard.No text has been detected in the file"), '', "error");
+                    }
+
+                }
+            }, (err) => {
+                console.log(err);
+                this.toastr.error('', this.translate.instant("generics.error try again"));
+            }));
+    }
+
+    callTextAnalitycs2() {
+        Swal.fire({
+            title: this.translate.instant("generics.Please wait"),
+            html: '<i class="fa fa-spinner fa-spin fa-3x fa-fw info"></i>',
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false
+        }).then((result) => {
+
+        });
+        this.callingTextAnalytics = true;
+        var info = this.medicalText.replace(/\n/g, " ");
+        var jsontestLangText = { "text": info };
+        this.subscription.add(this.apiDx29ServerService.callTextAnalytics(jsontestLangText)
+            .subscribe((res: any) => {
+                console.log(res)
+                this.resTextAnalyticsSegments = res;
+                var foundDrug = false;
+                var foundSyntoms = false;
+                var drugs = [];
+                var symtoms = [];
+              for (let j = 0; j < this.resTextAnalyticsSegments.entities.length; j++) {
+                
+                if (this.resTextAnalyticsSegments.entities[j].category == 'MedicationName') {
+                    var actualDrug = { name: '', dose: '', link: '', strength: '' };
+                  actualDrug.name = this.resTextAnalyticsSegments.entities[j].text;
+                  
+                  if (this.resTextAnalyticsSegments.entities[j].dataSources != null) {
+                    var found = false;
+                    for (let k = 0; k < this.resTextAnalyticsSegments.entities[j].dataSources.length && !found; k++) {
+                      if (this.resTextAnalyticsSegments.entities[j].dataSources[k].name == 'ATC') {
+                        actualDrug.link = this.resTextAnalyticsSegments.entities[j].dataSources[k].entityId;
+                        found = true;
+                      }
+                    }
+                  }
+                  if (this.resTextAnalyticsSegments.entityRelations != null) {
+                    var found = false;
+                    for (let k = 0; k < this.resTextAnalyticsSegments.entityRelations.length && !found; k++) {
+                      if(this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.text==actualDrug.name && this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.category=='MedicationName' && this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.category=='Dosage'){
+                        actualDrug.dose = this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.text;
+                      }
+                      if(this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.text==actualDrug.name && this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.category=='Dosage' && this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.category=='MedicationName'){
+                        actualDrug.dose = this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.text;
+                      }
+                    }
+    
+                  }
+                  drugs.push(actualDrug);
+                  foundDrug = true;
+                }
+                if (this.resTextAnalyticsSegments.entities[j].category == 'SymptomOrSign') {
+                    foundSyntoms = true;
+                    symtoms.push(this.resTextAnalyticsSegments.entities[j].text);
+                }
+              }
+
+            this.medicalText = '';
+            if(foundDrug){
+                this.medicalText = 'The patient takes the following drugs: ';
+                for(let i=0;i<drugs.length;i++){
+                    this.medicalText = this.medicalText + drugs[i].name + " " + drugs[i].dose + " " + drugs[i].strength + " " + drugs[i].link + ", ";
+                }
+            }
+            if(foundSyntoms){
+                this.medicalText = this.medicalText + ' The patient has the following symptoms: ';
+                for(let i=0;i<symtoms.length;i++){
+                    this.medicalText = this.medicalText + symtoms[i] + ", ";
+                }
+            }
+            this.callingTextAnalytics = false;
+            Swal.close();
+            this.verifCallOpenAi('step1');
+            
+
+            }, (err) => {
+                console.log(err);
+                Swal.close();
+                this.callingTextAnalytics = false;
+            }));
+      }
 }
