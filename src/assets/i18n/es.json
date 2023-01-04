@@ -25,7 +25,8 @@
     "Next": "Next",
     "Close": "Cerrar",
     "More information": "Más información",
-    "Foundation 29": "Fundación 29"
+    "Foundation 29": "Fundación 29",
+    "Please wait": "Por favor, espera..."
   },
   "navbar":{
     "Toggle navigation": "Alternar navegación"
@@ -173,6 +174,10 @@
     "check": "No volver a mostrar este mensaje",
     "Recommendations": "Para obtener mejores resultados, indica cuándo y por qué cree que aparecieron los síntomas.",
     "required": "Tienes que introducir un texto antes de continuar",
+    "searchFile": "O busque un informe y obtenga una propuesta de diagnóstico",
+    "Browse for file": "Browse for file",
+    "Accepted files": "Accepted files: pdf, docx, images",
+    "Extracting the text from the document": "Extrayendo el texto del documento",
     "swal": "DxGPT está calculando. Espera unos segundos a que termine",
     "swal2": "Estamos teniendo alta demanda, si tarda más de 30 segundos, cancela e intenta de nuevo.",
     "q1": "Cuáles son los síntomas comunes de",
