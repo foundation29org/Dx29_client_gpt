@@ -169,14 +169,26 @@
   "footer":{
     "Dx29info": "DxGPT es una herramienta de búsqueda y referencia que se proporciona con fines informativos y no pretende sustituir el juicio o la experiencia del clínico. No debe utilizarse para diagnosticar o tratar afecciones médicas."
   },
+  "parser":{
+    "OcrOnlyTitle": "Hemos detectado que hay imágenes en el texto.",
+    "OcrOnlyText": "¿Quiere que extraigamos el texto? Puede que lleve un par de minutos.",
+    "msgOcrInline": "Si cree que hay más texto del que hemos extraido, haga click aquí",
+    "Advanced extraction": "Extracción avanzada",
+    "We have detected that the document is in another language": "Hemos detectado que el documento está en otro idioma",
+    "Analyzed as": "Analizado como",
+    "detected as": "detectado como",
+    "do you want us to do it": "Ahora que lo sabemos, podemos intentar analizar mejor el documento, ¿quieres que lo hagamos?",
+    "No text has been detected in the file": "No se ha detectado ningún texto en el archivo."
+  },
   "land":{
     "disclaimer": "<p><strong>DxGPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo lingúistico GPT-3 de OpenAI como modelo predictivo para una herramienta que proporciona información sobre raras relacionadas enfermedades. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende reemplazar el consejo médico profesional ni respaldar el diagnóstico, la prevención, el seguimiento, la predicción o el tratamiento y nunca debe usarse para hacer juicios de diagnóstico con paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y cualquier riesgo potencial asociado al uso de la herramienta basada en inteligencia artificial.</p>",
     "check": "No volver a mostrar este mensaje",
     "Recommendations": "Para obtener mejores resultados, indica cuándo y por qué cree que aparecieron los síntomas.",
     "required": "Tienes que introducir un texto antes de continuar",
     "searchFile": "O busque un informe y obtenga una propuesta de diagnóstico",
-    "Browse for file": "Browse for file",
-    "Accepted files": "Accepted files: pdf, docx, images",
+    "Browse for file": "Busque el archivo",
+    "Accepted files": "Ficheros aceptados: pdf, docx, imágenes",
+    "error extension": "El archivo cargado debe tener una extensión .pdf, .docx o archivos de imagen",
     "Extracting the text from the document": "Extrayendo el texto del documento",
     "swal": "DxGPT está calculando. Espera unos segundos a que termine",
     "swal2": "Estamos teniendo alta demanda, si tarda más de 30 segundos, cancela e intenta de nuevo.",

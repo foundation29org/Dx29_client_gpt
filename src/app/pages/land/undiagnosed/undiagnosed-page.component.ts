@@ -1049,7 +1049,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     this.callParser();
 
                 } else {
-                    Swal.fire(this.translate.instant("dashboardpatient.error extension"), '', "error");
+                    Swal.fire(this.translate.instant("land.error extension"), '', "error");
                 }
 
             }
@@ -1142,8 +1142,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
 
                     Swal.fire({
-                        title: this.translate.instant("patdiagdashboard.We have detected that the document is in another language"),
-                        text: this.translate.instant("patdiagdashboard.Analyzed as") + '" "' + lang + '", "' + this.translate.instant("patdiagdashboard.detected as") + '" "' + res[0].language + '". "' + this.translate.instant("patdiagdashboard.do you want us to do it"),
+                        title: this.translate.instant("parser.We have detected that the document is in another language"),
+                        text: this.translate.instant("parser.Analyzed as") + '" "' + lang + '", "' + this.translate.instant("parser.detected as") + '" "' + res[0].language + '". "' + this.translate.instant("parser.do you want us to do it"),
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#33658a',
@@ -1164,7 +1164,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                             if (this.medicalText != '') {
                                 this.callTextAnalitycs2();
                             } else {
-                                Swal.fire(this.translate.instant("patdiagdashboard.No text has been detected in the file"), '', "error");
+                                Swal.fire(this.translate.instant("parser.No text has been detected in the file"), '', "error");
                             }
                         }
                     });
@@ -1178,7 +1178,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     if (this.medicalText != '') {
                         this.callTextAnalitycs2();
                     } else {
-                        Swal.fire(this.translate.instant("patdiagdashboard.No text has been detected in the file"), '', "error");
+                        Swal.fire(this.translate.instant("parser.No text has been detected in the file"), '', "error");
                     }
 
                 }
