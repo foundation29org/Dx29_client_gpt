@@ -185,7 +185,7 @@
     "check": "No volver a mostrar este mensaje",
     "Recommendations": "Para obtener mejores resultados, indica cuándo y por qué cree que aparecieron los síntomas.",
     "required": "Tienes que introducir un texto antes de continuar",
-    "searchFile": "O busque un informe y obtenga una propuesta de diagnóstico",
+    "searchFile": "También puedes subir un informe completo. Esta funcionalidad está en pruebas y puede ser que de resultados no esperados. DxGPT te sugerirá el diagnótico que el modelo considera más adecuado para ese paciente. Para ser respetuosos con la ley de protección de datos no almacenamos datos personales del paciente y los datos se borran al terminar esta sesión. Nos interesaría conocer tu feedback para futuros desarrollos.",
     "Browse for file": "Busque el archivo",
     "Accepted files": "Ficheros aceptados: pdf, docx, imágenes",
     "error extension": "El archivo cargado debe tener una extensión .pdf, .docx o archivos de imagen",
