@@ -243,7 +243,7 @@
     "opt1": "Raras",
     "opt2": "Comunes",
     "rare": "rare diseases",
-    "common": "enfermedades",
+    "common": "diseases",
     "Symptoms": "Symptoms:",
     "prom1": "Build an ordered list of {{value}} with a short description based on this medical description and order this list by probability. Indicates the probability with a percentage. \n ",
     "aboutUs":{
