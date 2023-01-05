@@ -535,7 +535,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             introText = 'Provide a diagnosis test for'+ this.selectedDisease;
         }
         if(index==3){
-            introText = this.premedicalText+'. What other symptoms could you find out to make a differential diagnosis of '+this.selectedDisease + ' Order the list with the most probable on the top';
+            introText = this.premedicalText+'. What other symptoms could you find out to make a differential diagnosis of '+this.selectedDisease + '. Order the list with the most probable on the top';
         }
         var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
@@ -1239,33 +1239,44 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 var symtoms = [];
               for (let j = 0; j < this.resTextAnalyticsSegments.entities.length; j++) {
                 
-                if (this.resTextAnalyticsSegments.entities[j].category == 'MedicationName') {
+                if (this.resTextAnalyticsSegments.entities[j].category == 'MedicationName' && this.resTextAnalyticsSegments.entities[j].confidenceScore >= 0.85) {
+                    foundDrug = true;
                     var actualDrug = { name: '', dose: '', link: '', strength: '' };
-                  actualDrug.name = this.resTextAnalyticsSegments.entities[j].text;
+                    actualDrug.name = this.resTextAnalyticsSegments.entities[j].text;
+                    
+                    if (this.resTextAnalyticsSegments.entities[j].dataSources != null) {
+                        var found = false;
+                        for (let k = 0; k < this.resTextAnalyticsSegments.entities[j].dataSources.length && !found; k++) {
+                        if (this.resTextAnalyticsSegments.entities[j].dataSources[k].name == 'ATC') {
+                            actualDrug.link = this.resTextAnalyticsSegments.entities[j].dataSources[k].entityId;
+                            found = true;
+                        }
+                        }
+                    }
+                    if (this.resTextAnalyticsSegments.entityRelations != null) {
+                        var found = false;
+                        for (let k = 0; k < this.resTextAnalyticsSegments.entityRelations.length && !found; k++) {
+                        if(this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.text==actualDrug.name && this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.category=='MedicationName' && this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.category=='Dosage'){
+                            actualDrug.dose = this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.text;
+                        }
+                        if(this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.text==actualDrug.name && this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.category=='Dosage' && this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.category=='MedicationName'){
+                            actualDrug.dose = this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.text;
+                        }
+                        }
+        
+                    }
+                    if(this.resTextAnalyticsSegments.entities[j].assertion !=undefined){
+                        if(this.resTextAnalyticsSegments.entities[j].assertion.certainty !=undefined){
+                            if(this.resTextAnalyticsSegments.entities[j].assertion.certainty == 'negative'){
+                                foundDrug = false;
+                            }
+                        }
+                    }
+                    if(foundDrug){
+                        drugs.push(actualDrug);
+                    }
+                    
                   
-                  if (this.resTextAnalyticsSegments.entities[j].dataSources != null) {
-                    var found = false;
-                    for (let k = 0; k < this.resTextAnalyticsSegments.entities[j].dataSources.length && !found; k++) {
-                      if (this.resTextAnalyticsSegments.entities[j].dataSources[k].name == 'ATC') {
-                        actualDrug.link = this.resTextAnalyticsSegments.entities[j].dataSources[k].entityId;
-                        found = true;
-                      }
-                    }
-                  }
-                  if (this.resTextAnalyticsSegments.entityRelations != null) {
-                    var found = false;
-                    for (let k = 0; k < this.resTextAnalyticsSegments.entityRelations.length && !found; k++) {
-                      if(this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.text==actualDrug.name && this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.category=='MedicationName' && this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.category=='Dosage'){
-                        actualDrug.dose = this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.text;
-                      }
-                      if(this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.text==actualDrug.name && this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.category=='Dosage' && this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.category=='MedicationName'){
-                        actualDrug.dose = this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.text;
-                      }
-                    }
-    
-                  }
-                  drugs.push(actualDrug);
-                  foundDrug = true;
                 }
                 if (this.resTextAnalyticsSegments.entities[j].category == 'SymptomOrSign' && this.resTextAnalyticsSegments.entities[j].confidenceScore >= 0.85) {
                     foundSyntoms = true;
@@ -1284,18 +1295,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
               }
 
             this.medicalText = '';
-            if(foundDrug){
-                this.medicalText = 'The patient takes the following medicines: ';
-                for(let i=0;i<drugs.length;i++){
-                    this.medicalText = this.medicalText + drugs[i].name + " " + drugs[i].dose + " " + drugs[i].strength + " " + drugs[i].link + ", ";
-                }
-            }
-            if(foundSyntoms){
-                this.medicalText = this.medicalText + ' The patient has the following symptoms: ';
+            if(symtoms.length>0){
+                this.medicalText = 'The patient has the following symptoms: ';
                 for(let i=0;i<symtoms.length;i++){
                     this.medicalText = this.medicalText + symtoms[i] + ", ";
                 }
             }
+            if(drugs.length>0){
+                this.medicalText = this.medicalText + 'The patient takes the following medicines: ';
+                for(let i=0;i<drugs.length;i++){
+                    //this.medicalText = this.medicalText + drugs[i].name + " " + drugs[i].dose + " " + drugs[i].strength + " " + drugs[i].link + ", ";
+                    this.medicalText = this.medicalText + drugs[i].name + ", ";
+                }
+            }
+            
             this.callingTextAnalytics = false;
             Swal.close();
             this.verifCallOpenAi('step1');
