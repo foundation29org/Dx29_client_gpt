@@ -332,43 +332,52 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }else{
             this.premedicalText = this.medicalText;
         }
-        var testLangText = this.premedicalText.substr(0, 4000)
-        if (testLangText.length > 0) {
-            this.subscription.add(this.apiDx29ServerService.getDetectLanguage(testLangText)
-                .subscribe((res: any) => {
-                    if (res[0].language != 'en') {
-                        this.detectedLang = res[0].language;
-                        var info = [{ "Text": this.premedicalText }]
-                        this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(res[0].language, info)
-                            .subscribe((res2: any) => {
-                                console.log(res2);
-                                var textToTA = this.premedicalText.replace(/\n/g, " ");
-                                if (res2[0] != undefined) {
-                                    if (res2[0].translations[0] != undefined) {
-                                        textToTA = res2[0].translations[0].text;
-                                    }
-                                }
-                                this.premedicalText = textToTA;
-                                console.log(this.premedicalText)
-                                this.callOpenAi(step);
-                            }, (err) => {
-                                console.log(err);
-                                this.callOpenAi(step);
-                            }));
-                    } else {
-                        this.detectedLang = 'en';
-                        this.callOpenAi(step);
-                    }
+        this.continuePreparingCallOpenAi(step);
 
-                }, (err) => {
-                    console.log(err);
-                    this.toastr.error('', this.translate.instant("generics.error try again"));
-                    this.callingOpenai = false;
-                }));
-        } else {
+    }
+
+    continuePreparingCallOpenAi(step) {
+        if(step=='step3'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
             this.callOpenAi(step);
+        }else{
+            var testLangText = this.premedicalText.substr(0, 4000)
+            if (testLangText.length > 0) {
+                this.subscription.add(this.apiDx29ServerService.getDetectLanguage(testLangText)
+                    .subscribe((res: any) => {
+                        if (res[0].language != 'en') {
+                            this.detectedLang = res[0].language;
+                            var info = [{ "Text": this.premedicalText }]
+                            this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(res[0].language, info)
+                                .subscribe((res2: any) => {
+                                    console.log(res2);
+                                    var textToTA = this.premedicalText.replace(/\n/g, " ");
+                                    if (res2[0] != undefined) {
+                                        if (res2[0].translations[0] != undefined) {
+                                            textToTA = res2[0].translations[0].text;
+                                        }
+                                    }
+                                    this.premedicalText = textToTA;
+                                    console.log(this.premedicalText)
+                                    this.callOpenAi(step);
+                                }, (err) => {
+                                    console.log(err);
+                                    this.callOpenAi(step);
+                                }));
+                        } else {
+                            this.detectedLang = 'en';
+                            this.callOpenAi(step);
+                        }
+    
+                    }, (err) => {
+                        console.log(err);
+                        this.toastr.error('', this.translate.instant("generics.error try again"));
+                        this.callingOpenai = false;
+                    }));
+            } else {
+                this.callOpenAi(step);
+            }
         }
-
+        
     }
 
     callOpenAi(step) {
@@ -606,9 +615,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     }else if(parseChoices0.length==1){
                         tempInfo = parseChoices0[0] 
                     }
-                    if(this.detectedLang!='en'){
+                    var testLangText = tempInfo.substr(0, 4000)
+                    this.subscription.add(this.apiDx29ServerService.getDetectLanguage(testLangText)
+                .subscribe((resdet: any) => {
+                    var detectedLang2 = resdet[0].language;
+                    console.log(detectedLang2)
+                    console.log(this.detectedLang)
+                    if(this.detectedLang!=detectedLang2){
                         var info = [{ "Text": tempInfo}]
-                        this.subscription.add(this.apiDx29ServerService.getTranslationInvert(this.detectedLang, info)
+                        this.subscription.add(this.apiDx29ServerService.getTranslationInvert(detectedLang2, info)
                         .subscribe((res2: any) => {
                             console.log(res2);
                             var textToTA = this.premedicalText.replace(/\n/g, " ");
@@ -644,6 +659,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         this.loadingAnswerOpenai = false;
                         this.lauchEvent("Info Disease");
                     }
+                    }, (err) => {
+                        console.log(err);
+                        this.answerOpenai = tempInfo;
+                            
+                        this.loadingAnswerOpenai = false;
+                        this.lauchEvent("Info Disease");
+                    }));
+                    
                     
 
                     
