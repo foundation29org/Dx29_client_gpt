@@ -133,7 +133,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             { id: 1, question: this.translate.instant("land.q1") },
             { id: 2, question: this.translate.instant("land.q2") },
             { id: 3, question: this.translate.instant("land.q3") },
-            { id: 4, question: this.translate.instant("land.q4") }
+            { id: 4, question: this.translate.instant("land.q4") },
+            { id: 5, question: this.translate.instant("land.q5") },
         ];
     }
 
@@ -320,7 +321,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     preparingCallOpenAi(step) {
         this.callingOpenai = true;
         if(step=='step3'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
-            this.premedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy;
+            if(this.optionSelected.id==1){
+                //this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
+                this.copyMedicalText = this.copyMedicalText + '. ' + this.medicalText2Copy
+                this.premedicalText = this.copyMedicalText;
+                this.medicalText= this.premedicalText;
+            }else{
+                this.premedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy;
+            }
         }else{
             this.premedicalText = this.medicalText;
         }
@@ -537,6 +545,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         if(index==3){
             introText = this.premedicalText+'. What other symptoms could you find out to make a differential diagnosis of '+this.selectedDisease + '. Order the list with the most probable on the top';
         }
+        if(index==4){
+            introText = this.premedicalText+'. Why do you think this patient has '+this.selectedDisease + '. Indicate the common symptoms with '+this.selectedDisease +' and the ones that he/she does not have';
+        }
+
+        
         var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
@@ -693,6 +706,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             this.lauchEvent("Recalculate Differencial");
             this.optionSelected = this.options[0];
             this.closeDiseaseUndiagnosed();
+
             this.medicalText2 = newSymptoms;
             this.verifCallOpenAi2();
         }else{
@@ -1296,7 +1310,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
             this.medicalText = '';
             if(symtoms.length>0){
-                this.medicalText = 'The patient has the following symptoms: ';
+                this.medicalText = 'Based on this medical description:';
                 for(let i=0;i<symtoms.length;i++){
                     this.medicalText = this.medicalText + symtoms[i] + ", ";
                 }

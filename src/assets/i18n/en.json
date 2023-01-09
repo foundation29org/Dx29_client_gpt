@@ -196,7 +196,7 @@
     "q2": "Give me more information for",
     "q3": "Provide a diagnosis test for",
     "q4": "What other symptoms could you find out to make a differential diagnosis of",
-    "q4info": "Order the list with the most probable on the top",
+    "q5": "Why do you think this patient has",
     "recommended diagnosis test": "What is the recommended diagnostic test for each of these diseases?",
     "Indicates the quality of the result": "Indicate the quality of the result",
     "thanks": "You made a great contribution to the rare disease community. Thank you!",
