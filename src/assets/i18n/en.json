@@ -212,7 +212,7 @@
     "Type here": "Type here!",
     "title": "Enter a brief patient's description and DxGPT will provide a list of possible disease diagnoses.",
     "p1.title": "Examples",
-    "p1.1": "The patient is thirteen months old. First focal seizure at three months. Multiple tonic-clonic seizures. Febrile seizures. One status epilepticus at eight months. A hemiconvulsion at nine months.",
+    "p1.1": "The patient is thirteen months old. First focal seizure at three months. Multiple tonic-clonic seizures. Febrile seizures. One status epilepticus at eight months.",
     "p1.2": "Girl. 11 years. unilateral hemispheric atrophy, associated with drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline",
     "p2.title": "Capabilities",
     "p2.1": "Provide explanation for proposed condition",
@@ -245,7 +245,7 @@
     "rare": "rare diseases",
     "common": "diseases",
     "Symptoms": "Symptoms:",
-    "prom1": "Build an ordered list of {{value}} based on this medical description and order this list by probability. Indicates the probability with a percentage. \n ",
+    "prom1": "Behave like a doctor who has to do a diagnosis for a patient. You have to create a list of potential {{value}} with a short description. You have to indicate which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
     "aboutUs":{
       "title": "What is DxGPT?",
       "p2": "Once the list of diseases is generated, it can be completed with further information to refine the diagnosis. This includes collecting clinical data, performing laboratory tests, and gathering information from the medical record. This will help clinicians make a more informed decision about the diagnosis. It is important that users give us feedback on the use of the software so that we can improve the model. This is important because it helps us to better understand how the software is being used and how we can improve it.",
