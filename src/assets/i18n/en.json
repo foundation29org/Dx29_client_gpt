@@ -222,7 +222,7 @@
     "p3.2": "Cannot be used for diagnosis without human supervision",
     "Select a question": "Select a question",
     "Answer": "Answer",
-    "Select the symptoms": "Select the the additional symptoms you have to recalculate the list of proposed diseases",
+    "Select the symptoms": "Select the the additional symptoms you have to recalculate the list of proposed diseases. They are ordered with the most likely at the top.",
     "Recalculate": "Recalculate",
     "Select at least one symptom": "Select at least one symptom",
     "Donate": "Donate",
