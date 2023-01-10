@@ -852,8 +852,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.modalReference = this.modalService.open(contentInfoDisease, ngbModalOptions);
         //split number on string like 1.dravet 2.duchenne
         this.selectedDisease = this.topRelatedConditions[this.selectedInfoDiseaseIndex].split(/\d+\./)[1];
+        
         //split ( on selected disease
-        this.selectedDisease = this.selectedDisease.split(' (')[0];
+        //this.selectedDisease = this.selectedDisease.split(' (')[0];
+        this.selectedDisease = this.selectedDisease.split(':')[0];
+        console.log(this.selectedDisease )
 
     }
 
