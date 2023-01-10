@@ -323,15 +323,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         if(step=='step3'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
             if(this.optionSelected.id==1){
                 //this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
-                this.copyMedicalText = this.copyMedicalText + '. ' + this.medicalText2Copy
+                this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
                 this.premedicalText = this.copyMedicalText;
-                this.medicalText= this.premedicalText;
+                //this.medicalText= this.premedicalText;
             }else{
                 this.premedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy;
             }
         }else{
             this.premedicalText = this.medicalText;
         }
+        this.medicalText2 = '';
         this.continuePreparingCallOpenAi(step);
 
     }
