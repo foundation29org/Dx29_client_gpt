@@ -1,4 +1,12 @@
 <a id="initsteps" class="anchorSteps"></a>
+<div class="mt-2" *ngIf="!closed">
+  <ngb-alert type="warning" class="mb-0" [dismissible]="true" (close)="closed=true">
+    <div class="center-elements">
+      <span>{{'land.Subscribe or send us a message' | translate }}</span>
+      <button class="btn btn-info round mb-0 ml-2 btn-sm" (click)="openSupport(contentSubs);lauchEvent('openSupport');"><strong>{{'generics.Send' | translate }}</strong></button>
+    </div>
+  </ngb-alert>
+</div>
 <div class="vertical-center" style="background-color: #353540;">
   <section *ngIf="currentStep.stepIndex == 1" class="">
     <div class="row m-0">
@@ -303,5 +311,53 @@
 				</div>
 			</div>
 		</div>
+</ng-template>
+<ng-template #contentSubs let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">DxGPT support</h4>
+  </div>
+  <div class="modal-body">
+    <div class="">
+      <div class="form-group">
+        <span class="mb-0">{{'generics.Email' | translate }} *</span>
+        <div>
+          <input class="form-control" type="email" id="Email" name="Email" placeholder="{{'generics.Email' | translate }}" ngModel required #Email="ngModel" autocomplete="email" email name="Email" [(ngModel)]="email">
+          <!--<small class="danger d-block" *ngIf="!Email.valid && (Email.dirty || Email.touched)">{{'generics.entervalidemail' | translate }}</small>-->
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <div class="form-group">
+        <span>{{'support.Message' | translate }} ({{'generics.Optional' | translate }}):</span>
+        <div>
+          <textarea #inputTextArea id="textarea1" type="text" class="autoajustable data-hj-allow form-control" style="width: 100%;" [(ngModel)]="msgfeedBack" (ngModelChange)="resizeTextArea()"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <mat-checkbox
+          class="example-margin" name="terms2" ngModel #terms2="ngModel" id="terms2"  [(ngModel)]="checkSubscribe">
+        <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
+          <span>{{'land.Email me' | translate }}</span>
+        </label>
+      </mat-checkbox>
+    </div>
+    
+    <!--<span *ngIf="!fFeedbackDown.valid" class="form-text text-muted danger">{{'generics.requiredfieldsmissing' | translate
+      }}</span>-->
+  </div>
+  <div class="modal-footer">
+    <div class="col-md-12 center-elements" *ngIf="!sending">
+      <div>
+        <button class="btn btn-secondary mr-1" type="button" (click)="closeSupport()">{{'generics.Cancel' | translate }}</button>
+        <button class="btn btn-info ml-1"	[disabled]="!Email.valid" (click)="onSubmitRevolution();lauchEvent('Submit Revolution');">{{'generics.Send' | translate }}</button>
+      </div>
+    </div>
+    <div class="col-md-12 center-elements" *ngIf="sending">
+      <div>
+        <p class="centerSpinner"><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></p>
+      </div>
+    </div>
+  </div>
 </ng-template>
 <button id="openModalIntro" [hidden]="true" (click)="showPanelIntro(contentIntro)">.</button>
