@@ -96,6 +96,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     parserObject: any = { parserStrategy: 'Auto', callingParser: false, file: undefined };
     langDetected: string = '';
     selectedQuestion: string = '';
+    closed = false;
+    email: string = '';
+    msgfeedBack: string = '';
+    checkSubscribe: boolean = false;
     
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -149,6 +153,50 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         window.scrollTo(0, 0);
 
     }
+
+    openSupport(content){
+        this.modalReference = this.modalService.open(content);
+    }
+
+    onSubmitRevolution() {
+        this.sending = true;
+  
+        //this.mainForm.value.email = (this.mainForm.value.email).toLowerCase();
+        //this.mainForm.value.lang=this.translate.store.currentLang;
+        var params = {email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe};
+        this.subscription.add( this.http.post(environment.serverapi+'/api/subscribe/', params)
+        .subscribe( (res : any) => {
+          this.sending = false;
+          this.msgfeedBack = '';
+          this.email = '';
+          this.checkSubscribe = false;
+          this.modalReference.close();
+          Swal.fire({
+              icon: 'success',
+              html: this.translate.instant("land.Thank you"),
+              showCancelButton: false,
+              showConfirmButton: false,
+              allowOutsideClick: false
+          })
+          setTimeout(function () {
+              Swal.close();
+          }, 2000);
+         }, (err) => {
+           console.log(err);
+           this.sending = false;
+           this.checkSubscribe = false;
+           this.toastr.error('', this.translate.instant("generics.error try again"));
+         }));
+        
+    }
+
+    closeSupport(){
+        this.msgfeedBack = '';
+        this.email = '';
+        this.checkSubscribe = false;
+        this.modalReference.close();
+    }
+
 
     async goPrevious() {
         this.showInputRecalculate = false;
