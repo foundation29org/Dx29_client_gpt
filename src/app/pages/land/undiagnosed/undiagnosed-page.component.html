@@ -279,7 +279,7 @@
 			<h4 class="modal-title">{{'land.msgimprove' | translate }}</h4>
 		</div>
 		<div class="modal-body">
-      <div class="col-md-12">
+      <div class="">
         <div class="form-group">
           <span>{{'land.whynotexpected' | translate }}*</span>
           <div>
@@ -288,12 +288,20 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="">
         <div class="form-group">
-          <span class="mb-0">{{'generics.Email' | translate }} ({{'generics.Optional' | translate }})</span>
-          <input type="email" class="form-control" name="email" id="email" placeholder="{{'generics.Email' | translate }}" ngModel email #email="ngModel" autocomplete="email" [(ngModel)]="feedBack2input">
+          <span class="mb-0">{{'generics.Email' | translate }}</span>
+          <input type="email" class="form-control" name="email" id="email" placeholder="{{'generics.Email' | translate }}" ngModel required email #email="ngModel" autocomplete="email" [(ngModel)]="feedBack2input">
           <small class="form-text text-muted danger" *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate }}</small>
         </div>
+      </div>
+      <div class="">
+        <mat-checkbox
+            class="example-margin" name="terms2" ngModel #terms2="ngModel" id="terms2"  [(ngModel)]="checkSubscribe">
+          <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
+            <span>{{'land.Email me' | translate }}</span>
+          </label>
+        </mat-checkbox>
       </div>
 			<!--<span *ngIf="!fFeedbackDown.valid" class="form-text text-muted danger">{{'generics.requiredfieldsmissing' | translate
 				}}</span>-->
@@ -302,7 +310,7 @@
 			<div class="col-md-12 center-elements" *ngIf="!sending">
 				<div>
           <button class="btn btn-secondary mr-1" type="button" (click)="closeFeedback()">{{'generics.Cancel' | translate }}</button>
-					<button class="btn btn-info ml-1"	[disabled]="feedBack1input==''" (click)="onSubmitFeedbackDown();">{{'generics.Send' | translate }}</button>
+					<button class="btn btn-info ml-1"	[disabled]="feedBack1input=='' || !email.valid" (click)="onSubmitFeedbackDown();">{{'generics.Send' | translate }}</button>
 				</div>
 			</div>
 			<div class="col-md-12 center-elements" *ngIf="sending">
