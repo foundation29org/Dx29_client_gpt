@@ -1047,13 +1047,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         let introText = this.translate.instant("land.prom1", {
             value: paramIntroText
         })
-        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: introText + this.symtpmsLabel + " " + this.medicalText+ " Call Text: "+ this.premedicalText, topRelatedConditions: this.topRelatedConditions }
+        
+        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: introText + this.symtpmsLabel + " " + this.medicalText+ " Call Text: "+ this.premedicalText, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe }
         this.subscription.add(this.apiDx29ServerService.feedback(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Feedback");
                 this.sending = false;
                 this.feedBack1input = '';
                 this.feedBack2input = '';
+                this.checkSubscribe = false;
                 if (this.modalReference != undefined) {
                     this.modalReference.close();
                     this.modalReference = undefined;
