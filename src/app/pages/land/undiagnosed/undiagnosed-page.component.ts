@@ -699,9 +699,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     var detectedLang2 = resdet[0].language;
                     console.log(detectedLang2)
                     console.log(this.detectedLang)
-                    if(this.detectedLang!=detectedLang2){
+                    if(this.detectedLang!=detectedLang2 || this.detectedLang!='en'){
+                        var langToTrnaslate = detectedLang2;
+                        if(this.detectedLang!='en'){
+                            langToTrnaslate = this.detectedLang;
+                        }
                         var info = [{ "Text": tempInfo}]
-                        this.subscription.add(this.apiDx29ServerService.getTranslationInvert(detectedLang2, info)
+                        this.subscription.add(this.apiDx29ServerService.getTranslationInvert(langToTrnaslate, info)
                         .subscribe((res2: any) => {
                             console.log(res2);
                             var textToTA = this.premedicalText.replace(/\n/g, " ");
