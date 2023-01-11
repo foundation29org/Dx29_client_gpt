@@ -95,7 +95,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     langToExtract: string = '';
     parserObject: any = { parserStrategy: 'Auto', callingParser: false, file: undefined };
     langDetected: string = '';
-
+    selectedQuestion: string = '';
+    
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
         this.lang = sessionStorage.getItem('lang');
@@ -341,6 +342,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         if(step=='step3'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
             this.callOpenAi(step);
         }else{
+            Swal.fire({
+                title: this.translate.instant("generics.Please wait"),
+                showCancelButton: false,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            }).then((result) => {
+    
+            });
             var testLangText = this.premedicalText.substr(0, 4000)
             if (testLangText.length > 0) {
                 this.subscription.add(this.apiDx29ServerService.getDetectLanguage(testLangText)
@@ -373,6 +382,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         console.log(err);
                         this.toastr.error('', this.translate.instant("generics.error try again"));
                         this.callingOpenai = false;
+                        Swal.close();
                     }));
             } else {
                 this.callOpenAi(step);
@@ -401,7 +411,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
           this.callingOpenai = false;
           window.scrollTo(0, 0);*/
         // call api POST openai
-
+        Swal.close();
         Swal.fire({
             html: '<p>' + this.translate.instant("land.swal") + '</p>'+ '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p><em class="fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
             showCancelButton: true,
@@ -518,6 +528,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 this.topRelatedConditions.push(parseChoices[i])
             }
         }
+
+        //for each top related condition Put in strong what goes before the first occurrence of :
+        for (let i = 0; i < this.topRelatedConditions.length; i++) {
+            let index = this.topRelatedConditions[i].indexOf(':');
+            if (index != -1) {
+                let firstPart = this.topRelatedConditions[i].substring(0, index + 1);
+                let secondPart = this.topRelatedConditions[i].substring(index + 1, this.topRelatedConditions[i].length);
+                this.topRelatedConditions[i] = '<strong>' + firstPart + '</strong>' + secondPart;
+            }
+        }
         if (this.currentStep.stepIndex == 1) {
             this.currentStep = this.steps[1];
         }
@@ -535,6 +555,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
 
 
+    cancelCallQuestion(){
+        this.symptomsDifferencial = [];
+        this.answerOpenai = '';
+        this.loadingAnswerOpenai = false;
+        this.selectedQuestion = '';
+        this.subscription.unsubscribe();
+        this.subscription = new Subscription();
+    }
 
     showQuestion(question, index) {
         /*var testRes= {"id":"cmpl-6KmXVRaPvar50l7SgRNVTiosKsCiQ","object":"text_completion","created":1670411165,"model":"text-davinci-003","choices":[{"text":"\n\nCommon symptoms of Dravet Syndrome include:\n\n-Frequent and/or prolonged seizures\n-Developmental delays\n-Speech delays\n-Behavioral and social challenges\n-Sleep disturbances\n-Growth and nutrition issues\n-Sensory integration dysfunction\n-Movement and balance issues\n-Weak muscle tone (hypotonia)\n-Delayed motor skills","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":13,"completion_tokens":80,"total_tokens":93}}
@@ -542,6 +570,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.symptomsDifferencial = [];
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
+        this.selectedQuestion = question.question;
         var introText = question.question + ' ' + this.selectedDisease + '?';
         if(index==0){
             introText = 'What are the common symptoms for'+ this.selectedDisease +'? Order the list with the most probable on the top';
@@ -709,7 +738,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.symptomsDifferencial = [];
         for (let i = 0; i < parseChoices.length; i++) {
             if (parseChoices[i] != '') {
+                let index = parseChoices[i].indexOf('.');
                 var name = parseChoices[i].split(".")[1];
+                if (index != -1) {
+                    name = parseChoices[i].substring(index + 1, parseChoices[i].length);
+                }
+                
                 this.symptomsDifferencial.push({name:name, checked: false})
             }
         }
@@ -773,6 +807,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     callOpenAi2() {
         //this.medicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2;
         if (this.medicalText2.length > 0) {
+            Swal.fire({
+                title: this.translate.instant("generics.Please wait"),
+                showCancelButton: false,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            }).then((result) => {
+    
+            });
             this.medicalText2Copy = this.medicalText2;
             this.subscription.add(this.apiDx29ServerService.getDetectLanguage(this.medicalText2)
                 .subscribe((res: any) => {
