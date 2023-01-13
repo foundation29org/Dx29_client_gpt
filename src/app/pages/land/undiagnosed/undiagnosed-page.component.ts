@@ -100,6 +100,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     email: string = '';
     msgfeedBack: string = '';
     checkSubscribe: boolean = false;
+    loadMoreDiseases: boolean = false;
     
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -440,24 +441,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     callOpenAi(step) {
-        //var resp= {"id":"cmpl-6MfILJTSmgXJK0pXe4YYpsFST9SjE","object":"text_completion","created":1670859973,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive inflammation and atrophy of one hemisphere of the brain, resulting in seizures, paralysis, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by a port-wine stain on the face, seizures, and progressive neurological decline. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by seizures, spasticity, and cognitive decline. \n4. West Syndrome (5%): A rare neurological disorder characterized by infantile spasms, developmental delay, and cognitive decline. \n5. Alexander Disease (2%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":157,"total_tokens":217}}
-        /*let resp= {"id":"cmpl-6N2qhS30XcdC2k2siIo1iG6ch1cOk","object":"text_completion","created":1670950515,"model":"text-davinci-003","choices":[{"text":"\n\n1. Rasmussen Syndrome (25%): A rare neurological disorder characterized by progressive unilateral hemispheric atrophy, drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline. \n2. Sturge-Weber Syndrome (15%): A rare neurological disorder characterized by unilateral facial port-wine stains, seizures, and neurological deficits. \n3. Aicardi Syndrome (10%): A rare neurological disorder characterized by the absence of the corpus callosum, seizures, and neurological deficits. \n4. Alexander Disease (5%): A rare neurological disorder characterized by progressive brain atrophy, seizures, and cognitive decline. \n5. Leigh Syndrome (5%): A rare neurological disorder characterized by progressive brain and spinal cord degeneration, seizures, and cognitive decline.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":60,"completion_tokens":163,"total_tokens":223}}
-
-          let parseChoices = resp.choices[0].text.split("\n");
-          let test = resp.choices[0].text.charAt(0)
-          if(test=='.'){
-                parseChoices.shift();
-          }
-          this.topRelatedConditions = [];
-          for (let i = 0; i < parseChoices.length; i++) {
-            if(parseChoices[i]!=''){
-                this.topRelatedConditions.push(parseChoices[i])
-            }
-          }
-          console.log(this.topRelatedConditions);
-          this.currentStep = this.steps[1];
-          this.callingOpenai = false;
-          window.scrollTo(0, 0);*/
         // call api POST openai
         Swal.close();
         Swal.fire({
@@ -479,6 +462,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 this.subscription = new Subscription();
                 if (step == 'step2') {
                     this.selectorRare = this.prevSelectorRare;
+                    this.loadMoreDiseases = !this.loadMoreDiseases;
                 }
             }
 
@@ -569,8 +553,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 }
             }
         }
+        if(!this.loadMoreDiseases){
+            this.topRelatedConditions = [];
+        }
         
-        this.topRelatedConditions = [];
         for (let i = 0; i < parseChoices.length; i++) {
             if (parseChoices[i] != '') {
                 this.topRelatedConditions.push(parseChoices[i])
@@ -580,12 +566,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         //for each top related condition Put in strong what goes before the first occurrence of :
         for (let i = 0; i < this.topRelatedConditions.length; i++) {
             let index = this.topRelatedConditions[i].indexOf(':');
-            if (index != -1) {
+            let index2 = this.topRelatedConditions[i].indexOf('<strong>');
+            if (index != -1 && index2 == -1) {
                 let firstPart = this.topRelatedConditions[i].substring(0, index + 1);
                 let secondPart = this.topRelatedConditions[i].substring(index + 1, this.topRelatedConditions[i].length);
                 this.topRelatedConditions[i] = '<strong>' + firstPart + '</strong>' + secondPart;
             }
         }
+        this.loadMoreDiseases = false;
         if (this.currentStep.stepIndex == 1) {
             this.currentStep = this.steps[1];
         }
@@ -594,6 +582,22 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         //window.scrollTo(0, 0);
         this.lauchEvent("Search Disease");
         this.scrollTo();
+    }
+
+    loadMore() {
+        var diseases = '';
+        for (let i = 0; i < this.topRelatedConditions.length; i++) {
+            let index = this.topRelatedConditions[i].indexOf('<strong>');
+            if (index != -1) {
+                let index2 = this.topRelatedConditions[i].indexOf('</strong>');
+                let secondPart = this.topRelatedConditions[i].substring(index + 8, index2);
+                diseases = diseases + secondPart + '\n';
+            }
+        }
+        this.premedicalText = this.copyMedicalText + '. ' + diseases + '. Continue the above list.';
+        //this.premedicalText = this.premedicalText + ' '+ diseases+ '. Continue the above list.';
+        this.loadMoreDiseases = true;
+        this.continuePreparingCallOpenAi('step3');
     }
 
     async scrollTo() {
@@ -1149,11 +1153,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     selectorRareEvent2(event) {
-        this.prevSelectorRare = this.selectorRare;
         this.selectorRare = event;
+        this.prevSelectorRare = this.selectorRare;
         this.verifCallOpenAi('step2');
     }
-
 
     onFileChangePDF(event) {
         if (event.target.files && event.target.files[0]) {

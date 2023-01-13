@@ -144,9 +144,14 @@
                 <span *ngIf="topRelatedConditions.length==0">
                   <p>{{'land.nofound' | translate }}</p>
                 </span>
-                <div class="col-md-12 mb-0 white p-2" style="background-color: #353540;">
+                <div class="col-md-12 mb-0 white p-2 center-elements" style="background-color: #353540;">
+                  <span *ngIf="!selectorRare"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(optionCommon)">{{'land.Show common diseases' | translate }}</button></span>
+                  <span *ngIf="selectorRare"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(optionRare)">{{'land.Show rare diseases' | translate }}</button></span>
+                  <button class="btn btn-info ml-2" (click)="loadMore()">{{'land.Load more' | translate }}</button>
+              </div>
+                <!--<div class="col-md-12 mb-0 white p-2" style="background-color: #353540;">
                     <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent2($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
-                </div>
+                </div>-->
             </div>
           </span>
         </div>
