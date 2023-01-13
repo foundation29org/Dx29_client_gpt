@@ -248,6 +248,9 @@
     "rare": "rare diseases",
     "common": "diseases",
     "Symptoms": "Symptoms:",
+    "Show common diseases": "Show common diseases",
+    "Show rare diseases": "Show rare diseases",
+    "Load more": "Load more",
     "prom1": "Behave like a doctor who has to do a diagnosis for a patient. You have to create a list of potential {{value}} with a short description. You have to indicate which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
     "aboutUs":{
       "title": "What is DxGPT?",
