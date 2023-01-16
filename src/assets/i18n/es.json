@@ -251,7 +251,7 @@
     "Show common diseases": "Mostrar enfermedades comunes",
     "Show rare diseases": "Mostrar enfermedades raras",
     "Load more": "Carga más",
-    "prom1": "Behave like a doctor who has to do a diagnosis for a patient. You have to create a list of potential {{value}} with a short description. You have to indicate which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
+    "prom1": "Behave like a doctor who has to do a diagnosis for a patient. Give me a list of potential {{value}} with a short description. You have to indicate which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
     "aboutUs":{
       "title": "¿Qué es DxGPT?",
       "p2": "Una vez generada la lista de enfermedades, se puede completar con más información para afinar el diagnóstico. Esto incluye la recopilación de datos clínicos, la realización de pruebas de laboratorio y la recopilación de información de la historia clínica. Esto ayudará a los médicos a tomar una decisión más informada sobre el diagnóstico. Es importante que los usuarios nos den feedback sobre el uso del software para que podamos mejorar el modelo. Esto es importante porque nos ayuda a entender mejor cómo se está usando el software y cómo podemos mejorarlo.",

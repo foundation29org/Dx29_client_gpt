@@ -101,6 +101,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     msgfeedBack: string = '';
     checkSubscribe: boolean = false;
     loadMoreDiseases: boolean = false;
+    @ViewChild('f') feedbackDownForm: NgForm;
+    showErrorForm: boolean = false;
     
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -1046,7 +1048,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             }));
     }
 
+    submitInvalidForm() {
+        this.showErrorForm = true;
+        if (!this.feedbackDownForm) { return; }
+        const base = this.feedbackDownForm;
+        for (const field in base.form.controls) {
+            if (!base.form.controls[field].valid) {
+                base.form.controls[field].markAsTouched()
+            }
+        }
+    }
+
     onSubmitFeedbackDown() {
+        this.showErrorForm = false;
         this.sending = true;
         let paramIntroText = this.optionRare;
         if (this.selectorRare) {
