@@ -284,7 +284,7 @@
 			<h4 class="modal-title">{{'land.msgimprove' | translate }}</h4>
 		</div>
 		<div class="modal-body">
-      <form class="form offset-md-2 col-md-8" #f="ngForm">
+      <form class="form" #f="ngForm">
         <div class="form-group">
           <span>{{'land.whynotexpected' | translate }}*</span>
           <div>
@@ -304,29 +304,36 @@
             </label>
           </mat-checkbox>
         </div>
-        <div *ngIf="!sending" class="mt-2">
+        <div *ngIf="!sending" class="mt-2 col-md-12 center-elements">
           <div *ngIf="f.valid;then formValid else formError"></div>
-          <ng-template #formValid><button class="btn btn-info" (click)="onSubmitFeedbackDown();"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
-          <ng-template #formError><button class="btn btn-info" type="button" (click)="submitInvalidForm()"><strong>{{'generics.Send' | translate }} 2</strong></button></ng-template>
+          <button class="btn btn-secondary ml-1" type="button" (click)="closeFeedback()">{{'generics.Cancel' | translate }}</button>
+          <ng-template #formValid><button class="btn btn-info mr-1" (click)="onSubmitFeedbackDown();"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
+          <ng-template #formError><button class="btn btn-info mr-1" type="button" (click)="submitInvalidForm()"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
         </div>
-        <div class="form-actions" *ngIf="sending">
+        <div class="form-actions col-md-12 center-elements" *ngIf="sending">
             <span ><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
         </div>
       </form>
-      <!--<div class="">
-        <div class="form-group">
-          <span>{{'land.whynotexpected' | translate }}*</span>
-          <div>
-            <textarea #inputTextArea id="textarea1" type="text" class="autoajustable data-hj-allow" style="width: 100%;" [(ngModel)]="feedBack1input" (ngModelChange)="resizeTextArea()"></textarea>
-            <small class="form-text text-muted danger" *ngIf="feedBack1input==''">{{'generics.required' | translate }}</small>
-          </div>
+		</div>
+</ng-template>
+<ng-template #contentSubs let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">DxGPT support</h4>
+  </div>
+  <div class="modal-body">
+    <form class="form" #f="ngForm">
+      <div class="form-group">
+        <span class="mb-0">{{'generics.Email' | translate }} *</span>
+        <div>
+          <input class="form-control" type="email" id="Email" name="Email" placeholder="{{'generics.Email' | translate }}" ngModel required #Email="ngModel" autocomplete="email" email name="Email" [(ngModel)]="email">
+          <small class="danger" *ngIf="!Email.valid && showErrorForm">{{'generics.entervalidemail' | translate }}</small>
+          <!--<small class="danger d-block" *ngIf="!Email.valid && (Email.dirty || Email.touched)">{{'generics.entervalidemail' | translate }}</small>-->
         </div>
       </div>
-      <div class="">
-        <div class="form-group">
-          <span class="mb-0">{{'generics.Email' | translate }}</span>
-          <input type="email" class="form-control" name="email" id="email" placeholder="{{'generics.Email' | translate }}" ngModel required email #email="ngModel" autocomplete="email" [(ngModel)]="feedBack2input">
-          <small class="form-text text-muted danger" *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate }}</small>
+      <div class="form-group">
+        <span>{{'support.Message' | translate }} ({{'generics.Optional' | translate }}):</span>
+        <div>
+          <textarea #inputTextArea id="textarea1" type="text" name="msgfeedBack" class="autoajustable data-hj-allow form-control" style="width: 100%;" [(ngModel)]="msgfeedBack" (ngModelChange)="resizeTextArea()"></textarea>
         </div>
       </div>
       <div class="">
@@ -336,70 +343,21 @@
             <span>{{'land.Email me' | translate }}</span>
           </label>
         </mat-checkbox>
-      </div>-->
-			<!--<span *ngIf="!fFeedbackDown.valid" class="form-text text-muted danger">{{'generics.requiredfieldsmissing' | translate
-				}}</span>-->
-		</div>
-		<!--<div class="modal-footer">
-			<div class="col-md-12 center-elements" *ngIf="!sending">
-				<div>
-          <button class="btn btn-secondary mr-1" type="button" (click)="closeFeedback()">{{'generics.Cancel' | translate }}</button>
-					<button class="btn btn-info ml-1"	[disabled]="feedBack1input=='' || !email.valid" (click)="onSubmitFeedbackDown();">{{'generics.Send' | translate }}</button>
-				</div>
-			</div>
-			<div class="col-md-12 center-elements" *ngIf="sending">
-				<div>
-					<p class="centerSpinner"><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></p>
-				</div>
-			</div>
-		</div>-->
-</ng-template>
-<ng-template #contentSubs let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">DxGPT support</h4>
-  </div>
-  <div class="modal-body">
-    <div class="">
-      <div class="form-group">
-        <span class="mb-0">{{'generics.Email' | translate }} *</span>
-        <div>
-          <input class="form-control" type="email" id="Email" name="Email" placeholder="{{'generics.Email' | translate }}" ngModel required #Email="ngModel" autocomplete="email" email name="Email" [(ngModel)]="email">
-          <!--<small class="danger d-block" *ngIf="!Email.valid && (Email.dirty || Email.touched)">{{'generics.entervalidemail' | translate }}</small>-->
-        </div>
       </div>
-    </div>
-    <div class="">
-      <div class="form-group">
-        <span>{{'support.Message' | translate }} ({{'generics.Optional' | translate }}):</span>
-        <div>
-          <textarea #inputTextArea id="textarea1" type="text" class="autoajustable data-hj-allow form-control" style="width: 100%;" [(ngModel)]="msgfeedBack" (ngModelChange)="resizeTextArea()"></textarea>
-        </div>
+      <div *ngIf="!sending" class="mt-2 col-md-12 center-elements">
+        <div *ngIf="f.valid;then formValid else formError"></div>
+        <button class="btn btn-secondary ml-1" type="button" (click)="closeSupport()">{{'generics.Cancel' | translate }}</button>
+        <ng-template #formValid><button class="btn btn-info mr-1" (click)="onSubmitRevolution();"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
+        <ng-template #formError><button class="btn btn-info mr-1" type="button" (click)="submitInvalidForm()"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
       </div>
-    </div>
-    <div class="">
-      <mat-checkbox
-          class="example-margin" name="terms2" ngModel #terms2="ngModel" id="terms2"  [(ngModel)]="checkSubscribe">
-        <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
-          <span>{{'land.Email me' | translate }}</span>
-        </label>
-      </mat-checkbox>
-    </div>
+      <div class="form-actions col-md-12 center-elements" *ngIf="sending">
+          <span class=""><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
+      </div>
+    </form>
+    
     
     <!--<span *ngIf="!fFeedbackDown.valid" class="form-text text-muted danger">{{'generics.requiredfieldsmissing' | translate
       }}</span>-->
-  </div>
-  <div class="modal-footer">
-    <div class="col-md-12 center-elements" *ngIf="!sending">
-      <div>
-        <button class="btn btn-secondary mr-1" type="button" (click)="closeSupport()">{{'generics.Cancel' | translate }}</button>
-        <button class="btn btn-info ml-1"	[disabled]="!Email.valid" (click)="onSubmitRevolution();lauchEvent('Submit Revolution');">{{'generics.Send' | translate }}</button>
-      </div>
-    </div>
-    <div class="col-md-12 center-elements" *ngIf="sending">
-      <div>
-        <p class="centerSpinner"><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></p>
-      </div>
-    </div>
   </div>
 </ng-template>
 <button id="openModalIntro" [hidden]="true" (click)="showPanelIntro(contentIntro)">.</button>

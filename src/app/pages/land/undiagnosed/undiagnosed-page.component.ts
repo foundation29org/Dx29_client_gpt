@@ -169,6 +169,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         var params = {email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe};
         this.subscription.add( this.http.post(environment.serverapi+'/api/subscribe/', params)
         .subscribe( (res : any) => {
+          this.lauchEvent('Submit Revolution');
           this.sending = false;
           this.msgfeedBack = '';
           this.email = '';
