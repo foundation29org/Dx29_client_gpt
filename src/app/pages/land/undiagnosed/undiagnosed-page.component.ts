@@ -486,7 +486,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     this.copyMedicalText = this.premedicalText;
                 }
                 let parseChoices0 = res.choices[0].text;
-                if (res.choices[0].text.indexOf("\n\n") != -1) {
+                if (res.choices[0].text.indexOf("\n\n") == 0) {
                     parseChoices0 = res.choices[0].text.split("\n\n");
                     parseChoices0.shift();
                 }
@@ -648,7 +648,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
                 let parseChoices0 = res.choices[0].text;
-                if (res.choices[0].text.indexOf("\n\n") != -1) {
+                if (res.choices[0].text.indexOf("\n\n") == 0) {
                     parseChoices0 = res.choices[0].text.split("\n\n");
                     parseChoices0.shift();
                 }
@@ -772,7 +772,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     getDifferentialDiagnosis(info){
         let parseChoices0 = info;
-        if (info.indexOf("\n\n") != -1) {
+        if (info.indexOf("\n\n") == 0) {
             parseChoices0 = info.split("\n\n");
             parseChoices0.shift();
         }
