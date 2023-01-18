@@ -489,6 +489,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 if (res.choices[0].text.indexOf("\n\n") == 0) {
                     parseChoices0 = res.choices[0].text.split("\n\n");
                     parseChoices0.shift();
+                }else if(res.choices[0].text.indexOf("\n") == 0){
+                    parseChoices0 = res.choices[0].text.split("\n");
+                    parseChoices0.shift();
+                }else if(res.choices[0].text.indexOf("\n\n") > 0){
+                    parseChoices0 = res.choices[0].text.split("\n\n");
+                    parseChoices0.shift();
+                }else if(res.choices[0].text.indexOf("\n") > 0){
+                    parseChoices0 = res.choices[0].text.split("\n");
+                    parseChoices0.shift();
                 }
                 if(this.detectedLang!='en'){
                     console.log(parseChoices0);
@@ -651,6 +660,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 if (res.choices[0].text.indexOf("\n\n") == 0) {
                     parseChoices0 = res.choices[0].text.split("\n\n");
                     parseChoices0.shift();
+                }else if(res.choices[0].text.indexOf("\n") == 0){
+                    parseChoices0 = res.choices[0].text.split("\n");
+                    parseChoices0.shift();
+                }else if(res.choices[0].text.indexOf("\n\n") > 0){
+                    parseChoices0 = res.choices[0].text.split("\n\n");
+                    parseChoices0.shift();
+                }else if(res.choices[0].text.indexOf("\n") > 0){
+                    parseChoices0 = res.choices[0].text.split("\n");
+                    parseChoices0.shift();
                 }
                 if(index==3){
                     if (this.detectedLang != 'en' && index==3) {
@@ -774,6 +792,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         let parseChoices0 = info;
         if (info.indexOf("\n\n") == 0) {
             parseChoices0 = info.split("\n\n");
+            parseChoices0.shift();
+        }else if(info.indexOf("\n") == 0){
+            parseChoices0 = info.split("\n");
+            parseChoices0.shift();
+        }else if(info.indexOf("\n\n") > 0){
+            parseChoices0 = info.split("\n\n");
+            parseChoices0.shift();
+        }else if(info.indexOf("\n") > 0){
+            parseChoices0 = info.split("\n");
             parseChoices0.shift();
         }
         
