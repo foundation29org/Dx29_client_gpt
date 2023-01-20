@@ -486,7 +486,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     this.copyMedicalText = this.premedicalText;
                 }
                 let parseChoices0 = res.choices[0].text;
-                if (res.choices[0].text.indexOf("\n\n") == 0) {
+                /*if (res.choices[0].text.indexOf("\n\n") == 0) {
                     parseChoices0 = res.choices[0].text.split("\n\n");
                     parseChoices0.shift();
                 }else if(res.choices[0].text.indexOf("\n") == 0){
@@ -498,11 +498,21 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 }else if(res.choices[0].text.indexOf("\n") > 0){
                     parseChoices0 = res.choices[0].text.split("\n");
                     parseChoices0.shift();
+                }*/
+                if(res.choices[0].text.indexOf("\n\n") > 0 && (res.choices[0].text.indexOf("$") > res.choices[0].text.indexOf("\n\n"))){
+                    parseChoices0 = res.choices[0].text.split("\n\n");
+                    parseChoices0.shift();
+                    parseChoices0 = parseChoices0.toString();
+                }else if(res.choices[0].text.indexOf("\n") > 0 && (res.choices[0].text.indexOf("$") > res.choices[0].text.indexOf("\n"))){
+                    parseChoices0 = res.choices[0].text.split("\n");
+                    parseChoices0.shift();
+                    parseChoices0 = parseChoices0.toString();
                 }
+                console.log(parseChoices0)
                 if(this.detectedLang!='en'){
                     console.log(parseChoices0);
-                    var jsontestLangText = [{ "Text": parseChoices0[0] }]
-                    if(parseChoices0.length>1 && Array.isArray(parseChoices0)){
+                    var jsontestLangText = [{ "Text": parseChoices0 }]
+                    /*if(parseChoices0.length>1 && Array.isArray(parseChoices0)){
                         var sendInfo='';
                         for (let i = 0; i < parseChoices0.length; i++) {
                             sendInfo = sendInfo+parseChoices0[i]+'\n';
@@ -511,7 +521,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     }
                     if(!Array.isArray(parseChoices0)){
                         jsontestLangText = [{ "Text": parseChoices0 }]
-                    }
+                    }*/
                     
                     this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang,jsontestLangText)
                     .subscribe( (res2 : any) => {
@@ -547,8 +557,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     continueCallOpenAi(parseChoices0){
         let parseChoices = parseChoices0;
-        console.log(parseChoices);
-        if(!Array.isArray(parseChoices0)){
+        
+        parseChoices = parseChoices0.split("$");
+        /*if(!Array.isArray(parseChoices0)){
             if (parseChoices0.indexOf("\n") != -1) {
                 parseChoices = parseChoices0.split("\n");
                 let test = parseChoices[0].charAt(0)
@@ -564,13 +575,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     parseChoices.shift();
                 }
             }
-        }
+        }*/
         if(!this.loadMoreDiseases){
             this.topRelatedConditions = [];
         }
         
         for (let i = 0; i < parseChoices.length; i++) {
-            if (parseChoices[i] != '') {
+            if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length>4) {
                 this.topRelatedConditions.push(parseChoices[i])
             }
         }
@@ -602,11 +613,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             let index = this.topRelatedConditions[i].indexOf('<strong>');
             if (index != -1) {
                 let index2 = this.topRelatedConditions[i].indexOf('</strong>');
-                let secondPart = this.topRelatedConditions[i].substring(index + 8, index2);
-                diseases = diseases + secondPart + '\n';
+                let secondPart = this.topRelatedConditions[i].substring(index + 8, index2-1);
+                secondPart = secondPart.replace(/\n/g,'');
+                diseases = diseases + '\n\n$' +  secondPart + ' ';
             }
         }
-        this.premedicalText = this.copyMedicalText + '. ' + diseases + '. Continue the above list.';
+        let paramIntroText = this.optionRare;
+        if (this.selectorRare) {
+            paramIntroText = this.optionCommon;
+        }
+        this.premedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, returning a maximum of 4 more, with the number that is your turn with the same format for each potencial "+paramIntroText+", for example '\n\n$24'. The list is: "+ diseases;
         //this.premedicalText = this.premedicalText + ' '+ diseases+ '. Continue the above list.';
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
