@@ -251,7 +251,7 @@
     "Show common diseases": "Show common diseases",
     "Show rare diseases": "Show rare diseases",
     "Load more": "Load more",
-    "prom1": "Behave like a doctor who has to do a diagnosis for a patient. Give me a list of potential {{value}} with a short description. You have to indicate which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
+    "prom1": "Behave like a doctor who has to do a diagnosis for a patient. Give me a list of potential {{value}} with a short description. Shows for each potential {{value}} always with '\n\n$' and a number, starting with 1, for example '\n\n$23.', the name of the disease and finish with ':'. If you are continuing a list, continue with the number that is your turn, for example '\n\n$24.'. You have to indicate which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
     "aboutUs":{
       "title": "What is DxGPT?",
       "p2": "Once the list of diseases is generated, it can be completed with further information to refine the diagnosis. This includes collecting clinical data, performing laboratory tests, and gathering information from the medical record. This will help clinicians make a more informed decision about the diagnosis. It is important that users give us feedback on the use of the software so that we can improve the model. This is important because it helps us to better understand how the software is being used and how we can improve it.",
