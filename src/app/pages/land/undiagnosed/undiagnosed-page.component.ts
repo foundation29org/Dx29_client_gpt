@@ -618,7 +618,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 diseases = diseases + '\n\n$' +  secondPart + ' ';
             }
         }
-        this.premedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with the number that is your turn, for example '\n\n$24.' "+ diseases;
+        let paramIntroText = this.optionRare;
+        if (this.selectorRare) {
+            paramIntroText = this.optionCommon;
+        }
+        this.premedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, returning a maximum of 4 more, with the number that is your turn with the same format for each potencial "+paramIntroText+", for example '\n\n$24'. The list is: "+ diseases;
         //this.premedicalText = this.premedicalText + ' '+ diseases+ '. Continue the above list.';
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
