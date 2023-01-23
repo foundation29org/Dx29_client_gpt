@@ -56,6 +56,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     copyMedicalText: string = '';
     modalReference: NgbModalRef;
     topRelatedConditions: any = [];
+    diseaseListEn: any = [];
     lang: string = 'en';
     originalLang: string = 'en';
     detectedLang: string = 'en';
@@ -509,6 +510,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     parseChoices0 = parseChoices0.toString();
                 }
                 console.log(parseChoices0)
+                if(!this.loadMoreDiseases){
+                    this.diseaseListEn = [];
+                }
+                this.setDiseaseListEn(parseChoices0);
                 if(this.detectedLang!='en'){
                     console.log(parseChoices0);
                     var jsontestLangText = [{ "Text": parseChoices0 }]
@@ -607,9 +612,21 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.scrollTo();
     }
 
+    setDiseaseListEn(text){
+        let parseChoices = text.split("$");
+        for (let i = 0; i < parseChoices.length; i++) {
+            if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length>4) {
+                let index = parseChoices[i].indexOf(':');
+                let firstPart = parseChoices[i].substring(0, index-1);
+                this.diseaseListEn.push(firstPart)
+            }
+        }
+        console.log(this.diseaseListEn)
+    }
+
     loadMore() {
         var diseases = '';
-        for (let i = 0; i < this.topRelatedConditions.length; i++) {
+        /*for (let i = 0; i < this.topRelatedConditions.length; i++) {
             let index = this.topRelatedConditions[i].indexOf('<strong>');
             if (index != -1) {
                 let index2 = this.topRelatedConditions[i].indexOf('</strong>');
@@ -617,12 +634,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 secondPart = secondPart.replace(/\n/g,'');
                 diseases = diseases + '\n\n$' +  secondPart + ' ';
             }
+        }*/
+        for (let i = 0; i < this.diseaseListEn.length; i++) {
+            console.log(this.diseaseListEn[i])
+            diseases = diseases +  this.diseaseListEn[i] + ', ';
         }
         let paramIntroText = this.optionRare;
         if (this.selectorRare) {
             paramIntroText = this.optionCommon;
         }
-        this.premedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with the number that is your turn with the same format for each potencial "+paramIntroText+", for example '\n\n$24' and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
+        this.premedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with this format '\n\n$"+(this.diseaseListEn.length+1)+".' for each potencial "+paramIntroText+", and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
+        //this.premedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with the number that is your turn with the same format for each potencial "+paramIntroText+", for example '\n\n$24' and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
         //this.premedicalText = this.premedicalText + ' '+ diseases+ '. Continue the above list.';
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
@@ -651,21 +673,30 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
         this.selectedQuestion = question.question;
-        var introText = question.question + ' ' + this.selectedDisease + '?';
+        console.log(this.diseaseListEn)
+        console.log(this.selectedInfoDiseaseIndex)
+        var selectedDiseaseEn = this.diseaseListEn[this.selectedInfoDiseaseIndex];
+        let index2 = selectedDiseaseEn.indexOf('.');
+        if (index2 != -1) {
+            var temp = selectedDiseaseEn.split(".");
+            selectedDiseaseEn = temp[1];
+        }
+        console.log(selectedDiseaseEn)
+        var introText = question.question + ' ' + selectedDiseaseEn + '?';
         if(index==0){
-            introText = 'What are the common symptoms for'+ this.selectedDisease +'? Order the list with the most probable on the top';
+            introText = 'What are the common symptoms for'+ selectedDiseaseEn +'? Order the list with the most probable on the top';
         }
         if(index==1){
-            introText = 'Give me more information for'+ this.selectedDisease;
+            introText = 'Give me more information for'+ selectedDiseaseEn;
         }
         if(index==2){
-            introText = 'Provide a diagnosis test for'+ this.selectedDisease;
+            introText = 'Provide a diagnosis test for'+ selectedDiseaseEn;
         }
         if(index==3){
-            introText = this.premedicalText+'. What other symptoms could you find out to make a differential diagnosis of '+this.selectedDisease + '. Order the list with the most probable on the top';
+            introText = this.premedicalText+'. What other symptoms could you find out to make a differential diagnosis of '+selectedDiseaseEn + '. Order the list with the most probable on the top';
         }
         if(index==4){
-            introText = this.premedicalText+'. Why do you think this patient has '+this.selectedDisease + '. Indicate the common symptoms with '+this.selectedDisease +' and the ones that he/she does not have';
+            introText = this.premedicalText+'. Why do you think this patient has '+selectedDiseaseEn + '. Indicate the common symptoms with '+selectedDiseaseEn +' and the ones that he/she does not have';
         }
 
         
@@ -707,6 +738,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                             if (res2[0] != undefined) {
                                 if (res2[0].translations[0] != undefined) {
                                     parseChoices0 = res2[0].translations[0].text;
+                                    if(parseChoices0.indexOf("1") == 0){
+                                        parseChoices0 = "\n"+parseChoices0;
+                                    }
                                 }
                             }
                             this.getDifferentialDiagnosis(parseChoices0);
@@ -806,7 +840,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     getDifferentialDiagnosis(info){
         let parseChoices0 = info;
-        if (info.indexOf("\n\n") == 0) {
+        /*if (info.indexOf("\n\n") == 0) {
             parseChoices0 = info.split("\n\n");
             parseChoices0.shift();
         }else if(info.indexOf("\n") == 0){
@@ -836,7 +870,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     parseChoices.shift();
                 }
             }
-        }
+        }*/
+        var parseChoices = info.split("\n");
         this.symptomsDifferencial = [];
         for (let i = 0; i < parseChoices.length; i++) {
             if (parseChoices[i] != '') {
