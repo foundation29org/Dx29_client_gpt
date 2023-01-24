@@ -513,6 +513,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 if(!this.loadMoreDiseases){
                     this.diseaseListEn = [];
                 }
+                if (step == 'step2') {
+                    this.diseaseListEn = [];
+                    this.topRelatedConditions = [];
+                }
                 this.setDiseaseListEn(parseChoices0);
                 if(this.detectedLang!='en'){
                     console.log(parseChoices0);
@@ -1242,10 +1246,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     selectorRareEvent(event) {
+        console.log(event)
         this.selectorRare = event;
     }
 
     selectorRareEvent2(event) {
+        console.log(event)
         this.selectorRare = event;
         this.prevSelectorRare = this.selectorRare;
         this.verifCallOpenAi('step2');
