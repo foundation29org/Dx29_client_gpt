@@ -51,6 +51,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     private subscription: Subscription = new Subscription();
     medicalText: string = '';
     premedicalText: string = '';
+    temppremedicalText: string = '';
     medicalText2: string = '';
     medicalText2Copy: string = '';
     copyMedicalText: string = '';
@@ -480,7 +481,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         let introText = this.translate.instant("land.prom1", {
             value: paramIntroText
         })
+        
         var value = { value: introText + this.symtpmsLabel + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang }
+        if(this.loadMoreDiseases){
+            value = { value: introText + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang }
+        }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
                 if (this.currentStep.stepIndex == 1 || step == 'step2') {
@@ -647,7 +652,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         if (this.selectorRare) {
             paramIntroText = this.optionCommon;
         }
-        this.premedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with this format '\n\n$"+(this.diseaseListEn.length+1)+".' for each potencial "+paramIntroText+", and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
+        this.temppremedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with this format '\n\n$"+(this.diseaseListEn.length+1)+".' for each potencial "+paramIntroText+", and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
         //this.premedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with the number that is your turn with the same format for each potencial "+paramIntroText+", for example '\n\n$24' and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
         //this.premedicalText = this.premedicalText + ' '+ diseases+ '. Continue the above list.';
         this.loadMoreDiseases = true;
