@@ -37,6 +37,7 @@
   },
   "diagnosis":{
     "Proposed diagnoses":"Proposed diagnoses",
+    "Click on the disease to see more options": "Click on the disease to see more options",
     "Candidate diagnosis": "Candidate diagnosis"
   },
   "policy": {
@@ -207,7 +208,7 @@
     "Thank you": "Thank you!",
     "Recalculate the list": "Do you want to improve these results?",
     "option1": "And the patient also has these symptoms:",
-    "labelopt1": "Add a symptom",
+    "labelopt1": "Add symptoms",
     "option2": "And the patient has a gene mutation:",
     "labelopt2": "Indicate if the patient has a mutation in a certain gene",
     "option3": "And the patient has these results in a test:",

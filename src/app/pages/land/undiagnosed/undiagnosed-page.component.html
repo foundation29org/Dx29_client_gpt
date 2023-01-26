@@ -108,15 +108,20 @@
                   <thead>
                     <tr>
                       <th id="headerTable" style="border-top-style: none;">
-                        <span class="d-block">
-                          <span>{{'diagnosis.Proposed diagnoses' | translate }}</span>
-                          <span class="float-right">
-                            <em class="mt-1 fas fa-copy info mr-2" title="{{'land.Copy results' | translate }}"
-                            (click)="copyResults()" style="cursor: pointer;"></em>
-                            <em class="mt-1 fa fa-download info mr-2"
-                            title="{{'land.Download results' | translate }}" (click)="downloadResults()"
-                            style="cursor: pointer;"></em>
+                        <span class="row">
+                          <span class="col-9">{{'diagnosis.Proposed diagnoses' | translate }}
+                            <span class="font-small-1 d-block">{{'diagnosis.Click on the disease to see more options' | translate }}</span> 
                           </span>
+                          <span class="col-3">
+                            <span class="float-right">
+                              <em class="mt-1 fas fa-copy info mr-2" title="{{'land.Copy results' | translate }}"
+                              (click)="copyResults()" style="cursor: pointer;"></em>
+                              <em class="mt-1 fa fa-download info mr-2"
+                              title="{{'land.Download results' | translate }}" (click)="downloadResults()"
+                              style="cursor: pointer;"></em>
+                            </span>
+                          </span>
+                          
                         </span>
                       </th>
                     </tr>
