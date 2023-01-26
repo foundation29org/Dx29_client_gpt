@@ -140,7 +140,10 @@
                           </button>
                           </span>
                           <span class="custom-bold" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
-                          style="cursor: pointer;" title="{{'generics.More information' | translate }} ({{disease}})"  [innerHTML]="disease"></span>
+                          style="cursor: pointer;" title="{{'generics.More information' | translate }} ({{disease.name}})"  [innerHTML]="disease.content"></span>
+                          <div *ngIf="disease.url!=''" class="col-12 center-elements mt-2">
+                            <a class="btn btn-sm btn-primary mb-1" [href]="disease.url" target="_blank">{{'diagnosis.SponsorMsg' | translate }} <em class="ml-1 ft-external-link"></em></a>
+                          </div>
                         </td>
                       </tr>
                     </tbody>

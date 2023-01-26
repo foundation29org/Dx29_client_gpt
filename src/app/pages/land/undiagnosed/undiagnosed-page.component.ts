@@ -105,6 +105,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     loadMoreDiseases: boolean = false;
     @ViewChild('f') feedbackDownForm: NgForm;
     showErrorForm: boolean = false;
+    sponsors = [];
     
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
 
@@ -136,6 +137,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         ];
         this.currentStep = this.steps[0];
 
+        this.loadSponsors();
+    }
+
+    loadSponsors(){
+        this.subscription.add(this.http.get('assets/jsons/sponsors.json')
+            .subscribe((res: any) => {
+                this.sponsors = res;
+            }, (err) => {
+                console.log(err);
+            }));
     }
 
     initQuestions() {
@@ -492,19 +503,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     this.copyMedicalText = this.premedicalText;
                 }
                 let parseChoices0 = res.choices[0].text;
-                /*if (res.choices[0].text.indexOf("\n\n") == 0) {
-                    parseChoices0 = res.choices[0].text.split("\n\n");
-                    parseChoices0.shift();
-                }else if(res.choices[0].text.indexOf("\n") == 0){
-                    parseChoices0 = res.choices[0].text.split("\n");
-                    parseChoices0.shift();
-                }else if(res.choices[0].text.indexOf("\n\n") > 0){
-                    parseChoices0 = res.choices[0].text.split("\n\n");
-                    parseChoices0.shift();
-                }else if(res.choices[0].text.indexOf("\n") > 0){
-                    parseChoices0 = res.choices[0].text.split("\n");
-                    parseChoices0.shift();
-                }*/
                 if(res.choices[0].text.indexOf("\n\n") > 0 && (res.choices[0].text.indexOf("$") > res.choices[0].text.indexOf("\n\n"))){
                     parseChoices0 = res.choices[0].text.split("\n\n");
                     parseChoices0.shift();
@@ -526,17 +524,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 if(this.detectedLang!='en'){
                     console.log(parseChoices0);
                     var jsontestLangText = [{ "Text": parseChoices0 }]
-                    /*if(parseChoices0.length>1 && Array.isArray(parseChoices0)){
-                        var sendInfo='';
-                        for (let i = 0; i < parseChoices0.length; i++) {
-                            sendInfo = sendInfo+parseChoices0[i]+'\n';
-                        }
-                        jsontestLangText = [{ "Text": sendInfo}]
-                    }
-                    if(!Array.isArray(parseChoices0)){
-                        jsontestLangText = [{ "Text": parseChoices0 }]
-                    }*/
-                    
                     this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang,jsontestLangText)
                     .subscribe( (res2 : any) => {
                         console.log(res2)
@@ -569,27 +556,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     }
 
+    includesElement(array, string){
+        for(let i = 0; i < array.length; i++) {
+            if(string.includes(array[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
     continueCallOpenAi(parseChoices0){
         let parseChoices = parseChoices0;
         
         parseChoices = parseChoices0.split("$");
-        /*if(!Array.isArray(parseChoices0)){
-            if (parseChoices0.indexOf("\n") != -1) {
-                parseChoices = parseChoices0.split("\n");
-                let test = parseChoices[0].charAt(0)
-                if (test == '.') {
-                    parseChoices.shift();
-                }
-            }
-        }else{
-            if (parseChoices0[0].indexOf("\n") != -1) {
-                parseChoices = parseChoices0[0].split("\n");
-                let test = parseChoices[0].charAt(0)
-                if (test == '.') {
-                    parseChoices.shift();
-                }
-            }
-        }*/
         if(!this.loadMoreDiseases){
             this.topRelatedConditions = [];
         }
@@ -607,9 +586,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             if (index != -1 && index2 == -1) {
                 let firstPart = this.topRelatedConditions[i].substring(0, index + 1);
                 let secondPart = this.topRelatedConditions[i].substring(index + 1, this.topRelatedConditions[i].length);
-                this.topRelatedConditions[i] = '<strong>' + firstPart + '</strong>' + secondPart;
+                //this.topRelatedConditions[i] = '<strong>' + firstPart + '</strong>' + secondPart;
+                let index3 = firstPart.indexOf('.');
+                let namePart = firstPart.substring(index3+2, firstPart.length-1);
+                let hasSponsor = false;
+                let url = '';
+                for (let j = 0; j < this.sponsors.length && !hasSponsor; j++) {
+                    hasSponsor = this.includesElement(this.sponsors[j].synonyms, namePart)
+                    if(hasSponsor){
+                        url = this.sponsors[j].url;
+                    }
+                }
+                
+                
+                this.topRelatedConditions[i] = {content: '<strong>' + firstPart + '</strong>' + secondPart, name: namePart, url: url};
             }
         }
+        console.log(this.topRelatedConditions)
         this.loadMoreDiseases = false;
         if (this.currentStep.stepIndex == 1) {
             this.currentStep = this.steps[1];
@@ -635,15 +628,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     loadMore() {
         var diseases = '';
-        /*for (let i = 0; i < this.topRelatedConditions.length; i++) {
-            let index = this.topRelatedConditions[i].indexOf('<strong>');
-            if (index != -1) {
-                let index2 = this.topRelatedConditions[i].indexOf('</strong>');
-                let secondPart = this.topRelatedConditions[i].substring(index + 8, index2-1);
-                secondPart = secondPart.replace(/\n/g,'');
-                diseases = diseases + '\n\n$' +  secondPart + ' ';
-            }
-        }*/
         for (let i = 0; i < this.diseaseListEn.length; i++) {
             console.log(this.diseaseListEn[i])
             diseases = diseases +  this.diseaseListEn[i] + ', ';
@@ -653,8 +637,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             paramIntroText = this.optionCommon;
         }
         this.temppremedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with this format '\n\n$"+(this.diseaseListEn.length+1)+".' for each potencial "+paramIntroText+", and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
-        //this.premedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with the number that is your turn with the same format for each potencial "+paramIntroText+", for example '\n\n$24' and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
-        //this.premedicalText = this.premedicalText + ' '+ diseases+ '. Continue the above list.';
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
     }
@@ -1026,7 +1008,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.answerOpenai = '';
         this.symptomsDifferencial = [];
         this.selectedInfoDiseaseIndex = diseaseIndex;
-        var nameEvent = 'Undiagnosed - Select Disease - ' + this.topRelatedConditions[this.selectedInfoDiseaseIndex];
+        var nameEvent = 'Undiagnosed - Select Disease - ' + this.topRelatedConditions[this.selectedInfoDiseaseIndex].name;
         this.lauchEvent(nameEvent);
         let ngbModalOptions: NgbModalOptions = {
             backdrop: 'static',
@@ -1039,7 +1021,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }
         this.modalReference = this.modalService.open(contentInfoDisease, ngbModalOptions);
         //split number on string like 1.dravet 2.duchenne
-        this.selectedDisease = this.topRelatedConditions[this.selectedInfoDiseaseIndex].split(/\d+\./)[1];
+        this.selectedDisease = this.topRelatedConditions[this.selectedInfoDiseaseIndex].content.split(/\d+\./)[1];
         
         //split ( on selected disease
         //this.selectedDisease = this.selectedDisease.split(' (')[0];
@@ -1072,7 +1054,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     getPlainInfoDiseases2() {
         var resCopy = "";
         for (let i = 0; i < this.topRelatedConditions.length; i++) {
-            resCopy = resCopy + this.topRelatedConditions[i];
+            resCopy = resCopy + this.topRelatedConditions[i].name;
             if (i + 1 < this.topRelatedConditions.length) {
                 resCopy = resCopy + "\n";
             }
@@ -1089,7 +1071,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     getPlainInfoDiseases() {
         var resCopy = [];
         for (let i = 0; i < this.topRelatedConditions.length; i++) {
-            resCopy.push({ name: this.topRelatedConditions[i] });
+            resCopy.push({ name: this.topRelatedConditions[i].name });
         }
         return resCopy;
     }

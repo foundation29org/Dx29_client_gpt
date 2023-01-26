@@ -38,7 +38,8 @@
   "diagnosis":{
     "Proposed diagnoses":"Diagnósticos propuestos",
     "Click on the disease to see more options": "Haz clic en la enfermedad para ver más opciones",
-    "Candidate diagnosis": "Diagnósticos candidatos"
+    "Candidate diagnosis": "Diagnósticos candidatos",
+    "SponsorMsg": "Conoce todo de la enfermedad aquí"
   },
   "policy":{
     "CONTENT": "CONTENIDO",
