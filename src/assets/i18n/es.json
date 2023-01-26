@@ -37,6 +37,7 @@
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnósticos propuestos",
+    "Click on the disease to see more options": "Haz click en la enfermedad para ver más opciones",
     "Candidate diagnosis": "Diagnósticos candidatos"
   },
   "policy":{
@@ -207,7 +208,7 @@
     "Thank you": "Muchas gracias!",
     "Recalculate the list": "¿Quieres mejorar estos resultados?",
     "option1": "And the patient also has these symptoms:",
-    "labelopt1": "Agregar un síntoma",
+    "labelopt1": "Agregar síntomas",
     "option2": "And the patient has a gene mutation:",
     "labelopt2": "Indicar si el paciente tiene una mutación en un gen determinado",
     "option3": "And the patient has these results in a test:",
