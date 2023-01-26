@@ -131,12 +131,12 @@
                   <table class="table mb-0 bg-white" aria-labelledby="rare disease">
                     <tbody>
                       <tr *ngFor="let disease of topRelatedConditions ; let i = index" class="d-flex">
-                        <td class="col-md-12 diseaseClass pointer" id="{{disease.id}}" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
+                        <td class="col-md-12 diseaseClass pointer" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
                           <span class="float-right ml-1">
                             <button
                             class="btn-outline-info btn btn-sm mr-1 mb-0 btn-fab round"
-                            title="{{'generics.More information' | translate }} ({{disease.id}})">
-                            <em class="fa fa-info w-13"></em>
+                            title="{{'generics.More information' | translate }}">
+                            <em class="fas fa-ellipsis-h w-13"></em>
                           </button>
                           </span>
                           <span class="custom-bold" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
