@@ -575,17 +575,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         
         for (let i = 0; i < parseChoices.length; i++) {
             if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length>4) {
-                this.topRelatedConditions.push(parseChoices[i])
+                this.topRelatedConditions.push({content:parseChoices[i], name: ''} )
             }
         }
 
         //for each top related condition Put in strong what goes before the first occurrence of :
         for (let i = 0; i < this.topRelatedConditions.length; i++) {
-            let index = this.topRelatedConditions[i].indexOf(':');
-            let index2 = this.topRelatedConditions[i].indexOf('<strong>');
+            let index = this.topRelatedConditions[i].content.indexOf(':');
+            let index2 = this.topRelatedConditions[i].content.indexOf('<strong>');
             if (index != -1 && index2 == -1) {
-                let firstPart = this.topRelatedConditions[i].substring(0, index + 1);
-                let secondPart = this.topRelatedConditions[i].substring(index + 1, this.topRelatedConditions[i].length);
+                let firstPart = this.topRelatedConditions[i].content.substring(0, index + 1);
+                let secondPart = this.topRelatedConditions[i].content.substring(index + 1, this.topRelatedConditions[i].length);
                 //this.topRelatedConditions[i] = '<strong>' + firstPart + '</strong>' + secondPart;
                 let index3 = firstPart.indexOf('.');
                 let namePart = firstPart.substring(index3+2, firstPart.length-1);
