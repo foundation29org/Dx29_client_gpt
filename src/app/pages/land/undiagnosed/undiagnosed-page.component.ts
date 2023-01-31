@@ -424,7 +424,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                             var info = [{ "Text": this.premedicalText }]
                             this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(res[0].language, info)
                                 .subscribe((res2: any) => {
-                                    console.log(res2);
                                     var textToTA = this.premedicalText.replace(/\n/g, " ");
                                     if (res2[0] != undefined) {
                                         if (res2[0].translations[0] != undefined) {
@@ -432,7 +431,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                                         }
                                     }
                                     this.premedicalText = textToTA;
-                                    console.log(this.premedicalText)
                                     this.callOpenAi(step);
                                 }, (err) => {
                                     console.log(err);
@@ -512,7 +510,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     parseChoices0.shift();
                     parseChoices0 = parseChoices0.toString();
                 }
-                console.log(parseChoices0)
                 if(!this.loadMoreDiseases){
                     this.diseaseListEn = [];
                 }
@@ -522,11 +519,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 }
                 this.setDiseaseListEn(parseChoices0);
                 if(this.detectedLang!='en'){
-                    console.log(parseChoices0);
                     var jsontestLangText = [{ "Text": parseChoices0 }]
                     this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang,jsontestLangText)
                     .subscribe( (res2 : any) => {
-                        console.log(res2)
                         if (res2[0] != undefined) {
                             if (res2[0].translations[0] != undefined) {
                                 parseChoices0 = res2[0].translations[0].text;
@@ -585,7 +580,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             let index2 = this.topRelatedConditions[i].content.indexOf('<strong>');
             if (index != -1 && index2 == -1) {
                 let firstPart = this.topRelatedConditions[i].content.substring(0, index + 1);
-                let secondPart = this.topRelatedConditions[i].content.substring(index + 1, this.topRelatedConditions[i].length);
+                let secondPart = this.topRelatedConditions[i].content.substring(index + 1, this.topRelatedConditions[i].content.length);
                 //this.topRelatedConditions[i] = '<strong>' + firstPart + '</strong>' + secondPart;
                 let index3 = firstPart.indexOf('.');
                 let namePart = firstPart.substring(index3+2, firstPart.length-1);
@@ -602,7 +597,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 this.topRelatedConditions[i] = {content: '<strong>' + firstPart + '</strong>' + secondPart, name: namePart, url: url};
             }
         }
-        console.log(this.topRelatedConditions)
         this.loadMoreDiseases = false;
         if (this.currentStep.stepIndex == 1) {
             this.currentStep = this.steps[1];
@@ -623,7 +617,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 this.diseaseListEn.push(firstPart)
             }
         }
-        console.log(this.diseaseListEn)
     }
 
     loadMore() {
@@ -664,15 +657,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
         this.selectedQuestion = question.question;
-        console.log(this.diseaseListEn)
-        console.log(this.selectedInfoDiseaseIndex)
         var selectedDiseaseEn = this.diseaseListEn[this.selectedInfoDiseaseIndex];
         let index2 = selectedDiseaseEn.indexOf('.');
         if (index2 != -1) {
             var temp = selectedDiseaseEn.split(".");
             selectedDiseaseEn = temp[1];
         }
-        console.log(selectedDiseaseEn)
         var introText = question.question + ' ' + selectedDiseaseEn + '?';
         if(index==0){
             introText = 'What are the common symptoms for'+ selectedDiseaseEn +'? Order the list with the most probable on the top';
@@ -710,7 +700,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 }
                 if(index==3){
                     if (this.detectedLang != 'en' && index==3) {
-                        console.log(parseChoices0);
                         var jsontestLangText = [{ "Text": parseChoices0[0] }]
                         if(parseChoices0.length>1 && Array.isArray(parseChoices0)){
                             var sendInfo='';
@@ -725,7 +714,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         
                         this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang,jsontestLangText)
                         .subscribe( (res2 : any) => {
-                            console.log(res2)
                             if (res2[0] != undefined) {
                                 if (res2[0].translations[0] != undefined) {
                                     parseChoices0 = res2[0].translations[0].text;
@@ -763,8 +751,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     this.subscription.add(this.apiDx29ServerService.getDetectLanguage(testLangText)
                 .subscribe((resdet: any) => {
                     var detectedLang2 = resdet[0].language;
-                    console.log(detectedLang2)
-                    console.log(this.detectedLang)
                     if(this.detectedLang!=detectedLang2 || this.detectedLang!='en'){
                         var langToTrnaslate = detectedLang2;
                         if(this.detectedLang!='en'){
@@ -773,7 +759,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         var info = [{ "Text": tempInfo}]
                         this.subscription.add(this.apiDx29ServerService.getTranslationInvert(langToTrnaslate, info)
                         .subscribe((res2: any) => {
-                            console.log(res2);
                             var textToTA = this.premedicalText.replace(/\n/g, " ");
                             if (res2[0] != undefined) {
                                 if (res2[0].translations[0] != undefined) {
@@ -951,7 +936,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         var info = [{ "Text": this.medicalText2 }]
                         this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(res[0].language, info)
                             .subscribe((res2: any) => {
-                                console.log(res2);
                                 var textToTA = this.medicalText2.replace(/\n/g, " ");
                                 if (res2[0] != undefined) {
                                     if (res2[0].translations[0] != undefined) {
@@ -959,7 +943,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                                     }
                                 }
                                 this.medicalText2Copy = textToTA;
-                                console.log(this.medicalText2)
                                 this.preparingCallOpenAi('step3');
                             }, (err) => {
                                 console.log(err);
@@ -1026,8 +1009,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         //split ( on selected disease
         //this.selectedDisease = this.selectedDisease.split(' (')[0];
         this.selectedDisease = this.selectedDisease.split(':')[0];
-        console.log(this.selectedDisease )
-
     }
 
     copyResults() {
@@ -1233,12 +1214,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     selectorRareEvent(event) {
-        console.log(event)
         this.selectorRare = event;
     }
 
     selectorRareEvent2(event) {
-        console.log(event)
         this.selectorRare = event;
         this.prevSelectorRare = this.selectorRare;
         this.verifCallOpenAi('step2');
@@ -1425,12 +1404,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }).then((result) => {
 
         });
-        console.log(this.langDetected);
         if(this.langDetected!='en'){
             var info = [{ "Text": this.medicalText }]
             this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(this.langDetected, info)
                 .subscribe((res2: any) => {
-                    console.log(res2);
                     var textToTA = this.medicalText.replace(/\n/g, " ");
                     if (res2[0] != undefined) {
                         if (res2[0].translations[0] != undefined) {
@@ -1457,7 +1434,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         var jsontestLangText = { "text": info };
         this.subscription.add(this.apiDx29ServerService.callTextAnalytics(jsontestLangText)
             .subscribe((res: any) => {
-                console.log(res)
                 this.resTextAnalyticsSegments = res;
                 var foundDrug = false;
                 var foundSyntoms = false;
