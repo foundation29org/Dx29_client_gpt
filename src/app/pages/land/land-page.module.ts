@@ -42,10 +42,10 @@ import { UiSwitchModule } from 'ngx-ui-switch';
         MatNativeDateModule,
         UiSwitchModule.forRoot({
             size: 'medium',
-            color: '#00B4CC',
+            color: '#ff0000',
             switchColor: '#fff',
             defaultBgColor: '#fff',
-            defaultBoColor : '#00B4CC'
+            defaultBoColor : '#ff0000'
           })
     ],
     declarations: [

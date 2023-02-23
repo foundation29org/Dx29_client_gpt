@@ -151,7 +151,7 @@ export class AppComponent implements OnInit, OnDestroy {
           text: msg2,
           icon: 'warning',
           showCancelButton: false,
-          confirmButtonColor: '#00B4CC',
+          confirmButtonColor: '#ff0000',
           confirmButtonText: 'OK',
           showLoaderOnConfirm: true,
           allowOutsideClick: false,

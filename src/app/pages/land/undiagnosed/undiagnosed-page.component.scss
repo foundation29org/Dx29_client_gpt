@@ -2,7 +2,7 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 :host ::ng-deep ._hj-v4Fsu__MinimizedWidgetMiddle__right{
-  --hjFeedbackAccentColor: #00B4CC;
+  --hjFeedbackAccentColor: #ff0000;
 }
 
 .vertical-center{
@@ -22,7 +22,7 @@
   width: 100%;
   min-height: 50px;
   height: 50px;
-  border: 3px solid #00B4CC;
+  border: 3px solid #ff0000;
   border-right: none;
   padding: 5px;
   border-radius: 5px 0 0 5px;
@@ -33,8 +33,8 @@
 .searchButton {
   width: 40px;
   height: 50px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
+  border: 1px solid #ff0000;
+  background: #ff0000;
   text-align: center;
   color: #fff;
   border-radius: 0 5px 5px 0;
@@ -99,14 +99,14 @@ section {
 
 .step-bubble-prev{
   padding: 8px;
-  border: 3px solid #00B4CC;
+  border: 3px solid #ff0000;
   width: 12px;
   height: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  color: #00B4CC;
+  color: #ff0000;
   font-size: 1em;
   cursor: pointer;
   user-select: none;
@@ -124,7 +124,7 @@ section {
 
 .step-divider-next {
   height: 2px;
-  background: #00B4CC;
+  background: #ff0000;
   width: 100px;
   margin-top: -10px;
   margin-left: 35px;
@@ -133,7 +133,7 @@ section {
 }
 
 .step-current, .step-complete {
-  background: #00B4CC;
+  background: #ff0000;
   color: white;
 }
 
@@ -142,7 +142,7 @@ section {
 }
 
 .step-title-prev{
-  color: #00B4CC;
+  color: #ff0000;
   font-weight: bold;
 }
 
@@ -261,11 +261,11 @@ section {
 }
 
 .diseaseClass:hover {
-  background-color: #00B4CC3D !important;
+  background-color: #ff00003D !important;
 }
 
 .list-group-item-action:hover {
-  background-color: #00B4CC3D !important;
+  background-color: #ff00003D !important;
 }
 
 /* Provide sufficient contrast against white background */
@@ -277,8 +277,8 @@ section {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
-    background-color: #00B4CC;
-    border-color: #00B4CC;
+    background-color: #ff0000;
+    border-color: #ff0000;
 }
 
 /* Sticky footer styles
@@ -481,14 +481,14 @@ body {
 
 
 .form-control:focus{
-  border-color: #00B4CC !important;
-  box-shadow: 0 0 0 0.2rem #00B4CC;
+  border-color: #ff0000 !important;
+  box-shadow: 0 0 0 0.2rem #ff0000;
 }
 
 :host ::ng-deep .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
-    background-color: #00B4CC !important;
+    background-color: #ff0000 !important;
 }
 
 .btn-sm, .btn-group-sm > .btn {
@@ -502,7 +502,7 @@ body {
  }
 
  .nav-tabs .nav-link.active {
-  border-bottom: 2px solid #00B4CC !important;
+  border-bottom: 2px solid #ff0000 !important;
   background-color: transparent !important;
   border-color: transparent !important;
 }
