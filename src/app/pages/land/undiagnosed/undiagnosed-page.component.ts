@@ -818,48 +818,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     getDifferentialDiagnosis(info){
-        let parseChoices0 = info;
-        /*if (info.indexOf("\n\n") == 0) {
-            parseChoices0 = info.split("\n\n");
-            parseChoices0.shift();
-        }else if(info.indexOf("\n") == 0){
-            parseChoices0 = info.split("\n");
-            parseChoices0.shift();
-        }else if(info.indexOf("\n\n") > 0){
-            parseChoices0 = info.split("\n\n");
-            parseChoices0.shift();
-        }else if(info.indexOf("\n") > 0){
-            parseChoices0 = info.split("\n");
-            parseChoices0.shift();
-        }
-        
-        this.symptomsDifferencial = [];
-        var parseChoices = [];
-        if (parseChoices0[0].indexOf("\n") != -1) {
-            parseChoices = parseChoices0[0].split("\n");
-            let test = parseChoices[0].charAt(0)
-            if (test == '.') {
-                parseChoices.shift();
-            }
-        }else{
-            if (parseChoices0.indexOf("\n") != -1) {
-                parseChoices = parseChoices0.split("\n");
-                let test = parseChoices[0].charAt(0)
-                if (test == '.') {
-                    parseChoices.shift();
-                }
-            }
-        }*/
         var parseChoices = info.split("\n");
         this.symptomsDifferencial = [];
         for (let i = 0; i < parseChoices.length; i++) {
-            if (parseChoices[i] != '') {
+            if (parseChoices[i] != '' && parseChoices[i] != ' ' && parseChoices[i] != ':') {
                 let index = parseChoices[i].indexOf('.');
                 var name = parseChoices[i].split(".")[1];
                 if (index != -1) {
                     name = parseChoices[i].substring(index + 1, parseChoices[i].length);
                 }
-                
+                //if last char is a dot remove it
+                if (name.charAt(name.length - 1) == '.') {
+                    name = name.substring(0, name.length - 1);
+                }
+                //if last char is a space remove it
+                if (name.charAt(name.length - 1) == ' ') {
+                    name = name.substring(0, name.length - 1);
+                }
                 this.symptomsDifferencial.push({name:name, checked: false})
             }
         }
