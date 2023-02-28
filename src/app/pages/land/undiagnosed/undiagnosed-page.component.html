@@ -1,12 +1,4 @@
 <a id="initsteps" class="anchorSteps"></a>
-<div class="mt-2" *ngIf="!closed">
-  <ngb-alert type="warning" class="mb-0" [dismissible]="true" (close)="closed=true">
-    <div class="center-elements">
-      <span>{{'land.Subscribe or send us a message' | translate }}</span>
-      <button class="btn btn-info round mb-0 ml-2 btn-sm" (click)="openSupport(contentSubs);lauchEvent('openSupport');"><strong>{{'generics.Send' | translate }}</strong></button>
-    </div>
-  </ngb-alert>
-</div>
 <div class="vertical-center" style="background-color: #353540;">
   <section *ngIf="currentStep.stepIndex == 1" class="">
     <div class="row m-0">
@@ -89,17 +81,12 @@
   </section>
   <section *ngIf="currentStep.stepIndex == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8">
     <a id="step2"></a>
-    <div class="mt-4 row">
-      <span class="col-md-12 pt-4" *ngIf="topRelatedConditions.length>0">
-        <button type="button" class="btn round bt-nav btn-info" (click)="goPrevious()">{{'generics.Back' | translate }}</button>
+    <div class="row">
+      <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
+        <!--<button type="button" class="btn round bt-nav btn-info" (click)="goPrevious()">{{'generics.Back' | translate }}</button>-->
+        <button type="button" class="btn btn-info mr-1" (click)="goPrevious()">{{'land.Edit description' | translate }}</button>
+        <button type="button" class="btn btn-info ml-1" (click)="newPatient()">{{'land.New patient' | translate }}</button>
       </span>
-      <div class="col-md-12 center-elements">
-        <h6>{{'land.Indicates the quality of the result' | translate }}</h6>
-        <span *ngIf="!sendingVote">
-          <button class="mr-1 btn btn-info" (click)="vote('up', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-thumbs-down"></em></button>
-        </span>
-        <span *ngIf="sendingVote" class="d-block"><em class="fa fa-spinner fa-spin fa-fw fa-2x"></em></span>
-      </div>
       <div class="col-12">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
@@ -164,9 +151,16 @@
           </span>
         </div>
       </div>
+      <div class="col-md-12 center-elements">
+        <h6>{{'land.Indicates the quality of the result' | translate }}</h6>
+        <span *ngIf="!sendingVote">
+          <button class="mr-1 btn btn-info" (click)="vote('up', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-thumbs-down"></em></button>
+        </span>
+        <span *ngIf="sendingVote" class="d-block"><em class="fa fa-spinner fa-spin fa-fw fa-2x"></em></span>
+      </div>
     </div>
     
-    <div class="col-12 d-flex justify-content-center">
+    <div class="col-12 d-flex justify-content-center mb-4">
       <div class="card-body" style="max-width: 1200px;">
         <div class="row m-0">
           <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
@@ -199,7 +193,14 @@
   <a id="optionssteps"></a>
   </section>
 </div>
-
+<div class="" *ngIf="!closed">
+  <ngb-alert type="warning" class="mb-0" [dismissible]="true" (close)="closed=true">
+    <div class="center-elements">
+      <span>{{'land.Subscribe or send us a message' | translate }}</span>
+      <button class="btn btn-info round mb-0 ml-2 btn-sm" (click)="openSupport(contentSubs);lauchEvent('openSupport');"><strong>{{'generics.Send' | translate }}</strong></button>
+    </div>
+  </ngb-alert>
+</div>
 <ng-template #contentInfoDisease let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
     <div class="content-header text-left">

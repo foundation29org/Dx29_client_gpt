@@ -218,9 +218,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     async goPrevious() {
         this.showInputRecalculate = false;
         this.currentStep = this.steps[0];
-        document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
+        //document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         await this.delay(200);
+        document.getElementById('optioninput1').scrollIntoView({ behavior: "smooth" });
         this.clearText();
+    }
+
+    async newPatient() {
+        this.medicalText = '';
+        this.goPrevious();
     }
 
     canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -374,6 +380,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.copyMedicalText = '';
         this.showErrorCall1 = false;
         document.getElementById("textarea1").setAttribute("style", "height:50px;overflow-y:hidden; width: 100%;");
+        this.resizeTextArea();
     }
 
     verifCallOpenAi(step) {
@@ -391,10 +398,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.callingOpenai = true;
         if(step=='step3'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
             if(this.optionSelected.id==1){
-                //this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
-                this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
-                this.premedicalText = this.copyMedicalText;
-                //this.medicalText= this.premedicalText;
+                var labelMoreSymptoms = this.translate.instant("land.msgmoresymptoms")
+                if(this.medicalText.indexOf(labelMoreSymptoms)==-1){
+                    this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
+                     this.premedicalText = this.copyMedicalText;
+                     this.medicalText= this.medicalText+ '. ' + labelMoreSymptoms + ' ' + this.medicalText2;
+                    
+                }else{
+                    this.copyMedicalText = this.copyMedicalText + ', ' + this.medicalText2Copy
+                    this.premedicalText = this.copyMedicalText; 
+                    this.medicalText= this.medicalText+ ', ' + this.medicalText2;
+                }
             }else{
                 this.premedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy;
             }
@@ -606,17 +620,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }
         this.callingOpenai = false;
         Swal.close();
-        //window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
         this.lauchEvent("Search Disease");
-        this.scrollTo();
+        //this.scrollTo();
     }
 
     setDiseaseListEn(text){
         let parseChoices = text.split("$");
         for (let i = 0; i < parseChoices.length; i++) {
-            if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length>4) {
+            if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length>3) {
                 let index = parseChoices[i].indexOf(':');
-                let firstPart = parseChoices[i].substring(0, index-1);
+                let firstPart = parseChoices[i].substring(0, index);
                 this.diseaseListEn.push(firstPart)
             }
         }
@@ -677,7 +691,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             introText = 'Provide a diagnosis test for'+ selectedDiseaseEn;
         }
         if(index==3){
-            introText = this.premedicalText+'. What other symptoms could you find out to make a differential diagnosis of '+selectedDiseaseEn + '. Order the list with the most probable on the top';
+            introText = this.premedicalText+'. What other symptoms that the patient does not have could you find out to make a differential diagnosis of '+selectedDiseaseEn + '. Return only one list, and sort it with the most likely at the top';
         }
         if(index==4){
             introText = this.premedicalText+'. Why do you think this patient has '+selectedDiseaseEn + '. Indicate the common symptoms with '+selectedDiseaseEn +' and the ones that he/she does not have';
@@ -851,6 +865,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 newSymptoms= newSymptoms+this.symptomsDifferencial[i].name+', ';
             }
         }
+        //si el último elemento es un espacio, eliminarlo
+        if(newSymptoms.charAt(newSymptoms.length - 1) == ' '){
+            newSymptoms = newSymptoms.substring(0, newSymptoms.length - 1);
+        }
+        // si es el último elemento, no añadir la coma
+        if(newSymptoms.charAt(newSymptoms.length - 1) == ','){
+            newSymptoms = newSymptoms.substring(0, newSymptoms.length - 1);
+        }
         if(newSymptoms!=''){
             this.lauchEvent("Recalculate Differencial");
             this.optionSelected = this.options[0];
@@ -993,7 +1015,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         var finalReport = "";
         var infoDiseases = this.getPlainInfoDiseases2();
         if (infoDiseases != "") {
-            finalReport = this.translate.instant("diagnosis.Proposed diagnoses") + "\n" + infoDiseases;
+            finalReport = this.translate.instant("diagnosis.Proposed diagnoses") + ":\n" + infoDiseases;
         }
         this.clipboard.copy(finalReport);
         Swal.fire({
