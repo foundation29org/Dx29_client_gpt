@@ -103,8 +103,8 @@
     "step5": "CESIÓN DE LOS DATOS",
     "step1-1": "De conformidad con la normativa vigente, se informa al interesado, de que los datos facilitados serán tratados por Fundación 29 de Febrero (en adelante, 'F29'), cuyos datos de contacto son los siguientes",
     "step1-2": "Domicilio social",
-    "step2-1": "Cuando los usuarios faciliten datos personales a través de los formularios de la página web de DxGPT, sus datos personales serán tratados para las siguientes finalidades",
-    "step2-2": "Cuando los usuarios proporcionan datos personales a través del formulario de creación de cuenta de usuario, la finalidad es gestionar el alta y la administración de la cuenta de usuario registrado en la aplicación. Para ello se tratarán sus datos personales hasta que nos comunique su voluntad se darse de baja de su condición de usuario registrado de DxGPT.",
+    "step2-1": "Cuando los usuarios faciliten datos personales a través de los formularios de la página web de dxGPT, sus datos personales serán tratados para las siguientes finalidades",
+    "step2-2": "Cuando los usuarios proporcionan datos personales a través del formulario de creación de cuenta de usuario, la finalidad es gestionar el alta y la administración de la cuenta de usuario registrado en la aplicación. Para ello se tratarán sus datos personales hasta que nos comunique su voluntad se darse de baja de su condición de usuario registrado de dxGPT.",
     "step2-3": "Salvo que usted nos indique su voluntad en contra, se aplicarán los plazos de conservación legales de los datos personales indicados anteriormente, por lo que es su responsabilidad mantenerlos actualizados, puesto que serán utilizados para realizar comunicaciones acerca de las altas, bajas o modificaciones de cuentas registradas.",
     "step3-1": "Sus datos serán tratados sobre la base de la ejecución del contrato en los supuestos de alta de usuario: sin el tratamiento de estos datos no podríamos llevar a cabo los servicios mencionados.",
     "step4-1": "El interesado tiene derecho a",
@@ -120,10 +120,10 @@
   },
   "dataprocessing": {
     "I agree with the": "Estoy de acuerdo con el",
-    "data processing by DX29": "tratamiento de datos por DxGPT.",
-    "title": "ACUERDO DE TRATAMIENTO DE DATOS POR PARTE DE DxGPT",
-    "p1-1": "El servicio prestado por Fundación 29 de Febrero a través de la herramienta DxGPT está enfocado a ayudar a profesionales de la medicina y la genética durante el proceso de diagnóstico de enfermedades raras, reduciendo el tiempo y haciéndolo más preciso. Usando algoritmos de inteligencia artificial, ayuda a los especialistas a incorporar información del paciente para identificar síntomas y buscar conexiones entre los mismos, guiándoles en la identificación de nuevos síntomas. Finalmente, DxGPT sugiere una lista clasificada de patologías para que el profesional considere la realización de nuevas pruebas y así confirmar el diagnóstico final. Los algoritmos utilizados durante este proceso se mejoran periódicamente con los datos aportados por los especialistas.",
-    "p1-2": "Los usuarios son profesionales especialistas, relacionados con la medicina y la genética (en adelante, 'el usuario' / 'los usuarios'), que quieren hacer uso del servicio prestado por DxGPT. Como tales, son RESPONSABLES DEL TRATAMIENTO de los datos de sus pacientes",
+    "data processing by DX29": "tratamiento de datos por dxGPT.",
+    "title": "ACUERDO DE TRATAMIENTO DE DATOS POR PARTE DE dxGPT",
+    "p1-1": "El servicio prestado por Fundación 29 de Febrero a través de la herramienta dxGPT está enfocado a ayudar a profesionales de la medicina y la genética durante el proceso de diagnóstico de enfermedades raras, reduciendo el tiempo y haciéndolo más preciso. Usando algoritmos de inteligencia artificial, ayuda a los especialistas a incorporar información del paciente para identificar síntomas y buscar conexiones entre los mismos, guiándoles en la identificación de nuevos síntomas. Finalmente, dxGPT sugiere una lista clasificada de patologías para que el profesional considere la realización de nuevas pruebas y así confirmar el diagnóstico final. Los algoritmos utilizados durante este proceso se mejoran periódicamente con los datos aportados por los especialistas.",
+    "p1-2": "Los usuarios son profesionales especialistas, relacionados con la medicina y la genética (en adelante, 'el usuario' / 'los usuarios'), que quieren hacer uso del servicio prestado por dxGPT. Como tales, son RESPONSABLES DEL TRATAMIENTO de los datos de sus pacientes",
     "p1-3": "De esta forma Fundación 29 será el ENCARGADO DEL TRATAMIENTO de los datos para proveer del servicio con la finalidad expresada en el párrafo primero.",
     "p1-4": "Para la prestación de dicho servicio es necesario que el ENCARGADO tenga acceso y realice tratamientos de datos de carácter personal de los pacientes",
     "p1-5": "Ambas partes, RESPONSABLE y ENCARGADO, reconocen cumplir con todas las obligaciones derivadas de la normativa comunitaria y nacional en materia de protección de datos, en especial las relativas al derecho de información, consentimiento y deber de secreto, y a la adopción de las medidas de seguridad técnicas y organizativas que garanticen la seguridad de los datos personales.",
@@ -169,7 +169,7 @@
     "Donate": "Donar"
   },
   "footer":{
-    "Dx29info": "DxGPT es una herramienta de búsqueda y referencia que se proporciona con fines informativos y no pretende sustituir el juicio o la experiencia del clínico. No debe utilizarse para diagnosticar o tratar afecciones médicas."
+    "Dx29info": "dxGPT es una herramienta de búsqueda y referencia que se proporciona con fines informativos y no pretende sustituir el juicio o la experiencia del clínico. No debe utilizarse para diagnosticar o tratar afecciones médicas."
   },
   "parser":{
     "OcrOnlyTitle": "Hemos detectado que hay imágenes en el texto.",
@@ -183,16 +183,16 @@
     "No text has been detected in the file": "No se ha detectado ningún texto en el archivo."
   },
   "land":{
-    "disclaimer": "<p><strong>DxGPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo lingúistico GPT-3 de OpenAI como modelo predictivo para una herramienta que proporciona información sobre raras relacionadas enfermedades. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende reemplazar el consejo médico profesional ni respaldar el diagnóstico, la prevención, el seguimiento, la predicción o el tratamiento y nunca debe usarse para hacer juicios de diagnóstico con paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y cualquier riesgo potencial asociado al uso de la herramienta basada en inteligencia artificial.</p>",
+    "disclaimer": "<p><strong>dxGPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo lingúistico GPT-3 de OpenAI como modelo predictivo para una herramienta que proporciona información sobre raras relacionadas enfermedades. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende reemplazar el consejo médico profesional ni respaldar el diagnóstico, la prevención, el seguimiento, la predicción o el tratamiento y nunca debe usarse para hacer juicios de diagnóstico con paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y cualquier riesgo potencial asociado al uso de la herramienta basada en inteligencia artificial.</p>",
     "check": "No volver a mostrar este mensaje",
     "Recommendations": "Para obtener mejores resultados, indica cuándo y por qué cree que aparecieron los síntomas.",
     "required": "Tienes que introducir un texto antes de continuar",
-    "searchFile": "También puedes subir un informe completo. Esta funcionalidad está en pruebas y puede ser que de resultados no esperados. DxGPT te sugerirá el diagnótico que el modelo considera más adecuado para ese paciente. Para ser respetuosos con la ley de protección de datos no almacenamos datos personales del paciente y los datos se borran al terminar esta sesión. Nos interesaría conocer tu feedback para futuros desarrollos.",
+    "searchFile": "También puedes subir un informe completo. Esta funcionalidad está en pruebas y puede ser que de resultados no esperados. dxGPT te sugerirá el diagnótico que el modelo considera más adecuado para ese paciente. Para ser respetuosos con la ley de protección de datos no almacenamos datos personales del paciente y los datos se borran al terminar esta sesión. Nos interesaría conocer tu feedback para futuros desarrollos.",
     "Browse for file": "Busque el archivo",
     "Accepted files": "Ficheros aceptados: pdf, docx, imágenes",
     "error extension": "El archivo cargado debe tener una extensión .pdf, .docx o archivos de imagen",
     "Extracting the text from the document": "Extrayendo el texto del documento",
-    "swal": "DxGPT está calculando. Espera unos segundos a que termine",
+    "swal": "dxGPT está calculando. Espera unos segundos a que termine",
     "swal2": "Estamos teniendo alta demanda, si tarda más de 30 segundos, cancela e intenta de nuevo.",
     "q1": "¿Cuáles son los síntomas comunes?",
     "q2": "Dame más información",
@@ -218,7 +218,7 @@
     "option3": "And the patient has these results in a test:",
     "labelopt3": "Indicar pruebas de una análitica u otro tipo de test",
     "Type here": "¡Escribe aquí!",
-    "title": "Introduce una breve descripción del paciente y DxGPT te proporcionará una lista de posible diagnósticos de enfermedades.",
+    "title": "Introduce una breve descripción del paciente y dxGPT te proporcionará una lista de posible diagnósticos de enfermedades.",
     "p1.title": "Ejemplos",
     "p1.1": "El paciente tiene trece meses. Primera convulsión focal a los tres meses. Convulsiones múltiples tónico-clónicas. Convulsiones febriles. Un estado epiléptico a los ocho meses.",
     "p1.2": "Niña. 11 años. Atrofia hemisférica unilateral, asociada con epilepsia focal resistente a los medicamentos, hemiplejía progresiva y deterioro cognitivo",
@@ -258,9 +258,9 @@
     "Load more": "Carga más",
     "prom1": "Behave like a doctor who has to do a diagnosis for a patient. Give me a list of potential {{value}} with a short description. Shows for each potential {{value}} always with '\n\n$' and a number, starting with '\n\n$1', for example '\n\n$23.', the name of the disease and finish with ':'. If you are continuing a list, continue with the number that is your turn, for example '\n\n$24.'. You have to indicate which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
     "aboutUs":{
-      "title": "¿Qué es DxGPT?",
+      "title": "¿Qué es dxGPT?",
       "p2": "Una vez generada la lista de enfermedades, se puede completar con más información para afinar el diagnóstico. Esto incluye la recopilación de datos clínicos, la realización de pruebas de laboratorio y la recopilación de información de la historia clínica. Esto ayudará a los médicos a tomar una decisión más informada sobre el diagnóstico. Es importante que los usuarios nos den feedback sobre el uso del software para que podamos mejorar el modelo. Esto es importante porque nos ayuda a entender mejor cómo se está usando el software y cómo podemos mejorarlo.",
-      "p1": "DxGPT es un software de ayuda a la toma de decisiones en el diagnóstico basado en GPT-3. GPT-3 es un modelo de lenguaje de Inteligencia Artificial (IA) desarrollado por OpenAI. Está diseñado para generar texto a partir de una entrada previa. Esto significa que el software puede generar una lista de enfermedades a partir de una descripción de los síntomas. Sin embargo, debido a las características del modelo, hay una posibilidad de que el software tenga errores. Por lo tanto, no se debe usar para uso médico.",
+      "p1": "dxGPT es un software de ayuda a la toma de decisiones en el diagnóstico basado en GPT-3. GPT-3 es un modelo de lenguaje de Inteligencia Artificial (IA) desarrollado por OpenAI. Está diseñado para generar texto a partir de una entrada previa. Esto significa que el software puede generar una lista de enfermedades a partir de una descripción de los síntomas. Sin embargo, debido a las características del modelo, hay una posibilidad de que el software tenga errores. Por lo tanto, no se debe usar para uso médico.",
       "p3": "Actualmente, estamos trabajando en el desarrollo de nuevas características para el software. Estamos buscando colaboradores que quieran investigar el uso de estos modelos en el diagnóstico. Si estás interesado, puedes ponerte en contacto con nosotros para obtener más información.",
       "btn1": "Visitar la página web de Foundation 29",
       "Who are we": "Visita nuestra web",
@@ -273,10 +273,10 @@
     "diagnosed":{
       "timeline":{
         "title":"Vamos a ayudarte a construir una línea de tiempo de sus síntomas. Estos datos pueden mejorar la gestión de tu enfermedad y ayudar a otros pacientes como usted en su odisea diagnóstica. Hay dos pasos sencillos:",
-        "subtitlea": "En este informe, el usuario de DxGPT describe los síntomas del paciente con el objetivo de mejorar la comunicación médico-paciente.",
+        "subtitlea": "En este informe, el usuario de dxGPT describe los síntomas del paciente con el objetivo de mejorar la comunicación médico-paciente.",
         "subtitleb": "Se recomienda llevar el informe a la siguiente visita médica para que tanto el paciente como el médico ayuden a precisar más los",
         "subtitlec": "contenidos.",
-        "subtitle1": "Este informe ha sido generado con DxGPT, una herramienta de asistencia al diagnóstico a través de la descripción sintomatológica",
+        "subtitle1": "Este informe ha sido generado con dxGPT, una herramienta de asistencia al diagnóstico a través de la descripción sintomatológica",
         "subtitle2": "de precisión desarrollada por Fundación 29 de Febrero (www.foundation29.org). Juntos aceleramos el proceso de diagnóstico de",
         "subtitle3": "enfermedades raras y su tratamiento de una forma fácil y sencilla.",
         "footer1": "Somos una organización sin ánimo de lucro que diseña y crea herramientas para la gestión de los pacientes de sus propios datos,",
@@ -293,8 +293,8 @@
   "seo":{
     "home":{
       "keywords": "diagnóstico, diagnosticar, enfermedad rara, GPT, síndrome, enfermedad, pronóstico, síntomas, epilepsia, crisis epiléptica, convulsiones, retraso en el desarrollo, pediatría, genética, neurología, enfermedad genética",
-      "description": "DxGPT es un software de ayuda a la toma de decisiones en el diagnóstico basado en GPT-3. IA que ayuda al diagnóstico de enfermedades. Totalmente gratuita para médicos y pacientes.",
-      "title": "DxGPT: ayuda a la toma de decisiones en el diagnóstico basado en GPT-3"
+      "description": "dxGPT es un software de ayuda a la toma de decisiones en el diagnóstico basado en GPT-3. IA que ayuda al diagnóstico de enfermedades. Totalmente gratuita para médicos y pacientes.",
+      "title": "dxGPT: ayuda a la toma de decisiones en el diagnóstico basado en GPT-3"
     }
   },
   "cookie": {
