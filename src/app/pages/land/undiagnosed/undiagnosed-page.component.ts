@@ -216,6 +216,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
 
     async goPrevious() {
+        this.topRelatedConditions = [];
         this.showInputRecalculate = false;
         this.currentStep = this.steps[0];
         //document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
