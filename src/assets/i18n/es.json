@@ -220,6 +220,7 @@
     "Type here": "¡Escribe aquí!",
     "title": "Introduce una breve descripción del paciente y dxGPT te proporcionará una lista de posible diagnósticos de enfermedades.",
     "p1.title": "Ejemplos",
+    "p1.subtitle": "Pulsa en el texto para usarlo como ejemplo",
     "p1.1": "El paciente tiene trece meses. Primera convulsión focal a los tres meses. Convulsiones múltiples tónico-clónicas. Convulsiones febriles. Un estado epiléptico a los ocho meses.",
     "p1.2": "Niña. 11 años. Atrofia hemisférica unilateral, asociada con epilepsia focal resistente a los medicamentos, hemiplejía progresiva y deterioro cognitivo",
     "p2.title": "Capacidades",

@@ -220,6 +220,7 @@
     "Type here": "Type here!",
     "title": "Enter a brief patient's description and dxGPT will provide a list of possible disease diagnoses.",
     "p1.title": "Examples",
+    "p1.subtitle": "Click on the text to use it as an example",
     "p1.1": "The patient is thirteen months old. First focal seizure at three months. Multiple tonic-clonic seizures. Febrile seizures. One status epilepticus at eight months.",
     "p1.2": "Girl. 11 years. unilateral hemispheric atrophy, associated with drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline",
     "p2.title": "Capabilities",
