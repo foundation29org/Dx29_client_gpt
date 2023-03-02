@@ -519,11 +519,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     this.copyMedicalText = this.premedicalText;
                 }
                 let parseChoices0 = res.choices[0].text;
-                if(res.choices[0].text.indexOf("\n\n") > 0 && (res.choices[0].text.indexOf("$") > res.choices[0].text.indexOf("\n\n"))){
+                if(res.choices[0].text.indexOf("\n\n") > 0 && (res.choices[0].text.indexOf("+") > res.choices[0].text.indexOf("\n\n"))){
                     parseChoices0 = res.choices[0].text.split("\n\n");
                     parseChoices0.shift();
                     parseChoices0 = parseChoices0.toString();
-                }else if(res.choices[0].text.indexOf("\n") > 0 && (res.choices[0].text.indexOf("$") > res.choices[0].text.indexOf("\n"))){
+                }else if(res.choices[0].text.indexOf("\n") > 0 && (res.choices[0].text.indexOf("+") > res.choices[0].text.indexOf("\n"))){
                     parseChoices0 = res.choices[0].text.split("\n");
                     parseChoices0.shift();
                     parseChoices0 = parseChoices0.toString();
@@ -581,7 +581,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     continueCallOpenAi(parseChoices0){
         let parseChoices = parseChoices0;
         
-        parseChoices = parseChoices0.split("$");
+        parseChoices = parseChoices0.split("+");
         if(!this.loadMoreDiseases){
             this.topRelatedConditions = [];
         }
@@ -627,7 +627,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     setDiseaseListEn(text){
-        let parseChoices = text.split("$");
+        let parseChoices = text.split("+");
         for (let i = 0; i < parseChoices.length; i++) {
             if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length>3) {
                 let index = parseChoices[i].indexOf(':');
@@ -647,7 +647,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         if (this.selectorRare) {
             paramIntroText = this.optionCommon;
         }
-        this.temppremedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with this format '\n\n$"+(this.diseaseListEn.length+1)+".' for each potencial "+paramIntroText+", and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
+        this.temppremedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with this format '\n\n+"+(this.diseaseListEn.length+1)+".' for each potencial "+paramIntroText+", and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
     }
