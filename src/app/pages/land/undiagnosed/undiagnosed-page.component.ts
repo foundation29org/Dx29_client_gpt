@@ -513,18 +513,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         if(this.loadMoreDiseases){
             value = { value: introText + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang }
         }
+        console.log(step)
+        if(step == 'step3'){
+            let introText2 = this.translate.instant("land.prom2", {
+                value: paramIntroText
+            })
+            value = { value: introText2 + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang }
+        }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
                 if (this.currentStep.stepIndex == 1 || step == 'step2') {
                     this.copyMedicalText = this.premedicalText;
                 }
-                let parseChoices0 = res.choices[0].text;
-                if(res.choices[0].text.indexOf("\n\n") > 0 && (res.choices[0].text.indexOf("+") > res.choices[0].text.indexOf("\n\n"))){
-                    parseChoices0 = res.choices[0].text.split("\n\n");
+                let parseChoices0 = res.choices[0].message.content;
+                if(res.choices[0].message.content.indexOf("\n\n") > 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n\n"))){
+                    parseChoices0 = res.choices[0].message.content.split("\n\n");
                     parseChoices0.shift();
                     parseChoices0 = parseChoices0.toString();
-                }else if(res.choices[0].text.indexOf("\n") > 0 && (res.choices[0].text.indexOf("+") > res.choices[0].text.indexOf("\n"))){
-                    parseChoices0 = res.choices[0].text.split("\n");
+                }else if(res.choices[0].message.content.indexOf("\n") > 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n"))){
+                    parseChoices0 = res.choices[0].message.content.split("\n");
                     parseChoices0.shift();
                     parseChoices0 = parseChoices0.toString();
                 }
@@ -670,7 +677,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     showQuestion(question, index) {
         /*var testRes= {"id":"cmpl-6KmXVRaPvar50l7SgRNVTiosKsCiQ","object":"text_completion","created":1670411165,"model":"text-davinci-003","choices":[{"text":"\n\nCommon symptoms of Dravet Syndrome include:\n\n-Frequent and/or prolonged seizures\n-Developmental delays\n-Speech delays\n-Behavioral and social challenges\n-Sleep disturbances\n-Growth and nutrition issues\n-Sensory integration dysfunction\n-Movement and balance issues\n-Weak muscle tone (hypotonia)\n-Delayed motor skills","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":13,"completion_tokens":80,"total_tokens":93}}
-        this.answerOpenai = testRes.choices[0].text;*/
+        this.answerOpenai = testres.choices[0].message.content;*/
         this.symptomsDifferencial = [];
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
@@ -702,18 +709,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
-                let parseChoices0 = res.choices[0].text;
-                if (res.choices[0].text.indexOf("\n\n") == 0) {
-                    parseChoices0 = res.choices[0].text.split("\n\n");
+                let parseChoices0 = res.choices[0].message.content;
+                if (res.choices[0].message.content.indexOf("\n\n") == 0) {
+                    parseChoices0 = res.choices[0].message.content.split("\n\n");
                     parseChoices0.shift();
-                }else if(res.choices[0].text.indexOf("\n") == 0){
-                    parseChoices0 = res.choices[0].text.split("\n");
+                }else if(res.choices[0].message.content.indexOf("\n") == 0){
+                    parseChoices0 = res.choices[0].message.content.split("\n");
                     parseChoices0.shift();
-                }else if(res.choices[0].text.indexOf("\n\n") > 0){
-                    parseChoices0 = res.choices[0].text.split("\n\n");
+                }else if(res.choices[0].message.content.indexOf("\n\n") > 0){
+                    parseChoices0 = res.choices[0].message.content.split("\n\n");
                     parseChoices0.shift();
-                }else if(res.choices[0].text.indexOf("\n") > 0){
-                    parseChoices0 = res.choices[0].text.split("\n");
+                }else if(res.choices[0].message.content.indexOf("\n") > 0){
+                    parseChoices0 = res.choices[0].message.content.split("\n");
                     parseChoices0.shift();
                 }
                 if(index==3){
@@ -745,17 +752,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                             this.lauchEvent("Info Disease");
                         }, (err) => {
                             console.log(err);
-                            this.getDifferentialDiagnosis(res.choices[0].text);
+                            this.getDifferentialDiagnosis(res.choices[0].message.content);
                             this.loadingAnswerOpenai = false;
                             this.lauchEvent("Info Disease");
                         }));
                     }else{
-                        this.getDifferentialDiagnosis(res.choices[0].text);
+                        this.getDifferentialDiagnosis(res.choices[0].message.content);
                         this.loadingAnswerOpenai = false;
                         this.lauchEvent("Info Disease");
                     }
                 }else{
-                    var tempInfo = res.choices[0].text;
+                    var tempInfo = res.choices[0].message.content;
                     if(parseChoices0.length>1 && Array.isArray(parseChoices0)){
                         var sendInfo='';
                         for (let i = 0; i < parseChoices0.length; i++) {
@@ -798,7 +805,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                             }else if(parseChoices0.length==1){
                                 this.answerOpenai = parseChoices0[0] 
                             }else{
-                                this.answerOpenai = res.choices[0].text;
+                                this.answerOpenai = res.choices[0].message.content;
                             }
                             
                             this.loadingAnswerOpenai = false;
