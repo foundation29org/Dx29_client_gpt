@@ -534,6 +534,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     parseChoices0 = res.choices[0].message.content.split("\n");
                     parseChoices0.shift();
                     parseChoices0 = parseChoices0.toString();
+                }else if(res.choices[0].message.content.indexOf("\n\n") == 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n\n"))){
+                    //delete up to index "+" 
+                    parseChoices0 = res.choices[0].message.content.substring(res.choices[0].message.content.indexOf("+"));
+                }else if(res.choices[0].message.content.indexOf("\n") == 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n"))){
+                    //delete up to index "+" 
+                    parseChoices0 = res.choices[0].message.content.substring(res.choices[0].message.content.indexOf("+"));
                 }
                 if(!this.loadMoreDiseases){
                     this.diseaseListEn = [];
@@ -586,6 +592,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     continueCallOpenAi(parseChoices0){
+        console.log(parseChoices0)
         let parseChoices = parseChoices0;
         
         parseChoices = parseChoices0.split("+");
@@ -606,6 +613,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             if (index != -1 && index2 == -1) {
                 let firstPart = this.topRelatedConditions[i].content.substring(0, index + 1);
                 let secondPart = this.topRelatedConditions[i].content.substring(index + 1, this.topRelatedConditions[i].content.length);
+                //if secondPart is empty, delete this.topRelatedConditions[i] from array
+                if(secondPart == ''){
+                    this.topRelatedConditions.splice(i, 1);
+                    this.diseaseListEn.splice(i, 1);
+                    i--;
+                    continue;
+                }
+                console.log(secondPart)
                 //this.topRelatedConditions[i] = '<strong>' + firstPart + '</strong>' + secondPart;
                 let index3 = firstPart.indexOf('.');
                 let namePart = firstPart.substring(index3+2, firstPart.length-1);
@@ -648,13 +663,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         var diseases = '';
         for (let i = 0; i < this.diseaseListEn.length; i++) {
             console.log(this.diseaseListEn[i])
-            diseases = diseases +  this.diseaseListEn[i] + ', ';
+            diseases = diseases + '+' +this.diseaseListEn[i] + ', ';
         }
         let paramIntroText = this.optionRare;
         if (this.selectorRare) {
             paramIntroText = this.optionCommon;
         }
-        this.temppremedicalText = this.copyMedicalText + '. ' + "Continue with the following list without repeating them, with this format '\n\n+"+(this.diseaseListEn.length+1)+".' for each potencial "+paramIntroText+", and give me a phrase that defines each new disease. \n Indicate which symptoms has in common and which symptoms does not have in common. The list is: "+ diseases;
+        this.temppremedicalText = this.copyMedicalText + '. ' + "Each must have this format '\n\n+"+(this.diseaseListEn.length+1)+".' for each potencial "+paramIntroText+". The list is: "+ diseases;
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
     }

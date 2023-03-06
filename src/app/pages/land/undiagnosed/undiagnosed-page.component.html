@@ -1,6 +1,6 @@
 <a id="initsteps" class="anchorSteps"></a>
-<div class="vertical-center" style="background-color: #353540;">
-  <section *ngIf="currentStep.stepIndex == 1" class="">
+<div class="vertical-center row" style="background-color: #353540;">
+  <section *ngIf="currentStep.stepIndex == 1" class="col-md-12">
     <div class="row m-0">
 
       <div class="col-12">
@@ -97,19 +97,17 @@
                     <tr>
                       <th id="headerTable" style="border-top-style: none;">
                         <span class="row">
-                          <span class="col-9">{{'diagnosis.Proposed diagnoses' | translate }}
-                            <span class="font-small-1 d-block">{{'diagnosis.Click on the disease to see more options' | translate }}</span> 
-                          </span>
-                          <span class="col-3">
+                          <span class="col-12">
+                            <h4 class="card-title text-bold-500" style="margin-top: 0rem !important;">{{'diagnosis.Proposed diagnoses' | translate }}</h4>
                             <span class="float-right">
-                              <em class="mt-1 fas fa-copy info mr-2" title="{{'land.Copy results' | translate }}"
-                              (click)="copyResults()" style="cursor: pointer;"></em>
-                              <em class="mt-1 fa fa-download info mr-2"
-                              title="{{'land.Download results' | translate }}" (click)="downloadResults()"
-                              style="cursor: pointer;"></em>
+                              <span *ngIf="!sendingVote">
+                                <button class="mr-1 btn btn-success" (click)="vote('up', contentFeedbackDown)" [disabled]="sendingVote"><em class="white fas fa-2x fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-2x fa-thumbs-down"></em></button>
+                              </span>
+                              <span *ngIf="sendingVote" class="d-block"><em class="fa fa-spinner fa-spin fa-fw"></em></span>
                             </span>
-                          </span>
-                          
+                            <span class="font-small-3 d-block">1. {{'land.Indicates the quality of the result' | translate }}</span>
+                            <span class="font-small-3 d-block">2. {{'diagnosis.Click on the disease to see more options' | translate }}</span>
+                          </span>                          
                         </span>
                       </th>
                     </tr>
@@ -129,9 +127,12 @@
                           </span>
                           <span class="custom-bold" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
                           style="cursor: pointer;" title="{{'generics.More information' | translate }} ({{disease.name}})"  [innerHTML]="disease.content"></span>
-                          <div *ngIf="disease.url!=''" class="col-12 center-elements mt-2">
-                            <a class="btn btn-sm btn-primary mb-1" [href]="disease.url" target="_blank">{{'diagnosis.SponsorMsg' | translate }} <em class="ml-1 ft-external-link"></em></a>
+                          <div *ngIf="disease.name!=''">
+                            <div *ngIf="disease.url!=''" class="col-12 center-elements mt-2">
+                              <a class="btn btn-sm btn-primary mb-1" [href]="disease.url" target="_blank">{{'diagnosis.SponsorMsg' | translate }} <em class="ml-1 ft-external-link"></em></a>
+                            </div>
                           </div>
+                          
                         </td>
                       </tr>
                     </tbody>
@@ -144,6 +145,13 @@
                   <span *ngIf="!selectorRare"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(true)">{{'land.Show common diseases' | translate }}</button></span>
                   <span *ngIf="selectorRare"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(false)">{{'land.Show rare diseases' | translate }}</button></span>
                   <button class="btn btn-info ml-2" (click)="loadMore()">{{'land.Load more' | translate }}</button>
+                  <span class="optionsResults">
+                    <em class="mt-1 fas fa-2x fa-copy info mr-1" title="{{'land.Copy results' | translate }}"
+                    (click)="copyResults()" style="cursor: pointer;"></em>
+                    <em class="mt-1 fa fa-2x fa-download info ml-1"
+                    title="{{'land.Download results' | translate }}" (click)="downloadResults()"
+                    style="cursor: pointer;"></em>
+                  </span>
               </div>
                 <!--<div class="col-md-12 mb-0 white p-2" style="background-color: #353540;">
                     <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent2($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
@@ -151,13 +159,6 @@
             </div>
           </span>
         </div>
-      </div>
-      <div class="col-md-12 center-elements">
-        <h1 class="card-title text-bold-500">{{'land.Indicates the quality of the result' | translate }}</h1>
-        <span *ngIf="!sendingVote">
-          <button class="mr-1 btn btn-info" (click)="vote('up', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-2x fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)" [disabled]="sendingVote"><em class="fas fa-2x fa-thumbs-down"></em></button>
-        </span>
-        <span *ngIf="sendingVote" class="d-block"><em class="fa fa-spinner fa-spin fa-fw fa-2x"></em></span>
       </div>
     </div>
     

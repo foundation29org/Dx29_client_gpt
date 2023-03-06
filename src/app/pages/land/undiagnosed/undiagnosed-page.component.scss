@@ -163,6 +163,11 @@ section {
   display: block;
 }
 
+.optionsResults{
+  position: absolute;
+  right: 10px;
+}
+
 .mt-025{
   margin-top: 0.25em !important;
 }
@@ -730,6 +735,13 @@ body {
       margin-right: 0rem !important;
     } 
 
+}
+@media ( max-width: 991px ){
+  .optionsResults{
+    position: relative;
+    right: 0px;
+    display: block;
+  }
 }
 
   @media ( max-width: 899px ){
