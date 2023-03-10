@@ -397,7 +397,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     preparingCallOpenAi(step) {
         this.callingOpenai = true;
-        if(step=='step3'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
+        if(step=='step3'|| step=='step4'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
             if(this.optionSelected.id==1){
                 var labelMoreSymptoms = this.translate.instant("land.msgmoresymptoms")
                 if(this.medicalText.indexOf(labelMoreSymptoms)==-1){
@@ -422,7 +422,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     continuePreparingCallOpenAi(step) {
-        if(step=='step3'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
+        if(step=='step3'|| step=='step4'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
             this.callOpenAi(step);
         }else{
             Swal.fire({
@@ -966,21 +966,21 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                                     }
                                 }
                                 this.medicalText2Copy = textToTA;
-                                this.preparingCallOpenAi('step3');
+                                this.preparingCallOpenAi('step4');
                             }, (err) => {
                                 console.log(err);
-                                this.preparingCallOpenAi('step3');
+                                this.preparingCallOpenAi('step4');
                             }));
                     } else {
-                        this.preparingCallOpenAi('step3');
+                        this.preparingCallOpenAi('step4');
                     }
 
                 }, (err) => {
-                    this.preparingCallOpenAi('step3');
+                    this.preparingCallOpenAi('step4');
                     
                 }));
         } else {
-            this.preparingCallOpenAi('step3');
+            this.preparingCallOpenAi('step4');
         }
             
         
