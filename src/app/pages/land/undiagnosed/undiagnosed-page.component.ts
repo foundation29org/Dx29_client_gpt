@@ -584,6 +584,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     includesElement(array, string){
         for(let i = 0; i < array.length; i++) {
+            //string to minuscule
+            string = string.toLowerCase();
+            array[i] = array[i].toLowerCase();
             if(string.includes(array[i])){
                 return true;
             }
