@@ -583,9 +583,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     includesElement(array, string){
-        for(let i = 0; i < array.length; i++) {
-            //string to minuscule
-            string = string.toLowerCase();
+        string = string.toLowerCase();
+        for(let i = 0; i < array.length; i++) {            
             array[i] = array[i].toLowerCase();
             if(string.includes(array[i])){
                 return true;
@@ -594,7 +593,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         return false;
     }
 
-    continueCallOpenAi(parseChoices0){
+    async continueCallOpenAi(parseChoices0){
         console.log(parseChoices0)
         let parseChoices = parseChoices0;
         
@@ -646,9 +645,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }
         this.callingOpenai = false;
         Swal.close();
-        window.scrollTo(0, 0);
+        //window.scrollTo(0, 0);
         this.lauchEvent("Search Disease");
-        //this.scrollTo();
+        await this.delay(200);
+        this.scrollTo();
     }
 
     setDiseaseListEn(text){
@@ -679,7 +679,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     async scrollTo() {
         await this.delay(400);
-        document.getElementById('step2').scrollIntoView({ behavior: "smooth" });
+        document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
     }
 
 
