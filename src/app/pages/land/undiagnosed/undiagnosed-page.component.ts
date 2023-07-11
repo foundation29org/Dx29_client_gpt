@@ -717,7 +717,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             introText = 'Provide a diagnosis test for'+ selectedDiseaseEn;
         }
         if(index==3){
-            introText = this.premedicalText+'. What other symptoms that the patient does not have could you find out to make a differential diagnosis of '+selectedDiseaseEn + '. Return only one list, and sort it with the most likely at the top';
+            introText = this.premedicalText+'. What other symptoms that the patient does not have could you find out to make a differential diagnosis of '+selectedDiseaseEn + '. Return only a list, dont return anything before or after the list, and sort it with the most likely at the top';
         }
         if(index==4){
             introText = this.premedicalText+'. Why do you think this patient has '+selectedDiseaseEn + '. Indicate the common symptoms with '+selectedDiseaseEn +' and the ones that he/she does not have';
