@@ -734,10 +734,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 }else if(res.choices[0].message.content.indexOf("\n") == 0){
                     parseChoices0 = res.choices[0].message.content.split("\n");
                     parseChoices0.shift();
-                }else if(res.choices[0].message.content.indexOf("\n\n") > 0){
+                }else if(res.choices[0].message.content.indexOf("\n\n") > 0 && index!=0){
                     parseChoices0 = res.choices[0].message.content.split("\n\n");
                     parseChoices0.shift();
-                }else if(res.choices[0].message.content.indexOf("\n") > 0){
+                }else if(res.choices[0].message.content.indexOf("\n") > 0 && index!=0){
                     parseChoices0 = res.choices[0].message.content.split("\n");
                     parseChoices0.shift();
                 }
