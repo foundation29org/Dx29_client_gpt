@@ -597,7 +597,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         console.log(parseChoices0)
         let parseChoices = parseChoices0;
         
-        parseChoices = parseChoices0.split("+");
+        //parseChoices = parseChoices0.split("+");
+        parseChoices = parseChoices0.split(/\+(?=\d)/);
         if(!this.loadMoreDiseases){
             this.topRelatedConditions = [];
         }
