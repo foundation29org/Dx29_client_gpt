@@ -46,8 +46,8 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error.status === 404 || error.status === 0) {
           if (!isExternalReq) {
             var returnMessage = error.message;
-            if (error.error.message) {
-              returnMessage = error.error;
+            if (error.error && error.error.message) {
+              returnMessage = error.error.message.toString();
             }
             eventsService.broadcast('http-error', returnMessage);
           } else {
