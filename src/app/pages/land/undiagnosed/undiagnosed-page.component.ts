@@ -708,7 +708,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             selectedDiseaseEn = temp[1];
         }
         var introText = question.question + ' ' + selectedDiseaseEn + '?';
-        if(index==0){
+        /*if(index==0){
             introText = 'What are the common symptoms for'+ selectedDiseaseEn +'? Order the list with the most probable on the top';
         }
         if(index==1){
@@ -722,13 +722,44 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }
         if(index==4){
             introText = this.premedicalText+'. Why do you think this patient has '+selectedDiseaseEn + '. Indicate the common symptoms with '+selectedDiseaseEn +' and the ones that he/she does not have';
-        }
+        }*/
 
-        
+        if(index==0){
+            introText = 'What are the common symptoms associated with'+ selectedDiseaseEn +'? Please provide a list starting with the most probable symptoms at the top.';
+        }
+        if(index==1){
+            introText = 'Can you provide detailed information about '+ selectedDiseaseEn+' ? I am a doctor.';
+        }
+        if(index==2){
+            introText = 'Provide a diagnosis test for'+ selectedDiseaseEn;
+        }
+        if(index==3){
+            introText = 'Given the medical description: '+this.premedicalText+'. , what are the potential symptoms not present in the patient that could help in making a differential diagnosis for '+selectedDiseaseEn + '. Please provide only a list, starting with the most likely symptoms at the top.';
+        }
+        if(index==4){
+            //introText = 'Based on the medical description: '+this.premedicalText+', why do you believe the patient has '+selectedDiseaseEn + '. Please indicate the symptoms common with '+selectedDiseaseEn + ' Indicate the common symptoms with '+selectedDiseaseEn +' and those the patient does not have.';
+            introText = this.premedicalText+'. Why do you think this patient has '+selectedDiseaseEn + '. Indicate the common symptoms with '+selectedDiseaseEn +' and the ones that he/she does not have';
+        }
         var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
-                let parseChoices0 = res.choices[0].message.content;
+
+                let content = res.choices[0].message.content;
+                let splitChar = content.indexOf("\n\n") >= 0 ? "\n\n" : "\n";
+                let contentArray = content.split(splitChar);
+
+                // Encuentra el índice del primer punto "1."
+                let startIndex = contentArray.findIndex(item => item.trim().startsWith("1."));
+
+                // Si se encuentra el punto "1.", conserva todos los elementos a partir de ese índice
+                if (startIndex >= 0) {
+                    contentArray = contentArray.slice(startIndex);
+                }
+
+                // Reconstruye el contenido
+                let parseChoices0 = contentArray.join(splitChar);
+
+                /*let parseChoices0 = res.choices[0].message.content;
                 if (res.choices[0].message.content.indexOf("\n\n") == 0) {
                     parseChoices0 = res.choices[0].message.content.split("\n\n");
                     parseChoices0.shift();
@@ -741,7 +772,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 }else if(res.choices[0].message.content.indexOf("\n") > 0 && index!=0){
                     parseChoices0 = res.choices[0].message.content.split("\n");
                     parseChoices0.shift();
-                }
+                }*/
+                console.log(parseChoices0)
                 if(index==3){
                     if (this.detectedLang != 'en' && index==3) {
                         var jsontestLangText = [{ "Text": parseChoices0[0] }]
