@@ -1406,4 +1406,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 this.callingTextAnalytics = false;
             }));
       }
+
+      showContentInfoAPP(contentInfoAPP) {
+        var nameEvent = 'showContentInfoAPP';
+        this.lauchEvent(nameEvent);
+        let ngbModalOptions: NgbModalOptions = {
+            backdrop: 'static',
+            keyboard: false,
+            windowClass: 'ModalClass-lg'// xl, lg, sm
+        };
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+        }
+        this.modalReference = this.modalService.open(contentInfoAPP, ngbModalOptions);
+        
+    }
 }
