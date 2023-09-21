@@ -3,13 +3,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import { SortService} from 'app/shared/services/sort.service';
+import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 @Injectable()
 export class LangService {
 
     langs: any = [];
 
-    constructor(public translate : TranslateService, private http: HttpClient, private sortService: SortService) {}
+    constructor(public translate : TranslateService, private http: HttpClient, private sortService: SortService, public insightsService: InsightsService) {}
 
 
     getLangs(){
@@ -21,6 +22,7 @@ export class LangService {
             return res;
          }, (err) => {
            console.log(err);
+           this.insightsService.trackException(err);
            return {};
          })
     }

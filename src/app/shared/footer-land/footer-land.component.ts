@@ -6,6 +6,7 @@ import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs/Subscription';
 import { ToastrService } from 'ngx-toastr';
 import { v4 as uuidv4 } from 'uuid';
+import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 declare let gtag: any;
 
@@ -25,7 +26,7 @@ export class FooterLandComponent implements OnDestroy{
     myuuid: string = uuidv4();
     private subscription: Subscription = new Subscription();
 
-    constructor(private http: HttpClient, public translate: TranslateService, public toastr: ToastrService) {
+    constructor(private http: HttpClient, public translate: TranslateService, public toastr: ToastrService, public insightsService: InsightsService) {
       this._startTime = Date.now();
       sessionStorage.setItem('uuid', this.myuuid);
     }
@@ -68,6 +69,7 @@ export class FooterLandComponent implements OnDestroy{
             this.toastr.success('', this.translate.instant("generics.Data saved successfully"));
             this.mainForm.reset();
            }, (err) => {
+            this.insightsService.trackException(err);
              console.log(err);
              this.sending = false;
              this.toastr.error('', this.translate.instant("generics.error try again"));

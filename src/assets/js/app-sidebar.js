@@ -123,7 +123,6 @@
         compact_menu_checkbox = $('.cz-compact-menu');
 
         if(toggle === 'expanded'){
-          console.log('aaa');
           $( ".logo-img2" ).hide();
           $( ".logo-img" ).show();
             $wrapper.addClass('nav-collapsed');
@@ -135,7 +134,6 @@
             }
         }
         else{
-          console.log('dsf');
           $( ".logo-img" ).hide();
           $( ".logo-img2" ).show();
             $wrapper.removeClass('nav-collapsed menu-collapsed');

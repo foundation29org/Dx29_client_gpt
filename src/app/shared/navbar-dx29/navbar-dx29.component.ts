@@ -8,6 +8,7 @@ import { ConfigService } from '../services/config.service';
 import { LangService } from 'app/shared/services/lang.service';
 import { EventsService } from 'app/shared/services/events.service';
 import { Injectable, Injector } from '@angular/core';
+import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 declare let gtag: any;
 
@@ -35,7 +36,7 @@ export class NavbarD29Component implements OnInit, AfterViewInit, OnDestroy {
   _startTime: any;
   private subscription: Subscription = new Subscription();
 
-  constructor(public translate: TranslateService, private layoutService: LayoutService, private configService: ConfigService, private langService: LangService, private router: Router, private route: ActivatedRoute, private inj: Injector) {
+  constructor(public translate: TranslateService, private layoutService: LayoutService, private configService: ConfigService, private langService: LangService, private router: Router, private route: ActivatedRoute, private inj: Injector, public insightsService: InsightsService) {
     /*this.translate.use('en');
     sessionStorage.setItem('lang', 'en');*/
     this.loadLanguages();
@@ -43,7 +44,6 @@ export class NavbarD29Component implements OnInit, AfterViewInit, OnDestroy {
 
       event => {
         var tempUrl = (event.url).toString();
-        console.log(tempUrl);
         if (tempUrl.indexOf('/.') != -1 || tempUrl == '/') {
           this.isHomePage = true;
           this.isAboutPage = false;
@@ -141,6 +141,7 @@ export class NavbarD29Component implements OnInit, AfterViewInit, OnDestroy {
 
       }, (err) => {
         console.log(err);
+        this.insightsService.trackException(err);
       }));
   }
 

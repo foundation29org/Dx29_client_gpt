@@ -42,6 +42,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { NgxHotjarModule } from 'ngx-hotjar';
 import {GoogleAnalyticsService} from './shared/services/google-analytics.service';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
+import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 const cookieConfig:NgcCookieConsentConfig = {
   cookie: {
@@ -114,7 +115,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
       },
       { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
-      GoogleAnalyticsService
+      GoogleAnalyticsService,
+      InsightsService
     ],
     bootstrap: [AppComponent]
   })

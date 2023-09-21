@@ -4,7 +4,7 @@ import { LangService } from 'app/shared/services/lang.service';
 import { Subscription } from 'rxjs/Subscription';
 import { EventsService} from 'app/shared/services/events.service';
 import { Injectable, Injector } from '@angular/core';
-
+import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 @Component({
     selector: 'app-navbar-nolog',
@@ -20,7 +20,7 @@ export class NavbarComponentNolog implements OnDestroy{
     langs: any;
     private subscription: Subscription = new Subscription();
 
-    constructor(public translate: TranslateService, private langService:LangService, private inj: Injector) {
+    constructor(public translate: TranslateService, private langService:LangService, private inj: Injector, public insightsService: InsightsService) {
       /*this.translate.use('en');
       sessionStorage.setItem('lang', 'en');*/
       this.loadLanguages();
@@ -53,6 +53,7 @@ export class NavbarComponentNolog implements OnDestroy{
 
          }, (err) => {
            console.log(err);
+           this.insightsService.trackException(err);
          }));
     }
 

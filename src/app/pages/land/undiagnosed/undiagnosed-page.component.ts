@@ -18,6 +18,7 @@ import { GoogleAnalyticsService } from 'app/shared/services/google-analytics.ser
 import { SearchFilterPipe } from 'app/shared/services/search-filter.service';
 import { DialogService } from 'app/shared/services/dialog.service';
 import { jsPDFService } from 'app/shared/services/jsPDF.service'
+import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 //import { Observable } from 'rxjs/Observable';
 import { Observable, of, OperatorFunction } from 'rxjs';
@@ -36,8 +37,6 @@ var $primary = "#975AFF",
     $label_color_light = "#E6EAEE";
 var themeColors = [$primary, $warning, $success, $danger, $info];
 declare let gtag: any;
-declare var JSZipUtils: any;
-declare var Docxgen: any;
 
 @Component({
     selector: 'app-undiagnosed-page',
@@ -107,18 +106,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     showErrorForm: boolean = false;
     sponsors = [];
     
-    constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService) {
+    constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService, public insightsService: InsightsService) {
 
         this.lang = sessionStorage.getItem('lang');
         this.originalLang = sessionStorage.getItem('lang');
-
-        $.getScript("./assets/js/docs/jszip-utils.js").done(function (script, textStatus) {
-            //console.log("finished loading and running jszip-utils.js. with a status of" + textStatus);
-        });
-
-        $.getScript("./assets/js/docs/docxtemplater.v2.1.5.js").done(function (script, textStatus) {
-            //console.log("finished loading and running docxtemplater.js. with a status of" + textStatus);
-        });
 
         //this.googleAnalyticsService.eventEmitter("OpenDx - init: "+result, "general", this.myuuid);
         //this.googleAnalyticsService.eventEmitter("OpenDx - init", "general", this.myuuid, 'init', 5);
@@ -145,6 +136,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             .subscribe((res: any) => {
                 this.sponsors = res;
             }, (err) => {
+                this.insightsService.trackException(err);
                 console.log(err);
             }));
     }
@@ -199,6 +191,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
               Swal.close();
           }, 2000);
          }, (err) => {
+            this.insightsService.trackException(err);
            console.log(err);
            this.sending = false;
            this.checkSubscribe = false;
@@ -451,6 +444,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                                     this.premedicalText = textToTA;
                                     this.callOpenAi(step);
                                 }, (err) => {
+                                    this.insightsService.trackException(err);
                                     console.log(err);
                                     this.callOpenAi(step);
                                 }));
@@ -460,6 +454,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         }
     
                     }, (err) => {
+                        this.insightsService.trackException(err);
                         console.log(err);
                         this.toastr.error('', this.translate.instant("generics.error try again"));
                         this.callingOpenai = false;
@@ -482,10 +477,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             cancelButtonText: this.translate.instant("generics.Cancel"),
             allowOutsideClick: false
         }).then(function (event) {
-            console.log(event);
-            console.log('entra')
-            console.log(Swal.DismissReason.cancel)
-            console.log(event.dismiss)
             if (event.dismiss == Swal.DismissReason.cancel) {
 
                 // function when confirm button clicked
@@ -513,7 +504,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         if(this.loadMoreDiseases){
             value = { value: introText + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang }
         }
-        console.log(step)
         if(step == 'step3'){
             let introText2 = this.translate.instant("land.prom2", {
                 value: paramIntroText
@@ -560,6 +550,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         }
                         this.continueCallOpenAi(parseChoices0);
                     }, (err) => {
+                        this.insightsService.trackException(err);
                         console.log(err);
                         this.continueCallOpenAi(parseChoices0);
                     }));
@@ -568,6 +559,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 }
                 
             }, (err) => {
+                this.insightsService.trackException(err);
                 console.log(err);
                 this.callingOpenai = false;
                 Swal.close();
@@ -594,7 +586,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     async continueCallOpenAi(parseChoices0){
-        console.log(parseChoices0)
         let parseChoices = parseChoices0;
         
         //parseChoices = parseChoices0.split("+");
@@ -623,7 +614,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     i--;
                     continue;
                 }
-                console.log(secondPart)
                 //this.topRelatedConditions[i] = '<strong>' + firstPart + '</strong>' + secondPart;
                 let index3 = firstPart.indexOf('.');
                 let namePart = firstPart.substring(index3+2, firstPart.length-1);
@@ -666,7 +656,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     loadMore() {
         var diseases = '';
         for (let i = 0; i < this.diseaseListEn.length; i++) {
-            console.log(this.diseaseListEn[i])
             diseases = diseases + '+' +this.diseaseListEn[i] + ', ';
         }
         let paramIntroText = this.optionRare;
@@ -773,7 +762,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     parseChoices0 = res.choices[0].message.content.split("\n");
                     parseChoices0.shift();
                 }*/
-                console.log(parseChoices0)
                 if(index==3){
                     if (this.detectedLang != 'en' && index==3) {
                         var jsontestLangText = [{ "Text": parseChoices0[0] }]
@@ -802,6 +790,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                             this.loadingAnswerOpenai = false;
                             this.lauchEvent("Info Disease");
                         }, (err) => {
+                            this.insightsService.trackException(err);
                             console.log(err);
                             this.getDifferentialDiagnosis(res.choices[0].message.content);
                             this.loadingAnswerOpenai = false;
@@ -846,6 +835,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                             this.loadingAnswerOpenai = false;
                             this.lauchEvent("Info Disease");
                         }, (err) => {
+                            this.insightsService.trackException(err);
                             console.log(err);
                             if(parseChoices0.length>1 && Array.isArray(parseChoices0)){
                                 var sendInfo='';
@@ -869,6 +859,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         this.lauchEvent("Info Disease");
                     }
                     }, (err) => {
+                        this.insightsService.trackException(err);
                         console.log(err);
                         this.answerOpenai = tempInfo;
                             
@@ -884,6 +875,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
                 
             }, (err) => {
+                this.insightsService.trackException(err);
                 console.log(err);
                 this.loadingAnswerOpenai = false;
             }));
@@ -1004,6 +996,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                                 this.medicalText2Copy = textToTA;
                                 this.preparingCallOpenAi('step4');
                             }, (err) => {
+                                this.insightsService.trackException(err);
                                 console.log(err);
                                 this.preparingCallOpenAi('step4');
                             }));
@@ -1153,6 +1146,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                 }
 
             }, (err) => {
+                this.insightsService.trackException(err);
                 console.log(err);
                 this.sendingVote = false;
             }));
@@ -1204,6 +1198,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     Swal.close();
                 }, 2000);
             }, (err) => {
+                this.insightsService.trackException(err);
                 console.log(err);
                 this.sending = false;
             }));
@@ -1282,177 +1277,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.verifCallOpenAi('step2');
     }
 
-    onFileChangePDF(event) {
-        if (event.target.files && event.target.files[0]) {
-            var reader = new FileReader();
-            reader.readAsDataURL(event.target.files[0]); // read file as data url
-            reader.onload = (event2: any) => { // called once readAsDataURL is completed
-                var the_url = event2.target.result
-
-                var extension = (event.target.files[0]).name.substr((event.target.files[0]).name.lastIndexOf('.'));
-                extension = extension.toLowerCase();
-                this.langToExtract = '';
-                if (event.target.files[0].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || extension == '.docx') {
-                    this.loadFile(the_url, function (err, content) {
-                        if (err) { console.log(err); };
-                        var doc = new Docxgen(content);
-                        var text = doc.getFullText();
-                        this.detectLanguage(text, 'otherdocs');
-                        this.medicalText = text;
-                        this.showPanelExtractor = true;
-                        this.expanded = true;
-                    }.bind(this))
-                } else if (event.target.files[0].type == 'application/pdf' || extension == '.pdf' || extension == '.jpg' || extension == '.png' || extension == '.gif' || extension == '.tiff' || extension == '.tif' || extension == '.bmp' || extension == '.dib' || extension == '.bpg' || extension == '.psd' || extension == '.jpeg' || extension == '.jpe' || extension == '.jfif') {
-                    this.parserObject.file = event.target.files[0]
-                    if (extension == '.jpg' || extension == '.png' || extension == '.gif' || extension == '.tiff' || extension == '.tif' || extension == '.bmp' || extension == '.dib' || extension == '.bpg' || extension == '.psd' || extension == '.jpeg' || extension == '.jpe' || extension == '.jfif') {
-                        this.parserObject.parserStrategy = 'OcrOnly';
-                    } else {
-                        this.parserObject.parserStrategy = 'OcrOnly';//Auto
-                    }
-
-                    this.callParser();
-
-                } else {
-                    Swal.fire(this.translate.instant("land.error extension"), '', "error");
-                }
-
-            }
-
-        }
-    }
-
-    callParser() {
-        Swal.fire({
-            title: this.translate.instant("generics.Please wait"),
-            html: '<p>'+this.translate.instant("land.Extracting the text from the document")+'</p><i class="fa fa-spinner fa-spin fa-3x fa-fw info"></i>',
-            showCancelButton: false,
-            showConfirmButton: false,
-            allowOutsideClick: false
-        }).then((result) => {
-
-        });
-
-        this.parserObject.callingParser = true;
-        var self = this;
-        var oReq = new XMLHttpRequest();
-        var lang = this.lang;
-        if (this.langToExtract != '') {
-            lang = this.langToExtract;
-        }
-
-        oReq.open("PUT", environment.f29api + '/api/Document/Parse?Timeout=5000&language=' + lang + '&Strategy=' + this.parserObject.parserStrategy, true);
-
-        var self = this;
-        oReq.onload = function (oEvent) {
-            Swal.close();
-            self.langToExtract = '';
-            self.parserObject.callingParser = false;
-            // Uploaded.
-            let file = oEvent.target;
-            var target: any = {};
-            target = file;
-            //target--> status, strategy, content
-            if (target.response.content == undefined) {
-                self.medicalText = '';
-            } else {
-                self.medicalText = target.response.content
-                self.medicalText = self.medicalText.split("\n").join(" ");
-            }
-
-            if (target.response.status == 'RequireOcr') {
-                self.parserObject.parserStrategy = 'OcrOnly';
-                Swal.fire({
-                    title: self.translate.instant("parser.OcrOnlyTitle"),
-                    text: self.translate.instant("parser.OcrOnlyText"),
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#33658a',
-                    cancelButtonColor: '#B0B6BB',
-                    confirmButtonText: self.translate.instant("generics.Yes"),
-                    cancelButtonText: self.translate.instant("generics.No"),
-                    showLoaderOnConfirm: true,
-                    allowOutsideClick: false,
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        self.callParser();
-                    } else {
-                        var testLangText = self.medicalText.substr(0, 4000)
-                        self.detectLanguage(testLangText, 'parser');
-                    }
-                });
-
-            } else {
-                self.parserObject.parserStrategy = 'Auto'
-                var testLangText = self.medicalText.substr(0, 4000)
-                self.detectLanguage(testLangText, 'parser');
-            }
-        };
-        oReq.send(this.parserObject.file);
-        const rt = "json";
-        oReq.responseType = rt;
-    }
-
-    loadFile(url, callback) {
-        JSZipUtils.getBinaryContent(url, callback);
-    }
-
-    detectLanguage(testLangText, method) {
-        this.subscription.add(this.apiDx29ServerService.getDetectLanguage(testLangText)
-            .subscribe((res: any) => {
-                var lang = this.lang;
-                this.langDetected = res[0].language;
-                if (this.langDetected != lang && this.parserObject.parserStrategy != 'Auto') {
-
-
-                    Swal.fire({
-                        title: this.translate.instant("parser.We have detected that the document is in another language"),
-                        text: this.translate.instant("parser.Analyzed as") + '" "' + lang + '", "' + this.translate.instant("parser.detected as") + '" "' + res[0].language + '". "' + this.translate.instant("parser.do you want us to do it"),
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#33658a',
-                        cancelButtonColor: '#B0B6BB',
-                        confirmButtonText: this.translate.instant("generics.Yes"),
-                        cancelButtonText: this.translate.instant("generics.No"),
-                        showLoaderOnConfirm: true,
-                        allowOutsideClick: false,
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.value) {
-                            this.langToExtract = this.langDetected
-                            if (method == 'parser') {
-                                this.callParser();
-                            }
-                        } else {
-                            this.langToExtract = this.langDetected
-                            if (this.medicalText != '') {
-                                this.preCallTextAnalitycs();
-                            } else {
-                                Swal.fire(this.translate.instant("parser.No text has been detected in the file"), '', "error");
-                            }
-                        }
-                    });
-
-                } else {
-                    if (this.langDetected != lang) {
-                        this.langToExtract = this.langDetected
-                    } else {
-                        this.langToExtract = lang;
-                    }
-                    if (this.medicalText != '') {
-                        this.preCallTextAnalitycs();
-                    } else {
-                        Swal.fire(this.translate.instant("parser.No text has been detected in the file"), '', "error");
-                    }
-
-                }
-            }, (err) => {
-                console.log(err);
-                this.toastr.error('', this.translate.instant("generics.error try again"));
-            }));
-    }
-
-
     preCallTextAnalitycs() {
         Swal.fire({
             title: this.translate.instant("generics.Please wait"),
@@ -1474,9 +1298,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         }
                     }
                     this.medicalText = textToTA;
-                    console.log(this.medicalText)
                     this.callTextAnalitycs2();
                 }, (err) => {
+                    this.insightsService.trackException(err);
                     console.log(err);
                     this.callTextAnalitycs2();
                 }));
@@ -1576,6 +1400,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             
 
             }, (err) => {
+                this.insightsService.trackException(err);
                 console.log(err);
                 Swal.close();
                 this.callingTextAnalytics = false;
