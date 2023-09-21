@@ -8,13 +8,14 @@ import 'rxjs/add/operator/catch';
 import { environment } from 'environments/environment';
 
 import { EventsService } from 'app/shared/services/events.service';
+import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { takeUntil } from 'rxjs/operators';
 import * as decode from 'jwt-decode';
 
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private inj: Injector, private router: Router) { }
+  constructor(private inj: Injector, private router: Router, public insightsService: InsightsService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     var eventsService = this.inj.get(EventsService);
@@ -38,7 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // Pass on the cloned request instead of the original request.
     return next.handle(authReq)
       .catch((error, caught) => {
-
+        this.insightsService.trackException(error);
         if (error.status === 401) {
           return Observable.throw(error);
         }

@@ -60,18 +60,6 @@
             <span *ngIf="medicalText.length<5" style="height: 20px;color:#202123">.</span>-->
             <span *ngIf="showErrorCall1 && medicalText.length==0" style="height: 20px;color:#f9423a">{{'land.required' | translate }}</span>
             <span *ngIf="showErrorCall1 && medicalText.length>0 && medicalText.length<5" style="height: 20px;color:#f9423a">{{'land.requiredMIN5' | translate }}</span>
-            <!--<div>
-              <hr class="hr-custom mt-4" style="width: 100% !important;">
-              <div class="col-md-12 mb-2">
-                {{'land.searchFile' | translate }}
-              </div>
-              <input type="file" #fileDropRef id="fileDropRef" style="display: none;" (change)="onFileChangePDF($event);"
-            accept=".pdf, .docx, .jpg, .png, .gif, .tiff, .tif, .bmp, .dib, .bpg, .psd, .jpeg, .jpe, .jfif" />
-            <label class="btn btn-info mb-0"
-                              style="text-transform: none;letter-spacing: 0px;cursor: pointer;"
-                              for="fileDropRef">{{'land.Browse for file' | translate }}</label>
-            <span class="mt-0 d-block">{{'land.Accepted files' | translate }}</span>
-            </div>-->
           </div>
           <a id="optioninput1"></a>
         </div>

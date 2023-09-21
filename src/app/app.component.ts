@@ -23,6 +23,7 @@ import {
   NgcInitializeEvent,
   NgcStatusChangeEvent,
 } from "ngx-cookieconsent";
+import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 @Component({
   selector: 'app-root',
@@ -50,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private revokeChoiceSubscription: Subscription;
   private noCookieLawSubscription: Subscription;
 
-  constructor(private http: HttpClient, public toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, public translate: TranslateService, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, private langService: LangService, private eventsService: EventsService, protected $hotjar: NgxHotjarService, private meta: Meta, private ccService: NgcCookieConsentService) {
+  constructor(private http: HttpClient, public toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, public translate: TranslateService, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, private langService: LangService, private eventsService: EventsService, protected $hotjar: NgxHotjarService, private meta: Meta, private ccService: NgcCookieConsentService, public insightsService: InsightsService) {
 
     if (sessionStorage.getItem('lang')) {
       this.translate.use(sessionStorage.getItem('lang'));
@@ -81,6 +82,7 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }, (err) => {
         console.log(err);
+        this.insightsService.trackException(err);
       })
   }
 
@@ -306,6 +308,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription.add( this.http.post(environment.serverapi+'/api/senderror/', params)
     .subscribe( (res : any) => {
      }, (err) => {
+      this.insightsService.trackException(err);
       console.log(err);
      }));
   }

@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleAnalyticsService } from 'app/shared/services/google-analytics.service';
+import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 declare let gtag: any;
 
@@ -30,7 +31,7 @@ export class AboutUsPageComponent implements OnDestroy {
     sending: boolean = false;
     @ViewChild('f') mainForm: NgForm;
 
-    constructor( public googleAnalyticsService: GoogleAnalyticsService, private searchService: SearchService, public translate: TranslateService, private http: HttpClient, public toastr: ToastrService) {
+    constructor( public googleAnalyticsService: GoogleAnalyticsService, private searchService: SearchService, public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public insightsService: InsightsService) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
@@ -87,6 +88,7 @@ export class AboutUsPageComponent implements OnDestroy {
             this.mainForm.reset();
             this.lauchEvent('Send email');
            }, (err) => {
+            this.insightsService.trackException(err);
              console.log(err);
              this.sending = false;
              this.toastr.error('', this.translate.instant("generics.error try again"));
