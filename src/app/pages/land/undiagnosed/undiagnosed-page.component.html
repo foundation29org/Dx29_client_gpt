@@ -1,6 +1,52 @@
 <a id="initsteps" class="anchorSteps"></a>
 <div class="vertical-center" style="background-color: #353540;">
-  <section *ngIf="currentStep.stepIndex == 1" class="row">
+  <section *ngIf="currentStep.stepIndex == 1" class="col-12 m-0 d-flex flex-column h-100">
+    <div class="row">
+      <div class="col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
+        <h4>{{'land.title' | translate }}</h4>
+      </div>
+    </div>
+    <div class="row m-0">
+      <div
+        class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
+        <p class="text-left mb-0 mt-2">{{'land.titleOptions' | translate }}</p>
+            <p class="text-left">
+              <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
+            </p>
+        <div class="search">
+          <textarea #inputTextArea id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
+            [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}"
+            (ngModelChange)="resizeTextArea()"></textarea>
+        </div>
+
+        <p class="">{{'land.Recommendations' | translate }}</p>
+        <span *ngIf="showErrorCall1 && medicalText.length==0" style="height: 20px;color:#f9423a">{{'land.required' |
+          translate }}</span>
+        <span *ngIf="showErrorCall1 && medicalText.length>0 && medicalText.length<5"
+          style="height: 20px;color:#f9423a">{{'land.requiredMIN5' | translate }}</span>
+      </div>
+      <a id="optioninput1"></a>
+    </div>
+    <div class="row m-0 ">
+      <div
+        class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
+        <button type="submit" class="btn btn-lg btn-info" (click)="verifCallOpenAi('step1');"
+          [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
+          [disabled]="callingOpenai">
+          <span>{{'land.Search' | translate }}</span>
+          <em *ngIf="!callingOpenai" class="ml-2 fa fa-search"></em>
+          <em *ngIf="callingOpenai" class="ml-2 fa fa-spinner fa-spin fa-fw"></em>
+        </button>
+
+      </div>
+      <div
+        class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
+        <a class="info" (click)="showContentInfoAPP(contentInfoAPP)" style="font-size: 26px;">{{'land.Need help' | translate }}</a>
+      </div>
+
+    </div>
+  </section>
+  <!--<section *ngIf="currentStep.stepIndex == 1" class="row">
     <div class="col-12 m-0">
       <div class="card-body">
         <div class="row mt-3">
@@ -56,8 +102,6 @@
               </button>
             </div>
             <p class="text-left">{{'land.Recommendations' | translate }}</p>
-            <!--<span *ngIf="medicalText.length>=5" class="text-muted pointer" (click)="clearText()">{{'generics.Delete' | translate }}</span>
-            <span *ngIf="medicalText.length<5" style="height: 20px;color:#202123">.</span>-->
             <span *ngIf="showErrorCall1 && medicalText.length==0" style="height: 20px;color:#f9423a">{{'land.required' | translate }}</span>
             <span *ngIf="showErrorCall1 && medicalText.length>0 && medicalText.length<5" style="height: 20px;color:#f9423a">{{'land.requiredMIN5' | translate }}</span>
           </div>
@@ -65,7 +109,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section>-->
   <section *ngIf="currentStep.stepIndex == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8">
     <a id="step2"></a>
     <div class="row">
@@ -358,3 +402,51 @@
   </div>
 </ng-template>
 <button id="openModalIntro" [hidden]="true" (click)="showPanelIntro(contentIntro)">.</button>
+
+<ng-template #contentInfoAPP let-c="close" let-d="dismiss" appendTo="body">
+  <div class="modal-header" id="idHeader">
+    <div class="content-header text-left">
+      <h4 class="text-bold-400 mb-0">{{ selectedDisease }}</h4>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="closeDiseaseUndiagnosed()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body content-wrapper p-2">
+    <div class="row center-elements pad-logos">
+      <div class="col-md-4 mb-3 p-4">
+        <em class="fa fa-sun-o fa-2x"></em>
+        <h4 class="mt-2 mb-0">{{'land.p1.title' | translate }}</h4>
+        <span>{{'land.p1.subtitle' | translate }}</span>
+        <div class="card custom-card-1 custom-card-2 p-2 pointer"
+          (click)="copyText('opt1');lauchEvent('Copy sample 1');">
+          <span>{{'land.p1.1' | translate }}</span> <em class="fa-solid fa-arrow-right-long"></em>
+        </div>
+        <div class="card custom-card-1 custom-card-2 p-2 pointer"
+          (click)="copyText('opt2');lauchEvent('Copy sample 2');">
+          <span>{{'land.p1.2' | translate }}</span> <em class="fa-solid fa-arrow-right-long"></em>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3 p-4">
+        <em class="fa fa-rocket fa-2x"></em>
+        <h4 class="mt-2 pb-1">{{'land.p2.title' | translate }}</h4>
+        <div class="mt-4 card custom-card-1 p-2">
+          <span>{{'land.p2.1' | translate }}</span>
+        </div>
+        <div class="card custom-card-1 p-2">
+          <span>{{'land.p2.2' | translate }}</span>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3 p-4">
+        <em class="fa fa-exclamation-triangle fa-2x"></em>
+        <h4 class="mt-2 pb-1">{{'land.p3.title' | translate }}</h4>
+        <div class="mt-4 card custom-card-1 p-2">
+          <span>{{'land.p3.1' | translate }}</span>
+        </div>
+        <div class="card custom-card-1 p-2">
+          <span>{{'land.p3.2' | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
