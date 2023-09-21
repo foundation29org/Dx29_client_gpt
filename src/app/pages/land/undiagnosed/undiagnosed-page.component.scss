@@ -5,6 +5,10 @@
   --hjFeedbackAccentColor: #ff0000;
 }
 
+::ng-deep .mat-checkbox-frame {
+  border-color: white !important;
+}
+
 .vertical-center{
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: calc(100vh - 65px); /* These two lines are counted as one :-)       */

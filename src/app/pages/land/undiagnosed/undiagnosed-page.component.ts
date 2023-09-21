@@ -356,6 +356,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     copyText(par) {
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+        }
         if (par == 'opt1') {
             this.medicalText = this.translate.instant("land.p1.1")
         } else {

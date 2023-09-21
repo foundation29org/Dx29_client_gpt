@@ -11,7 +11,11 @@
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
         <p class="text-left mb-0 mt-2">{{'land.titleOptions' | translate }}</p>
             <p class="text-left">
-              <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
+              <mat-checkbox id="selectorRare" (change)="selectorRareEvent($event.checked)" [(ngModel)]="selectorRare">
+                {{'land.opt2' | translate }}
+              </mat-checkbox>
+              
+              <!--<span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>-->
             </p>
         <div class="search">
           <textarea #inputTextArea id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
