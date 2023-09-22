@@ -13,7 +13,7 @@ const routes: Routes = [
         path: '.',
         component: UndiagnosedPageComponent,
         data: {
-          title: 'dxGPT'
+          title: 'DxGPT'
         },
       },
       {
