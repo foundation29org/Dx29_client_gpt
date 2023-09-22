@@ -153,9 +153,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     initOptions() {
         this.options = [
-            { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1") },
-            { id: 2, value: this.translate.instant("land.option2"), label: this.translate.instant("land.labelopt2") },
-            { id: 3, value: this.translate.instant("land.option3"), label: this.translate.instant("land.labelopt3") }
+            { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") },
+            { id: 2, value: this.translate.instant("land.option3"), label: this.translate.instant("land.labelopt3"), description: this.translate.instant("land.descriptionopt3") }
         ];
 
         window.scrollTo(0, 0);
@@ -410,6 +409,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             }else{
                 this.premedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy;
             }
+        }else if(this.optionSelected.id==2){
+            var labeltest = this.translate.instant("land.msgtest")
+            if(this.medicalText.indexOf(labeltest)==-1){
+                this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
+                this.premedicalText = this.copyMedicalText;
+                this.medicalText= this.medicalText+ '. ' + labeltest + ' ' + this.medicalText2;
+            }else{
+                this.copyMedicalText = this.copyMedicalText + ', ' + this.medicalText2Copy
+                this.premedicalText = this.copyMedicalText; 
+                this.medicalText= this.medicalText+ ', ' + this.medicalText2;
+            }
         }else{
             this.premedicalText = this.medicalText;
         }
@@ -644,7 +654,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.lauchEvent("Search Disease");
         await this.delay(200);
         this.scrollTo();
+        this.showInputRecalculate = false;
     }
+
+    cancelEdit() {
+        this.showInputRecalculate = false;
+        this.medicalText2 = '';
+    }
+    
 
     setDiseaseListEn(text){
         let parseChoices = text.split("+");
