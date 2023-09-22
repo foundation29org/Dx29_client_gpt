@@ -313,7 +313,7 @@ export class jsPDFService {
 
         // Save file
         var date = this.getDate();
-        doc.save('dxGPT_Report_' + date + '.pdf');
+        doc.save('DxGPT_Report_' + date + '.pdf');
 
     }
 
