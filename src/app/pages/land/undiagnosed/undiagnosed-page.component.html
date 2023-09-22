@@ -50,78 +50,43 @@
 
     </div>
   </section>
-  <!--<section *ngIf="currentStep.stepIndex == 1" class="row">
-    <div class="col-12 m-0">
-      <div class="card-body">
-        <div class="row mt-3">
-          <div class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-            <h4>{{'land.title' | translate }}</h4>
-          </div>
-        </div>
-        <div class="row center-elements pad-logos">
-          <div class="col-md-4 mb-3 p-4">
-            <em class="fa fa-sun-o fa-2x"></em>
-            <h4 class="mt-2 mb-0">{{'land.p1.title' | translate }}</h4>
-            <span>{{'land.p1.subtitle' | translate }}</span>
-            <div class="card custom-card-1 custom-card-2 p-2 pointer" (click)="copyText('opt1');lauchEvent('Copy sample 1');">
-              <span>{{'land.p1.1' | translate }}</span> <em class="fa-solid fa-arrow-right-long"></em>
-            </div>
-            <div class="card custom-card-1 custom-card-2 p-2 pointer" (click)="copyText('opt2');lauchEvent('Copy sample 2');">
-              <span>{{'land.p1.2' | translate }}</span> <em class="fa-solid fa-arrow-right-long"></em>
-            </div>
-          </div>
-          <div class="col-md-4 mb-3 p-4">
-            <em class="fa fa-rocket fa-2x"></em>
-            <h4 class="mt-2 pb-1">{{'land.p2.title' | translate }}</h4>
-            <div class="mt-4 card custom-card-1 p-2">
-              <span>{{'land.p2.1' | translate }}</span>
-            </div>
-            <div class="card custom-card-1 p-2">
-              <span>{{'land.p2.2' | translate }}</span>
-            </div>
-          </div>
-          <div class="col-md-4 mb-3 p-4">
-            <em class="fa fa-exclamation-triangle fa-2x"></em>
-            <h4 class="mt-2 pb-1">{{'land.p3.title' | translate }}</h4>
-            <div class="mt-4 card custom-card-1 p-2">
-              <span>{{'land.p3.1' | translate }}</span>
-            </div>
-            <div class="card custom-card-1 p-2">
-              <span>{{'land.p3.2' | translate }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="row mb-5 m-0">
-          <div class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-            <p class="text-left mb-0 mt-2">{{'land.titleOptions' | translate }}</p>
-            <p class="text-left">
-              <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
-            </p>
-            <div class="search">
-              <textarea #inputTextArea id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow" [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea()"></textarea>
-              <button type="submit" class="searchButton" (click)="verifCallOpenAi('step1');" [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')" [disabled]="callingOpenai">
-               <em *ngIf="!callingOpenai" class="fa fa-search"></em>
-               <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
-              </button>
-            </div>
-            <p class="text-left">{{'land.Recommendations' | translate }}</p>
-            <span *ngIf="showErrorCall1 && medicalText.length==0" style="height: 20px;color:#f9423a">{{'land.required' | translate }}</span>
-            <span *ngIf="showErrorCall1 && medicalText.length>0 && medicalText.length<5" style="height: 20px;color:#f9423a">{{'land.requiredMIN5' | translate }}</span>
-          </div>
-          <a id="optioninput1"></a>
-        </div>
-      </div>
-    </div>
-  </section>-->
-  <section *ngIf="currentStep.stepIndex == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8">
+  <section *ngIf="currentStep.stepIndex == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 mb-5 mt-2">
     <a id="step2"></a>
     <div class="row">
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
         <!--<button type="button" class="btn round bt-nav btn-info" (click)="goPrevious()">{{'generics.Back' | translate }}</button>-->
-        <button type="button" class="btn btn-info mr-1" (click)="goPrevious()">{{'land.Edit description' | translate }}</button>
-        <button type="button" class="btn btn-info ml-1" (click)="newPatient()">{{'land.New patient' | translate }}</button>
+        <button type="button" class="btn btn-info mr-1" (click)="newPatient()">{{'land.New patient' | translate }}</button>
+        <button type="button" class="btn btn-info ml-1 mr-1" (click)="goPrevious()">{{'land.Edit description' | translate }}</button>
+        
+        <span *ngFor="let option of options; let i = index">
+          <button type="button" class="ml-1 mr-1 btn btn-info" (click)="recalculate(i);">{{option.label}}</button>
+        </span>
       </span>
+      <a id="optionssteps"></a>
+      <span class="col-md-12 mt-2" *ngIf="showInputRecalculate">
+        <label>{{optionSelected.description}} </label>
+        <div class="search">
+          <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow"
+            [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}"
+            (ngModelChange)="resizeTextArea2()"></textarea>
+
+        </div>
+        <span *ngIf="showErrorCall2 && medicalText2.length==0" style="height: 20px;color:#f9423a">{{'land.required' |
+          translate }}</span>
+        <div class="mt-2">
+          <button type="button" class="btn btn-secondary mr-1" (click)="cancelEdit()">{{'generics.Cancel' | translate
+            }}</button>
+          <button type="submit" class="btn btn-info ml-1" (click)="verifCallOpenAi2();" [disabled]="callingOpenai"
+            [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
+            <span>Buscar</span>
+            <em *ngIf="!callingOpenai" class="ml-1 fa fa-search"></em>
+            <em *ngIf="callingOpenai" class="ml-1 fa fa-spinner fa-spin fa-fw"></em>
+          </button>
+        </div>
+
+      </span>
+
+
       <div class="col-12">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
@@ -195,38 +160,6 @@
         </div>
       </div>
     </div>
-    
-    <div class="col-12 d-flex justify-content-center mb-4">
-      <div class="card-body" style="max-width: 1200px;">
-        <div class="row m-0">
-          <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
-            <h1 class="card-title text-bold-500">
-              {{'land.Recalculate the list' | translate }}
-              <hr class="hr-custom">
-            </h1>
-            <span class="row mt-2">
-              <span class="col-md-4" *ngFor="let option of options; let i = index">
-                <button type="button" class="btn round btn-block btn-info" style="min-height: 80px;" (click)="recalculate(i);">{{option.label}}</button>
-              </span>
-            </span>
-            <span class="row mt-2" *ngIf="showInputRecalculate">
-              <label>{{optionSelected.label}} </label>
-              <div class="search">
-                <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow" [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}" (ngModelChange)="resizeTextArea2()"></textarea>
-                <button type="submit" class="searchButton" (click)="verifCallOpenAi2();" [disabled]="callingOpenai" [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
-                 <em *ngIf="!callingOpenai" class="fa fa-search"></em>
-                 <em *ngIf="callingOpenai" class="fa fa-spinner fa-spin fa-fw"></em>
-                </button>
-              </div>
-              <span *ngIf="medicalText2.length>0" class="text-muted pointer" (click)="clearText2()">{{'generics.Delete' | translate }}</span>
-              <span *ngIf="medicalText2.length==0" style="height: 20px;color:#202123">.</span>
-              <span *ngIf="showErrorCall2 && medicalText2.length==0" style="height: 20px;color:#f9423a">{{'land.required' | translate }}</span>
-            </span>
-          </div>
-        </div>
-      </div>
-  </div>
-  <a id="optionssteps"></a>
   </section>
 </div>
 <div class="" *ngIf="!closed">
