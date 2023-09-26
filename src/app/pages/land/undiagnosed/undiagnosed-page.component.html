@@ -3,14 +3,14 @@
   <section *ngIf="currentStep.stepIndex == 1" class="col-12 m-0 d-flex flex-column h-100">
     <div class="row mt-4">
       <div class="col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
-        <h4>{{'land.title' | translate }}</h4>
+        <h2 class="text-bold-700">{{'land.title' | translate }}</h2>
       </div>
     </div>
     <div class="row m-0">
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-        <p class="text-left mb-0 mt-2">{{'land.titleOptions' | translate }}</p>
-            <p class="text-left">
+        <p class="mb-0 mt-2">{{'land.titleOptions' | translate }}</p>
+            <p class="">
               <mat-checkbox id="selectorRare" class="selectorrare" (change)="selectorRareEvent($event.checked)" [(ngModel)]="selectorRare">
                 {{'land.opt2' | translate }}
               </mat-checkbox>
@@ -45,7 +45,7 @@
       </div>
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
-        <a class="info" (click)="showContentInfoAPP(contentInfoAPP)" style="font-size: 26px;">{{'land.Need help' | translate }}</a>
+        <a class="info" style="font-weight: 700 !important;" (click)="showContentInfoAPP(contentInfoAPP)" style="font-size: 26px;">{{'land.Need help' | translate }}</a>
       </div>
 
     </div>
@@ -180,7 +180,7 @@
     </button>
   </div>
   <div class="modal-body content-wrapper p-2 mt-2">
-    <h6><strong>{{'land.Select a question' | translate }}:</strong></h6>
+    <h5>{{'land.Select a question' | translate }}:</h5>
     <!--Shows a list of selectable panels-->
     <div class="list-group mb-2">
       <button class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
@@ -195,12 +195,12 @@
         <p class="info pointer" (click)="cancelCallQuestion();">{{'generics.Cancel' | translate }}</p>
       </div>
       <div *ngIf="!loadingAnswerOpenai && answerOpenai!=''" class="mt-3">
-        <h6><strong>{{selectedQuestion}}</strong></h6>
+        <h6>{{selectedQuestion}}</h6>
         <!--<h6><strong>{{'land.Answer' | translate }}:</strong></h6>-->
         <p style="margin-bottom: 2rem;white-space:pre-wrap;">{{answerOpenai}}</p>
       </div>
       <div *ngIf="!loadingAnswerOpenai && symptomsDifferencial.length>0" class="mt-3">
-        <h6><strong>{{'land.Select the symptoms' | translate }}:</strong></h6>
+        <h6>{{'land.Select the symptoms' | translate }}:</h6>
         <div class="row">
           <div *ngFor="let symptom of symptomsDifferencial; let j = index" class="col-md-6 col-xl-4">
             <div class="custom-control custom-checkbox">

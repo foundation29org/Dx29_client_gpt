@@ -10,8 +10,13 @@
   background-color: #353535 !important;
   color: gray !important;
 }*/
+/*
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "Rubik", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}*/
+
+h4, h5, h6{
+  font-weight: 700 !important;
 }
 
 p{
@@ -26,6 +31,7 @@ body {
   /* Disables pull-to-refresh but allows overscroll glow effects. */
   overscroll-behavior-y: contain;
   background-color: #fff;
+  font-weight: normal;
 }
 
 .spinner-absolute{
@@ -186,6 +192,11 @@ a{
   background-color: #ff0000 !important;
   color: #fff !important;
   border-color: #ff0000;
+  
+}
+
+.btn{
+  font-weight: 700 !important;
 }
 
 .btn-secondary {
