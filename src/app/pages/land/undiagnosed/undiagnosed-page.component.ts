@@ -256,6 +256,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     ngOnInit() {
+        this.showDisclaimer();
         this.loadTranslations();
         this.eventsService.on('changelang', function (lang) {
             this.lang = lang;
@@ -297,7 +298,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         });
         this.translate.get('land.step3').subscribe(async (res: string) => {
             this.steps[1].title = res;
-            this.showDisclaimer();
+            //this.showDisclaimer();
             await this.delay(500);
             this.initQuestions();
             this.initOptions()
