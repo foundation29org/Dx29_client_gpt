@@ -49,7 +49,7 @@ body {
 }
 
 .nav-tabs .nav-link.active {
-  color: #ff0000;
+  color: #B30000;
 }
 
 .alert-warning {
@@ -63,7 +63,7 @@ body {
 }
 
 :host ::ng-deep a{
-  color: #ff0000 !important;
+  color: #B30000 !important;
 }
 
 a:hover, a:focus {
@@ -89,7 +89,7 @@ a:hover, a:focus {
 }
 
 a{
-  color: #ff0000;
+  color: #B30000;
 }
 
 .btn-outline-secondary:hover {
@@ -112,7 +112,7 @@ a{
 }
 
 .hr-custom{
-  background-color: #ff0000; 
+  background-color: #B30000; 
   height: 3px; 
   border: 0;
   width: 30%;
@@ -139,9 +139,9 @@ a{
 }
 
 .btn-info-nohover{
-  background-color: #ff0000 !important;
+  background-color: #B30000 !important;
   color: #fff !important;
-  border-color: #ff0000;
+  border-color: #B30000;
 }
 
 .btn-info-nohover:focus, .btn-info-nohover.focus {
@@ -174,7 +174,7 @@ a{
 
 .btn-active-info {
   color: #fff;
-  background-color: #ff0000;
+  background-color: #B30000;
   border-color: #205883;
   box-shadow: 0 0 0 0.2rem rgba(250, 94, 88, 0.5);
 }
@@ -193,9 +193,9 @@ a{
 }
 
 .btn-info {
-  background-color: #ff0000 !important;
+  background-color: #B30000 !important;
   color: #fff !important;
-  border-color: #ff0000;
+  border-color: #B30000;
   
 }
 
@@ -282,15 +282,15 @@ a{
 }
 
 .textExtractedNcr > a > b{
-  background-color: #f9423a;
+  background-color: #B30000;
 }
 .textExtractedNcr >  b{
-  background-color: #f9423a;
+  background-color: #B30000;
 }
 mark{
   text-decoration: underline;
-  -webkit-text-decoration-color: #f9423a; /* Safari */  
-  text-decoration-color: #f9423a;
+  -webkit-text-decoration-color: #B30000; /* Safari */  
+  text-decoration-color: #B30000;
   background-color: #FFF;
   text-decoration-thickness: 3px;
 }

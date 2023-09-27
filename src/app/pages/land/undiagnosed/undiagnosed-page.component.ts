@@ -267,7 +267,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                     text: this.translate.instant("land.Do you want to start over"),
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#ff0000',
+                    confirmButtonColor: '#B30000',
                     cancelButtonColor: '#B0B6BB',
                     confirmButtonText: this.translate.instant("generics.Yes"),
                     cancelButtonText: this.translate.instant("generics.No"),
