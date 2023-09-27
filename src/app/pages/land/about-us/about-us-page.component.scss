@@ -61,10 +61,6 @@ p {
   height: 50px;
 }
 
-.w-reg-img{
-  max-width: 100%;
-}
-
 .img-logos{
   align-content: center;
   align-items: center;
@@ -105,9 +101,6 @@ p {
 @media (max-width: 768px) {
   .margin-left-0{
     margin-left: 0px !important;
-  }
-  .w-reg-img{
-    max-width: 4em;
   }
 }
 
