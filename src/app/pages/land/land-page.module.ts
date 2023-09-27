@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { LandPageRoutingModule } from "./land-page-routing.module";
 import { TranslateModule } from '@ngx-translate/core';
-import { NgApexchartsModule } from "ng-apexcharts";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
@@ -17,7 +16,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {DndDirective} from "app/shared/directives/dnd.directive";
-import { MyFilterPipe } from 'app/shared/services/my-filter.pipe';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
 @NgModule({
@@ -37,7 +35,6 @@ import { UiSwitchModule } from 'ngx-ui-switch';
         MatExpansionModule,
         MatSelectModule,
         MatRadioModule,
-        NgApexchartsModule,
         MatDatepickerModule,
         MatNativeDateModule,
         UiSwitchModule.forRoot({
@@ -51,8 +48,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     declarations: [
         AboutUsPageComponent,
         UndiagnosedPageComponent,
-        DndDirective,
-        MyFilterPipe
+        DndDirective
     ]
 })
 export class LandPageModule { }

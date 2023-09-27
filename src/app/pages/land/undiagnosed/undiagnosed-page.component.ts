@@ -15,8 +15,6 @@ import { SearchService } from 'app/shared/services/search.service';
 import { Clipboard } from "@angular/cdk/clipboard"
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleAnalyticsService } from 'app/shared/services/google-analytics.service';
-import { SearchFilterPipe } from 'app/shared/services/search-filter.service';
-import { DialogService } from 'app/shared/services/dialog.service';
 import { jsPDFService } from 'app/shared/services/jsPDF.service'
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 
@@ -106,7 +104,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     showErrorForm: boolean = false;
     sponsors = [];
     
-    constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public searchFilterPipe: SearchFilterPipe, public dialogService: DialogService, public jsPDFService: jsPDFService, public insightsService: InsightsService) {
+    constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public jsPDFService: jsPDFService, public insightsService: InsightsService) {
 
         this.lang = sessionStorage.getItem('lang');
         this.originalLang = sessionStorage.getItem('lang');

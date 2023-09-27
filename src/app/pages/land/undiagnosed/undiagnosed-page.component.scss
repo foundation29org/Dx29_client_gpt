@@ -226,13 +226,6 @@ section {
   padding-bottom: 1rem !important;
 }
 
-.background-img{
-  min-height: 76vh !important;
-  background-image: url("assets/img/home/background.jpg");
-  background-position: center center;
-  background-size: cover;
-}
-
 .titleneon {
   color:#f9423a;
 }
@@ -466,10 +459,6 @@ body {
 
   .w-13{
     width: 13px;
-  }
-  
-  ::ng-deep .apexcharts-menu-icon{
-      display: none;
   }
 
   .shadow{
