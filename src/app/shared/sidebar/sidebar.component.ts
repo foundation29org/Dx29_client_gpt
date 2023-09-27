@@ -1,15 +1,11 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy, ElementRef, Renderer2, AfterViewInit } from "@angular/core";
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef, Renderer2, AfterViewInit } from "@angular/core";
 
 import { ROUTESHOMEDX} from './sidebar-routes.config';
-import { RouteInfo } from "./sidebar.metadata";
-import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { TranslateService } from '@ngx-translate/core';
 import { customAnimations } from "../animations/custom-animations";
 import { ConfigService } from '../services/config.service';
 import { LayoutService } from '../services/layout.service';
 import { Subscription } from 'rxjs';
-import { EventsService} from 'app/shared/services/events.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-sidebar",
@@ -33,20 +29,16 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   redirectUrl: string = '';
 
   constructor(
-    private elementRef: ElementRef,
     private renderer: Renderer2,
-    private router: Router,
-    private route: ActivatedRoute,
     public translate: TranslateService,
     private configService: ConfigService,
     private layoutService: LayoutService,
-    private eventsService: EventsService,
   ) {
     if (this.depth === undefined) {
       this.depth = 0;
       this.expanded = true;
     }
-    this.layoutSub = layoutService.customizerChangeEmitted$.subscribe(
+    this.layoutSub = this.layoutService.customizerChangeEmitted$.subscribe(
       options => {
         if (options) {
           if (options.bgColor) {

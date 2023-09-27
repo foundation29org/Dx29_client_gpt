@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router , ActivatedRoute} from "@angular/router";
+import { Component } from '@angular/core';
 import {Location} from '@angular/common';
 
 @Component({
@@ -9,7 +8,7 @@ import {Location} from '@angular/common';
 })
 
 export class ErrorPageComponent {
-  constructor(private router: Router, private route: ActivatedRoute, private _location: Location) { }
+  constructor(private _location: Location) { }
 
   // On goHome link click
   goHome() {

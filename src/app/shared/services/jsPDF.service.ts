@@ -1,19 +1,12 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { DatePipe } from '@angular/common';
-
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
-import { UserOptions } from 'jspdf-autotable';
-import { axisBottom } from 'd3-axis';
 
-interface jsPDFWithPlugin extends jsPDF {
-  autoTable: (options: UserOptions) => jsPDF;
-}
 
 @Injectable()
 export class jsPDFService {
-    constructor(public translate: TranslateService, private datePipe: DatePipe) {
+    constructor(public translate: TranslateService) {
     }
     lang: string = '';
     meses: any = {
@@ -93,37 +86,6 @@ export class jsPDFService {
             return lineText;
         }
     }
-
-    private checkIfNewPage2(doc, lineText) {
-        if (lineText < 270) {
-            return lineText
-        }
-        else {
-            doc.addPage()
-            this.newHeatherAndFooter(doc)
-            lineText = 20;
-            return lineText;
-        }
-    }
-
-    private writeTitleSection(doc, pos, lineText, text) {
-        lineText = this.checkIfNewPage(doc, lineText);
-        doc.setTextColor(117, 120, 125)
-        doc.setFont(undefined, 'bold');
-        doc.setFontSize(12);
-        doc.text(text, pos, lineText);
-        return lineText;
-    }
-    
-    
-    private writeHeaderText(doc, pos, lineText, text) {
-        lineText = this.checkIfNewPage(doc, lineText);
-        //doc.setTextColor(117, 120, 125)
-        doc.setFont(undefined, 'bold');
-        doc.setFontSize(10);
-        doc.text(text, pos, lineText);
-        return lineText;
-    }
     
     private writeText(doc, pos, lineText, text) {
         lineText = this.checkIfNewPage(doc, lineText);
@@ -131,29 +93,6 @@ export class jsPDFService {
         doc.setFont(undefined, 'normal');
         doc.setFontSize(10);
         doc.text(text, pos, lineText);
-        return lineText;
-    }
-    
-    private writeLinkHP(doc, pos, lineText, text) {
-        lineText = this.checkIfNewPage(doc, lineText);
-        doc.setTextColor(51, 101, 138)
-        doc.setFont(undefined, 'normal');
-        doc.setFontSize(10);
-        var url = "https://hpo.jax.org/app/browse/term/" + text;
-        doc.textWithLink(text, pos, lineText, { url: url });
-        doc.setTextColor(0, 0, 0);
-        return lineText;
-    }
-    
-    private writeLinkOrpha(doc, pos, lineText, text) {
-        lineText = this.checkIfNewPage(doc, lineText);
-        doc.setTextColor(51, 101, 138)
-        doc.setFont(undefined, 'normal');
-        doc.setFontSize(10);
-        var param = text.split(':');
-        var url = "https://www.orpha.net/consor/cgi-bin/OC_Exp.php?Expert=" + param[1] + "&lng=" + this.lang;
-        doc.textWithLink(text, pos, lineText, { url: url });
-        doc.setTextColor(0, 0, 0);
         return lineText;
     }
 
@@ -190,26 +129,7 @@ export class jsPDFService {
             this.writelinePreFooter(doc, this.translate.instant("land.diagnosed.timeline.footer4"), lineText += 5);
         }
         lineText = this.checkIfNewPage(doc, lineText);
-        /*lineText += 10;
-        lineText = this.checkIfNewPage(doc, lineText);
-        this.writelinePreFooter(doc, this.translate.instant("land.diagnosed.timeline.footer5"), lineText);
-        doc.setFillColor(249,66,58);
-        if(this.lang=='en'){
-            doc.rect(52, lineText-5, 17, 8, 'FD'); //Fill and Border
-        }else{
-            doc.rect(57, lineText-5, 17, 8, 'FD'); //Fill and Border
-        }
-        
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(10);
-        var url = "https://dxgpt.app";
-        if(this.lang=='en'){
-            doc.textWithLink(this.translate.instant("menu.Register"), 54, lineText, { url: url });
-        }else{
-            doc.textWithLink(this.translate.instant("menu.Register"), 59, lineText, { url: url });
-        }
-        
-        lineText = this.checkIfNewPage(doc, lineText);*/
+
         doc.setTextColor(0, 0, 0)
         lineText += 5;
         doc.setFontSize(9);
@@ -235,10 +155,6 @@ export class jsPDFService {
         this.lang = lang;
         const doc = new jsPDF();
         var lineText = 0;
-        const marginX = 5;
-        
-        const pdfPageWidth = doc.internal.pageSize.getWidth() - 2 * marginX;
-        const pdfPageHeight = doc.internal.pageSize.getHeight()
 
         // Cabecera inicial
         var img_logo = new Image();

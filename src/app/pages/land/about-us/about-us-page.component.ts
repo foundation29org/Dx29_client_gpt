@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs/Subscription';
 import { SearchService } from 'app/shared/services/search.service';
 import { ToastrService } from 'ngx-toastr';
-import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleAnalyticsService } from 'app/shared/services/google-analytics.service';
 import { InsightsService } from 'app/shared/services/azureInsights.service';

@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Injectable } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from "@angular/router";
 import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs/Subscription';
 import { EventsService } from 'app/shared/services/events.service';
@@ -10,30 +9,17 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from "@angular/common/http";
 import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
-import { SortService } from 'app/shared/services/sort.service';
 import { SearchService } from 'app/shared/services/search.service';
 import { Clipboard } from "@angular/cdk/clipboard"
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleAnalyticsService } from 'app/shared/services/google-analytics.service';
 import { jsPDFService } from 'app/shared/services/jsPDF.service'
 import { InsightsService } from 'app/shared/services/azureInsights.service';
-
-//import { Observable } from 'rxjs/Observable';
-import { Observable, of, OperatorFunction } from 'rxjs';
+import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
-import { catchError, debounceTime, distinctUntilChanged, map, tap, switchMap, merge, mergeMap, concatMap } from 'rxjs/operators'
-import { KeyValue } from '@angular/common';
-import { SlowBuffer } from 'buffer';
 
 
-var $primary = "#975AFF",
-    $success = "#40C057",
-    $info = "#2F8BE6",
-    $warning = "#F77E17",
-    $danger = "#F55252",
-    $label_color_light = "#E6EAEE";
-var themeColors = [$primary, $warning, $success, $danger, $info];
 declare let gtag: any;
 
 @Component({
@@ -104,7 +90,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     showErrorForm: boolean = false;
     sponsors = [];
     
-    constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, public translate: TranslateService, private sortService: SortService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public jsPDFService: jsPDFService, public insightsService: InsightsService) {
+    constructor( private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public jsPDFService: jsPDFService, public insightsService: InsightsService) {
 
         this.lang = sessionStorage.getItem('lang');
         this.originalLang = sessionStorage.getItem('lang');

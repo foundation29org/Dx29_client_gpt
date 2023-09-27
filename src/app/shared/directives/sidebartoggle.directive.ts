@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input, HostListener, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, HostBinding, Input, HostListener, AfterViewInit, Renderer2 } from '@angular/core';
 
 @Directive({ selector: "[appSidebarToggle]" })
 export class SidebarToggleDirective implements AfterViewInit {
@@ -35,8 +35,7 @@ export class SidebarToggleDirective implements AfterViewInit {
   protected $wrapper: Element;
   protected compact_menu_checkbox;
 
-  constructor(private el: ElementRef,
-    private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit() {
     this.$wrapper = document.getElementsByClassName("wrapper")[0];
