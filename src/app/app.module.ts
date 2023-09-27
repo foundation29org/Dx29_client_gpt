@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 import { NgModule ,LOCALE_ID  } from '@angular/core';
 import es from '@angular/common/locales/es'
 import { registerLocaleData } from '@angular/common';
@@ -29,7 +28,6 @@ import { SortService } from 'app/shared/services/sort.service';
 import { SearchService } from 'app/shared/services/search.service';
 import { EventsService } from 'app/shared/services/events.service';
 
-import { Angulartics2Module } from 'angulartics2';
 import {GoogleAnalyticsService} from './shared/services/google-analytics.service';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
@@ -77,7 +75,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
           deps: [HttpClient]
         }
       }),
-      Angulartics2Module.forRoot(),
       PerfectScrollbarModule,
       NgcCookieConsentModule.forRoot(cookieConfig)
     ],

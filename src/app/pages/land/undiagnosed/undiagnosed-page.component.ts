@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, Renderer2} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs/Subscription';
@@ -49,7 +49,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     _startTime: any;
 
 
-    @ViewChild("inputTextArea") inputTextAreaElement: ElementRef;
+    
     myuuid: string = uuidv4();
     eventList: any = [];
     steps = [];
@@ -89,8 +89,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     @ViewChild('f') feedbackDownForm: NgForm;
     showErrorForm: boolean = false;
     sponsors = [];
+
+    @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
+    @ViewChildren('autoajustable2') textAreas2: QueryList<ElementRef>;
+    @ViewChild("autoajustable") inputTextAreaElement: ElementRef;
     
-    constructor( private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public jsPDFService: jsPDFService, public insightsService: InsightsService) {
+    constructor( private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2) {
 
         this.lang = sessionStorage.getItem('lang');
         this.originalLang = sessionStorage.getItem('lang');
@@ -1229,49 +1233,28 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         }, 2000);
     }
 
-    async resizeTextArea() {
-        setTimeout(() => {
-            $('.autoajustable').each(function () {
-                let height = this.scrollHeight;
-                if (height < 50) {
-                    height = 50;
-                }
-                document.getElementById("textarea1").setAttribute("style", "height:" + (height) + "px;overflow-y:hidden; width: 100%;");
-            }).on('input', function () {
-                let height = this.scrollHeight;
-                if (height < 50) {
-                    height = 50;
-                }
-                this.style.height = 'auto';
-                this.style.height = (height) + 'px';
-            });
 
-        },
-            100);
+    resizeTextArea(){
+        this.resizeTextAreaFunc(this.textAreas);
     }
 
-    resizeTextArea2() {
-
-        setTimeout(() => {
-            $('.autoajustable2').each(function () {
-                let height = this.scrollHeight;
-                if (height < 50) {
-                    height = 50;
-                }
-                document.getElementById("textarea2").setAttribute("style", "height:" + (height) + "px;overflow-y:hidden; width: 100%;");
-
-            }).on('input', function () {
-                let height = this.scrollHeight;
-                if (height < 50) {
-                    height = 50;
-                }
-                this.style.height = 'auto';
-                this.style.height = (height) + 'px';
-            });
-
-        },
-            100);
+    resizeTextArea2(){
+        this.resizeTextAreaFunc(this.textAreas2);
     }
+
+    private resizeTextAreaFunc(elements: QueryList<ElementRef>) {
+        elements.forEach((element: ElementRef) => {
+          const nativeElement = element.nativeElement;
+          this.renderer.listen(nativeElement, 'input', () => {
+            let height = nativeElement.scrollHeight;
+            if (height < 50) height = 50;
+            this.renderer.setStyle(nativeElement, 'height', `${height}px`);
+          });
+          let height = nativeElement.scrollHeight;
+          if (height < 50) height = 50;
+          this.renderer.setStyle(nativeElement, 'height', `${height}px`);
+        });
+      }
 
     selectorRareEvent(event) {
         this.selectorRare = event;
