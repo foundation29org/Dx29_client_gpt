@@ -24,10 +24,10 @@
         </div>
 
         <p class="">{{'land.Recommendations' | translate }}</p>
-        <span *ngIf="showErrorCall1 && medicalText.length==0" style="height: 20px;color:#f9423a">{{'land.required' |
+        <span *ngIf="showErrorCall1 && medicalText.length==0" style="height: 20px;color:#B30000">{{'land.required' |
           translate }}</span>
         <span *ngIf="showErrorCall1 && medicalText.length>0 && medicalText.length<5"
-          style="height: 20px;color:#f9423a">{{'land.requiredMIN5' | translate }}</span>
+          style="height: 20px;color:#B30000">{{'land.requiredMIN5' | translate }}</span>
       </div>
       <a id="optioninput1"></a>
     </div>
@@ -45,7 +45,7 @@
       </div>
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
-        <a class="info" style="font-weight: 700 !important;" (click)="showContentInfoAPP(contentInfoAPP)" style="font-size: 26px;">{{'land.Need help' | translate }}</a>
+        <a class="info" (click)="showContentInfoAPP(contentInfoAPP)" style="font-size: 26px;font-weight: 700 !important;text-decoration: underline !important;">{{'land.Need help' | translate }}</a>
       </div>
 
     </div>
@@ -71,7 +71,7 @@
             (ngModelChange)="resizeTextArea2()"></textarea>
 
         </div>
-        <span *ngIf="showErrorCall2 && medicalText2.length==0" style="height: 20px;color:#f9423a">{{'land.required' |
+        <span *ngIf="showErrorCall2 && medicalText2.length==0" style="height: 20px;color:#B30000">{{'land.required' |
           translate }}</span>
         <div class="mt-2">
           <button type="button" class="btn btn-secondary mr-1" (click)="cancelEdit()">{{'generics.Cancel' | translate
@@ -229,7 +229,7 @@
   </div>
 </ng-template>
 
-<ng-template #contentIntro let-c="close" let-d="dismiss" appendTo="body">
+<ng-template #contentIntro let-c="close" let-d="dismiss" id="contentIntro" aria-labelledby="contentIntro" appendTo="body">
   <div class="modal-body">
         <div class="row text-left">
           <div class="card-body col-md-12">

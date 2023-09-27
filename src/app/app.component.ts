@@ -14,7 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { LangService } from 'app/shared/services/lang.service';
 import Swal from 'sweetalert2';
 import { EventsService } from 'app/shared/services/events.service';
-import { NgxHotjarService } from 'ngx-hotjar';
 
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import {
@@ -38,9 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   loggerSubscription: Subscription;
   actualPage: string = '';
   hasLocalLang: boolean = false;
-  actualScenarioHotjar: any = { lang: '', scenario: '' };
   tituloEvent: string = '';
-  role: string = '';
   //Set toastr container ref configuration for toastr positioning on screen
 
   //keep refs to subscriptions to be able to unsubscribe later
@@ -51,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private revokeChoiceSubscription: Subscription;
   private noCookieLawSubscription: Subscription;
 
-  constructor(private http: HttpClient, public toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, public translate: TranslateService, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, private langService: LangService, private eventsService: EventsService, protected $hotjar: NgxHotjarService, private meta: Meta, private ccService: NgcCookieConsentService, public insightsService: InsightsService) {
+  constructor(private http: HttpClient, public toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, public translate: TranslateService, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, private langService: LangService, private eventsService: EventsService, private meta: Meta, private ccService: NgcCookieConsentService, public insightsService: InsightsService) {
 
     if (sessionStorage.getItem('lang')) {
       this.translate.use(sessionStorage.getItem('lang'));
@@ -92,31 +89,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
-  launchHotjarTrigger(lang) {
-    this.actualScenarioHotjar.scenario = 'fake'
-    if (lang == 'es') {
-      var ojb = { lang: lang, scenario: 'generalincoming_es' };
-      this.testHotjarTrigger(ojb);
-    } else {
-      var ojb = { lang: lang, scenario: 'generalincoming_en' };
-      this.testHotjarTrigger(ojb);
-    }
-  }
-
-  testHotjarTrigger(obj) {
-    if (obj.scenario != this.actualScenarioHotjar.scenario) {
-      setTimeout(function () {
-        if (obj.lang == 'es') {
-          this.$hotjar.trigger(obj.scenario);
-          this.actualScenarioHotjar = obj
-        } else {
-          this.$hotjar.trigger(obj.scenario);
-          this.actualScenarioHotjar = obj
-        }
-      }.bind(this), 1000);
-    }
-  }
-
   ngOnInit() {
     this.meta.addTags([
       { name: 'keywords', content: this.translate.instant("seo.home.keywords") },
@@ -153,7 +125,7 @@ export class AppComponent implements OnInit, OnDestroy {
           text: msg2,
           icon: 'warning',
           showCancelButton: false,
-          confirmButtonColor: '#ff0000',
+          confirmButtonColor: '#B30000',
           confirmButtonText: 'OK',
           showLoaderOnConfirm: true,
           allowOutsideClick: false,
@@ -166,27 +138,6 @@ export class AppComponent implements OnInit, OnDestroy {
         });
       }
     }.bind(this));
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        var actualUrl = this.activatedRoute.snapshot['_routerState'].url;
-        if (actualUrl.indexOf("undiagnosed;role=") != -1) {
-          this.role = actualUrl.split("undiagnosed;role=")[1];
-        } else if (actualUrl.indexOf("undiagnosed") != -1) {
-          this.role = "undiagnosed";
-        } else if (actualUrl.indexOf('diagnosed') != -1) {
-          this.role = "diagnosed";
-        } else {
-          this.role = '';
-        }
-
-        if (sessionStorage.getItem('lang') != undefined) {
-          this.launchHotjarTrigger(sessionStorage.getItem('lang'));
-        } else {
-          this.launchHotjarTrigger('en');
-        }
-      }
-    })
 
     this.subscription = this.router.events
       .filter((event) => event instanceof NavigationEnd)
@@ -215,7 +166,6 @@ export class AppComponent implements OnInit, OnDestroy {
       });
 
     this.eventsService.on('changelang', function (lang) {
-      this.launchHotjarTrigger(lang);
       (async () => {
         await this.delay(500);
         var titulo = this.translate.instant(this.tituloEvent);
@@ -243,10 +193,6 @@ export class AppComponent implements OnInit, OnDestroy {
       });
 
 
-    }.bind(this));
-
-    this.eventsService.on('changeEscenarioHotjar', function (obj) {
-      this.testHotjarTrigger(obj);
     }.bind(this));
 
     this.ccService.getConfig().cookie.domain = window.location.hostname;
