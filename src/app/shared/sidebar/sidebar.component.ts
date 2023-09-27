@@ -9,7 +9,6 @@ import { ConfigService } from '../services/config.service';
 import { LayoutService } from '../services/layout.service';
 import { Subscription } from 'rxjs';
 import { EventsService} from 'app/shared/services/events.service';
-import { Data } from 'app/shared/services/data.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -42,7 +41,6 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     private configService: ConfigService,
     private layoutService: LayoutService,
     private eventsService: EventsService,
-     private dataservice: Data,
   ) {
     if (this.depth === undefined) {
       this.depth = 0;

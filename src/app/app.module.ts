@@ -25,16 +25,9 @@ import { LandPageLayoutComponent } from "./layouts/land-page/land-page-layout.co
 
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
 import { DatePipe } from '@angular/common';
-import { DateService } from 'app/shared/services/date.service';
-import { SearchFilterPipe } from 'app/shared/services/search-filter.service';
-import { HighlightSearch } from 'app/shared/services/search-filter-highlight.service';
-import { TextTransform } from 'app/shared/services/transform-text.service';
-import { LocalizedDatePipe } from 'app/shared/services/localizedDatePipe.service';
 import { SortService } from 'app/shared/services/sort.service';
 import { SearchService } from 'app/shared/services/search.service';
 import { EventsService } from 'app/shared/services/events.service';
-import { DialogService } from 'app/shared/services/dialog.service';
-import { Data } from 'app/shared/services/data.service';
 import { environment } from 'environments/environment';
 
 import { Angulartics2Module } from 'angulartics2';
@@ -71,7 +64,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 
   @NgModule({
-    declarations: [AppComponent, ContentLayoutComponent, LandPageLayoutComponent, SearchFilterPipe, HighlightSearch, TextTransform, LocalizedDatePipe],
+    declarations: [AppComponent, ContentLayoutComponent, LandPageLayoutComponent],
     imports: [
       CommonModule,
       BrowserAnimationsModule,
@@ -99,17 +92,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         multi   : true
       },
       DatePipe,
-      DateService,
-      SearchFilterPipe,
-      HighlightSearch,
-      TextTransform,
-      LocalizedDatePipe,
       { provide: LOCALE_ID, useValue: 'es-ES' },
       SortService,
       SearchService,
       EventsService,
-      DialogService,
-      Data,
       {
         provide: PERFECT_SCROLLBAR_CONFIG,
         useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

@@ -33,9 +33,6 @@
             "scripts": [
               "src/assets/vendor/pace/pace.min.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "src/assets/azure-storage/azure-storage.common.js",
-		          "src/assets/azure-storage/azure-storage.blob.js",
-              "node_modules/apexcharts/dist/apexcharts.min.js",
               "node_modules/cookieconsent/build/cookieconsent.min.js"
             ]
           },

@@ -8,8 +8,6 @@ import { CONTENT_ROUTES } from "./shared/routes/content-layout.routes";
 
 import { Land_Pages_ROUTES } from "./shared/routes/land-page-layout.routes"
 
-import { CanDeactivateGuard } from './shared/auth/can-deactivate-guard.service';
-
 const appRoutes: Routes = [
   {
     path: '',
@@ -23,10 +21,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule],
-  providers: [
-    CanDeactivateGuard
-  ]
+  exports: [RouterModule]
 })
 
 export class AppRoutingModule {
