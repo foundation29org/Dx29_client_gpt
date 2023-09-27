@@ -18,7 +18,7 @@
               <!--<span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>-->
             </p>
         <div class="search">
-          <textarea #inputTextArea id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
+          <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
             [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}"
             (ngModelChange)="resizeTextArea()"></textarea>
         </div>
@@ -45,7 +45,7 @@
       </div>
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
-        <a class="white" (click)="showContentInfoAPP(contentInfoAPP)" style="font-size: 20px;font-weight: 300 !important;text-decoration: underline !important;">{{'land.Need help' | translate }}</a>
+        <span class="white pointer" (click)="showContentInfoAPP(contentInfoAPP)" style="font-size: 20px;font-weight: 300 !important;text-decoration: underline !important;">{{'land.Need help' | translate }}</span>
       </div>
 
     </div>
@@ -66,7 +66,7 @@
       <span class="col-md-12 mt-2" *ngIf="showInputRecalculate">
         <label>{{optionSelected.description}} </label>
         <div class="search">
-          <textarea #inputTextArea id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow"
+          <textarea #autoajustable2 id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow"
             [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}"
             (ngModelChange)="resizeTextArea2()"></textarea>
 
@@ -266,7 +266,7 @@
         <div class="form-group">
           <span>{{'land.whynotexpected' | translate }}*</span>
           <div>
-            <textarea #inputTextArea id="textarea1" type="text" name="feedBack1input" class="autoajustable data-hj-allow" style="width: 100%;" [(ngModel)]="feedBack1input" (ngModelChange)="resizeTextArea()"></textarea>
+            <textarea #autoajustable id="textarea1" type="text" name="feedBack1input" class="autoajustable data-hj-allow" style="width: 100%;" [(ngModel)]="feedBack1input" (ngModelChange)="resizeTextArea()"></textarea>
             <small class="form-text text-muted danger" *ngIf="feedBack1input==''">{{'generics.required' | translate }}</small>
           </div>
         </div>
@@ -311,7 +311,7 @@
       <div class="form-group">
         <span>{{'support.Message' | translate }} ({{'generics.Optional' | translate }}):</span>
         <div>
-          <textarea #inputTextArea id="textarea1" type="text" name="msgfeedBack" class="autoajustable data-hj-allow form-control" style="width: 100%;" [(ngModel)]="msgfeedBack" (ngModelChange)="resizeTextArea()"></textarea>
+          <textarea #autoajustable id="textarea1" type="text" name="msgfeedBack" class="autoajustable data-hj-allow form-control" style="width: 100%;" [(ngModel)]="msgfeedBack" (ngModelChange)="resizeTextArea()"></textarea>
         </div>
       </div>
       <div class="">
