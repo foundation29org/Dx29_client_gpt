@@ -28,10 +28,8 @@ import { DatePipe } from '@angular/common';
 import { SortService } from 'app/shared/services/sort.service';
 import { SearchService } from 'app/shared/services/search.service';
 import { EventsService } from 'app/shared/services/events.service';
-import { environment } from 'environments/environment';
 
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import {GoogleAnalyticsService} from './shared/services/google-analytics.service';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 import { InsightsService } from 'app/shared/services/azureInsights.service';

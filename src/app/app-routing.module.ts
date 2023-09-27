@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { ContentLayoutComponent } from "./layouts/content/content-layout.component";
 import { LandPageLayoutComponent } from "./layouts/land-page/land-page-layout.component";

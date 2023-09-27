@@ -1,6 +1,5 @@
 import {
   Directive,
-  HostListener,
   Input,
   Inject,
   HostBinding,

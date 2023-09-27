@@ -11,7 +11,6 @@ import {
 } from "@angular/core";
 import { SidebarLinkDirective } from "./sidebarlink.directive";
 import { Router, NavigationEnd } from "@angular/router";
-import { filter } from "rxjs/operators";
 
 @Directive({ selector: "[appSidebar]" })
 export class SidebarDirective implements OnInit, AfterViewInit {
