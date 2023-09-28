@@ -12,7 +12,6 @@ import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.servic
 import { SearchService } from 'app/shared/services/search.service';
 import { Clipboard } from "@angular/cdk/clipboard"
 import { v4 as uuidv4 } from 'uuid';
-import { GoogleAnalyticsService } from 'app/shared/services/google-analytics.service';
 import { jsPDFService } from 'app/shared/services/jsPDF.service'
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { Observable } from 'rxjs';
@@ -94,13 +93,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     @ViewChildren('autoajustable2') textAreas2: QueryList<ElementRef>;
     @ViewChild("autoajustable") inputTextAreaElement: ElementRef;
     
-    constructor( private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public googleAnalyticsService: GoogleAnalyticsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2) {
+    constructor( private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2) {
 
         this.lang = sessionStorage.getItem('lang');
         this.originalLang = sessionStorage.getItem('lang');
 
-        //this.googleAnalyticsService.eventEmitter("OpenDx - init: "+result, "general", this.myuuid);
-        //this.googleAnalyticsService.eventEmitter("OpenDx - init", "general", this.myuuid, 'init', 5);
         this._startTime = Date.now();
 
         if (sessionStorage.getItem('uuid') != null) {
