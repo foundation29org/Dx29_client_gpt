@@ -20,7 +20,6 @@ import {
   NgcStatusChangeEvent,
 } from "ngx-cookieconsent";
 import { InsightsService } from 'app/shared/services/azureInsights.service';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 @Component({
   selector: 'app-root',
@@ -46,8 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private revokeChoiceSubscription: Subscription;
   private noCookieLawSubscription: Subscription;
 
-  constructor(private http: HttpClient, public toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, public translate: TranslateService, private langService: LangService, private eventsService: EventsService, private meta: Meta, private ccService: NgcCookieConsentService, public insightsService: InsightsService, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
-    angulartics2GoogleAnalytics.startTracking();
+  constructor(private http: HttpClient, public toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, public translate: TranslateService, private langService: LangService, private eventsService: EventsService, private meta: Meta, private ccService: NgcCookieConsentService, public insightsService: InsightsService) {
     if (sessionStorage.getItem('lang')) {
       this.translate.use(sessionStorage.getItem('lang'));
       this.hasLocalLang = true;

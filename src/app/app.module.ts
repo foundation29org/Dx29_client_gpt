@@ -24,10 +24,6 @@ import { EventsService } from 'app/shared/services/events.service';
 
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
-import { environment } from 'environments/environment';
-import { NgxHotjarModule } from 'ngx-hotjar';
-import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 const cookieConfig:NgcCookieConsentConfig = {
   cookie: {
@@ -67,9 +63,7 @@ const cookieConfig:NgcCookieConsentConfig = {
           deps: [HttpClient]
         }
       }),
-      NgxHotjarModule.forRoot(environment.hotjarSiteId),
-      NgcCookieConsentModule.forRoot(cookieConfig),
-      Angulartics2Module.forRoot()
+      NgcCookieConsentModule.forRoot(cookieConfig)
     ],
     providers: [
       {
