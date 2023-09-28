@@ -1,7 +1,7 @@
 //@import "../../../../assets/sass/scss/bootstrap/timeline-vertical";
 //@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-:host ::ng-deep ._hj-v4Fsu__MinimizedWidgetMiddle__right{
+:host ::ng-deep ._hj-ETLL8__MinimizedWidgetMiddle__label{
   --hjFeedbackAccentColor: #B30000;
 }
 
@@ -33,18 +33,6 @@
   color: #353540;
 }
 
-.searchButton {
-  width: 40px;
-  height: 50px;
-  border: 1px solid #B30000;
-  background: #B30000;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-}
-
 .anchorSteps{
   margin-top: -60px;
   position: absolute;
@@ -53,10 +41,6 @@
 section {
   /* Margin bottom by footer height */
   color:#FFF !important;
-}
-
-.white-space{
-  padding-top: 20px;
 }
 
 .optionsResults{
@@ -109,18 +93,11 @@ section {
   background-color: #ff00003D !important;
 }
 
-/* Provide sufficient contrast against white background */
 .btn-primary {
     color: #fff;
     background-color: #B30000;
     border-color: #B30000;
 }
-
-/* Sticky footer styles
--------------------------------------------------- */
-/*html {
-    font-size: 14px;
-}*/
 
 .border-top {
     border-top: 1px solid #e5e5e5;
@@ -130,9 +107,6 @@ section {
     border-bottom: 1px solid #e5e5e5;
 }
 
-
-/* Sticky footer styles
--------------------------------------------------- */
 html {
     position: relative;
     min-height: 100%;
@@ -141,28 +115,6 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 256px;
-}
-
-/* Colors
--------------------------------------------------- */
-.red {
-    background: #B30000;
-}
-.green {
-    background: green;
-}
-.blue {
-    background: blue;
-}
-
-.text-red {
-    color: #B30000;
-}
-.text-green {
-    color: green;
-}
-.text-blue {
-    color: blue;
 }
 
 
@@ -213,7 +165,6 @@ body {
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
   }
 
-
 ::ng-deep  .swal2-styled.swal2-confirm:focus {
     box-shadow: 0 0 0 3px #b0b6bb;
 }
@@ -226,8 +177,6 @@ body {
   width: 120px !important;
 }
 
-
-
 .form-control:focus{
   border-color: #B30000 !important;
   box-shadow: 0 0 0 0.2rem #B30000;
@@ -238,16 +187,13 @@ body {
   padding: 0.28rem 0.5rem;
 }
 
-
 :host ::ng-deep .mat-checkbox-inner-container{
   margin-top: 4px;
 }
 
-
 .table-cont{
   overflow: auto;
 }
-
 
 @media ( max-width: 991px ){
   .optionsResults{
@@ -257,7 +203,6 @@ body {
   }
 }
 
-
 @media (max-width: 700px) {
   .card-title{
     display: inline-block;
@@ -266,7 +211,6 @@ body {
 }
 
 @media ( max-width: 575px ){
-
   .icon-hand{
     font-size: 1em !important;
   }
