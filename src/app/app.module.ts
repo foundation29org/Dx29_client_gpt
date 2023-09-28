@@ -12,12 +12,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from "@angular/common
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
-import {
-    PerfectScrollbarModule,
-    PERFECT_SCROLLBAR_CONFIG,
-    PerfectScrollbarConfigInterface
-  } from 'ngx-perfect-scrollbar';
-
 import { AppComponent } from './app.component';
 import { ContentLayoutComponent } from "./layouts/content/content-layout.component";
 import { LandPageLayoutComponent } from "./layouts/land-page/land-page-layout.component";
@@ -28,9 +22,12 @@ import { SortService } from 'app/shared/services/sort.service';
 import { SearchService } from 'app/shared/services/search.service';
 import { EventsService } from 'app/shared/services/events.service';
 
-import {GoogleAnalyticsService} from './shared/services/google-analytics.service';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
+import { environment } from 'environments/environment';
+import { NgxHotjarModule } from 'ngx-hotjar';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 const cookieConfig:NgcCookieConsentConfig = {
   cookie: {
@@ -47,11 +44,6 @@ const cookieConfig:NgcCookieConsentConfig = {
   theme: 'edgeless',
   type: 'opt-out'
 };
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-    suppressScrollX: true,
-    wheelPropagation: false
-  };
 
   export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -75,8 +67,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
           deps: [HttpClient]
         }
       }),
-      PerfectScrollbarModule,
-      NgcCookieConsentModule.forRoot(cookieConfig)
+      NgxHotjarModule.forRoot(environment.hotjarSiteId),
+      NgcCookieConsentModule.forRoot(cookieConfig),
+      Angulartics2Module.forRoot()
     ],
     providers: [
       {
@@ -89,12 +82,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       SortService,
       SearchService,
       EventsService,
-      {
-        provide: PERFECT_SCROLLBAR_CONFIG,
-        useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-      },
-      { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
-      GoogleAnalyticsService,
       InsightsService
     ],
     bootstrap: [AppComponent]

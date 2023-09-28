@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { SearchService } from 'app/shared/services/search.service';
 import { ToastrService } from 'ngx-toastr';
 import { v4 as uuidv4 } from 'uuid';
-import { GoogleAnalyticsService } from 'app/shared/services/google-analytics.service';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 declare let gtag: any;
@@ -30,7 +29,7 @@ export class AboutUsPageComponent implements OnDestroy {
     sending: boolean = false;
     @ViewChild('f') mainForm: NgForm;
 
-    constructor( public googleAnalyticsService: GoogleAnalyticsService, private searchService: SearchService, public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public insightsService: InsightsService) {
+    constructor( private searchService: SearchService, public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public insightsService: InsightsService) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
