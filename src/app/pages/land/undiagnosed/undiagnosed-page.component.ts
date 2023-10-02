@@ -89,6 +89,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     showErrorForm: boolean = false;
     sponsors = [];
 
+    hasAnonymize: boolean = false;
+    callingAnonymize: boolean = false;
+    tienePrisa: boolean = false;
+    resultAnonymized: string = '';
+    copyResultAnonymized: string = '';
+
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
     @ViewChildren('autoajustable2') textAreas2: QueryList<ElementRef>;
     @ViewChild("autoajustable") inputTextAreaElement: ElementRef;
@@ -528,6 +534,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 if (this.currentStep.stepIndex == 1 || step == 'step2') {
                     this.copyMedicalText = this.premedicalText;
                 }
+                this.callAnonymize(value, res.choices[0].message.content);//parseChoices0
                 let parseChoices0 = res.choices[0].message.content;
                 if(res.choices[0].message.content.indexOf("\n\n") > 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n\n"))){
                     parseChoices0 = res.choices[0].message.content.split("\n\n");
@@ -544,6 +551,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     //delete up to index "+" 
                     parseChoices0 = res.choices[0].message.content.substring(res.choices[0].message.content.indexOf("+"));
                 }
+                
                 if(!this.loadMoreDiseases){
                     this.diseaseListEn = [];
                 }
@@ -650,6 +658,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         await this.delay(200);
         this.scrollTo();
         this.showInputRecalculate = false;
+        localStorage.setItem('sentFeedback', 'true')
     }
 
     cancelEdit() {
@@ -1074,17 +1083,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     downloadResults() {
-        var infoDiseases = this.getPlainInfoDiseases();
-        this.jsPDFService.generateResultsPDF([], infoDiseases, this.lang)
-        this.lauchEvent("Download results");
+        if(!this.callingAnonymize){
+            let infoDiseases = this.getDiseaseInfo(this.topRelatedConditions);
+            this.jsPDFService.generateResultsPDF(this.medicalText, infoDiseases, this.lang)
+            this.lauchEvent("Download results");
+        }
+        
     }
 
-    getPlainInfoDiseases() {
-        var resCopy = [];
-        for (let i = 0; i < this.topRelatedConditions.length; i++) {
-            resCopy.push({ name: this.topRelatedConditions[i].name });
-        }
-        return resCopy;
+    getDiseaseInfo(diseases: any[]): { name: string, description: string }[] {
+        return diseases.map(disease => {
+            const matches = disease.content.match(/<\/strong>([\s\S]*?)(\n\n|$)/);
+            const description = matches && matches[1].trim() || '';
+            return {
+              name: disease.name,
+              description: description
+            };
+        });
     }
 
     getLiteral(literal) {
@@ -1246,4 +1261,124 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.modalReference = this.modalService.open(contentInfoAPP, ngbModalOptions);
         
     }
+
+    callAnonymize(value, response){
+        this.callingAnonymize = true;
+        this.hasAnonymize = false;
+        this.resultAnonymized = '';
+        this.copyResultAnonymized = '';
+        var info = { value: this.medicalText, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response }
+        this.subscription.add(this.apiDx29ServerService.postAnonymize(info)
+            .subscribe((res: any) => {
+                let parseChoices = res.choices[0].message.content;
+                parseChoices = parseChoices.replace(/^"""\n/, '').replace(/\s*"""$/, '');
+                let parts = parseChoices.split(/(\[ANON-\d+\])/g);
+                let partsCopy = parseChoices.split(/(\[ANON-\d+\])/g);
+                if(parts.length>1){
+                    for (let i = 0; i < parts.length; i++) {
+                        if (/\[ANON-\d+\]/.test(parts[i])) {
+                          let length = parseInt(parts[i].match(/\d+/)[0]);
+                          let blackSpan = '<span style="background-color: black; display: inline-block; width:' + length + 'em;">&nbsp;</span>';
+                          parts[i] = blackSpan;
+                          // Agregamos la parte de los asteriscos
+                          let asterisks = '*'.repeat(length);
+                          partsCopy[i] = asterisks;
+                        }
+                      }
+                      this.resultAnonymized = parts.join('');
+                      this.resultAnonymized =  this.resultAnonymized.replace(/\n/g, '<br>');
+
+                      this.copyResultAnonymized = partsCopy.join('');
+                      this.copyResultAnonymized =  this.copyResultAnonymized.replace(/\n/g, '<br>');
+                      this.medicalText = this.copyResultAnonymized;
+                      this.premedicalText = this.copyResultAnonymized;
+                      this.callingAnonymize = false;
+                      this.hasAnonymize = true;
+                      if (!localStorage.getItem('dontShowSwal')) {
+
+                        let detectePer = this.translate.instant("diagnosis.detected personal information")
+                        let procDelete = this.translate.instant("diagnosis.proceeded to delete")
+                        let msgcheck = this.translate.instant("land.check")
+                        Swal.fire({
+                            icon: 'info',
+                            html: '<p>'+detectePer+'</p><p>'+procDelete+'</p><br><br><input type="checkbox" id="dont-show-again" class="mr-1">'+msgcheck,
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if ((document.getElementById('dont-show-again') as HTMLInputElement).checked) {
+                                // Aquí puedes almacenar la preferencia del usuario, por ejemplo en localStorage
+                                localStorage.setItem('dontShowSwal', 'true');
+                            }
+                        });
+                      }else{
+                        this.mostrarFinalizacionAnonimizado(true);
+                      }
+                     
+                    
+                }else{
+                    this.callingAnonymize = false;
+                    this.hasAnonymize = false;
+                    this.mostrarFinalizacionAnonimizado(false);
+                }
+                
+            }, (err) => {
+                console.log(err);
+                this.insightsService.trackException(err);
+                this.callingAnonymize = false;
+                this.hasAnonymize = false;
+                this.mostrarFinalizacionAnonimizado(false);
+            }));
+    }
+
+    mostrarFinalizacionAnonimizado(detectedText){
+        if(this.tienePrisa){
+            if(detectedText){
+                Swal.fire({
+                    icon: 'success',
+                    html: this.translate.instant("diagnosis.correctly anonymized"),
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (this.modalReference != undefined) {
+                        this.modalReference.close();
+                        this.modalReference = undefined;
+                    }
+                });
+            }else{
+                Swal.fire({
+                    icon: 'success',
+                    html: this.translate.instant("diagnosis.not detected personal information"),
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (this.modalReference != undefined) {
+                        this.modalReference.close();
+                        this.modalReference = undefined;
+                    }
+                });
+            }
+            this.tienePrisa = false;
+        }        
+    }
+    openAnonymize(contentviewDoc){
+        let ngbModalOptions: NgbModalOptions = {
+            keyboard: false,
+            windowClass: 'ModalClass-sm' // xl, lg, sm
+          };
+          if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+          }
+          this.modalReference = this.modalService.open(contentviewDoc, ngbModalOptions);
+    }
+
+    closeModal() {
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+        }
+      }
 }

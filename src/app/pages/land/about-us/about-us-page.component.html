@@ -2,15 +2,24 @@
   <div class="col-12 d-flex justify-content-center">
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
-        <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
+        <div class="offset-md-2 col-md-8 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
           <h1 class="white card-title text-bold-500">
             {{'land.aboutUs.title' | translate }}
             <hr class="hr-custom">
           </h1>
-          <span class="row margin-left-0 p-2 offset-md-2 col-md-8">
+          <span class="text-left row margin-left-0 p-2">
             <p>{{'land.aboutUs.p1' | translate }}</p>
             <p>{{'land.aboutUs.p2' | translate }}</p>
             <p>{{'land.aboutUs.p3' | translate }}</p>
+          </span>
+
+          <h1 class="white mt-5 card-title text-bold-500">
+            {{'land.aboutUs.Current model accuracy' | translate }}
+            <hr class="hr-custom">
+          </h1>
+          <span class="text-left row margin-left-0 p-2">
+            <p>{{'land.aboutUs.modelp1' | translate }}</p>
+            <p>{{'land.aboutUs.modelp2' | translate }} <a class="text-decoration-underline" href="https://github.com/foundation29org/dxgpt_testing" target="_blank" (click)="lauchEvent('dxgpt_testing')">{{'land.aboutUs.modelp3' | translate }}</a></p>
           </span>
         </div>
       </div>
@@ -22,12 +31,12 @@
   <div class="col-12 d-flex justify-content-center">
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
-        <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
+        <div class="offset-md-2 col-md-8 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
           <h1 class="card-title text-bold-500">
             {{'land.aboutUs.titlef29' | translate }}
             <hr class="hr-custom">
           </h1>
-          <span class="row p-2 margin-left-0 offset-md-2 col-md-8">
+          <span class="text-left row margin-left-0 p-2">
             <p>{{'land.aboutUs.p1f29' | translate }}</p>
             <p>{{'land.aboutUs.p2f29' | translate }}</p>
             <p>{{'land.aboutUs.p3f29' | translate }}</p>
@@ -51,14 +60,14 @@
   <div class="col-12 d-flex justify-content-center">
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
-        <div class="col-lg-12 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
+        <div class="offset-md-3 col-md-6 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
           <h1 class="white card-title text-bold-500">
             {{'homedx.Contact us' | translate }}
             <hr class="hr-custom">
           </h1>
         </div>
         <div class="col-lg-12 col-md-12 py-2">
-          <div class="offset-md-2 col-md-8">
+          <div class="offset-md-3 col-md-6">
             <div class="center-elements">
               <form class="form" (ngSubmit)="sendMsg()" #f="ngForm">
                 <div class="form-body">

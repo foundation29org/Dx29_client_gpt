@@ -39,7 +39,14 @@
     "Proposed diagnoses":"Diagnósticos propuestos",
     "Click on the disease to see more options": "Haz clic en la enfermedad para ver más opciones. Por ejemplo, hacer diagnóstico diferencial.",
     "Candidate diagnosis": "Diagnósticos candidatos",
-    "SponsorMsg": "Conoce todo de la enfermedad aquí"
+    "Patient text entered": "Texto introducido del paciente",
+    "SponsorMsg": "Conoce todo de la enfermedad aquí",
+    "Anonymized text": "Texto anonimizado",
+    "View anonymized text": "Ver texto anonimizado",
+    "correctly anonymized": "El texto ha sido anonimizado correctamente",
+    "not detected personal information": "No hemos detectado información personal en la descripción clínica que ha introducido.",
+    "detected personal information": "Hemos detectado información personal en la descripción clínica que ha introducido.",
+    "proceeded to delete": "Hemos procedido a eliminar esta información y guardar el texto anonimizado."
   },
   "policy":{
     "CONTENT": "CONTENIDO",
@@ -276,7 +283,11 @@
       "p1f29": "Somos una fundación sin ánimo de lucro. Trabajamos por una medicina en la que pacientes empoderados toman el control de su salud a través de sus datos y trabajan con médicos e instituciones para mejorar su bienestar y el de los demás.",
       "p2f29": "Creamos tecnologías que permiten un cambio radical en sus capacidades como usuarios y en todo el ecosistema médico.",
       "p3f29": "El activismo de los pacientes, sus familias y las asociaciones están en nuestra esencia. Ponemos especial foco en las enfermedades raras. Están en nuestro origen y en nuestro nombre: 29 de febrero, día mundial de las enfermedades raras.",
-      "Sign up": "Inscribirme"
+      "Sign up": "Inscribirme",
+      "Current model accuracy": "Precisión actual del modelo",
+      "modelp1": "En una evaluación preliminar reciente realizada por Fundación 29 utilizando 200 casos sintéticos de pacientes generados por modelos de lenguaje, DxGPT demostró cierta capacidad para sugerir diagnósticos correctos de enfermedades raras. Específicamente, cuando se evaluó la precisión estricta (es decir, si el diagnóstico correcto aparecía en primera posición), DxGPT obtuvo una precisión del 67,5%, acertando el diagnóstico en 135 de los 200 casos. Si se considera una métrica más flexible, contabilizando los diagnósticos correctos tanto en la primera como en las primeras 5 posiciones, la precisión aumenta al 88,5% (177 de 200 casos). Si bien estos resultados iniciales son alentadores, DxGPT aún se encuentra en una fase temprana de desarrollo.",
+      "modelp2": "Para más detalles sobre la metodología de evaluación y los resultados, consulte nuestro",
+      "modelp3": "repositorio de GitHub y el artículo asociado."
     },
     "diagnosed":{
       "timeline":{
@@ -297,6 +308,17 @@
         "RegDate":"Fecha de expedición"
       }
     }
+  },
+  "feedback":{
+    "t1": "Tu opinión es importante para nosotros",
+    "subt1": "Sus comentarios son esenciales para mejorar esta herramienta y ofrecerle algo aún mejor.",
+    "q1": "¿Le resultó útil esta herramienta para identificar diagnósticos de enfermedades?",
+    "q2": "¿Cómo califica su experiencia general al usar la herramienta?",
+    "q3": "¿Qué funcionalidad le gustaría que tuviera la herramienta?",
+    "commment": "Deje cualquier comentario o sugerencia que considere relevante",
+    "thanks": "Gracias por tu valoración!",
+    "Submitted": "Enviado",
+    "onstarts": "Por favor, valore la calidad pulsando en las estrellas."
   },
   "seo":{
     "home":{

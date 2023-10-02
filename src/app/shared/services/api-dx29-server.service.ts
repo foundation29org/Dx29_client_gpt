@@ -20,6 +20,17 @@ export class ApiDx29ServerService {
       })
   }
 
+  postAnonymize(info) {
+    return this.http.post(environment.serverapi + '/api/callanonymized', info)
+      .map((res: any) => {
+        return res;
+      }, (err) => {
+        console.log(err);
+        this.insightsService.trackException(err);
+        return err;
+      })
+  }
+
   opinion(info) {
     return this.http.post(environment.serverapi + '/api/opinion', info)
       .map((res: any) => {

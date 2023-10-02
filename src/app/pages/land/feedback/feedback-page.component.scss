@@ -1,0 +1,15 @@
+:host ::ng-deep ngb-rating span {
+  font-size: 2.5rem;
+}
+
+.my-rating {
+  color: #FF8D60;
+}
+
+@media ( max-width: 380px ){
+
+  .centerdiv{
+    clear: both;
+    float: none !important;
+  }
+}

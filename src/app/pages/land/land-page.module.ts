@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { LandPageRoutingModule } from "./land-page-routing.module";
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AboutUsPageComponent } from "./about-us/about-us-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
+import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { PipeModule } from 'app/shared/pipes/pipe.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -20,14 +22,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         CommonModule,
         LandPageRoutingModule,
         FormsModule,
+        ReactiveFormsModule,
         TranslateModule,
         CustomFormsModule,
         NgbModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        PipeModule
     ],
     declarations: [
         AboutUsPageComponent,
-        UndiagnosedPageComponent
+        UndiagnosedPageComponent,
+        FeedbackPageComponent
     ]
 })
 export class LandPageModule { }

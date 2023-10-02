@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AboutUsPageComponent } from "./about-us/about-us-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
+import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,13 @@ const routes: Routes = [
         component: AboutUsPageComponent,
         data: {
           title: 'menu.About us'
+        }
+      },
+      {
+        path: 'feedback',
+        component: FeedbackPageComponent,
+        data: {
+          title: 'Feedback'
         }
       }
     ]

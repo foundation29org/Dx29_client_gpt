@@ -1,0 +1,49 @@
+<a id="initpos"></a>
+<span class="p-2 float-right pointer" (click)="activeModal.close('Close click')" style="z-index: 3;position: relative;">
+  <em class="fa fa-times"></em>
+</span>
+<section>
+  <div class="col-12">
+    <div class="card-body" style="max-width: 1200px;">
+      <div class="row">
+        <div class="col-12">
+            <h3>{{'feedback.t1' | translate }}</h3>
+        </div>
+        <div class="col-12">
+          <h5>{{'feedback.subt1' | translate }}</h5>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-12">
+            <form class="mt-4" [formGroup]="formulario" (ngSubmit)="sendFeedback()">
+                <div class="row">
+                  <p for="pregunta1" class="col-8 text-bold-400">{{'feedback.q1' | translate }}</p>
+                  <ngb-rating formControlName="pregunta1" max="5" class="my-rating col-4"></ngb-rating>
+                </div>
+                <div class="row">
+                  <p for="pregunta2" class="col-8 text-bold-400">{{'feedback.q2' | translate }}</p>
+                  <ngb-rating formControlName="pregunta2" max="5" class="my-rating col-4"></ngb-rating>
+                </div>
+                <div class="mt-3">
+                  <p for="moreFunct" class="text-bold-400 mb-0">{{'feedback.q3' | translate }}</p>
+                  <textarea formControlName="moreFunct" rows="4" class="form-control"></textarea>
+                </div>
+                <div class="mt-3">
+                    <p for="freeText" class="text-bold-400 mb-0">{{'feedback.commment' | translate }}</p>
+                    <textarea formControlName="freeText" rows="4" class="form-control"></textarea>
+                  </div>
+                <div class="col-12 center-elements mt-3" *ngIf="!sending">
+                  <button type="button" class="btn btn-secondary btn-lg mr-1" (click)="activeModal.close('Close click')">{{'generics.Close' | translate }}</button>
+                  <button type="submit" class="btn btn-info btn-lg ml-1">{{'generics.Send' | translate }}</button>
+                </div>
+                <div class="col-md-12 center-elements" *ngIf="sending">
+                    <span ><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
+                </div>
+                
+              </form>
+        </div>
+        
+    </div>
+    </div>
+</div>
+</section>
