@@ -1,0 +1,166 @@
+.customizer {
+  width: 400px;
+  right: -400px;
+  padding: 0;
+  background-color: $white;
+  z-index: 1052;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  transition: right 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
+  backface-visibility: hidden;
+  border-left: 1px solid rgba($black, 0.05);
+  box-shadow: 0 0 8px rgba($black, 0.1);
+
+  &.open {
+    right: 0;
+  }
+
+  .customizer-content {
+    position: relative;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+
+  .customizer-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 7px;
+    width: auto;
+    z-index: 10;
+  }
+
+  .customizer-toggle {
+    position: absolute;
+    top: 45%;
+    width: 2.7rem;
+    height: 2.7rem;
+    left: -2.75rem;
+    text-align: center;
+    line-height: 2.7rem;
+    cursor: pointer;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    box-shadow: -3px 0px 8px rgba($black, 0.1);
+
+    i.spinner {
+      animation-duration: 2s;
+    }
+  }
+
+  .color-options {
+    a {
+      white-space: pre;
+    }
+  }
+
+  .cz-bg-color {
+    margin: 0 auto;
+
+    [class*="gradient-"] {
+      transform: rotate(90deg);
+    }
+
+    &>.row {
+      padding-left: 4px;
+    }
+  }
+
+  .cz-bg-color,
+  .cz-tl-bg-color {
+    .selected {
+      box-shadow: 0 0 1px 1px $primary;
+      border: 3px solid $white;
+    }
+    span {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .cz-bg-image {
+    padding-left: 5px;
+    padding-right: 3px;
+
+    img.rounded {
+      height: 80px;
+      width: 40px;
+
+      &.selected {
+        border: 3px solid $white;
+        box-shadow: 0 0 1px 1px $primary;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .togglebutton {
+    .checkbox {
+      margin-right: -8px;
+    }
+  }
+
+  .tl-color-option,
+  .cz-tl-bg-color,
+  .tl-bg-img {
+    display: none;
+  }
+
+  .cz-tl-bg-image {
+    padding-right: 5px;
+
+    .ct-glass-bg {
+      height: 100px;
+      width: 70px;
+
+      &.selected {
+        border: 3px solid $dl-bg-color;
+        box-shadow: 0 0 1px 1px $primary;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .cz-tl-bg-color {
+    [class*=bg-]{
+      background-size: cover;
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background .3s;
+    }
+
+    .bg-glass-hibiscus {
+      background-image: $bg-glass-hibiscus;
+    }
+
+    .bg-glass-purple-pizzazz {
+      background-image: $bg-glass-purple-pizzazz;
+    }
+
+    .bg-glass-blue-lagoon {
+      background-image: $bg-glass-blue-lagoon;
+    }
+
+    .bg-glass-electric-violet {
+      background-image: $bg-glass-electric-violet;
+    }
+
+    .bg-glass-portage {
+      background-image: $bg-glass-portage;
+    }
+
+
+    .bg-glass-tundora {
+      background-image: $bg-glass-tundora;
+    }
+  }
+}

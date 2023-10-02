@@ -1,0 +1,22 @@
+@import "../core/colors/palette-variables";
+
+// inline code tag
+code {
+    padding: 0.1rem 0.4rem;
+    background-color: map-get($grey-color, lighten-3);
+    border-radius: 0.2rem;
+}
+
+pre {
+    code {
+        padding: 0;
+        text-shadow: none !important;
+        .token.operator,
+        .token.url {
+            background: transparent;
+        }
+    }
+    &[class*="language-"] {
+        border-radius: $border-radius;
+    }
+}

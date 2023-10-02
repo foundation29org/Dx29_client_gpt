@@ -2,24 +2,22 @@
   "compileOnSave": false,
   "compilerOptions": {
     "importHelpers": true,
-    "module": "commonjs",
+    "skipLibCheck": true,
+    "module": "es2020",
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "downlevelIteration": true,
-    "target": "ES5",
+    "target": "es2020",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es2016",
       "dom"
     ],
-    "resolveJsonModule": true,
     //"noUnusedLocals": true
   },
   "angularCompilerOptions": {

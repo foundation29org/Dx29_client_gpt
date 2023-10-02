@@ -1,0 +1,15 @@
+// basic badge
+.badge{
+	letter-spacing: 0.3px;
+	background-color: $primary;
+	color: $white;
+
+	&.badge-light {
+		color: $body-color;
+	}
+
+	// round badge
+	&.badge-round {
+		padding: 6px 8px;
+	}
+}

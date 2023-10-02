@@ -1,276 +1,442 @@
-#### Version 9.0
 
-##### 02-19-2020 [9.0]
+# Changelog
 
-### **Angular**
+List of all the updated task for each versions.
 
-#### New
+#### Version 14.0
 
-1.  Updated Angular to 9.0.0
-2.  Updated various other packages to latest versions
-3.  Removed ng2-img-cropper, ng2-validation, videogular2 & ng2-smart-table libraries 
-4.  Added ngx-image-cropper, ngx-custom-validators, ngx-videogular & @angular/cdk libraries
-
-
-#### Version 8.0
-
-##### 06-17-2019 [8.0]
+##### [14.0] - 2022-08-29
 
 ### **Angular**
 
 #### New
 
-1.  Updated Angular to 8.0.0
-2.  Updated various other packages to latest versions
-3.  Updated Documentation
-4.  Breaking changes in sweetalert2 with latest version
+- Updated Angular to 14.2.1
 
-#### Fixed
+#### Version 13.0
 
-1. Content layout issue 
-2. Minor bug fix in Chat and taskboard page
-3. Styling issues in FAQ and Knowledge base page
-
-#### Version 7.0
-
-##### 03-30-2019 [7.0]
+##### [13.0] - 2021-12-11
 
 ### **Angular**
 
-#### Added
+#### New
 
-1.  Dark Layout
-2.  Transparent Layout with new colors and glass images
-3.  Layout Configuration File
-4.  Table Component
+- Updated Angular to 13.1.0
 
-#### Updated
+#### Version 12.0
 
-1.  Documentation
-2.  New Layout For Authentication Pages (Login, Registration, Forgot Password, Lock Screen, Coming Soon, Maintenance.)
-3.  Email App
-4.  Taskboard App
-5.  Updated All Dependencies
-6.  Improved Customizer
+##### [12.0] - 2021-06-11
+
+### **Angular**
+
+#### New
+
+- Updated Angular to 12.0.3
+- Updated all other packages to latest versions
+
+#### Version 11.0
+
+##### [11.0] - 2020-12-08
+
+### **Angular**
+
+#### New
+
+- Updated Angular to 11.0.3
+- Updated all other packages to latest versions
+
+
+#### Version 10.0
+
+##### [10.0] - 2020-03-25
+
+### **HTML**
+
+#### New
+
+- Horizontal Menu
+- Search in template
+- Added new gradients & background images for transparent layout
+- Navbar Sticky
+- Components : Media Player,Treeview,Swiper,Copy to Clipboard,Context Menu,Idle Timer,Numeral.js,Avatar
+- Select2
+- Leaflet map
+- Apex Charts
+- Pages : Left & Right Vertical Timeline, Users pages, Account Settings
+- Scroll to top
+- Menu Internationalization
+- Invoice Print
+- HTML Documentation
+
+#### Updates
+
+- Bootstrap v4.4.1
+- Updated Template UI
+- Template HTML structure updated
+- Main Navbar UI
+- Notification sidebar UI
+- Color Palette
+- Apps UI
+- Components UI
+- Card UI updated
+- Customizer Options & UI updated
+- Forms UI
+- Updated Pages like Timeline, User Profile, error, coming soon, maintainance, gallery, etc.
+- Updated Vendor Plugins & Libraries
 
 #### Removed
 
-1.  Removed all jquery code
-2.  Removed jquery wizard component
+- Google Map
+- Removed gradient colors that we are not using
+- Removed colors that we are not using
+
+---
+
+### **Angular**
+
+
+## Version 9.0
+
+##### [9.0] - 2020-02-19
+
+### **Angular**
+
+#### New
+
+- Updated Angular to 9.0.0
+- Updated various other packages to latest versions
+- Removed ng2-img-cropper, ng2-validation, videogular2 & ng2-smart-table libraries
+- Added ngx-image-cropper, ngx-custom-validators, ngx-videogular & @angular/cdk libraries
+
+
+## Version 8.0
+
+##### [8.0] - 2019-06-17
+
+### **Angular**
+
+#### New
+
+- Updated Angular to 8.0.0
+- Updated various other packages to latest versions
+- Updated Documentation
+- Breaking changes in sweetalert2 with latest version
 
 #### Fixed
 
-1.  UI Kit pages (Grid, Helper Classes, Typography, Text Utilities etc..)
-2.  Classes according to latest bootstrap i.e changed `.card-body` to `.card-body` and added `.card-content` as a wrapper to `.card-body`
+- Content layout issue
+- Minor bug in Chat and taskboard page
+- Styling issues in FAQ and Knowledge base page
+
+
+## Version 7.0
+
+##### [7.0] - 2019-03-30
 
 ### **HTML**
 
 #### Added
 
-1.  Dark Layout
-2.  Transparent Layout with new colors and glass images
-3.  Bootstrap Spinner Component
-4.  Bootstrap Toast Component
-5.  Bootstrap Radio, Checkbox and IOS style switch
+- Dark Layout
+- Transparent Layout with new colors and glass images
+- Bootstrap Spinner Component
+- Bootstrap Toast Component
+- Bootstrap Radio, Checkbox and IOS style switch
 
 #### Updated
 
-1.  Bootstrap to latest version (4.3)
-2.  New Layout For Authentication Pages (Login, Registration, Forgot Password, Lock Screen, Coming Soon, Maintenance.)
-3.  Updated All Dependencies
-4.  Updated Documentation
-5.  Improved Customizer
+- Bootstrap to latest version (4.3)
+- New Layout For Authentication Pages (Login, Registration, Forgot Password, Lock Screen, Coming Soon, Maintenance.)
+- Updated All Dependencies
+- Updated Documentation
+- Improved Customizer
 
 #### Fixed
 
-1.  Classes according to latest bootstrap i.e changed `.card-body` to `.card-body` and added `.card-content` as a wrapper to `.card-body`
-2.  UI Kit pages (Grid, Helper Classes, Typography, Text Utilities etc..)
-3.  Scrollbar on Chat Page
-4.  Fullscreen Mode
+- Classes according to latest bootstrap i.e changed `.card-body` to `.card-body` and added `.card-content` as a wrapper to `.card-body`
+- UI Kit pages (Grid, Helper Classes, Typography, Text Utilities etc..)
+- Scrollbar on Chat Page
+- Fullscreen Mode
 
-#### Version 6.0
+---
 
-##### 11-07-2018 [6.0]
+### **Angular**
 
 #### Added
 
-1.  Angular 7 in Apex Angular template and Starter kit
-2.  ArchWizard component in forms section
-3.  Select component in extra component section
+- Dark Layout
+- Transparent Layout with new colors and glass images
+- Layout Configuration File
+- Table Component
 
 #### Updated
 
-1.  All packages updated to latest version.
-2.  drag and drop component and switch component have major version upgrade and code changes
-3.  Documentation
+- Documentation
+- New Layout For Authentication Pages (Login, Registration, Forgot Password, Lock Screen, Coming Soon, Maintenance.)
+- Email App
+- Taskboard App
+- Updated All Dependencies
+- Improved Customizer
+
+#### Removed
+
+- Removed all jquery code
+- Removed jquery wizard component
 
 #### Fixed
 
-1.  Minor design fixes
+- UI Kit pages (Grid, Helper Classes, Typography, Text Utilities etc..)
+- Classes according to latest bootstrap i.e changed `.card-body` to `.card-body` and added `.card-content` as a wrapper to `.card-body`
 
-#### Version 5.1
 
-##### 07-24-2018 [5.1]
+## Version 6.0
+
+##### [6.0] - 2018-07-11
+
+### **Angular**
 
 #### Added
 
-1.  RTL version (Demo available)
+- Angular 7 in Apex Angular template and Starter kit
+- ArchWizard component in forms section
+- Select component in extra component section
 
 #### Updated
 
-1.  Packages updated to latest version.
-2.  Documentation
+- All packages updated to latest version.
+- drag and drop component and switch component have major version upgrade and code changes
+- Documentation
 
 #### Fixed
 
-1.  Navbar issue in small devices
+- Minor design fixes
 
-#### Version 5.0
 
-##### 06-09-2018 [5.0]
+## Version 5.1
+
+##### [5.1] - 2018-07-24
+
+### **Angular**
 
 #### Added
 
-1.  Angular 6 Latest version
+- RTL version (Demo available)
 
 #### Updated
 
-1.  Angular, NgRx, NG-bootstrap and other Packages updated to latest version.
+- Packages updated to latest version.
+- Documentation
 
 #### Fixed
 
-1.  NoUI Slider while running ng-serve
-2.  HTML template - navbar dropdown z-index issue
+- Navbar issue in small devices
 
-#### Version 4.1
 
-##### 02-22-2018 [4.1]
+## Version 5.0
+
+##### [5.0] - 2018-06-09
+
+### **Angular**
 
 #### Added
 
-1.  HTML Front-end Landing Page
-2.  Top fix navbar option (Demo Available)/li>
-3.  HTML template - All 5 Demos now available in downloadable
+- Angular 6 Latest version
 
 #### Updated
 
-1.  Angular, NgRx, NG-bootstrap and other Packages updated to latest version.
-2.  Horizontal timeline page now fully converted to typescript version.
-3.  Chat and Inbox page responsive design
-4.  Documentation
+- Angular, NgRx, NG-bootstrap and other Packages updated to latest version.
 
 #### Fixed
 
-1.  User Profile page responsive issue.
-2.  IE 11 issue.
+- NoUI Slider while running ng-serve
+- HTML template - navbar dropdown z-index issue
 
-#### Version 4.0
 
-##### 01-26-2018 [4.0]
+## Version 4.1
+
+##### [4.1] - 2018-02-22
+
+### **HTML**
 
 #### Added
 
-1.  Chat NgRx page in Angular template
-2.  Taskboard NgRx page in Angular template
-3.  Tags input page in angular and html template
-4.  Switch page in angular and html template
+- HTML Front-end Landing Page
+- Top fix navbar option (Demo Available)/li>
+- HTML template - All 5 Demos now available in downloadable
 
 #### Updated
 
-1.  Angular Template and Starter kit Template Angular version updated to latest versiom (5.2.1)
-2.  Bootstrap updated to latest version (Bootstrap 4 Stable) in Angular Template and Starter kit Template and HTML template
-3.  Sweet alert package updated to latest version.
-4.  NG-Bootstrap package updated to latest version.
-5.  NG-Bootstrap Components
-6.  Documentation
+- Chat and Inbox page responsive design
+- Documentation
 
 #### Fixed
 
-1.  Taskboard page minor bug in Angular template
+- User Profile page responsive issue.
+- IE 11 issue.
 
-#### Version 3.1
+---
 
-##### 12-26-2017 [3.1]
-
-#### Added
-
-1.  Recent Activity, Chat and Settings Sidebar tabbed panel For Angular and HTML Templates
-2.  Image Cropper page For Angular and HTML Templates
+### **Angular**
 
 #### Updated
 
-1.  Packages for Angular Template and Starter kit Template updated to latest version
-2.  Documentation
+- Angular, NgRx, NG-bootstrap and other Packages updated to latest version.
+- Horizontal timeline page now fully converted to typescript version.
+- Chat and Inbox page responsive design
+- Documentation
 
 #### Fixed
 
-1.  IOS scrolling issue
-2.  Menu issue on small screen in starter kit.
+- User Profile page responsive issue.
+- IE 11 issue.
 
-#### Version 3.0
 
-##### 12-03-2017 [3.0]
+## Version 4.0
 
-#### Added
+##### [4.0] - 2018-01-26
 
-1.  HTML(non-angular) Version
-
-#### Version 2.1
-
-##### 11-21-2017 [2.1]
+### **HTML**
 
 #### Added
 
-1.  Search Page
-2.  FAQ Page
-3.  Knowledge Base Page
-4.  Internationalization (i18n) Support
-5.  Authentication Service
+- Tags input page
+- Switch page
 
 #### Updated
 
-1.  Angular Version (5.0.2)
-2.  starter kit
-3.  Documentation
-4.  Calendar
-5.  Inbox
-6.  Chat
-7.  NGX Datatable
-8.  NGX Charts
+- Bootstrap updated to latest version HTML template
+- Sweet alert package updated to latest version.
+- Documentation
 
-#### Fixed
+---
 
-1.  Minor Bugs
-
-#### Version 2.0
-
-##### 11-10-2017 [2.0]
+### **Angular**
 
 #### Added
 
-1.  Taskboard
-2.  Audio Player
-3.  Video Player
-4.  Chat - Audio & Video
-5.  Drag n Drop
-6.  Tour
+- Chat NgRx page 
+- Taskboard NgRx page
+- Tags input page
+- Switch page 
 
 #### Updated
 
-1.  Updated to Angular 5+
-2.  Updated starter kit to Angular 5+
-3.  Documentation
-4.  Calendar
-5.  Sweet Alert
-6.  Data Tables
-7.  Quill Editor
+- Angular Template and Starter kit Templatupdated to latest versiom (5.2.1)
+- Bootstrap updated to latest version (Bootstrap 4 Stable) and Starter kit Template
+- Sweet alert package updated to latest version.
+- NG-Bootstrap package updated to latest version.
+- NG-Bootstrap Components
+- Documentation
+
+#### Fixed
+ 
+- Taskboard page minor bug in Angular template
+
+## Version 3.1
+
+
+##### [3.1] - 2017-12-26
+
+### **HTML**
+
+#### Added
+
+- Recent Activity, Chat and Settings Sidebar tabbed panel
+- Image Cropper page
+
+#### Updated
+
+ - Documentation
 
 #### Fixed
 
-1.  Minor Bugs & design flaws
+- IOS scrolling issue
+- Menu issue on small screen in starter kit.
+---
+### **Angular**
+#### Added
 
-#### Initial release
+- Recent Activity, Chat and Settings Sidebar tabbed panel
+- Image Cropper page 
 
-##### 10-23-2017 [1.0]
+#### Updated
 
-- Initial release
+- Packages for Angular Template and Starter kit Template updated to latest version
+- Documentation
+
+#### Fixed
+
+- IOS scrolling issue
+- Menu issue on small screen in starter kit.
+
+## Version 3.0
+
+##### [3.0] - 2017-12-03
+### **Angular**
+#### Added
+
+- HTML(non-angular) Version
+
+## Version 2.1
+
+##### [2.1] - 2017-11-21
+
+### **Angular**
+#### Added
+
+- Search Page
+- FAQ Page
+- Knowledge Base Page
+- Internationalization (i18n) Support
+- Authentication Service
+
+#### Updated
+
+- Angular Version (5.0.2)
+- starter kit
+- Documentation
+- Calendar
+- Inbox
+- Chat
+- NGX Datatable
+- NGX Charts
+
+#### Fixed
+
+- Minor Bugs
+
+## Version 2.0
+
+
+##### [2.0] - 2017-11-10
+
+ ### **Angular** 
+
+#### Added
+
+- Taskboard
+- Audio Player
+- Video Player
+- Chat - Audio & Video
+- Drag n Drop
+- Tour
+
+#### Updated
+
+- Updated to Angular 5+
+- Updated starter kit to Angular 5+
+- Documentation
+- Calendar
+- Sweet Alert
+- Data Tables
+- Quill Editor
+
+#### Fixed
+
+- Minor Bugs & design flaws
+
+## Initial release
+
+##### [1.0] - 2017-10-23
+
+- Initial release# Changelog

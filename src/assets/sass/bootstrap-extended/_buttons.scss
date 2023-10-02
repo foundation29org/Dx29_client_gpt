@@ -1,0 +1,85 @@
+// buttons basic and outline
+.btn {
+  box-shadow: none;
+  &:focus,
+  &.focus,
+  &:active {
+    box-shadow: none !important;
+  }
+  &:hover {
+    box-shadow: 0 2px 7px rgba($black, 0.28);
+    cursor: pointer;
+  }
+}
+// warning button
+.btn-warning {
+  color: $white;
+}
+// btn-light
+.btn-light {
+  color: $body-color;
+}
+
+// vertical buttons
+.btn-group-vertical {
+  .btn {
+    &[class*="btn-"] {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// input-group button
+.input-group {
+  margin-bottom: 1rem;
+  .btn {
+    &[class*="btn-"] {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// round icon buttons
+.btn-icon {
+  &.round {
+    padding: 0.465rem 0.72rem;
+  }
+}
+
+// button active
+.btn[class*="btn-"]:not(:disabled):not(.disabled):active,
+.btn[class*="btn-"]:not(:disabled):not(.disabled).active,
+.show > .btn[class*="btn-"].dropdown-toggle {
+  // color: inherit;
+  box-shadow: none;
+}
+
+// button focus
+button {
+  &:focus {
+    outline: none;
+  }
+}
+
+// Buttons
+.btn-group, .input-group {
+  span{
+    &:first-child:not(:last-child) {
+      .btn.dropdown-toggle{
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+    &:last-child:not(:first-child) {
+      .btn.dropdown-toggle{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+    &:not(:last-child):not(:first-child) {
+      .btn.dropdown-toggle{
+        border-radius: 0;
+      }
+    }
+  }
+}

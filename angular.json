@@ -11,7 +11,24 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
+            "allowedCommonJsDependencies": [
+              "dragula",
+              "@mattlewis92/dom-autoscroller",
+              "angular-calendar/date-adapters/date-fns",
+              "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard",
+              "nouislider",
+              "ngx-quill",
+              "lodash",
+              "css-element-queries",
+              "chart.js",
+              "quill",
+              "hopscotch",
+              "moment",
+              "sweetalert2",
+              "screenfull",
+              "clipboard",
+              "prismjs"
+            ],
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -24,17 +41,20 @@
               "src/robots.txt"
             ],
             "styles": [
-              "src/assets/css/demo.css",
-              "src/assets/sass/app.scss",
+              "src/assets/sass/core.scss",
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/cookieconsent/build/cookieconsent.min.css"
+              "src/assets/css/custom.css"
             ],
             "scripts": [
-              "src/assets/vendor/pace/pace.min.js",
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/cookieconsent/build/cookieconsent.min.js"
-            ]
+              "src/assets/vendor/pace/pace.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -47,9 +67,7 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -59,40 +77,6 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
-            },
-            "staging": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.staging.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
-            },
-            "develop":{
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.dev.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
             }
           }
         },
@@ -121,55 +105,17 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
-              "src/assets/vendor/pace/pace.min.js",
-              "node_modules/jquery/dist/jquery.min.js"
+              "src/assets/vendor/pace/pace.min.js"
             ],
             "styles": [
-              "src/assets/css/demo.css",
-              "src/assets/sass/app.scss",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/custom.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/sass/core.scss"
             ],
             "assets": [
               "src/assets",
               "src/favicon.ico"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
-            "staging": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.staging.ts"
-                }
-              ]
-            },
-            "develop":{
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.dev.ts"
-                }
-              ]
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**/*"
             ]
           }
         }
@@ -177,30 +123,19 @@
     },
     "matngular-e2e": {
       "root": "",
-      "sourceRoot": "e2e",
+      "sourceRoot": "",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "./protractor.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**/*"
-            ]
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "matngular:serve"
           }
         }
       }
     }
   },
-  "defaultProject": "matngular",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
@@ -211,6 +146,6 @@
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": "9e472cbb-4d61-46ce-9a7c-5eae6a406034"
   }
 }

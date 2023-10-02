@@ -1,0 +1,11 @@
+.popover{
+    @include card-shadow();
+    .popover-header {
+        @include border-top-radius(0.35rem);
+    }
+    &.bs-popover-bottom {
+        > .arrow::after {
+            border-bottom-color: $body-bg;
+        }
+    }
+}

@@ -1,0 +1,52 @@
+html {
+  font-size: $font-size-root;
+}
+
+body {
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+.wrapper {
+  &.wrapper-full-page {
+    height: auto;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+.content-wrapper {
+  padding: 0 30px;
+}
+
+.serif-font {
+  font-family: $font-family-sans-serif;
+}
+
+a {
+  &:focus {
+    color: darken(theme-color("primary"), 5%);
+    text-decoration: none;
+  }
+
+  &.text-info {
+    &:hover,
+    &:focus {
+      color: darken(theme-color("info"), 5%);
+    }
+  }
+}
+
+p {
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 576px) {
+  .main-panel {
+    .main-content {
+      .content-wrapper {
+        padding: 0 15px;
+      }
+    }
+  }
+}

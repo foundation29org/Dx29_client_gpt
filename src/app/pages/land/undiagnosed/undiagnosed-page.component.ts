@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, Renderer2} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs/Subscription';
@@ -28,7 +28,7 @@ declare let gtag: any;
     providers: [ApiDx29ServerService, jsPDFService],
 })
 
-export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewInit {
+export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     private subscription: Subscription = new Subscription();
     medicalText: string = '';
@@ -113,7 +113,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         ];
         this.currentStep = this.steps[0];
 
-        this.loadSponsors();
+        //this.loadSponsors();
     }
 
     loadSponsors(){
@@ -141,9 +141,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") },
             { id: 2, value: this.translate.instant("land.option3"), label: this.translate.instant("land.labelopt3"), description: this.translate.instant("land.descriptionopt3") }
         ];
-
-        window.scrollTo(0, 0);
-
     }
 
     openSupport(content){
@@ -152,9 +149,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     onSubmitRevolution() {
         this.sending = true;
-  
-        //this.mainForm.value.email = (this.mainForm.value.email).toLowerCase();
-        //this.mainForm.value.lang=this.translate.store.currentLang;
         var params = {email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe};
         this.subscription.add( this.http.post(environment.serverapi+'/api/subscribe/', params)
         .subscribe( (res : any) => {
@@ -196,7 +190,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.topRelatedConditions = [];
         this.showInputRecalculate = false;
         this.currentStep = this.steps[0];
-        //document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         await this.delay(200);
         document.getElementById('optioninput1').scrollIntoView({ behavior: "smooth" });
         this.clearText();
@@ -215,7 +208,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         } else {
             return true;
         }
-        //return true;
     }
 
     getElapsedSeconds() {
@@ -243,7 +235,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     ngOnInit() {
-        this.showDisclaimer();
         this.loadTranslations();
         this.eventsService.on('changelang', function (lang) {
             this.lang = lang;
@@ -285,7 +276,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         });
         this.translate.get('land.step3').subscribe(async (res: string) => {
             this.steps[1].title = res;
-            //this.showDisclaimer();
             await this.delay(500);
             this.initQuestions();
             this.initOptions()
@@ -304,12 +294,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     delay(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    showDisclaimer() {
-        if (localStorage.getItem('hideIntroLogins') == null || !localStorage.getItem('hideIntroLogins')) {
-            document.getElementById("openModalIntro").click();
-        }
     }
 
     showOptions($event) {
@@ -332,10 +316,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.modalReference = this.modalService.open(content, ngbModalOptions);
     }
 
-    ngAfterViewInit() {
-        //this.focusTextArea();
-    }
-
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
@@ -351,7 +331,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             this.medicalText = this.translate.instant("land.p1.2")
         }
         document.getElementById('optioninput1').scrollIntoView({ behavior: "smooth" });
-        //this.focusTextArea();
         this.resizeTextArea();
     }
 
@@ -364,6 +343,40 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.showErrorCall1 = false;
         document.getElementById("textarea1").setAttribute("style", "height:50px;overflow-y:hidden; width: 100%;");
         this.resizeTextArea();
+    }
+
+    async checkPopup(contentIntro){
+        this.showErrorCall1 = false;
+        if (this.callingOpenai || this.medicalText.length < 5) {
+            this.showErrorCall1 = true;
+            let text = this.translate.instant("land.required");
+            if(this.medicalText.length>0){
+                text = this.translate.instant("land.requiredMIN5");
+            }
+            Swal.fire({
+                icon: 'error',
+                text: text,
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            })
+        }
+        if (!this.showErrorCall1) {
+            if (localStorage.getItem('hideIntroLogins') == null || !localStorage.getItem('hideIntroLogins')) {
+                this.showPanelIntro(contentIntro)
+                await this.delay(200);
+                document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
+            }else{
+                this.preparingCallOpenAi('step1');
+            }
+        }
+    }
+
+    closePopup() {
+        this.preparingCallOpenAi('step1');
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+        }
     }
 
     verifCallOpenAi(step) {
@@ -587,8 +600,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
     async continueCallOpenAi(parseChoices0){
         let parseChoices = parseChoices0;
-        
-        //parseChoices = parseChoices0.split("+");
         parseChoices = parseChoices0.split(/\+(?=\d)/);
         if(!this.loadMoreDiseases){
             this.topRelatedConditions = [];
@@ -607,14 +618,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             if (index != -1 && index2 == -1) {
                 let firstPart = this.topRelatedConditions[i].content.substring(0, index + 1);
                 let secondPart = this.topRelatedConditions[i].content.substring(index + 1, this.topRelatedConditions[i].content.length);
-                //if secondPart is empty, delete this.topRelatedConditions[i] from array
                 if(secondPart == ''){
                     this.topRelatedConditions.splice(i, 1);
                     this.diseaseListEn.splice(i, 1);
                     i--;
                     continue;
                 }
-                //this.topRelatedConditions[i] = '<strong>' + firstPart + '</strong>' + secondPart;
                 let index3 = firstPart.indexOf('.');
                 let namePart = firstPart.substring(index3+2, firstPart.length-1);
                 let hasSponsor = false;
@@ -691,8 +700,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     showQuestion(question, index) {
-        /*var testRes= {"id":"cmpl-6KmXVRaPvar50l7SgRNVTiosKsCiQ","object":"text_completion","created":1670411165,"model":"text-davinci-003","choices":[{"text":"\n\nCommon symptoms of Dravet Syndrome include:\n\n-Frequent and/or prolonged seizures\n-Developmental delays\n-Speech delays\n-Behavioral and social challenges\n-Sleep disturbances\n-Growth and nutrition issues\n-Sensory integration dysfunction\n-Movement and balance issues\n-Weak muscle tone (hypotonia)\n-Delayed motor skills","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":13,"completion_tokens":80,"total_tokens":93}}
-        this.answerOpenai = testres.choices[0].message.content;*/
         this.symptomsDifferencial = [];
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
@@ -704,22 +711,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             selectedDiseaseEn = temp[1];
         }
         var introText = question.question + ' ' + selectedDiseaseEn + '?';
-        /*if(index==0){
-            introText = 'What are the common symptoms for'+ selectedDiseaseEn +'? Order the list with the most probable on the top';
-        }
-        if(index==1){
-            introText = 'Give me more information for'+ selectedDiseaseEn;
-        }
-        if(index==2){
-            introText = 'Provide a diagnosis test for'+ selectedDiseaseEn;
-        }
-        if(index==3){
-            introText = this.premedicalText+'. What other symptoms that the patient does not have could you find out to make a differential diagnosis of '+selectedDiseaseEn + '. Return only a list, dont return anything before or after the list, and sort it with the most likely at the top';
-        }
-        if(index==4){
-            introText = this.premedicalText+'. Why do you think this patient has '+selectedDiseaseEn + '. Indicate the common symptoms with '+selectedDiseaseEn +' and the ones that he/she does not have';
-        }*/
-
         if(index==0){
             introText = 'What are the common symptoms associated with'+ selectedDiseaseEn +'? Please provide a list starting with the most probable symptoms at the top.';
         }
@@ -754,21 +745,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
 
                 // Reconstruye el contenido
                 let parseChoices0 = contentArray.join(splitChar);
-
-                /*let parseChoices0 = res.choices[0].message.content;
-                if (res.choices[0].message.content.indexOf("\n\n") == 0) {
-                    parseChoices0 = res.choices[0].message.content.split("\n\n");
-                    parseChoices0.shift();
-                }else if(res.choices[0].message.content.indexOf("\n") == 0){
-                    parseChoices0 = res.choices[0].message.content.split("\n");
-                    parseChoices0.shift();
-                }else if(res.choices[0].message.content.indexOf("\n\n") > 0 && index!=0){
-                    parseChoices0 = res.choices[0].message.content.split("\n\n");
-                    parseChoices0.shift();
-                }else if(res.choices[0].message.content.indexOf("\n") > 0 && index!=0){
-                    parseChoices0 = res.choices[0].message.content.split("\n");
-                    parseChoices0.shift();
-                }*/
                 if(index==3){
                     if (this.detectedLang != 'en' && index==3) {
                         var jsontestLangText = [{ "Text": parseChoices0[0] }]
@@ -873,14 +849,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
                         this.loadingAnswerOpenai = false;
                         this.lauchEvent("Info Disease");
                     }));
-                    
-                    
-
-                    
                 }
-                
-
-                
             }, (err) => {
                 this.insightsService.trackException(err);
                 console.log(err);
@@ -969,6 +938,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.showErrorCall2 = false;
         if (this.callingOpenai || this.medicalText2.length == 0) {
             this.showErrorCall2 = true;
+            let text = this.translate.instant("land.required");
+            Swal.fire({
+                icon: 'error',
+                text: text,
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            })
         }
         if (!this.showErrorCall2) {
             this.callOpenAi2();
@@ -976,7 +953,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     callOpenAi2() {
-        //this.medicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2;
         if (this.medicalText2.length > 0) {
             Swal.fire({
                 title: this.translate.instant("generics.Please wait"),
@@ -1043,7 +1019,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.medicalText = '';
         this.copyMedicalText = '';
         this.restartAllVars();
-        //this.focusTextArea();
     }
 
     showMoreInfoDiseasePopup(diseaseIndex, contentInfoDisease) {
@@ -1062,11 +1037,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
             this.modalReference = undefined;
         }
         this.modalReference = this.modalService.open(contentInfoDisease, ngbModalOptions);
-        //split number on string like 1.dravet 2.duchenne
         this.selectedDisease = this.topRelatedConditions[this.selectedInfoDiseaseIndex].content.split(/\d+\./)[1];
-        
-        //split ( on selected disease
-        //this.selectedDisease = this.selectedDisease.split(' (')[0];
         this.selectedDisease = this.selectedDisease.split(':')[0];
     }
 
@@ -1121,9 +1092,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     vote(valueVote, contentFeedbackDown) {
-        //this.modalReference =this.modalService.open(contentFeedbackDown, { size: 'sm' });
-        //this.modalReference = this.modalService.open(contentFeedbackDown, ngbModalOptions);
-
         this.sendingVote = true;
         let paramIntroText = this.optionRare;
         if (this.selectorRare) {
@@ -1262,136 +1230,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy, AfterViewIni
         this.prevSelectorRare = this.selectorRare;
         this.verifCallOpenAi('step2');
     }
-
-    preCallTextAnalitycs() {
-        Swal.fire({
-            title: this.translate.instant("generics.Please wait"),
-            html: '<i class="fa fa-spinner fa-spin fa-3x fa-fw info"></i>',
-            showCancelButton: false,
-            showConfirmButton: false,
-            allowOutsideClick: false
-        }).then((result) => {
-
-        });
-        if(this.langDetected!='en'){
-            var info = [{ "Text": this.medicalText }]
-            this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(this.langDetected, info)
-                .subscribe((res2: any) => {
-                    var textToTA = this.medicalText.replace(/\n/g, " ");
-                    if (res2[0] != undefined) {
-                        if (res2[0].translations[0] != undefined) {
-                            textToTA = res2[0].translations[0].text;
-                        }
-                    }
-                    this.medicalText = textToTA;
-                    this.callTextAnalitycs2();
-                }, (err) => {
-                    this.insightsService.trackException(err);
-                    console.log(err);
-                    this.callTextAnalitycs2();
-                }));
-        }else{
-            this.callTextAnalitycs2();
-        }
-        
-
-    }
-    
-    callTextAnalitycs2() {
-        this.callingTextAnalytics = true;
-        var info = this.medicalText.replace(/\n/g, " ");
-        var jsontestLangText = { "text": info };
-        this.subscription.add(this.apiDx29ServerService.callTextAnalytics(jsontestLangText)
-            .subscribe((res: any) => {
-                this.resTextAnalyticsSegments = res;
-                var foundDrug = false;
-                var foundSyntoms = false;
-                var drugs = [];
-                var symtoms = [];
-              for (let j = 0; j < this.resTextAnalyticsSegments.entities.length; j++) {
-                
-                if (this.resTextAnalyticsSegments.entities[j].category == 'MedicationName' && this.resTextAnalyticsSegments.entities[j].confidenceScore >= 0.85) {
-                    foundDrug = true;
-                    var actualDrug = { name: '', dose: '', link: '', strength: '' };
-                    actualDrug.name = this.resTextAnalyticsSegments.entities[j].text;
-                    
-                    if (this.resTextAnalyticsSegments.entities[j].dataSources != null) {
-                        var found = false;
-                        for (let k = 0; k < this.resTextAnalyticsSegments.entities[j].dataSources.length && !found; k++) {
-                        if (this.resTextAnalyticsSegments.entities[j].dataSources[k].name == 'ATC') {
-                            actualDrug.link = this.resTextAnalyticsSegments.entities[j].dataSources[k].entityId;
-                            found = true;
-                        }
-                        }
-                    }
-                    if (this.resTextAnalyticsSegments.entityRelations != null) {
-                        var found = false;
-                        for (let k = 0; k < this.resTextAnalyticsSegments.entityRelations.length && !found; k++) {
-                        if(this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.text==actualDrug.name && this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.category=='MedicationName' && this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.category=='Dosage'){
-                            actualDrug.dose = this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.text;
-                        }
-                        if(this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.text==actualDrug.name && this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.category=='Dosage' && this.resTextAnalyticsSegments.entityRelations[k].roles[1].entity.category=='MedicationName'){
-                            actualDrug.dose = this.resTextAnalyticsSegments.entityRelations[k].roles[0].entity.text;
-                        }
-                        }
-        
-                    }
-                    if(this.resTextAnalyticsSegments.entities[j].assertion !=undefined){
-                        if(this.resTextAnalyticsSegments.entities[j].assertion.certainty !=undefined){
-                            if(this.resTextAnalyticsSegments.entities[j].assertion.certainty == 'negative'){
-                                foundDrug = false;
-                            }
-                        }
-                    }
-                    if(foundDrug){
-                        drugs.push(actualDrug);
-                    }
-                    
-                  
-                }
-                if (this.resTextAnalyticsSegments.entities[j].category == 'SymptomOrSign' && this.resTextAnalyticsSegments.entities[j].confidenceScore >= 0.85) {
-                    foundSyntoms = true;
-                    if(this.resTextAnalyticsSegments.entities[j].assertion !=undefined){
-                        if(this.resTextAnalyticsSegments.entities[j].assertion.certainty !=undefined){
-                            if(this.resTextAnalyticsSegments.entities[j].assertion.certainty == 'negative'){
-                                foundSyntoms = false;
-                            }
-                        }
-                    }
-                    if(foundSyntoms){
-                        symtoms.push(this.resTextAnalyticsSegments.entities[j].text);
-                    }
-                    
-                }
-              }
-
-            this.medicalText = '';
-            if(symtoms.length>0){
-                this.medicalText = 'Based on this medical description:';
-                for(let i=0;i<symtoms.length;i++){
-                    this.medicalText = this.medicalText + symtoms[i] + ", ";
-                }
-            }
-            if(drugs.length>0){
-                this.medicalText = this.medicalText + 'The patient takes the following medicines: ';
-                for(let i=0;i<drugs.length;i++){
-                    //this.medicalText = this.medicalText + drugs[i].name + " " + drugs[i].dose + " " + drugs[i].strength + " " + drugs[i].link + ", ";
-                    this.medicalText = this.medicalText + drugs[i].name + ", ";
-                }
-            }
-            
-            this.callingTextAnalytics = false;
-            Swal.close();
-            this.verifCallOpenAi('step1');
-            
-
-            }, (err) => {
-                this.insightsService.trackException(err);
-                console.log(err);
-                Swal.close();
-                this.callingTextAnalytics = false;
-            }));
-      }
 
       showContentInfoAPP(contentInfoAPP) {
         var nameEvent = 'showContentInfoAPP';

@@ -1,0 +1,28 @@
+@import "../mixins/shadows";
+@import "../variables/app-variables";
+
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 4;
+  background-color: $white;
+  @include card-shadow();
+}
+
+.app-sidebar {
+  z-index: 5;
+}
+
+.main-panel {
+  margin-top: 87.5px;
+}
+
+.layout-dark {
+  &.layout-transparent .navbar,
+  .navbar {
+    background-color: $bg-color-dark;
+    box-shadow: 0 6px 0px 0 rgba($black, 0.1), 0 15px 32px 0 rgba($black, 0.06);
+  }
+}

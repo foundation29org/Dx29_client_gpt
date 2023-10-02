@@ -1,0 +1,51 @@
+@import "../core/variables/variables";
+@import "../core/variables/app-variables";
+@import "../core/colors/palette-variables";
+@import "../core/mixins/shadows";
+
+// Context menu
+.context-menu-list {
+  border-radius: $border-radius;
+  @include card-shadow();
+  border-color: $border-color;
+  .context-menu-item {
+    padding: 0.6rem 2rem;
+    &:hover {
+      background-color: $body-bg !important;
+      color: inherit;
+    }
+    &.context-menu-hover {
+      background-color: map-get($primary-color, base);
+    }
+  }
+  .context-menu-submenu:after {
+    right: 1.2rem;
+  }
+}
+
+// Idle Timer
+.idleTimer {
+  .alert-success {
+    background-color: map-get($success-color, lighten-4) !important;
+    border-color: map-get($success-color, lighten-1) !important;
+    color: map-get($success-color, base) !important;
+  }
+  .alert-warning {
+    background-color: map-get($warning-color, lighten-4) !important;
+    border-color: map-get($warning-color, lighten-1) !important;
+    color: map-get($warning-color, base) !important;
+  }
+}
+
+// Numeral
+.numeral-js-wrapper {
+  .table {
+    thead {
+      tr {
+        th {
+          border-top: none;
+        }
+      }
+    }
+  }
+}

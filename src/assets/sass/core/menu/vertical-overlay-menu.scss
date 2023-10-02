@@ -1,0 +1,268 @@
+/*=========================================================================================
+	File Name: vertical-overlay-menu.scss
+	Description: A overlay style vertical menu with show and hide support. It support
+	light & dark version, filpped layout, right side icons, native scroll and borders menu
+	item seperation.
+	----------------------------------------------------------------------------------------
+	Item Name: Apex - HTML 5 Bootstrap Admin Template
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+==========================================================================================*/
+
+// Core variables and mixins
+@import "../variables/variables";
+@import "../variables/app-variables";
+// @import "../colors/palette";
+// @import "../colors/palette-variables";
+
+@import "../mixins/main-menu-mixin";
+
+// Vertical Overlay Menu
+//=========================
+.vertical-overlay-menu {
+
+  //Content expanded
+  .content {
+    @include main-menu-width(0);
+  }
+
+  //Navbar expanded
+  .navbar {
+    .navbar-header {
+      width: 175px;
+
+      .nav-item {
+        padding-top: .25rem;
+        padding-bottom: .25rem;
+      }
+    }
+
+    &.navbar-brand-center {
+      .navbar-header {
+        @include menu-navbar-width(auto);
+      }
+    }
+  }
+
+  .wrapper {
+    top: 4rem;
+  }
+
+  .app-sidebar {
+    .navigation {
+      li a {
+        letter-spacing: 0.6px;
+        font-size: .95rem;
+      }
+    }
+  }
+
+  // Main menu expanded
+  .main-menu {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+    transition: opacity .25s, transform .25s;
+    width: $menu-expanded-width;
+    left: -($menu-expanded-width);
+
+
+    .navigation {
+      .navigation-header {
+        .feather.icon-minus {
+          display: none;
+        }
+      }
+
+      >li {
+        >a {
+          >i {
+            font-size: 1.2rem;
+            margin-right: 12px;
+            float: left;
+
+            &:before {
+              transition: 200ms ease all;
+            }
+          }
+        }
+      }
+
+      li {
+        @include vertical-menu-has-sub-arrow(1rem);
+      }
+    }
+
+    .main-menu-footer {
+      bottom: 55px;
+    }
+
+    .main-menu-footer {
+      width: $menu-expanded-width;
+    }
+
+    &.menu-fixed {
+      position: fixed;
+      top: 4rem;
+      height: calc(100% - 4rem);
+    }
+  }
+
+  &.menu-open {
+    .main-menu {
+      opacity: 1;
+      transform: translate3d($menu-expanded-width, 0, 0);
+      transition: opacity .25s, transform .25s;
+      z-index: 998;
+    }
+  }
+
+  &.menu-hide {
+    .main-menu {
+      @extend .main-menu;
+    }
+  }
+
+  // Flipped menu open
+  &.menu-flipped {
+
+    // Main menu hidden on flipped
+    .main-menu {
+      right: -($menu-expanded-width);
+      left: inherit;
+    }
+
+    //Navbar flipped
+    .navbar {
+      .navbar-container {
+        @include vertical-flipped-menu($menu-expanded-width);
+      }
+
+      .navbar-header {
+        float: right;
+      }
+    }
+
+    &.menu-open {
+      .main-menu {
+        transform: translate3d(-$menu-expanded-width, 0, 0);
+      }
+    }
+  }
+
+  &.navbar-sticky {
+    .main-panel {
+      margin-top: 0;
+    }
+  }
+
+  &:not([class*='application']) .main-panel .main-content {
+    min-height: calc((var(--vh, 1vh) * 100) - 7.44rem);
+  }
+
+  &[class*='application'] .main-panel .main-content {
+    min-height: calc((var(--vh, 1vh) * 100) - 8.45rem);
+  }
+
+  // For Fixed-footer
+  footer {
+    &.footer {
+      &.fixed-bottom {
+        z-index: 999;
+      }
+    }
+  }
+
+  //Box-layout
+  &.vertical-overlay-menu {
+    &.boxed-layout {
+      &.menu-open {
+        .main-menu {
+          transform: translate3d($menu-expanded-width, 0, 0);
+          margin-left: 7px;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .vertical-overlay-menu {
+    .navbar-header {
+      .navbar-toggle {
+        margin: 12px 17px 0 6px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .vertical-overlay-menu {
+    .navbar-toggle .icon-bar {
+      display: block;
+      position: relative;
+      width: 24px;
+      height: 2px;
+      border-radius: 1px;
+      margin: 0 auto;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .vertical-overlay-menu {
+    .main-menu {
+      .main-menu-footer {
+        bottom: 0px;
+      }
+    }
+  }
+}
+
+// Layout Boxed for down to sm screen
+@media screen and (max-width : 575px) {
+
+  // main-menu for Box-layout
+  .vertical-overlay-menu {
+    &.boxed-layout {
+      &.menu-open {
+        .main-menu {
+          transform: translate3d($menu-expanded-width, 0, 0) !important;
+          margin-left: 0 !important;
+        }
+      }
+    }
+  }
+}
+
+// Collapsed menu RTL
+[data-textdirection="rtl"] body.vertical-layout {
+  &.vertical-overlay-menu.menu-collapsed {
+    .main-menu {
+      .navigation {
+        >li>a {
+          padding: 14px 16px !important;
+        }
+
+        >li.navigation-header .feather.icon-minus {
+          padding: 12px 0px;
+        }
+      }
+    }
+  }
+
+  &.vertical-overlay-menu {
+    .main-menu {
+      .navigation {
+        li.has-sub {
+          >a:not(.mm-next):after {
+            content: '\f104';
+          }
+        }
+      }
+    }
+  }
+
+  .knob-center-icon {
+    margin-left: -99px;
+  }
+}

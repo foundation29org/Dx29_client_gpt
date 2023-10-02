@@ -1,12 +1,12 @@
 <a id="initsteps" class="anchorSteps"></a>
 <div class="vertical-center" style="background-color: #353540;">
-  <section *ngIf="currentStep.stepIndex == 1" class="col-12 m-0 d-flex flex-column h-100">
+  <section *ngIf="currentStep.stepIndex == 1" class="col-12 d-flex flex-column">
     <div class="row mt-4">
       <div class="col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
-        <h2 class="text-bold-700">{{'land.title' | translate }}</h2>
+        <h2 class="white">{{'land.title' | translate }}</h2>
       </div>
     </div>
-    <div class="row m-0">
+    <div class="row">
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
         <p class="mb-0 mt-2">{{'land.titleOptions' | translate }}</p>
@@ -14,8 +14,6 @@
               <mat-checkbox id="selectorRare" class="selectorrare" (change)="selectorRareEvent($event.checked)" [(ngModel)]="selectorRare">
                 {{'land.opt2' | translate }}
               </mat-checkbox>
-              
-              <!--<span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>-->
             </p>
         <div class="search">
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
@@ -24,27 +22,21 @@
         </div>
 
         <p class="">{{'land.Recommendations' | translate }}</p>
-        <span *ngIf="showErrorCall1 && medicalText.length==0" style="height: 20px;color:#B30000">{{'land.required' |
-          translate }}</span>
-        <span *ngIf="showErrorCall1 && medicalText.length>0 && medicalText.length<5"
-          style="height: 20px;color:#B30000">{{'land.requiredMIN5' | translate }}</span>
       </div>
       <a id="optioninput1"></a>
     </div>
-    <div class="row m-0 ">
+    <div class="row">
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-        <button type="submit" class="btn btn-lg btn-info" (click)="verifCallOpenAi('step1');"
+        <button type="submit" class="btn btn-lg btn-info" (click)="checkPopup(contentIntro)"
           [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
           [disabled]="callingOpenai">
-          <span>{{'land.Search' | translate }}</span>
-          <em *ngIf="!callingOpenai" class="ml-2 fa fa-search"></em>
-          <em *ngIf="callingOpenai" class="ml-2 fa fa-spinner fa-spin fa-fw"></em>
+          {{'land.Search' | translate }}
         </button>
 
       </div>
       <div
-        class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
+        class="mt-3 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
         <span class="white pointer" (click)="showContentInfoAPP(contentInfoAPP)" style="font-size: 20px;font-weight: 300 !important;text-decoration: underline !important;">{{'land.Need help' | translate }}</span>
       </div>
 
@@ -54,11 +46,11 @@
     <a id="step2"></a>
     <div class="row">
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
-        <button type="button" class="btn btn-info mr-1" (click)="newPatient()">{{'land.New patient' | translate }}</button>
-        <button type="button" class="btn btn-info ml-1 mr-1" (click)="goPrevious()">{{'land.Edit description' | translate }}</button>
+        <button type="button" class="mt-2 btn btn-info mr-1" (click)="newPatient()">{{'land.New patient' | translate }}</button>
+        <button type="button" class="mt-2 btn btn-info ml-1 mr-1" (click)="goPrevious()">{{'land.Edit description' | translate }}</button>
         
         <span *ngFor="let option of options; let i = index">
-          <button type="button" class="ml-1 mr-1 btn btn-info" (click)="recalculate(i);">{{option.label}}</button>
+          <button type="button" class="mt-2 ml-1 mr-1 btn btn-info" (click)="recalculate(i);">{{option.label}}</button>
         </span>
       </span>
       <a id="optionssteps"></a>
@@ -70,8 +62,6 @@
             (ngModelChange)="resizeTextArea2()"></textarea>
 
         </div>
-        <span *ngIf="showErrorCall2 && medicalText2.length==0" style="height: 20px;color:#B30000">{{'land.required' |
-          translate }}</span>
         <div class="mt-2">
           <button type="button" class="btn btn-secondary mr-1" (click)="cancelEdit()">{{'generics.Cancel' | translate
             }}</button>
@@ -82,10 +72,7 @@
             <em *ngIf="callingOpenai" class="ml-1 fa fa-spinner fa-spin fa-fw"></em>
           </button>
         </div>
-
       </span>
-
-
       <div class="col-12">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
@@ -96,10 +83,10 @@
                       <th id="headerTable" style="border-top-style: none;">
                         <span class="row">
                           <span class="col-12">
-                            <h4 class="card-title text-bold-500" style="margin-top: 0rem !important;">{{'diagnosis.Proposed diagnoses' | translate }}</h4>
+                            <h4 class="white card-title text-bold-500" style="margin-top: 0rem !important;">{{'diagnosis.Proposed diagnoses' | translate }}</h4>
                             <span class="float-right">
                               <span *ngIf="!sendingVote">
-                                <button class="mr-1 btn btn-success" (click)="vote('up', contentFeedbackDown)" [disabled]="sendingVote"><em class="icon-hand white fas fa-2x fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)" [disabled]="sendingVote"><em class="icon-hand fas fa-2x fa-thumbs-down"></em></button>
+                                <button class="mr-1 btn btn-success" (click)="vote('up', contentFeedbackDown)" [disabled]="sendingVote"><em class="icon-hand white fa fa-2x fa-thumbs-up"></em></button><button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)" [disabled]="sendingVote"><em class="icon-hand fa fa-2x fa-thumbs-down"></em></button>
                               </span>
                               <span *ngIf="sendingVote" class="d-block"><em class="fa fa-spinner fa-spin fa-fw"></em></span>
                             </span>
@@ -120,7 +107,7 @@
                             <button
                             class="btn-outline-info btn btn-sm mr-1 mb-0 btn-fab round"
                             title="{{'generics.More information' | translate }}">
-                            <em class="fas fa-ellipsis-h w-13"></em>
+                            <em class="fa fa-ellipsis-h w-13"></em>
                           </button>
                           </span>
                           <span class="custom-bold" (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
@@ -140,20 +127,17 @@
                   <p>{{'land.nofound' | translate }}</p>
                 </span>
                 <div class="col-md-12 mb-0 white p-2 center-elements" style="background-color: #353540;">
-                  <span *ngIf="!selectorRare"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(true)">{{'land.Show common diseases' | translate }}</button></span>
-                  <span *ngIf="selectorRare"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(false)">{{'land.Show rare diseases' | translate }}</button></span>
-                  <button class="btn btn-info ml-2" (click)="loadMore()">{{'land.Load more' | translate }}</button>
-                  <span class="optionsResults">
-                    <em class="mt-1 fas fa-2x fa-copy info mr-1" title="{{'land.Copy results' | translate }}"
+                  <span *ngIf="!selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(true)">{{'land.Show common diseases' | translate }}</button></span>
+                  <span *ngIf="selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(false)">{{'land.Show rare diseases' | translate }}</button></span>
+                  <button class="btn btn-info ml-2 mt-2 mb-2" (click)="loadMore()">{{'land.Load more' | translate }}</button>
+                  <span class="optionsResults mt-2 mb-2">
+                    <em class="mt-1 fa fa-clipboard fa-2x info mr-2" title="{{'land.Copy results' | translate }}"
                     (click)="copyResults()" style="cursor: pointer;"></em>
                     <em class="mt-1 fa fa-2x fa-download info ml-1"
                     title="{{'land.Download results' | translate }}" (click)="downloadResults()"
                     style="cursor: pointer;"></em>
                   </span>
               </div>
-                <!--<div class="col-md-12 mb-0 white p-2" style="background-color: #353540;">
-                    <span class="mr-1">{{'land.opt1' | translate }}</span><ui-switch id="enabled"  (change)="selectorRareEvent2($event)" name="selectorRare" [(ngModel)]="selectorRare"></ui-switch><span class="ml-1">{{'land.opt2' | translate }}</span>
-                </div>-->
             </div>
           </span>
         </div>
@@ -161,13 +145,21 @@
     </div>
   </section>
 </div>
-<div class="" *ngIf="!closed">
-  <ngb-alert type="warning" class="mb-0" [dismissible]="true" (close)="closed=true">
-    <div class="center-elements">
-      <span>{{'land.Subscribe or send us a message' | translate }}</span>
+<div class="">
+  <div type="white" class="p-2 mb-0">
+    <div class="center-elements pb-2">
+      <span class="black">{{'land.Subscribe or send us a message' | translate }}</span>
       <button class="btn btn-info round mb-0 ml-2 btn-sm" (click)="openSupport(contentSubs);lauchEvent('openSupport');"><strong>{{'generics.Send' | translate }}</strong></button>
     </div>
-  </ngb-alert>
+    <div class="center-elements border-top pt-2 d-md-none">
+      <a class="black mr-2" routerLink="/aboutus" (click)="lauchEvent('Page - About us')">
+        {{'menu.About us' | translate }}
+      </a>
+      <a class="ml-2 btn btn-info round white mb-0 mt-1 btn-sm" style="width: 120px;" href="https://www.foundation29.org/donate/" target="_blank" (click)="lauchEvent('Page - Donate')">
+        {{'land.Donate' | translate }} <em class="ml-1 fa fa-heart"></em>
+      </a>
+    </div>
+  </div>
 </div>
 <ng-template #contentInfoDisease let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
@@ -195,7 +187,6 @@
       </div>
       <div *ngIf="!loadingAnswerOpenai && answerOpenai!=''" class="mt-3">
         <h6>{{selectedQuestion}}</h6>
-        <!--<h6><strong>{{'land.Answer' | translate }}:</strong></h6>-->
         <p style="margin-bottom: 2rem;white-space:pre-wrap;">{{answerOpenai}}</p>
       </div>
       <div *ngIf="!loadingAnswerOpenai && symptomsDifferencial.length>0" class="mt-3">
@@ -229,6 +220,7 @@
 </ng-template>
 
 <ng-template #contentIntro let-c="close" let-d="dismiss" id="contentIntro" aria-labelledby="contentIntro" appendTo="body">
+  <a id="topmodal"></a>
   <div class="modal-body">
         <div class="row text-left">
           <div class="card-body col-md-12">
@@ -252,7 +244,7 @@
       </div>
       <div class="modal-footer row">
           <div class="form-actions col-md-12 center-elements">
-                  <button type="button" class="btn round btn-info" (click)="c('Close click');">{{'generics.Close' | translate }}</button>
+                  <button type="button" class="btn round btn-info" (click)="closePopup();">{{'generics.Close' | translate }}</button>
           </div>
       </div>
 </ng-template>
@@ -304,7 +296,6 @@
         <div>
           <input class="form-control" type="email" id="Email" name="Email" placeholder="{{'generics.Email' | translate }}" ngModel required #Email="ngModel" autocomplete="email" email name="Email" [(ngModel)]="email">
           <small class="danger" *ngIf="!Email.valid && showErrorForm">{{'generics.entervalidemail' | translate }}</small>
-          <!--<small class="danger d-block" *ngIf="!Email.valid && (Email.dirty || Email.touched)">{{'generics.entervalidemail' | translate }}</small>-->
         </div>
       </div>
       <div class="form-group">
@@ -331,13 +322,8 @@
           <span class=""><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
       </div>
     </form>
-    
-    
-    <!--<span *ngIf="!fFeedbackDown.valid" class="form-text text-muted danger">{{'generics.requiredfieldsmissing' | translate
-      }}</span>-->
   </div>
 </ng-template>
-<button id="openModalIntro" [hidden]="true" (click)="showPanelIntro(contentIntro)">.</button>
 
 <ng-template #contentInfoAPP let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">

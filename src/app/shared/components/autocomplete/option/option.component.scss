@@ -1,0 +1,33 @@
+:host {
+  display: block;
+}
+
+:host.no-result {
+  pointer-events: none;
+}
+
+.option {
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  display: block;
+}
+
+:host:first-child .option {
+  border-top-left-radius: 0.35rem;
+  border-top-right-radius: 0.35rem;
+}
+
+:host:last-child .option {
+  border-bottom-left-radius: 0.35rem;
+  border-bottom-right-radius: 0.35rem;
+}
+
+.option:hover {
+  background-color: #F5F5F5;
+}
+
+:host.first-active-item {
+  .option {
+    background-color: #F5F5F5;
+  }
+}

@@ -1,0 +1,34 @@
+// Bootstrap Grids
+
+#equal-width,
+#setting-one-column-width,
+#variable-width-content,
+#equal-width-multi-row,
+#all-breakpoints,
+#stacked-to-horizontal,
+#alignment,
+#vertical-alignment,
+#horizontal-alignment,
+#column-wrapping,
+#column-breaks,
+#reordering,
+#offsetting-columns,
+#margin-utilities,
+#nesting {
+  .bd-example {
+    .row {
+
+      [class^="col-"],
+      .col {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        background-color: rgba(86, 61, 124, .15);
+        border: 1px solid rgba(86, 61, 124, .2);
+      }
+    }
+
+    .row+.row {
+      margin-top: 1rem;
+    }
+  }
+}

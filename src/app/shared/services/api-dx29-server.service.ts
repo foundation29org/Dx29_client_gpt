@@ -3,7 +3,9 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class ApiDx29ServerService {
   constructor(private http: HttpClient, public insightsService: InsightsService) { }
 
@@ -79,17 +81,6 @@ export class ApiDx29ServerService {
   getSegmentation(lang, textf) {
     var body = { lang: lang, info: textf }
     return this.http.post(environment.serverapi + '/api/translation/segments', body)
-      .map((res: any) => {
-        return res;
-      }, (err) => {
-        console.log(err);
-        this.insightsService.trackException(err);
-        return err;
-      })
-  }
-
-  callTextAnalytics(textf) {
-    return this.http.post(environment.serverapi + '/api/callTextAnalytics', textf)
       .map((res: any) => {
         return res;
       }, (err) => {
