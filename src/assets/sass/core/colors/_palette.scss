@@ -1,0 +1,311 @@
+// ================================================================================================
+//   File Name: pallette.scss
+//   Description: Custom color system styles, includes background, border and text colors
+// ================================================================================================
+
+//  ================================================================================================
+//  WARNING: PLEASE DO NOT CHANGE THIS VARIABLE FILE.
+//  THIS FILE WILL GET OVERWRITTEN WITH EACH APEX TEMPLATE RELEASE.
+//  TIP:
+//  We suggest you to use this (assets/scss/colors/palette.scss) file for overriding color variables.
+//  ================================================================================================
+
+// usage: color("name_of_color", "type_of_color")
+// to avoid to repeating map-get($colors, ...)
+
+@function color-function($color, $type) {
+  @if map-has-key($colors, $color) {
+    $curr_color: map-get($colors, $color);
+    @if map-has-key($curr_color, $type) {
+      @return map-get($curr_color, $type);
+    }
+  }
+  @return null;
+}
+
+// Color palettes
+@import "palette-variables";
+
+@each $gcolor_name, $gcolor in $gradient-colors {
+  $start-color: map-get($gcolor, start-color);
+  $end-color: map-get($gcolor, end-color);
+  .#{$gcolor_name} {
+    @include gradient-directional($start-color, $end-color);
+  }
+  .btn.#{$gcolor_name} {
+    border: none;
+    color: $white;
+    &:active,
+    &.active {
+      @include gradient-directional($start-color, $end-color);
+    }
+  }
+}
+
+@each $color_name, $color in $colors {
+  @each $color_type, $color_value in $color {
+    @if $color_type == "base" {
+      .#{$color_name} {
+        color: $color_value !important;
+      }
+      .bg-#{$color_name} {
+        background-color: $color_value !important;
+        .card-header,
+        .card-footer {
+          background-color: transparent;
+        }
+      }
+      .toast-#{$color_name} {
+        background-color: $color_value;
+      }
+      .alert-#{$color_name} {
+        border-color: $color_value !important;
+        background-color: $color_value !important;
+        color: $white !important;
+        .alert-link {
+          color: darken($color_value, 43%);
+        }
+      }
+      .border-#{$color_name} {
+        border-color: $color_value !important;
+      }
+      .border-top-#{$color_name} {
+        border-top-color: $color_value !important;
+      }
+      .border-bottom-#{$color_name} {
+        border-bottom-color: $color_value !important;
+      }
+      .border-left-#{$color_name} {
+        border-left-color: $color_value !important;
+      }
+      .border-right-#{$color_name} {
+        border-right-color: $color_value !important;
+      }
+
+      .badge-#{$color_name} {
+        background-color: $color_value;
+      }
+      .panel-#{$color_name} {
+        border-color: $color_value;
+        .panel-heading {
+          color: $white;
+          border-color: $color_value;
+          background-color: lighten($color_value, 5%);
+        }
+      }
+      .bg-#{$color_name},
+      .border-#{$color_name} {
+        &.tag-glow {
+          box-shadow: 0px 0px 10px $color_value;
+        }
+      }
+      .overlay-#{$color_name} {
+        background: rgba($color_value, 0.4);
+      }
+      .card.card-outline-#{$color_name} {
+        border-width: 1px;
+        border-style: solid;
+        border-color: $color_value;
+        background-color: transparent;
+        .card-header,
+        .card-footer {
+          background-color: transparent;
+        }
+      }
+      // to lighten bg-color
+      @if $color_name != "white" and $color_name != "black" and $color_name != "light" and $color_name != "dark" {
+        .bg-light-#{$color_name} {
+          background-color: color-function($color_name, "lighten-4") !important;
+          color: $color_value !important;
+          border-color: color-function($color_name, "lighten-4");
+        }
+      }
+
+      // buttons
+      .btn {
+        &.bg-light-#{$color_name} {
+          &:hover {
+            background-color: $color_value !important;
+            color: $white !important;
+            border-color: $color_value;
+          }
+        }
+      }
+      .btn-#{$color_name} {
+        &:active {
+          background-color: darken($color_value, 1%);
+          border-color: darken($color_value, 1%);
+        }
+        &:hover {
+          background-color: lighten($color_value, 3%);
+          border-color: lighten($color_value, 3%);
+        }
+        &:focus {
+          color: $white;
+        }
+        &~.dropdown-menu {
+          .dropdown-item.active {
+            color: $white !important;
+            background-color: $color_value !important;
+          }
+        }
+      }
+      // Outline buttons
+      .btn-outline-#{$color_name} {
+        border: 1px solid;
+        border-color: $color_value;
+        background-color: transparent;
+        color: $color_value;
+        &:focus {
+          background-color: transparent !important;
+          color: $color_value !important;
+        }
+        &.active {
+          background-color: $color_value !important;
+          color: $white !important;
+        }
+        &:hover {
+          background-color: darken($color_value, 3%) !important;
+          color: $white !important;
+        }
+      }
+      // a tag buttons
+      a.btn {
+        &.btn-#{$color_name},
+        &.bg-light-#{$color_name} {
+          color: $white;
+          &:hover,
+          &:focus {
+            color: $white;
+          }
+        }
+      }
+
+      // Colored Radio
+      .radio {
+        &.radio-#{$color_name} {
+          input[type="radio"] {
+            &~label::before {
+              border-color: $color_value;
+            }
+            &:checked~label::after {
+              background-color: $color_value;
+            }
+          }
+        }
+      }
+      // Colored Checkbox
+      .checkbox {
+        &.checkbox-#{$color_name} {
+          input[type="checkbox"] {
+            &:checked ~ label:after {
+              border-color: $color_value;
+            }
+          }
+        }
+      }
+      // Colored Switch
+      .custom-switch {
+        &.custom-switch-#{$color_name} {
+          input[type="checkbox"] {
+            &:checked ~ label:before {
+              border-color: $color_value;
+              background-color: $color_value;
+            }
+          }
+        }
+      }
+
+      // noUi slider
+      .noUi-#{$color_name} {
+        & .noUi-connect,
+        &.noUi-connect {
+          background: $color_value;
+        }
+        .noUi-handle {
+          border-color: $color_value !important;
+        }
+        &.circle-filled,
+        &.square {
+          .noUi-handle {
+            background: $color_value !important;
+          }
+        }
+      }
+
+      // switchery
+      input[type="checkbox"]:checked.switchery-#{$color_name} + span {
+        border-color: $color_value !important;
+        box-shadow: $color_value 0px 0px 0px 12.5px inset !important;
+      }
+      input[type="checkbox"][data-size="lg"]:checked.switchery-#{$color_name} + span {
+        box-shadow: $color_value 0px 0px 0px 16px inset !important;
+      }
+      input[type="checkbox"][data-size="sm"]:checked.switchery-#{$color_name} + span {
+        box-shadow: $color_value 0px 0px 0px 10px inset !important;
+      }
+      input[type="checkbox"][data-size="xs"]:checked.switchery-#{$color_name} + span {
+        box-shadow: $color_value 0px 0px 0px 7px inset !important;
+      }
+
+      input:focus ~ .bg-#{$color_name} {
+        box-shadow: 0 0 0 0.075rem $white, 0 0 0 0.21rem $color_value !important;
+      }
+    } @else {
+      .#{$color_name}.#{$color_type} {
+        color: $color_value !important;
+      }
+      .bg-#{$color_name}.bg-#{$color_type} {
+        background-color: $color_value !important;
+      }
+      .btn-#{$color_name}.btn-#{$color_type} {
+        border-color: color-function($color_name, "darken-2") !important;
+        background-color: $color_value !important;
+        &:hover {
+          border-color: color-function($color_name, "darken-2") !important;
+          background-color: color-function($color_name, "darken-3") !important;
+        }
+        &:focus,
+        &:active {
+          border-color: color-function($color_name, "darken-3") !important;
+          background-color: color-function($color_name, "darken-4") !important;
+        }
+      }
+      .btn-outline-#{$color_name}.btn-outline-#{$color_type} {
+        border-color: $color_value !important;
+        color: $color_value !important;
+        &:hover {
+          background-color: $color_value !important;
+        }
+      }
+      .progress-#{$color_name}.progress-#{$color_type} {
+        background-color: $color_value;
+        &[value]::-webkit-progress-value {
+          background-color: $color_value;
+        }
+      }
+      input:focus ~ .bg-#{$color_name} {
+        box-shadow: 0 0 0 0.075rem $white, 0 0 0 0.21rem $color_value !important;
+      }
+      .border-#{$color_name}.border-#{$color_type} {
+        border: 1px solid $color_value !important;
+      }
+      .border-top-#{$color_name}.border-top-#{$color_type} {
+        border-top: 1px solid $color_value !important;
+      }
+      .border-bottom-#{$color_name}.border-bottom-#{$color_type} {
+        border-bottom: 1px solid $color_value !important;
+      }
+      .border-left-#{$color_name}.border-left-#{$color_type} {
+        border-left: 1px solid $color_value !important;
+      }
+      .border-right-#{$color_name}.border-right-#{$color_type} {
+        border-right: 1px solid $color_value !important;
+      }
+      .overlay-#{$color_name}.overlay-#{$color_type} {
+        background: $color_value; /* The Fallback */
+        background: rgba($color_value, 0.8);
+      }
+    }
+  }
+}

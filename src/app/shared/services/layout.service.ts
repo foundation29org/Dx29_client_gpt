@@ -2,38 +2,30 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class LayoutService {
 
-    private emitChangeSource = new Subject<any>();
-    changeEmitted$ = this.emitChangeSource.asObservable();
-    emitChange(change: any) {
-        this.emitChangeSource.next(change);
-    }
+  private toggleSidebar = new Subject<boolean>(); // small screen
+  private overlaySidebarToggle = new Subject<boolean>();
+  private toggleNotiSidebar = new Subject<boolean>();
 
 
-    //Customizer
+  // Observable
+  toggleSidebar$ = this.toggleSidebar.asObservable();
+  overlaySidebarToggle$ = this.overlaySidebarToggle.asObservable();
+  toggleNotiSidebar$ = this.toggleNotiSidebar.asObservable();
 
-    private emitCustomizerSource = new Subject<any>();
-    customizerChangeEmitted$ = this.emitCustomizerSource.asObservable();
-    emitCustomizerChange(change: any) {
-        this.emitCustomizerSource.next(change);
-    }
+  toggleSidebarSmallScreen(toggle: boolean) {
+    this.toggleSidebar.next(toggle);
+  }
 
-    //customizer - compact menu
+  overlaySidebartoggle(toggle: boolean) {
+    this.overlaySidebarToggle.next(toggle);
+  }
 
-    private emitCustomizerCMSource = new Subject<any>();
-    customizerCMChangeEmitted$ = this.emitCustomizerCMSource.asObservable();
-    emitCustomizerCMChange(change: any) {
-        this.emitCustomizerCMSource.next(change);
-    }
+  toggleNotificationSidebar(toggle: boolean) {
+    this.toggleNotiSidebar.next(toggle);
+  }
 
-       //customizer - compact menu
-
-       private emitNotiSidebarSource = new Subject<any>();
-       notiSidebarChangeEmitted$ = this.emitNotiSidebarSource.asObservable();
-       emitNotiSidebarChange(change: any) {
-           this.emitNotiSidebarSource.next(change);
-       }
 }

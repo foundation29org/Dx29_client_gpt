@@ -1,0 +1,169 @@
+// dropdown, dropup, dropright, dropleft
+.dropdown,
+.dropup,
+.dropright,
+.dropleft {
+  .dropdown-menu {
+      box-shadow: 0 4px 14px rgba($black, 0.15);
+      .dropdown-header {
+          margin-top: 0.4rem;
+          padding: $dropdown-item-padding-y $dropdown-item-padding-x;
+          text-transform: uppercase;
+          font-size: 0.9rem;
+          font-weight: 600;
+      }
+      .dropdown-item {
+          width: auto;
+          &:active {
+              background-color: $primary !important;
+          }
+      }
+      // Multi-level dropdown
+      .dropdown-submenu {
+          position:relative;
+          &:hover {
+              .dropdown-menu {
+                  display:block
+              }
+          }
+          > a{
+            &.dropdown-item{
+              border-top-left-radius: $dropdown-border-radius;
+              border-top-right-radius: $dropdown-border-radius;
+            }
+          }
+          .dropdown-menu {
+              top:0;
+              left:100%;
+              margin-top:-2px;
+              margin-left:-1px;
+              &.open-left{
+                  left: auto;
+                  right: 100%;
+              }
+          }
+          &:last-child{
+              > .dropdown-item:first-child {
+                  border-bottom-left-radius: calc(#{$dropdown-border-radius} - 1px);
+                  border-bottom-right-radius: calc(#{$dropdown-border-radius} - 1px);
+              }
+          }
+          > a:after {
+              font-family: 'FontAwesome';
+              content: "\f105" !important;
+              right: 14px;
+              top: -10px;
+              font-size: 1.2rem;
+              float: right;
+              border: none;
+              margin-top: 1.15rem;
+              position: absolute;
+          }
+      }
+      .disabled {
+          color: $gray-500;
+      }
+  }
+}
+
+// Add extra class to `.dropdown-menu` to flip the alignment of the dropdown menu with the parent.
+.dropdown-menu-right {
+  left: auto !important;
+  right: 0;
+}
+
+
+// Arrow
+.dropdown-menu{
+    &.arrow {
+        margin-top: 12px;
+        &:after, &:before {
+            position: absolute;
+            left: 10px;
+            display: inline-block;
+            width: 0;
+            height: 0;
+            content: '';
+            border: 7px solid transparent;
+            border-top-width: 0;
+        }
+        &:before{
+            top: -7px;
+            border-bottom-color: $border-color;
+        }
+        &:after {
+            top: -6px;
+            border-bottom-color: $white;
+        }
+    }
+    .arrow-left{
+        margin-left: 7px !important;
+        &:after, &:before {
+            position: absolute;
+            top: 15px;
+            display: inline-block;
+            width: 0;
+            height: 0;
+            content: '';
+            border: 7px solid transparent;
+            border-left-width: 0;
+        }
+        &:before{
+            left: -8px;
+            border-right-color: $border-color;
+        }
+        &:after {
+            left: -7px;
+            border-right-color: $white;
+        }
+    }
+    .arrow-right{
+        margin-right: 7px !important;
+        &:after, &:before {
+            position: absolute;
+            top: 15px;
+            display: inline-block;
+            width: 0;
+            height: 0;
+            content: '';
+            border: 7px solid transparent;
+            border-right-width: 0;
+        }
+        &:before {
+            right: -8px;
+            border-left-color: lighten($black, 70%);
+        }
+        &:after {
+            right: -7px;
+            border-left-color: $white;
+        }
+    }
+}
+
+// dropup
+.dropup {
+    .dropdown-submenu {
+        .dropdown-menu {
+            bottom: auto;
+        }
+    }
+}
+
+.show {
+  > .dropdown-menu {
+    transform: scale(1, 1);
+    opacity: 1;
+    display: block;
+  }
+}
+
+// Horizontal layout navigation menu dropdown arrow
+.navbar-horizontal {
+  .dropdown-submenu {
+    .dropdown-toggle::after {
+      top: -9px !important;
+      margin-top: 1.25rem;
+      right: 10px;
+    }
+  }
+}

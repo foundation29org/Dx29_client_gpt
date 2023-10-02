@@ -1,0 +1,117 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/variables";
+@import "variables";
+
+
+// vertical menu
+$menu-expanded-width-sm: 220px;
+$menu-expanded-width: 250px;
+$menu-expanded-width-lg: 280px;
+$menu-collapsed-width: 60px;
+
+// Horizontal Menu
+$menu-active-bg: #E7E9EC;
+
+$font-size-root: 15px;
+
+// Avatar
+$avatar-bg: #E0E0E0;
+$avatar-text-color: #616161;
+$avatar-size: 32px;
+$avatar-size-xl: 70px;
+$avatar-size-lg: 50px;
+$avatar-size-md: 40px;
+$avatar-size-sm: 24px;
+$avatar-status-size: 11px;
+$avatar-status-size-lg: 17px;
+
+// Shadows
+$shadow-umbra-opacity: 0.2 !default;
+$shadow-penumbra-opacity: 0.14 !default;
+$shadow-ambient-opacity: 0.12 !default;
+
+//variables for social
+$social-facebook: #3b5998;
+$social-twitter: #55acee;
+$social-pinterest: #cc2127;
+$social-google: #dd4b39;
+$social-linkedin: #0976b4;
+$social-dribbble: #ea4c89;
+$social-github: #333333;
+$social-youtube: #e52d27;
+$social-instagram: #125688;
+$social-reddit: #ff4500;
+$social-tumblr: #35465c;
+$social-behance: #1769ff;
+
+///////////////////////////////////////////////
+
+// Variables for Dark Layout
+$dark-style: true;
+$bg-color-dark: #101010;
+$dl-text-color: #B2B1B5;
+$dl-bg-color: #1E1E1E;
+$dl-headings-color: #BFBEC2;
+$dl-text-muted-color: #848484;
+$dl-disabled-color: #626164;
+$dl-border-color: #474748;
+$dl-card-shadow: -8px 8px 14px 0 rgba($black, 0.25);
+
+//////////////////////////////////////////////
+
+// Variables For Transparent Layout
+
+$tl-text-color: #D6D5D8;
+$tl-headings-color: #E9E9EA;
+$tl-bg-color: transparent;
+$tl-text-muted-color: #C3C2C5;
+$tl-disabled-color: #9E9E9E;
+$tl-border-color: rgba(#eee, 0.2);
+$tl-card-bg-color: rgba($black, 0.12);
+
+$bg-glass-hibiscus: linear-gradient(
+  to right bottom,
+  #f05f57,
+  #c83d5c,
+  #99245a,
+  #671351,
+  #360940
+);
+$bg-glass-purple-pizzazz: linear-gradient(
+  to right bottom,
+  #662d86,
+  #8b2a8a,
+  #ae2389,
+  #cf1d83,
+  #ed1e79
+);
+$bg-glass-blue-lagoon: linear-gradient(
+  to right bottom,
+  #144e68,
+  #006d83,
+  #008d92,
+  #00ad91,
+  #57ca85
+);
+$bg-glass-electric-violet: linear-gradient(
+  to left top,
+  #4a00e0,
+  #600de0,
+  #7119e1,
+  #8023e1,
+  #8e2de2
+);
+$bg-glass-portage: linear-gradient(
+  to left top,
+  #97abff,
+  #798ce5,
+  #5b6ecb,
+  #3b51b1,
+  #123597
+);
+$bg-glass-tundora: linear-gradient(
+  to left top,
+  #ef4673,
+  #ffc846
+);

@@ -1,0 +1,46 @@
+// Custom Components
+
+// Core variables and mixins
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+
+// Core variables and mixins overrides
+@import "core/variables/variables";
+@import "~bootstrap/scss/variables";
+
+// Mixins
+@import "core/mixins/buttons";
+@import "core/mixins/shadows";
+@import "core/mixins/utilities";
+@import "core/mixins/timeline";
+
+// Overrides user variable
+@import "core/variables/app-variables";
+// Layouts
+@import "core/layouts/content";
+
+// Components
+@import "components/utilities";
+@import "components/helper";
+@import "components/customizer";
+@import "components/components";
+@import "components/misc";
+@import "components/bootstrap-social";
+@import "components/responsive";
+@import "components/demo";
+@import "components/ex-component-avatar";
+
+@import "~perfect-scrollbar/css/perfect-scrollbar.css";
+@import "~prismjs/plugins/toolbar/prism-toolbar.css";
+@import "~prismjs/themes/prism-okaidia";
+@import '~@angular/cdk/overlay-prebuilt.css';
+
+//------------------- below are the files where _palette-variables.scss is included and map-get() is used -------------------
+// Layouts
+@import "core/layouts/sidebar-content";
+@import "components/notification-sidebar";
+// Pages
+@import "pages/authentication";
+@import "components/timeline-vertical";
+
+

@@ -1,0 +1,35 @@
+// Core variables and mixins
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+
+// Load variable overrides
+@import "core/variables/variables";
+@import "~bootstrap/scss/variables";
+@import "core/mixins/shadows";
+@import "core/mixins/typography";
+@import "core/mixins/utilities";
+@import "core/mixins/buttons";
+@import "core/mixins/list-group";
+
+// Overrides user variable
+@import "core/variables/app-variables";
+
+@import "bootstrap-extended/alert";
+@import "bootstrap-extended/reboot";
+@import "bootstrap-extended/collapse";
+@import "bootstrap-extended/badge";
+@import "bootstrap-extended/buttons";
+@import "bootstrap-extended/card";
+@import "bootstrap-extended/dropdown";
+@import "bootstrap-extended/carousel";
+@import "bootstrap-extended/modal";
+@import "bootstrap-extended/navs";
+@import "bootstrap-extended/navbar";
+@import "bootstrap-extended/popover";
+@import "bootstrap-extended/progress";
+@import "bootstrap-extended/toast";
+@import "bootstrap-extended/type";
+@import "bootstrap-extended/grid";
+@import "bootstrap-extended/code";
+@import "bootstrap-extended/list-group";
+@import "bootstrap-extended/forms";

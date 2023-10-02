@@ -1,0 +1,471 @@
+/*=========================================================================================
+	File Name: horizontal-menu.scss
+	Description: A classic horizontal menu for easy navingation & support all devices.
+	It support light & dark version, filpped layout, right side icons, borders menu for
+	item seperation.
+	----------------------------------------------------------------------------------------
+	Item Name: Apex - HTML 5 Bootstrap Admin Template
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+==========================================================================================*/
+
+// Core variables and mixins
+@import "../variables/variables";
+@import "../variables/app-variables";
+@import "../colors/palette-variables";
+@import "../mixins/shadows";
+
+// Horizontal Menu
+//=========================
+.horizontal-menu {
+
+  &.navbar-sticky,
+  & {
+
+    // .header-navbar {
+    //   position: fixed;
+    //   top: 0;
+    //   width: 100%;
+    // }
+    &:not(.auth-page):not(.navbar-static) {
+      .main-panel {
+        margin-top: 7.49rem;
+      }
+    }
+  }
+
+  &.navbar-sticky {
+    &.page-scrolled:not(.layout-dark) {
+      nav.header-navbar {
+        background-color: $white;
+      }
+    }
+
+    nav.header-navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  &.navbar-static {
+    .header-navbar.navbar-sticky {
+      position: sticky;
+      top: 0;
+    }
+
+    &.navbar-scrolled {
+      .wrapper {
+        padding-top: 52px;
+      }
+
+      .header-navbar.navbar-sticky {
+        position: fixed;
+      }
+    }
+  }
+
+  &.page-scrolled:not(.layout-dark) {
+    div.header-navbar {
+      @include card-shadow();
+    }
+  }
+
+  &:not([class*="application"]) .main-content {
+    min-height: calc((var(--vh, 1vh) * 100) - 10.93rem);
+  }
+
+  &[class*="application"] .main-content {
+    min-height: calc((var(--vh, 1vh) * 100) - 12rem);
+  }
+
+  // Horizontal Menu Styling
+  .navbar-horizontal {
+    padding-left: 2rem;
+    position: unset;
+
+    //dropdown menu animation remove
+    .dropdown {
+      i {
+        margin-right: .5rem;
+      }
+
+      .dropdown-menu {
+        transition: none;
+        margin-top: 1px;
+        min-width: 16rem;
+        animation: .8s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 fadein;
+
+        .dropdown-submenu .dropdown-menu {
+          top: 8px;
+          margin-left: 1px;
+        }
+
+        >li {
+          &:first-child {
+            border-top-left-radius: $border-radius;
+            border-top-right-radius: $border-radius;
+          }
+
+          &:last-child {
+            border-bottom-left-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+          }
+        }
+      }
+    }
+
+    .main-menu-content {
+      padding-left: 0.5rem;
+
+      .nav-link {
+        padding: 0.5rem .75rem .45rem;
+        font-weight: 500;
+        color: $body-color;
+
+        &:not(.dropdown-toggle) {
+          display: flex;
+          align-items: center;
+        }
+
+        i {
+          margin-right: .5rem;
+        }
+      }
+
+      >ul>li {
+        margin-right: 0.5rem;
+
+        &.active:not(.dropdown-submenu) {
+          background-color: map-get($primary-color, lighten-4);
+          border-radius: $border-radius;
+
+          >a {
+            color: map-get($primary-color, darken-1);
+          }
+        }
+
+        &:hover:not(.active) {
+          background-color: $menu-active-bg;
+          border-radius: $border-radius;
+        }
+
+        &.show {
+          .dropdown-menu {
+            animation: .8s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 fadein;
+
+            li.show {
+              background-color: $menu-active-bg;
+              color: $body-color;
+            }
+          }
+
+          li.active:not(.dropdown-submenu) {
+            background-color: map-get($primary-color, lighten-4) !important;
+
+            a {
+              color: map-get($primary-color, base) !important;
+            }
+
+            >.dropdown-item:hover,
+            &:hover,
+            >.dropdown-item:hover:active,
+            &:hover:active {
+              background-color: map-get($primary-color, lighten-4) !important;
+              color: map-get($primary-color, base) !important;
+            }
+
+          }
+        }
+
+        &.dropdown {
+          i {
+            font-size: 1.1rem;
+
+            &.submenu-icon {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &:not(.layout-dark) {
+    .navbar-horizontal .main-menu-content>ul>li.show {
+      .dropdown-menu {
+        animation: .8s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 fadein;
+
+        li.show {
+          background-color: $menu-active-bg;
+          color: $body-color;
+        }
+
+        .dropdown-item {
+
+          &.active,
+          &:active,
+          &:focus {
+            background-color: $menu-active-bg !important;
+            color: $body-color;
+            border-radius: 0;
+          }
+        }
+      }
+
+      li.active.dropdown-submenu {
+        background-color: $menu-active-bg;
+
+        >.dropdown-item:hover,
+        &:hover {
+          background-color: $menu-active-bg;
+        }
+      }
+    }
+  }
+
+  // Customizer changes
+  .customizer {
+
+    .ct-bg-color,
+    .ct-bg-image,
+    .ct-bg-image-toggler,
+    .ct-compact-toggler,
+    .ct-sidebar-size {
+      display: none !important;
+    }
+  }
+
+  &.layout-transparent {
+    .customizer {
+
+      .ct-bg-color,
+      .ct-bg-image {
+        display: block !important;
+      }
+    }
+  }
+
+  // Horizontal top navbar Styling
+  nav.navbar {
+    .navbar-header .nav-item {
+      padding-top: .25rem;
+      // padding-bottom: .25rem;
+    }
+  }
+
+  .navigation-header {
+    font-family: inherit;
+    color: #929292;
+    padding: 8px 20px;
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+
+  .navbar-flipped {
+    .navbar-nav {
+      .nav-item {
+        float: right;
+      }
+    }
+  }
+}
+
+// margin right for icons of sub-menu of main-menu
+.horizontal-menu {
+  .main-menu .navigation>li {
+    >ul>li>a i {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .container {
+    padding: 0;
+  }
+}
+
+// menu navbar
+.navbar.header-navbar {
+  padding: 0.5rem 1rem 0.5rem 1.5rem !important;
+
+  &.navbar-horizontal {
+    position: fixed;
+    width: 100%;
+    background-color: $body-bg;
+    top: 4rem;
+  }
+}
+
+.horizontal-layout {
+  .logo-text {
+    color: $body-color;
+  }
+
+  &.page-scrolled {
+    nav.header-navbar {
+      border-bottom-color: rgba($border-color, 0.6);
+    }
+  }
+
+  // Customizer changes
+  .customizer {
+
+    .ct-bg-color,
+    .ct-bg-image,
+    .ct-bg-image-toggler,
+    .ct-compact-toggler,
+    .ct-sidebar-size {
+      display: none !important;
+    }
+  }
+
+  &.layout-transparent {
+    .customizer {
+
+      .ct-bg-color,
+      .ct-bg-image {
+        display: block !important;
+      }
+    }
+  }
+
+  nav.navbar {
+    border-bottom: 1px solid $border-color;
+    background-color: $body-bg;
+    z-index: 999;
+  }
+
+  .navbar.header-navbar {
+    &.navbar-horizontal .dropdown-menu .dropdown-submenu.openLeft .dropdown-menu {
+      left: auto !important;
+      right: 100%;
+    }
+
+    .container-fluid {
+      padding-left: 0;
+    }
+
+    .nav-search {
+      .search-input.open {
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+// responsive vertical menu in small screen
+.horizontal-menu {
+  &.vertical-layout {
+    &.vertical-overlay-menu {
+      .main-menu {
+        .navigation {
+          >li {
+            >a {
+              >span {
+                &.badge {
+                  position: absolute;
+                  top: 11px;
+                  right: 40px;
+                }
+              }
+            }
+          }
+
+          li {
+            &.nav-item {
+              &.menu-collapsed-open {
+                >a {
+                  background: none;
+                  margin: 0;
+                  border-radius: 0;
+
+                  ~ul {
+                    li {
+                      &.menu-collapsed-open {
+                        >a {
+                          ~ul {
+                            margin-top: 4px;
+
+                            li {
+                              &.active {
+                                a {
+                                  background: none;
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Collapsed menu RTL
+[data-textdirection="rtl"] body.horizontal-menu {
+  &.horizontal-menu.menu-collapsed {
+    .main-menu {
+      .navigation {
+        >li>a {
+          padding: 14px 16px !important;
+        }
+
+        >li.navigation-header .feather.icon-minus {
+          padding: 12px 0px;
+        }
+      }
+    }
+  }
+
+  &.horizontal-menu {
+    .header-navbar.navbar {
+      .dropdown-menu {
+        .dropdown-submenu {
+          >a:after {
+            content: '\f104' !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .horizontal-layout {
+    .navbar.header-navbar {
+      &.navbar-horizontal {
+        top: -4rem;
+      }
+    }
+  }
+}
+
+// Import vertical-overlay-menu.scss for small screen support
+@import "vertical-overlay-menu.scss";

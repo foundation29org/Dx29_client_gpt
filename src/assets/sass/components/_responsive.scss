@@ -1,0 +1,222 @@
+@media (min-width: 1200px) {
+  .vertical-menu{
+    // .main-panel{
+    //   .main-content{
+    //     margin-left: $menu-expanded-width;
+    //   }
+    // }
+
+    .navbar {
+      margin-left: $menu-expanded-width ;
+      transition: all 0.3s ease;
+      .container-fluid{
+        padding-left: 0;
+      }
+    }
+    footer.footer {
+      margin-left: $menu-expanded-width;
+    }
+    &.sidebar-sm {
+      .navbar,
+      .main-panel .main-content{
+          margin-left: $menu-expanded-width-sm;
+      }
+      &.nav-collapsed{
+        .navbar,
+        .main-panel .main-content{
+            margin-left: $menu-collapsed-width;
+        }
+      }
+      .navbar {
+        padding-left: $spacer;
+        margin-left: $menu-expanded-width-sm;
+        transition: all 0.3s ease;
+        .navbar-container{
+          padding-left: $menu-expanded-width-sm;
+        }
+      }
+      footer.footer {
+        margin-left: $menu-expanded-width-sm;
+      }
+    }
+    &.sidebar-lg {
+      .navbar,
+      .main-panel .main-content{
+          margin-left: $menu-expanded-width-lg;
+      }
+      &.nav-collapsed{
+        .navbar,
+        .main-panel .main-content{
+          margin-left: $menu-collapsed-width;
+        }
+      }
+      .navbar {
+        padding-left: $spacer;
+        margin-left: $menu-expanded-width-lg;
+        transition: all 0.3s ease;
+        .navbar-container{
+          padding-left: $menu-expanded-width-lg;
+        }
+      }
+      footer.footer {
+        margin-left: $menu-expanded-width-lg;
+      }
+    }
+  }
+  footer.footer {
+    text-align: center;
+  }
+}
+
+footer.footer {
+  padding: 1rem 2.2rem;
+}
+
+.vertical-layout[data-col="1-column"] {
+  &.nav-collapsed,
+  .navbar,
+  .main-content {
+    margin: 0 !important;
+  }
+}
+.horizontal-layout[data-col="1-column"] {
+  .main-panel {
+    margin-top: 4rem !important;
+  }
+}
+.horizontal-layout[data-col="1-column"].blank-page {
+  .wrapper{
+    min-height: calc(var(--vh, 1vh) * 100)
+  }
+  .main-panel {
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .main-panel{
+    .main-content{
+      margin-left: 0 !important;
+    }
+  }
+  .app-sidebar{
+    transition: transform .4s cubic-bezier(.25,.8,.25,1);
+  }
+  .navbar{
+    padding: 0 25px;
+  }
+  .navbar-toggle {
+    display: block;
+  }
+  .navbar-header .navbar-toggle {
+    margin: 8px 17px 0 6px;
+    cursor: pointer;
+  }
+  .navbar-header .navbar-collapse-toggle,
+  .navbar-header .open-collapse-toggle {
+    margin: 20px 0px 10px 15px;
+  }
+  .navbar-form{
+    margin-top: .75rem !important;
+  }
+
+  @-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  @-moz-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  .bar1,
+  .bar2,
+  .bar3 {
+    outline: 1px solid transparent;
+  }
+
+  @-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  @-moz-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+}
+
+@media (min-width: 320px) {
+  .navbar-header{
+    float: left;
+  }
+  .navbar-right{
+    float: right !important;
+  }
+  .navbar-nav>li{
+    float: left;
+  }
+}
+
+@media (max-width: 320px) {
+  .navbar-right{
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-form{
+    display: none;
+  }
+}
+
+
+@media (max-width: 767px) {
+  //For responsive mega menu
+  #navbar-mobile.navbar-collapse {
+    .navbar-nav {
+      margin: 0;
+      flex-flow: row wrap;
+      .dropdown-menu {
+        position: absolute;
+      }
+      .nav-item {
+        float: left;
+      }
+    }
+  }
+}
+
+// For sm screen
+// =========================================
+@include media-breakpoint-down(md) {
+  .navbar .navbar-nav{
+    margin-right: -5px;
+  }
+  .header-navbar {
+    .navbar-container {
+      ul.navbar-nav {
+        float: right !important;
+        li {
+          > a.nav-link {
+            padding: 0.5rem 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 359px) {
+  .i18n-dropdown {
+    display: none;
+  }
+}
+
+

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 import { environment } from 'environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class InsightsService {
   private appInsights: ApplicationInsights;
 

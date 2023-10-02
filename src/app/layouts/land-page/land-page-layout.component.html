@@ -1,29 +1,8 @@
 <div
   #wrapper
   class="wrapper"
-  [ngClass]="{
-    'nav-collapsed': iscollapsed,
-    'menu-collapsed': iscollapsed,
-    'sidebar-sm': isSidebar_sm,
-    'sidebar-lg': isSidebar_lg
-  }"
-  [dir]="options.direction"
 >
-
-<div *ngIf="!isGTPPage"
-  #appSidebar
-  appSidebar
-  class="app-sidebar d-lg-none"
-  (toggleHideSidebar)="toggleHideSidebar($event)"
-  [ngClass]="{ 'hide-sidebar': hideSidebar }"
-  data-active-color="white"
-  [attr.data-background-color]="bgColor"
-  [attr.data-image]="bgImage"
->
-  <app-sidebar></app-sidebar>
-  <div class="sidebar-background" #sidebarBgImage></div>
-</div>
-  <app-navbar-dx29 (toggleHideSidebar)="toggleHideSidebar($event)"></app-navbar-dx29>
+  <app-navbar-dx29></app-navbar-dx29>
   <div class="main-panel">
     <div>
       <div class="main-content">

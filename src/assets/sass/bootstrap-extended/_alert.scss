@@ -1,0 +1,55 @@
+// Alert
+.alert{
+	& > * {
+		color: inherit !important;
+	}
+	&.alert-light {
+		color: inherit !important;
+	}
+	.alert-link{
+		color: $white !important;
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+	// close button for dismissible alert
+	.close{
+		color: $white;
+		font-size: 2rem;
+		line-height: 1rem;
+		top: 0;
+		&:hover,
+		&:focus {
+			opacity: 0.85 !important;
+		}
+		&:focus {
+			outline: none;
+		}
+	}
+	// when alert has .bg-{color}
+	&[class*=bg-]{
+		.alert-link{
+			color: inherit !important;
+		}
+		.close{
+			color: inherit;
+			opacity: 0.7;
+			text-shadow: none;
+			&:hover,
+			&:focus {
+				opacity: 1 !important;
+			}
+		}
+	}
+	// left icon in alert
+	.alert-icon-left {
+		display: flex;
+		align-items: center;
+	}
+	// right icon in alert
+	.alert-icon-right {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+}

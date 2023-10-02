@@ -1,0 +1,27 @@
+// Modals
+
+// modal content
+.modal-content {
+  overflow: hidden;
+  // modal header
+  .modal-header {
+    border-radius: 0;
+    &[class*="bg-"] > * {
+      color: $white;
+    }
+  }
+  // modal footer
+  .modal-footer {
+    .btn {
+      margin: 0;
+      & + .btn {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+@include media-breakpoint-down(xs) {
+  .modal-open .modal{
+    padding: 0 .5rem !important;
+  }
+}

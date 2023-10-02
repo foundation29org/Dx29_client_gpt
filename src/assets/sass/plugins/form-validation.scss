@@ -1,0 +1,78 @@
+@import "../core/variables/variables";
+@import "../core/variables/app-variables";
+
+.form-group {
+
+  // if issue or error appears on validation
+  &.issue,
+  &.error {
+    margin-bottom: 0;
+
+    .help-block,
+    .help-inline {
+      color: $danger;
+    }
+
+    input:not([class*='select2']),
+    select,
+    textarea {
+      color: $danger !important;
+      border-color: $danger !important;
+    }
+
+    input:not([class*='select2']):focus,
+    select:focus,
+    textarea:focus {
+      border-color: $danger;
+      -webkit-box-shadow: 0 0 6px $danger;
+      -moz-box-shadow: 0 0 6px $danger;
+      box-shadow: 0 0 6px $danger;
+    }
+  }
+
+  // if validate appears on validation
+  &.validate {
+
+    .help-block,
+    .help-inline {
+      color: $success;
+    }
+
+    input:not([class*='select2']),
+    select,
+    textarea {
+      color: $success !important;
+      border-color: $success !important;
+    }
+
+    input:not([class*='select2']):focus,
+    select:focus,
+    textarea:focus {
+      border-color: $success;
+      -webkit-box-shadow: 0 0 6px $success;
+      -moz-box-shadow: 0 0 6px $success;
+      box-shadow: 0 0 6px $success;
+    }
+  }
+
+  // help block
+  .help-block ul {
+    padding-left: 0;
+
+    li {
+      list-style-type: none;
+      line-height: 1.5;
+      margin-top: 0.3rem;
+
+      &::before {
+        content: "\e84a";
+        font-size: 0.75rem;
+        margin-right: 5px;
+        position: relative;
+        top: -1px;
+        font-family: feather;
+        line-height: 1;
+      }
+    }
+  }
+}

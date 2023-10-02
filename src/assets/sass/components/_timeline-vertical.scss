@@ -1,0 +1,263 @@
+@import "../core/colors/palette-variables";
+
+// Timeline
+.timeline {
+  position: relative;
+  margin: 0;
+  padding: 10px 0;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  &:before {
+    content: "";
+    display: table;
+  }
+  & > li:nth-child(even) {
+    float: left;
+    clear: left;
+  }
+  & > li:nth-child(odd) {
+    float: right;
+    clear: right;
+  }
+
+  .timeline-line {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: $border-color;
+    transform: translate(-50%, 0);
+  }
+
+  .timeline-group {
+    display: block;
+    position: relative;
+    text-align: center;
+    float: none !important;
+    z-index: 1;
+  }
+
+  .timeline-item {
+    position: relative;
+    display: inline-block;
+    line-height: inherit;
+
+    .timeline-card {
+      .progress {
+        .progress-bar {
+          border-radius: 0;
+        }
+      }
+    }
+
+    & > .timeline-badge {
+      position: absolute;
+      top: 12px;
+      z-index: 1;
+
+      & > span {
+        cursor: pointer;
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        text-align: center;
+        transition: all ease 0.3s;
+
+        &:active,
+        &:focus,
+        &:hover {
+          transform: scale(1.1);
+        }
+
+        i {
+          font-size: 1.4rem;
+          line-height: 40px;
+        }
+      }
+    }
+  }
+}
+
+
+//--------------Timeline Center-----------------
+//----------------------------------------------
+.timeline-center {
+  .timeline-line {
+    left: 50%;
+  }
+
+  .timeline-item {
+    width: 50%;
+    padding: 0 50px 35px;
+
+    &:nth-child(even) {
+      padding: 0px 35px 30px 0px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: 14px;
+        top: 32px;
+        width: 1.4rem;
+        z-index: 0;
+        border: 1px dashed $border-color;
+      }
+      & > .timeline-badge {
+        right: -20px;
+      }
+    }
+
+    &:nth-child(odd) {
+      padding: 0px 0px 30px 35px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        left: 20px;
+        top: 32px;
+        width: 1rem;
+        z-index: 0;
+        border: 1px dashed map-get($grey-color, lighten-2);
+      }
+      & > .timeline-badge {
+        left: -20px;
+      }
+    }
+
+    &.center-block {
+      width: 100%;
+      margin-top: 5px;
+      padding: 0 0 30px !important;
+      & > .timeline-badge {
+        top: -28px;
+        right: auto !important;
+        width: 100%;
+        text-align: center;
+      }
+      &:after {
+        display: none;
+      }
+    }
+  }
+}
+
+
+//--------------Timeline Right------------------
+//----------------------------------------------
+.timeline-right {
+  .timeline-line {
+    right: 12px;
+  }
+
+  .timeline-group {
+    text-align: right;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding: 0px 3.2rem 2.333333rem 0px;
+    &:after {
+      content: "";
+      position: absolute;
+      right: 32px;
+      top: 32px;
+      width: 1rem;
+      z-index: 0;
+      border: 1px dashed $border-color;
+    }
+
+    & > .timeline-badge {
+      right: -8px;
+    }
+
+    &.right-block {
+      &:after {
+        right: 15px;
+        width: 2.2rem;
+      }
+    }
+  }
+}
+
+
+//--------------Timeline Left-------------------
+//----------------------------------------------
+.timeline-left {
+  .timeline-line {
+    left: 12px;
+  }
+
+  .timeline-group {
+    text-align: left;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding: 0 0 2.333333rem 3.2rem;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 32px;
+      top: 32px;
+      width: 1rem;
+      z-index: 0;
+      border: 1px dashed $border-color;
+    }
+
+    & > .timeline-badge {
+      left: -8px;
+    }
+
+    &.left-block {
+      &:after {
+        left: 13px;
+        width: 2.3rem;
+      }
+    }
+  }
+}
+
+
+
+
+@media (max-width: 991px) {
+
+  .timeline-center {
+    .timeline-item {
+      display: block !important;
+      padding: 20px 0 20px !important;
+      width: 100% !important;
+      margin-top: 0 !important;
+      float: none !important;
+      clear: both !important;
+
+      &:after,
+      &:before {
+        display: none;
+      }
+
+      & > .timeline-badge {
+        top: -12px !important;
+        right: auto !important;
+        left: auto !important;
+        width: 100%;
+        text-align: center;
+      }
+      .bg-transparent {
+        background-color: $body-bg !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .timeline-wrapper {
+    padding: 0;
+  }
+}

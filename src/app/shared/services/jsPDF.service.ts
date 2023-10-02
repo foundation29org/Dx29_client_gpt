@@ -1,28 +1,16 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { jsPDF } from "jspdf";
-import 'jspdf-autotable';
 
 
-@Injectable()
+@Injectable({
+    providedIn: "root"
+  })
 export class jsPDFService {
     constructor(public translate: TranslateService) {
     }
     lang: string = '';
-    meses: any = {
-        "enero": "January",
-        "febrero": "February",
-        "marzo": "March",
-        "abril": "April",
-        "mayo": "May",
-        "junio": "June",
-        "julio": "July",
-        "agosto": "August",
-        "septiembre": "September",
-        "octubre": "October",
-        "noviembre": "November",
-        "diciembre": "December"
-    };
+
 
     private newSectionDoc(doc,sectionNumber,sectionTitle,sectionSubtitle,line){
         line = this.checkIfNewPage(doc, line);
@@ -233,53 +221,5 @@ export class jsPDFService {
 
     }
 
-
-    // Order by descending key
-    keyDescOrder = ((a, b) => {
-        var a_month=a.split("-")[0]
-        var a_year = a.split("-")[1]
-        var b_month=b.split("-")[0]
-        var b_year=b.split("-")[1]
-        a_month = this.getMonthFromString(a_month);
-        b_month = this.getMonthFromString(b_month);
-        if(new Date(a_year).getTime() > new Date(b_year).getTime()){
-            return 1;
-        }
-        else if(new Date(a_year).getTime() < new Date(b_year).getTime()){
-            return -1;
-        }
-        else{
-            if(new Date(a_month).getTime() > new Date(b_month).getTime()){
-                return 1;
-            }
-            else if(new Date(a_month).getTime() < new Date(b_month).getTime()){
-                return -1;
-            }
-            else{
-                return 0;
-            }
-        }
-    })
-
-    getMonthFromString(mon) {
-        if (this.lang != 'es') {
-            return new Date(Date.parse(mon + " 1, 2012")).getMonth() + 1
-        } else {
-            var date = new Date(Date.parse(this.meses[mon] + " 1, 2012")).getMonth() + 1;
-            return date;
-        }
-
-    }
-
-    // Order by descending value
-    valueDateDescOrder = ((a,b)=> {
-        if(new Date(a).getTime() > new Date(b).getTime()){
-            return -1;
-        }
-        else if(new Date(a).getTime() < new Date(b).getTime()){
-            return -1;
-        }
-        else return 0;
-    })
 
 }

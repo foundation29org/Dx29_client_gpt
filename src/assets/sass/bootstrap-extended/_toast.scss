@@ -1,0 +1,41 @@
+// Toasts
+
+// Toast container
+.toast-bs-container{
+  z-index: $zindex-popover;
+  position: fixed;
+  top: 4rem;
+  right: 2rem;
+  width: calc(100% - 4rem);
+  // Toast position
+  .toast-position{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap-reverse;
+    // Toast shown
+    .toast.show{
+      z-index: $zindex-popover;
+    }
+  }
+}
+
+// Toast translucent
+.toast {
+  display: none;
+  &.toast-translucent {
+    opacity: 1;
+    display: block;
+  }
+}
+// Toast placement
+.toast-placement{
+  .toast{
+    position: absolute;
+    top: 2rem;
+    z-index: $zindex-popover;
+  }
+}
+// toast body
+.toast-body {
+  color: $body-color;
+}

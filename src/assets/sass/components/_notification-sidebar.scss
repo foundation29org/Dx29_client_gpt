@@ -1,0 +1,68 @@
+@import "../core/colors/palette-variables";
+
+// notofication sidebar that slide In from right
+#notification-sidebar{
+	width: 400px;
+  right: -405px;
+  padding: 0;
+  background-color: $white;
+  z-index: 1051;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  transition: right 0.6s cubic-bezier(0.05, 0.74, 0.2, 0.99);
+  backface-visibility: hidden;
+
+	&.open{
+		right: 0;
+		@include card-shadow();
+	}
+
+	.notification-sidebar-close{
+		position: absolute;
+	    right: 10px;
+	    top: 10px;
+	    padding: 7px;
+	    width: auto;
+	    z-index: 10;
+	}
+
+	.notification-sidebar-content{
+		position: relative;
+    	height: 100%;
+    	padding: 10px;
+
+		.timeline-left{
+			padding-left: 1.3rem;
+			.timeline-line {
+				width: 1px;
+				margin-bottom: 4rem;
+			}
+			.timeline-item{
+				padding-bottom: 1rem;
+				&:after{
+					border:none;
+				}
+				.activity-list-text {
+					margin-top: 0.7rem;
+					padding-left: 1rem;
+					padding-right: 1rem;
+					.notification-note {
+						background-color: map-get($grey-color, lighten-4);
+						border-radius: $border-radius;
+					}
+				}
+			}
+		}
+		.notification-tab-content {
+			position: relative;
+			height: calc(100vh - 3.333333rem);
+			height: calc(var(--vh, 1vh)*100 - 3.333333rem);
+			.ps__rail-y {
+				right: 5px;
+			}
+		}
+	}
+}
