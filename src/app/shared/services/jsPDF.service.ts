@@ -139,7 +139,7 @@ export class jsPDFService {
         doc.setTextColor(0, 0, 0);
     }
 
-    generateResultsPDF(infoSymptoms, infoDiseases, lang){
+    generateResultsPDF(entryText, infoDiseases, lang){
         this.lang = lang;
         const doc = new jsPDF();
         var lineText = 0;
@@ -174,15 +174,22 @@ export class jsPDFService {
         doc.setFont(undefined, 'normal');
         doc.setFontSize(9);
         doc.setTextColor(117, 120, 125)
-        doc.text(this.translate.instant("land.diagnosed.timeline.subtitlea"), 10, lineText += 5)
+        /*doc.text(this.translate.instant("land.diagnosed.timeline.subtitlea"), 10, lineText += 5)
         doc.text(this.translate.instant("land.diagnosed.timeline.subtitleb"), 10, lineText += 5)
         doc.text(this.translate.instant("land.diagnosed.timeline.subtitlec"), 10, lineText += 5)
-        lineText += 5
+        lineText += 5*/
         doc.text(this.translate.instant("land.diagnosed.timeline.subtitle1"), 10, lineText += 5)
         doc.text(this.translate.instant("land.diagnosed.timeline.subtitle2"), 10, lineText += 5)
         doc.text(this.translate.instant("land.diagnosed.timeline.subtitle3"), 10, lineText += 5)
         doc.setTextColor(0, 0, 0)
         doc.setFontSize(10);
+        lineText += 2;
+
+        //escribir el texto de entrada
+        this.newSectionDoc(doc,this.translate.instant("diagnosis.Patient text entered"),'',null,lineText += 10)
+        lineText += 5;
+        lineText = this.writeLongText(doc, 10, lineText, entryText);
+        lineText += 2;
         
         //Diseases
         if(infoDiseases.length>0){
@@ -191,16 +198,21 @@ export class jsPDFService {
             //this.writeHeaderText(doc, 175, lineText, "Id");
             lineText += 7;
             for (var i = 0; i < infoDiseases.length; i++) {
+                // Escribir el nombre
                 if(infoDiseases[i].name.length>99){
-                    lineText = this.writeText(doc, 10, lineText, infoDiseases[i].name.substr(0,99));
+                    lineText = this.writeTextName(doc, 10, lineText, infoDiseases[i].name.substr(0,99));
                     //lineText = this.writeLinkOrpha(doc, 175, lineText, (infoDiseases[i].id).toUpperCase());
                     lineText = lineText+5;
-                    lineText = this.writeText(doc, 10, lineText, infoDiseases[i].name.substr(100));
+                    lineText = this.writeTextName(doc, 10, lineText, infoDiseases[i].name.substr(100));
                 }else{
-                    lineText = this.writeText(doc, 10, lineText, infoDiseases[i].name);
+                    lineText = this.writeTextName(doc, 10, lineText, infoDiseases[i].name);
                     //lineText = this.writeLinkOrpha(doc, 175, lineText, (infoDiseases[i].id).toUpperCase());
                 }
+                lineText += 5;
+                // Escribir la descripción
+                lineText = this.writeLongText(doc, 10, lineText, infoDiseases[i].description);
                 lineText += 7;
+
             }
         }
 
@@ -221,5 +233,46 @@ export class jsPDFService {
 
     }
 
+    private writeTextName(doc, pos, lineText, text) {
+        lineText = this.checkIfNewPage(doc, lineText);
+        doc.setFont(undefined, 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(0, 0, 0)
+        doc.text(text, pos, lineText);
+        return lineText;
+    }
+
+    writeLongText(doc, x, y, text: string): number {
+        const maxChars = 125;
+    
+        while (text.length > 0) {
+            let chunk;
+            if (text.length > maxChars) {
+                let breakPoint = maxChars;
+                while (breakPoint > 0 && text[breakPoint] !== ' ') {
+                    breakPoint--;
+                }
+                chunk = breakPoint > 0 ? text.substr(0, breakPoint) : text.substr(0, maxChars);
+            } else {
+                chunk = text;
+            }
+            
+            y = this.writeTextDesc(doc, x, y, chunk);
+            text = text.substr(chunk.length).trim();
+    
+            if (text.length > 0) y += 5;  // Si hay más texto, ajusta la posición y para la siguiente línea.
+        }
+        
+        return y;
+    }
+
+    private writeTextDesc(doc, pos, lineText, text) {
+        lineText = this.checkIfNewPage(doc, lineText);
+        doc.setFont(undefined, 'normal');
+        doc.setFontSize(9);
+        doc.setTextColor(117, 120, 125)
+        doc.text(text, pos, lineText);
+        return lineText;
+    }
 
 }

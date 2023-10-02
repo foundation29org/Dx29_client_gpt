@@ -1,9 +1,12 @@
 import {
   Component,
+  OnInit,
   AfterViewInit
 } from "@angular/core";
 import { Router, NavigationStart } from '@angular/router';
-
+import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.component';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { EventsService } from 'app/shared/services/events.service';
 
 @Component({
     selector: 'app-land-page-layout',
@@ -11,13 +14,15 @@ import { Router, NavigationStart } from '@angular/router';
     styleUrls: ['./land-page-layout.component.scss']
 })
 
-export class LandPageLayoutComponent implements AfterViewInit {
+export class LandPageLayoutComponent implements OnInit, AfterViewInit {
   isGTPPage: boolean = false;
   isHomePage: boolean = false;
-
+  hasShownDialog: boolean = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal,
+    private eventsService: EventsService
   ) {
     if ((this.router.url).indexOf('/.') != -1 || (this.router.url)== '/') {
       this.isHomePage = true;
@@ -29,6 +34,12 @@ export class LandPageLayoutComponent implements AfterViewInit {
       this.isGTPPage = false;
       this.isHomePage = false;
     }
+  }
+
+  ngOnInit() {
+    this.eventsService.on('sentFeedback', function (event) {
+      this.hasShownDialog = true;
+    }.bind(this));
   }
 
   ngAfterViewInit() {
@@ -48,6 +59,18 @@ export class LandPageLayoutComponent implements AfterViewInit {
         }
       }
     );
+  }
+
+  async sidebarMouseleave(e) {
+    if (!this.hasShownDialog && e.clientY == -1 && localStorage.getItem('sentFeedback') == 'true') {
+      let ngbModalOptions: NgbModalOptions = {
+        backdrop: 'static',
+        keyboard: false,
+        windowClass: 'ModalClass-sm'// xl, lg, sm
+      };
+      const modalRef = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
+      //this.hasShownDialog = true;
+    }
   }
 
 }
