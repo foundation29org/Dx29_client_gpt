@@ -26,7 +26,9 @@
     "Close": "Cerrar",
     "More information": "Más información",
     "Foundation 29": "Fundación 29",
-    "Please wait": "Por favor, espera..."
+    "Please wait": "Por favor, espera...",
+    "sorry cant anwser1": "Revise o modifique el texto que ha introducido, porque algo no le ha gustado a nuestra IA. Si después de hacerlo sigue apareciendo este mensaje, pruebe otro día para darnos tiempo a solucionarlo. Mientras tanto, puede escribir otra descripción del paciente. Si necesitas ayuda inmediata, escribe a nuestro equipo de soporte: support@foundation29.org Disculpe las molestias.",
+    "sorry cant anwser2": "Ahora mismo no podemos responder a eso. Pruebe otro día para darnos tiempo a solucionarlo. Mientras tanto, puede selecionar otra opción. Si necesitas ayuda inmediata, escribe a nuestro equipo de soporte: support@foundation29.org Disculpe las molestias."
   },
   "navbar":{
     "Toggle navigation": "Alternar navegación"
