@@ -581,6 +581,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.continueCallOpenAi(parseChoices0);
                     }
                 }else{
+                    Swal.close();
                     Swal.fire({
                         icon: 'error',
                         text: this.translate.instant("generics.sorry cant anwser1"),
