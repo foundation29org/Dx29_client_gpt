@@ -94,6 +94,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     tienePrisa: boolean = false;
     resultAnonymized: string = '';
     copyResultAnonymized: string = '';
+    ip: string = '';
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
     @ViewChildren('autoajustable2') textAreas2: QueryList<ElementRef>;
@@ -120,6 +121,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.currentStep = this.steps[0];
 
         //this.loadSponsors();
+        this.loadingIP();
+    }
+
+    loadingIP(){
+
+    this.subscription.add(this.apiDx29ServerService.getInfoLocation()
+    .subscribe((res: any) => {
+        console.log(res)
+        this.ip = res.ip
+    }, (err) => {
+        console.log(err);
+    }));
     }
 
     loadSponsors(){
@@ -519,15 +532,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             value: paramIntroText
         })
         
-        var value = { value: introText + this.symtpmsLabel + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang }
+        var value = { value: introText + this.symtpmsLabel + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         if(this.loadMoreDiseases){
-            value = { value: introText + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang }
+            value = { value: introText + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         }
         if(step == 'step3'){
             let introText2 = this.translate.instant("land.prom2", {
                 value: paramIntroText
             })
-            value = { value: introText2 + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang }
+            value = { value: introText2 + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
@@ -594,17 +607,47 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                
                 
             }, (err) => {
-                this.insightsService.trackException(err);
-                console.log(err);
-                this.callingOpenai = false;
-                Swal.close();
-                Swal.fire({
-                    icon: 'error',
-                    text: this.translate.instant("generics.error try again"),
-                    showCancelButton: false,
-                    showConfirmButton: true,
-                    allowOutsideClick: false
-                })
+                console.log(err)
+                if(err.error.error){
+                    if(err.error.error.code == 'content_filter'){
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("generics.sorry cant anwser1"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                        this.callingOpenai = false;
+                    }else{
+                        this.insightsService.trackException(err);
+                        console.log(err);
+                        this.callingOpenai = false;
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("generics.error try again"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                    }
+                
+                   
+                }else{
+                    this.insightsService.trackException(err);
+                    console.log(err);
+                    this.callingOpenai = false;
+                    Swal.close();
+                    Swal.fire({
+                        icon: 'error',
+                        text: this.translate.instant("generics.error try again"),
+                        showCancelButton: false,
+                        showConfirmButton: true,
+                        allowOutsideClick: false
+                    })
+                }
+                
             }));
 
     }
