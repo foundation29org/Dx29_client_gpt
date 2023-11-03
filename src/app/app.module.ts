@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { HttpClientModule, HttpClient } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from "@angular/common/http";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -18,6 +18,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from "./shared/shared.module";
 import { AppComponent } from "./app.component";
 import { LandPageLayoutComponent } from "./layouts/land-page/land-page-layout.component";
+import { AuthInterceptor } from './shared/auth/auth.interceptor';
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
 
 
@@ -50,6 +51,11 @@ export function createTranslateLoader(http: HttpClient) {
     PerfectScrollbarModule
   ],
   providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi   : true
+    },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     WINDOW_PROVIDERS
   ],
