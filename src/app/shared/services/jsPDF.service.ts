@@ -53,6 +53,8 @@ export class jsPDFService {
         var localeLang = 'en-US';
         if (this.lang == 'es') {
             localeLang = 'es-ES'
+        }else if (this.lang == 'fr') {
+            localeLang = 'fr-FR'
         }
         return date.toLocaleString(localeLang, { month: 'long' , day: 'numeric', year: 'numeric'});
     }
@@ -112,7 +114,7 @@ export class jsPDFService {
         this.writelinePreFooter(doc, this.translate.instant("land.diagnosed.timeline.footer2"), lineText += 5);
         lineText = this.checkIfNewPage(doc, lineText);
         this.writelinePreFooter(doc, this.translate.instant("land.diagnosed.timeline.footer3"), lineText += 5);
-        if(this.lang =='es'){
+        if(this.lang =='es' || this.lang =='fr'){
             lineText = this.checkIfNewPage(doc, lineText);
             this.writelinePreFooter(doc, this.translate.instant("land.diagnosed.timeline.footer4"), lineText += 5);
         }
@@ -155,6 +157,9 @@ export class jsPDFService {
         if(lang=='es'){
             this.writeHeader(doc, 89, 0, this.translate.instant("land.diagnosed.timeline.RegDate"));
             this.writeDataHeader(doc, 82, 5, dateHeader);
+        }else if(lang=='fr'){
+            this.writeHeader(doc, 89, 0, this.translate.instant("land.diagnosed.timeline.RegDate"));
+            this.writeDataHeader(doc, 86, 5, dateHeader);
         }else{
             this.writeHeader(doc, 93, 0, this.translate.instant("land.diagnosed.timeline.RegDate"));
             this.writeDataHeader(doc, 88, 5, dateHeader);
