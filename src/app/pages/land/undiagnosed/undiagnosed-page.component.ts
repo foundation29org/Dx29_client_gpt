@@ -120,7 +120,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         ];
         this.currentStep = this.steps[0];
 
-        //this.loadSponsors();
+        this.loadSponsors();
         this.loadingIP();
     }
 
