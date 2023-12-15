@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs/Subscription';
@@ -100,7 +101,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     @ViewChildren('autoajustable2') textAreas2: QueryList<ElementRef>;
     @ViewChild("autoajustable") inputTextAreaElement: ElementRef;
     
-    constructor( private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2) {
+    constructor( private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
 
         this.lang = sessionStorage.getItem('lang');
         this.originalLang = sessionStorage.getItem('lang');
@@ -254,6 +255,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.route.queryParams.subscribe(params => {
+            if (params['medicalText']) {
+              this.medicalText = params['medicalText'];
+            }
+          });
         this.loadTranslations();
         this.eventsService.on('changelang', function (lang) {
             this.lang = lang;
