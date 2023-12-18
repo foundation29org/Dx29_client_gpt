@@ -655,6 +655,30 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     }
                 
                    
+                }else if(err.error.type=='invalid_request_error'){
+                    if(err.error.code=='context_length_exceeded'){
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            html: this.translate.instant("generics.sorry cant anwser3") + '<a href="https://platform.openai.com/tokenizer" class="ml-1 danger" target="_blank">Tokenizer</a>',
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                        this.callingOpenai = false;
+                    }else{
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            title: err.error.code,
+                            text: err.error.message,
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                        this.callingOpenai = false;
+                    }
+                   
                 }else{
                     this.insightsService.trackException(err);
                     console.log(err);
