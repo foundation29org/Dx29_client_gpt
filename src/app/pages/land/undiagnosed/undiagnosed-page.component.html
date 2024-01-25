@@ -152,8 +152,8 @@
 <div class="">
   <div type="white" class="p-2 mb-0">
     <div class="center-elements pb-2">
-      <span class="black">{{'land.Subscribe or send us a message' | translate }}</span>
-      <button class="btn btn-info round mb-0 ml-2 btn-sm" (click)="openSupport(contentSubs);lauchEvent('openSupport');"><strong>{{'generics.Send' | translate }}</strong></button>
+      <span class="pointer" style="text-decoration: underline !important;color: #b30000;" (click)="openSupport(contentSubs);lauchEvent('openSupport');">{{'land.Subscribe or send us a message' | translate }}</span>
+      <!--<button class="btn btn-info round mb-0 ml-2 btn-sm" (click)="openSupport(contentSubs);lauchEvent('openSupport');"><strong>{{'generics.Send' | translate }}</strong></button>-->
     </div>
     <div class="center-elements border-top pt-2 d-md-none">
       <a class="black mr-2 text-decoration-underline" routerLink="/aboutus" (click)="lauchEvent('Page - About us')">
