@@ -9,9 +9,6 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class PrivacyPolicyPageComponent {
   constructor(public translate: TranslateService) {
-    setTimeout(function () {
-      this.goTo('initpos');
-    }.bind(this), 300);
   }
 
   goTo(url){
