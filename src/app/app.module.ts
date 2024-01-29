@@ -20,7 +20,23 @@ import { AppComponent } from "./app.component";
 import { LandPageLayoutComponent } from "./layouts/land-page/land-page-layout.component";
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
+import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 
+const cookieConfig:NgcCookieConsentConfig = {
+  cookie: {
+    domain: 'localhost' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+  },
+  palette: {
+    popup: {
+      background: '#fff'
+    },
+    button: {
+      background: '#000000'
+    }
+  },
+  theme: 'edgeless',
+  type: 'opt-out'
+};
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -48,7 +64,8 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    NgcCookieConsentModule.forRoot(cookieConfig)
   ],
   providers: [
     {

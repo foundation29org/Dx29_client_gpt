@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AboutUsPageComponent } from "./about-us/about-us-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
+import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
@@ -32,7 +33,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     declarations: [
         AboutUsPageComponent,
         UndiagnosedPageComponent,
-        FeedbackPageComponent
+        FeedbackPageComponent,
+        PrivacyPolicyPageComponent
     ]
 })
 export class LandPageModule { }
