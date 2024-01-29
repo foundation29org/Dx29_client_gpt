@@ -44,10 +44,12 @@
               "src/assets/sass/core.scss",
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
-              "src/assets/css/custom.css"
+              "src/assets/css/custom.css",
+              "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
             "scripts": [
-              "src/assets/vendor/pace/pace.min.js"
+              "src/assets/vendor/pace/pace.min.js",
+              "node_modules/cookieconsent/build/cookieconsent.min.js"
             ],
             "vendorChunk": true,
             "extractLicenses": false,

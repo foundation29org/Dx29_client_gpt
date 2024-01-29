@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AboutUsPageComponent } from "./about-us/about-us-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
+import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 
 const routes: Routes = [
   {
@@ -28,6 +29,13 @@ const routes: Routes = [
         component: FeedbackPageComponent,
         data: {
           title: 'Feedback'
+        }
+      },
+      {
+        path: 'privacy-policy',
+        component: PrivacyPolicyPageComponent,
+        data: {
+          title: 'registration.Privacy Policy'
         }
       }
     ]

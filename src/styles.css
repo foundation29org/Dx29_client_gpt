@@ -1,3 +1,18 @@
+.underline{
+  text-decoration: underline !important;
+  color: #b30000;
+}
+
+a:hover{
+  color: #c20000;
+}
+
+a:focus
+{
+  color: #c20000;
+  text-decoration: none;
+}
+
 .center-elements{
     text-align: center;
   }

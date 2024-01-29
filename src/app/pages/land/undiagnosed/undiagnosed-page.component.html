@@ -149,11 +149,10 @@
     </div>
   </section>
 </div>
-<div class="">
+<!--<div class="">
   <div type="white" class="p-2 mb-0">
     <div class="center-elements pb-2">
       <span class="pointer" style="text-decoration: underline !important;color: #b30000;" (click)="openSupport(contentSubs);lauchEvent('openSupport');">{{'land.Subscribe or send us a message' | translate }}</span>
-      <!--<button class="btn btn-info round mb-0 ml-2 btn-sm" (click)="openSupport(contentSubs);lauchEvent('openSupport');"><strong>{{'generics.Send' | translate }}</strong></button>-->
     </div>
     <div class="center-elements border-top pt-2 d-md-none">
       <a class="black mr-2 text-decoration-underline" routerLink="/aboutus" (click)="lauchEvent('Page - About us')">
@@ -164,7 +163,150 @@
       </a>
     </div>
   </div>
+</div>-->
+<div class="pt-3" style="background: #FBF6FC;">
+  <div class="row offset-lg-1 col-lg-10 margin-0 text-center">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-md-4">
+          <p>
+            <a href="javascript:;" class="underline" (click)="openModal(policyPanel)">
+              <span>{{'registration.Privacy Policy' | translate }}</span>
+            </a>
+          </p>
+        </div>
+        <div class="col-md-4">
+          <p>
+            <span class="pointer underline" (click)="openSupport(contentSubs);lauchEvent('openSupport');">{{'land.Subscribe or send us a message' | translate }}</span>
+          </p>
+
+        </div>
+        <div class="col-md-4">
+          <p>
+            <a href="javascript:;" class="underline" (click)="openModal(cookiesPanel)">
+              <span>{{'cookies.title' | translate }}</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<ng-template #cookiesPanel let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{'cookies.title' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="px-3">
+      <div class="form-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <h6 class="pt-2 text-bold-600">{{'cookies.t1' | translate }}</h6>
+            <p [innerHTML]="'cookies.p1.1' | translate "></p>
+            <p>{{'cookies.p1.2' | translate }}</p>
+            <h6 class="pt-2 text-bold-600">{{'cookies.t2' | translate }}</h6>
+            <p>{{'cookies.p2.1' | translate }}</p>
+            <h6 class="pt-2 text-bold-600">{{'cookies.t3' | translate }}</h6>
+            <p>{{'cookies.p3.1' | translate }}</p>
+            <h6 class="pt-2 text-bold-600">{{'cookies.t4' | translate }}</h6>
+            <p>{{'cookies.p4.1' | translate }}</p>
+            <h6 class="pt-2 text-bold-600">{{'cookies.t5' | translate }}</h6>
+            <p [innerHTML]="'cookies.p5.1' | translate "></p>
+            <p [innerHTML]="'cookies.p5.2' | translate "></p>
+            <ul>
+              <li>
+                {{'cookies.p5.2.1' | translate }}
+              </li>
+              <li>
+                {{'cookies.p5.2.2' | translate }}
+              </li>
+            </ul>
+            <p>{{'cookies.p5.3' | translate }}</p>
+            <h6 class="pt-2 text-bold-600">{{'cookies.t6' | translate }}</h6>
+            <p>{{'cookies.p6.1' | translate }}</p>
+
+            <ul class="mt-2">
+              <li>
+                <a class="underline" href="https://support.google.com/chrome/answer/95647?hl={{lang}}" target="_blank">Google Chrome.</a>
+              </li>
+              <li>
+                <a class="underline" href="https://support.microsoft.com/{{lang}}/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d"
+                  target="_blank">Internet Explorer.</a>
+              </li>
+              <li>
+                <a class="underline" *ngIf="lang=='es'"
+                  href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias"
+                  target="_blank">Mozilla Firefox.</a>
+                <a class="underline" *ngIf="lang!='es'"
+                  href="https://support.mozilla.org/en-US/kb/block-websites-storing-cookies-site-data-firefox"
+                  target="_blank">Mozilla Firefox.</a>
+              </li>
+              <li>
+                <span class="danger" *ngIf="lang=='es'">
+                  <a class="underline" href="https://support.apple.com/es-es/HT201265" target="_blank">Safari iPhone, iPad
+                    {{'generics.and' | translate }} iPod touch</a>
+                  & <a class="underline" href="https://support.apple.com/es-es/guide/safari/sfri11471/mac"
+                    target="_blank">Safari iPhone, iPad {{'generics.and' | translate }} Safari para Mac.</a>
+                </span>
+                <span class="danger" *ngIf="lang!='es'">
+                  <a class="underline" href="https://support.apple.com/en-en/HT201265" target="_blank">Safari iPhone, iPad
+                    {{'generics.and' | translate }} iPod touch</a>
+                  & <a class="underline" href="https://support.apple.com/en-en/guide/safari/sfri11471/mac"
+                    target="_blank">Safari iPhone, iPad {{'generics.and' | translate }} Safari para Mac.</a>
+                </span>
+
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #policyPanel let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{'registration.Privacy Policy' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="px-3">
+      <div class="form-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <p>{{'policy.p1' | translate }}</p>
+            <p>{{'policy.p2.1' | translate }}</p>
+            <ul>
+              <li><p>{{'policy.p2.2' | translate }}</p></li>
+              <li><p>{{'policy.p2.3' | translate }}</p></li>
+            </ul>
+            <p>{{'policy.p3.1' | translate }}</p>
+            <ul>
+              <li><p>{{'policy.p3.2' | translate }}</p></li>
+              <li><p>{{'policy.p3.3' | translate }}</p></li>
+            </ul>
+            <p>{{'policy.p4.1' | translate }}</p>
+            <ul>
+              <li><p>{{'policy.p4.2' | translate }}</p></li>
+              <li><p>{{'policy.p4.3' | translate }}</p></li>
+              <li><p>{{'policy.p4.3' | translate }}</p></li>
+            </ul>
+            <p>{{'policy.p5.1' | translate }}</p>
+            <ul>
+              <li><p>{{'policy.p5.2' | translate }}</p></li>
+              <li><p>{{'policy.p5.3' | translate }}</p></li>
+            </ul>
+            <p>{{'policy.p6' | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 <ng-template #contentInfoDisease let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
     <div class="content-header text-left">
