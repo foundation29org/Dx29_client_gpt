@@ -9,12 +9,12 @@
     <div class="row">
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-        <p class="mb-0 mt-2">{{'land.titleOptions' | translate }}</p>
-            <p class="">
-              <mat-checkbox id="selectorRare" class="selectorrare" (change)="selectorRareEvent($event.checked)" [(ngModel)]="selectorRare">
-                {{'land.opt2' | translate }}
-              </mat-checkbox>
-            </p>
+        <p class="mb-0 mt-2" [innerHTML]="'land.titleOptions' | translate "></p>
+        <p class="">
+          <mat-checkbox id="selectorRare" class="selectorrare" (change)="selectorRareEvent($event.checked)" [(ngModel)]="selectorRare">
+            <strong>{{'land.opt2' | translate }}</strong>
+          </mat-checkbox>
+        </p>
         <div class="search">
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
             [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}"

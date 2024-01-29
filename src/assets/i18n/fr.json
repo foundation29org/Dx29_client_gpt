@@ -207,7 +207,7 @@
   "Do you want to start over": "Voulez-vous recommencer ?", 
   "Results copied to the clipboard": "Résultats copiés dans le presse-papiers",
   "Do not show this message again": "Ne plus afficher ce message",
-  "titleOptions": "DxGPT recherche dans les maladies rares, pour étendre la recherche aux maladies courantes, activez ce bouton :",
+  "titleOptions": "DxGPT recherche dans les <strong>maladies rares</strong>, pour étendre la recherche aux maladies courantes, activez ce bouton :",
   "opt1": "Maladies rares",
   "opt2": "Voir les maladies courantes",
   "rare": "maladies rares",

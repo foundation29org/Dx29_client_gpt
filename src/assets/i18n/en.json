@@ -207,7 +207,7 @@
     "Do you want to start over": "Do you want to start over?",
     "Results copied to the clipboard": "Results copied to the clipboard",
     "Do not show this message again": "Do not show this message again",
-    "titleOptions": "DxGPT searches in rare diseases, to expand the search to common diseases, activate this button:",
+    "titleOptions": "DxGPT searches in <strong>rare diseases</strong>, to expand the search to common diseases, activate this button:",
     "opt1": "Rare diseases",
     "opt2": "See common diseases",
     "rare": "rare diseases",
