@@ -1380,7 +1380,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.hasAnonymize = false;
         this.resultAnonymized = '';
         this.copyResultAnonymized = '';
-        var info = { value: this.medicalText, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response }
+        var info = { value: this.medicalText, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response, topRelatedConditions: this.topRelatedConditions}
         this.subscription.add(this.apiDx29ServerService.postAnonymize(info)
             .subscribe((res: any) => {
                 let parseChoices = res.choices[0].message.content;
