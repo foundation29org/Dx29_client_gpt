@@ -66,7 +66,10 @@
     "p5.1": "Conformité légale",
     "p5.2": "Nous respectons toutes les lois applicables en matière de confidentialité et de protection des données, y compris le RGPD.",
     "p5.3": "En cas d'exigence légale, nous pouvons partager des données avec des autorités ou des organismes réglementaires.",
-    "p6": "Si vous avez des questions concernant cette politique, n'hésitez pas à nous contacter : support@foundation29.org. Nous nous engageons à maintenir la transparence dans la gestion des données chez DxGPT pour préserver votre confiance."
+    "p6.1": "Exercice des droits de révocation et de suppression des données",
+    "p6.2": "Droit de révocation : Vous avez le droit de révoquer l'utilisation de vos données à tout moment. Pour le révoquer, veuillez nous envoyer une demande claire à support@foundation29.org",
+    "p6.3": "Demande de suppression de données : si vous souhaitez que nous supprimions toutes les informations personnelles que nous détenons à votre sujet (par exemple, votre adresse e-mail fournie via notre formulaire de contact), vous pouvez en faire la demande en nous envoyant un e-mail à support@foundation29. .org. Nous nous engageons à traiter votre demande dans un délai raisonnable et à vous confirmer la suppression de vos données.",
+    "p7": "Si vous avez des questions concernant cette politique, n'hésitez pas à nous contacter : support@foundation29.org. Nous nous engageons à maintenir la transparence dans la gestion des données chez DxGPT pour préserver votre confiance."
 },
   "dataprocessing": {
     "I agree with the": "J'accepte le",
