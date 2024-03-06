@@ -208,6 +208,9 @@ body {
     right: 0px;
     display: block;
   }
+  h2 {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 700px) {
@@ -239,5 +242,9 @@ body {
    ::placeholder {
       font-size: 0.8rem;
    }
+
+   h2 {
+    font-size: 1.2rem;
+  }
 
 }
