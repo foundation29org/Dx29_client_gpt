@@ -65,8 +65,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     options: any = [];
     optionSelected: any = {};
     sendingVote: boolean = false;
-    selectorRare: boolean = false;
-    prevSelectorRare: boolean = false;
+    selectorRare: boolean = true;
+    prevSelectorRare: boolean = true;
     selectorOption: string = '';
     optionRare: string = '';
     optionCommon: string = '';

@@ -9,12 +9,12 @@
     <div class="row">
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-        <p class="mb-0 mt-2" [innerHTML]="'land.titleOptions' | translate "></p>
+        <!--<p class="mb-0 mt-2" [innerHTML]="'land.titleOptions' | translate "></p>
         <p class="">
           <mat-checkbox id="selectorRare" class="selectorrare" (change)="selectorRareEvent($event.checked)" [(ngModel)]="selectorRare">
             <strong>{{'land.opt2' | translate }}</strong>
           </mat-checkbox>
-        </p>
+        </p>-->
         <div class="search">
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
             [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}"
@@ -86,7 +86,7 @@
                       <th id="headerTable" style="border-top-style: none;">
                         <span class="row">
                           <span class="col-12">
-                            <h4 class="white card-title text-bold-500" style="margin-top: 0rem !important;">{{'diagnosis.Proposed diagnoses' | translate }}</h4>
+                            <h4 class="white card-title text-bold-700" style="margin-top: 0rem !important;">{{'diagnosis.Proposed diagnoses' | translate }}</h4>
                             <span class="float-right">
                               <span *ngIf="!sendingVote">
                                 <button class="mr-1 btn btn-success" (click)="vote('up', contentFeedbackDown)" [disabled]="sendingVote || callingAnonymize"><em class="icon-hand white fa fa-2x fa-thumbs-up"></em></button>
@@ -131,9 +131,9 @@
                   <p>{{'land.nofound' | translate }}</p>
                 </span>
                 <div class="col-md-12 mb-0 white p-2 center-elements" style="background-color: #353540;">
-                  <span *ngIf="!selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(true)">{{'land.Show common diseases' | translate }}</button></span>
-                  <span *ngIf="selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(false)">{{'land.Show rare diseases' | translate }}</button></span>
-                  <button class="btn btn-info ml-2 mt-2 mb-2" (click)="loadMore()">{{'land.Load more' | translate }}</button>
+                  <!--<span *ngIf="!selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(true)">{{'land.Show common diseases' | translate }}</button></span>
+                  <span *ngIf="selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(false)">{{'land.Show rare diseases' | translate }}</button></span>-->
+                  <button class="btn btn-info mt-2 mb-2" (click)="loadMore()">{{'land.Load more' | translate }}</button>
                   <span class="optionsResults mt-2 mb-2">
                     <em class="mt-1 fa fa-clipboard fa-2x info mr-2" title="{{'land.Copy results' | translate }}"
                     (click)="copyResults()" style="cursor: pointer;"></em>
@@ -315,20 +315,20 @@
 <ng-template #contentInfoDisease let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
     <div class="content-header text-left">
-      <h4 class="text-bold-400 mb-0">{{ selectedDisease }}</h4>
+      <h4 class="card-title text-bold-700 mb-0 primary">{{ selectedDisease }}</h4>
     </div>
     <button type="button" class="close" aria-label="Close" (click)="closeDiseaseUndiagnosed()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body content-wrapper p-2 mt-2">
-    <h5>{{'land.Select a question' | translate }}:</h5>
+    <p>{{'land.Select a question' | translate }}:</p>
     <!--Shows a list of selectable panels-->
     <div class="list-group mb-2">
       <button class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
         (click)="showQuestion(question, i)" [disabled]="loadingAnswerOpenai">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{{question.question}}</h5>
+          <span class="mb-1">{{question.question}}</span>
         </div>
       </button>
       <div *ngIf="loadingAnswerOpenai" class="mt-3 center-elements">
@@ -401,7 +401,7 @@
 </ng-template>
 <ng-template #contentFeedbackDown let-c="close" let-d="dismiss">
 		<div class="modal-header">
-			<h4 class="modal-title">{{'land.msgimprove' | translate }}</h4>
+			<h4 class="card-title text-bold-500 primary">{{'land.msgimprove' | translate }}</h4>
 		</div>
 		<div class="modal-body">
       <form class="form" #f="ngForm">
@@ -526,7 +526,7 @@
 <ng-template #contentviewDoc id="contentviewDoc" let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
       <div class="content-header text-left">
-          <h4 class="mb-0">{{'diagnosis.Anonymized text' | translate }}</h4>
+          <h4 class="card-title text-bold-700 mb-0 primary">{{'diagnosis.Anonymized text' | translate }}</h4>
       </div>
       <button type="button" class="close" aria-label="Close" (click)="closeModal();">
           <span aria-hidden="true">&times;</span>
