@@ -154,9 +154,10 @@ export class jsPDFService {
         doc.setFontSize(10);
         var actualDate = new Date();
         var dateHeader = this.getFormatDate(actualDate);
+        console.log(lang)
         if(lang=='es'){
             this.writeHeader(doc, 89, 0, this.translate.instant("land.diagnosed.timeline.RegDate"));
-            this.writeDataHeader(doc, 82, 5, dateHeader);
+            this.writeDataHeader(doc, 86, 5, dateHeader);
         }else if(lang=='fr'){
             this.writeHeader(doc, 89, 0, this.translate.instant("land.diagnosed.timeline.RegDate"));
             this.writeDataHeader(doc, 86, 5, dateHeader);
