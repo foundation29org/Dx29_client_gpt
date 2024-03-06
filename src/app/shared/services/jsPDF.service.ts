@@ -157,7 +157,7 @@ export class jsPDFService {
         console.log(lang)
         if(lang=='es'){
             this.writeHeader(doc, 89, 0, this.translate.instant("land.diagnosed.timeline.RegDate"));
-            this.writeDataHeader(doc, 86, 5, dateHeader);
+            this.writeDataHeader(doc, 87, 5, dateHeader);
         }else if(lang=='fr'){
             this.writeHeader(doc, 89, 0, this.translate.instant("land.diagnosed.timeline.RegDate"));
             this.writeDataHeader(doc, 86, 5, dateHeader);
