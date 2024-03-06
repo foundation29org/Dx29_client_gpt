@@ -43,6 +43,7 @@
     "Click on the disease to see more options": "Haz clic en la enfermedad para ver más opciones. Por ejemplo, hacer diagnóstico diferencial.",
     "Candidate diagnosis": "Diagnósticos candidatos",
     "Patient text entered": "Texto introducido del paciente",
+    "advise": "Tenga en cuenta que los diagnósticos sugeridos se generan mediante un modelo avanzado de inteligencia artificial basado en el lenguaje, y puede contener errores.",
     "SponsorMsg": "Conoce más de la enfermedad aquí",
     "Anonymized text": "Texto anonimizado",
     "View anonymized text": "Ver texto anonimizado",
