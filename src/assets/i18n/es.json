@@ -233,7 +233,14 @@
       "Current model accuracy": "Precisión actual del modelo",
       "modelp1": "En una evaluación preliminar reciente realizada por Fundación 29 utilizando 200 casos sintéticos de pacientes generados por modelos de lenguaje, DxGPT demostró cierta capacidad para sugerir diagnósticos correctos de enfermedades raras. Específicamente, cuando se evaluó la precisión estricta (es decir, si el diagnóstico correcto aparecía en primera posición), DxGPT obtuvo una precisión del 67,5%, acertando el diagnóstico en 135 de los 200 casos. Si se considera una métrica más flexible, contabilizando los diagnósticos correctos tanto en la primera como en las primeras 5 posiciones, la precisión aumenta al 88,5% (177 de 200 casos). Si bien estos resultados iniciales son alentadores, DxGPT aún se encuentra en una fase temprana de desarrollo.",
       "modelp2": "Para más detalles sobre la metodología de evaluación y los resultados, consulte nuestro",
-      "modelp3": "repositorio de GitHub y el artículo asociado."
+      "modelp3": "repositorio de GitHub y el artículo asociado.",
+      "spontit": "Patrocinadores",
+      "spon1": "Fundación 29 y el proyecto DxGPT agradecen profundamente el apoyo económico desinteresado de nuestros patrocinadores. Su generosa contribución ha sido fundamental para el desarrollo de esta herramienta y para avanzar en nuestra misión de empoderar a los pacientes y mejorar el diagnóstico de enfermedades raras.",
+      "spon2": "Es importante destacar que la ayuda de nuestros patrocinadores es completamente altruista y no conlleva ningún tipo de contraprestación comercial o cesión de datos. Mantenemos un firme compromiso con la privacidad y la protección de los datos de los usuarios, por lo que en ningún caso se comparte o vende información a terceros.",
+      "spon3": "Nuestros patrocinadores respaldan este proyecto movidos únicamente por su deseo de impulsar la innovación médica y mejorar la atención sanitaria para todos. Su generosidad desinteresada es un ejemplo inspirador del poder de la colaboración y la filantropía para catalizar avances transformadores.",
+      "spon4": "Además, todo el código fuente de DxGPT está disponible para la comunidad bajo una licencia MIT de software libre permisiva, fomentando la transparencia y la colaboración abierta.",
+      "spon5": "Gracias a:",
+      "spon6": "Si desea sumarse como patrocinador y apoyar esta iniciativa, no dude en ponerse en contacto con nosotros. Juntos podemos seguir construyendo un futuro más saludable para todos."
     },
     "diagnosed":{
       "timeline":{

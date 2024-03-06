@@ -178,6 +178,12 @@ body {
   width: 120px !important;
 }
 
+::ng-deep .swal2-icon.swal2-info {
+  border-color: #b30000;
+  color: #b30000;
+}
+
+
 .form-control:focus{
   border-color: #B30000 !important;
   box-shadow: 0 0 0 0.2rem #B30000;
