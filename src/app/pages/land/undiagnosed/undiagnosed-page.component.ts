@@ -96,7 +96,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     resultAnonymized: string = '';
     copyResultAnonymized: string = '';
     ip: string = '';
-    feedbackTimestamp = localStorage.getItem('feedbackTimestamp');
+    feedbackTimestampDxGPT = localStorage.getItem('feedbackTimestampDxGPT');
     threeMonthsAgo = Date.now() - (3 * 30 * 24 * 60 * 60 * 1000); // 3 meses
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
@@ -762,12 +762,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         await this.delay(200);
         this.scrollTo();
         this.showInputRecalculate = false;
-        if(localStorage.getItem('sentFeedback') == null){
-            localStorage.setItem('sentFeedback', 'true')
+        if(localStorage.getItem('sentFeedbackDxGPT') == null){
+            localStorage.setItem('sentFeedbackDxGPT', 'true')
         }else{
-            if(localStorage.getItem('showFeedback') == null || localStorage.getItem('showFeedback') != 'true'){
-                if (this.feedbackTimestamp === null || parseInt(this.feedbackTimestamp) < this.threeMonthsAgo) {
-                    localStorage.setItem('sentFeedback', 'true')
+            if(localStorage.getItem('showFeedbackDxGPT') == null || localStorage.getItem('showFeedbackDxGPT') != 'true'){
+                if (this.feedbackTimestampDxGPT === null || parseInt(this.feedbackTimestampDxGPT) < this.threeMonthsAgo) {
+                    localStorage.setItem('sentFeedbackDxGPT', 'true')
                 }
             }
         } 
