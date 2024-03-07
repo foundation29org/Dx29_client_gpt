@@ -108,6 +108,7 @@ export class FeedbackPageComponent implements OnDestroy {
             var eventsLang = this.inj.get(EventsService);
             eventsLang.broadcast('sentFeedback', true);
             localStorage.setItem('sentFeedback', 'sent')
+            localStorage.setItem('feedbackTimestamp', Date.now().toString());
            }, (err) => {
             this.insightsService.trackException(err);
              console.log(err);
@@ -118,5 +119,13 @@ export class FeedbackPageComponent implements OnDestroy {
             this.toastr.error(this.translate.instant("feedback.onstarts"), 'Error');
         } 
       }
+
+      showOptions($event) {
+        if ($event.checked) {
+            localStorage.setItem('showFeedback', 'true')
+        } else {
+            localStorage.setItem('showFeedback', 'false')
+        }
+    }
 
 }

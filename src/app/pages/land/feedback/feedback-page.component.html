@@ -32,6 +32,11 @@
                     <p for="freeText" class="text-bold-400 mb-0">{{'feedback.commment' | translate }}</p>
                     <textarea formControlName="freeText" rows="4" class="form-control"></textarea>
                   </div>
+                  <mat-checkbox class="example-margin" (change)="showOptions($event)">
+                    <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
+                      <span>{{'land.check' | translate }}</span>
+                    </label>
+                  </mat-checkbox>
                 <div class="col-12 center-elements mt-3" *ngIf="!sending">
                   <button type="button" class="btn btn-secondary btn-lg mr-1" (click)="activeModal.close('Close click')">{{'generics.Close' | translate }}</button>
                   <button type="submit" class="btn btn-info btn-lg ml-1">{{'generics.Send' | translate }}</button>
