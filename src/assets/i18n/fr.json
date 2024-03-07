@@ -150,7 +150,7 @@
     "error extension": "Le fichier téléchargé doit avoir une extension .pdf, .docx ou être des fichiers image",
     "Extracting the text from the document": "Extraction du texte à partir du document",
     "swal": "DxGPT calcule. Veuillez patienter quelques secondes pour qu'il termine",
-    "swal2": "Nous avons une forte demande, si cela prend plus d'une minute, annulez et réessayez.",
+    "swal2": "Nous avons une forte demande, si cela prend plus de 2 minutes, annulez et réessayez.",
     "q1": "Quels sont les symptômes courants ?",
     "q2": "Donnez-moi plus d'informations",
     "q3": "Fournissez un test de diagnostic",
