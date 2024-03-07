@@ -37,7 +37,7 @@ export class LandPageLayoutComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.eventsService.on('sentFeedback', function (event) {
+    this.eventsService.on('sentFeedbackDxGPT', function (event) {
       this.hasShownDialog = true;
     }.bind(this));
   }
@@ -62,7 +62,7 @@ export class LandPageLayoutComponent implements OnInit, AfterViewInit {
   }
 
   async sidebarMouseleave(e) {
-    if (!this.hasShownDialog && e.clientY == -1 && localStorage.getItem('sentFeedback') == 'true') {
+    if (!this.hasShownDialog && e.clientY == -1 && localStorage.getItem('sentFeedbackDxGPT') == 'true') {
       let ngbModalOptions: NgbModalOptions = {
         backdrop: 'static',
         keyboard: false,
