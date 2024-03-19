@@ -123,6 +123,14 @@ export class FeedbackPageComponent implements OnDestroy {
       }
 
 
+    changeTerm($event){
+        if ($event.checked) {
+            localStorage.setItem('showFeedbackDxGPT', 'true')
+        } else {
+            localStorage.setItem('showFeedbackDxGPT', 'false')
+        }
+    }
+
     showOptions() {
         this.terms2 = !this.terms2;
         if (this.terms2) {
