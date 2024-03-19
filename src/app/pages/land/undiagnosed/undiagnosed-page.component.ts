@@ -452,6 +452,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             this.medicalText2 = '';
             this.continuePreparingCallOpenAi(step);
+        }else{
+            Swal.fire({
+                icon: 'error',
+                text: this.translate.instant("land.errorLocation"),
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            })
         }
         
 
