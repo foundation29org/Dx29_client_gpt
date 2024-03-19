@@ -384,11 +384,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async checkPopup(contentIntro){
         this.showErrorCall1 = false;
-        if (this.callingOpenai || this.medicalText.length < 5) {
+        if (this.callingOpenai || this.medicalText.length < 15) {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
             if(this.medicalText.length>0){
                 text = this.translate.instant("land.requiredMIN5");
+                let introText = this.translate.instant("land.charactersleft", {
+                    value: (15 - this.medicalText.length)
+                })
+                text = text + ' ' + introText;
             }
             Swal.fire({
                 icon: 'error',
@@ -418,7 +422,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     verifCallOpenAi(step) {
         this.showErrorCall1 = false;
-        if (this.callingOpenai || this.medicalText.length < 5) {
+        if (this.callingOpenai || this.medicalText.length < 15) {
             this.showErrorCall1 = true;
         }
         if (!this.showErrorCall1) {
