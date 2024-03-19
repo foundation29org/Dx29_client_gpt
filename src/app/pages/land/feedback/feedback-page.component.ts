@@ -31,6 +31,7 @@ export class FeedbackPageComponent implements OnDestroy {
     email: string = '';
     showErrorForm: boolean = false;
     sending: boolean = false;
+    terms2: boolean = false;
     @ViewChild('f') mainForm: NgForm;
 
     formulario: FormGroup;
@@ -49,7 +50,8 @@ export class FeedbackPageComponent implements OnDestroy {
             pregunta1: new FormControl('', Validators.required), // Definir los controles del formulario
             pregunta2: new FormControl('', Validators.required),
             moreFunct: new FormControl(''),
-            freeText: new FormControl('')
+            freeText: new FormControl(''),
+            terms2: new FormControl('')
           });
 
           setTimeout(function () {
@@ -120,8 +122,10 @@ export class FeedbackPageComponent implements OnDestroy {
         } 
       }
 
-      showOptions($event) {
-        if ($event.checked) {
+
+    showOptions() {
+        this.terms2 = !this.terms2;
+        if (this.terms2) {
             localStorage.setItem('showFeedbackDxGPT', 'true')
         } else {
             localStorage.setItem('showFeedbackDxGPT', 'false')
