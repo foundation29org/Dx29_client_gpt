@@ -189,6 +189,7 @@
     "p3.title": "Limitations",
   "p3.1": "Peut occasionnellement générer des informations incorrectes",
   "p3.2": "Ne peut pas être utilisé pour le diagnostic sans supervision humaine",
+  "errorLocation": "Nous avons détecté que vous utilisez un VPN ou un réseau qui ne permet pas la détection de votre localisation. Nous vous recommandons de désactiver le VPN ou d'utiliser un réseau permettant la détection de votre localisation.",
   "Select a question": "Sélectionnez une question",
   "Answer": "Réponse",
   "Select the symptoms": "Sélectionnez les symptômes supplémentaires que vous avez pour recalculer la liste des maladies proposées. Ils sont classés avec les plus probables en haut",
