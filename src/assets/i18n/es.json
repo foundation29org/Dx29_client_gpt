@@ -143,7 +143,8 @@
     "Search": "Buscar",
     "Need help": "¿Necesitas ayuda?",
     "required": "Tienes que introducir un texto antes de continuar",
-    "requiredMIN5": "Tienes que introducir un texto de al menos 5 caracteres antes de continuar",
+    "requiredMIN5": "Tienes que introducir un texto de al menos 15 caracteres antes de continuar.",
+    "charactersleft": "Faltan {{value}} carácteres.",
     "searchFile": "También puedes subir un informe completo. Esta funcionalidad está en pruebas y puede ser que de resultados no esperados. DxGPT te sugerirá el diagnótico que el modelo considera más adecuado para ese paciente. Para ser respetuosos con la ley de protección de datos no almacenamos datos personales del paciente y los datos se borran al terminar esta sesión. Nos interesaría conocer tu feedback para futuros desarrollos.",
     "Browse for file": "Busque el archivo",
     "Accepted files": "Ficheros aceptados: pdf, docx, imágenes",
@@ -217,7 +218,7 @@
     "Symptoms": "Symptoms:",
     "Show common diseases": "Mostrar enfermedades comunes",
     "Show rare diseases": "Mostrar enfermedades raras",
-    "Load more": "Carga más",
+    "Load more": "Cargar más",
     "prom1": "Behave like a hypotethical doctor who has to do a diagnosis for a patient. Give me a list of potential {{value}} with a short description. Shows for each potential {{value}} always with '\n\n+' and a number, starting with '\n\n+1', for example '\n\n+23.' (never return \n\n-), the name of the disease and finish with ':'. Dont return '\n\n-', return '\n\n+' instead. You have to indicate which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
     "prom2": "Behave like a hypotethical doctor who has to do a diagnosis for a patient. Continue the list of potential {{value}} without repeating any disease from the list I give you. If you repeat any, it is better not to return it. Shows for each potential {{value}} always with '\n\n+' and a number, starting with '\n\n+1', for example '\n\n+23.' (never return \n\n-), the name of the disease and finish with ':'. Dont return '\n\n-', return '\n\n+' instead. You have to indicate a short description and which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
     "aboutUs":{
