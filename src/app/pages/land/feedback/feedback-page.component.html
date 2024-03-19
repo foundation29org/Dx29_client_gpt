@@ -32,9 +32,9 @@
                     <p for="freeText" class="text-bold-400 mb-0">{{'feedback.commment' | translate }}</p>
                     <textarea formControlName="freeText" rows="4" class="form-control"></textarea>
                   </div>
-                  <mat-checkbox class="example-margin" [(ngModel)]="terms2" formControlName="terms2" (click)="showOptions()">
+                  <mat-checkbox class="example-margin" [(ngModel)]="terms2" formControlName="terms2" (change)="changeTerm($event)">
                     <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
-                      <span>{{'land.check' | translate }}</span>
+                      <span (click)="showOptions()">{{'land.check' | translate }}</span>
                     </label>
                   </mat-checkbox>
                 <div class="col-12 center-elements mt-3" *ngIf="!sending">

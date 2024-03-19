@@ -324,6 +324,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    changeTerm($event){
+        if ($event.checked) {
+            localStorage.setItem('hideIntroLogins', 'true')
+        } else {
+            localStorage.setItem('hideIntroLogins', 'false')
+        }
+    }
+
     showOptions() {
         this.terms2 = !this.terms2;
         if (this.terms2) {

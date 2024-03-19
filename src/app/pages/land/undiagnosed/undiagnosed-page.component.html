@@ -394,9 +394,9 @@
           </div>
           <div class="col-md-12 center-elements">
             <mat-checkbox
-                class="example-margin" [(ngModel)]="terms2" (click)="showOptions()">
+                class="example-margin" [(ngModel)]="terms2" (change)="changeTerm($event)">
               <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
-                <span>{{'land.check' | translate }}</span>
+                <span (click)="showOptions()">{{'land.check' | translate }}</span>
               </label>
             </mat-checkbox>
           </div>
