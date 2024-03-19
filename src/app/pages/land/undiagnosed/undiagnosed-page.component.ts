@@ -98,6 +98,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     ip: string = '';
     feedbackTimestampDxGPT = localStorage.getItem('feedbackTimestampDxGPT');
     threeMonthsAgo = Date.now() - (3 * 30 * 24 * 60 * 60 * 1000); // 3 meses
+    terms2: boolean = false;
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
     @ViewChildren('autoajustable2') textAreas2: QueryList<ElementRef>;
@@ -323,8 +324,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    showOptions($event) {
-        if ($event.checked) {
+    showOptions() {
+        this.terms2 = !this.terms2;
+        if (this.terms2) {
             localStorage.setItem('hideIntroLogins', 'true')
         } else {
             localStorage.setItem('hideIntroLogins', 'false')
@@ -389,7 +391,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             })
         }
         if (!this.showErrorCall1) {
-            if (localStorage.getItem('hideIntroLogins') == null || !localStorage.getItem('hideIntroLogins')) {
+            if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
                 this.showPanelIntro(contentIntro)
                 await this.delay(200);
                 document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
@@ -419,48 +421,50 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     preparingCallOpenAi(step) {
         if(this.ip != ''){
-            this.callingOpenai = true;
-            if(step=='step3'|| step=='step4'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
-                if(this.optionSelected.id==1){
-                    var labelMoreSymptoms = this.translate.instant("land.msgmoresymptoms")
-                    if(this.medicalText.indexOf(labelMoreSymptoms)==-1){
-                        this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
-                         this.premedicalText = this.copyMedicalText;
-                         this.medicalText= this.medicalText+ '. ' + labelMoreSymptoms + ' ' + this.medicalText2;
-                        
-                    }else{
-                        this.copyMedicalText = this.copyMedicalText + ', ' + this.medicalText2Copy
-                        this.premedicalText = this.copyMedicalText; 
-                        this.medicalText= this.medicalText+ ', ' + this.medicalText2;
-                    }
-                }else{
-                    this.premedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy;
-                }
-            }else if(this.optionSelected.id==2){
-                var labeltest = this.translate.instant("land.msgtest")
-                if(this.medicalText.indexOf(labeltest)==-1){
+            this.ip = '29.29.29.29'
+        }
+        
+        this.callingOpenai = true;
+        if(step=='step3'|| step=='step4'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
+            if(this.optionSelected.id==1){
+                var labelMoreSymptoms = this.translate.instant("land.msgmoresymptoms")
+                if(this.medicalText.indexOf(labelMoreSymptoms)==-1){
                     this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
-                    this.premedicalText = this.copyMedicalText;
-                    this.medicalText= this.medicalText+ '. ' + labeltest + ' ' + this.medicalText2;
+                        this.premedicalText = this.copyMedicalText;
+                        this.medicalText= this.medicalText+ '. ' + labelMoreSymptoms + ' ' + this.medicalText2;
+                    
                 }else{
                     this.copyMedicalText = this.copyMedicalText + ', ' + this.medicalText2Copy
                     this.premedicalText = this.copyMedicalText; 
                     this.medicalText= this.medicalText+ ', ' + this.medicalText2;
                 }
             }else{
-                this.premedicalText = this.medicalText;
+                this.premedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy;
             }
-            this.medicalText2 = '';
-            this.continuePreparingCallOpenAi(step);
+        }else if(this.optionSelected.id==2){
+            var labeltest = this.translate.instant("land.msgtest")
+            if(this.medicalText.indexOf(labeltest)==-1){
+                this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
+                this.premedicalText = this.copyMedicalText;
+                this.medicalText= this.medicalText+ '. ' + labeltest + ' ' + this.medicalText2;
+            }else{
+                this.copyMedicalText = this.copyMedicalText + ', ' + this.medicalText2Copy
+                this.premedicalText = this.copyMedicalText; 
+                this.medicalText= this.medicalText+ ', ' + this.medicalText2;
+            }
         }else{
-            Swal.fire({
-                icon: 'error',
-                text: this.translate.instant("land.errorLocation"),
-                showCancelButton: false,
-                showConfirmButton: true,
-                allowOutsideClick: false
-            })
+            this.premedicalText = this.medicalText;
         }
+        this.medicalText2 = '';
+        this.continuePreparingCallOpenAi(step);
+    
+        /*Swal.fire({
+            icon: 'error',
+            text: this.translate.instant("land.errorLocation"),
+            showCancelButton: false,
+            showConfirmButton: true,
+            allowOutsideClick: false
+        })*/
         
 
     }

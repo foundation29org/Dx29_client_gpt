@@ -374,6 +374,12 @@
 </ng-template>
 
 <ng-template #contentIntro let-c="close" let-d="dismiss" id="contentIntro" aria-labelledby="contentIntro" appendTo="body">
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="closePopup()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
   <a id="topmodal"></a>
   <div class="modal-body">
         <div class="row text-left">
@@ -388,7 +394,7 @@
           </div>
           <div class="col-md-12 center-elements">
             <mat-checkbox
-                class="example-margin" name="terms2" ngModel required #terms2="ngModel" id="terms2" (change)="showOptions($event)">
+                class="example-margin" [(ngModel)]="terms2" (click)="showOptions()">
               <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
                 <span>{{'land.check' | translate }}</span>
               </label>
