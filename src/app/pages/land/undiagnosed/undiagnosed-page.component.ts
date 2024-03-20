@@ -105,7 +105,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     @ViewChild("autoajustable") inputTextAreaElement: ElementRef;
     
     constructor( private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
-
+        if (sessionStorage.getItem('lang') == null) {
+            sessionStorage.setItem('lang', this.translate.store.currentLang);
+          }
         this.lang = sessionStorage.getItem('lang');
         this.originalLang = sessionStorage.getItem('lang');
 
