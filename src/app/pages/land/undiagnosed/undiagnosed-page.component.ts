@@ -132,9 +132,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     this.subscription.add(this.apiDx29ServerService.getInfoLocation()
     .subscribe((res: any) => {
-        console.log(res)
-        this.ip = res.ip
+        if(res.ip){
+            this.ip = res.ip
+        }else{
+            this.ip = '29.29.29.29'
+        }
     }, (err) => {
+        if(this.ip != ''){
+            this.ip = '29.29.29.29'
+        }
         console.log(err);
     }));
     }
@@ -431,11 +437,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
 
-    preparingCallOpenAi(step) {
-        if(this.ip != ''){
+    preparingCallOpenAi(step) {      
+        if(this.ip == ''){
             this.ip = '29.29.29.29'
-        }
-        
+        }  
         this.callingOpenai = true;
         if(step=='step3'|| step=='step4'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
             if(this.optionSelected.id==1){
