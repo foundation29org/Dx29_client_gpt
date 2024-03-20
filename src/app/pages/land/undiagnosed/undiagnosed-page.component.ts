@@ -95,7 +95,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     tienePrisa: boolean = false;
     resultAnonymized: string = '';
     copyResultAnonymized: string = '';
-    ip: string = '';
+    ip: string = '29.29.29.29';
     feedbackTimestampDxGPT = localStorage.getItem('feedbackTimestampDxGPT');
     threeMonthsAgo = Date.now() - (3 * 30 * 24 * 60 * 60 * 1000); // 3 meses
     terms2: boolean = false;
@@ -132,16 +132,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     this.subscription.add(this.apiDx29ServerService.getInfoLocation()
     .subscribe((res: any) => {
+        console.log(res)
         if(res.ip){
             this.ip = res.ip
         }else{
-            this.ip = '29.29.29.29'
+            this.insightsService.trackException(res);
         }
     }, (err) => {
-        if(this.ip != ''){
-            this.ip = '29.29.29.29'
-        }
         console.log(err);
+        this.insightsService.trackException(err);
     }));
     }
 
@@ -437,10 +436,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
 
-    preparingCallOpenAi(step) {      
-        if(this.ip == ''){
-            this.ip = '29.29.29.29'
-        }  
+    preparingCallOpenAi(step) {        
         this.callingOpenai = true;
         if(step=='step3'|| step=='step4'|| (step=='step2' && this.showInputRecalculate && this.medicalText2.length>0)){
             if(this.optionSelected.id==1){
