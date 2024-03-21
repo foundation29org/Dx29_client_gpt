@@ -18,10 +18,9 @@ In a recent preliminary evaluation conducted by Foundation 29 using 200 syntheti
 
 For more details on the evaluation methodology and results, please see our [GitHub repository and the associated article.](https://github.com/foundation29org/dxgpt_testing)
 
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-[Dx29 server](https://github.com/foundation29org/Dx29_server_gpt)
+<br>
+<br>
+[DxGPT SERVER](https://github.com/foundation29org/Dx29_server_gpt)
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
