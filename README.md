@@ -1,5 +1,5 @@
 <div style="margin-bottom: 1%; padding-bottom: 2%;">
-	<img align="right" width="100px" src="/src/assets/img/logo-Dx29.png">
+	<img align="right" width="100px" src="/src/assets/img/logo-Dx29-white.png">
 </div>	
 
 DxGPT
@@ -20,6 +20,7 @@ For more details on the evaluation methodology and results, please see our [GitH
 
 <br>
 <br>
+
 [DxGPT SERVER](https://github.com/foundation29org/Dx29_server_gpt)
 <p>&nbsp;</p>
 <p>&nbsp;</p>
