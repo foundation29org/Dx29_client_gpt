@@ -15,13 +15,13 @@
     </div>
       <div class="row">
         <div class="col-12">
-            <form class="mt-4" [formGroup]="formulario" (ngSubmit)="sendFeedback()">
+            <form class="mt-2" [formGroup]="formulario" (ngSubmit)="sendFeedback()">
                 <div class="row">
-                  <p for="pregunta1" class="col-8 text-bold-400">{{'feedback.q1' | translate }}</p>
+                  <p for="pregunta1" class="col-8 text-bold-400" style="margin-top: 1rem !important;">{{'feedback.q1' | translate }}</p>
                   <ngb-rating formControlName="pregunta1" max="5" class="my-rating col-4"></ngb-rating>
                 </div>
                 <div class="row">
-                  <p for="pregunta2" class="col-8 text-bold-400">{{'feedback.q2' | translate }}</p>
+                  <p for="pregunta2" class="col-8 text-bold-400" style="margin-top: 1rem !important;">{{'feedback.q2' | translate }}</p>
                   <ngb-rating formControlName="pregunta2" max="5" class="my-rating col-4"></ngb-rating>
                 </div>
                 <div class="mt-3">
