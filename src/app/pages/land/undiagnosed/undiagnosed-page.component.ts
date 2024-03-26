@@ -119,7 +119,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.myuuid = uuidv4();
             sessionStorage.setItem('uuid', this.myuuid);
         }
-
+        this.lauchEvent("Init Page");
+        
         this.steps = [
             { stepIndex: 1, isComplete: false, title: this.translate.instant("land.step1") },
             { stepIndex: 2, isComplete: false, title: this.translate.instant("land.step3") }
