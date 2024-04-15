@@ -1127,11 +1127,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.medicalText2Copy = textToTA;
                         this.preparingCallOpenAi('step4');
                     }, (err) => {
+                        this.medicalText2Copy = this.medicalText2;
                         this.insightsService.trackException(err);
                         console.log(err);
                         this.preparingCallOpenAi('step4');
                     }));
             }else{
+                this.medicalText2Copy = this.medicalText2;
                 this.preparingCallOpenAi('step4'); 
             }
         } else {
