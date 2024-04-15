@@ -1,0 +1,250 @@
+//@import "../../../../assets/sass/scss/bootstrap/timeline-vertical";
+//@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
+:host ::ng-deep ._hj-ETLL8__MinimizedWidgetMiddle__label{
+  --hjFeedbackAccentColor: #B30000;
+}
+
+::ng-deep .selectorrare .mat-checkbox-frame {
+  border-color: white !important;
+}
+
+.vertical-center{
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: calc(100vh - 65px); /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  min-height: 150px;
+  height: 150px;
+  border: 3px solid #B30000;
+  padding: 5px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #353540;
+}
+
+.anchorSteps{
+  margin-top: -60px;
+  position: absolute;
+}
+
+section {
+  /* Margin bottom by footer height */
+  color:#FFF !important;
+}
+
+.optionsResults{
+  position: absolute;
+  right: 10px;
+}
+
+
+.pointer{
+  cursor: pointer; 
+}
+
+#title{
+    text-align: center;
+    font-size : 1.25em;
+  line-height: normal;
+}
+
+.table thead th {
+  border-bottom: unset;
+}
+
+::ng-deep .ng-touched.ng-invalid {
+  border-color: unset;
+}
+
+.custom-card-1{
+  background-color: #3f3f4a !important;
+}
+
+.custom-card-1{
+  color: white !important;
+  background-color: #3f3f4a !important;
+}
+
+.custom-card-2{
+  color: white !important;
+  background-color: #B30000 !important;
+}
+
+.custom-card-2:hover {
+  background-color: #202123 !important;
+}
+
+.diseaseClass:hover {
+  background-color: #ff00003D !important;
+}
+
+.list-group-item-action:hover {
+  background-color: #ff00003D !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #B30000;
+    border-color: #B30000;
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 256px;
+}
+
+
+img.logo {
+    height: 80px;
+}
+
+.not-allowed{
+    cursor: not-allowed !important;
+}
+
+
+body {
+    --table-width: 100%; /* Or any value, this will change dinamically */
+  }
+  tbody {
+    display:block;
+    overflow-y:auto;
+  }
+  thead, tbody tr {
+    display:table;
+    width: 100%;
+    table-layout:fixed;
+  }
+
+  .tr-auto{
+    table-layout:auto !important;
+  }
+
+  textarea::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-size: 20px;
+  }
+  textarea::-moz-placeholder { /* Firefox 19+ */
+    font-size: 20px;
+  }
+  textarea:-ms-input-placeholder { /* IE 10+ */
+    font-size: 20px;
+  }
+  textarea:-moz-placeholder { /* Firefox 18- */
+    font-size: 20px;
+  }
+
+  .w-13{
+    width: 13px;
+  }
+
+  .shadow{
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+  }
+
+::ng-deep  .swal2-styled.swal2-confirm:focus {
+    box-shadow: 0 0 0 3px #b0b6bb;
+}
+
+::ng-deep  .swal2-styled.swal2-cancel:focus {
+  box-shadow: 0 0 0 3px #ccc;
+}
+
+::ng-deep  .swal2-styled.swal2-confirm .swal2-styled.swal2-cancel {
+  width: 120px !important;
+}
+
+::ng-deep .swal2-icon.swal2-info {
+  border-color: #b30000;
+  color: #b30000;
+}
+
+
+.form-control:focus{
+  border-color: #B30000 !important;
+  box-shadow: 0 0 0 0.2rem #B30000;
+}
+
+
+.btn-sm, .btn-group-sm > .btn {
+  padding: 0.28rem 0.5rem;
+}
+
+:host ::ng-deep .mat-checkbox-inner-container{
+  margin-top: 4px;
+}
+
+.table-cont{
+  overflow: auto;
+}
+
+@media ( max-width: 991px ){
+  .optionsResults{
+    position: relative;
+    right: 0px;
+    display: block;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .card-title{
+    display: inline-block;
+    margin-top: 0.75rem !important;
+  }
+}
+
+@media ( max-width: 575px ){
+  .icon-hand{
+    font-size: 1em !important;
+  }
+
+  .inputSearch{
+    width: 87vw;
+    margin-left: 0rem !important;
+  }
+
+  .inputSearch2{
+    width: 80vw;
+    margin-left: 1rem !important;
+  }
+
+   .form-control{
+    font-size: 0.8rem !important;
+   }
+
+   ::placeholder {
+      font-size: 0.8rem;
+   }
+
+   h2 {
+    font-size: 1.2rem;
+  }
+
+}

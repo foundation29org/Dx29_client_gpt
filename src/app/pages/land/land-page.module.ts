@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { AboutUsPageComponent } from "./about-us/about-us-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
+import { Undiagnosed2PageComponent } from "./undiagnosed2/undiagnosed2-page.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 
@@ -33,6 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     declarations: [
         AboutUsPageComponent,
         UndiagnosedPageComponent,
+        Undiagnosed2PageComponent,
         FeedbackPageComponent,
         PrivacyPolicyPageComponent
     ]
