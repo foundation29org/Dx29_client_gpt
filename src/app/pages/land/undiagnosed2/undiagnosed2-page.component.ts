@@ -445,9 +445,6 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
         if (step == 'step3' || step == 'step4' || (step == 'step2' && this.showInputRecalculate && this.medicalText2.length > 0)) {
             if (this.optionSelected.id == 1) {
                 var labelMoreSymptoms = this.translate.instant("land.msgmoresymptoms")
-                console.log(this.medicalText2)
-                console.log(this.medicalText2Copy)
-                console.log(this.medicalText.indexOf(labelMoreSymptoms))
                 if (this.medicalText.indexOf(labelMoreSymptoms) == -1) {
                     this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
                     this.premedicalText = this.copyMedicalText;
@@ -458,21 +455,21 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
                     this.premedicalText = this.copyMedicalText;
                     this.medicalText = this.medicalText + ', ' + this.medicalText2;
                 }
+            }else if(this.optionSelected.id == 2){
+                var labeltest = this.translate.instant("land.msgtest")
+                if (this.medicalText.indexOf(labeltest) == -1) {
+                    this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
+                    this.premedicalText = this.copyMedicalText;
+                    this.medicalText = this.medicalText + '. ' + labeltest + ' ' + this.medicalText2;
+                } else {
+                    this.copyMedicalText = this.copyMedicalText + ', ' + this.medicalText2Copy
+                    this.premedicalText = this.copyMedicalText;
+                    this.medicalText = this.medicalText + ', ' + this.medicalText2;
+                }
             } else {
                 this.premedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy;
             }
-        } else if (this.optionSelected.id == 2) {
-            var labeltest = this.translate.instant("land.msgtest")
-            if (this.medicalText.indexOf(labeltest) == -1) {
-                this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
-                this.premedicalText = this.copyMedicalText;
-                this.medicalText = this.medicalText + '. ' + labeltest + ' ' + this.medicalText2;
-            } else {
-                this.copyMedicalText = this.copyMedicalText + ', ' + this.medicalText2Copy
-                this.premedicalText = this.copyMedicalText;
-                this.medicalText = this.medicalText + ', ' + this.medicalText2;
-            }
-        } else {
+        }else {
             this.premedicalText = this.medicalText;
         }
         this.medicalText2 = '';
