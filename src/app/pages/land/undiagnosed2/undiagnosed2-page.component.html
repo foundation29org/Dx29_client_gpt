@@ -42,7 +42,7 @@
 
     </div>
   </section>
-  <div *ngIf="currentStep.stepIndex == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 mb-5 mt-2">
+  <div *ngIf="currentStep.stepIndex == 2" class="col-md-12 offset-lg-1 col-lg-10 offset-xl-2 col-xl-8 mb-5 mt-2">
     <a id="step2"></a>
     <div class="row">
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
@@ -104,50 +104,66 @@
                 <div class="" *ngIf="topRelatedConditions.length>0">
                   <div class="d-flex">
                     <div class="col-md-12 mb-0 bg-white">
-                      <h4 class="card-title text-bold-700 mt-3">{{topRelatedConditions[selectedInfoDiseaseIndex].name}}</h4>
+                      <h4 class="card-title text-bold-700 mt-3">{{selectedInfoDiseaseIndex+1}}. {{topRelatedConditions[selectedInfoDiseaseIndex].name}}</h4>
                       <p>{{topRelatedConditions[selectedInfoDiseaseIndex].content}}</p>
-                      <p><strong>Common Symptoms: </strong>{{topRelatedConditions[selectedInfoDiseaseIndex].commonSymptoms}}</p>
-                      <p><strong>Non-common Symptoms: </strong>{{topRelatedConditions[selectedInfoDiseaseIndex].nonCommonSymptoms}}</p>
-                      <p>{{'land.Select a question' | translate }}:</p>
-                          <!--Shows a list of selectable panels-->
-                          <div class="list-group mb-2">
-                            <button class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
-                              (click)="showQuestion(question, i)" [disabled]="loadingAnswerOpenai">
-                              <div class="d-flex w-100 justify-content-between">
-                                <span class="mb-1">{{question.question}}</span>
-                              </div>
-                            </button>
-                            <div *ngIf="loadingAnswerOpenai" class="mt-3 center-elements">
-                              <p>{{'land.swal' | translate }}</p>
-                              <em class="fa fa-spinner info fa-2x fa-spin fa-fw"></em>
-                              <p class="info pointer" (click)="cancelCallQuestion();">{{'generics.Cancel' | translate }}</p>
+
+                      <p class="mt-3"><strong>{{'land.Select a question' | translate }}</strong></p>
+                      <!--Shows a list of selectable panels-->
+                      <div class="mb-3">
+                        <button class="btn btn-sm btn-outline-primary mr-2 mb-2" *ngFor="let question of questions; let i = index"
+                          (click)="showQuestion(question, i, contentInfoDisease)" [disabled]="loadingAnswerOpenai">
+                          <span class="mb-1">{{question.question}}</span>
+                        </button>
+                      </div>
+                      <strong>Common symptoms of the disease that you do not have</strong>
+                      <p>If you experience any of these symptoms, check the corresponding boxes and then click on 'Recalculate' to update the diagnosis.</p>
+                      <!--<ul class="pl-2 row">
+                        <li *ngFor="let symptom of topRelatedConditions[selectedInfoDiseaseIndex].nonCommonSymptoms" class="pt-1 col-md-4">
+                          <div class="row">
+                            <span class="col-10">{{ symptom.name }}</span>
+                            <div class="float-right">
+                              <button *ngIf="!symptom.checked" type="button" class="btn btn-outline-success mb-0 btn-sm float-right" (click)="addSymptom(symptom.name)" title="Añadir síntoma al paciente">
+                                <i class="fa fa-plus w-13"></i>
+                              </button>
+                              <button *ngIf="symptom.checked" type="button" class="btn btn-outline-danger mb-0 btn-sm float-right" (click)="removeSymptom(symptom.name)" title="Añadir síntoma al paciente">
+                                <i class="fa fa fa-trash w-13"></i>
+                              </button>
                             </div>
-                            <div *ngIf="!loadingAnswerOpenai && answerOpenai!=''" class="mt-3">
-                              <strong>{{selectedQuestion}}</strong>
-                              <p style="margin-bottom: 2rem;white-space:pre-wrap;">{{answerOpenai}}</p>
+                          </div>
+                        </li>
+                      </ul>-->
+                      <ul class="pl-2 row">
+                        <li *ngFor="let symptom of topRelatedConditions[selectedInfoDiseaseIndex].nonCommonSymptoms; let j = index" class="pt-1 col-md-4">
+                          <mat-checkbox class="example-margin" [(ngModel)]="symptom.checked" (change)="changeSymptomDiff($event,j)" id="symptom{{j}}">
+                            <span for="symptom{{j}}" style="white-space: normal;text-transform: none;letter-spacing: 0px;" >
+                                {{ symptom.name }}
+                            </span>
+                          </mat-checkbox>
+                        </li>
+                      </ul>
+                      <div class="row">
+                        <div class="col-md-12 center-elements mb-3">
+                          <button class="btn btn-info mt-2 mb-2 ml-1" (click)="recalculatePrevDifferencial()" [disabled]="loadingAnswerOpenai || patientSymptoms.length==0">{{'land.Recalculate' | translate }} with the new symptoms</button>
+                        </div>
+                      </div>
+                      <!--<strong>Symptoms for differential diagnosis:</strong>
+                      <ul class="pl-2 row">
+                        <li *ngFor="let symptom of topRelatedConditions[selectedInfoDiseaseIndex].differentialDiagnosisSymptoms" class="pt-1 col-md-4">
+                          <div class="row col-md-12">
+                            <span class="col-10">{{ symptom.name }}</span>
+                            <div class="float-right">
+                              <button *ngIf="!symptom.checked" type="button" class="btn btn-outline-success mb-0 btn-sm float-right" (click)="addSymptom(symptom.name)" title="Añadir síntoma al paciente">
+                                <i class="fa fa-plus w-13"></i>
+                              </button>
+                              <button *ngIf="symptom.checked" type="button" class="btn btn-outline-danger mb-0 btn-sm float-right" (click)="removeSymptom(symptom.name)" title="Añadir síntoma al paciente">
+                                <i class="fa fa fa-trash w-13"></i>
+                              </button>
                             </div>
-                            <div *ngIf="!loadingAnswerOpenai && symptomsDifferencial.length>0" class="mt-3">
-                              <h6>{{'land.Select the symptoms' | translate }}:</h6>
-                              <div class="row">
-                                <div *ngFor="let symptom of symptomsDifferencial; let j = index" class="col-md-6 col-xl-4">
-                                  <div class="custom-control custom-checkbox">
-                                    <mat-checkbox
-                                        class="example-margin" name="customCheck{{j}}" [(ngModel)]="symptom.checked" id="customCheck{{j}}" (change)="changeSymptom($event,j)">
-                                      <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
-                                        <span>{{symptom.name}}</span>
-                                      </label>
-                                    </mat-checkbox>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12 center-elements">
-                                  <button type="button" class="btn btn-info round" (click)="recalculateDifferencial()" [disabled]="loadingAnswerOpenai">{{'land.Recalculate' | translate }}</button>
-                                </div>
-                              </div>
-                            </div>
-                            
-                          </div>  
+                          </div>
+                          
+                        </li>
+                      </ul>-->
+                      
                     </div>
                   </div>
                   <div class="pt-2 border-top text-muted">
@@ -160,9 +176,9 @@
                 <div class="col-md-12 mb-0 white p-2 center-elements" style="background-color: #353540;">
                   <!--<span *ngIf="!selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(true)">{{'land.Show common diseases' | translate }}</button></span>
                   <span *ngIf="selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(false)">{{'land.Show rare diseases' | translate }}</button></span>-->
-                  <button class="btn btn-info mt-2 mb-2 mr-1" (click)="previousDisease()" [disabled]="selectedInfoDiseaseIndex === 0">Anterior</button>
-                  <button class="btn btn-info mt-2 mb-2 ml-1" (click)="nextDisease()" *ngIf="selectedInfoDiseaseIndex < topRelatedConditions.length - 1">Siguiente</button>
-                  <button class="btn btn-info mt-2 mb-2 ml-1" (click)="loadMore()" *ngIf="selectedInfoDiseaseIndex === topRelatedConditions.length - 1">Load next</button>
+                  <button class="btn btn-info mt-2 mb-2 mr-1" (click)="previousDisease()" [disabled]="selectedInfoDiseaseIndex === 0">Previous</button>
+                  <button class="btn btn-info mt-2 mb-2 ml-1" (click)="nextDisease()" *ngIf="selectedInfoDiseaseIndex < topRelatedConditions.length - 1">Next possible diagnosis</button>
+                  <button class="btn btn-info mt-2 mb-2 ml-1" (click)="loadMore()" *ngIf="selectedInfoDiseaseIndex === topRelatedConditions.length - 1">Next possible diagnosis</button>
                   <span class="optionsResults mt-2 mb-2">
                     <em class="mt-1 fa fa-clipboard fa-2x info mr-2" title="{{'land.Copy results' | translate }}"
                     (click)="copyResults()" style="cursor: pointer;"></em>
@@ -346,35 +362,27 @@
   <div class="modal-header" id="idHeader">
     <div class="content-header text-left">
       <h4 class="card-title text-bold-700 mb-0 primary">{{ selectedDisease }}</h4>
+      <p>{{selectedQuestion}}</p>
     </div>
     <button type="button" class="close" aria-label="Close" (click)="closeDiseaseUndiagnosed()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body content-wrapper p-2 mt-2">
-    <p>{{'land.Select a question' | translate }}:</p>
-    <!--Shows a list of selectable panels-->
-    <div class="list-group mb-2">
-      <button class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
-        (click)="showQuestion(question, i)" [disabled]="loadingAnswerOpenai">
-        <div class="d-flex w-100 justify-content-between">
-          <span class="mb-1">{{question.question}}</span>
-        </div>
-      </button>
-      <div *ngIf="loadingAnswerOpenai" class="mt-3 center-elements">
+  <div class="modal-body content-wrapper p-3">
+    <div class="">
+      <div *ngIf="loadingAnswerOpenai" class="center-elements">
         <p>{{'land.swal' | translate }}</p>
         <em class="fa fa-spinner info fa-2x fa-spin fa-fw"></em>
         <p class="info pointer" (click)="cancelCallQuestion();">{{'generics.Cancel' | translate }}</p>
       </div>
-      <div *ngIf="!loadingAnswerOpenai && answerOpenai!=''" class="mt-3">
-        <h6>{{selectedQuestion}}</h6>
-        <p style="margin-bottom: 2rem;white-space:pre-wrap;">{{answerOpenai}}</p>
+      <div *ngIf="!loadingAnswerOpenai && answerOpenai!=''" class="">
+        <p style="white-space:pre-wrap;">{{answerOpenai}}</p>
       </div>
-      <div *ngIf="!loadingAnswerOpenai && symptomsDifferencial.length>0" class="mt-3">
+      <div *ngIf="!loadingAnswerOpenai && symptomsDifferencial.length>0" class="">
         <h6>{{'land.Select the symptoms' | translate }}:</h6>
         <div class="row">
           <div *ngFor="let symptom of symptomsDifferencial; let j = index" class="col-md-6 col-xl-4">
-            <div class="custom-control custom-checkbox">
+            <div class="custom-checkbox">
               <mat-checkbox
                   class="example-margin" name="customCheck{{j}}" [(ngModel)]="symptom.checked" id="customCheck{{j}}" (change)="changeSymptom($event,j)">
                 <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
@@ -385,13 +393,13 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12 center-elements">
+          <div class="col-md-12 center-elements mt-3">
             <button type="button" class="btn btn-info round" (click)="recalculateDifferencial()" [disabled]="loadingAnswerOpenai">{{'land.Recalculate' | translate }}</button>
           </div>
         </div>
       </div>
       
-    </div>
+    </div> 
   </div>
   <div class="modal-footer">
     <div class="col-md-12 center-elements">

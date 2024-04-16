@@ -99,6 +99,7 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
     feedbackTimestampDxGPT = localStorage.getItem('feedbackTimestampDxGPT');
     threeMonthsAgo = Date.now() - (3 * 30 * 24 * 60 * 60 * 1000); // 3 meses
     terms2: boolean = false;
+    patientSymptoms: any = [];
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
     @ViewChildren('autoajustable2') textAreas2: QueryList<ElementRef>;
@@ -731,28 +732,45 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
     }
 
     async continueCallOpenAi(parseChoices0) {
+        console.log(parseChoices0)
         let lines = parseChoices0.split("\n");
-        
-        // Eliminar líneas vacías o que no contienen información relevante
         lines = lines.filter(line => line.trim() !== '');
 
-            // Extraer información basada en un patrón conocido
         let parsedData = {
             diseaseName: '',
             briefDescription: '',
-            commonSymptoms: '',
-            nonCommonSymptoms: ''
+            nonCommonSymptoms: [],
+            differentialDiagnosisSymptoms: [] // Añade esta nueva clave para los síntomas del diagnóstico diferencial
         };
-        console.log(lines)
+
+        let currentKey = '';
         lines.forEach(line => {
             if (line.startsWith("Disease Name:")) {
-            parsedData.diseaseName = line.substring("Disease Name:".length).trim();
+                currentKey = 'diseaseName';
+                parsedData.diseaseName = line.substring("Disease Name:".length).trim();
             } else if (line.startsWith("Brief Description:")) {
-            parsedData.briefDescription = line.substring("Brief Description:".length).trim();
-            } else if (line.startsWith("Common Symptoms:")) {
-            parsedData.commonSymptoms = line.substring("Common Symptoms:".length).trim();
+                currentKey = 'briefDescription';
+                parsedData.briefDescription = line.substring("Brief Description:".length).trim();
             } else if (line.startsWith("Non-common Symptoms:")) {
-            parsedData.nonCommonSymptoms = line.substring("Non-common Symptoms:".length).trim();
+                currentKey = 'nonCommonSymptoms';
+                // Verificar si después de la etiqueta hay texto para procesar.
+                const symptomsText = line.substring("Non-common Symptoms:".length).trim();
+                if (symptomsText) {
+                    parsedData[currentKey] = parsedData[currentKey].concat(this.formatList(symptomsText));
+                }
+            } else if (line.startsWith("Differential Diagnosis Symptoms:")) {
+                currentKey = 'differentialDiagnosisSymptoms';
+                // Verificar si después de la etiqueta hay texto para procesar.
+                const symptomsText = line.substring("Differential Diagnosis Symptoms:".length).trim();
+                if (symptomsText) {
+                    parsedData[currentKey] = parsedData[currentKey].concat(this.formatList(symptomsText));
+                }
+            } else if (currentKey === 'nonCommonSymptoms' || currentKey === 'differentialDiagnosisSymptoms') {
+                const newSymptoms = this.formatList(line.trim());
+                // Solo añade elementos que no estén vacíos
+                if (newSymptoms.length && newSymptoms[0]) {
+                    parsedData[currentKey] = parsedData[currentKey].concat(newSymptoms);
+                }
             }
         });
         console.log(parsedData)
@@ -760,7 +778,7 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
             this.topRelatedConditions = [];
         }
         this.setDiseaseListEn(parsedData.diseaseName);
-        this.topRelatedConditions.push({ content: parsedData.briefDescription, name: parsedData.diseaseName, commonSymptoms: parsedData.commonSymptoms, nonCommonSymptoms: parsedData.nonCommonSymptoms });
+        this.topRelatedConditions.push({ content: parsedData.briefDescription, name: parsedData.diseaseName, nonCommonSymptoms: parsedData.nonCommonSymptoms, differentialDiagnosisSymptoms: parsedData.differentialDiagnosisSymptoms });
         this.showMoreInfoDiseasePopup(this.topRelatedConditions.length - 1);
         this.loadMoreDiseases = false;
         if (this.currentStep.stepIndex == 1) {
@@ -783,6 +801,118 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
             }
         }
     }
+
+    formatList(text) {
+        if (!text) return [];
+        // Asume que los síntomas vienen separados por saltos de línea y guiones (puede que necesites ajustar esto según tu formato)
+        return text.replace(/^\s*- /gm, '')
+                   .split(/\n/)
+                   .map(item => item.trim())
+                   .filter(item => item)
+                   .map(symptom => ({ name: symptom, checked: false })); // Crea un objeto para cada síntoma
+    }
+
+    addSymptom(symptomName: string): void {
+        // Busca el síntoma en nonCommonSymptoms y lo marca como checked
+        this.topRelatedConditions[this.selectedInfoDiseaseIndex].nonCommonSymptoms.forEach(symptom => {
+            if (symptom.name === symptomName) {
+                symptom.checked = true;
+            }
+        });
+    
+        /*this.topRelatedConditions[this.selectedInfoDiseaseIndex].differentialDiagnosisSymptoms.forEach(symptom => {
+            if (symptom.name === symptomName) {
+                symptom.checked = true;
+            }
+        });*/
+        //check if symptomName not exits in this.patientSymptoms, if not exits add it
+        let found = false;
+        for (let i = 0; i < this.patientSymptoms.length; i++) {
+            if (this.patientSymptoms[i].name == symptomName) {
+                found = true;
+            }
+        }
+        if (!found) {
+            this.patientSymptoms.push({ name: symptomName, checked: true });
+        }
+        
+    }
+
+    removeSymptom(symptomName: string): void {
+        // Busca y actualiza el síntoma para desmarcarlo como 'checked'
+        this.topRelatedConditions[this.selectedInfoDiseaseIndex].nonCommonSymptoms.forEach(symptom => {
+            if (symptom.name === symptomName) {
+                symptom.checked = false;
+            }
+        });
+    
+        /*this.topRelatedConditions[this.selectedInfoDiseaseIndex].differentialDiagnosisSymptoms.forEach(symptom => {
+            if (symptom.name === symptomName) {
+                symptom.checked = false;
+            }
+        });*/
+    
+        //check if symptomName exits in this.patientSymptoms, if exits remove it
+        let found = false;
+        let index = -1;
+        for (let i = 0; i < this.patientSymptoms.length; i++) {
+            if (this.patientSymptoms[i].name == symptomName) {
+                found = true;
+                index = i;
+            }
+        }
+        if (found) {
+            this.patientSymptoms.splice(index, 1);
+        }
+        
+    }
+
+    changeSymptomDiff(event: any, index: number): void {
+        // Obtener la referencia del síntoma que se ha cambiado.
+        let symptom = this.topRelatedConditions[this.selectedInfoDiseaseIndex].nonCommonSymptoms[index];
+    
+        // Actualizar la propiedad checked según el evento.
+        symptom.checked = event.checked;
+    
+        // Si el síntoma está marcado, añadirlo a la lista de síntomas del paciente si aún no está presente.
+        if (symptom.checked) {
+            if (!this.patientSymptoms.some(s => s.name === symptom.name)) {
+                this.patientSymptoms.push({ name: symptom.name, checked: true });
+            }
+        } else {
+            // Si el síntoma no está marcado, eliminarlo de la lista de síntomas del paciente.
+            this.patientSymptoms = this.patientSymptoms.filter(s => s.name !== symptom.name);
+        }
+    }
+
+      recalculatePrevDifferencial() {
+        this.symptomsDifferencial = [];
+        this.topRelatedConditions[this.selectedInfoDiseaseIndex].nonCommonSymptoms.forEach(symptom => {
+            if (symptom.checked) {
+                this.symptomsDifferencial.push(symptom);
+            }
+        });
+        
+        this.topRelatedConditions[this.selectedInfoDiseaseIndex].differentialDiagnosisSymptoms.forEach(symptom => {
+            if (symptom.checked) {
+                this.symptomsDifferencial.push(symptom);
+            }
+        });
+        console.log(this.symptomsDifferencial)
+        if(this.symptomsDifferencial.length > 0) {
+            this.recalculateDifferencial();
+        }else{
+            Swal.fire({
+                icon: 'error',
+                text: this.translate.instant("land.Select at least one symptom"),
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            })
+        }
+       
+      }
+
 
     showMoreInfoDiseasePopup(diseaseIndex) {
         this.answerOpenai = '';
@@ -838,7 +968,17 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
         this.subscription = new Subscription();
     }
 
-    showQuestion(question, index) {
+    showQuestion(question, index, contentInfoDisease) {
+        let ngbModalOptions: NgbModalOptions = {
+            backdrop: 'static',
+            keyboard: false,
+            windowClass: 'ModalClass-lg'// xl, lg, sm
+        };
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+        }
+        this.modalReference = this.modalService.open(contentInfoDisease, ngbModalOptions);
         this.symptomsDifferencial = [];
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
