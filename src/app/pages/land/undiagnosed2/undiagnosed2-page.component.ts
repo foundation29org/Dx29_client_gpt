@@ -604,24 +604,7 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
                             this.diseaseListEn = [];
                             this.topRelatedConditions = [];
                         }
-                        if (this.detectedLang != 'en') {
-                            var jsontestLangText = [{ "Text": parseChoices0 }]
-                            this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
-                                .subscribe((res2: any) => {
-                                    if (res2[0] != undefined) {
-                                        if (res2[0].translations[0] != undefined) {
-                                            parseChoices0 = res2[0].translations[0].text;
-                                        }
-                                    }
-                                    this.continueCallOpenAi(parseChoices0);
-                                }, (err) => {
-                                    this.insightsService.trackException(err);
-                                    console.log(err);
-                                    this.continueCallOpenAi(parseChoices0);
-                                }));
-                        } else {
-                            this.continueCallOpenAi(parseChoices0);
-                        }
+                        this.continueCallOpenAi(parseChoices0);
                     } else {
                         Swal.close();
                         Swal.fire({
@@ -771,6 +754,39 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
             }
         });
         console.log(parsedData)
+        if (this.detectedLang != 'en') {
+            var jsontestLangText = [{ "Text": parsedData.diseaseName}, { "Text": parsedData.briefDescription}, { "Text": parsedData.nonCommonSymptoms.map(symptom => symptom.name).join('\n')}]
+            this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
+                .subscribe((res2: any) => {
+                    console.log(res2)
+                    if (res2[0] != undefined) {
+                        if (res2[0].translations[0] != undefined) {
+                            parsedData.diseaseName = res2[0].translations[0].text;
+                        }
+                    }
+                    if (res2[1] != undefined) {
+                        if (res2[1].translations[0] != undefined) {
+                            parsedData.briefDescription = res2[1].translations[0].text;
+                        }
+                    }
+                    if (res2[2] != undefined) {
+                        if (res2[2].translations[0] != undefined) {
+                            parsedData.nonCommonSymptoms = res2[2].translations[0].text.split('\n').map(symptom => ({ name: symptom, checked: false }));
+                        }
+                    }
+                    this.showResultDisease(parsedData);
+                }, (err) => {
+                    this.insightsService.trackException(err);
+                    console.log(err);
+                    this.showResultDisease(parsedData);
+                }));
+        }else{
+            this.showResultDisease(parsedData);
+        }
+        
+    }
+
+    async showResultDisease(parsedData) {
         if (!this.loadMoreDiseases) {
             this.topRelatedConditions = [];
         }
