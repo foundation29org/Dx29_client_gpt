@@ -22,6 +22,11 @@
                   </a>
                 </li>
                 <li class="nav-item mr-2">
+                  <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'black text-bold-700'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')">
+                    <span>{{'menu.Usage statistics' | translate }}</span>
+                  </a>
+                </li>
+                <li class="nav-item mr-2">
                   <a class="nav-link btn btn-info round white mb-0 btn-sm" style="width: 120px;" href="https://www.foundation29.org/donate/" target="_blank" (click)="lauchEvent('Page - Donate')">
                     <span>{{'land.Donate' | translate }} <em class="ml-1 fa fa-heart"></em></span>
                   </a>

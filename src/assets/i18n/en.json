@@ -2,7 +2,8 @@
   "menu":{
     "Dashboard": "Home",
     "Register": "Register",
-    "About us": "About us"
+    "About us": "About us",
+    "Usage statistics": "Usage statistics"
   },
   "registration":{
     "Privacy Policy": "Privacy policy"

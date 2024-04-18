@@ -6,6 +6,7 @@ import { LandPageRoutingModule } from "./land-page-routing.module";
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AboutUsPageComponent } from "./about-us/about-us-page.component";
+import { ReportsPageComponent } from "./reports/reports-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
@@ -32,6 +33,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ],
     declarations: [
         AboutUsPageComponent,
+        ReportsPageComponent,
         UndiagnosedPageComponent,
         FeedbackPageComponent,
         PrivacyPolicyPageComponent
