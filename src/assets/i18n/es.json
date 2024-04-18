@@ -2,7 +2,8 @@
   "menu":{
     "Dashboard": "Inicio",
     "Register": "Registro",
-    "About us": "Sobre nosotros"
+    "About us": "Sobre nosotros",
+    "Usage statistics": "Estadísticas de uso"
   },
   "registration":{
     "Privacy Policy": "Política de privacidad"

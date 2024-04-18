@@ -11,6 +11,8 @@ import { PipeModule } from 'app/shared/pipes/pipe.module';
 
 //COMPONENTS
 import { NavbarD29Component } from "./navbar-dx29/navbar-dx29.component";
+import { FooterComponent } from 'app/shared/footer/footer.component'
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -19,6 +21,7 @@ import { NavbarD29Component } from "./navbar-dx29/navbar-dx29.component";
         NavbarD29Component,
         NgbModule,
         TranslateModule,
+        FooterComponent
     ],
     imports: [
         RouterModule,
@@ -28,10 +31,12 @@ import { NavbarD29Component } from "./navbar-dx29/navbar-dx29.component";
         FormsModule,
         ReactiveFormsModule ,
         PerfectScrollbarModule,
-        PipeModule
+        PipeModule,
+        MatCheckboxModule
     ],
     declarations: [
-        NavbarD29Component
+        NavbarD29Component,
+        FooterComponent
     ]
 })
 export class SharedModule { }

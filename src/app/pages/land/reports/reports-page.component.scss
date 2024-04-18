@@ -1,0 +1,59 @@
+.iframe-container {
+  width: 100%; /* Establece el ancho del contenedor al 100% del ancho de su contenedor padre */
+  height: 0; /* Inicia el contenedor sin altura */
+  padding-bottom: 59.375%; /* Esto establece la altura como un porcentaje del ancho, manteniendo la relación de aspecto del iframe */
+  position: relative; /* Establece la posición relativa para el posicionamiento absoluto del iframe dentro de este */
+}
+
+iframe {
+  position: absolute; /* Posicionamiento absoluto respecto al contenedor padre */
+  top: 0; /* Alinea la parte superior del iframe con la del contenedor */
+  left: 0; /* Alinea el lado izquierdo del iframe con el del contenedor */
+  width: 100%; /* El ancho del iframe es el 100% del contenedor */
+  height: 100%; /* La altura del iframe es el 100% del contenedor */
+}
+
+p {
+  font-size: 1.1rem;
+}
+
+.ng-touched.ng-invalid {
+  border-color: #A6A9AE;
+}
+
+.img-responsive{
+  max-height: 80px;
+    opacity: 0.5;
+    filter: brightness( 100% ) contrast( 100% ) saturate( 0% ) blur( 0px ) hue-rotate( 0deg );
+    max-width: 100%;
+    max-width: -moz-available;          /* For Mozzila */
+    max-width: -webkit-fill-available;  /* For Chrome */
+    max-width: stretch;
+}
+
+.img-responsive:hover{
+  opacity: 1;
+  filter: brightness( 100% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );
+}
+
+@media (max-width: 768px) {
+  .margin-left-0{
+    margin-left: 0px !important;
+  }
+}
+
+
+  @media ( max-width: 449px ){
+    .card-body{
+      padding: 0rem;
+    }
+    .card-title{
+      font-size: 1.2rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  
+  
