@@ -572,9 +572,9 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
             value: paramIntroText
         })
 
-        var value = { value: introText + this.symtpmsLabel + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
+        var value = { value: introText + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         if (this.loadMoreDiseases) {
-            value = { value: introText + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
+            value = { value: introText + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         }
         if (step == 'step3') {
             var diseases = '';
@@ -584,7 +584,7 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
             let introText2 = this.translate.instant("land.promt2V2", {
                 value: diseases
             })
-            value = { value: introText2 + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
+            value = { value: introText2 + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
@@ -1374,7 +1374,7 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
         let introText = this.translate.instant("land.prom1", {
             value: paramIntroText
         })
-        var value = { value: introText + this.symtpmsLabel + " " + this.medicalText + " Call Text: " + this.premedicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions }
+        var value = { value: introText + " " + this.medicalText + " Call Text: " + this.premedicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Vote: " + valueVote);
@@ -1423,7 +1423,7 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
             value: paramIntroText
         })
 
-        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: introText + this.symtpmsLabel + " " + this.medicalText + " Call Text: " + this.premedicalText, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe }
+        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: introText  + " " + this.medicalText + " Call Text: " + this.premedicalText, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe }
         this.subscription.add(this.apiDx29ServerService.feedback(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Feedback");

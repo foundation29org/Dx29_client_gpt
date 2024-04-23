@@ -70,8 +70,9 @@
             }}</button>
           <button type="submit" class="btn btn-info ml-1" (click)="verifCallOpenAi2();" [disabled]="callingOpenai"
             [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
-            <span>Buscar</span>
-            <em *ngIf="!callingOpenai" class="ml-1 fa fa-search"></em>
+            <span *ngIf="optionSelected.id == 1">{{'land.Recalculate' | translate }} with the new symptoms</span>
+            <span *ngIf="optionSelected.id == 2">{{'land.Recalculate' | translate }} with the new tests</span>
+            <!--<em *ngIf="!callingOpenai" class="ml-1 fa fa-search"></em>-->
             <em *ngIf="callingOpenai" class="ml-1 fa fa-spinner fa-spin fa-fw"></em>
           </button>
         </div>
@@ -115,7 +116,7 @@
                           <span class="mb-1">{{question.question}}</span>
                         </button>
                       </div>
-                      <strong>Do you have any of these symptoms?</strong>
+                      <strong>Does the patient have any of these symptoms?</strong>
                       <p>If you experience any of these symptoms, check the corresponding boxes and then click on 'Recalculate' to update the diagnosis.</p>
                       <!--<ul class="pl-2 row">
                         <li *ngFor="let symptom of topRelatedConditions[selectedInfoDiseaseIndex].nonCommonSymptoms" class="pt-1 col-md-4">
@@ -178,7 +179,7 @@
                   <span *ngIf="selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(false)">{{'land.Show rare diseases' | translate }}</button></span>-->
                   <button class="btn btn-info mt-2 mb-2 mr-1" (click)="previousDisease()" [disabled]="selectedInfoDiseaseIndex === 0">Previous</button>
                   <button class="btn btn-info mt-2 mb-2 ml-1" (click)="nextDisease()" *ngIf="selectedInfoDiseaseIndex < topRelatedConditions.length - 1">Next possible diagnosis</button>
-                  <button class="btn btn-info mt-2 mb-2 ml-1" (click)="loadMore()" *ngIf="selectedInfoDiseaseIndex === topRelatedConditions.length - 1">Next possible diagnosis</button>
+                  <button class="btn btn-info mt-2 mb-2 ml-1" (click)="loadMore()" *ngIf="selectedInfoDiseaseIndex === topRelatedConditions.length - 1 && selectedInfoDiseaseIndex<9">Next possible diagnosis</button>
                   <span class="optionsResults mt-2 mb-2">
                     <em class="mt-1 fa fa-clipboard fa-2x info mr-2" title="{{'land.Copy results' | translate }}"
                     (click)="copyResults()" style="cursor: pointer;"></em>
@@ -186,6 +187,9 @@
                     (click)="downloadResults()"
                     style="cursor: pointer;"></em>
                   </span>
+                  <div>
+                    <span>{{selectedInfoDiseaseIndex+1}} /10</span>
+                  </div>
               </div>
             </div>
           </span>
