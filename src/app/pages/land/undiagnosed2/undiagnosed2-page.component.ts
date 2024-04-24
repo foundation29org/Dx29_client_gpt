@@ -568,9 +568,16 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
         if (this.selectorRare) {
             paramIntroText = this.optionCommon;
         }
-        let introText = this.translate.instant("land.prom1V2", {
+        /*let introText = this.translate.instant("land.prom1V2", {
             value: paramIntroText
-        })
+        })*/
+
+        let introText = `"Behave like a hypothetical doctor who has to diagnose a patient based on the provided symptoms. Provide a detailed analysis of one potential disease. Include the name of the disease, a brief description with a probability of diagnosis, and provide a concise bullet-point list of non-common symptoms. The non-common symptoms should be listed by their concise names only, without additional explanations or descriptions, for easy parsing.
+        Disease Name: {{name of the disease}}
+        Brief Description: {{short description of the disease with a probability of diagnosis (high, moderate, or low) and why that probability}}
+        Non-common Symptoms: {{concise bullet-point list of symptom names without descriptions, that are not present in the patient but are key identifiers for the disease}}
+        Do not include any additional explanations or disclaimers beyond the requested information. Begin with the patient's description as follows.
+        The patient's description is: \n'`;
 
         var value = { value: introText + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         if (this.loadMoreDiseases) {
@@ -581,9 +588,17 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
             for (let i = 0; i < this.diseaseListEn.length; i++) {
                 diseases = diseases + this.diseaseListEn[i] + ', ';
             }
-            let introText2 = this.translate.instant("land.promt2V2", {
+            /*let introText2 = this.translate.instant("land.promt2V2", {
                 value: diseases
-            })
+            })*/
+
+            let introText2 = `"Behave like a hypothetical doctor who has to diagnose a patient based on the provided symptoms. Continue analyzing and suggest another potential disease, ensuring not to repeat any from the provided list. Include the name of the disease, a brief description with a probability of diagnosis, and provide a concise bullet-point list of non-common symptoms. The non-common symptoms should be listed by their concise names only, without additional explanations or descriptions, for easy parsing.
+            Previously diagnosed diseases: `+diseases+`
+            Disease Name: {{name of the disease}}
+            Brief Description: {{short description of the disease with a probability of diagnosis (high, moderate, or low) and why that probability}}
+            Non-common Symptoms: {{concise bullet-point list of symptom names without descriptions, that are not present in the patient but are key identifiers for the disease}}
+            Do not include any additional explanations or disclaimers beyond the requested information. Begin with the patient's description as follows.
+            The patient's description is: \n'`;
             value = { value: introText2 + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
