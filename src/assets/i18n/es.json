@@ -169,7 +169,7 @@
     "Edit description": "Editar descripción",
     "New patient": "Nuevo paciente",
     "Recalculate the list": "¿Quieres mejorar estos resultados?",
-    "option1": "y ",
+    "option1": "and ",
     "labelopt1": "Agregar síntomas",
     "descriptionopt1": "Aquí puede escribir síntomas adicionales relacionados con la enfermedad del paciente. No necesita escribir frases completas, simplemente numere los síntomas separados por comas.",
     "msgmoresymptoms": "y ",
