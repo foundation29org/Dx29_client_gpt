@@ -136,6 +136,18 @@
     "do you want us to do it": "Ahora que lo sabemos, podemos intentar analizar mejor el documento, ¿quieres que lo hagamos?",
     "No text has been detected in the file": "No se ha detectado ningún texto en el archivo."
   },
+  "landv2": {
+    "title": "Introduzca una breve descripción del paciente y DxGPT mostrará posibles diagnósticos de enfermedades.",
+    "swal": "DxGPT está procesando su consulta. Pronto se mostrará un posible diagnóstico. Esto debería tomar solo unos 15 segundos.",
+    "swal2": "Recuerde que puede añadir más síntomas para refinar los resultados o proceder al siguiente diagnóstico potencial si es necesario.",
+    "Next potential diagnosis": "Siguiente diagnóstico potencial",
+    "Previous": "Anterior",
+    "Recalculate with the new symptoms": "Recalcular con los nuevos síntomas",
+    "Recalculate with the new tests": "Recalcular con las nuevas pruebas",
+    "Proposed diagnoses": "Diagnósticos propuestos",
+    "Does the patient have any of these symptoms": "¿El paciente tiene alguno de estos síntomas?",
+    "If you experience any of these symptoms": "Si experimenta alguno de estos síntomas, marque las casillas correspondientes y luego haga clic en 'Recalcular con los nuevos síntomas' para actualizar el diagnóstico."
+  },
   "land":{
     "disclaimer": "<p><strong>DxGPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo lingúistico GPT-4 de OpenAI como modelo predictivo para una herramienta que proporciona información sobre raras relacionadas enfermedades. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende reemplazar el consejo médico profesional ni respaldar el diagnóstico, la prevención, el seguimiento, la predicción o el tratamiento y nunca debe usarse para hacer juicios de diagnóstico con paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y cualquier riesgo potencial asociado al uso de la herramienta basada en inteligencia artificial.</p>",
     "check": "No volver a mostrar este mensaje",

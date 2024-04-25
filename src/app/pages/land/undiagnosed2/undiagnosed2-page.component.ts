@@ -543,7 +543,7 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
         // call api POST openai
         Swal.close();
         Swal.fire({
-            html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p><em class="primary fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
+            html: '<p>' + this.translate.instant("landv2.swal") + '</p>' + '<p>' + this.translate.instant("landv2.swal2") + '</p>' + '<p><em class="primary fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
             showCancelButton: true,
             showConfirmButton: false,
             cancelButtonText: this.translate.instant("generics.Cancel"),
@@ -1367,11 +1367,9 @@ export class Undiagnosed2PageComponent implements OnInit, OnDestroy {
 
     getDiseaseInfo(diseases: any[]): { name: string, description: string }[] {
         return diseases.map(disease => {
-            const matches = disease.content.match(/<\/strong>([\s\S]*?)(\n\n|$)/);
-            const description = matches && matches[1].trim() || '';
             return {
                 name: disease.name,
-                description: description
+                description: disease.content
             };
         });
     }

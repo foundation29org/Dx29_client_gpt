@@ -133,8 +133,20 @@
     "We have detected that the document is in another language": "Nous avons détecté que le document est dans une autre langue",
     "Analyzed as": "Analysé comme",
     "detected as": "détecté comme",
-    "do you want us to do it": "Maintenant que nous le savons, nous pouvons essayer d'analyser mieux le document, voulez-vous que nous le fassions ?",
+    "do you want us to do it": "Maintenant que nous le savons, nous pouvons essayer d'analyser mieux le document, voulez-vous que nous le fassions?",
     "No text has been detected in the file": "Aucun texte n'a été détecté dans le fichier."
+  },
+  "landv2": {
+    "title": "Entrez une brève description du patient et DxGPT affichera des diagnostics de maladies possibles.",
+    "swal": "DxGPT traite votre requête. Un diagnostic possible sera affiché sous peu. Cela devrait prendre seulement environ 15 secondes.",
+    "swal2": "Rappelez-vous que vous pouvez ajouter plus de symptômes pour affiner les résultats ou passer au prochain diagnostic potentiel si nécessaire.",
+    "Next potential diagnosis": "Prochain diagnostic potentiel",
+    "Previous": "Précédent",
+    "Recalculate with the new symptoms": "Recalculer avec les nouveaux symptômes",
+    "Recalculate with the new tests": "Recalculer avec les nouveaux tests",
+    "Proposed diagnoses": "Diagnostics proposés",
+    "Does the patient have any of these symptoms": "Le patient a-t-il l'un de ces symptômes ?",
+    "If you experience any of these symptoms": "Si vous présentez l'un de ces symptômes, cochez les cases correspondantes puis cliquez sur 'Recalculer avec les nouveaux symptômes' pour mettre à jour le diagnostic."
   },
   "land":{
     "disclaimer": "<p><strong>DxGPT</strong> est une expérience de recherche utilisant une intelligence artificielle à usage général. Plus précisément, il utilise le modèle linguistique GPT-4 d'OpenAI comme modèle prédictif pour un outil fournissant des informations sur les maladies rares associées. Il est conçu pour fournir des informations générales et des suggestions basées sur les symptômes fournis. L'outil n'est pas destiné à remplacer les conseils médicaux professionnels, ni à soutenir le diagnostic, la prévention, la surveillance, la prédiction ou le traitement et ne doit jamais être utilisé pour porter des jugements diagnostiques sur de vrais patients.</p><p>Parce que l'IA peut donner des résultats variables, la précision du diagnostic et les suggestions de l'outil peuvent varier, il est donc important de consulter un professionnel de la santé qualifié pour s'assurer d'un diagnostic précis et approprié. L'utilisation de cet outil est au risque de l'utilisateur et la Fondation 29 n'est pas responsable des conséquences ou dommages pouvant résulter de son utilisation.</p><p>En utilisant cet outil, l'utilisateur reconnaît qu'il a lu et compris cette clause de non-responsabilité, et accepte les risques potentiels associés à l'utilisation de l'outil basé sur l'intelligence artificielle.</p>",
