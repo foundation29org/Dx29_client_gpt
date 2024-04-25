@@ -169,7 +169,7 @@
     "Edit description": "Modifier la description",
     "New patient": "Nouveau patient",
     "Recalculate the list": "Voulez-vous améliorer ces résultats?",
-    "option1": "et ",
+    "option1": "and ",
     "labelopt1": "Ajouter des symptômes",
     "descriptionopt1": "Ici, vous pouvez écrire des symptômes supplémentaires liés à la maladie du patient. Vous n'avez pas besoin d'écrire des phrases complètes, énumérez simplement les symptômes séparés par des virgules.",
     "msgmoresymptoms": "et ",
