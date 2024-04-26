@@ -9,12 +9,6 @@
     <div class="row">
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-        <!--<p class="mb-0 mt-2" [innerHTML]="'land.titleOptions' | translate "></p>
-        <p class="">
-          <mat-checkbox id="selectorRare" class="selectorrare" (change)="selectorRareEvent($event.checked)" [(ngModel)]="selectorRare">
-            <strong>{{'land.opt2' | translate }}</strong>
-          </mat-checkbox>
-        </p>-->
         <div class="search">
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
             [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}"
@@ -52,7 +46,6 @@
           <em class="fa-solid fa-user-shield"></em> {{'diagnosis.View anonymized text' | translate }}</button>
         </span>
       </span>
-      <a id="optionssteps"></a>
       <div class="col-12">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
@@ -89,7 +82,7 @@
                         <li *ngFor="let symptom of topRelatedConditions[selectedInfoDiseaseIndex].nonCommonSymptoms; let j = index" class="pt-1 col-md-4">
                           <mat-checkbox class="example-margin" [(ngModel)]="symptom.checked" (change)="changeSymptomDiff($event,j)" id="symptom{{j}}">
                             <span for="symptom{{j}}" style="white-space: normal;text-transform: none;letter-spacing: 0px;" >
-                                {{ symptom.name }}
+                                {{ symptom.translated }}
                             </span>
                           </mat-checkbox>
                         </li>
@@ -319,7 +312,7 @@
               <mat-checkbox
                   class="example-margin" name="customCheck{{j}}" [(ngModel)]="symptom.checked" id="customCheck{{j}}" (change)="changeSymptom($event,j)">
                 <label style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;"  >
-                  <span>{{symptom.name}}</span>
+                  <span>{{symptom.translated}}</span>
                 </label>
               </mat-checkbox>
             </div>
