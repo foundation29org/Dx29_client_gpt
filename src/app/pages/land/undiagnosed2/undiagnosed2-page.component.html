@@ -48,10 +48,6 @@
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
         <button type="button" class="mt-2 btn btn-info mr-1" (click)="newPatient()">{{'land.New patient' | translate }}</button>
         <button type="button" class="mt-2 btn btn-info ml-1 mr-1" (click)="goPrevious()">{{'land.Edit description' | translate }}</button>
-        
-        <span *ngFor="let option of options; let i = index">
-          <button type="button" class="mt-2 ml-1 mr-1 btn btn-info" (click)="recalculate(i);">{{option.label}}</button>
-        </span>
         <span *ngIf="hasAnonymize" class="ml-1"><button class="mt-2 btn btn-info mr-2" (click)="openAnonymize(contentviewDoc)">
           <em class="fa-solid fa-user-shield"></em> {{'diagnosis.View anonymized text' | translate }}</button>
         </span>
@@ -107,15 +103,6 @@
                     <div class="col-md-12 mb-0 bg-white">
                       <h4 class="card-title text-bold-700 mt-3">{{selectedInfoDiseaseIndex+1}}. {{topRelatedConditions[selectedInfoDiseaseIndex].name}}</h4>
                       <p>{{topRelatedConditions[selectedInfoDiseaseIndex].content}}</p>
-
-                      <p class="mt-3"><strong>{{'land.Select a question' | translate }}</strong></p>
-                      <!--Shows a list of selectable panels-->
-                      <div class="mb-3">
-                        <button class="btn btn-sm btn-outline-primary mr-2 mb-2" *ngFor="let question of questions; let i = index"
-                          (click)="showQuestion(question, i, contentInfoDisease)" [disabled]="loadingAnswerOpenai">
-                          <span class="mb-1">{{question.question}}</span>
-                        </button>
-                      </div>
                       <strong>{{'landv2.Does the patient have any of these symptoms' | translate }}</strong>
                       <p>{{'landv2.If you experience any of these symptoms' | translate }}</p>
                       <ul class="pl-2 row">
@@ -132,6 +119,15 @@
                           <button class="btn btn-info mt-2 mb-2 ml-1" (click)="recalculatePrevDifferencial()" [disabled]="loadingAnswerOpenai || patientSymptoms.length==0">{{'landv2.Recalculate with the new symptoms' | translate }}</button>
                         </div>
                       </div>
+                      <p class="mt-3"><strong>{{'landv2.Do you have more questions' | translate }}</strong></p>
+                      <!--Shows a list of selectable panels-->
+                      <div class="mb-3">
+                        <button class="btn btn-sm btn-outline-primary mr-2 mb-2" *ngFor="let question of questions; let i = index"
+                          (click)="showQuestion(question, i, contentInfoDisease)" [disabled]="loadingAnswerOpenai">
+                          <span class="mb-1">{{question.question}}</span>
+                        </button>
+                      </div>
+                      
                     </div>
                   </div>
                   <div class="pt-2 border-top text-muted">
@@ -145,18 +141,21 @@
                   <button class="btn btn-info mt-2 mb-2 mr-1" (click)="previousDisease()" [disabled]="selectedInfoDiseaseIndex === 0">{{'landv2.Previous' | translate }}</button>
                   <button class="btn btn-info mt-2 mb-2 ml-1" (click)="nextDisease()" *ngIf="selectedInfoDiseaseIndex < topRelatedConditions.length - 1">{{'landv2.Next potential diagnosis' | translate }}</button>
                   <button class="btn btn-info mt-2 mb-2 ml-1" (click)="loadMore()" *ngIf="selectedInfoDiseaseIndex === topRelatedConditions.length - 1 && selectedInfoDiseaseIndex<9">{{'landv2.Next potential diagnosis' | translate }}</button>
-                  <span class="optionsResults mt-2 mb-2">
-                    <em class="mt-1 fa fa-clipboard fa-2x info mr-2" title="{{'land.Copy results' | translate }}"
-                    (click)="copyResults()" style="cursor: pointer;"></em>
-                    <em class="mt-1 fa fa-2x fa-download info ml-1" [class.not-allowed]="callingAnonymize" [attr.title]="(callingAnonymize) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
-                    (click)="downloadResults()"
-                    style="cursor: pointer;"></em>
-                  </span>
                   <div>
                     <span>{{selectedInfoDiseaseIndex+1}} /10</span>
                   </div>
               </div>
+              
             </div>
+          </span>
+        </div>
+        <div *ngIf="topRelatedConditions.length>0" class="center-elements pt-2 pb-2" style="background-color: #353540;">
+          <span class="">
+            <em class="mt-1 fa fa-clipboard fa-2x info mr-2" title="{{'land.Copy results' | translate }}"
+            (click)="copyResults()" style="cursor: pointer;"></em>
+            <em class="mt-1 fa fa-2x fa-download info ml-1" [class.not-allowed]="callingAnonymize" [attr.title]="(callingAnonymize) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
+            (click)="downloadResults()"
+            style="cursor: pointer;"></em>
           </span>
         </div>
       </div>

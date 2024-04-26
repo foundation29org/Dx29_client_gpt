@@ -99,6 +99,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     feedbackTimestampDxGPT = localStorage.getItem('feedbackTimestampDxGPT');
     threeMonthsAgo = Date.now() - (3 * 30 * 24 * 60 * 60 * 1000); // 3 meses
     terms2: boolean = false;
+    patientSymptoms: any = [];
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
     @ViewChildren('autoajustable2') textAreas2: QueryList<ElementRef>;
@@ -542,7 +543,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         // call api POST openai
         Swal.close();
         Swal.fire({
-            html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p><em class="primary fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
+            html: '<p>' + this.translate.instant("landv2.swal") + '</p>' + '<p>' + this.translate.instant("landv2.swal2") + '</p>' + '<p><em class="primary fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
             showCancelButton: true,
             showConfirmButton: false,
             cancelButtonText: this.translate.instant("generics.Cancel"),
@@ -567,19 +568,71 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (this.selectorRare) {
             paramIntroText = this.optionCommon;
         }
-        let introText = this.translate.instant("land.prom1", {
+        /*let introText = this.translate.instant("land.prom1V2", {
             value: paramIntroText
-        })
+        })*/
 
-        var value = { value: introText + this.symtpmsLabel + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
+        let introText2 = `"Behave like a hypothetical doctor who has to diagnose a patient based on the provided symptoms. Provide a detailed analysis of one potential disease. Include the name of the disease, a brief description with a probability of diagnosis, and provide a concise bullet-point list of non-common symptoms. The non-common symptoms should be listed by their concise names only, without additional explanations or descriptions, for easy parsing.
+        Disease Name: {{name of the disease}}
+        Brief Description: {{short description of the disease with a probability of diagnosis (high, moderate, or low) and the reasoning}}
+        Non-common Symptoms: {{concise bullet-point list of symptom names without descriptions, that are not present in the patient but are key identifiers for the disease}}
+        Do not include any additional explanations or disclaimers beyond the requested information. Begin with the patient's description as follows.
+        The patient's description is: \n'`;
+
+
+
+        let introText = `"Act as a hypothetical doctor tasked with diagnosing a patient based on the provided symptoms. Provide a detailed analysis of one potential disease. Includes the disease name, a brief description with the probability of diagnosis, and a list of key identifier symptoms indicating their presence based on the patient's description.
+        Disease Name: {{name of the disease}}
+        Brief Description: {{short description of the disease with a probability of diagnosis (high, moderate, or low) and the reasoning}}
+        Non-common Symptoms: {{list of symptom names without descriptions, that are key identifiers for the disease. If possible, give me the 12 most important key symptoms of the disease. For each symptom, indicate if it is present in the patient or not by adding a checkmark or an X}}
+        Do not include any additional explanations or disclaimers beyond the requested information. Begin with the patient's description as follows.
+        Please format the response in JSON:
+        {
+        "diseaseName": "{{name of the disease}}",
+        "briefDescription": "{{brief description with probability of diagnosis}}",
+        "nonCommonSymptoms": [
+            {"name": "Symptom 1", "checked": true/false},
+            {"name": "Symptom 2", "checked": true/false},
+            ...
+            {"name": "Symptom 12", "checked": true/false}
+        ]
+        }
+
+        The patient's description is: \n'`;
+
+        var value = { value: introText + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         if (this.loadMoreDiseases) {
-            value = { value: introText + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
+            value = { value: introText + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         }
         if (step == 'step3') {
-            let introText2 = this.translate.instant("land.prom2", {
-                value: paramIntroText
-            })
-            value = { value: introText2 + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
+            var diseases = '';
+            for (let i = 0; i < this.diseaseListEn.length; i++) {
+                diseases = diseases + this.diseaseListEn[i] + ', ';
+            }
+            /*let introText2 = this.translate.instant("land.promt2V2", {
+                value: diseases
+            })*/
+
+            let introText2 = `"Behave like a hypothetical doctor who has to diagnose a patient based on the provided symptoms. Continue analyzing and suggest another potential disease, ensuring not to repeat any from the provided list. Includes the disease name, a brief description with the probability of diagnosis, and a list of key identifier symptoms indicating their presence based on the patient's description.
+            Previously diagnosed diseases: `+diseases+`
+            Disease Name: {{name of the disease}}
+            Brief Description: {{short description of the disease with a probability of diagnosis (high, moderate, or low) and the reasoning}}
+            Non-common Symptoms: {{list of symptom names without descriptions, that are key identifiers for the disease. If possible, give me the 12 most important key symptoms of the disease. For each symptom, indicate if it is present in the patient or not by adding a checkmark or an X}}
+            Do not include any additional explanations or disclaimers beyond the requested information. Begin with the patient's description as follows.
+            Please format the response in JSON:
+            {
+            "diseaseName": "{{name of the disease}}",
+            "briefDescription": "{{brief description with probability of diagnosis}}",
+            "nonCommonSymptoms": [
+                {"name": "Symptom 1", "checked": true/false},
+                {"name": "Symptom 2", "checked": true/false},
+                ...
+                {"name": "Symptom 12", "checked": true/false}
+            ]
+            }
+    
+            The patient's description is: \n'`;
+            value = { value: introText2 + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
         }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
@@ -590,48 +643,34 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         }
                         this.callAnonymize(value, res.choices[0].message.content);//parseChoices0
                         let parseChoices0 = res.choices[0].message.content;
-                        if (res.choices[0].message.content.indexOf("\n\n") > 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n\n"))) {
-                            parseChoices0 = res.choices[0].message.content.split("\n\n");
-                            parseChoices0.shift();
-                            parseChoices0 = parseChoices0.toString();
-                        } else if (res.choices[0].message.content.indexOf("\n") > 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n"))) {
-                            parseChoices0 = res.choices[0].message.content.split("\n");
-                            parseChoices0.shift();
-                            parseChoices0 = parseChoices0.toString();
-                        } else if (res.choices[0].message.content.indexOf("\n\n") == 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n\n"))) {
-                            //delete up to index "+" 
-                            parseChoices0 = res.choices[0].message.content.substring(res.choices[0].message.content.indexOf("+"));
-                        } else if (res.choices[0].message.content.indexOf("\n") == 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n"))) {
-                            //delete up to index "+" 
-                            parseChoices0 = res.choices[0].message.content.substring(res.choices[0].message.content.indexOf("+"));
-                        }
 
-                        if (!this.loadMoreDiseases) {
-                            this.diseaseListEn = [];
-                        }
-                        if (step == 'step2') {
-                            this.diseaseListEn = [];
-                            this.topRelatedConditions = [];
-                        }
-                        this.setDiseaseListEn(parseChoices0);
-                        if (this.detectedLang != 'en') {
-                            var jsontestLangText = [{ "Text": parseChoices0 }]
-                            this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
-                                .subscribe((res2: any) => {
-                                    if (res2[0] != undefined) {
-                                        if (res2[0].translations[0] != undefined) {
-                                            parseChoices0 = res2[0].translations[0].text;
-                                        }
-                                    }
-                                    this.continueCallOpenAi(parseChoices0);
-                                }, (err) => {
-                                    this.insightsService.trackException(err);
-                                    console.log(err);
-                                    this.continueCallOpenAi(parseChoices0);
-                                }));
-                        } else {
-                            this.continueCallOpenAi(parseChoices0);
-                        }
+                            // Elimina comillas adicionales y deshazte de los caracteres de escape
+                            parseChoices0 = parseChoices0.trim(); // Elimina espacios al inicio y final si los hay
+
+                            if (parseChoices0.startsWith('"') && parseChoices0.endsWith('"')) {
+                                parseChoices0 = parseChoices0.slice(1, -1); // Elimina comillas adicionales
+                            }
+
+                            // Reemplaza secuencias de escape
+                            parseChoices0 = parseChoices0.replace(/\\n/g, "\n").replace(/\\"/g, '"');
+
+                            try {
+                                const jsonData = JSON.parse(parseChoices0);
+                                console.log(jsonData); // Verifica que se haya parseado correctamente
+                                if (!this.loadMoreDiseases) {
+                                    this.diseaseListEn = [];
+                                }
+                                if (step == 'step2') {
+                                    this.diseaseListEn = [];
+                                    this.topRelatedConditions = [];
+                                }
+                                this.continueCallOpenAi(parseChoices0);
+
+                            } catch (error) {
+                                console.error("Error parsing JSON", error);
+                            }
+                        
+                       
                     } else {
                         Swal.close();
                         Swal.fire({
@@ -738,47 +777,50 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return false;
     }
 
-    async continueCallOpenAi(parseChoices0) {
-        let parseChoices = parseChoices0;
-        parseChoices = parseChoices0.split(/\+(?=\d)/);
+    async continueCallOpenAi(jsonInput) {
+        // Asumimos que jsonInput es una cadena JSON, entonces primero la parseamos.
+        const parsedData = JSON.parse(jsonInput);
+    
+        console.log(parsedData);  // Muestra los datos parseados en la consola para verificar
+    
+        // Si necesitas manejar la localización o cualquier otra transformación de datos, hazlo aquí.
+        if (this.detectedLang != 'en') {
+            var jsontestLangText = [{ "Text": parsedData.diseaseName }, { "Text": parsedData.briefDescription }, { "Text": parsedData.nonCommonSymptoms.map(symptom => symptom.name).join('\n')}];
+            this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
+                .subscribe((res2: any) => {
+                    console.log(res2);
+                    if (res2[0] != undefined && res2[0].translations[0] != undefined) {
+                        parsedData.diseaseName = res2[0].translations[0].text;
+                    }
+                    if (res2[1] != undefined && res2[1].translations[0] != undefined) {
+                        parsedData.briefDescription = res2[1].translations[0].text;
+                    }
+                    if (res2[2] != undefined && res2[2].translations[0] != undefined) {
+                        var symptoms = res2[2].translations[0].text.split('\n');
+                        for (let i = 0; i < symptoms.length; i++) {
+                            parsedData.nonCommonSymptoms[i].name = symptoms[i];
+                        }
+                    }
+                    this.showResultDisease(parsedData);
+                }, (err) => {
+                    this.insightsService.trackException(err);
+                    console.log(err);
+                    this.showResultDisease(parsedData);
+                }));
+        } else {
+            this.showResultDisease(parsedData);
+        }
+    }
+    
+
+    async showResultDisease(parsedData) {
         if (!this.loadMoreDiseases) {
             this.topRelatedConditions = [];
         }
-
-        for (let i = 0; i < parseChoices.length; i++) {
-            if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length > 4) {
-                this.topRelatedConditions.push({ content: parseChoices[i], name: '' })
-            }
-        }
-
-        //for each top related condition Put in strong what goes before the first occurrence of :
-        for (let i = 0; i < this.topRelatedConditions.length; i++) {
-            let index = this.topRelatedConditions[i].content.indexOf(':');
-            let index2 = this.topRelatedConditions[i].content.indexOf('<strong>');
-            if (index != -1 && index2 == -1) {
-                let firstPart = this.topRelatedConditions[i].content.substring(0, index + 1);
-                let secondPart = this.topRelatedConditions[i].content.substring(index + 1, this.topRelatedConditions[i].content.length);
-                if (secondPart == '') {
-                    this.topRelatedConditions.splice(i, 1);
-                    this.diseaseListEn.splice(i, 1);
-                    i--;
-                    continue;
-                }
-                let index3 = firstPart.indexOf('.');
-                let namePart = firstPart.substring(index3 + 2, firstPart.length - 1);
-                let hasSponsor = false;
-                let url = '';
-                for (let j = 0; j < this.sponsors.length && !hasSponsor; j++) {
-                    hasSponsor = this.includesElement(this.sponsors[j].synonyms, namePart)
-                    if (hasSponsor) {
-                        url = this.sponsors[j].url;
-                    }
-                }
-
-
-                this.topRelatedConditions[i] = { content: '<strong>' + firstPart + '</strong>' + secondPart, name: namePart, url: url };
-            }
-        }
+        console.log(parsedData)
+        this.setDiseaseListEn(parsedData.diseaseName);
+        this.topRelatedConditions.push({ content: parsedData.briefDescription, name: parsedData.diseaseName, nonCommonSymptoms: parsedData.nonCommonSymptoms });
+        this.showMoreInfoDiseasePopup(this.topRelatedConditions.length - 1);
         this.loadMoreDiseases = false;
         if (this.currentStep.stepIndex == 1) {
             this.currentStep = this.steps[1];
@@ -801,6 +843,270 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    addSymptom(symptomName: string): void {
+        // Busca el síntoma en nonCommonSymptoms y lo marca como checked
+        this.topRelatedConditions[this.selectedInfoDiseaseIndex].nonCommonSymptoms.forEach(symptom => {
+            if (symptom.name === symptomName) {
+                symptom.checked = true;
+            }
+        });
+    
+        //check if symptomName not exits in this.patientSymptoms, if not exits add it
+        let found = false;
+        for (let i = 0; i < this.patientSymptoms.length; i++) {
+            if (this.patientSymptoms[i].name == symptomName) {
+                found = true;
+            }
+        }
+        if (!found) {
+            this.patientSymptoms.push({ name: symptomName, checked: true });
+        }
+        
+    }
+
+    removeSymptom(symptomName: string): void {
+        // Busca y actualiza el síntoma para desmarcarlo como 'checked'
+        this.topRelatedConditions[this.selectedInfoDiseaseIndex].nonCommonSymptoms.forEach(symptom => {
+            if (symptom.name === symptomName) {
+                symptom.checked = false;
+            }
+        });
+
+    
+        //check if symptomName exits in this.patientSymptoms, if exits remove it
+        let found = false;
+        let index = -1;
+        for (let i = 0; i < this.patientSymptoms.length; i++) {
+            if (this.patientSymptoms[i].name == symptomName) {
+                found = true;
+                index = i;
+            }
+        }
+        if (found) {
+            this.patientSymptoms.splice(index, 1);
+        }
+        
+    }
+
+    changeSymptomDiff(event: any, index: number): void {
+        // Obtener la referencia del síntoma que se ha cambiado.
+        let symptom = this.topRelatedConditions[this.selectedInfoDiseaseIndex].nonCommonSymptoms[index];
+    
+        // Actualizar la propiedad checked según el evento.
+        symptom.checked = event.checked;
+    
+        // Si el síntoma está marcado, añadirlo a la lista de síntomas del paciente si aún no está presente.
+        if (symptom.checked) {
+            if (!this.patientSymptoms.some(s => s.name === symptom.name)) {
+                this.patientSymptoms.push({ name: symptom.name, checked: true });
+            }
+        } else {
+            // Si el síntoma no está marcado, eliminarlo de la lista de síntomas del paciente.
+            this.patientSymptoms = this.patientSymptoms.filter(s => s.name !== symptom.name);
+        }
+    }
+
+      recalculatePrevDifferencial() {
+        this.symptomsDifferencial = [];
+        this.topRelatedConditions[this.selectedInfoDiseaseIndex].nonCommonSymptoms.forEach(symptom => {
+            if (symptom.checked) {
+                this.symptomsDifferencial.push(symptom);
+            }
+        });
+        
+
+        console.log(this.symptomsDifferencial)
+        if(this.symptomsDifferencial.length > 0) {
+            this.mergeDescriptionSymptoms();
+            //this.recalculateDifferencial();
+        }else{
+            Swal.fire({
+                icon: 'error',
+                text: this.translate.instant("land.Select at least one symptom"),
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            })
+        }
+       
+      }
+
+      mergeDescriptionSymptoms() {
+        Swal.close();
+        Swal.fire({
+            html: '<p>Se está actualizando la descripcion del paciente con los cambios marcados en los síntomas.</p>' + '<p><em class="primary fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonText: this.translate.instant("generics.Cancel"),
+            allowOutsideClick: false
+        }).then(function (event) {
+            if (event.dismiss == Swal.DismissReason.cancel) {
+
+                // function when confirm button clicked
+                this.callingOpenai = false;
+                this.subscription.unsubscribe();
+                this.subscription = new Subscription();
+            }
+
+        }.bind(this));
+        this.callingOpenai = true;
+        //for each symptom in this.symptomsDifferencial, get name property and set to sintomas variable and separate by comma
+        let sintomas = this.symptomsDifferencial.map(symptom => symptom.name).join(', ');
+        let introText = `"Act as a hypothetical doctor tasked with revising and expanding a patient's medical description based on new symptoms checked. Start with the original patient description provided below, and seamlessly incorporate any new checked symptoms into this description without altering the original context or explicitly stating new additions.
+
+        Original Patient Description:
+        `+this.premedicalText+`
+
+        Checked Symptoms:
+        `+sintomas+`
+
+        Integrate the checked symptoms into the original description as if they were part of the initial examination findings, ensuring a natural flow and avoiding phrases like 'additionally' or 'the patient also has'. The goal is to update the patient's description such that it includes all relevant symptoms in a cohesive narrative format. Please provide the revised patient description."`;
+
+        var value = { value: introText + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
+        this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
+            .subscribe((res: any) => {
+                if (res.choices) {
+                    console.log(res.choices[0].message.content)
+                    if (res.choices[0].message.content) {
+                        this.premedicalText = res.choices[0].message.content;
+                        //translate to detectedLang
+                        this.symptomsDifferencial = [];
+                        if (this.detectedLang != 'en') {
+                            var jsontestLangText = [{ "Text": this.premedicalText }]
+                            this.subscription.add(this.apiDx29ServerService.getTranslationInvert(this.detectedLang, jsontestLangText)
+                                .subscribe((res2: any) => {
+                                    if (res2[0] != undefined && res2[0].translations[0] != undefined) {
+                                        //this.premedicalText = res2[0].translations[0].text;
+                                        this.medicalText = this.premedicalText;
+                                    }
+                                    this.callOpenAi('step2');
+                                }, (err) => {
+                                    this.insightsService.trackException(err);
+                                    console.log(err);
+                                    this.callOpenAi('step2');
+                                }));
+                        } else {
+                            this.callOpenAi('step2');
+                        }
+                        
+                    } else {
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("generics.sorry cant anwser1"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                        this.callingOpenai = false;
+                    }
+                } else {
+                    Swal.close();
+                    Swal.fire({
+                        icon: 'error',
+                        text: this.translate.instant("generics.sorry cant anwser1"),
+                        showCancelButton: false,
+                        showConfirmButton: true,
+                        allowOutsideClick: false
+                    })
+                    this.callingOpenai = false;
+                }
+
+
+
+            }, (err) => {
+                console.log(err)
+                if (err.error.error) {
+                    if (err.error.error.code == 'content_filter') {
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("generics.sorry cant anwser1"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                        this.callingOpenai = false;
+                    } else {
+                        this.insightsService.trackException(err);
+                        console.log(err);
+                        this.callingOpenai = false;
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("generics.error try again"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                    }
+
+
+                } else if (err.error.type == 'invalid_request_error') {
+                    if (err.error.code == 'context_length_exceeded') {
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            html: this.translate.instant("generics.sorry cant anwser3") + '<a href="https://platform.openai.com/tokenizer" class="ml-1 danger" target="_blank">Tokenizer</a>',
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                        this.callingOpenai = false;
+                    } else {
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            title: err.error.code,
+                            text: err.error.message,
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                        this.callingOpenai = false;
+                    }
+
+                } else {
+                    this.insightsService.trackException(err);
+                    console.log(err);
+                    this.callingOpenai = false;
+                    Swal.close();
+                    Swal.fire({
+                        icon: 'error',
+                        text: this.translate.instant("generics.error try again"),
+                        showCancelButton: false,
+                        showConfirmButton: true,
+                        allowOutsideClick: false
+                    })
+                }
+
+            }));
+      }
+
+
+
+    showMoreInfoDiseasePopup(diseaseIndex) {
+        this.answerOpenai = '';
+        this.symptomsDifferencial = [];
+        this.selectedInfoDiseaseIndex = diseaseIndex;
+        var nameEvent = 'Undiagnosed - Select Disease - ' + this.topRelatedConditions[this.selectedInfoDiseaseIndex].name;
+        this.lauchEvent(nameEvent);
+        this.selectedDisease = this.topRelatedConditions[this.selectedInfoDiseaseIndex].name;
+    }
+
+    previousDisease() {
+        if (this.selectedInfoDiseaseIndex > 0) {
+            this.selectedInfoDiseaseIndex--;
+            this.showMoreInfoDiseasePopup(this.selectedInfoDiseaseIndex);
+        }
+    }
+    nextDisease() {
+        if (this.selectedInfoDiseaseIndex < this.topRelatedConditions.length - 1) {
+            this.selectedInfoDiseaseIndex++;
+            this.showMoreInfoDiseasePopup(this.selectedInfoDiseaseIndex);
+        }
+    }
+
     cancelEdit() {
         this.showInputRecalculate = false;
         this.medicalText2 = '';
@@ -808,26 +1114,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
 
     setDiseaseListEn(text) {
-        let parseChoices = text.split("+");
-        for (let i = 0; i < parseChoices.length; i++) {
-            if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length > 3) {
-                let index = parseChoices[i].indexOf(':');
-                let firstPart = parseChoices[i].substring(0, index);
-                this.diseaseListEn.push(firstPart)
-            }
-        }
+        this.diseaseListEn.push(text)
     }
 
     loadMore() {
-        var diseases = '';
-        for (let i = 0; i < this.diseaseListEn.length; i++) {
-            diseases = diseases + '+' + this.diseaseListEn[i] + ', ';
-        }
-        let paramIntroText = this.optionRare;
-        if (this.selectorRare) {
-            paramIntroText = this.optionCommon;
-        }
-        this.temppremedicalText = this.copyMedicalText + '. ' + "Each must have this format '\n\n+" + (this.diseaseListEn.length + 1) + ".' for each potencial " + paramIntroText + ". The list is: " + diseases;
+        this.temppremedicalText = this.copyMedicalText;
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
     }
@@ -848,7 +1139,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.subscription = new Subscription();
     }
 
-    showQuestion(question, index) {
+    showQuestion(question, index, contentInfoDisease) {
+        let ngbModalOptions: NgbModalOptions = {
+            backdrop: 'static',
+            keyboard: false,
+            windowClass: 'ModalClass-lg'// xl, lg, sm
+        };
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+        }
+        this.modalReference = this.modalService.open(contentInfoDisease, ngbModalOptions);
         this.symptomsDifferencial = [];
         this.answerOpenai = '';
         this.loadingAnswerOpenai = true;
@@ -1166,26 +1467,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.restartAllVars();
     }
 
-    showMoreInfoDiseasePopup(diseaseIndex, contentInfoDisease) {
-        this.answerOpenai = '';
-        this.symptomsDifferencial = [];
-        this.selectedInfoDiseaseIndex = diseaseIndex;
-        var nameEvent = 'Undiagnosed - Select Disease - ' + this.topRelatedConditions[this.selectedInfoDiseaseIndex].name;
-        this.lauchEvent(nameEvent);
-        let ngbModalOptions: NgbModalOptions = {
-            backdrop: 'static',
-            keyboard: false,
-            windowClass: 'ModalClass-lg'// xl, lg, sm
-        };
-        if (this.modalReference != undefined) {
-            this.modalReference.close();
-            this.modalReference = undefined;
-        }
-        this.modalReference = this.modalService.open(contentInfoDisease, ngbModalOptions);
-        this.selectedDisease = this.topRelatedConditions[this.selectedInfoDiseaseIndex].content.split(/\d+\./)[1];
-        this.selectedDisease = this.selectedDisease.split(':')[0];
-    }
-
     copyResults() {
         var finalReport = "";
         var infoDiseases = this.getPlainInfoDiseases2();
@@ -1229,11 +1510,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     getDiseaseInfo(diseases: any[]): { name: string, description: string }[] {
         return diseases.map(disease => {
-            const matches = disease.content.match(/<\/strong>([\s\S]*?)(\n\n|$)/);
-            const description = matches && matches[1].trim() || '';
             return {
                 name: disease.name,
-                description: description
+                description: disease.content
             };
         });
     }
@@ -1251,7 +1530,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         let introText = this.translate.instant("land.prom1", {
             value: paramIntroText
         })
-        var value = { value: introText + this.symtpmsLabel + " " + this.medicalText + " Call Text: " + this.premedicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions }
+        var value = { value: introText + " " + this.medicalText + " Call Text: " + this.premedicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Vote: " + valueVote);
@@ -1300,7 +1579,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             value: paramIntroText
         })
 
-        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: introText + this.symtpmsLabel + " " + this.medicalText + " Call Text: " + this.premedicalText, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe }
+        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: introText  + " " + this.medicalText + " Call Text: " + this.premedicalText, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe }
         this.subscription.add(this.apiDx29ServerService.feedback(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Feedback");
@@ -1368,6 +1647,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             });
             let height = nativeElement.scrollHeight;
             if (height < 50) height = 50;
+            height = height + 10;
             this.renderer.setStyle(nativeElement, 'height', `${height}px`);
         });
     }
@@ -1525,4 +1805,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         };
         this.modalReference = this.modalService.open(panel, ngbModalOptions);
     }
+    async openDescripModal(panel) {
+        let ngbModalOptions: NgbModalOptions = {
+            keyboard: true,
+            windowClass: 'ModalClass-lg'// xl, lg, sm
+        };
+        this.modalReference = this.modalService.open(panel, ngbModalOptions);
+        await this.delay(200);
+        this.resizeTextArea();
+    }
+
+    
 }
