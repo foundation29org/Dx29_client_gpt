@@ -1647,7 +1647,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             });
             let height = nativeElement.scrollHeight;
             if (height < 50) height = 50;
-            height = height + 10;
+            height = height + 20;
             this.renderer.setStyle(nativeElement, 'height', `${height}px`);
         });
     }
