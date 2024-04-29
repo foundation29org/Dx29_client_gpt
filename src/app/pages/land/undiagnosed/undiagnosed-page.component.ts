@@ -523,7 +523,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         let introText2 = `"Behave like a hypothetical doctor who has to diagnose a patient based on the provided symptoms. Provide a detailed analysis of one potential disease. Include the name of the disease, a brief description with a probability of diagnosis, and provide a concise bullet-point list of non-common symptoms. The non-common symptoms should be listed by their concise names only, without additional explanations or descriptions, for easy parsing.
         Disease Name: {{name of the disease}}
         Brief Description: {{short description of the disease with a probability of diagnosis (high, moderate, or low) and the reasoning}}
-        Non-common Symptoms: {{concise bullet-point list of symptom names without descriptions, that are not present in the patient but are key identifiers for the disease}}
+        Non-common Symptoms: {{list of symptom names without descriptions, that are key identifiers for the disease. If possible, give me the 12 most important key symptoms of the disease. For each symptom, indicate if it is present in the patient or not by adding a checkmark or an X}}
         Do not include any additional explanations or disclaimers beyond the requested information. Begin with the patient's description as follows.
         The patient's description is: \n'`;
 
