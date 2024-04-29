@@ -96,6 +96,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     resultAnonymized: string = '';
     copyResultAnonymized: string = '';
     ip: string = '29.29.29.29';
+    timezone: string = '';
     feedbackTimestampDxGPT = localStorage.getItem('feedbackTimestampDxGPT');
     threeMonthsAgo = Date.now() - (3 * 30 * 24 * 60 * 60 * 1000); // 3 meses
     terms2: boolean = false;
@@ -138,6 +139,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 console.log(res)
                 if (res.ip) {
                     this.ip = res.ip
+                    this.timezone = res.timezone
                 } else {
                     this.insightsService.trackException(res);
                 }
@@ -571,15 +573,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             value: paramIntroText
         })
 
-        var value = { value: introText + this.symtpmsLabel + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
+        var value = { value: introText + this.symtpmsLabel + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         if (this.loadMoreDiseases) {
-            value = { value: introText + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
+            value = { value: introText + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         }
         if (step == 'step3') {
             let introText2 = this.translate.instant("land.prom2", {
                 value: paramIntroText
             })
-            value = { value: introText2 + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip }
+            value = { value: introText2 + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
@@ -884,7 +886,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
 
         this.lauchEvent(infoOptionEvent);
-        var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang }
+        var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang, timezone: this.timezone }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
                 if (res.choices[0].message.content) {
@@ -1403,7 +1405,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.hasAnonymize = false;
         this.resultAnonymized = '';
         this.copyResultAnonymized = '';
-        var info = { value: this.medicalText, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response, topRelatedConditions: this.topRelatedConditions }
+        var info = { value: this.medicalText, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response, topRelatedConditions: this.topRelatedConditions, timezone: this.timezone }
         this.subscription.add(this.apiDx29ServerService.postAnonymize(info)
             .subscribe((res: any) => {
                 let parseChoices = res.choices[0].message.content;
