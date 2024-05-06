@@ -51,6 +51,7 @@ export class FeedbackPageComponent implements OnDestroy {
             pregunta2: new FormControl('', Validators.required),
             moreFunct: new FormControl(''),
             freeText: new FormControl(''),
+            email: new FormControl('', [Validators.email]),
             terms2: new FormControl('')
           });
 
@@ -97,7 +98,7 @@ export class FeedbackPageComponent implements OnDestroy {
       
           //this.mainForm.value.email = (this.mainForm.value.email).toLowerCase();
           //this.mainForm.value.lang=this.translate.store.currentLang;
-          var value = { value: this.formulario.value, myuuid: this.myuuid }
+          var value = { value: this.formulario.value, myuuid: this.myuuid, lang: this.translate.store.currentLang}
           this.subscription.add( this.http.post(environment.serverapi+'/api/generalfeedback/', value)
           .subscribe( (res : any) => {
             this.sending = false;
@@ -118,7 +119,11 @@ export class FeedbackPageComponent implements OnDestroy {
              this.toastr.error('', this.translate.instant("generics.error try again"));
            }));
         } else {
+            if (this.formulario.get('email') && this.formulario.get('email').invalid ) {
+                this.toastr.error(this.translate.instant("generics.entervalidemail"), 'Error');
+            } else {
             this.toastr.error(this.translate.instant("feedback.onstarts"), 'Error');
+            }
         } 
       }
 
