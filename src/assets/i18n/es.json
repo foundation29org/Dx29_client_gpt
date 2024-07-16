@@ -277,7 +277,11 @@
     "emailquestion": "Ingresa tu correo electrónico si deseas recibir una respuesta a tus comentarios o ser informado sobre futuras actualizaciones.",
     "thanks": "Gracias por tu valoración!",
     "Submitted": "Enviado",
-    "onstarts": "Por favor, valore la calidad pulsando en las estrellas."
+    "onstarts": "Por favor, valore la calidad pulsando en las estrellas.",
+    "selectusertype": "Por favor, seleccione si es un médico o un paciente.",
+    "doctor": "Médico",
+    "patient": "Paciente",
+    "userType": "Tipo de usuario"
   },
   "seo":{
     "home":{

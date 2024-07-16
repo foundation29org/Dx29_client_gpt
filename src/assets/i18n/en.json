@@ -277,7 +277,11 @@
     "emailquestion": "Enter your email if you would like to receive a response to your comments or be informed of future updates.",
     "thanks": "Thank you for your feedback!",
     "Submitted": "Submitted",
-    "onstarts": "Please, rate the quality by clicking on the stars."
+    "onstarts": "Please, rate the quality by clicking on the stars.",
+    "selectusertype": "Please select if you are a doctor or a patient.",
+    "doctor": "Doctor",
+    "patient": "Patient",
+    "userType": "User type"
   },
   "seo":{
     "home":{

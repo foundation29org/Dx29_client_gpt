@@ -12,6 +12,7 @@ import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -29,6 +30,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         CustomFormsModule,
         NgbModule,
         MatCheckboxModule,
+        MatRadioModule,
         PipeModule
     ],
     declarations: [

@@ -277,7 +277,11 @@
   "emailquestion": "Entrez votre email si vous souhaitez recevoir une réponse à vos commentaires ou être informé des futures mises à jour.",
   "thanks": "Merci pour vos commentaires !",
   "Submitted": "Soumis",
-  "onstarts": "Veuillez noter la qualité en cliquant sur les étoiles."
+  "onstarts": "Veuillez noter la qualité en cliquant sur les étoiles.",
+  "selectusertype": "Veuillez sélectionner si vous êtes un médecin ou un patient.",
+  "doctor": "Médecin",
+  "patient": "Patient",
+  "userType": "Type d'utilisateur"
 },
 "seo":{
   "home":{
