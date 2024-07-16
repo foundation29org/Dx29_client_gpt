@@ -10,7 +10,15 @@
   white-space: normal;
   text-transform: none;
   letter-spacing: 0px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  font-size: 1rem;
 }
+
+form label, .form-group label {
+  font-size: 1rem !important;
+}
+
 @media ( max-width: 380px ){
 
   .centerdiv{
