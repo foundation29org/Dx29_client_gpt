@@ -281,6 +281,7 @@
   "selectusertype": "Veuillez sélectionner si vous êtes un médecin ou un patient.",
   "doctor": "Médecin",
   "patient": "Patient",
+  "none": "Je préfère ne pas le dire",
   "userType": "Type d'utilisateur"
 },
 "seo":{
