@@ -66,7 +66,7 @@ export class LandPageLayoutComponent implements OnInit, AfterViewInit {
       let ngbModalOptions: NgbModalOptions = {
         backdrop: 'static',
         keyboard: false,
-        windowClass: 'ModalClass-sm'// xl, lg, sm
+        windowClass: 'ModalClass-lg'// xl, lg, sm
       };
       const modalRef = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
       //this.hasShownDialog = true;

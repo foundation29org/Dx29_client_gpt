@@ -6,6 +6,11 @@
   color: #B30000;
 }
 
+::ng-deep .mat-radio-label{
+  white-space: normal;
+  text-transform: none;
+  letter-spacing: 0px;
+}
 @media ( max-width: 380px ){
 
   .centerdiv{

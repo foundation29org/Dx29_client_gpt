@@ -49,6 +49,7 @@ export class FeedbackPageComponent implements OnDestroy {
         this.formulario = new FormGroup({
             pregunta1: new FormControl('', Validators.required), // Definir los controles del formulario
             pregunta2: new FormControl('', Validators.required),
+            userType: new FormControl('', Validators.required),
             moreFunct: new FormControl(''),
             freeText: new FormControl(''),
             email: new FormControl('', [Validators.email]),
@@ -121,8 +122,10 @@ export class FeedbackPageComponent implements OnDestroy {
         } else {
             if (this.formulario.get('email') && this.formulario.get('email').invalid ) {
                 this.toastr.error(this.translate.instant("generics.entervalidemail"), 'Error');
+            } else if (!this.formulario.get('userType')?.value) {
+                this.toastr.error(this.translate.instant("feedback.selectusertype"), 'Error');
             } else {
-            this.toastr.error(this.translate.instant("feedback.onstarts"), 'Error');
+                this.toastr.error(this.translate.instant("feedback.onstarts"), 'Error');
             }
         } 
       }
