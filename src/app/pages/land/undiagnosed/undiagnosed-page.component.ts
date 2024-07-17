@@ -861,18 +861,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             var temp = selectedDiseaseEn.split(".");
             selectedDiseaseEn = temp[1];
         }
+        var answerFormat = 'The output should be as HTML but only with <H5> and <p> tags.';
         var introText = question.question + ' ' + selectedDiseaseEn + '?';
         let infoOptionEvent = '';
         if (index == 0) {
-            introText = 'What are the common symptoms associated with' + selectedDiseaseEn + '? Please provide a list starting with the most probable symptoms at the top.';
+            introText = 'What are the common symptoms associated with' + selectedDiseaseEn + '? Please provide a list starting with the most probable symptoms at the top.' + answerFormat;
             infoOptionEvent = 'Common Symptoms';
         }
         if (index == 1) {
-            introText = 'Can you provide detailed information about ' + selectedDiseaseEn + ' ? I am a doctor.';
+            introText = 'Can you provide detailed information about ' + selectedDiseaseEn + ' ? I am a doctor.' + answerFormat;
             infoOptionEvent = 'Detailed Information';
         }
         if (index == 2) {
-            introText = 'Provide a diagnosis test for' + selectedDiseaseEn;
+            introText = 'Provide a diagnosis test for' + selectedDiseaseEn + answerFormat;
             infoOptionEvent = 'Diagnosis Test';
         }
         if (index == 3) {
@@ -881,7 +882,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         if (index == 4) {
             //introText = 'Based on the medical description: '+this.premedicalText+', why do you believe the patient has '+selectedDiseaseEn + '. Please indicate the symptoms common with '+selectedDiseaseEn + ' Indicate the common symptoms with '+selectedDiseaseEn +' and those the patient does not have.';
-            introText = this.premedicalText + '. Why do you think this patient has ' + selectedDiseaseEn + '. Indicate the common symptoms with ' + selectedDiseaseEn + ' and the ones that he/she does not have';
+            introText = this.premedicalText + '. Why do you think this patient has ' + selectedDiseaseEn + '. Indicate the common symptoms with ' + selectedDiseaseEn + ' and the ones that he/she does not have' + answerFormat;
             infoOptionEvent = 'Why Diagnosis';
         }
 
@@ -944,7 +945,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             this.lauchEvent("Info Disease");
                         }
                     } else {
-                        var tempInfo = res.choices[0].message.content;
+                        var tempInfo = res.choices[0].message.content.replace(/^```html\n|\n```$/g, '');;
                         if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
                             var sendInfo = '';
                             for (let i = 0; i < parseChoices0.length; i++) {

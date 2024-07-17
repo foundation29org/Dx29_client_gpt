@@ -342,7 +342,8 @@
       </div>
       <div *ngIf="!loadingAnswerOpenai && answerOpenai!=''" class="mt-3">
         <h6>{{selectedQuestion}}</h6>
-        <p style="margin-bottom: 2rem;white-space:pre-wrap;">{{answerOpenai}}</p>
+        <!-- <p style="margin-bottom: 2rem;white-space:pre-wrap;">{{answerOpenai}}</p> -->
+        <div [innerHTML]="answerOpenai" style="margin-bottom: 2rem;"></div>
       </div>
       <div *ngIf="!loadingAnswerOpenai && symptomsDifferencial.length>0" class="mt-3">
         <h6>{{'land.Select the symptoms' | translate }}:</h6>
