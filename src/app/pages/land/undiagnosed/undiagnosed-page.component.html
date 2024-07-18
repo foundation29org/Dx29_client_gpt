@@ -47,6 +47,7 @@
     <div class="row">
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
         <button type="button" class="mt-2 btn btn-info mr-1" (click)="newPatient()">{{'land.New patient' | translate }}</button>
+        <button type="button" class="mt-2 btn btn-info ml-1 mr-1" (click)="openDescripModal(contentEditDescription)">{{'land.Edit description' | translate }}</button>
         <button type="button" class="mt-2 btn btn-info ml-1 mr-1" (click)="goPrevious()">{{'land.Edit description' | translate }}</button>
         
         <span *ngFor="let option of options; let i = index">
@@ -552,3 +553,34 @@
       </div>
   </div>
 </ng-template>
+<ng-template #contentEditDescription let-c="close" let-d="dismiss" appendTo="body">
+  <div class="modal-header" id="idHeader">
+    <div class="content-header text-left">
+      <h4 class="card-title text-bold-700 mb-0 primary">{{'land.Edit description' | translate }}</h4>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal();">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body content-wrapper p-2" id="idBody">
+    <div class="p-1">
+      <div>
+        <div class="">
+          <div class="form-group">
+            <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
+              [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}"
+              (ngModelChange)="resizeTextArea()"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="col-md-12 center-elements">
+        <button type="button" class="btn btn-secondary round" (click)="closeModal();">{{'generics.Close' | translate }}</button>
+        <button type="button" class="btn btn-info round" (click)="preparingCallOpenAi('step1')"
+          [attr.title]="(medicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
+          [disabled]="callingOpenai">{{'generics.Save' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  </ng-template> 
