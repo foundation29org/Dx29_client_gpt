@@ -596,15 +596,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             parseChoices0 = res.choices[0].message.content.split("\n\n");
                             parseChoices0.shift();
                             parseChoices0 = parseChoices0.toString();
+                            //parseChoices0 = parseChoices0.join("\n\n");
                         } else if (res.choices[0].message.content.indexOf("\n") > 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n"))) {
                             parseChoices0 = res.choices[0].message.content.split("\n");
                             parseChoices0.shift();
                             parseChoices0 = parseChoices0.toString();
+                            //parseChoices0 = parseChoices0.join("\n");
                         } else if (res.choices[0].message.content.indexOf("\n\n") == 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n\n"))) {
-                            //delete up to index "+" 
+                        //delete up to index "+" 
                             parseChoices0 = res.choices[0].message.content.substring(res.choices[0].message.content.indexOf("+"));
                         } else if (res.choices[0].message.content.indexOf("\n") == 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n"))) {
-                            //delete up to index "+" 
+                        //delete up to index "+" 
                             parseChoices0 = res.choices[0].message.content.substring(res.choices[0].message.content.indexOf("+"));
                         }
 
@@ -749,6 +751,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         for (let i = 0; i < parseChoices.length; i++) {
             if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length > 4) {
+                parseChoices[i] = parseChoices[i].replace(/\n/g, " ");
                 this.topRelatedConditions.push({ content: parseChoices[i], name: '' })
             }
         }
@@ -861,7 +864,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             var temp = selectedDiseaseEn.split(".");
             selectedDiseaseEn = temp[1];
         }
-        var answerFormat = 'The output should be as HTML but only with <H5> and <p> tags.';
+        //var answerFormat = 'The output should be as HTML but only with <H5> and <p> tags.';
+        var answerFormat = 'The output should be as HTML but only with <p>, <li>, </ul>, and <span> tags. Use <strong> for titles';
+        //var answerFormat = '. The output should be as HTML but dont use h1, h2, h3, h4, h5, h6, <!DOCTYPE html>, html, head, body, input, form tags. use strong for titles';
         var introText = question.question + ' ' + selectedDiseaseEn + '?';
         let infoOptionEvent = '';
         if (index == 0) {
@@ -945,7 +950,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             this.lauchEvent("Info Disease");
                         }
                     } else {
-                        var tempInfo = res.choices[0].message.content.replace(/^```html\n|\n```$/g, '');;
+                        var tempInfo = res.choices[0].message.content.replace(/^```html\n|\n```$/g, '');
                         if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
                             var sendInfo = '';
                             for (let i = 0; i < parseChoices0.length; i++) {
