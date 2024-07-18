@@ -1527,4 +1527,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         };
         this.modalReference = this.modalService.open(panel, ngbModalOptions);
     }
+
+    async openDescripModal(panel) {
+        let ngbModalOptions: NgbModalOptions = {
+            keyboard: true,
+            windowClass: 'ModalClass-lg'// xl, lg, sm
+        };
+        this.modalReference = this.modalService.open(panel, ngbModalOptions);
+        await this.delay(200);
+        this.resizeTextArea();
+    }
 }

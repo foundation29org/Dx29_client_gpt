@@ -48,11 +48,10 @@
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
         <button type="button" class="mt-2 btn btn-info mr-1" (click)="newPatient()">{{'land.New patient' | translate }}</button>
         <button type="button" class="mt-2 btn btn-info ml-1 mr-1" (click)="openDescripModal(contentEditDescription)">{{'land.Edit description' | translate }}</button>
-        <button type="button" class="mt-2 btn btn-info ml-1 mr-1" (click)="goPrevious()">{{'land.Edit description' | translate }}</button>
         
-        <span *ngFor="let option of options; let i = index">
+        <!--<span *ngFor="let option of options; let i = index">
           <button type="button" class="mt-2 ml-1 mr-1 btn btn-info" (click)="recalculate(i);">{{option.label}}</button>
-        </span>
+        </span>-->
         <span *ngIf="hasAnonymize" class="ml-1"><button class="mt-2 btn btn-info mr-2" (click)="openAnonymize(contentviewDoc)">
           <em class="fa-solid fa-user-shield"></em> {{'diagnosis.View anonymized text' | translate }}</button>
         </span>
