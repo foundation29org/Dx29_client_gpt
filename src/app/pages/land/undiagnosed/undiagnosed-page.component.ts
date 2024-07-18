@@ -33,6 +33,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     private subscription: Subscription = new Subscription();
     medicalText: string = '';
+    editmedicalText: string = '';
     premedicalText: string = '';
     temppremedicalText: string = '';
     medicalText2: string = '';
@@ -1533,8 +1534,36 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             keyboard: true,
             windowClass: 'ModalClass-lg'// xl, lg, sm
         };
+        this.editmedicalText = this.medicalText;
         this.modalReference = this.modalService.open(panel, ngbModalOptions);
         await this.delay(200);
         this.resizeTextArea();
+    }
+
+    async checkText(step) {
+        this.showErrorCall1 = false;
+        if (this.callingOpenai || this.editmedicalText.length < 15) {
+            this.showErrorCall1 = true;
+            let text = this.translate.instant("land.required");
+            if (this.editmedicalText.length > 0) {
+                text = this.translate.instant("land.requiredMIN5");
+                let introText = this.translate.instant("land.charactersleft", {
+                    value: (15 - this.editmedicalText.length)
+                })
+                text = text + ' ' + introText;
+            }
+            Swal.fire({
+                icon: 'error',
+                text: text,
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            })
+        }
+        if (!this.showErrorCall1) {
+            this.closeModal();
+            this.medicalText = this.editmedicalText;
+            this.preparingCallOpenAi(step);
+        }
     }
 }
