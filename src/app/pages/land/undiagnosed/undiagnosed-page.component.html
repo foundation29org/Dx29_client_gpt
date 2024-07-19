@@ -567,7 +567,7 @@
         <div class="">
           <div class="form-group">
             <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
-              [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}"
+              [(ngModel)]="editmedicalText" name="editmedicalText" placeholder="{{'land.Type here' | translate }}"
               (ngModelChange)="resizeTextArea()"></textarea>
           </div>
         </div>
@@ -575,10 +575,10 @@
     </div>
     <div class="modal-footer">
       <div class="col-md-12 center-elements">
-        <button type="button" class="btn btn-secondary round" (click)="closeModal();">{{'generics.Close' | translate }}</button>
-        <button type="button" class="btn btn-info round" (click)="preparingCallOpenAi('step1')"
-          [attr.title]="(medicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
-          [disabled]="callingOpenai">{{'generics.Save' | translate }}</button>
+        <button type="button" class="btn btn-secondary round" (click)="closeModal();">{{'generics.Cancel' | translate }}</button>
+        <button type="button" class="btn btn-info round" (click)="checkText('step1')"
+          [attr.title]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
+          [disabled]="callingOpenai">{{'land.Recalculate' | translate }}</button>
       </div>
     </div>
   </div>

@@ -33,6 +33,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     private subscription: Subscription = new Subscription();
     medicalText: string = '';
+    editmedicalText: string = '';
     premedicalText: string = '';
     temppremedicalText: string = '';
     medicalText2: string = '';
@@ -585,7 +586,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
-                if (res.choices) {
+                if(res.result){
+                    if(res.result == 'blocked'){
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("land.errorLocation"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                    }
+                }else if (res.choices) {
                     if (res.choices[0].message.content) {
                         if (this.currentStep.stepIndex == 1 || step == 'step2') {
                             this.copyMedicalText = this.premedicalText;
@@ -886,10 +897,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
 
         this.lauchEvent(infoOptionEvent);
-        var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang, timezone: this.timezone }
+        var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang, timezone: this.timezone, ip: this.ip }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
-                if (res.choices[0].message.content) {
+                if(res.result){
+                    if(res.result == 'blocked'){
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("land.errorLocation"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                    }
+                }else if (res.choices[0].message.content) {
                     let content = res.choices[0].message.content;
                     let splitChar = content.indexOf("\n\n") >= 0 ? "\n\n" : "\n";
                     let contentArray = content.split(splitChar);
@@ -1533,8 +1554,36 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             keyboard: true,
             windowClass: 'ModalClass-lg'// xl, lg, sm
         };
+        this.editmedicalText = this.medicalText;
         this.modalReference = this.modalService.open(panel, ngbModalOptions);
         await this.delay(200);
         this.resizeTextArea();
+    }
+
+    async checkText(step) {
+        this.showErrorCall1 = false;
+        if (this.callingOpenai || this.editmedicalText.length < 15) {
+            this.showErrorCall1 = true;
+            let text = this.translate.instant("land.required");
+            if (this.editmedicalText.length > 0) {
+                text = this.translate.instant("land.requiredMIN5");
+                let introText = this.translate.instant("land.charactersleft", {
+                    value: (15 - this.editmedicalText.length)
+                })
+                text = text + ' ' + introText;
+            }
+            Swal.fire({
+                icon: 'error',
+                text: text,
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            })
+        }
+        if (!this.showErrorCall1) {
+            this.closeModal();
+            this.medicalText = this.editmedicalText;
+            this.preparingCallOpenAi(step);
+        }
     }
 }
