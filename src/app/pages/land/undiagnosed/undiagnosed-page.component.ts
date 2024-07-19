@@ -510,7 +510,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         this.callingOpenai = true;
         let introText = prompts.prompt1
-
         var value = { value: introText.replace("{{description}}", this.medicalTextEng), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         let introText2 = prompts.prompt2
         if (this.loadMoreDiseases) {
@@ -1354,7 +1353,27 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.copyResultAnonymized = partsCopy.join('');
                         this.copyResultAnonymized = this.copyResultAnonymized.replace(/\n/g, '<br>');
                         this.medicalTextOriginal = this.copyResultAnonymized;
-                        this.medicalTextEng = this.copyResultAnonymized;
+                        if(this.detectedLang != 'en'){
+                            var info = [{ "Text": this.copyResultAnonymized }]
+                            this.subscription.add(this.apiDx29ServerService.getTranslationInvert(this.detectedLang, info)
+                                .subscribe((res2: any) => {
+                                    var textToTA = this.copyResultAnonymized;
+                                    if (res2[0] != undefined) {
+                                        if (res2[0].translations[0] != undefined) {
+                                            textToTA = res2[0].translations[0].text;
+                                        }
+                                    }
+                                    this.copyResultAnonymized = textToTA;
+                                    this.medicalTextEng = this.copyResultAnonymized;
+                                }, (err) => {
+                                    this.insightsService.trackException(err);
+                                    this.medicalTextEng = this.copyResultAnonymized;
+                                }));
+                        }else{
+                            this.medicalTextEng = this.copyResultAnonymized;
+                        }
+                        
+                        
                         this.callingAnonymize = false;
                         this.hasAnonymize = true;
 
