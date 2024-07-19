@@ -586,7 +586,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
-                if (res.choices) {
+                if(res.result){
+                    if(res.result == 'blocked'){
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("land.errorLocation"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                    }
+                }else if (res.choices) {
                     if (res.choices[0].message.content) {
                         if (this.currentStep.stepIndex == 1 || step == 'step2') {
                             this.copyMedicalText = this.premedicalText;
@@ -887,10 +897,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
 
         this.lauchEvent(infoOptionEvent);
-        var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang, timezone: this.timezone }
+        var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang, timezone: this.timezone, ip: this.ip }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
-                if (res.choices[0].message.content) {
+                if(res.result){
+                    if(res.result == 'blocked'){
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("land.errorLocation"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                    }
+                }else if (res.choices[0].message.content) {
                     let content = res.choices[0].message.content;
                     let splitChar = content.indexOf("\n\n") >= 0 ? "\n\n" : "\n";
                     let contentArray = content.split(splitChar);

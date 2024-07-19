@@ -191,7 +191,7 @@
     "p3.title": "Limitations",
     "p3.1": "May occasionally generate incorrect information",
     "p3.2": "Cannot be used for diagnosis without human supervision",
-    "errorLocation": "We have detected that you are using a VPN or a network that does not allow the detection of your location. We recommend that you disable the VPN or use a network that allows the detection of your location.",
+    "errorLocation": "We have detected that you are using a VPN or a network that prevents the detection of your location. This can affect the proper functioning of our application and the security of our services. Please disable the VPN or use a network that allows the detection of your location to continue.",
     "Select a question": "Select a question",
     "Answer": "Answer",
     "Select the symptoms": "Select the the additional symptoms you have to recalculate the list of proposed diseases. They are ordered with the most likely at the top",
