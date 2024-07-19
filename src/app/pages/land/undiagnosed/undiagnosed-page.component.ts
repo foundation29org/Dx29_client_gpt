@@ -1404,60 +1404,75 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.hasAnonymize = false;
         this.resultAnonymized = '';
         this.copyResultAnonymized = '';
-        var info = { value: this.medicalText, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response, topRelatedConditions: this.topRelatedConditions, timezone: this.timezone }
+        var info = { value: this.medicalText, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response, topRelatedConditions: this.topRelatedConditions, timezone: this.timezone, ip: this.ip }
         this.subscription.add(this.apiDx29ServerService.postAnonymize(info)
             .subscribe((res: any) => {
-                let parseChoices = res.choices[0].message.content;
-                parseChoices = parseChoices.replace(/^"""\n/, '').replace(/\s*"""$/, '');
-                let parts = parseChoices.split(/(\[ANON-\d+\])/g);
-                let partsCopy = parseChoices.split(/(\[ANON-\d+\])/g);
-                if (parts.length > 1) {
-                    for (let i = 0; i < parts.length; i++) {
-                        if (/\[ANON-\d+\]/.test(parts[i])) {
-                            let length = parseInt(parts[i].match(/\d+/)[0]);
-                            let blackSpan = '<span style="background-color: black; display: inline-block; width:' + length + 'em;">&nbsp;</span>';
-                            parts[i] = blackSpan;
-                            // Agregamos la parte de los asteriscos
-                            let asterisks = '*'.repeat(length);
-                            partsCopy[i] = asterisks;
-                        }
-                    }
-                    this.resultAnonymized = parts.join('');
-                    this.resultAnonymized = this.resultAnonymized.replace(/\n/g, '<br>');
-
-                    this.copyResultAnonymized = partsCopy.join('');
-                    this.copyResultAnonymized = this.copyResultAnonymized.replace(/\n/g, '<br>');
-                    this.medicalText = this.copyResultAnonymized;
-                    this.premedicalText = this.copyResultAnonymized;
-                    this.callingAnonymize = false;
-                    this.hasAnonymize = true;
-                    if (!localStorage.getItem('dontShowSwal')) {
-
-                        let detectePer = this.translate.instant("diagnosis.detected personal information")
-                        let procDelete = this.translate.instant("diagnosis.proceeded to delete")
-                        let msgcheck = this.translate.instant("land.check")
+                if(res.result){
+                    if(res.result == 'blocked'){
                         Swal.fire({
-                            icon: 'info',
-                            html: '<p>' + detectePer + '</p><p>' + procDelete + '</p><br><br><input type="checkbox" id="dont-show-again" class="mr-1">' + msgcheck,
+                            icon: 'error',
+                            text: this.translate.instant("land.errorLocation"),
                             showCancelButton: false,
                             showConfirmButton: true,
                             allowOutsideClick: false
-                        }).then((result) => {
-                            if ((document.getElementById('dont-show-again') as HTMLInputElement).checked) {
-                                // Aquí puedes almacenar la preferencia del usuario, por ejemplo en localStorage
-                                localStorage.setItem('dontShowSwal', 'true');
-                            }
-                        });
-                    } else {
-                        this.mostrarFinalizacionAnonimizado(true);
+                        })
                     }
-
-
-                } else {
                     this.callingAnonymize = false;
-                    this.hasAnonymize = false;
-                    this.mostrarFinalizacionAnonimizado(false);
+                    this.hasAnonymize = true;
+                }else{
+                    let parseChoices = res.choices[0].message.content;
+                    parseChoices = parseChoices.replace(/^"""\n/, '').replace(/\s*"""$/, '');
+                    let parts = parseChoices.split(/(\[ANON-\d+\])/g);
+                    let partsCopy = parseChoices.split(/(\[ANON-\d+\])/g);
+                    if (parts.length > 1) {
+                        for (let i = 0; i < parts.length; i++) {
+                            if (/\[ANON-\d+\]/.test(parts[i])) {
+                                let length = parseInt(parts[i].match(/\d+/)[0]);
+                                let blackSpan = '<span style="background-color: black; display: inline-block; width:' + length + 'em;">&nbsp;</span>';
+                                parts[i] = blackSpan;
+                                // Agregamos la parte de los asteriscos
+                                let asterisks = '*'.repeat(length);
+                                partsCopy[i] = asterisks;
+                            }
+                        }
+                        this.resultAnonymized = parts.join('');
+                        this.resultAnonymized = this.resultAnonymized.replace(/\n/g, '<br>');
+    
+                        this.copyResultAnonymized = partsCopy.join('');
+                        this.copyResultAnonymized = this.copyResultAnonymized.replace(/\n/g, '<br>');
+                        this.medicalText = this.copyResultAnonymized;
+                        this.premedicalText = this.copyResultAnonymized;
+                        this.callingAnonymize = false;
+                        this.hasAnonymize = true;
+                        if (!localStorage.getItem('dontShowSwal')) {
+    
+                            let detectePer = this.translate.instant("diagnosis.detected personal information")
+                            let procDelete = this.translate.instant("diagnosis.proceeded to delete")
+                            let msgcheck = this.translate.instant("land.check")
+                            Swal.fire({
+                                icon: 'info',
+                                html: '<p>' + detectePer + '</p><p>' + procDelete + '</p><br><br><input type="checkbox" id="dont-show-again" class="mr-1">' + msgcheck,
+                                showCancelButton: false,
+                                showConfirmButton: true,
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if ((document.getElementById('dont-show-again') as HTMLInputElement).checked) {
+                                    // Aquí puedes almacenar la preferencia del usuario, por ejemplo en localStorage
+                                    localStorage.setItem('dontShowSwal', 'true');
+                                }
+                            });
+                        } else {
+                            this.mostrarFinalizacionAnonimizado(true);
+                        }
+    
+    
+                    } else {
+                        this.callingAnonymize = false;
+                        this.hasAnonymize = false;
+                        this.mostrarFinalizacionAnonimizado(false);
+                    }
                 }
+                
 
             }, (err) => {
                 console.log(err);
