@@ -18,6 +18,7 @@ import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
+import { prompts } from 'assets/js/prompts';
 
 
 declare let gtag: any;
@@ -566,23 +567,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }.bind(this));
 
         this.callingOpenai = true;
-        let paramIntroText = this.optionRare;
-        if (this.selectorRare) {
-            paramIntroText = this.optionCommon;
-        }
-        let introText = this.translate.instant("land.prom1", {
-            value: paramIntroText
-        })
+        let introText = prompts.prompt1
 
-        var value = { value: introText + this.symtpmsLabel + " " + this.premedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
+        var value = { value: introText.replace("{{description}}", this.premedicalText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         if (this.loadMoreDiseases) {
-            value = { value: introText + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
+            value = { value: introText.replace("{{description}}", this.temppremedicalText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         }
         if (step == 'step3') {
-            let introText2 = this.translate.instant("land.prom2", {
-                value: paramIntroText
-            })
-            value = { value: introText2 + this.symtpmsLabel + " " + this.temppremedicalText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
+            let introText2 = prompts.prompt2
+            value = { value: introText2.replace("{{description}}", this.temppremedicalText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
@@ -836,11 +829,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.diseaseListEn.length; i++) {
             diseases = diseases + '+' + this.diseaseListEn[i] + ', ';
         }
-        let paramIntroText = this.optionRare;
-        if (this.selectorRare) {
-            paramIntroText = this.optionCommon;
-        }
-        this.temppremedicalText = this.copyMedicalText + '. ' + "Each must have this format '\n\n+" + (this.diseaseListEn.length + 1) + ".' for each potencial " + paramIntroText + ". The list is: " + diseases;
+        this.temppremedicalText = this.copyMedicalText + '. ' + "Each must have this format '\n\n+" + (this.diseaseListEn.length + 1) + ".' for each potencial disease. The list is: " + diseases;
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
     }
@@ -1267,13 +1256,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     vote(valueVote, contentFeedbackDown) {
         this.sendingVote = true;
-        let paramIntroText = this.optionRare;
-        if (this.selectorRare) {
-            paramIntroText = this.optionCommon;
-        }
-        let introText = this.translate.instant("land.prom1", {
-            value: paramIntroText
-        })
+        let introText = prompts.prompt1
+
         var value = { value: introText + this.symtpmsLabel + " " + this.medicalText + " Call Text: " + this.premedicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
@@ -1315,13 +1299,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     onSubmitFeedbackDown() {
         this.showErrorForm = false;
         this.sending = true;
-        let paramIntroText = this.optionRare;
-        if (this.selectorRare) {
-            paramIntroText = this.optionCommon;
-        }
-        let introText = this.translate.instant("land.prom1", {
-            value: paramIntroText
-        })
+        let introText = prompts.prompt1
 
         var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: introText + this.symtpmsLabel + " " + this.medicalText + " Call Text: " + this.premedicalText, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe }
         this.subscription.add(this.apiDx29ServerService.feedback(value)
