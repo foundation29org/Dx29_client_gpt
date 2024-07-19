@@ -622,13 +622,41 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         }
                         this.setDiseaseListEn(parseChoices0);
                         if (this.detectedLang != 'en') {
-                            var jsontestLangText = [{ "Text": parseChoices0 }]
+                           /* var jsontestLangText = parseChoices0.map(disease => ({
+                                "Text": disease
+                            }));*/
+
+                            /*var jsontestLangText = parseChoices0.map(disease => ({
+                                "diagnosis": disease.diagnosis,
+                                "description": disease.description,
+                                "symptoms_in_common": disease.symptoms_in_common.join('; '),
+                                "symptoms_not_in_common": disease.symptoms_not_in_common.join('; ')
+                            }));*/
+
+                            //let jsontestLangText = parseChoices0.map(text => ({ "Text": text.tostring() }));
+                            var jsontestLangText = this.createTranslationRequests(parseChoices0);
                             this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
                                 .subscribe((res2: any) => {
-                                    if (res2[0] != undefined) {
-                                        if (res2[0].translations[0] != undefined) {
-                                            parseChoices0 = res2[0].translations[0].text;
-                                        }
+                                    if (res2 && res2.length > 0) {
+                                        res2.forEach((translation, index) => {
+                                            let diseaseIndex = Math.floor(index / 4); // Cada enfermedad tiene 4 textos
+                                            let fieldIndex = index % 4; // 0: diagnosis, 1: description, 2: symptoms_in_common, 3: symptoms_not_in_common
+                                            let translatedText = translation.translations[0].text;
+                                            switch (fieldIndex) {
+                                                case 0:
+                                                    parseChoices0[diseaseIndex].diagnosis = translatedText;
+                                                    break;
+                                                case 1:
+                                                    parseChoices0[diseaseIndex].description = translatedText;
+                                                    break;
+                                                case 2:
+                                                    parseChoices0[diseaseIndex].symptoms_in_common = translatedText.split('; ');
+                                                    break;
+                                                case 3:
+                                                    parseChoices0[diseaseIndex].symptoms_not_in_common = translatedText.split('; ');
+                                                    break;
+                                            }
+                                        });
                                     }
                                     this.continueCallOpenAi(parseChoices0);
                                 }, (err) => {
@@ -734,6 +762,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return false;
     }
 
+    createTranslationRequests(diseases) {
+        let requests = [];
+        diseases.forEach(disease => {
+            requests.push({ "Text": disease.diagnosis });
+            requests.push({ "Text": disease.description });
+            requests.push({ "Text": disease.symptoms_in_common.join('; ') });
+            requests.push({ "Text": disease.symptoms_not_in_common.join('; ') });
+        });
+        return requests;
+    }
+
     async continueCallOpenAi(parseChoices0) {
         let parseChoices = parseChoices0;
         if (!this.loadMoreDiseases) {
@@ -751,7 +790,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     }
                 }
             indexDisease++;
-            this.topRelatedConditions.push({ content: '<strong>'+(indexDisease)+'. ' + parseChoices[i].diagnosis + '</strong> ' + parseChoices[i].description +' symptoms_in_common: ' + parseChoices[i].symptoms_in_common + ' symptoms_not_in_common: '+ parseChoices[i].symptoms_not_in_common , name: parseChoices[i].diagnosis,  url: url })
+            let content = '<strong>' + (indexDisease) + '. ' + parseChoices[i].diagnosis + ':</strong> ' + parseChoices[i].description;
+            if(parseChoices[i].symptoms_in_common.length > 0){
+                content = content + '<br>' + this.translate.instant("diagnosis.Matching symptoms") + ': ' + parseChoices[i].symptoms_in_common.join(', ');
+            }else{
+                content = content + '<br>' + this.translate.instant("diagnosis.Matching symptoms") + ': ' + this.translate.instant("diagnosis.None");
+            }
+            if(parseChoices[i].symptoms_not_in_common.length > 0){
+                content = content + '<br>' + this.translate.instant("diagnosis.Non-matching symptoms") + ': ' + parseChoices[i].symptoms_not_in_common.join(', ');
+            }else{
+                content = content + '<br>' + this.translate.instant("diagnosis.Non-matching symptoms") + ': ' + this.translate.instant("diagnosis.None");
+            }
+            
+            this.topRelatedConditions.push({ 
+                content: content, 
+                name: parseChoices[i].diagnosis,  
+                url: url 
+            })
         }
 
 

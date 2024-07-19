@@ -51,7 +51,10 @@
     "correctly anonymized": "The text has been correctly anonymized",
     "not detected personal information": "We have not detected any personal information in the clinical description you have entered.",
     "detected personal information": "We have detected personal information in the clinical description you have entered.",
-    "proceeded to delete": "We have proceeded to delete this information and save the anonymized text."
+    "proceeded to delete": "We have proceeded to delete this information and save the anonymized text.",
+    "Matching symptoms": "Matching symptoms",
+    "Non-matching symptoms": "Non-matching symptoms",
+    "None": "None"
   },
   "policy": {
     "p1": "DxGPT is committed to protecting the privacy of its users. This privacy policy explains how your personal data are collected, used, and protected.",
