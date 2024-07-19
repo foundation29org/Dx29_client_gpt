@@ -586,30 +586,33 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             showConfirmButton: true,
                             allowOutsideClick: false
                         })
-                    }
-                }else if (res.choices) {
-                    if (res.choices[0].message.content) {
+                        this.callingOpenai = false;
+                    }else if(res.result == 'error'){
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("generics.error try again"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                        this.callingOpenai = false;
+                    }else if(res.result == 'error openai'){
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("generics.sorry cant anwser1"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                        this.callingOpenai = false;
+                    }else if(res.result == 'success'){
                         if (this.currentStep.stepIndex == 1 || step == 'step2') {
                             this.copyMedicalText = this.premedicalText;
                         }
-                        this.callAnonymize(value, res.choices[0].message.content);//parseChoices0
-                        let parseChoices0 = res.choices[0].message.content;
-                        if (res.choices[0].message.content.indexOf("\n\n") > 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n\n"))) {
-                            parseChoices0 = res.choices[0].message.content.split("\n\n");
-                            parseChoices0.shift();
-                            parseChoices0 = parseChoices0.toString();
-                        } else if (res.choices[0].message.content.indexOf("\n") > 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n"))) {
-                            parseChoices0 = res.choices[0].message.content.split("\n");
-                            parseChoices0.shift();
-                            parseChoices0 = parseChoices0.toString();
-                        } else if (res.choices[0].message.content.indexOf("\n\n") == 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n\n"))) {
-                            //delete up to index "+" 
-                            parseChoices0 = res.choices[0].message.content.substring(res.choices[0].message.content.indexOf("+"));
-                        } else if (res.choices[0].message.content.indexOf("\n") == 0 && (res.choices[0].message.content.indexOf("+") > res.choices[0].message.content.indexOf("\n"))) {
-                            //delete up to index "+" 
-                            parseChoices0 = res.choices[0].message.content.substring(res.choices[0].message.content.indexOf("+"));
-                        }
-
+                        this.callAnonymize(value, res.data);//parseChoices0
+                        let parseChoices0 = res.data;
+                        console.log(parseChoices0)
                         if (!this.loadMoreDiseases) {
                             this.diseaseListEn = [];
                         }
@@ -636,22 +639,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         } else {
                             this.continueCallOpenAi(parseChoices0);
                         }
-                    } else {
-                        Swal.close();
-                        Swal.fire({
-                            icon: 'error',
-                            text: this.translate.instant("generics.sorry cant anwser1"),
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
-                        this.callingOpenai = false;
                     }
                 } else {
-                    Swal.close();
                     Swal.fire({
                         icon: 'error',
-                        text: this.translate.instant("generics.sorry cant anwser1"),
+                        text: this.translate.instant("generics.error try again"),
                         showCancelButton: false,
                         showConfirmButton: true,
                         allowOutsideClick: false
@@ -812,28 +804,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
 
     setDiseaseListEn(text) {
-        console.log(text);
-        // let parseChoices = text.split("+");
-        // for (let i = 0; i < parseChoices.length; i++) {
-        //     if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length > 3) {
-        //         let index = parseChoices[i].indexOf(':');
-        //         let firstPart = parseChoices[i].substring(0, index);
-        //         this.diseaseListEn.push(firstPart)
-        //     }
-        // }
-        let parsedData;
-        try {
-            parsedData = JSON.parse(text.match(/<5_diagnosis_output>([\s\S]*?)<\/5_diagnosis_output>/)[1]);
-        } catch (e) {
-            console.error("Failed to parse diagnosis output", e);
-            return;
-        }
-
-        console.log(parsedData);
-
-        for (let i = 0; i < parsedData.length; i++) {
-            if (parsedData[i].diagnosis && parsedData[i].diagnosis.length > 3) {
-                this.diseaseListEn.push(parsedData[i].diagnosis);
+        for (let i = 0; i < text.length; i++) {
+            if (text[i].diagnosis && text[i].diagnosis.length > 3) {
+                this.diseaseListEn.push(text[i].diagnosis);
             }
         }
 
