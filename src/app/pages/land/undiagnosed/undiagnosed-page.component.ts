@@ -740,6 +740,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.topRelatedConditions = [];
         }
 
+        let indexDisease = this.topRelatedConditions.length;
         for (let i = 0; i < parseChoices.length; i++) {
             let hasSponsor = false;
                 let url = '';
@@ -749,8 +750,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         url = this.sponsors[j].url;
                     }
                 }
-
-            this.topRelatedConditions.push({ content: '<strong>'+(this.topRelatedConditions.length+i)+'. ' + parseChoices[i].diagnosis + '</strong> ' + parseChoices[i].description +' symptoms_in_common: ' + parseChoices[i].symptoms_in_common + ' symptoms_not_in_common: '+ parseChoices[i].symptoms_not_in_common , name: parseChoices[i].diagnosis,  url: url })
+            indexDisease++;
+            this.topRelatedConditions.push({ content: '<strong>'+(indexDisease)+'. ' + parseChoices[i].diagnosis + '</strong> ' + parseChoices[i].description +' symptoms_in_common: ' + parseChoices[i].symptoms_in_common + ' symptoms_not_in_common: '+ parseChoices[i].symptoms_not_in_common , name: parseChoices[i].diagnosis,  url: url })
         }
 
 
