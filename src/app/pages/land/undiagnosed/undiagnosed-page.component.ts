@@ -750,8 +750,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     }
                 }
 
-            this.topRelatedConditions.push({ content: '<strong>'+(i+1)+'. ' + parseChoices[i].diagnosis + '</strong> ' + parseChoices[i].description +' symptoms_in_common: ' + parseChoices[i].symptoms_in_common + ' symptoms_not_in_common: '+ parseChoices[i].symptoms_not_in_common , name: parseChoices[i].diagnosis,  url: url })
+            this.topRelatedConditions.push({ content: '<strong>'+(this.topRelatedConditions.length+i)+'. ' + parseChoices[i].diagnosis + '</strong> ' + parseChoices[i].description +' symptoms_in_common: ' + parseChoices[i].symptoms_in_common + ' symptoms_not_in_common: '+ parseChoices[i].symptoms_not_in_common , name: parseChoices[i].diagnosis,  url: url })
         }
+
+
+
 
         this.loadMoreDiseases = false;
         if (this.currentStep.stepIndex == 1) {
@@ -887,7 +890,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             allowOutsideClick: false
                         })
                     }else if(res.result == 'success'){
-                        
+                        res.data = res.data.replace(/^```html\n|\n```$/g, '');
                         let content = res.data;
                         let splitChar = content.indexOf("\n\n") >= 0 ? "\n\n" : "\n";
                         let contentArray = content.split(splitChar);
