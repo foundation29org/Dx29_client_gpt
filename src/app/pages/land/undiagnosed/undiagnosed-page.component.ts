@@ -33,12 +33,11 @@ declare let gtag: any;
 export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     private subscription: Subscription = new Subscription();
-    medicalText: string = '';
+    medicalTextOriginal: string = '';
     editmedicalText: string = '';
-    premedicalText: string = '';
-    temppremedicalText: string = '';
-    medicalText2: string = '';
-    medicalText2Copy: string = '';
+    medicalTextEng: string = '';
+    differentialTextOriginal: string = '';
+    differentialTextTranslated: string = '';
     copyMedicalText: string = '';
     modalReference: NgbModalRef;
     topRelatedConditions: any = [];
@@ -64,12 +63,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     callingOpenai: boolean = false;
     loadingAnswerOpenai: boolean = false;
     selectedDisease: string = '';
-    showInputRecalculate: boolean = false;
-    options: any = [];
+    options: any = {};
     optionSelected: any = {};
     sendingVote: boolean = false;
-    selectorRare: boolean = true;
-    prevSelectorRare: boolean = true;
     selectorOption: string = '';
     optionRare: string = '';
     optionCommon: string = '';
@@ -173,14 +169,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     initOptions() {
-        this.options = [
-            { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") },
-            { id: 2, value: this.translate.instant("land.option3"), label: this.translate.instant("land.labelopt3"), description: this.translate.instant("land.descriptionopt3") }
-        ];
-    }
-
-    openSupport(content) {
-        this.modalReference = this.modalService.open(content);
+        this.options = { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") };
     }
 
     onSubmitRevolution() {
@@ -224,7 +213,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async goPrevious() {
         this.topRelatedConditions = [];
-        this.showInputRecalculate = false;
         this.currentStep = this.steps[0];
         await this.delay(200);
         document.getElementById('optioninput1').scrollIntoView({ behavior: "smooth" });
@@ -232,7 +220,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async newPatient() {
-        this.medicalText = '';
+        this.medicalTextOriginal = '';
         this.goPrevious();
     }
 
@@ -273,7 +261,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
             if (params['medicalText']) {
-                this.medicalText = params['medicalText'];
+                this.medicalTextOriginal = params['medicalText'];
             }
         });
         this.loadTranslations();
@@ -298,7 +286,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.originalLang = lang;
                         this.restartInitVars();
                         this.currentStep = this.steps[0];
-                        //this.focusTextArea();
                     }
                 });
             }
@@ -376,19 +363,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.modalReference = undefined;
         }
         if (par == 'opt1') {
-            this.medicalText = this.translate.instant("land.p1.1")
+            this.medicalTextOriginal = this.translate.instant("land.p1.1")
         } else {
-            this.medicalText = this.translate.instant("land.p1.2")
+            this.medicalTextOriginal = this.translate.instant("land.p1.2")
         }
         document.getElementById('optioninput1').scrollIntoView({ behavior: "smooth" });
         this.resizeTextArea();
     }
 
     clearText() {
-        this.medicalText2 = '';
-        this.medicalText2Copy = '';
-        this.showInputRecalculate = false;
-        //this.medicalText = '';
+        this.differentialTextOriginal = '';
+        this.differentialTextTranslated = '';
         this.copyMedicalText = '';
         this.showErrorCall1 = false;
         document.getElementById("textarea1").setAttribute("style", "height:50px;overflow-y:hidden; width: 100%;");
@@ -397,13 +382,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async checkPopup(contentIntro) {
         this.showErrorCall1 = false;
-        if (this.callingOpenai || this.medicalText.length < 15) {
+        if (this.callingOpenai || this.medicalTextOriginal.length < 15) {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
-            if (this.medicalText.length > 0) {
+            if (this.medicalTextOriginal.length > 0) {
                 text = this.translate.instant("land.requiredMIN5");
                 let introText = this.translate.instant("land.charactersleft", {
-                    value: (15 - this.medicalText.length)
+                    value: (15 - this.medicalTextOriginal.length)
                 })
                 text = text + ' ' + introText;
             }
@@ -433,66 +418,29 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    verifCallOpenAi(step) {
-        this.showErrorCall1 = false;
-        if (this.callingOpenai || this.medicalText.length < 15) {
-            this.showErrorCall1 = true;
-        }
-        if (!this.showErrorCall1) {
-            this.preparingCallOpenAi(step);
-        }
-    }
-
-
     preparingCallOpenAi(step) {
         this.callingOpenai = true;
-        if (step == 'step3' || step == 'step4' || (step == 'step2' && this.showInputRecalculate && this.medicalText2.length > 0)) {
-            if (this.optionSelected.id == 1) {
-                var labelMoreSymptoms = this.translate.instant("land.msgmoresymptoms")
-                if (this.medicalText.indexOf(labelMoreSymptoms) == -1) {
-                    this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
-                    this.premedicalText = this.copyMedicalText;
-                    this.medicalText = this.medicalText + '. ' + labelMoreSymptoms + ' ' + this.medicalText2;
-
-                } else {
-                    this.copyMedicalText = this.copyMedicalText + ', ' + this.medicalText2Copy
-                    this.premedicalText = this.copyMedicalText;
-                    this.medicalText = this.medicalText + ', ' + this.medicalText2;
-                }
-            }else if(this.optionSelected.id == 2){
-                var labeltest = this.translate.instant("land.msgtest")
-                if (this.medicalText.indexOf(labeltest) == -1) {
-                    this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy
-                    this.premedicalText = this.copyMedicalText;
-                    this.medicalText = this.medicalText + '. ' + labeltest + ' ' + this.medicalText2;
-                } else {
-                    this.copyMedicalText = this.copyMedicalText + ', ' + this.medicalText2Copy
-                    this.premedicalText = this.copyMedicalText;
-                    this.medicalText = this.medicalText + ', ' + this.medicalText2;
-                }
+        if (step == 'step4') {
+            var labelMoreSymptoms = this.translate.instant("land.msgmoresymptoms")
+            if (this.medicalTextOriginal.indexOf(labelMoreSymptoms) == -1) {
+                this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.differentialTextTranslated
+                this.medicalTextOriginal = this.medicalTextOriginal + '. ' + labelMoreSymptoms + ' ' + this.differentialTextOriginal;
             } else {
-                this.premedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.medicalText2Copy;
+                this.copyMedicalText = this.copyMedicalText + ', ' + this.differentialTextTranslated
+                this.medicalTextOriginal = this.medicalTextOriginal + ', ' + this.differentialTextOriginal;
             }
+            this.medicalTextEng = this.copyMedicalText;
         }else {
-            this.premedicalText = this.medicalText;
+            this.medicalTextEng = this.medicalTextOriginal;
         }
-        this.medicalText2 = '';
+        this.differentialTextOriginal = '';
+        this.differentialTextTranslated = '';
         this.continuePreparingCallOpenAi(step);
-
-        /*Swal.fire({
-            icon: 'error',
-            text: this.translate.instant("land.errorLocation"),
-            showCancelButton: false,
-            showConfirmButton: true,
-            allowOutsideClick: false
-        })*/
-
-
     }
 
     continuePreparingCallOpenAi(step) {
-        if (step == 'step3' || step == 'step4' || (step == 'step2' && this.showInputRecalculate && this.medicalText2.length > 0)) {
-            this.callOpenAi(step);
+        if (step == 'step3' || step == 'step4') {
+            this.callOpenAi();
         } else {
             Swal.fire({
                 title: this.translate.instant("generics.Please wait"),
@@ -502,31 +450,31 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }).then((result) => {
 
             });
-            var testLangText = this.premedicalText.substr(0, 4000)
+            var testLangText = this.medicalTextEng.substr(0, 4000)
             if (testLangText.length > 0) {
                 this.subscription.add(this.apiDx29ServerService.getDetectLanguage(testLangText)
                     .subscribe((res: any) => {
                         if (res[0].language != 'en') {
                             this.detectedLang = res[0].language;
-                            var info = [{ "Text": this.premedicalText }]
+                            var info = [{ "Text": this.medicalTextEng }]
                             this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(res[0].language, info)
                                 .subscribe((res2: any) => {
-                                    var textToTA = this.premedicalText.replace(/\n/g, " ");
+                                    var textToTA = this.medicalTextEng.replace(/\n/g, " ");
                                     if (res2[0] != undefined) {
                                         if (res2[0].translations[0] != undefined) {
                                             textToTA = res2[0].translations[0].text;
                                         }
                                     }
-                                    this.premedicalText = textToTA;
-                                    this.callOpenAi(step);
+                                    this.medicalTextEng = textToTA;
+                                    this.callOpenAi();
                                 }, (err) => {
                                     this.insightsService.trackException(err);
                                     console.log(err);
-                                    this.callOpenAi(step);
+                                    this.callOpenAi();
                                 }));
                         } else {
                             this.detectedLang = 'en';
-                            this.callOpenAi(step);
+                            this.callOpenAi();
                         }
 
                     }, (err) => {
@@ -537,14 +485,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         Swal.close();
                     }));
             } else {
-                this.callOpenAi(step);
+                this.callOpenAi();
             }
         }
 
     }
 
-    callOpenAi(step) {
-        // call api POST openai
+    callOpenAi() {
         Swal.close();
         Swal.fire({
             html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p><em class="primary fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
@@ -554,15 +501,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             allowOutsideClick: false
         }).then(function (event) {
             if (event.dismiss == Swal.DismissReason.cancel) {
-
-                // function when confirm button clicked
                 this.callingOpenai = false;
                 this.subscription.unsubscribe();
                 this.subscription = new Subscription();
-                if (step == 'step2') {
-                    this.selectorRare = this.prevSelectorRare;
-                    this.loadMoreDiseases = !this.loadMoreDiseases;
-                }
             }
 
         }.bind(this));
@@ -570,10 +511,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callingOpenai = true;
         let introText = prompts.prompt1
 
-        var value = { value: introText.replace("{{description}}", this.premedicalText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
+        var value = { value: introText.replace("{{description}}", this.medicalTextEng), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         let introText2 = prompts.prompt2
         if (this.loadMoreDiseases) {
-            value = { value: introText2.replace("{{description}}", this.premedicalText).replace("{{diseases_list}}", this.diseaseListText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
+            value = { value: introText2.replace("{{description}}", this.medicalTextEng).replace("{{diseases_list}}", this.diseaseListText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
@@ -607,57 +548,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         })
                         this.callingOpenai = false;
                     }else if(res.result == 'success'){
-                        if (this.currentStep.stepIndex == 1 || step == 'step2') {
-                            this.copyMedicalText = this.premedicalText;
-                        }
+                        //if (this.currentStep.stepIndex == 1) {
+                            this.copyMedicalText = this.medicalTextEng;
+                        //}
                         this.callAnonymize(value, res.data);//parseChoices0
                         let parseChoices0 = res.data;
                         console.log(parseChoices0)
                         if (!this.loadMoreDiseases) {
                             this.diseaseListEn = [];
                         }
-                        if (step == 'step2') {
-                            this.diseaseListEn = [];
-                            this.topRelatedConditions = [];
-                        }
                         this.setDiseaseListEn(parseChoices0);
                         if (this.detectedLang != 'en') {
-                           /* var jsontestLangText = parseChoices0.map(disease => ({
-                                "Text": disease
-                            }));*/
-
-                            /*var jsontestLangText = parseChoices0.map(disease => ({
-                                "diagnosis": disease.diagnosis,
-                                "description": disease.description,
-                                "symptoms_in_common": disease.symptoms_in_common.join('; '),
-                                "symptoms_not_in_common": disease.symptoms_not_in_common.join('; ')
-                            }));*/
-
-                            //let jsontestLangText = parseChoices0.map(text => ({ "Text": text.tostring() }));
                             var jsontestLangText = this.createTranslationRequests(parseChoices0);
                             this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
                                 .subscribe((res2: any) => {
-                                    /*if (res2 && res2.length > 0) {
-                                        res2.forEach((translation, index) => {
-                                            let diseaseIndex = Math.floor(index / 4); // Cada enfermedad tiene 4 textos
-                                            let fieldIndex = index % 4; // 0: diagnosis, 1: description, 2: symptoms_in_common, 3: symptoms_not_in_common
-                                            let translatedText = translation.translations[0].text;
-                                            switch (fieldIndex) {
-                                                case 0:
-                                                    parseChoices0[diseaseIndex].diagnosis = translatedText;
-                                                    break;
-                                                case 1:
-                                                    parseChoices0[diseaseIndex].description = translatedText;
-                                                    break;
-                                                case 2:
-                                                    parseChoices0[diseaseIndex].symptoms_in_common = translatedText.split('; ');
-                                                    break;
-                                                case 3:
-                                                    parseChoices0[diseaseIndex].symptoms_not_in_common = translatedText.split('; ');
-                                                    break;
-                                            }
-                                        });
-                                    }*/
                                     if (res2 && res2.length > 0) {
                                         let index = 0;
                                         parseChoices0.forEach(disease => {
@@ -824,9 +728,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             })
         }
 
-
-
-
         this.loadMoreDiseases = false;
         if (this.currentStep.stepIndex == 1) {
             this.currentStep = this.steps[1];
@@ -837,7 +738,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.lauchEvent("Search Disease");
         await this.delay(200);
         this.scrollTo();
-        this.showInputRecalculate = false;
         if (localStorage.getItem('sentFeedbackDxGPT') == null) {
             localStorage.setItem('sentFeedbackDxGPT', 'true')
         } else {
@@ -849,10 +749,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    cancelEdit() {
-        this.showInputRecalculate = false;
-        this.medicalText2 = '';
-    }
 
 
     setDiseaseListEn(text) {
@@ -861,8 +757,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.diseaseListEn.push(text[i].diagnosis);
             }
         }
-
-        console.log(this.diseaseListEn);
     }
 
     loadMore() {
@@ -870,7 +764,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.diseaseListEn.length; i++) {
             diseases = diseases + '+' + this.diseaseListEn[i] + ', ';
         }
-        // this.temppremedicalText = this.copyMedicalText + '. ' + "Each must have this format '\n\n+" + (this.diseaseListEn.length + 1) + ".' for each potencial disease. The list is: " + diseases;
         this.diseaseListText = diseases;
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
@@ -880,8 +773,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         await this.delay(400);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
     }
-
-
 
     cancelCallQuestion() {
         this.symptomsDifferencial = [];
@@ -922,12 +813,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             infoOptionEvent = 'Diagnosis Test';
         }
         if (index == 3) {
-            introText = 'Given the medical description: ' + this.premedicalText + '. , what are the potential symptoms not present in the patient that could help in making a differential diagnosis for ' + selectedDiseaseEn + '. Please provide only a list, starting with the most likely symptoms at the top.';
+            introText = 'Given the medical description: ' + this.medicalTextEng + '. , what are the potential symptoms not present in the patient that could help in making a differential diagnosis for ' + selectedDiseaseEn + '. Please provide only a list, starting with the most likely symptoms at the top.';
             infoOptionEvent = 'Differential Diagnosis';
         }
         if (index == 4) {
-            //introText = 'Based on the medical description: '+this.premedicalText+', why do you believe the patient has '+selectedDiseaseEn + '. Please indicate the symptoms common with '+selectedDiseaseEn + ' Indicate the common symptoms with '+selectedDiseaseEn +' and those the patient does not have.';
-            introText = this.premedicalText + '. Why do you think this patient has ' + selectedDiseaseEn + '. Indicate the common symptoms with ' + selectedDiseaseEn + ' and the ones that he/she does not have. '+answerFormat;
+            //introText = 'Based on the medical description: '+this.medicalTextEng+', why do you believe the patient has '+selectedDiseaseEn + '. Please indicate the symptoms common with '+selectedDiseaseEn + ' Indicate the common symptoms with '+selectedDiseaseEn +' and those the patient does not have.';
+            introText = this.medicalTextEng + '. Why do you think this patient has ' + selectedDiseaseEn + '. Indicate the common symptoms with ' + selectedDiseaseEn + ' and the ones that he/she does not have. '+answerFormat;
             infoOptionEvent = 'Why Diagnosis';
         }
 
@@ -1030,7 +921,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                                 var info = [{ "Text": tempInfo }]
                                 this.subscription.add(this.apiDx29ServerService.getTranslationInvert(this.detectedLang, info)
                                     .subscribe((res2: any) => {
-                                        var textToTA = this.premedicalText.replace(/\n/g, " ");
+                                        var textToTA = tempInfo;
                                         if (res2[0] != undefined) {
                                             if (res2[0].translations[0] != undefined) {
                                                 textToTA = res2[0].translations[0].text;
@@ -1129,11 +1020,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         if (newSymptoms != '') {
             this.lauchEvent("Recalculate Differencial");
-            this.optionSelected = this.options[0];
+            this.optionSelected = this.options;
             this.closeDiseaseUndiagnosed();
 
-            this.medicalText2 = newSymptoms;
-            this.verifCallOpenAi2();
+            this.differentialTextOriginal = newSymptoms;
+            this.verifCallDifferential();
         } else {
             Swal.fire({
                 icon: 'error',
@@ -1146,24 +1037,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     }
 
-    async recalculate(option) {
-        this.showInputRecalculate = true;
-        this.optionSelected = this.options[option];
-        //this.focusTextArea();
-        await this.delay(200);
-        document.getElementById('optionssteps').scrollIntoView({ behavior: "smooth" });
-    }
-
-    clearText2() {
-        this.medicalText2 = '';
-        this.medicalText2Copy = '';
+    verifCallDifferential() {
         this.showErrorCall2 = false;
-        document.getElementById("textarea2").setAttribute("style", "height:50px;overflow-y:hidden; width: 100%;");
-    }
-
-    verifCallOpenAi2() {
-        this.showErrorCall2 = false;
-        if (this.callingOpenai || this.medicalText2.length == 0) {
+        if (this.callingOpenai || this.differentialTextOriginal.length == 0) {
             this.showErrorCall2 = true;
             let text = this.translate.instant("land.required");
             Swal.fire({
@@ -1175,12 +1051,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             })
         }
         if (!this.showErrorCall2) {
-            this.callOpenAi2();
+            this.callOpenAiDifferential();
         }
     }
 
-    callOpenAi2() {
-        if (this.medicalText2.length > 0) {
+    callOpenAiDifferential() {
+        if (this.differentialTextOriginal.length > 0) {
             Swal.fire({
                 title: this.translate.instant("generics.Please wait"),
                 showCancelButton: false,
@@ -1190,38 +1066,30 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
             });
             if(this.detectedLang != 'en'){
-                var info = [{ "Text": this.medicalText2 }]
+                var info = [{ "Text": this.differentialTextOriginal }]
                 this.subscription.add(this.apiDx29ServerService.getTranslationDictionary(this.detectedLang, info)
                     .subscribe((res2: any) => {
-                        var textToTA = this.medicalText2.replace(/\n/g, " ");
+                        var textToTA = this.differentialTextOriginal.replace(/\n/g, " ");
                         if (res2[0] != undefined) {
                             if (res2[0].translations[0] != undefined) {
                                 textToTA = res2[0].translations[0].text;
                             }
                         }
-                        this.medicalText2Copy = textToTA;
+                        this.differentialTextTranslated = textToTA;
                         this.preparingCallOpenAi('step4');
                     }, (err) => {
-                        this.medicalText2Copy = this.medicalText2;
+                        this.differentialTextTranslated = this.differentialTextOriginal;
                         this.insightsService.trackException(err);
                         console.log(err);
                         this.preparingCallOpenAi('step4');
                     }));
             }else{
-                this.medicalText2Copy = this.medicalText2;
+                this.differentialTextTranslated = this.differentialTextOriginal;
                 this.preparingCallOpenAi('step4'); 
             }
         } else {
             this.preparingCallOpenAi('step4');
         }
-
-
-    }
-
-    focusTextArea() {
-        setTimeout(function () {
-            this.inputTextAreaElement.nativeElement.focus();
-        }.bind(this), 200);
     }
 
     closeDiseaseUndiagnosed() {
@@ -1231,14 +1099,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    restartAllVars() {
-        this.topRelatedConditions = [];
-    }
-
     restartInitVars() {
-        this.medicalText = '';
+        this.medicalTextOriginal = '';
         this.copyMedicalText = '';
-        this.restartAllVars();
+        this.topRelatedConditions = [];
     }
 
     showMoreInfoDiseasePopup(diseaseIndex, contentInfoDisease) {
@@ -1295,7 +1159,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     downloadResults() {
         if (!this.callingAnonymize) {
             let infoDiseases = this.getDiseaseInfo(this.topRelatedConditions);
-            this.jsPDFService.generateResultsPDF(this.medicalText, infoDiseases, this.lang)
+            this.jsPDFService.generateResultsPDF(this.medicalTextOriginal, infoDiseases, this.lang)
             this.lauchEvent("Download results");
         }
 
@@ -1320,7 +1184,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.sendingVote = true;
         let introText = prompts.prompt1
 
-        var value = { value: introText + this.symtpmsLabel + " " + this.medicalText + " Call Text: " + this.premedicalText, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions }
+        var value = { value: introText + this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Vote: " + valueVote);
@@ -1363,7 +1227,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.sending = true;
         let introText = prompts.prompt1
 
-        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: introText + this.symtpmsLabel + " " + this.medicalText + " Call Text: " + this.premedicalText, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe }
+        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: introText + this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe }
         this.subscription.add(this.apiDx29ServerService.feedback(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Feedback");
@@ -1417,10 +1281,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.resizeTextAreaFunc(this.textAreas);
     }
 
-    resizeTextArea2() {
-        this.resizeTextAreaFunc(this.textAreas2);
-    }
-
     private resizeTextAreaFunc(elements: QueryList<ElementRef>) {
         elements.forEach((element: ElementRef) => {
             const nativeElement = element.nativeElement;
@@ -1433,16 +1293,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             if (height < 50) height = 50;
             this.renderer.setStyle(nativeElement, 'height', `${height}px`);
         });
-    }
-
-    selectorRareEvent(event) {
-        this.selectorRare = event;
-    }
-
-    selectorRareEvent2(event) {
-        this.selectorRare = event;
-        this.prevSelectorRare = this.selectorRare;
-        this.verifCallOpenAi('step2');
     }
 
     showContentInfoAPP(contentInfoAPP) {
@@ -1458,7 +1308,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.modalReference = undefined;
         }
         this.modalReference = this.modalService.open(contentInfoAPP, ngbModalOptions);
-
     }
 
     callAnonymize(value, response) {
@@ -1466,7 +1315,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.hasAnonymize = false;
         this.resultAnonymized = '';
         this.copyResultAnonymized = '';
-        var info = { value: this.medicalText, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response, topRelatedConditions: this.topRelatedConditions, timezone: this.timezone, ip: this.ip }
+        var info = { value: this.medicalTextOriginal, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response, topRelatedConditions: this.topRelatedConditions, timezone: this.timezone, ip: this.ip }
         this.subscription.add(this.apiDx29ServerService.postAnonymize(info)
             .subscribe((res: any) => {
                 if(res.result){
@@ -1483,9 +1332,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.hasAnonymize = true;
                 }else{
                     let parseChoices = res.choices[0].message.content;
-                    parseChoices = parseChoices.replace(/^"""\n/, '').replace(/\s*"""$/, '');
+                    //parseChoices = parseChoices.replace(/^"""\s*\n/, '').replace(/\s*"""\s*$/, '');
+                    parseChoices = parseChoices.replace(/^\s*"""\s*/, '').replace(/\s*"""\s*$/, '');
                     let parts = parseChoices.split(/(\[ANON-\d+\])/g);
                     let partsCopy = parseChoices.split(/(\[ANON-\d+\])/g);
+
                     if (parts.length > 1) {
                         for (let i = 0; i < parts.length; i++) {
                             if (/\[ANON-\d+\]/.test(parts[i])) {
@@ -1499,18 +1350,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         }
                         this.resultAnonymized = parts.join('');
                         this.resultAnonymized = this.resultAnonymized.replace(/\n/g, '<br>');
-    
+
                         this.copyResultAnonymized = partsCopy.join('');
                         this.copyResultAnonymized = this.copyResultAnonymized.replace(/\n/g, '<br>');
-                        this.medicalText = this.copyResultAnonymized;
-                        this.premedicalText = this.copyResultAnonymized;
+                        this.medicalTextOriginal = this.copyResultAnonymized;
+                        this.medicalTextEng = this.copyResultAnonymized;
                         this.callingAnonymize = false;
                         this.hasAnonymize = true;
+
                         if (!localStorage.getItem('dontShowSwal')) {
-    
-                            let detectePer = this.translate.instant("diagnosis.detected personal information")
-                            let procDelete = this.translate.instant("diagnosis.proceeded to delete")
-                            let msgcheck = this.translate.instant("land.check")
+                            let detectePer = this.translate.instant("diagnosis.detected personal information");
+                            let procDelete = this.translate.instant("diagnosis.proceeded to delete");
+                            let msgcheck = this.translate.instant("land.check");
                             Swal.fire({
                                 icon: 'info',
                                 html: '<p>' + detectePer + '</p><p>' + procDelete + '</p><br><br><input type="checkbox" id="dont-show-again" class="mr-1">' + msgcheck,
@@ -1526,8 +1377,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         } else {
                             this.mostrarFinalizacionAnonimizado(true);
                         }
-    
-    
                     } else {
                         this.callingAnonymize = false;
                         this.hasAnonymize = false;
@@ -1547,36 +1396,27 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     mostrarFinalizacionAnonimizado(detectedText) {
         if (this.tienePrisa) {
-            if (detectedText) {
-                Swal.fire({
-                    icon: 'success',
-                    html: this.translate.instant("diagnosis.correctly anonymized"),
-                    showCancelButton: false,
-                    showConfirmButton: true,
-                    allowOutsideClick: false
-                }).then((result) => {
-                    if (this.modalReference != undefined) {
-                        this.modalReference.close();
-                        this.modalReference = undefined;
-                    }
-                });
-            } else {
-                Swal.fire({
-                    icon: 'success',
-                    html: this.translate.instant("diagnosis.not detected personal information"),
-                    showCancelButton: false,
-                    showConfirmButton: true,
-                    allowOutsideClick: false
-                }).then((result) => {
-                    if (this.modalReference != undefined) {
-                        this.modalReference.close();
-                        this.modalReference = undefined;
-                    }
-                });
-            }
+            const message = detectedText 
+                ? this.translate.instant("diagnosis.correctly anonymized") 
+                : this.translate.instant("diagnosis.not detected personal information");
+            
+            Swal.fire({
+                icon: 'success',
+                html: message,
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            }).then((result) => {
+                if (this.modalReference != undefined) {
+                    this.modalReference.close();
+                    this.modalReference = undefined;
+                }
+            });
+    
             this.tienePrisa = false;
         }
     }
+
     openAnonymize(contentviewDoc) {
         let ngbModalOptions: NgbModalOptions = {
             keyboard: false,
@@ -1596,20 +1436,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    openModal(panel) {
-        let ngbModalOptions: NgbModalOptions = {
-            keyboard: true,
-            windowClass: 'ModalClass-sm'// xl, lg, sm
-        };
-        this.modalReference = this.modalService.open(panel, ngbModalOptions);
-    }
-
     async openDescripModal(panel) {
         let ngbModalOptions: NgbModalOptions = {
             keyboard: true,
             windowClass: 'ModalClass-lg'// xl, lg, sm
         };
-        this.editmedicalText = this.medicalText;
+        this.editmedicalText = this.medicalTextOriginal;
         this.modalReference = this.modalService.open(panel, ngbModalOptions);
         await this.delay(200);
         this.resizeTextArea();
@@ -1637,7 +1469,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         if (!this.showErrorCall1) {
             this.closeModal();
-            this.medicalText = this.editmedicalText;
+            this.medicalTextOriginal = this.editmedicalText;
             this.preparingCallOpenAi(step);
         }
     }

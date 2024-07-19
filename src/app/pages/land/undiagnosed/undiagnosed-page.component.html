@@ -9,15 +9,9 @@
     <div class="row">
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-        <!--<p class="mb-0 mt-2" [innerHTML]="'land.titleOptions' | translate "></p>
-        <p class="">
-          <mat-checkbox id="selectorRare" class="selectorrare" (change)="selectorRareEvent($event.checked)" [(ngModel)]="selectorRare">
-            <strong>{{'land.opt2' | translate }}</strong>
-          </mat-checkbox>
-        </p>-->
         <div class="search">
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
-            [(ngModel)]="medicalText" name="medicalText" placeholder="{{'land.Type here' | translate }}"
+            [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" placeholder="{{'land.Type here' | translate }}"
             (ngModelChange)="resizeTextArea()"></textarea>
         </div>
 
@@ -29,7 +23,7 @@
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
         <button type="submit" class="btn btn-lg btn-info" (click)="checkPopup(contentIntro)"
-          [attr.title]="(medicalText.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
+          [attr.title]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
           [disabled]="callingOpenai">
           {{'land.Search' | translate }}
         </button>
@@ -48,33 +42,9 @@
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
         <button type="button" class="mt-2 btn btn-info mr-1" (click)="newPatient()">{{'land.New patient' | translate }}</button>
         <button type="button" class="mt-2 btn btn-info ml-1 mr-1" (click)="openDescripModal(contentEditDescription)">{{'land.Edit description' | translate }}</button>
-        
-        <!--<span *ngFor="let option of options; let i = index">
-          <button type="button" class="mt-2 ml-1 mr-1 btn btn-info" (click)="recalculate(i);">{{option.label}}</button>
-        </span>-->
         <span *ngIf="hasAnonymize" class="ml-1"><button class="mt-2 btn btn-info mr-2" (click)="openAnonymize(contentviewDoc)">
           <em class="fa-solid fa-user-shield"></em> {{'diagnosis.View anonymized text' | translate }}</button>
         </span>
-      </span>
-      <a id="optionssteps"></a>
-      <span class="col-md-12 mt-2" *ngIf="showInputRecalculate">
-        <label>{{optionSelected.description}} </label>
-        <div class="search">
-          <textarea #autoajustable2 id="textarea2" type="text" class="autoajustable2 searchTerm data-hj-allow"
-            [(ngModel)]="medicalText2" name="medicalText2" placeholder="{{'land.Type here' | translate }}"
-            (ngModelChange)="resizeTextArea2()"></textarea>
-
-        </div>
-        <div class="mt-2">
-          <button type="button" class="btn btn-secondary mr-1" (click)="cancelEdit()">{{'generics.Cancel' | translate
-            }}</button>
-          <button type="submit" class="btn btn-info ml-1" (click)="verifCallOpenAi2();" [disabled]="callingOpenai"
-            [attr.title]="(medicalText2.length==0) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')">
-            <span>Buscar</span>
-            <em *ngIf="!callingOpenai" class="ml-1 fa fa-search"></em>
-            <em *ngIf="callingOpenai" class="ml-1 fa fa-spinner fa-spin fa-fw"></em>
-          </button>
-        </div>
       </span>
       <div class="col-12">
         <div class="card rounded-lg border shadow">
@@ -134,8 +104,6 @@
                   <p>{{'land.nofound' | translate }}</p>
                 </span>
                 <div class="col-md-12 mb-0 white p-2 center-elements" style="background-color: #353540;">
-                  <!--<span *ngIf="!selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(true)">{{'land.Show common diseases' | translate }}</button></span>
-                  <span *ngIf="selectorRare" class="mt-2 mb-2"><button class="btn btn-info mr-2" (click)="selectorRareEvent2(false)">{{'land.Show rare diseases' | translate }}</button></span>-->
                   <button class="btn btn-info mt-2 mb-2" (click)="loadMore()">{{'land.Load more' | translate }}</button>
                   <span class="optionsResults mt-2 mb-2">
                     <em class="mt-1 fa fa-clipboard fa-2x info mr-2" title="{{'land.Copy results' | translate }}"
@@ -152,170 +120,6 @@
     </div>
   </section>
 </div>
-<!--<div class="">
-  <div type="white" class="p-2 mb-0">
-    <div class="center-elements pb-2">
-      <span class="pointer" style="text-decoration: underline !important;color: #b30000;" (click)="openSupport(contentSubs);lauchEvent('openSupport');">{{'land.Subscribe or send us a message' | translate }}</span>
-    </div>
-    <div class="center-elements border-top pt-2 d-md-none">
-      <a class="black mr-2 text-decoration-underline" routerLink="/aboutus" (click)="lauchEvent('Page - About us')">
-        {{'menu.About us' | translate }}
-      </a>
-      <a class="ml-2 btn btn-info round white mb-0 mt-1 btn-sm" style="width: 120px;" href="https://www.foundation29.org/donate/" target="_blank" (click)="lauchEvent('Page - Donate')">
-        {{'land.Donate' | translate }} <em class="ml-1 fa fa-heart"></em>
-      </a>
-    </div>
-  </div>
-</div>-->
-<!--<div class="pt-2" style="background: #ffffff;">
-  <div class="row offset-lg-1 col-lg-10 margin-0 text-center">
-    <div class="col-lg-12">
-      <div class="row">
-        <div class="col-md-4">
-          <p>
-            <a href="javascript:;" class="underline" (click)="openModal(policyPanel)">
-              <span>{{'registration.Privacy Policy' | translate }}</span>
-            </a>
-          </p>
-        </div>
-        <div class="col-md-4">
-          <p>
-            <span class="pointer underline" (click)="openSupport(contentSubs);lauchEvent('openSupport');">{{'land.Subscribe or send us a message' | translate }}</span>
-          </p>
-
-        </div>
-        <div class="col-md-4">
-          <p>
-            <a href="javascript:;" class="underline" (click)="openModal(cookiesPanel)">
-              <span>{{'cookies.title' | translate }}</span>
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
-<ng-template #cookiesPanel let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">{{'cookies.title' | translate }}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="px-3">
-      <div class="form-body">
-        <div class="row">
-          <div class="col-sm-12">
-            <h6 class="pt-2 text-bold-600">{{'cookies.t1' | translate }}</h6>
-            <p [innerHTML]="'cookies.p1.1' | translate "></p>
-            <p>{{'cookies.p1.2' | translate }}</p>
-            <h6 class="pt-2 text-bold-600">{{'cookies.t2' | translate }}</h6>
-            <p>{{'cookies.p2.1' | translate }}</p>
-            <h6 class="pt-2 text-bold-600">{{'cookies.t3' | translate }}</h6>
-            <p>{{'cookies.p3.1' | translate }}</p>
-            <h6 class="pt-2 text-bold-600">{{'cookies.t4' | translate }}</h6>
-            <p>{{'cookies.p4.1' | translate }}</p>
-            <h6 class="pt-2 text-bold-600">{{'cookies.t5' | translate }}</h6>
-            <p [innerHTML]="'cookies.p5.1' | translate "></p>
-            <p [innerHTML]="'cookies.p5.2' | translate "></p>
-            <ul>
-              <li>
-                {{'cookies.p5.2.1' | translate }}
-              </li>
-              <li>
-                {{'cookies.p5.2.2' | translate }}
-              </li>
-            </ul>
-            <p>{{'cookies.p5.3' | translate }}</p>
-            <h6 class="pt-2 text-bold-600">{{'cookies.t6' | translate }}</h6>
-            <p>{{'cookies.p6.1' | translate }}</p>
-
-            <ul class="mt-2">
-              <li>
-                <a class="underline" href="https://support.google.com/chrome/answer/95647?hl={{lang}}" target="_blank">Google Chrome.</a>
-              </li>
-              <li>
-                <a class="underline" href="https://support.microsoft.com/{{lang}}/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d"
-                  target="_blank">Internet Explorer.</a>
-              </li>
-              <li>
-                <a class="underline" *ngIf="lang=='es'"
-                  href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias"
-                  target="_blank">Mozilla Firefox.</a>
-                <a class="underline" *ngIf="lang!='es'"
-                  href="https://support.mozilla.org/en-US/kb/block-websites-storing-cookies-site-data-firefox"
-                  target="_blank">Mozilla Firefox.</a>
-              </li>
-              <li>
-                <span class="danger" *ngIf="lang=='es'">
-                  <a class="underline" href="https://support.apple.com/es-es/HT201265" target="_blank">Safari iPhone, iPad
-                    {{'generics.and' | translate }} iPod touch</a>
-                  & <a class="underline" href="https://support.apple.com/es-es/guide/safari/sfri11471/mac"
-                    target="_blank">Safari iPhone, iPad {{'generics.and' | translate }} Safari para Mac.</a>
-                </span>
-                <span class="danger" *ngIf="lang!='es'">
-                  <a class="underline" href="https://support.apple.com/en-en/HT201265" target="_blank">Safari iPhone, iPad
-                    {{'generics.and' | translate }} iPod touch</a>
-                  & <a class="underline" href="https://support.apple.com/en-en/guide/safari/sfri11471/mac"
-                    target="_blank">Safari iPhone, iPad {{'generics.and' | translate }} Safari para Mac.</a>
-                </span>
-
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
-<ng-template #policyPanel let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">{{'registration.Privacy Policy' | translate }}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="px-3">
-      <div class="form-body">
-        <div class="row">
-          <div class="col-sm-12">
-            <p>{{'policy.p1' | translate }}</p>
-            <p class="mb-0"><strong>{{'policy.p2.1' | translate }}</strong></p>
-            <ul>
-              <li><p class="mb-0">{{'policy.p2.2' | translate }}</p></li>
-              <li><p>{{'policy.p2.3' | translate }}</p></li>
-            </ul>
-            <p class="mb-0"><strong>{{'policy.p3.1' | translate }}</strong></p>
-            <ul>
-              <li><p class="mb-0">{{'policy.p3.2' | translate }}</p></li>
-              <li><p>{{'policy.p3.3' | translate }}</p></li>
-            </ul>
-            <p class="mb-0"><strong>{{'policy.p4.1' | translate }}</strong></p>
-            <ul>
-              <li><p class="mb-0">{{'policy.p4.2' | translate }}</p></li>
-              <li><p class="mb-0">{{'policy.p4.3' | translate }}</p></li>
-              <li><p>{{'policy.p4.4' | translate }}</p></li>
-            </ul>
-            <p class="mb-0"><strong>{{'policy.p5.1' | translate }}</strong></p>
-            <ul>
-              <li><p class="mb-0">{{'policy.p5.2' | translate }}</p></li>
-              <li><p>{{'policy.p5.3' | translate }}</p></li>
-            </ul>
-            <p class="mb-0"><strong>{{'policy.p6.1' | translate }}</strong></p>
-            <ul>
-              <li><p class="mb-0">{{'policy.p6.2' | translate }}</p></li>
-              <li><p>{{'policy.p6.3' | translate }}</p></li>
-            </ul>
-            <p>{{'policy.p7' | translate }}</p>
-            <p>Fundacion 29 de Febrero</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
 <ng-template #contentInfoDisease let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
     <div class="content-header text-left">
