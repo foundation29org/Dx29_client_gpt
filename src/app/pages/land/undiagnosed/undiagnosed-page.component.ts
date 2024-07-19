@@ -736,45 +736,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async continueCallOpenAi(parseChoices0) {
         let parseChoices = parseChoices0;
-        parseChoices = parseChoices0.split(/\+(?=\d)/);
         if (!this.loadMoreDiseases) {
             this.topRelatedConditions = [];
         }
 
         for (let i = 0; i < parseChoices.length; i++) {
-            if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length > 4) {
-                this.topRelatedConditions.push({ content: parseChoices[i], name: '' })
-            }
-        }
-
-        //for each top related condition Put in strong what goes before the first occurrence of :
-        for (let i = 0; i < this.topRelatedConditions.length; i++) {
-            let index = this.topRelatedConditions[i].content.indexOf(':');
-            let index2 = this.topRelatedConditions[i].content.indexOf('<strong>');
-            if (index != -1 && index2 == -1) {
-                let firstPart = this.topRelatedConditions[i].content.substring(0, index + 1);
-                let secondPart = this.topRelatedConditions[i].content.substring(index + 1, this.topRelatedConditions[i].content.length);
-                if (secondPart == '') {
-                    this.topRelatedConditions.splice(i, 1);
-                    this.diseaseListEn.splice(i, 1);
-                    i--;
-                    continue;
-                }
-                let index3 = firstPart.indexOf('.');
-                let namePart = firstPart.substring(index3 + 2, firstPart.length - 1);
-                let hasSponsor = false;
+            let hasSponsor = false;
                 let url = '';
                 for (let j = 0; j < this.sponsors.length && !hasSponsor; j++) {
-                    hasSponsor = this.includesElement(this.sponsors[j].synonyms, namePart)
+                    hasSponsor = this.includesElement(this.sponsors[j].synonyms, parseChoices[i].diagnosis)
                     if (hasSponsor) {
                         url = this.sponsors[j].url;
                     }
                 }
 
-
-                this.topRelatedConditions[i] = { content: '<strong>' + firstPart + '</strong>' + secondPart, name: namePart, url: url };
-            }
+            this.topRelatedConditions.push({ content: '<strong>'+(i+1)+'. ' + parseChoices[i].diagnosis + '</strong> ' + parseChoices[i].description +' symptoms_in_common: ' + parseChoices[i].symptoms_in_common + ' symptoms_not_in_common: '+ parseChoices[i].symptoms_not_in_common , name: parseChoices[i].diagnosis,  url: url })
         }
+
         this.loadMoreDiseases = false;
         if (this.currentStep.stepIndex == 1) {
             this.currentStep = this.steps[1];
@@ -853,16 +831,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         var introText = question.question + ' ' + selectedDiseaseEn + '?';
         let infoOptionEvent = '';
+
+        //var answerFormat = 'The output should be as HTML but only with <H5> and <p> tags.';
+        var answerFormat = 'The output should be as HTML but only with <p>, <li>, </ul>, and <span> tags. Use <strong> for titles';
+        //var answerFormat = '. The output should be as HTML but dont use h1, h2, h3, h4, h5, h6, <!DOCTYPE html>, html, head, body, input, form tags. use strong for titles';
         if (index == 0) {
-            introText = 'What are the common symptoms associated with' + selectedDiseaseEn + '? Please provide a list starting with the most probable symptoms at the top.';
+            introText = 'What are the common symptoms associated with' + selectedDiseaseEn + '? Please provide a list starting with the most probable symptoms at the top. '+answerFormat;
             infoOptionEvent = 'Common Symptoms';
         }
         if (index == 1) {
-            introText = 'Can you provide detailed information about ' + selectedDiseaseEn + ' ? I am a doctor.';
+            introText = 'Can you provide detailed information about ' + selectedDiseaseEn + ' ? I am a doctor. '+answerFormat;
             infoOptionEvent = 'Detailed Information';
         }
         if (index == 2) {
-            introText = 'Provide a diagnosis test for' + selectedDiseaseEn;
+            introText = 'Provide a diagnosis test for' + selectedDiseaseEn+'. '+answerFormat;
             infoOptionEvent = 'Diagnosis Test';
         }
         if (index == 3) {
@@ -871,13 +853,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         if (index == 4) {
             //introText = 'Based on the medical description: '+this.premedicalText+', why do you believe the patient has '+selectedDiseaseEn + '. Please indicate the symptoms common with '+selectedDiseaseEn + ' Indicate the common symptoms with '+selectedDiseaseEn +' and those the patient does not have.';
-            introText = this.premedicalText + '. Why do you think this patient has ' + selectedDiseaseEn + '. Indicate the common symptoms with ' + selectedDiseaseEn + ' and the ones that he/she does not have';
+            introText = this.premedicalText + '. Why do you think this patient has ' + selectedDiseaseEn + '. Indicate the common symptoms with ' + selectedDiseaseEn + ' and the ones that he/she does not have. '+answerFormat;
             infoOptionEvent = 'Why Diagnosis';
         }
 
         this.lauchEvent(infoOptionEvent);
         var value = { value: introText, myuuid: this.myuuid, operation: 'info disease', lang: this.lang, timezone: this.timezone, ip: this.ip }
-        this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
+        this.subscription.add(this.apiDx29ServerService.callopenaiquestions(value)
             .subscribe((res: any) => {
                 if(res.result){
                     if(res.result == 'blocked'){
@@ -888,112 +870,129 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             showConfirmButton: true,
                             allowOutsideClick: false
                         })
-                    }
-                }else if (res.choices[0].message.content) {
-                    let content = res.choices[0].message.content;
-                    let splitChar = content.indexOf("\n\n") >= 0 ? "\n\n" : "\n";
-                    let contentArray = content.split(splitChar);
+                    }else if(res.result == 'error'){
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("generics.error try again"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                    }else if(res.result == 'error openai'){
+                        Swal.fire({
+                            icon: 'error',
+                            text: this.translate.instant("generics.sorry cant anwser1"),
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            allowOutsideClick: false
+                        })
+                    }else if(res.result == 'success'){
+                        
+                        let content = res.data;
+                        let splitChar = content.indexOf("\n\n") >= 0 ? "\n\n" : "\n";
+                        let contentArray = content.split(splitChar);
 
-                    // Encuentra el índice del primer punto "1."
-                    let startIndex = contentArray.findIndex(item => item.trim().startsWith("1."));
+                        // Encuentra el índice del primer punto "1."
+                        let startIndex = contentArray.findIndex(item => item.trim().startsWith("1."));
 
-                    // Si se encuentra el punto "1.", conserva todos los elementos a partir de ese índice
-                    if (startIndex >= 0) {
-                        contentArray = contentArray.slice(startIndex);
-                    }
+                        // Si se encuentra el punto "1.", conserva todos los elementos a partir de ese índice
+                        if (startIndex >= 0) {
+                            contentArray = contentArray.slice(startIndex);
+                        }
 
-                    // Reconstruye el contenido
-                    let parseChoices0 = contentArray.join(splitChar);
-                    if (index == 3) {
-                        if (this.detectedLang != 'en') {
-                            var jsontestLangText = [{ "Text": parseChoices0[0] }]
+                        // Reconstruye el contenido
+                        let parseChoices0 = contentArray.join(splitChar);
+                        if (index == 3) {
+                            if (this.detectedLang != 'en') {
+                                var jsontestLangText = [{ "Text": parseChoices0[0] }]
+                                if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
+                                    var sendInfo = '';
+                                    for (let i = 0; i < parseChoices0.length; i++) {
+                                        sendInfo = sendInfo + parseChoices0[i] + '\n';
+                                    }
+                                    jsontestLangText = [{ "Text": sendInfo }]
+                                }
+                                if (!Array.isArray(parseChoices0)) {
+                                    jsontestLangText = [{ "Text": parseChoices0 }]
+                                }
+
+                                this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
+                                    .subscribe((res2: any) => {
+                                        if (res2[0] != undefined) {
+                                            if (res2[0].translations[0] != undefined) {
+                                                parseChoices0 = res2[0].translations[0].text;
+                                                if (parseChoices0.indexOf("1") == 0) {
+                                                    parseChoices0 = "\n" + parseChoices0;
+                                                }
+                                            }
+                                        }
+                                        this.getDifferentialDiagnosis(parseChoices0);
+                                        this.loadingAnswerOpenai = false;
+                                        this.lauchEvent("Info Disease");
+                                    }, (err) => {
+                                        this.insightsService.trackException(err);
+                                        console.log(err);
+                                        this.getDifferentialDiagnosis(res.data);
+                                        this.loadingAnswerOpenai = false;
+                                        this.lauchEvent("Info Disease");
+                                    }));
+                            } else {
+                                this.getDifferentialDiagnosis(res.data);
+                                this.loadingAnswerOpenai = false;
+                                this.lauchEvent("Info Disease");
+                            }
+                        } else {
+                            var tempInfo = res.data;
                             if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
                                 var sendInfo = '';
                                 for (let i = 0; i < parseChoices0.length; i++) {
                                     sendInfo = sendInfo + parseChoices0[i] + '\n';
                                 }
-                                jsontestLangText = [{ "Text": sendInfo }]
+                                tempInfo = sendInfo;
+                            } else if (parseChoices0.length == 1) {
+                                tempInfo = parseChoices0[0]
                             }
-                            if (!Array.isArray(parseChoices0)) {
-                                jsontestLangText = [{ "Text": parseChoices0 }]
-                            }
-
-                            this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
-                                .subscribe((res2: any) => {
-                                    if (res2[0] != undefined) {
-                                        if (res2[0].translations[0] != undefined) {
-                                            parseChoices0 = res2[0].translations[0].text;
-                                            if (parseChoices0.indexOf("1") == 0) {
-                                                parseChoices0 = "\n" + parseChoices0;
+                            if(this.detectedLang != 'en'){
+                                var info = [{ "Text": tempInfo }]
+                                this.subscription.add(this.apiDx29ServerService.getTranslationInvert(this.detectedLang, info)
+                                    .subscribe((res2: any) => {
+                                        var textToTA = this.premedicalText.replace(/\n/g, " ");
+                                        if (res2[0] != undefined) {
+                                            if (res2[0].translations[0] != undefined) {
+                                                textToTA = res2[0].translations[0].text;
                                             }
                                         }
-                                    }
-                                    this.getDifferentialDiagnosis(parseChoices0);
-                                    this.loadingAnswerOpenai = false;
-                                    this.lauchEvent("Info Disease");
-                                }, (err) => {
-                                    this.insightsService.trackException(err);
-                                    console.log(err);
-                                    this.getDifferentialDiagnosis(res.choices[0].message.content);
-                                    this.loadingAnswerOpenai = false;
-                                    this.lauchEvent("Info Disease");
-                                }));
-                        } else {
-                            this.getDifferentialDiagnosis(res.choices[0].message.content);
-                            this.loadingAnswerOpenai = false;
-                            this.lauchEvent("Info Disease");
-                        }
-                    } else {
-                        var tempInfo = res.choices[0].message.content;
-                        if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
-                            var sendInfo = '';
-                            for (let i = 0; i < parseChoices0.length; i++) {
-                                sendInfo = sendInfo + parseChoices0[i] + '\n';
+                                        this.answerOpenai = textToTA;
+
+                                        this.loadingAnswerOpenai = false;
+                                        this.lauchEvent("Info Disease");
+                                    }, (err) => {
+                                        this.insightsService.trackException(err);
+                                        console.log(err);
+                                        if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
+                                            var sendInfo = '';
+                                            for (let i = 0; i < parseChoices0.length; i++) {
+                                                sendInfo = sendInfo + parseChoices0[i] + '\n';
+                                            }
+                                            this.answerOpenai = sendInfo;
+                                        } else if (parseChoices0.length == 1) {
+                                            this.answerOpenai = parseChoices0[0]
+                                        } else {
+                                            this.answerOpenai = res.data;
+                                        }
+
+                                        this.loadingAnswerOpenai = false;
+                                        this.lauchEvent("Info Disease");
+                                    }));
+                            }else{
+                                this.answerOpenai = tempInfo;
+
+                                this.loadingAnswerOpenai = false;
+                                this.lauchEvent("Info Disease");
                             }
-                            tempInfo = sendInfo;
-                        } else if (parseChoices0.length == 1) {
-                            tempInfo = parseChoices0[0]
-                        }
-                        if(this.detectedLang != 'en'){
-                            var info = [{ "Text": tempInfo }]
-                            this.subscription.add(this.apiDx29ServerService.getTranslationInvert(this.detectedLang, info)
-                                .subscribe((res2: any) => {
-                                    var textToTA = this.premedicalText.replace(/\n/g, " ");
-                                    if (res2[0] != undefined) {
-                                        if (res2[0].translations[0] != undefined) {
-                                            textToTA = res2[0].translations[0].text;
-                                        }
-                                    }
-                                    this.answerOpenai = textToTA;
-
-                                    this.loadingAnswerOpenai = false;
-                                    this.lauchEvent("Info Disease");
-                                }, (err) => {
-                                    this.insightsService.trackException(err);
-                                    console.log(err);
-                                    if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
-                                        var sendInfo = '';
-                                        for (let i = 0; i < parseChoices0.length; i++) {
-                                            sendInfo = sendInfo + parseChoices0[i] + '\n';
-                                        }
-                                        this.answerOpenai = sendInfo;
-                                    } else if (parseChoices0.length == 1) {
-                                        this.answerOpenai = parseChoices0[0]
-                                    } else {
-                                        this.answerOpenai = res.choices[0].message.content;
-                                    }
-
-                                    this.loadingAnswerOpenai = false;
-                                    this.lauchEvent("Info Disease");
-                                }));
-                        }else{
-                            this.answerOpenai = tempInfo;
-
-                            this.loadingAnswerOpenai = false;
-                            this.lauchEvent("Info Disease");
                         }
                     }
-                } else {
+                }else {
                     Swal.fire({
                         icon: 'error',
                         text: this.translate.instant("generics.sorry cant anwser2"),
@@ -1184,8 +1183,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.modalReference = undefined;
         }
         this.modalReference = this.modalService.open(contentInfoDisease, ngbModalOptions);
-        this.selectedDisease = this.topRelatedConditions[this.selectedInfoDiseaseIndex].content.split(/\d+\./)[1];
-        this.selectedDisease = this.selectedDisease.split(':')[0];
+        this.selectedDisease = this.topRelatedConditions[this.selectedInfoDiseaseIndex].name;
     }
 
     copyResults() {
