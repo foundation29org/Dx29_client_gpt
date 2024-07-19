@@ -43,6 +43,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     modalReference: NgbModalRef;
     topRelatedConditions: any = [];
     diseaseListEn: any = [];
+    diseaseListText: string = '';
     lang: string = 'en';
     originalLang: string = 'en';
     detectedLang: string = 'en';
@@ -570,12 +571,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         let introText = prompts.prompt1
 
         var value = { value: introText.replace("{{description}}", this.premedicalText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
+        let introText2 = prompts.prompt2
         if (this.loadMoreDiseases) {
-            value = { value: introText.replace("{{description}}", this.temppremedicalText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
-        }
-        if (step == 'step3') {
-            let introText2 = prompts.prompt2
-            value = { value: introText2.replace("{{description}}", this.temppremedicalText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
+            value = { value: introText2.replace("{{description}}", this.premedicalText).replace("{{diseases_list}}", this.diseaseListText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         }
         this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
             .subscribe((res: any) => {
@@ -814,14 +812,32 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
 
     setDiseaseListEn(text) {
-        let parseChoices = text.split("+");
-        for (let i = 0; i < parseChoices.length; i++) {
-            if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length > 3) {
-                let index = parseChoices[i].indexOf(':');
-                let firstPart = parseChoices[i].substring(0, index);
-                this.diseaseListEn.push(firstPart)
+        console.log(text);
+        // let parseChoices = text.split("+");
+        // for (let i = 0; i < parseChoices.length; i++) {
+        //     if (parseChoices[i] != '' && parseChoices[i] != "\n\n" && parseChoices[i] != "\n" && parseChoices[i].length > 3) {
+        //         let index = parseChoices[i].indexOf(':');
+        //         let firstPart = parseChoices[i].substring(0, index);
+        //         this.diseaseListEn.push(firstPart)
+        //     }
+        // }
+        let parsedData;
+        try {
+            parsedData = JSON.parse(text.match(/<5_diagnosis_output>([\s\S]*?)<\/5_diagnosis_output>/)[1]);
+        } catch (e) {
+            console.error("Failed to parse diagnosis output", e);
+            return;
+        }
+
+        console.log(parsedData);
+
+        for (let i = 0; i < parsedData.length; i++) {
+            if (parsedData[i].diagnosis && parsedData[i].diagnosis.length > 3) {
+                this.diseaseListEn.push(parsedData[i].diagnosis);
             }
         }
+
+        console.log(this.diseaseListEn);
     }
 
     loadMore() {
@@ -829,7 +845,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.diseaseListEn.length; i++) {
             diseases = diseases + '+' + this.diseaseListEn[i] + ', ';
         }
-        this.temppremedicalText = this.copyMedicalText + '. ' + "Each must have this format '\n\n+" + (this.diseaseListEn.length + 1) + ".' for each potencial disease. The list is: " + diseases;
+        // this.temppremedicalText = this.copyMedicalText + '. ' + "Each must have this format '\n\n+" + (this.diseaseListEn.length + 1) + ".' for each potencial disease. The list is: " + diseases;
+        this.diseaseListText = diseases;
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
     }
