@@ -711,14 +711,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             console.log(parseChoices[i])
             let content = '<strong>' + (indexDisease) + '. ' + parseChoices[i].diagnosis + ':</strong> ' + parseChoices[i].description;
             if(parseChoices[i].symptoms_in_common.length > 0){
-                content = content + '<br>' + this.translate.instant("diagnosis.Matching symptoms") + ': ' + parseChoices[i].symptoms_in_common.join(', ');
+                content = content + '<br> <em class="fa fa-check success mr-1"></em>' + this.translate.instant("diagnosis.Matching symptoms") + ': ' + parseChoices[i].symptoms_in_common.join(', ');
             }else{
-                content = content + '<br>' + this.translate.instant("diagnosis.Matching symptoms") + ': ' + this.translate.instant("diagnosis.None");
+                content = content + '<br> <em class="fa fa-check success mr-1"></em>' + this.translate.instant("diagnosis.Matching symptoms") + ': ' + this.translate.instant("diagnosis.None");
             }
             if(parseChoices[i].symptoms_not_in_common.length > 0){
-                content = content + '<br>' + this.translate.instant("diagnosis.Non-matching symptoms") + ': ' + parseChoices[i].symptoms_not_in_common.join(', ');
+                content = content + '<br> <em class="fa fa-times danger mr-1"></em>' + this.translate.instant("diagnosis.Non-matching symptoms") + ': ' + parseChoices[i].symptoms_not_in_common.join(', ');
             }else{
-                content = content + '<br>' + this.translate.instant("diagnosis.Non-matching symptoms") + ': ' + this.translate.instant("diagnosis.None");
+                content = content + '<br> <em class="fa fa-times danger mr-1"></em>' + this.translate.instant("diagnosis.Non-matching symptoms") + ': ' + this.translate.instant("diagnosis.None");
             }
             
             this.topRelatedConditions.push({ 
