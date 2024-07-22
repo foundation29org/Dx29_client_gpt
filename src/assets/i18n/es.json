@@ -320,5 +320,12 @@
     "p5.3": "La web no utiliza cookies de personalización, cookies publicitarias ni cookies de publicidad comportamental.",
     "t6": "6. Desactivación y desinstalación de las cookies",
     "p6.1": "El usuario que desee deshabilitar las cookies puede hacerlo desde la sección de preferencias de su navegador de Internet. A continuación, indicamos los enlaces habilitados por los navegadores más populares, con las instrucciones para gestionar las cookies, en diversos dispositivos y versiones si es necesario."
+  },
+  "testimonials": {
+    "title": "Testimonios de nuestros usuarios",
+    "testi1": "Esta herramienta es realmente excepcional. Proporciona información precisa y exacta, lo cual es inmensamente valioso. Lo que la distingue es su capacidad para sugerir síntomas adicionales cruciales para el diagnóstico. No proporciona información engañosa ni sesgada. Estoy profundamente impresionado por su precisión y utilidad. Muy recomendada para cualquiera que busque soporte diagnóstico confiable.",
+    "testi2": "¡Esto es maravilloso! Me habría llevado HORAS dar toda mi información a un médico para siquiera comenzar con un diagnóstico. He sospechado de la esclerosis múltiple durante un tiempo, y era la posibilidad principal. Realmente, ¡gracias por esto!",
+    "testi3": "Me encantó, no soy médico, así que soy consciente de las limitaciones, pero aún así la encontré increíblemente intuitiva y fue bastante útil para un no profesional médico obtener información… Excelente APP.",
+    "Anonymous": "Anónimo"
   }
 }

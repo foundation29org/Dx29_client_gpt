@@ -320,5 +320,12 @@
   "p5.3": "Le site web n'utilise pas de cookies de personnalisation, de cookies publicitaires ou de cookies de publicité comportementale.",
   "t6": "6. Désactivation et désinstallation des cookies",
   "p6.1": "Les utilisateurs peuvent désactiver les cookies depuis la section préférences de leur navigateur Internet. Voici quelques liens fournis par les navigateurs les plus populaires, avec des instructions pour gérer les cookies sur différents appareils et versions, si nécessaire."
-}
+},
+"testimonials": {
+    "title": "Témoignages de nos utilisateurs",
+    "testi1": "Cet outil est vraiment exceptionnel. Il fournit des informations précises et exactes, ce qui est extrêmement précieux. Ce qui le distingue, c'est sa capacité à suggérer des symptômes supplémentaires cruciaux pour le diagnostic. Il ne fournit aucune information trompeuse ou biaisée. Je suis très impressionné par sa précision et son utilité. Fortement recommandé pour toute personne recherchant un soutien diagnostique fiable.",
+    "testi2": "C'est merveilleux !! Cela aurait pris des HEURES pour donner toutes mes informations à un médecin pour même commencer un diagnostic. J'ai soupçonné la sclérose en plaques depuis un certain temps maintenant, et c'était la principale possibilité. Vraiment, merci pour cela !!",
+    "testi3": "J'ai adoré, je ne suis pas médecin, donc je suis conscient des limites, mais je l'ai quand même trouvé incroyablement intuitif et il a été assez utile pour un non-professionnel de la santé pour obtenir des informations… Excellente application.",
+    "Anonymous": "Anonyme"
+  }
 }
