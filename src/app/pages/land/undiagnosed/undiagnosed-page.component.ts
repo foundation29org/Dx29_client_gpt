@@ -867,6 +867,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         // Reconstruye el contenido
                         let parseChoices0 = contentArray.join(splitChar);
                         if (index == 3) {
+                            // Eliminar asteriscos dobles
+                            parseChoices0 = parseChoices0.replace(/\*\*/g, '');
                             if (this.detectedLang != 'en') {
                                 var jsontestLangText = [{ "Text": parseChoices0[0] }]
                                 if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
