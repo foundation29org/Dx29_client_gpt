@@ -367,7 +367,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         } else {
             this.medicalTextOriginal = this.translate.instant("land.p1.2")
         }
-        document.getElementById('optioninput1').scrollIntoView({ behavior: "smooth" });
+        document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.resizeTextArea();
     }
 
