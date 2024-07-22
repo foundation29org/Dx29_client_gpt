@@ -215,7 +215,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.topRelatedConditions = [];
         this.currentStep = this.steps[0];
         await this.delay(200);
-        document.getElementById('optioninput1').scrollIntoView({ behavior: "smooth" });
+        document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
     }
 
@@ -293,7 +293,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         this.eventsService.on('backEvent', function (event) {
             if (this.currentStep.stepIndex == 2) {
-                this.goPrevious();
+                this.newPatient();
             }
         }.bind(this));
     }
