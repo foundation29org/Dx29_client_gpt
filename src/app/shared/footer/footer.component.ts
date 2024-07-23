@@ -59,8 +59,7 @@ export class FooterComponent{
 
   openSupport(content){
     let ngbModalOptions: NgbModalOptions = {
-        backdrop: 'static',
-        keyboard: false,
+        keyboard: true,
         windowClass: 'ModalClass-sm'// xl, lg, sm
       };
     this.modalReference = this.modalService.open(content, ngbModalOptions);
