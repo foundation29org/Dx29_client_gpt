@@ -15,7 +15,7 @@ import { TestimonialsComponent } from "./testimonials/testimonials.component";
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
-
+import { SharedModule } from 'app/shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -32,7 +32,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         NgbModule,
         MatCheckboxModule,
         MatRadioModule,
-        PipeModule
+        PipeModule,
+        SharedModule
     ],
     declarations: [
         AboutUsPageComponent,

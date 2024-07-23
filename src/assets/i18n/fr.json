@@ -330,5 +330,27 @@
     "testi2": "C'est merveilleux !! Cela aurait pris des HEURES pour donner toutes mes informations à un médecin pour même commencer un diagnostic. J'ai soupçonné la sclérose en plaques depuis un certain temps maintenant, et c'était la principale possibilité. Vraiment, merci pour cela !!",
     "testi3": "J'ai adoré, je ne suis pas médecin, donc je suis conscient des limites, mais je l'ai quand même trouvé incroyablement intuitif et il a été assez utile pour un non-professionnel de la santé pour obtenir des informations… Excellente application.",
     "Anonymous": "Anonyme"
+  },
+  "termsform":{
+    "accept": "J'accepte les",
+    "terms": "conditions d'utilisation du formulaire",
+    "acceptterms": "Vous devez accepter les conditions pour continuer.",
+    "modalTitle": "Conditions d'utilisation du formulaire",
+    "modalBody2": "En soumettant le formulaire, vous acceptez que DxGPT peut utiliser votre information de contact (email) pour les raisons suivantes :",
+    "modalBody3": "Soutien et assistance :",
+    "modalBody4": "Répondre à vos questions et demandes de soutien.",
+    "modalBody5": "Comunications et mises à jour :",
+    "modalBody6": "Informer vous sur les nouvelles versions, mises à jour et améliorations du logiciel DxGPT.",
+    "modalBody7": "Retour à la valeur du client :",
+    "modalBody8": "Demandez votre avis sur la qualité et la fonctionnalité du logiciel.",
+    "modalBody9": "Protection des données personnelles",
+    "modalBody10": "Votre information personnelle sera traitée avec la plus grande confidentialité et ne sera pas partagée avec des tiers sans votre consentement explicite.",
+    "modalBody11": "Nous implémentons des mesures techniques et organisationnelles appropriées pour protéger vos données personnelles contre l'accès non autorisé, la perte ou la destruction.",
+    "modalBody12": "Droits de l'utilisateur",
+    "modalBody13": "Vous avez le droit à accéder, à corriger et à supprimer vos données personnelles. Pour exercer ces droits, vous pouvez contacter nous à support@foundation29.org.",
+    "modalBody14": "Vous pouvez révoquer votre consentement pour l'utilisation de vos données à tout moment en vous adressant une demande à support@foundation29.org.",
+    "modalBody15": "Contact",
+    "modalBody16": "Si vous avez des questions sur ces conditions, n'hésitez pas à nous contacter : support@foundation29.org.",
+    "modalFooterButton": "Accepter"
   }
 }

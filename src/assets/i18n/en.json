@@ -330,5 +330,27 @@
     "testi2": "This is wonderful!! It would have taken HOURS to give all of my info to a doctor to even start on a diagnosis. I’ve suspected MS for a little while now, and it was the top possibility. Really, thank you for this!!.",
     "testi3": "Loved it, I am not an MD so I am aware of the limitations but still found it to be incredibly intuitive and it was quite helpful for a non medical professional to gain insight… Excellent APP.",
     "Anonymous": "Anonymous"
+  },
+  "termsform":{
+    "accept": "I accept the",
+    "terms": "terms of use of the form data",
+    "acceptterms": "You must accept the terms to continue.",
+    "modalTitle": "Terms of use of form data",
+    "modalBody2": "By submitting the form, you agree that DxGPT may use your contact information (email) for the following purposes:",
+    "modalBody3": "Support and Assistance:",
+    "modalBody4": "Respond to your inquiries and support requests.",
+    "modalBody5": "Communications and Updates:",
+    "modalBody6": "Inform you about new versions, updates, and improvements of the DxGPT software.",
+    "modalBody7": "Feedback and Service Improvement:",
+    "modalBody8": "Request your feedback to improve the quality and functionality of the software.",
+    "modalBody9": "Protection of your Data",
+    "modalBody10": "Your personal information will be treated with the utmost confidentiality and will not be shared with third parties without your express consent.",
+    "modalBody11": "We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, loss, or destruction.",
+    "modalBody12": "User Rights",
+    "modalBody13": "You have the right to access, rectify, and delete your personal data. To exercise these rights, you can contact us at support@foundation29.org.",
+    "modalBody14": "You can revoke your consent for the use of your data at any time by sending us a request to support@foundation29.org.",
+    "modalBody15": "Contact",
+    "modalBody16": "If you have any questions about these terms, please do not hesitate to contact us: support@foundation29.org.",
+    "modalFooterButton": "Accept"
   }
 }

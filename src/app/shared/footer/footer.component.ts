@@ -20,9 +20,11 @@ export class FooterComponent{
   isAboutPage: boolean = false;
   isReportsPage: boolean = false;
   modalReference: NgbModalRef;
+  modalReference2: NgbModalRef;
   sending: boolean = false;
   msgfeedBack: string = '';
   checkSubscribe: boolean = false;
+  acceptTerms: boolean = false;
   showErrorForm: boolean = false;
   terms2: boolean = false;
   @ViewChild('f') feedbackDownForm: NgForm;
@@ -62,6 +64,7 @@ export class FooterComponent{
         windowClass: 'ModalClass-sm'// xl, lg, sm
       };
     this.modalReference = this.modalService.open(content, ngbModalOptions);
+    this.scrollTo();
 }
 
 submitInvalidForm() {
@@ -84,6 +87,7 @@ onSubmitRevolution() {
           this.msgfeedBack = '';
           this.email = '';
           this.checkSubscribe = false;
+          this.acceptTerms = false;
           this.modalReference.close();
           Swal.fire({
               icon: 'success',
@@ -99,6 +103,7 @@ onSubmitRevolution() {
           console.log(err);
           this.sending = false;
           this.checkSubscribe = false;
+          this.acceptTerms = false;
           this.toastr.error('', this.translate.instant("generics.error try again"));
       });
 
@@ -126,6 +131,8 @@ closeSupport(){
   this.msgfeedBack = '';
   this.email = '';
   this.modalReference.close();
+  this.acceptTerms = false;
+  this.checkSubscribe = false;
 }
 
 closeModal() {
@@ -141,6 +148,33 @@ openModal(panel) {
       windowClass: 'ModalClass-sm'// xl, lg, sm
   };
   this.modalReference = this.modalService.open(panel, ngbModalOptions);
+  this.scrollTo();
+}
+
+async openModal2(panel) {
+  let ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+      keyboard: false,
+      windowClass: 'ModalClass-sm'// xl, lg, sm
+  };
+  this.modalReference2 = this.modalService.open(panel, ngbModalOptions);
+  await this.delay(400);
+  document.getElementById('initpopup2').scrollIntoView(true);
+}
+
+onTermsAccepted() {
+  this.acceptTerms = true;
+  this.modalReference2.close();
+}
+
+async scrollTo() {
+  await this.delay(400);
+  //document.getElementById('initpopup').scrollIntoView(true);
+  document.getElementById('initpopup').scrollIntoView({ behavior: "smooth" });
+}
+
+delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 }

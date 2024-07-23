@@ -45,6 +45,7 @@
     </div>
 </footer>
 <ng-template #cookiesPanel let-c="close" let-d="dismiss">
+  <a id="initpopup" class="anchorSteps"></a>
   <div class="modal-header">
     <h4 class="modal-title">{{'cookies.title' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
@@ -119,6 +120,7 @@
   </div>
 </ng-template>
 <ng-template #policyPanel let-c="close" let-d="dismiss">
+  <a id="initpopup" class="anchorSteps"></a>
   <div class="modal-header">
     <h4 class="modal-title">{{'registration.Privacy Policy' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
@@ -166,6 +168,7 @@
   </div>
 </ng-template>
 <ng-template #contentSubs let-c="close" let-d="dismiss">
+  <a id="initpopup" class="anchorSteps"></a>
   <div class="modal-header">
     <h4 class="modal-title">DxGPT support</h4>
   </div>
@@ -190,6 +193,13 @@
             <span style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;" >{{'land.Email me' | translate }}</span>
         </mat-checkbox>
       </div>
+      <div class="form-group">
+        <mat-checkbox
+            class="example-margin" name="terms" ngModel #terms="ngModel" id="terms" required [(ngModel)]="acceptTerms">
+            <span style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;">{{'termsform.accept' | translate }} <a href="javascript:;" (click)="openModal2(termsModal)">{{'termsform.terms' | translate }}</a></span>
+        </mat-checkbox>
+        <small class="danger d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
+      </div>
       <div *ngIf="!sending" class="mt-2 col-md-12 center-elements">
         <div *ngIf="f.valid;then formValid else formError"></div>
         <button class="btn btn-secondary ml-1" type="button" (click)="closeSupport()">{{'generics.Cancel' | translate }}</button>
@@ -201,4 +211,8 @@
       </div>
     </form>
   </div>
+</ng-template>
+
+<ng-template #termsModal let-c="close" let-d="dismiss">
+  <app-termsform (termsAccepted)="onTermsAccepted()"></app-termsform>
 </ng-template>

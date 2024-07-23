@@ -40,6 +40,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     differentialTextTranslated: string = '';
     copyMedicalText: string = '';
     modalReference: NgbModalRef;
+    modalReference2: NgbModalRef;
     topRelatedConditions: any = [];
     diseaseListEn: any = [];
     diseaseListText: string = '';
@@ -82,8 +83,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     selectedQuestion: string = '';
     closed = false;
     email: string = '';
-    msgfeedBack: string = '';
     checkSubscribe: boolean = false;
+    acceptTerms: boolean = false;
     loadMoreDiseases: boolean = false;
     @ViewChild('f') feedbackDownForm: NgForm;
     showErrorForm: boolean = false;
@@ -171,45 +172,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     initOptions() {
         this.options = { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") };
     }
-
-    onSubmitRevolution() {
-        this.sending = true;
-        var params = { email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe };
-        this.subscription.add(this.http.post(environment.serverapi + '/api/subscribe/', params)
-            .subscribe((res: any) => {
-                this.lauchEvent('Submit Revolution');
-                this.sending = false;
-                this.msgfeedBack = '';
-                this.email = '';
-                this.checkSubscribe = false;
-                this.modalReference.close();
-                Swal.fire({
-                    icon: 'success',
-                    html: this.translate.instant("land.Thank you"),
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    allowOutsideClick: false
-                })
-                setTimeout(function () {
-                    Swal.close();
-                }, 2000);
-            }, (err) => {
-                this.insightsService.trackException(err);
-                console.log(err);
-                this.sending = false;
-                this.checkSubscribe = false;
-                this.toastr.error('', this.translate.instant("generics.error try again"));
-            }));
-
-    }
-
-    closeSupport() {
-        this.msgfeedBack = '';
-        this.email = '';
-        this.checkSubscribe = false;
-        this.modalReference.close();
-    }
-
 
     async goPrevious() {
         this.topRelatedConditions = [];
@@ -446,7 +408,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 title: this.translate.instant("generics.Please wait"),
                 showCancelButton: false,
                 showConfirmButton: false,
-                allowOutsideClick: false
+                allowOutsideClick: false,
+                allowEscapeKey: false
             }).then((result) => {
 
             });
@@ -498,7 +461,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             showCancelButton: true,
             showConfirmButton: false,
             cancelButtonText: this.translate.instant("generics.Cancel"),
-            allowOutsideClick: false
+            allowOutsideClick: false,
+            allowEscapeKey: false
         }).then(function (event) {
             if (event.dismiss == Swal.DismissReason.cancel) {
                 this.callingOpenai = false;
@@ -1062,7 +1026,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 title: this.translate.instant("generics.Please wait"),
                 showCancelButton: false,
                 showConfirmButton: false,
-                allowOutsideClick: false
+                allowOutsideClick: false,
+                allowEscapeKey: false
             }).then((result) => {
 
             });
@@ -1236,6 +1201,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.feedBack1input = '';
                 this.feedBack2input = '';
                 this.checkSubscribe = false;
+                this.acceptTerms = false;
                 if (this.modalReference != undefined) {
                     this.modalReference.close();
                     this.modalReference = undefined;
@@ -1265,6 +1231,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.modalReference.close();
             this.modalReference = undefined;
         }
+        this.checkSubscribe = false;
+        this.acceptTerms = false;
         Swal.fire({
             icon: 'success',
             html: this.translate.instant("land.thanks"),
@@ -1494,4 +1462,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.preparingCallOpenAi(step);
         }
     }
+
+    async openModal2(panel) {
+        let ngbModalOptions: NgbModalOptions = {
+          backdrop : 'static',
+            keyboard: false,
+            windowClass: 'ModalClass-sm'// xl, lg, sm
+        };
+        this.modalReference2 = this.modalService.open(panel, ngbModalOptions);
+        await this.delay(400);
+        document.getElementById('initpopup2').scrollIntoView(true);
+      }
+      
+      onTermsAccepted() {
+        this.acceptTerms = true;
+        this.modalReference2.close();
+      }
 }
