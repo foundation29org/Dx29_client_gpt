@@ -286,6 +286,7 @@
   "doctor": "Médecin",
   "patient": "Patient",
   "none": "Je préfère ne pas le dire",
+  "caregiver": "Soignant",
   "userType": "Type d'utilisateur"
 },
 "seo":{
