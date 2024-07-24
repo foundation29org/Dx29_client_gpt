@@ -996,23 +996,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     downloadResults() {
         if (!this.callingAnonymize) {
-            let infoDiseases = this.getDiseaseInfo(this.topRelatedConditions);
-            this.jsPDFService.generateResultsPDF(this.medicalTextOriginal, infoDiseases, this.lang)
+            this.jsPDFService.generateResultsPDF(this.medicalTextOriginal, this.topRelatedConditions, this.lang)
             this.lauchEvent("Download results");
         }
-    }
-
-    getDiseaseInfo(diseases: any[]): { name: string, description: string }[] {
-        return diseases.map(disease => {
-            const matches = disease.content.match(/<\/strong>([\s\S]*?)(\n\n|$)/);
-            const description = matches && matches[1].trim() || '';
-            return {
-                name: disease.name,
-                description: disease.description, 
-                matchingSymptoms: disease.matchingSymptoms, 
-                nonMatchingSymptoms: disease.nonMatchingSymptoms
-            };
-        });
     }
 
     getLiteral(literal) {

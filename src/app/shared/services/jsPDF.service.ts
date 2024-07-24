@@ -76,15 +76,6 @@ export class jsPDFService {
             return lineText;
         }
     }
-    
-    private writeText(doc, pos, lineText, text) {
-        lineText = this.checkIfNewPage(doc, lineText);
-        doc.setTextColor(0, 0, 0)
-        doc.setFont(undefined, 'normal');
-        doc.setFontSize(10);
-        doc.text(text, pos, lineText);
-        return lineText;
-    }
 
     private writeHeader(doc, pos, lineText, text) {
         doc.setTextColor(117, 120, 125)
@@ -141,7 +132,7 @@ export class jsPDFService {
         doc.setTextColor(0, 0, 0);
     }
 
-    generateResultsPDF(entryText, infoDiseases, lang){
+    async generateResultsPDF(entryText, infoDiseases, lang){
         this.lang = lang;
         const doc = new jsPDF();
         var lineText = 0;
@@ -199,6 +190,16 @@ export class jsPDFService {
         
         //Diseases
         if(infoDiseases.length>0){
+
+            // Load icons
+            var img_check = new Image();
+            img_check.src = "assets/img/icons/check.png";
+            var img_cross = new Image();
+            img_cross.src = "assets/img/icons/cross.png";
+
+            await img_check.onload;
+            await img_cross.onload;
+
             this.newSectionDoc(doc,this.translate.instant("diagnosis.Candidate diagnosis"),'',null,lineText += 10)
             //this.writeHeaderText(doc, 10, lineText += 7, this.translate.instant("generics.Name"));
             //this.writeHeaderText(doc, 175, lineText, "Id");
@@ -219,14 +220,18 @@ export class jsPDFService {
                 lineText = this.writeLongText(doc, 10, lineText, infoDiseases[i].description);
                 lineText += 7;
 
-                let textMatchingSymptoms = this.translate.instant("diagnosis.Matching symptoms") + ": ";
-                textMatchingSymptoms+= infoDiseases[i].matchingSymptoms;
-                lineText = this.writeLongText(doc, 10, lineText, textMatchingSymptoms);
+             
+
+                    // Añadir síntomas coincidentes con imagen de check
+                doc.addImage(img_check, 'png', 10, lineText-3, 4, 4);
+                let textMatchingSymptoms = `${this.translate.instant("diagnosis.Matching symptoms")}: ${infoDiseases[i].matchingSymptoms}`;
+                lineText = this.writeLongText(doc, 16, lineText, textMatchingSymptoms);
                 lineText += 5;
 
-                let textNonMatchingSymptoms = this.translate.instant("diagnosis.Non-matching symptoms") + ": ";
-                textNonMatchingSymptoms+= infoDiseases[i].nonMatchingSymptoms;
-                lineText = this.writeLongText(doc, 10, lineText, textNonMatchingSymptoms);
+                // Añadir síntomas no coincidentes con imagen de cross
+                doc.addImage(img_cross, 'png', 10, lineText-3, 4, 4);
+                let textNonMatchingSymptoms = `${this.translate.instant("diagnosis.Non-matching symptoms")}: ${infoDiseases[i].nonMatchingSymptoms}`;
+                lineText = this.writeLongText(doc, 16, lineText, textNonMatchingSymptoms);
                 lineText += 10;
 
             }
