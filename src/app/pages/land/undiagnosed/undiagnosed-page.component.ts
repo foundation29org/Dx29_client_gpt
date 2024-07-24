@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs/Subscription';
 import { EventsService } from 'app/shared/services/events.service';
 import Swal from 'sweetalert2';
@@ -48,11 +47,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     originalLang: string = 'en';
     detectedLang: string = 'en';
     selectedInfoDiseaseIndex: number = -1;
-    minSymptoms: number = 2;
     _startTime: any;
-
-
-
     myuuid: string = uuidv4();
     eventList: any = [];
     steps = [];
@@ -68,20 +63,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     optionSelected: any = {};
     sendingVote: boolean = false;
     selectorOption: string = '';
-    optionRare: string = '';
-    optionCommon: string = '';
     symtpmsLabel: string = '';
     feedBack1input: string = '';
     feedBack2input: string = '';
     sending: boolean = false;
     symptomsDifferencial: any = [];
-    callingTextAnalytics: boolean = false;
-    resTextAnalyticsSegments: any;
-    langToExtract: string = '';
-    parserObject: any = { parserStrategy: 'Auto', callingParser: false, file: undefined };
-    langDetected: string = '';
     selectedQuestion: string = '';
-    closed = false;
     email: string = '';
     checkSubscribe: boolean = false;
     acceptTerms: boolean = false;
@@ -106,34 +93,41 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     @ViewChild("autoajustable") inputTextAreaElement: ElementRef;
 
     constructor(private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
+        this.initialize();
+    }
+
+    private initialize() {
+        this.setLangFromSession();
+        this._startTime = Date.now();
+        this.setUUID();
+        this.lauchEvent("Init Page");
+        this.steps = [
+          { stepIndex: 1, isComplete: false, title: this.translate.instant("land.step1") },
+          { stepIndex: 2, isComplete: false, title: this.translate.instant("land.step3") }
+        ];
+        this.currentStep = this.steps[0];
+        this.loadSponsors();
+        this.loadingIP();
+      }
+
+      private setLangFromSession() {
         if (sessionStorage.getItem('lang') == null) {
-            sessionStorage.setItem('lang', this.translate.store.currentLang);
+          sessionStorage.setItem('lang', this.translate.store.currentLang);
         }
         this.lang = sessionStorage.getItem('lang');
         this.originalLang = sessionStorage.getItem('lang');
+      }
 
-        this._startTime = Date.now();
-
+      private setUUID() {
         if (sessionStorage.getItem('uuid') != null) {
-            this.myuuid = sessionStorage.getItem('uuid');
+          this.myuuid = sessionStorage.getItem('uuid');
         } else {
-            this.myuuid = uuidv4();
-            sessionStorage.setItem('uuid', this.myuuid);
+          this.myuuid = uuidv4();
+          sessionStorage.setItem('uuid', this.myuuid);
         }
-        this.lauchEvent("Init Page");
-        
-        this.steps = [
-            { stepIndex: 1, isComplete: false, title: this.translate.instant("land.step1") },
-            { stepIndex: 2, isComplete: false, title: this.translate.instant("land.step3") }
-        ];
-        this.currentStep = this.steps[0];
-
-        this.loadSponsors();
-        this.loadingIP();
-    }
+      }
 
     loadingIP() {
-
         this.subscription.add(this.apiDx29ServerService.getInfoLocation()
             .subscribe((res: any) => {
                 console.log(res)
@@ -203,7 +197,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     };
 
     lauchEvent(category) {
-        //traquear
         var secs = this.getElapsedSeconds();
         var savedEvent = this.searchService.search(this.eventList, 'name', category);
         if (category == "Info Disease") {
@@ -221,12 +214,31 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.loadTranslations();
         this.route.queryParams.subscribe(params => {
             if (params['medicalText']) {
                 this.medicalTextOriginal = params['medicalText'];
             }
         });
-        this.loadTranslations();
+        this.subscribeToEvents();
+    }
+
+    loadTranslations() {
+        this.translate.get('land.step1').subscribe((res: string) => {
+            this.steps[0].title = res;
+        });
+        this.translate.get('land.step3').subscribe(async (res: string) => {
+            this.steps[1].title = res;
+            await this.delay(500);
+            this.initQuestions();
+            this.initOptions()
+        });
+        this.translate.get('land.Symptoms').subscribe((res: string) => {
+            this.symtpmsLabel = res;
+        });
+    }
+
+    subscribeToEvents() {
         this.eventsService.on('changelang', function (lang) {
             this.lang = lang;
             this.loadTranslations();
@@ -258,28 +270,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.newPatient();
             }
         }.bind(this));
-    }
-
-    loadTranslations() {
-        this.translate.get('land.step1').subscribe((res: string) => {
-            this.steps[0].title = res;
-        });
-        this.translate.get('land.step3').subscribe(async (res: string) => {
-            this.steps[1].title = res;
-            await this.delay(500);
-            this.initQuestions();
-            this.initOptions()
-        });
-
-        this.translate.get('land.rare').subscribe((res: string) => {
-            this.optionRare = res;
-        });
-        this.translate.get('land.common').subscribe((res: string) => {
-            this.optionCommon = res;
-        });
-        this.translate.get('land.Symptoms').subscribe((res: string) => {
-            this.symtpmsLabel = res;
-        });
     }
 
     delay(ms: number) {
@@ -354,13 +344,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 })
                 text = text + ' ' + introText;
             }
-            Swal.fire({
-                icon: 'error',
-                text: text,
-                showCancelButton: false,
-                showConfirmButton: true,
-                allowOutsideClick: false
-            })
+            this.showError(text, null);
         }
         if (!this.showErrorCall1) {
             if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
@@ -475,162 +459,150 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callingOpenai = true;
         let introText = prompts.prompt1
         var value = { value: introText.replace("{{description}}", this.medicalTextEng), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
-        let introText2 = prompts.prompt2
         if (this.loadMoreDiseases) {
+            let introText2 = prompts.prompt2
             value = { value: introText2.replace("{{description}}", this.medicalTextEng).replace("{{diseases_list}}", this.diseaseListText), myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         }
-        this.subscription.add(this.apiDx29ServerService.postOpenAi(value)
-            .subscribe((res: any) => {
-                if(res.result){
-                    if(res.result == 'blocked'){
-                        Swal.fire({
-                            icon: 'error',
-                            text: this.translate.instant("land.errorLocation"),
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
-                        this.callingOpenai = false;
-                    }else if(res.result == 'error'){
-                        Swal.fire({
-                            icon: 'error',
-                            text: this.translate.instant("generics.error try again"),
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
-                        this.callingOpenai = false;
-                    }else if(res.result == 'error openai'){
-                        Swal.close();
-                        Swal.fire({
-                            icon: 'error',
-                            text: this.translate.instant("generics.sorry cant anwser1"),
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
-                        this.callingOpenai = false;
-                    }else if(res.result == 'success'){
-                        //if (this.currentStep.stepIndex == 1) {
-                            this.copyMedicalText = this.medicalTextEng;
-                        //}
-                        this.callAnonymize(value, res.data);//parseChoices0
-                        let parseChoices0 = res.data;
-                        console.log(parseChoices0)
-                        if (!this.loadMoreDiseases) {
-                            this.diseaseListEn = [];
-                        }
-                        this.setDiseaseListEn(parseChoices0);
-                        if (this.detectedLang != 'en') {
-                            var jsontestLangText = this.createTranslationRequests(parseChoices0);
-                            this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
-                                .subscribe((res2: any) => {
-                                    if (res2 && res2.length > 0) {
-                                        let index = 0;
-                                        parseChoices0.forEach(disease => {
-                                            let diagnosisTranslation = res2[index++]?.translations[0]?.text || disease.diagnosis;
-                                            let descriptionTranslation = res2[index++]?.translations[0]?.text || disease.description;
-                                            let symptomsInCommonTranslation = res2[index++]?.translations[0]?.text || disease.symptoms_in_common.join('; ');
-                                            let symptomsNotInCommonTranslation = res2[index++]?.translations[0]?.text || disease.symptoms_not_in_common.join('; ');
-                            
-                                            disease.diagnosis = diagnosisTranslation;
-                                            disease.description = descriptionTranslation;
-                                            disease.symptoms_in_common = symptomsInCommonTranslation.split('; ').filter(symptom => symptom.trim() !== '');
-                                            disease.symptoms_not_in_common = symptomsNotInCommonTranslation.split('; ').filter(symptom => symptom.trim() !== '');
-                                        });
-                                    }
-                                    this.continueCallOpenAi(parseChoices0);
-                                }, (err) => {
-                                    this.insightsService.trackException(err);
-                                    console.log(err);
-                                    this.continueCallOpenAi(parseChoices0);
-                                }));
-                        } else {
-                            this.continueCallOpenAi(parseChoices0);
-                        }
-                    }
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        text: this.translate.instant("generics.error try again"),
-                        showCancelButton: false,
-                        showConfirmButton: true,
-                        allowOutsideClick: false
-                    })
+
+        this.subscription.add(
+            this.apiDx29ServerService.postOpenAi(value).subscribe(
+                (res: any) => this.handleOpenAiResponse(res, value),
+                (err: any) => this.handleOpenAiError(err)
+            )
+        );
+    }
+
+    handleOpenAiResponse(res: any, value: any) {
+        let msgError = this.translate.instant("generics.error try again");
+        if (res.result) {
+            switch (res.result) {
+                case 'blocked':
+                    msgError = this.translate.instant("land.errorLocation");
+                    this.showError(msgError, null);
                     this.callingOpenai = false;
-                }
+                    break;
+                case 'error':
+                    msgError = this.translate.instant("generics.error try again");
+                    this.showError(msgError, null);
+                    this.callingOpenai = false;
+                    break;
+                case 'error openai':
+                    msgError = this.translate.instant("generics.sorry cant anwser1");
+                    this.showError(msgError, null);
+                    this.callingOpenai = false;
+                    break;
+                case 'success':
+                    this.processOpenAiSuccess(res.data, value);
+                    break;
+                default:
+                    this.showError(this.translate.instant("generics.error try again"), null);
+                    this.callingOpenai = false;
+            }
+        } else {
+            msgError = this.translate.instant("generics.error try again");
+            this.showError(msgError, null);
+            this.callingOpenai = false;
+        }
+    }
 
+    handleOpenAiError(err: any) {
+        console.log(err)
+        if (err.error.error) {
+            if (err.error.error.code == 'content_filter') {
+                let msgError = this.translate.instant("generics.sorry cant anwser1");
+                this.showError(msgError, err);
+                this.callingOpenai = false;
+            } else {
+                let msgError = this.translate.instant("generics.error try again");
+                this.showError(msgError, err);
+                this.callingOpenai = false;
+            }
+        } else if (err.error.type == 'invalid_request_error') {
+            if (err.error.code == 'string_above_max_length') {
+                let msgError = this.translate.instant("generics.sorry cant anwser3") + '<a href="https://platform.openai.com/tokenizer" class="ml-1 danger" target="_blank">Tokenizer</a>';
+                this.showError(msgError, err);
+                this.callingOpenai = false;
+            } else {
+                let msgError = err.error.code + ': ' + err.error.message;
+                this.showError(msgError, err);
+                this.callingOpenai = false;
+            }
+        } else {
+            let msgError = this.translate.instant("generics.error try again");
+            this.showError(msgError, err);
+            this.callingOpenai = false;
+        }
+    }
 
+    showError(message: string, err: any) {
+        Swal.close();
+        Swal.fire({
+            icon: 'error',
+            html: message,
+            showCancelButton: false,
+            showConfirmButton: true,
+            allowOutsideClick: false
+        });
+        this.callingOpenai = false;
+        if(err!=null){
+            this.insightsService.trackException(err);
+        }else{
+            this.insightsService.trackException(message);
+        }
+    }
 
-            }, (err) => {
-                console.log(err)
-                if (err.error.error) {
-                    if (err.error.error.code == 'content_filter') {
-                        Swal.close();
-                        Swal.fire({
-                            icon: 'error',
-                            text: this.translate.instant("generics.sorry cant anwser1"),
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
-                        this.callingOpenai = false;
-                    } else {
+    showSuccess(message: string) {
+        Swal.fire({
+            icon: 'success',
+            html: message,
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false
+        })
+        setTimeout(function () {
+            Swal.close();
+        }, 2000);
+    }
+
+    processOpenAiSuccess(data: any, value: any) {
+        //if (this.currentStep.stepIndex == 1) {
+            this.copyMedicalText = this.medicalTextEng;
+            //}
+            this.callAnonymize(value, data);//parseChoices0
+            let parseChoices0 = data;
+            if (!this.loadMoreDiseases) {
+                this.diseaseListEn = [];
+            }
+            this.setDiseaseListEn(parseChoices0);
+            if (this.detectedLang != 'en') {
+                var jsontestLangText = this.createTranslationRequests(parseChoices0);
+                this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
+                    .subscribe((res2: any) => {
+                        if (res2 && res2.length > 0) {
+                            let index = 0;
+                            parseChoices0.forEach(disease => {
+                                let diagnosisTranslation = res2[index++]?.translations[0]?.text || disease.diagnosis;
+                                let descriptionTranslation = res2[index++]?.translations[0]?.text || disease.description;
+                                let symptomsInCommonTranslation = res2[index++]?.translations[0]?.text || disease.symptoms_in_common.join('; ');
+                                let symptomsNotInCommonTranslation = res2[index++]?.translations[0]?.text || disease.symptoms_not_in_common.join('; ');
+                
+                                disease.diagnosis = diagnosisTranslation;
+                                disease.description = descriptionTranslation;
+                                disease.symptoms_in_common = symptomsInCommonTranslation.split('; ').filter(symptom => symptom.trim() !== '');
+                                disease.symptoms_not_in_common = symptomsNotInCommonTranslation.split('; ').filter(symptom => symptom.trim() !== '');
+                            });
+                        }
+                        this.continueCallOpenAi(parseChoices0);
+                    }, (err) => {
                         this.insightsService.trackException(err);
                         console.log(err);
-                        this.callingOpenai = false;
-                        Swal.close();
-                        Swal.fire({
-                            icon: 'error',
-                            text: this.translate.instant("generics.error try again"),
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
-                    }
-
-
-                } else if (err.error.type == 'invalid_request_error') {
-                    if (err.error.code == 'context_length_exceeded') {
-                        Swal.close();
-                        Swal.fire({
-                            icon: 'error',
-                            html: this.translate.instant("generics.sorry cant anwser3") + '<a href="https://platform.openai.com/tokenizer" class="ml-1 danger" target="_blank">Tokenizer</a>',
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
-                        this.callingOpenai = false;
-                    } else {
-                        Swal.close();
-                        Swal.fire({
-                            icon: 'error',
-                            title: err.error.code,
-                            text: err.error.message,
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
-                        this.callingOpenai = false;
-                    }
-
-                } else {
-                    this.insightsService.trackException(err);
-                    console.log(err);
-                    this.callingOpenai = false;
-                    Swal.close();
-                    Swal.fire({
-                        icon: 'error',
-                        text: this.translate.instant("generics.error try again"),
-                        showCancelButton: false,
-                        showConfirmButton: true,
-                        allowOutsideClick: false
-                    })
-                }
-
-            }));
-
+                        this.continueCallOpenAi(parseChoices0);
+                    }));
+            } else {
+                this.continueCallOpenAi(parseChoices0);
+            }
     }
+
 
     includesElement(array, string) {
         string = string.toLowerCase();
@@ -673,16 +645,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             indexDisease++;
             console.log(parseChoices[i])
             let content = '<strong>' + (indexDisease) + '. ' + parseChoices[i].diagnosis + ':</strong> ' + parseChoices[i].description;
-            if(parseChoices[i].symptoms_in_common.length > 0){
-                content = content + '<br> <em class="fa fa-check success mr-1"></em>' + this.translate.instant("diagnosis.Matching symptoms") + ': ' + parseChoices[i].symptoms_in_common.join(', ');
-            }else{
-                content = content + '<br> <em class="fa fa-check success mr-1"></em>' + this.translate.instant("diagnosis.Matching symptoms") + ': ' + this.translate.instant("diagnosis.None");
-            }
-            if(parseChoices[i].symptoms_not_in_common.length > 0){
-                content = content + '<br> <em class="fa fa-times danger mr-1"></em>' + this.translate.instant("diagnosis.Non-matching symptoms") + ': ' + parseChoices[i].symptoms_not_in_common.join(', ');
-            }else{
-                content = content + '<br> <em class="fa fa-times danger mr-1"></em>' + this.translate.instant("diagnosis.Non-matching symptoms") + ': ' + this.translate.instant("diagnosis.None");
-            }
+            content += `<br> <em class="fa fa-check success mr-1"></em>${this.translate.instant("diagnosis.Matching symptoms")}: ${parseChoices[i].symptoms_in_common.length > 0 ? parseChoices[i].symptoms_in_common.join(', ') : this.translate.instant("diagnosis.None")}`;
+            content += `<br> <em class="fa fa-times danger mr-1"></em>${this.translate.instant("diagnosis.Non-matching symptoms")}: ${parseChoices[i].symptoms_not_in_common.length > 0 ? parseChoices[i].symptoms_not_in_common.join(', ') : this.translate.instant("diagnosis.None")}`;
             
             this.topRelatedConditions.push({ 
                 content: content, 
@@ -712,21 +676,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
-
-
     setDiseaseListEn(text) {
-        for (let i = 0; i < text.length; i++) {
-            if (text[i].diagnosis && text[i].diagnosis.length > 3) {
-                this.diseaseListEn.push(text[i].diagnosis);
+        text.forEach(item => {
+            if (item.diagnosis && item.diagnosis.length > 3) {
+                this.diseaseListEn.push(item.diagnosis);
             }
-        }
+        });
     }
 
     loadMore() {
-        var diseases = '';
-        for (let i = 0; i < this.diseaseListEn.length; i++) {
-            diseases = diseases + '+' + this.diseaseListEn[i] + ', ';
-        }
+        var diseases = this.diseaseListEn.map(disease => '+' + disease).join(', ');
         this.diseaseListText = diseases;
         this.loadMoreDiseases = true;
         this.continuePreparingCallOpenAi('step3');
@@ -762,7 +721,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         //var answerFormat = 'The output should be as HTML but only with <H5> and <p> tags.';
         var answerFormat = 'The output should be as HTML but only with <p>, <li>, </ul>, and <span> tags. Use <strong> for titles';
-        //var answerFormat = '. The output should be as HTML but dont use h1, h2, h3, h4, h5, h6, <!DOCTYPE html>, html, head, body, input, form tags. use strong for titles';
         if (index == 0) {
             introText = 'What are the common symptoms associated with' + selectedDiseaseEn + '? Please provide a list starting with the most probable symptoms at the top. '+answerFormat;
             infoOptionEvent = 'Common Symptoms';
@@ -791,229 +749,189 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             .subscribe((res: any) => {
                 if(res.result){
                     if(res.result == 'blocked'){
-                        Swal.fire({
-                            icon: 'error',
-                            text: this.translate.instant("land.errorLocation"),
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
+                        let msgError = this.translate.instant("land.errorLocation");
+                        this.showError(msgError, null);
+                        this.loadingAnswerOpenai = false;
                     }else if(res.result == 'error'){
-                        Swal.fire({
-                            icon: 'error',
-                            text: this.translate.instant("generics.error try again"),
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
+                        let msgError = this.translate.instant("generics.error try again");
+                        this.showError(msgError, null);
+                        this.loadingAnswerOpenai = false;
                     }else if(res.result == 'error openai'){
-                        Swal.fire({
-                            icon: 'error',
-                            text: this.translate.instant("generics.sorry cant anwser1"),
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
+                        let msgError = this.translate.instant("generics.sorry cant anwser1");
+                        this.showError(msgError, null);
+                        this.loadingAnswerOpenai = false;
                     }else if(res.result == 'success'){
-                        res.data = res.data.replace(/^```html\n|\n```$/g, '');
-                        let content = res.data;
-                        let splitChar = content.indexOf("\n\n") >= 0 ? "\n\n" : "\n";
-                        let contentArray = content.split(splitChar);
-
-                        // Encuentra el índice del primer punto "1."
-                        let startIndex = contentArray.findIndex(item => item.trim().startsWith("1."));
-
-                        // Si se encuentra el punto "1.", conserva todos los elementos a partir de ese índice
-                        if (startIndex >= 0) {
-                            contentArray = contentArray.slice(startIndex);
-                        }
-
-                        // Reconstruye el contenido
-                        let parseChoices0 = contentArray.join(splitChar);
-                        if (index == 3) {
-                            // Eliminar asteriscos dobles
-                            parseChoices0 = parseChoices0.replace(/\*\*/g, '');
-                            if (this.detectedLang != 'en') {
-                                var jsontestLangText = [{ "Text": parseChoices0[0] }]
-                                if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
-                                    var sendInfo = '';
-                                    for (let i = 0; i < parseChoices0.length; i++) {
-                                        sendInfo = sendInfo + parseChoices0[i] + '\n';
-                                    }
-                                    jsontestLangText = [{ "Text": sendInfo }]
-                                }
-                                if (!Array.isArray(parseChoices0)) {
-                                    jsontestLangText = [{ "Text": parseChoices0 }]
-                                }
-
-                                this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
-                                    .subscribe((res2: any) => {
-                                        if (res2[0] != undefined) {
-                                            if (res2[0].translations[0] != undefined) {
-                                                parseChoices0 = res2[0].translations[0].text;
-                                                if (parseChoices0.indexOf("1") == 0) {
-                                                    parseChoices0 = "\n" + parseChoices0;
-                                                }
-                                            }
-                                        }
-                                        this.getDifferentialDiagnosis(parseChoices0);
-                                        this.loadingAnswerOpenai = false;
-                                        this.lauchEvent("Info Disease");
-                                    }, (err) => {
-                                        this.insightsService.trackException(err);
-                                        console.log(err);
-                                        this.getDifferentialDiagnosis(res.data);
-                                        this.loadingAnswerOpenai = false;
-                                        this.lauchEvent("Info Disease");
-                                    }));
-                            } else {
-                                this.getDifferentialDiagnosis(res.data);
-                                this.loadingAnswerOpenai = false;
-                                this.lauchEvent("Info Disease");
-                            }
-                        } else {
-                            var tempInfo = res.data;
-                            if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
-                                var sendInfo = '';
-                                for (let i = 0; i < parseChoices0.length; i++) {
-                                    sendInfo = sendInfo + parseChoices0[i] + '\n';
-                                }
-                                tempInfo = sendInfo;
-                            } else if (parseChoices0.length == 1) {
-                                tempInfo = parseChoices0[0]
-                            }
-                            if(this.detectedLang != 'en'){
-                                var info = [{ "Text": tempInfo }]
-                                this.subscription.add(this.apiDx29ServerService.getTranslationInvert(this.detectedLang, info)
-                                    .subscribe((res2: any) => {
-                                        var textToTA = tempInfo;
-                                        if (res2[0] != undefined) {
-                                            if (res2[0].translations[0] != undefined) {
-                                                textToTA = res2[0].translations[0].text;
-                                            }
-                                        }
-                                        this.answerOpenai = textToTA;
-
-                                        this.loadingAnswerOpenai = false;
-                                        this.lauchEvent("Info Disease");
-                                    }, (err) => {
-                                        this.insightsService.trackException(err);
-                                        console.log(err);
-                                        if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
-                                            var sendInfo = '';
-                                            for (let i = 0; i < parseChoices0.length; i++) {
-                                                sendInfo = sendInfo + parseChoices0[i] + '\n';
-                                            }
-                                            this.answerOpenai = sendInfo;
-                                        } else if (parseChoices0.length == 1) {
-                                            this.answerOpenai = parseChoices0[0]
-                                        } else {
-                                            this.answerOpenai = res.data;
-                                        }
-
-                                        this.loadingAnswerOpenai = false;
-                                        this.lauchEvent("Info Disease");
-                                    }));
-                            }else{
-                                this.answerOpenai = tempInfo;
-
-                                this.loadingAnswerOpenai = false;
-                                this.lauchEvent("Info Disease");
-                            }
-                        }
+                        this.processQuestionSuccess(res.data, index);
                     }
                 }else {
-                    Swal.fire({
-                        icon: 'error',
-                        text: this.translate.instant("generics.sorry cant anwser2"),
-                        showCancelButton: false,
-                        showConfirmButton: true,
-                        allowOutsideClick: false
-                    })
+                    let msgError = this.translate.instant("generics.sorry cant anwser2");
+                    this.showError(msgError, null);
                     this.loadingAnswerOpenai = false;
                 }
 
             }, (err) => {
-                this.insightsService.trackException(err);
                 console.log(err);
+                let msgError = this.translate.instant("generics.error try again");
+                this.showError(msgError, err);
                 this.loadingAnswerOpenai = false;
             }));
 
     }
 
-    getDifferentialDiagnosis(info) {
-        var parseChoices = info.split("\n");
-        this.symptomsDifferencial = [];
-        for (let i = 0; i < parseChoices.length; i++) {
-            if (parseChoices[i] != '' && parseChoices[i] != ' ' && parseChoices[i] != ':') {
-                let index = parseChoices[i].indexOf('.');
-                var name = parseChoices[i].split(".")[1];
-                if (index != -1) {
-                    name = parseChoices[i].substring(index + 1, parseChoices[i].length);
+    processQuestionSuccess(data: any, index: number) {
+        data = data.replace(/^```html\n|\n```$/g, '');
+        let content = data;
+        let splitChar = content.indexOf("\n\n") >= 0 ? "\n\n" : "\n";
+        let contentArray = content.split(splitChar);
+
+        let startIndex = contentArray.findIndex(item => item.trim().startsWith("1."));
+
+        if (startIndex >= 0) {
+            contentArray = contentArray.slice(startIndex);
+        }
+
+        let parseChoices0 = contentArray.join(splitChar);
+        if (index == 3) {
+            // Eliminar asteriscos dobles
+            parseChoices0 = parseChoices0.replace(/\*\*/g, '');
+            if (this.detectedLang != 'en') {
+                var jsontestLangText = [{ "Text": parseChoices0[0] }]
+                if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
+                    var sendInfo = '';
+                    for (let i = 0; i < parseChoices0.length; i++) {
+                        sendInfo = sendInfo + parseChoices0[i] + '\n';
+                    }
+                    jsontestLangText = [{ "Text": sendInfo }]
                 }
-                //if last char is a dot remove it
-                if (name.charAt(name.length - 1) == '.') {
-                    name = name.substring(0, name.length - 1);
+                if (!Array.isArray(parseChoices0)) {
+                    jsontestLangText = [{ "Text": parseChoices0 }]
                 }
-                //if last char is a space remove it
-                if (name.charAt(name.length - 1) == ' ') {
-                    name = name.substring(0, name.length - 1);
+
+                this.subscription.add(this.apiDx29ServerService.getSegmentation(this.detectedLang, jsontestLangText)
+                    .subscribe((res2: any) => {
+                        if (res2[0] != undefined) {
+                            if (res2[0].translations[0] != undefined) {
+                                parseChoices0 = res2[0].translations[0].text;
+                                if (parseChoices0.indexOf("1") == 0) {
+                                    parseChoices0 = "\n" + parseChoices0;
+                                }
+                            }
+                        }
+                        this.getDifferentialDiagnosis(parseChoices0);
+                        this.loadingAnswerOpenai = false;
+                        this.lauchEvent("Info Disease");
+                    }, (err) => {
+                        this.insightsService.trackException(err);
+                        console.log(err);
+                        this.getDifferentialDiagnosis(data);
+                        this.loadingAnswerOpenai = false;
+                        this.lauchEvent("Info Disease");
+                    }));
+            } else {
+                this.getDifferentialDiagnosis(data);
+                this.loadingAnswerOpenai = false;
+                this.lauchEvent("Info Disease");
+            }
+        } else {
+            var tempInfo = data;
+            if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
+                var sendInfo = '';
+                for (let i = 0; i < parseChoices0.length; i++) {
+                    sendInfo = sendInfo + parseChoices0[i] + '\n';
                 }
-                this.symptomsDifferencial.push({ name: name, checked: false })
+                tempInfo = sendInfo;
+            } else if (parseChoices0.length == 1) {
+                tempInfo = parseChoices0[0]
+            }
+            if(this.detectedLang != 'en'){
+                var info = [{ "Text": tempInfo }]
+                this.subscription.add(this.apiDx29ServerService.getTranslationInvert(this.detectedLang, info)
+                    .subscribe((res2: any) => {
+                        var textToTA = tempInfo;
+                        if (res2[0] != undefined) {
+                            if (res2[0].translations[0] != undefined) {
+                                textToTA = res2[0].translations[0].text;
+                            }
+                        }
+                        this.answerOpenai = textToTA;
+
+                        this.loadingAnswerOpenai = false;
+                        this.lauchEvent("Info Disease");
+                    }, (err) => {
+                        this.insightsService.trackException(err);
+                        console.log(err);
+                        if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
+                            var sendInfo = '';
+                            for (let i = 0; i < parseChoices0.length; i++) {
+                                sendInfo = sendInfo + parseChoices0[i] + '\n';
+                            }
+                            this.answerOpenai = sendInfo;
+                        } else if (parseChoices0.length == 1) {
+                            this.answerOpenai = parseChoices0[0]
+                        } else {
+                            this.answerOpenai = data;
+                        }
+
+                        this.loadingAnswerOpenai = false;
+                        this.lauchEvent("Info Disease");
+                    }));
+            }else{
+                this.answerOpenai = tempInfo;
+
+                this.loadingAnswerOpenai = false;
+                this.lauchEvent("Info Disease");
             }
         }
     }
+
+    getDifferentialDiagnosis(info) {
+        var parseChoices = info.split("\n");
+        this.symptomsDifferencial = [];
+        this.symptomsDifferencial = parseChoices
+          .filter(choice => choice !== '' && choice !== ' ' && choice !== ':')
+          .map(choice => {
+            let index = choice.indexOf('.');
+            var name = choice.split(".")[1];
+            if (index !== -1) {
+              name = choice.substring(index + 1);
+            }
+            if (name.charAt(name.length - 1) === '.') {
+              name = name.substring(0, name.length - 1);
+            }
+            if (name.charAt(name.length - 1) === ' ') {
+              name = name.substring(0, name.length - 1);
+            }
+            return { name: name, checked: false };
+          });
+      }
 
     changeSymptom(event, index) {
         console.log(event);
     }
 
     recalculateDifferencial() {
-        var newSymptoms = '';
-        for (let i = 0; i < this.symptomsDifferencial.length; i++) {
-            if (this.symptomsDifferencial[i].checked) {
-                newSymptoms = newSymptoms + this.symptomsDifferencial[i].name + ', ';
-            }
-        }
-        //si el último elemento es un espacio, eliminarlo
-        if (newSymptoms.charAt(newSymptoms.length - 1) == ' ') {
-            newSymptoms = newSymptoms.substring(0, newSymptoms.length - 1);
-        }
-        // si es el último elemento, no añadir la coma
-        if (newSymptoms.charAt(newSymptoms.length - 1) == ',') {
-            newSymptoms = newSymptoms.substring(0, newSymptoms.length - 1);
-        }
-        if (newSymptoms != '') {
-            this.lauchEvent("Recalculate Differencial");
-            this.optionSelected = this.options;
-            this.closeDiseaseUndiagnosed();
-
-            this.differentialTextOriginal = newSymptoms;
-            this.verifCallDifferential();
+        var newSymptoms = this.symptomsDifferencial
+          .filter(symptom => symptom.checked)
+          .map(symptom => symptom.name)
+          .join(', ');
+          newSymptoms = newSymptoms.trim().replace(/(,| )+$/, '');
+        if (newSymptoms !== '') {
+          this.lauchEvent("Recalculate Differencial");
+          this.optionSelected = this.options;
+          this.closeDiseaseUndiagnosed();
+          this.differentialTextOriginal = newSymptoms;
+          this.verifCallDifferential();
         } else {
-            Swal.fire({
-                icon: 'error',
-                text: this.translate.instant("land.Select at least one symptom"),
-                showCancelButton: false,
-                showConfirmButton: true,
-                allowOutsideClick: false
-            })
+          this.showError(this.translate.instant("land.Select at least one symptom"), null);
         }
-
-    }
+      }
 
     verifCallDifferential() {
         this.showErrorCall2 = false;
         if (this.callingOpenai || this.differentialTextOriginal.length == 0) {
             this.showErrorCall2 = true;
-            let text = this.translate.instant("land.required");
-            Swal.fire({
-                icon: 'error',
-                text: text,
-                showCancelButton: false,
-                showConfirmButton: true,
-                allowOutsideClick: false
-            })
+            let msgError = this.translate.instant("land.required");
+            this.showError(msgError, null);
         }
         if (!this.showErrorCall2) {
             this.callOpenAiDifferential();
@@ -1097,30 +1015,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             finalReport = this.translate.instant("diagnosis.Proposed diagnoses") + ":\n" + infoDiseases;
         }
         this.clipboard.copy(finalReport);
-        Swal.fire({
-            icon: 'success',
-            html: this.translate.instant("land.Results copied to the clipboard"),
-            showCancelButton: false,
-            showConfirmButton: false,
-            allowOutsideClick: false
-        })
-        setTimeout(function () {
-            Swal.close();
-        }, 2000);
+        let msgSuccess = this.translate.instant("land.Results copied to the clipboard");
+        this.showSuccess(msgSuccess);
         this.lauchEvent("Copy results");
-
     }
 
     getPlainInfoDiseases2() {
-        var resCopy = "";
-        for (let i = 0; i < this.topRelatedConditions.length; i++) {
-            resCopy = resCopy + this.topRelatedConditions[i].name;
-            if (i + 1 < this.topRelatedConditions.length) {
-                resCopy = resCopy + "\n";
-            }
-        }
-        return resCopy;
-    }
+        return this.topRelatedConditions.map(condition => condition.name).join("\n");
+      }
 
     downloadResults() {
         if (!this.callingAnonymize) {
@@ -1158,16 +1060,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 if (valueVote == 'down') {
                     this.modalReference = this.modalService.open(contentFeedbackDown);
                 } else {
-                    Swal.fire({
-                        icon: 'success',
-                        html: this.translate.instant("land.thanks"),
-                        showCancelButton: false,
-                        showConfirmButton: false,
-                        allowOutsideClick: false
-                    })
-                    setTimeout(function () {
-                        Swal.close();
-                    }, 2000);
+                    let msgSuccess = this.translate.instant("land.thanks");
+                    this.showSuccess(msgSuccess);
                 }
 
             }, (err) => {
@@ -1206,17 +1100,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.modalReference.close();
                     this.modalReference = undefined;
                 }
-
-                Swal.fire({
-                    icon: 'success',
-                    html: this.translate.instant("land.thanks"),
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    allowOutsideClick: false
-                })
-                setTimeout(function () {
-                    Swal.close();
-                }, 2000);
+                let msgSuccess = this.translate.instant("land.thanks");
+                this.showSuccess(msgSuccess);
             }, (err) => {
                 this.insightsService.trackException(err);
                 console.log(err);
@@ -1233,16 +1118,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         this.checkSubscribe = false;
         this.acceptTerms = false;
-        Swal.fire({
-            icon: 'success',
-            html: this.translate.instant("land.thanks"),
-            showCancelButton: false,
-            showConfirmButton: false,
-            allowOutsideClick: false
-        })
-        setTimeout(function () {
-            Swal.close();
-        }, 2000);
+        let msgSuccess = this.translate.instant("land.thanks");
+        this.showSuccess(msgSuccess);
     }
 
 
@@ -1289,13 +1166,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             .subscribe((res: any) => {
                 if(res.result){
                     if(res.result == 'blocked'){
-                        Swal.fire({
-                            icon: 'error',
-                            text: this.translate.instant("land.errorLocation"),
-                            showCancelButton: false,
-                            showConfirmButton: true,
-                            allowOutsideClick: false
-                        })
+                        let msgError = this.translate.instant("land.errorLocation");
+                        this.showError(msgError, null);
                     }
                     this.callingAnonymize = false;
                     this.hasAnonymize = true;
@@ -1448,13 +1320,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 })
                 text = text + ' ' + introText;
             }
-            Swal.fire({
-                icon: 'error',
-                text: text,
-                showCancelButton: false,
-                showConfirmButton: true,
-                allowOutsideClick: false
-            })
+            this.showError(text, null);
         }
         if (!this.showErrorCall1) {
             this.closeModal();
