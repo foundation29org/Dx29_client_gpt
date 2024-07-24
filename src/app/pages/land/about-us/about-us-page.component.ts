@@ -8,6 +8,7 @@ import { SearchService } from 'app/shared/services/search.service';
 import { ToastrService } from 'ngx-toastr';
 import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
+import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 declare let gtag: any;
 
@@ -28,8 +29,10 @@ export class AboutUsPageComponent implements OnDestroy {
     showErrorForm: boolean = false;
     sending: boolean = false;
     @ViewChild('f') mainForm: NgForm;
+    acceptTerms: boolean = false;
+    modalReference: NgbModalRef;
 
-    constructor( private searchService: SearchService, public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public insightsService: InsightsService) {
+    constructor( private searchService: SearchService, public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public insightsService: InsightsService, private modalService: NgbModal) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
@@ -63,6 +66,7 @@ export class AboutUsPageComponent implements OnDestroy {
     }
 
     submitInvalidForm() {
+        this.showErrorForm = true;
         if (!this.mainForm) { return; }
         const base = this.mainForm;
         for (const field in base.form.controls) {
@@ -83,6 +87,8 @@ export class AboutUsPageComponent implements OnDestroy {
           .subscribe( (res : any) => {
             this.sending = false;
             this.toastr.success('', this.translate.instant("generics.Data saved successfully"));
+            this.acceptTerms = false;
+            this.showErrorForm = false;
             this.mainForm.reset();
             this.lauchEvent('Send email');
            }, (err) => {
@@ -92,5 +98,26 @@ export class AboutUsPageComponent implements OnDestroy {
              this.toastr.error('', this.translate.instant("generics.error try again"));
            }));
       }
+
+      async openModal2(panel) {
+        let ngbModalOptions: NgbModalOptions = {
+          backdrop : 'static',
+            keyboard: false,
+            windowClass: 'ModalClass-sm'// xl, lg, sm
+        };
+        this.modalReference = this.modalService.open(panel, ngbModalOptions);
+        await this.delay(400);
+        document.getElementById('initpopup2').scrollIntoView(true);
+      }
+
+      delay(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      onTermsAccepted() {
+        this.acceptTerms = true;
+        this.modalReference.close();
+      }
+      
 
 }
