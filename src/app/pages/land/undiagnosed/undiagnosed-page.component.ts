@@ -130,7 +130,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     loadingIP() {
         this.subscription.add(this.apiDx29ServerService.getInfoLocation()
             .subscribe((res: any) => {
-                console.log(res)
                 if (res.ip) {
                     this.ip = res.ip
                     this.timezone = res.timezone
@@ -239,7 +238,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     subscribeToEvents() {
-        this.eventsService.on('changelang', function (lang) {
+        this.eventsService.on('changelang', async (lang) => {
             this.lang = lang;
             this.loadTranslations();
             if (this.currentStep.stepIndex == 2 && this.originalLang != lang) {
@@ -263,13 +262,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     }
                 });
             }
-        }.bind(this));
-
-        this.eventsService.on('backEvent', function (event) {
+        });
+        this.eventsService.on('backEvent', async (event) => {
             if (this.currentStep.stepIndex == 2) {
                 this.newPatient();
             }
-        }.bind(this));
+        });
     }
 
     delay(ms: number) {
@@ -603,16 +601,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
     }
 
-
     includesElement(array, string) {
-        string = string.toLowerCase();
-        for (let i = 0; i < array.length; i++) {
-            array[i] = array[i].toLowerCase();
-            if (string.includes(array[i])) {
-                return true;
-            }
-        }
-        return false;
+        const lowerCaseString = string.toLowerCase();
+        return array.some(element => lowerCaseString.includes(element.toLowerCase()));
     }
 
     createTranslationRequests(diseases) {
@@ -632,28 +623,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.topRelatedConditions = [];
         }
 
-        let indexDisease = this.topRelatedConditions.length;
-        for (let i = 0; i < parseChoices.length; i++) {
-            let hasSponsor = false;
-                let url = '';
-                for (let j = 0; j < this.sponsors.length && !hasSponsor; j++) {
-                    hasSponsor = this.includesElement(this.sponsors[j].synonyms, parseChoices[i].diagnosis)
-                    if (hasSponsor) {
-                        url = this.sponsors[j].url;
-                    }
-                }
-            indexDisease++;
-            console.log(parseChoices[i])
-            let content = '<strong>' + (indexDisease) + '. ' + parseChoices[i].diagnosis + ':</strong> ' + parseChoices[i].description;
-            content += `<br> <em class="fa fa-check success mr-1"></em>${this.translate.instant("diagnosis.Matching symptoms")}: ${parseChoices[i].symptoms_in_common.length > 0 ? parseChoices[i].symptoms_in_common.join(', ') : this.translate.instant("diagnosis.None")}`;
-            content += `<br> <em class="fa fa-times danger mr-1"></em>${this.translate.instant("diagnosis.Non-matching symptoms")}: ${parseChoices[i].symptoms_not_in_common.length > 0 ? parseChoices[i].symptoms_not_in_common.join(', ') : this.translate.instant("diagnosis.None")}`;
-            
-            this.topRelatedConditions.push({ 
-                content: content, 
-                name: parseChoices[i].diagnosis,  
-                url: url 
-            })
-        }
+        const indexDisease = this.topRelatedConditions.length;
+        parseChoices.forEach((disease, i) => {
+            const sponsor = this.sponsors.find(s => this.includesElement(s.synonyms, disease.diagnosis));
+            const matchingSymptoms = disease.symptoms_in_common.length > 0 ? disease.symptoms_in_common.join(', ') : this.translate.instant("diagnosis.None");
+            const nonMatchingSymptoms = disease.symptoms_not_in_common.length > 0 ? disease.symptoms_not_in_common.join(', ') : this.translate.instant("diagnosis.None");
+            const content = `
+                <strong>${indexDisease + i + 1}. ${disease.diagnosis}:</strong> ${disease.description}
+                <br> <em class="fa fa-check success mr-1"></em>${this.translate.instant("diagnosis.Matching symptoms")}: ${matchingSymptoms}
+                <br> <em class="fa fa-times danger mr-1"></em>${this.translate.instant("diagnosis.Non-matching symptoms")}: ${nonMatchingSymptoms}
+            `;
+            this.topRelatedConditions.push({ content, name: disease.diagnosis, url: sponsor?.url || '' });
+        });
 
         this.loadMoreDiseases = false;
         if (this.currentStep.stepIndex == 1) {
@@ -797,11 +778,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             if (this.detectedLang != 'en') {
                 var jsontestLangText = [{ "Text": parseChoices0[0] }]
                 if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
-                    var sendInfo = '';
-                    for (let i = 0; i < parseChoices0.length; i++) {
-                        sendInfo = sendInfo + parseChoices0[i] + '\n';
-                    }
-                    jsontestLangText = [{ "Text": sendInfo }]
+                    const sendInfo = parseChoices0.join('\n');
+                    jsontestLangText = [{ "Text": sendInfo }];
                 }
                 if (!Array.isArray(parseChoices0)) {
                     jsontestLangText = [{ "Text": parseChoices0 }]
@@ -835,11 +813,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         } else {
             var tempInfo = data;
             if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
-                var sendInfo = '';
-                for (let i = 0; i < parseChoices0.length; i++) {
-                    sendInfo = sendInfo + parseChoices0[i] + '\n';
-                }
-                tempInfo = sendInfo;
+                tempInfo = parseChoices0.join('\n');
             } else if (parseChoices0.length == 1) {
                 tempInfo = parseChoices0[0]
             }
@@ -861,11 +835,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.insightsService.trackException(err);
                         console.log(err);
                         if (parseChoices0.length > 1 && Array.isArray(parseChoices0)) {
-                            var sendInfo = '';
-                            for (let i = 0; i < parseChoices0.length; i++) {
-                                sendInfo = sendInfo + parseChoices0[i] + '\n';
-                            }
-                            this.answerOpenai = sendInfo;
+                            this.answerOpenai = parseChoices0.join('\n');
                         } else if (parseChoices0.length == 1) {
                             this.answerOpenai = parseChoices0[0]
                         } else {
@@ -1161,49 +1131,45 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.hasAnonymize = false;
         this.resultAnonymized = '';
         this.copyResultAnonymized = '';
-        var info = { value: this.medicalTextOriginal, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response, topRelatedConditions: this.topRelatedConditions, timezone: this.timezone, ip: this.ip }
+        const info = { value: this.medicalTextOriginal, myuuid: value.myuuid, operation: value.operation, lang: this.lang, response: response, topRelatedConditions: this.topRelatedConditions, timezone: this.timezone, ip: this.ip };
+        
         this.subscription.add(this.apiDx29ServerService.postAnonymize(info)
             .subscribe((res: any) => {
-                if(res.result){
-                    if(res.result == 'blocked'){
-                        let msgError = this.translate.instant("land.errorLocation");
+                if (res.result) {
+                    if (res.result === 'blocked') {
+                        const msgError = this.translate.instant("land.errorLocation");
                         this.showError(msgError, null);
                     }
                     this.callingAnonymize = false;
                     this.hasAnonymize = true;
-                }else{
+                } else {
                     let parseChoices = res.choices[0].message.content;
-                    //parseChoices = parseChoices.replace(/^"""\s*\n/, '').replace(/\s*"""\s*$/, '');
                     parseChoices = parseChoices.replace(/^\s*"""\s*/, '').replace(/\s*"""\s*$/, '');
                     let parts = parseChoices.split(/(\[ANON-\d+\])/g);
-                    let partsCopy = parseChoices.split(/(\[ANON-\d+\])/g);
-
+                    let partsCopy = [...parts];  // Make a shallow copy of parts
+    
                     if (parts.length > 1) {
-                        for (let i = 0; i < parts.length; i++) {
-                            if (/\[ANON-\d+\]/.test(parts[i])) {
-                                let length = parseInt(parts[i].match(/\d+/)[0]);
-                                let blackSpan = '<span style="background-color: black; display: inline-block; width:' + length + 'em;">&nbsp;</span>';
-                                parts[i] = blackSpan;
-                                // Agregamos la parte de los asteriscos
-                                let asterisks = '*'.repeat(length);
-                                partsCopy[i] = asterisks;
+                        parts = parts.map((part, i) => {
+                            if (/\[ANON-\d+\]/.test(part)) {
+                                const length = parseInt(part.match(/\d+/)[0]);
+                                const blackSpan = `<span style="background-color: black; display: inline-block; width:${length}em;">&nbsp;</span>`;
+                                partsCopy[i] = '*'.repeat(length);
+                                return blackSpan;
                             }
-                        }
-                        this.resultAnonymized = parts.join('');
-                        this.resultAnonymized = this.resultAnonymized.replace(/\n/g, '<br>');
-
-                        this.copyResultAnonymized = partsCopy.join('');
-                        this.copyResultAnonymized = this.copyResultAnonymized.replace(/\n/g, '<br>');
+                            return part;
+                        });
+    
+                        this.resultAnonymized = parts.join('').replace(/\n/g, '<br>');
+                        this.copyResultAnonymized = partsCopy.join('').replace(/\n/g, '<br>');
                         this.medicalTextOriginal = this.copyResultAnonymized;
-                        if(this.detectedLang != 'en'){
-                            var info = [{ "Text": this.copyResultAnonymized }]
+    
+                        if (this.detectedLang !== 'en') {
+                            const info = [{ "Text": this.copyResultAnonymized }];
                             this.subscription.add(this.apiDx29ServerService.getTranslationInvert(this.detectedLang, info)
                                 .subscribe((res2: any) => {
-                                    var textToTA = this.copyResultAnonymized;
-                                    if (res2[0] != undefined) {
-                                        if (res2[0].translations[0] != undefined) {
-                                            textToTA = res2[0].translations[0].text;
-                                        }
+                                    let textToTA = this.copyResultAnonymized;
+                                    if (res2[0]?.translations[0]?.text) {
+                                        textToTA = res2[0].translations[0].text;
                                     }
                                     this.copyResultAnonymized = textToTA;
                                     this.medicalTextEng = this.copyResultAnonymized;
@@ -1211,27 +1177,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                                     this.insightsService.trackException(err);
                                     this.medicalTextEng = this.copyResultAnonymized;
                                 }));
-                        }else{
+                        } else {
                             this.medicalTextEng = this.copyResultAnonymized;
                         }
-                        
-                        
+    
                         this.callingAnonymize = false;
                         this.hasAnonymize = true;
-
+    
                         if (!localStorage.getItem('dontShowSwal')) {
-                            let detectePer = this.translate.instant("diagnosis.detected personal information");
-                            let procDelete = this.translate.instant("diagnosis.proceeded to delete");
-                            let msgcheck = this.translate.instant("land.check");
+                            const detectePer = this.translate.instant("diagnosis.detected personal information");
+                            const procDelete = this.translate.instant("diagnosis.proceeded to delete");
+                            const msgcheck = this.translate.instant("land.check");
                             Swal.fire({
                                 icon: 'info',
-                                html: '<p>' + detectePer + '</p><p>' + procDelete + '</p><br><br><input type="checkbox" id="dont-show-again" class="mr-1">' + msgcheck,
+                                html: `<p>${detectePer}</p><p>${procDelete}</p><br><br><input type="checkbox" id="dont-show-again" class="mr-1">${msgcheck}`,
                                 showCancelButton: false,
                                 showConfirmButton: true,
                                 allowOutsideClick: false
                             }).then((result) => {
                                 if ((document.getElementById('dont-show-again') as HTMLInputElement).checked) {
-                                    // Aquí puedes almacenar la preferencia del usuario, por ejemplo en localStorage
                                     localStorage.setItem('dontShowSwal', 'true');
                                 }
                             });
@@ -1244,8 +1208,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.mostrarFinalizacionAnonimizado(false);
                     }
                 }
-                
-
             }, (err) => {
                 console.log(err);
                 this.insightsService.trackException(err);
