@@ -194,7 +194,7 @@ export class jsPDFService {
         //escribir el texto de entrada
         this.newSectionDoc(doc,this.translate.instant("diagnosis.Patient text entered"),'',null,lineText += 10)
         lineText += 5;
-        lineText = this.writeLongText(doc, 10, lineText, entryText);
+        lineText = this.writeLongText2(doc, 10, lineText, entryText);
         lineText += 2;
         
         //Diseases
@@ -218,6 +218,16 @@ export class jsPDFService {
                 // Escribir la descripción
                 lineText = this.writeLongText(doc, 10, lineText, infoDiseases[i].description);
                 lineText += 7;
+
+                let textMatchingSymptoms = this.translate.instant("diagnosis.Matching symptoms") + ": ";
+                textMatchingSymptoms+= infoDiseases[i].matchingSymptoms;
+                lineText = this.writeLongText(doc, 10, lineText, textMatchingSymptoms);
+                lineText += 5;
+
+                let textNonMatchingSymptoms = this.translate.instant("diagnosis.Non-matching symptoms") + ": ";
+                textNonMatchingSymptoms+= infoDiseases[i].nonMatchingSymptoms;
+                lineText = this.writeLongText(doc, 10, lineText, textNonMatchingSymptoms);
+                lineText += 10;
 
             }
         }
@@ -269,6 +279,35 @@ export class jsPDFService {
             if (text.length > 0) y += 5;  // Si hay más texto, ajusta la posición y para la siguiente línea.
         }
         
+        return y;
+    }
+
+    writeLongText2(doc, x, y, text) {
+        const maxChars = 125;
+        const lines = text.split('\n');  // Divide el texto en líneas usando el salto de línea como delimitador
+    
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i].trim();
+            while (line.length > 0) {
+                let chunk;
+                if (line.length > maxChars) {
+                    let breakPoint = maxChars;
+                    while (breakPoint > 0 && line[breakPoint] !== ' ') {
+                        breakPoint--;
+                    }
+                    chunk = breakPoint > 0 ? line.substr(0, breakPoint) : line.substr(0, maxChars);
+                } else {
+                    chunk = line;
+                }
+    
+                y = this.writeTextDesc(doc, x, y, chunk);
+                line = line.substr(chunk.length).trim();
+    
+                if (line.length > 0) y += 5;  // Si hay más texto, ajusta la posición y para la siguiente línea.
+            }
+            y += 5;  // Ajusta la posición y para la próxima línea del texto dividido.
+        }
+    
         return y;
     }
 

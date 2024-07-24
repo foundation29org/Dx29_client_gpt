@@ -43,7 +43,7 @@ const routes: Routes = [
         path: 'privacy-policy',
         component: PrivacyPolicyPageComponent,
         data: {
-          title: 'registration.Privacy Policy'
+          title: 'menu.Privacy Policy'
         }
       }
     ]

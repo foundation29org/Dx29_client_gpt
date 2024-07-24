@@ -633,7 +633,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 <br> <em class="fa fa-check success mr-1"></em>${this.translate.instant("diagnosis.Matching symptoms")}: ${matchingSymptoms}
                 <br> <em class="fa fa-times danger mr-1"></em>${this.translate.instant("diagnosis.Non-matching symptoms")}: ${nonMatchingSymptoms}
             `;
-            this.topRelatedConditions.push({ content, name: disease.diagnosis, url: sponsor?.url || '' });
+            this.topRelatedConditions.push({ content, name: disease.diagnosis, url: sponsor?.url || '', description: disease.description, matchingSymptoms: matchingSymptoms, nonMatchingSymptoms: nonMatchingSymptoms });
         });
 
         this.loadMoreDiseases = false;
@@ -1000,7 +1000,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.jsPDFService.generateResultsPDF(this.medicalTextOriginal, infoDiseases, this.lang)
             this.lauchEvent("Download results");
         }
-
     }
 
     getDiseaseInfo(diseases: any[]): { name: string, description: string }[] {
@@ -1009,7 +1008,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             const description = matches && matches[1].trim() || '';
             return {
                 name: disease.name,
-                description: description
+                description: disease.description, 
+                matchingSymptoms: disease.matchingSymptoms, 
+                nonMatchingSymptoms: disease.nonMatchingSymptoms
             };
         });
     }

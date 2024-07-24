@@ -1,12 +1,10 @@
 {
   "menu":{
-    "Dashboard": "Accueil", 
-    "Register": "S'inscrire",
+    "Dashboard": "Accueil",
     "About us": "A propos de nous",
-    "Usage statistics": "Statistiques d'utilisation"
-  },
-  "registration":{
-    "Privacy Policy": "Politique de confidentialité"
+    "Usage statistics": "Statistiques d'utilisation",
+    "Privacy Policy": "Politique de confidentialité",
+    "Contact us": "Contactez nous"
   },
   "generics":{
     "Email": "E-mail",
@@ -31,13 +29,6 @@
     "sorry cant anwser1": "Nous avons détecté du contenu dans votre texte qui pourrait ne pas être conforme à nos politiques internes. Nous vous prions gentiment de revoir et d'ajuster le texte que vous avez fourni. Si le problème persiste, n'hésitez pas à nous revoir un autre jour pendant que nous travaillons à améliorer l'expérience. Vous pouvez également fournir une description alternative. Pour une assistance immédiate, veuillez contacter notre équipe de support dédiée à support@foundation29.org. Nous nous excusons sincèrement pour tout inconvénient causé. N'oubliez pas l'importance de respecter nos directives d'utilisation pour maintenir l'accès à notre outil.",
     "sorry cant anwser2": "Nous ne pouvons pas répondre à cela pour le moment. Veuillez réessayer un autre jour pour nous laisser le temps de le résoudre. En attendant, vous pouvez sélectionner une autre option. Si vous avez besoin d'une aide immédiate, veuillez écrire à notre équipe de support : support@foundation29.org Nous nous excusons pour la gêne occasionnée.",
     "sorry cant anwser3": "This model's maximum context length is 1048576 tokens. Please reduce the length of the messages. Para calcular el número de tokens puedes ir aquí:"
-  },
-  "navbar":{  
-    "Toggle navigation": "Basculer la navigation"
-  },
-  "errors":{
-    "The user does not exist": "L'utilisateur n'existe pas",
-    "The session has been closed": "La session a été fermée"
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnostics proposés",
@@ -76,42 +67,6 @@
     "p6.3": "Demande de suppression de données : si vous souhaitez que nous supprimions toutes les informations personnelles que nous détenons à votre sujet (par exemple, votre adresse e-mail fournie via notre formulaire de contact), vous pouvez en faire la demande en nous envoyant un e-mail à support@foundation29. .org. Nous nous engageons à traiter votre demande dans un délai raisonnable et à vous confirmer la suppression de vos données.",
     "p7": "Si vous avez des questions concernant cette politique, n'hésitez pas à nous contacter : support@foundation29.org. Nous nous engageons à maintenir la transparence dans la gestion des données chez DxGPT pour préserver votre confiance."
 },
-  "dataprocessing": {
-    "I agree with the": "J'accepte le",
-    "data processing by DX29": "traitement des données par DxGPT",
-    "title": "CONTRAT DE TRAITEMENT DES DONNÉES - DxGPT",
-    "p1-1": "Le service fourni par la Fundación 29 de Febrero via l'outil DxGPT est axé sur l'aide aux cliniciens et généticiens pendant le processus de diagnostic des maladies, réduisant le temps et le rendant plus précis. En utilisant des algorithmes d'intelligence artificielle, il aide les spécialistes à incorporer les informations des patients pour identifier les symptômes et trouver des liens entre eux, les guidant dans l'identification de nouveaux symptômes. Enfin, DxGPT suggère une liste classée de pathologies que le professionnel peut envisager de soumettre à de nouveaux tests et ainsi confirmer le diagnostic final. Les algorithmes utilisés pendant ce processus sont améliorés périodiquement avec les données fournies par les spécialistes.",
-    "p1-2": "Les utilisateurs sont des spécialistes professionnels, liés à la médecine et à la génétique (ci-après « l'utilisateur » / « les utilisateurs »), qui souhaitent utiliser le service fourni par DxGPT. En tant que tels, ils sont RESPONSABLES du traitement des données de leurs patients.",
-    "p1-3": "De cette manière, la Fundación 29 sera le SOUS-TRAITANT des données pour fournir le service dans le but exprimé dans le premier paragraphe.",
-    "p1-4": "Pour la prestation d'un tel service, il est nécessaire que le SOUS-TRAITANT ait accès et effectue le traitement des données personnelles du patient.",
-    "p1-5": "Les deux parties, RESPONSABLE et SOUS-TRAITANT, reconnaissent se conformer à toutes les obligations découlant de la réglementation communautaire et nationale en matière de protection des données, en particulier celles liées au droit à l'information, au consentement et au devoir de confidentialité, et à l'adoption de mesures de sécurité techniques et organisationnelles qui garantissent la sécurité des données à caractère personnel.",
-    "p1-6": "Au moyen du présent texte, le SOUS-TRAITANT est habilité à traiter au nom du RESPONSABLE les données personnelles du patient nécessaires pour fournir le service décrit ci-dessus.",
-    "p1-7": "Pour l'exécution de la prestation des services découlant de l'exécution de la présente mission, le RESPONSABLE met à la disposition du SOUS-TRAITANT les informations décrites ci-dessous :",
-    "p1-7-1": "Informations cliniques décrivant le patient",
-    "p1-7-2": "Informations génétiques du patient",
-    "p2-1": "Le SOUS-TRAITANT est tenu de :",
-    "p2-2": "Utiliser les données à caractère personnel faisant l'objet du traitement ou celles collectées aux fins de cette mission.",
-    "p2-3": "Ne pas communiquer les données à des tiers, sauf autorisation expresse du RESPONSABLE, dans les cas légalement admissibles.",
-    "p2-4": "Le SOUS-TRAITANT doit observer à tout moment, et en relation avec les fichiers de données personnelles auxquels il a eu accès ou qui pourraient lui être remis par le RESPONSABLE, pour la réalisation dans chaque cas du travail et des services qui peuvent être convenus, le devoir de confidentialité et le secret professionnel qui, conformément aux dispositions du règlement européen sur la protection des données, survivront même après la finalisation de la liste des travaux commandés en relation avec tout fichier et, le cas échéant, après l'achèvement pour quelque raison que ce soit de ce contrat.",
-    "p2-5": "Le SOUS-TRAITANT notifiera au RESPONSABLE, sans retard indu et dans tous les cas avant le délai maximum de 72 heures, et par e-mail, les violations de la sécurité des données à caractère personnel dont il a la responsabilité et dont il a connaissance, ainsi que toutes les informations pertinentes pour la documentation et la communication de l'incident. La notification ne sera pas nécessaire lorsqu'il est peu probable qu'une telle violation de la sécurité constitue un risque pour les droits et libertés des personnes dont les données sont collectées sur la plateforme.",
-    "p2-6": "Mettre en œuvre les mesures de sécurité nécessaires pour :",
-    "p2-6-1": "Garantir la confidentialité, l'intégrité, la disponibilité et la résilience permanente des systèmes et services de traitement.",
-    "p2-6-2": "Restaurer la disponibilité des données personnelles et l'accès à celles-ci aussi rapidement que possible en fonction de la situation, en cas d'incident physique ou technique.",
-    "p2-6-3": "Vérifier, évaluer et apprécier, régulièrement, l'efficacité des mesures techniques et organisationnelles mises en œuvre pour garantir la sécurité du traitement.",
-    "p2-7": "Destination des données :",
-    "p2-7-1": "Le SOUS-TRAITANT s'engage à détruire les données une fois le service terminé. Une fois détruites, le SOUS-TRAITANT devra certifier par écrit leur destruction et devra en fournir la vérification au RESPONSABLE. Cependant, le SOUS-TRAITANT peut conserver une copie, avec les données dûment enregistrées, dans la mesure où des responsabilités découlant de l'exécution du service peuvent en découler.",
-    "p3": "Le RESPONSABLE est tenu de :",
-    "p3-1": "Réaliser une évaluation de l'impact sur la protection des données à caractère personnel des opérations de traitement devant être effectuées par le responsable.",
-    "p3-2": "Effectuer les consultations préalables correspondantes",
-    "p3-3": "Garantir, avant et tout au long du traitement, le respect du Règlement (RGPD dans l'UE)",
-    "p3-4": "Résoudre avec leurs patients, en relation avec les données objet du service, l'exercice des droits :",
-    "p3-4-1": "D’accès, de rectification, de suppression et d’opposition",
-    "p3-4-2": "De limitation du traitement",
-    "p3-4-3": "À la portabilité des données",
-    "p4-1": "Le RESPONSABLE, en sa qualité, se réserve le droit d'effectuer à tout moment les contrôles et audits qu'il juge appropriés pour vérifier la bonne conformité par le SOUS-TRAITANT du présent accord. De son côté, le SOUS-TRAITANT devra fournir au RESPONSABLE autant de données ou de documents que celui-ci pourrait exiger pour la bonne exécution desdits contrôles et audits.",
-    "p4-2": "Toute notification qui est faite entre les parties sera faite par écrit et sera remise en mains propres ou de toute autre manière attestant la réception par la partie notifiée.",
-    "p4-3": "Le présent écrit et les relations entre le RESPONSABLE et le SOUS-TRAITANT ne constituent en aucun cas une société, une coentreprise, une agence ou un contrat de travail entre les parties."
-  },
   "support": {
     "support": "Support",
     "New message": "Nouveau message", 
@@ -122,23 +77,8 @@
     "Old messages": "Anciens messages",
     "Uploading a capture can help us a lot": "Télécharger une capture d'écran peut beaucoup nous aider"
   },
-  "homedx": {
-    "Contact us": "Contactez nous",
-    "Donate": "Faire un don" 
-  },
   "footer":{
     "Dx29info": "DxGPT est un outil de recherche et de référence fourni à titre informatif et ne vise pas à remplacer le jugement ou l'expérience du médecin. Il ne doit pas être utilisé pour diagnostiquer ou traiter des affections médicales."
-  },
-  "parser":{
-    "OcrOnlyTitle": "Nous avons détecté qu'il y a des images dans le texte.",
-    "OcrOnlyText": "Voulez-vous que nous en extrayions le texte ? Cela peut prendre quelques minutes.",
-    "msgOcrInline": "Si vous pensez qu'il y a plus de texte que ce que nous avons extrait, cliquez ici",
-    "Advanced extraction": "Extraction avancée",
-    "We have detected that the document is in another language": "Nous avons détecté que le document est dans une autre langue",
-    "Analyzed as": "Analysé comme",
-    "detected as": "détecté comme",
-    "do you want us to do it": "Maintenant que nous le savons, nous pouvons essayer d'analyser mieux le document, voulez-vous que nous le fassions ?",
-    "No text has been detected in the file": "Aucun texte n'a été détecté dans le fichier."
   },
   "land":{
     "disclaimer": "<p><strong>DxGPT</strong> est une expérience de recherche utilisant une intelligence artificielle à usage général. Plus précisément, il utilise le modèle linguistique GPT-4 d'OpenAI comme modèle prédictif pour un outil fournissant des informations sur les maladies rares associées. Il est conçu pour fournir des informations générales et des suggestions basées sur les symptômes fournis. L'outil n'est pas destiné à remplacer les conseils médicaux professionnels, ni à soutenir le diagnostic, la prévention, la surveillance, la prédiction ou le traitement et ne doit jamais être utilisé pour porter des jugements diagnostiques sur de vrais patients.</p><p>Parce que l'IA peut donner des résultats variables, la précision du diagnostic et les suggestions de l'outil peuvent varier, il est donc important de consulter un professionnel de la santé qualifié pour s'assurer d'un diagnostic précis et approprié. L'utilisation de cet outil est au risque de l'utilisateur et la Fondation 29 n'est pas responsable des conséquences ou dommages pouvant résulter de son utilisation.</p><p>En utilisant cet outil, l'utilisateur reconnaît qu'il a lu et compris cette clause de non-responsabilité, et accepte les risques potentiels associés à l'utilisation de l'outil basé sur l'intelligence artificielle.</p>",

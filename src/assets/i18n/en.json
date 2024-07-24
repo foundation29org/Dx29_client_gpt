@@ -1,12 +1,10 @@
 {
   "menu":{
     "Dashboard": "Home",
-    "Register": "Register",
     "About us": "About us",
-    "Usage statistics": "Usage statistics"
-  },
-  "registration":{
-    "Privacy Policy": "Privacy policy"
+    "Usage statistics": "Usage statistics",
+    "Privacy Policy": "Privacy policy",
+    "Contact us": "Contact us"
   },
   "generics":{
     "Email": "Email",
@@ -31,13 +29,6 @@
     "sorry cant anwser1": "We've detected content in your text that may not align with our internal policies. We kindly ask you to review and adjust the text you've provided. If the problem persists, kindly consider revisiting us another day while we work on enhancing the experience. You're also welcome to provide an alternative description. For immediate assistance, please reach out to our dedicated support team at support@foundation29.org. We sincerely apologize for any inconvenience caused. Please remember the importance of adhering to our usage guidelines to maintain access to our tool.",
     "sorry cant anwser2": "We can't answer that right now. Please try another day to give us time to fix it. In the meantime, you can select another option. If you need immediate help, please write to our support team: support@foundation29.org We apologize for the inconvenience.",
     "sorry cant anwser3": "La longueur maximale du contexte de ce modèle est de 1048576 jetons. Merci de réduire la longueur des messages. Pour calculer le nombre de jetons vous pouvez le faire ici:"
-  },
-  "navbar":{
-    "Toggle navigation": "Toggle navigation"
-  },
-  "errors":{
-    "The user does not exist": "The user does not exist",
-    "The session has been closed": "The session has been closed"
   },
   "diagnosis":{
     "Proposed diagnoses":"Proposed diagnoses",
@@ -76,42 +67,6 @@
     "p6.3": "Data Deletion Request: If you would like us to delete any personal information we have about you (for example, your email address provided through our contact form), you can request this by emailing us at support@foundation29.org. We are committed to processing your request within a reasonable time and confirming to you once your data has been deleted.",
     "p7": "If you have any questions about this policy, please do not hesitate to contact us: support@foundation29.org. We are committed to maintaining transparency in data management at DxGPT to preserve your trust."
 },
-  "dataprocessing": {
-    "I agree with the": "I agree with the",
-    "data processing by DX29": "data processing by DxGPT",
-    "title": "DATA PROCESSING AGREEMENT - DxGPT",
-    "p1-1": "The service provided by Fundación 29 de Febrero through the tool DxGPT is focused on helping clinicians and genetists during the process of diagnosing diseases, reducing time and making it more precise. Using artificial intelligence algorithms, it helps specialists to incorporate patient information to identify symptoms and find connections between them, guiding them in the identification of new symptoms. Finally, DxGPT suggests a classified list of pathologies for the professional to consider carrying out new tests and thus confirm the final diagnosis. The algorithms used during this process are improved periodically with the data provided by the specialists.",
-    "p1-2": "The users are professional specialists, related to medicine and genetics (hereinafter, 'the user' / 'the users'), who want to use the service provided by DxGPT. As such, they are CONTROLLER of their patient's data.",
-    "p1-3": "In this way Fundación 29 will be the PROCESSOR of the data to provide the service with the purpose expressed in the first paragraph.",
-    "p1-4": "For the provision of such service it is necessary that the PROCESSOR have access and perform patient’s personal data processing.",
-    "p1-5": "Both parties, CONTROLLER and PROCESSOR, acknowledge complying with all the obligations derived from the community and national regulations in matters of data protection, especially those related to the right of information, consent and duty of secrecy, and the adoption of security measures technical and organizational measures that guarantee the security of personal data.",
-    "p1-6": "By means of the present text the PROCESSOR is enabled to deal on behalf of the CONTROLLER with the patient’s personal data necessary to provide the service described above.",
-    "p1-7": "For the execution of the provision of services derived from the fulfillment of this assignment, the CONTROLLER makes available to the PROCESSOR the information described below:",
-    "p1-7-1": "Clinical information describing the patient",
-    "p1-7-2": "Genetic information of the patient",
-    "p2-1": "The PROCESSOR is obliged to:",
-    "p2-2": "Use personal data subject to treatment or those collected for the purpose of this assignment.",
-    "p2-3": "Not communicate the data to third parties, unless under the express authorization of CONTROLLER, in the legally admissible cases.",
-    "p2-4": "The PROCESSOR must observe at all times, and in relation to the files of personal data to which he had access or could be delivered by the CONTROLLER, for the realization in each case of the work and services that may be agreed, the duty of confidentiality and professional secrecy that, in accordance with the provisions of the European Data Protection regulations, will survive even after finalizing the list of works commissioned in relation to any file and, where appropriate, after completion for any reason of this contract.",
-    "p2-5": "The PROCESSOR will notify the CONTROLLER, without undue delay, and in any case before the maximum period of 72 hours, and through email, the breaches of the security of the personal data in its charge of which it has knowledge, together with all the relevant information for the documentation and communication of the incident. Notification will not be necessary when it is unlikely that such a breach of security constitutes a risk to the rights and freedoms of the persons whose data is collected on the platform.",
-    "p2-6": "Implement the necessary security measures to:",
-    "p2-6-1": "Guarantee the confidentiality, integrity, availability and permanent resilience of the treatment systems and services.",
-    "p2-6-2": "Restore availability and access to personal data as quickly as possible according to the situation, in case of physical or technical incident.",
-    "p2-6-3": "To verify, evaluate and assess, on a regular basis, the effectiveness of the technical and organizational measures implemented to guarantee the safety of the treatment.",
-    "p2-7": "Destination of the data:",
-    "p2-7-1": "The PROCESSOR undertakes to destroy the data once the service has been completed. Once destroyed, the PROCESSOR must certify its destruction in writing and must provide verification to the CONTROLLER. However, the PROCESSOR can keep a copy, with the data duly recorded, as long as responsibilities for the execution of the service can be derived.",
-    "p3": "The CONTROLLER is obliged to:",
-    "p3-1": "Carry out an evaluation of the impact on the protection of personal data of the treatment operations to be carried out by the person in charge.",
-    "p3-2": "Carry out the corresponding prior consultations",
-    "p3-3": "Ensure, prior to and throughout the treatment, compliance with the Regulation (GDPR in EU)",
-    "p3-4": "To resolve with their patients, in relation to the data object of the service, the exercise of the rights of:",
-    "p3-4-1": "Access, rectification, deletion and opposition",
-    "p3-4-2": "Limitation of treatment",
-    "p3-4-3": "Data portability",
-    "p4-1": "The CONTROLLER, in its condition, reserves the right to carry out at any time the controls and audits it deems appropriate to verify the correct compliance by the PROCESSOR of this agreement. From its part, the PROCESSOR shall provide CONTROLLER with as many data or documents as it may require for the proper compliance of said controls and audits.",
-    "p4-2": "Any notification that is made between the parties will be made in writing and will be delivered personally or in any other way that certifies the reception by the notified party.",
-    "p4-3": "The present writing and the relations between the CONTROLLER and the PROCESSOR do not constitute in any case society, joint venture, agency or work contract between the parties."
-  },
   "support": {
     "support": "Support",
     "New message": "New message",
@@ -122,23 +77,8 @@
     "Old messages": "Old messages",
     "Uploading a capture can help us a lot": "Uploading a capture can help us a lot"
   },
-  "homedx": {
-    "Contact us": "Contact us",
-    "Donate": "Donate"
-  },
   "footer":{
     "Dx29info": "DxGPT is a search and reference tool provided for informational purposes and not intended to replace the clinician’s judgement or experience. It should not be used to diagnose or treat medical conditions."
-  },
-  "parser":{
-    "OcrOnlyTitle": "We have detected that there are images in the text.",
-    "OcrOnlyText": "Do you want us to extract the text from it? It may take a couple of minutes.",
-    "msgOcrInline": "If you think there is more text than we have extracted, click here",
-    "Advanced extraction": "Advanced extraction",
-    "We have detected that the document is in another language": "We have detected that the document is in another language",
-    "Analyzed as": "Analyzed as",
-    "detected as": "detected as",
-    "do you want us to do it": "Now that we know that, we can try to analyze the document better, do you want us to do it?",
-    "No text has been detected in the file": "No text has been detected in the file."
   },
   "land":{
     "disclaimer": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-4 linguistic model as a predictive model for a tool to provide information on related rare diseases. It is designed to provide general information and suggestions based on the symptoms provided. The tool is not intended to replace professional medical advice, or support diagnosis, prevention, monitoring, prediction or treatment and should never be used to make diagnostic judgments for real patients.</p><p>Because AI can give variable results, diagnostic accuracy and suggestions from the tool may vary, so it is important to consult a qualified healthcare professional to ensure an accurate and appropriate diagnosis. Use of this tool is at the user's own risk and Foundation 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts any potential risks associated with the use of the artificial intelligence-based tool.</p>",
