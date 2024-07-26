@@ -1,0 +1,42 @@
+p {
+  font-size: 1.1rem;
+}
+
+.ng-touched.ng-invalid {
+  border-color: #A6A9AE;
+}
+
+.img-responsive{
+  max-height: 80px;
+    max-width: 100%;
+    max-width: -moz-available;          /* For Mozzila */
+    max-width: -webkit-fill-available;  /* For Chrome */
+    max-width: stretch;
+}
+
+.img-responsive:hover{
+  opacity: 1;
+  filter: brightness( 100% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );
+}
+
+@media (max-width: 768px) {
+  .margin-left-0{
+    margin-left: 0px !important;
+  }
+}
+
+
+  @media ( max-width: 449px ){
+    .card-body{
+      padding: 0rem;
+    }
+    .card-title{
+      font-size: 1.2rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  
+  

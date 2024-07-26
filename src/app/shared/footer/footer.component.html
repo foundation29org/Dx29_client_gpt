@@ -34,6 +34,9 @@
             <a *ngIf="!isAboutPage" class="mr-2 text-decoration-underline" routerLink="/aboutus">
               <span>{{'menu.About us' | translate }}</span>
             </a>
+            <a *ngIf="!isFaqPage" class="mr-2 text-decoration-underline" routerLink="/faq">
+              <span>FAQs</span>
+            </a>
             <a *ngIf="!isReportsPage" class="mr-2 text-decoration-underline" routerLink="/reports">
               <span>{{'menu.Usage statistics' | translate }}</span>
             </a>

@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { LandPageRoutingModule } from "./land-page-routing.module";
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AboutUsPageComponent } from "./about-us/about-us-page.component";
+import { FaqsPageComponent } from "./faqs/faqs-page.component";
 import { ReportsPageComponent } from "./reports/reports-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 import { TestimonialsComponent } from "./testimonials/testimonials.component";
 
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { SharedModule } from 'app/shared/shared.module';
@@ -37,6 +38,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ],
     declarations: [
         AboutUsPageComponent,
+        FaqsPageComponent,
         ReportsPageComponent,
         UndiagnosedPageComponent,
         FeedbackPageComponent,

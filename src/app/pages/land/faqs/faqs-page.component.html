@@ -1,0 +1,107 @@
+<section class="white" style="padding-bottom: 70px !important;padding-top: 70px !important;background-color: #353540;">
+  <div class="col-12 d-flex justify-content-center">
+    <div class="card-body" style="max-width: 1200px;">
+      <div class="row m-0">
+        <div class="offset-md-2 col-md-8 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;">
+          <h1 class="white card-title text-bold-500">
+            {{'land.faqs.title' | translate }}
+            <hr class="hr-custom">
+          </h1>
+          <span class="text-left row margin-left-0 p-2">
+            <p class="mb-0"><strong>{{'land.faqs.q1' | translate }}</strong></p>
+            <p>{{'land.faqs.a1' | translate }}</p>
+            <p class="mb-0"><strong>{{'land.faqs.q2' | translate }}</strong></p>
+            <p>{{'land.faqs.a2' | translate }}</p>
+            <p class="mb-0"><strong>{{'land.faqs.q3' | translate }}</strong></p>
+            <p>{{'land.faqs.a3' | translate }}</p>
+            <p class="mb-0"><strong>{{'land.faqs.q4' | translate }}</strong></p>
+            <p>{{'land.faqs.a4' | translate }}</p>
+            <p class="mb-0"><strong>{{'land.faqs.q5' | translate }}</strong></p>
+            <p>{{'land.faqs.a5' | translate }}</p>
+            <p class="mb-0"><strong>{{'land.faqs.q6' | translate }}</strong></p>
+            <p>{{'land.faqs.a6' | translate }}</p>
+            <p>{{'land.faqs.a6.1' | translate }}</p>
+            <p>{{'land.faqs.a6.2' | translate }}</p>
+            <p class="mb-0"><strong>{{'land.faqs.q7' | translate }}</strong></p>
+            <p>{{'land.faqs.a7' | translate }}</p>
+            <p class="mb-0"><strong>{{'land.faqs.q8' | translate }}</strong></p>
+            <p>{{'land.faqs.a8' | translate }}</p>
+          </span>
+        </div>
+      </div>
+    </div>
+</div>
+</section>
+<section class="white" style="padding-bottom: 70px !important;padding-top: 70px !important;background-color: #353540;">
+  <div class="col-sm-12 offset-lg-3 col-lg-6 justify-content-center align-items-center text-center">
+    <div class="card-body" style="max-width: 1200px;">
+      <div class="row m-0">
+        <div class="offset-md-3 col-md-6 justify-content-center align-items-center text-center" style="padding-top: 1.5rem;padding-right: 1.5rem;padding-left: 1.5rem;">
+          <h1 class="white card-title text-bold-500">
+            {{'menu.Contact us' | translate }}
+            <hr class="hr-custom">
+          </h1>
+        </div>
+        <div class="col-lg-12 col-md-12 py-2">
+            <div class="center-elements">
+              <form class="form" (ngSubmit)="sendMsg()" #f="ngForm">
+                <div class="form-body">
+                  <div class="">
+                    <div class="">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="userName" id="userName"
+                          placeholder="{{'generics.Name' | translate }}" ngModel required #userName="ngModel">
+                        <small class="form-text text-muted danger"
+                          *ngIf="!userName.valid && (userName.dirty || userName.touched)">{{'generics.required' | translate
+                          }}</small>
+                      </div>
+                    </div>
+                    <div class="">
+                      <div class="form-group">
+                        <input type="email" class="form-control" name="email" id="email"
+                          placeholder="{{'generics.Email' | translate }}" ngModel required email #email="ngModel">
+                        <small class="form-text text-muted danger"
+                          *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate
+                          }}</small>
+                      </div>
+                    </div>
+                    <div class="">
+                      <div class="form-group">
+                        <textarea name="description" id="textarea1"
+                          placeholder="{{'support.Message' | translate }}" class="form-control" ngModel
+                          required #description="ngModel"></textarea>
+                        <small class="form-text text-muted danger"
+                          *ngIf="!description.valid && (description.dirty || description.touched)">{{'generics.required' |
+                          translate }}</small>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <mat-checkbox
+                          class="example-margin" name="terms" ngModel #terms="ngModel" id="terms" required [(ngModel)]="acceptTerms">
+                          <span style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;">{{'termsform.accept' | translate }} <a class="white" style="text-decoration: underline !important;" href="javascript:;" (click)="openModal2(termsModal)">{{'termsform.terms' | translate }}</a></span>
+                      </mat-checkbox>
+                      <small class="danger d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!sending" class="center-elements">
+                  <div *ngIf="f.valid;then formValid else formError"></div>
+                  <ng-template #formValid><button class="btn btn-info round" type="submit"> {{'support.Send' |
+                      translate }}</button></ng-template>
+                  <ng-template #formError><button class="btn btn-info round" type="button"
+                      (click)="submitInvalidForm()"> {{'support.Send' | translate }}</button></ng-template>
+                </div>
+                <div class="form-actions" *ngIf="sending" class="center-elements">
+                  <span><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #termsModal let-c="close" let-d="dismiss">
+  <app-termsform (termsAccepted)="onTermsAccepted()"></app-termsform>
+</ng-template>
