@@ -13,6 +13,7 @@ import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { NavbarD29Component } from "./navbar-dx29/navbar-dx29.component";
 import { FooterComponent } from 'app/shared/footer/footer.component'
 import { TermFormComponent } from 'app/pages/land/termsform/termsform.component';
+import { SendMsgComponent } from 'app/pages/land/send-msg/send-msg.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
@@ -23,7 +24,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         NgbModule,
         TranslateModule,
         FooterComponent,
-        TermFormComponent
+        TermFormComponent,
+        SendMsgComponent
     ],
     imports: [
         RouterModule,
@@ -39,7 +41,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     declarations: [
         NavbarD29Component,
         FooterComponent,
-        TermFormComponent
+        TermFormComponent,
+        SendMsgComponent
     ]
 })
 export class SharedModule { }

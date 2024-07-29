@@ -24,10 +24,11 @@ export class FooterComponent{
   modalReference2: NgbModalRef;
   sending: boolean = false;
   msgfeedBack: string = '';
+  userName: string = '';
   checkSubscribe: boolean = false;
   acceptTerms: boolean = false;
   showErrorForm: boolean = false;
-  terms2: boolean = false;
+  terms3: boolean = false;
   @ViewChild('f') feedbackDownForm: NgForm;
   @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
   email: string = '';
@@ -89,10 +90,11 @@ submitInvalidForm() {
 
 onSubmitRevolution() {
   this.sending = true;
-  var params = { email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe };
-  this.http.post(environment.serverapi + '/api/subscribe/', params)
+  var params = { userName: this.userName ,email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe };
+  this.http.post(environment.serverapi + '/api/homesupport/', params)
       .subscribe((res: any) => {
           this.sending = false;
+          this.userName = '';
           this.msgfeedBack = '';
           this.email = '';
           this.checkSubscribe = false;
@@ -137,6 +139,7 @@ private resizeTextAreaFunc(elements: QueryList<ElementRef>) {
 }
 
 closeSupport(){
+  this.userName = '';
   this.msgfeedBack = '';
   this.email = '';
   this.modalReference.close();
