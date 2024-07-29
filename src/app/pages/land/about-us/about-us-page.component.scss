@@ -19,9 +19,13 @@ p {
   filter: brightness( 100% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );
 }
 
+
 @media (max-width: 768px) {
   .margin-left-0{
     margin-left: 0px !important;
+  }
+  .card-title{
+    font-size: 1.5rem;
   }
 }
 
