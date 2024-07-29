@@ -490,6 +490,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.callingOpenai = false;
                     break;
                 case 'error max tokens':
+                    this.lauchEvent("error max tokens: "+this.medicalTextOriginal.length);
                     msgError = this.translate.instant("generics.sorry cant anwser3") + '<a href="https://platform.openai.com/tokenizer" class="ml-1 danger" target="_blank">Tokenizer</a>';
                     this.showError(msgError, null);
                     this.callingOpenai = false;
@@ -522,6 +523,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         } else if (err.error.type == 'invalid_request_error') {
             if (err.error.code == 'string_above_max_length') {
+                this.lauchEvent("error max tokens: "+this.medicalTextOriginal.length);
                 let msgError = this.translate.instant("generics.sorry cant anwser3") + '<a href="https://platform.openai.com/tokenizer" class="ml-1 danger" target="_blank">Tokenizer</a>';
                 this.showError(msgError, err);
                 this.callingOpenai = false;
