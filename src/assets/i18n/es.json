@@ -28,7 +28,7 @@
     "Please wait": "Por favor, espera...",
     "sorry cant anwser1": "Hemos detectado contenido en su texto que puede no alinearse con nuestras políticas internas. Le rogamos que revise y ajuste el texto que ha proporcionado. Si el problema persiste, considere volver a visitarnos otro día mientras trabajamos para mejorar la experiencia. También puedes proporcionar una descripción alternativa. Para obtener asistencia inmediata, comuníquese con nuestro equipo de soporte dedicado en support@foundation29.org. Nos disculpamos sinceramente por cualquier inconveniente causado. Recuerde la importancia de cumplir con nuestras pautas de uso para mantener el acceso a nuestra herramienta.",
     "sorry cant anwser2": "Ahora mismo no podemos responder a eso. Pruebe otro día para darnos tiempo a solucionarlo. Mientras tanto, puede selecionar otra opción. Si necesitas ayuda inmediata, escribe a nuestro equipo de soporte: support@foundation29.org Disculpe las molestias.",
-    "sorry cant anwser3": "La longitud máxima es 8000 tokens. Por favor reduzca la longitud de la descripción. Para calcular el número de tokens puedes hacerlo aquí:"
+    "sorry cant anwser3": "La longitud máxima es 1500 tokens, unas 1000 palabras. Por favor reduzca la longitud de la descripción. Para calcular el número de tokens puedes hacerlo aquí:"
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnósticos propuestos",
