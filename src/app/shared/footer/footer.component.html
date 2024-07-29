@@ -1,23 +1,23 @@
 <!--Footer Starts-->
 <footer>
     <div class="container-fluid pt-2" style="background-color: #ffffff !important;">
-      <div class="row margin-0 text-center">
+      <div class="row margin-0 center-elements">
         <div class="col-lg-12">
           <div class="row">
-            <div class="col-md-4">
+            <div [ngClass]="(!isHomePage)?'col-md-6':'col-md-4'">
               <p>
                 <a href="javascript:;" class="underline" (click)="openModal(policyPanel)">
-                  <span>{{'registration.Privacy Policy' | translate }}</span>
+                  <span>{{'menu.Privacy Policy' | translate }}</span>
                 </a>
               </p>
             </div>
-            <div class="col-md-4">
+            <div [ngClass]="(!isHomePage)?'d-none':'col-md-4'">
               <p>
                 <span class="pointer underline" (click)="openSupport(contentSubs);">{{'land.Subscribe or send us a message' | translate }}</span>
               </p>
     
             </div>
-            <div class="col-md-4">
+            <div [ngClass]="(!isHomePage)?'col-md-6':'col-md-4'">
               <p>
                 <a href="javascript:;" class="underline" (click)="openModal(cookiesPanel)">
                   <span>{{'cookies.title' | translate }}</span>
@@ -34,6 +34,9 @@
             <a *ngIf="!isAboutPage" class="mr-2 text-decoration-underline" routerLink="/aboutus">
               <span>{{'menu.About us' | translate }}</span>
             </a>
+            <a *ngIf="!isFaqPage" class="mr-2 text-decoration-underline" routerLink="/faq">
+              <span>FAQs</span>
+            </a>
             <a *ngIf="!isReportsPage" class="mr-2 text-decoration-underline" routerLink="/reports">
               <span>{{'menu.Usage statistics' | translate }}</span>
             </a>
@@ -45,6 +48,7 @@
     </div>
 </footer>
 <ng-template #cookiesPanel let-c="close" let-d="dismiss">
+  <a id="initpopup" class="anchorSteps"></a>
   <div class="modal-header">
     <h4 class="modal-title">{{'cookies.title' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
@@ -119,8 +123,9 @@
   </div>
 </ng-template>
 <ng-template #policyPanel let-c="close" let-d="dismiss">
+  <a id="initpopup" class="anchorSteps"></a>
   <div class="modal-header">
-    <h4 class="modal-title">{{'registration.Privacy Policy' | translate }}</h4>
+    <h4 class="modal-title">{{'menu.Privacy Policy' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -166,11 +171,22 @@
   </div>
 </ng-template>
 <ng-template #contentSubs let-c="close" let-d="dismiss">
+  <a id="initpopup" class="anchorSteps"></a>
   <div class="modal-header">
     <h4 class="modal-title">DxGPT support</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeSupport()">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
     <form class="form" #f="ngForm">
+      <div class="form-group">
+        <span class="mb-0">{{'generics.Name' | translate }} *</span>
+        <div>
+          <input class="form-control" type="text" id="userName" name="userName" placeholder="{{'generics.Name' | translate }}" ngModel required #userNameModel="ngModel" [(ngModel)]="userName">
+          <small class="danger" *ngIf="!userNameModel.valid && showErrorForm">{{'generics.required' | translate }}</small>
+        </div>
+      </div>
       <div class="form-group">
         <span class="mb-0">{{'generics.Email' | translate }} *</span>
         <div>
@@ -186,9 +202,16 @@
       </div>
       <div class="">
         <mat-checkbox
-            class="example-margin" name="terms2" ngModel #terms2="ngModel" id="terms2"  [(ngModel)]="checkSubscribe">
+            class="example-margin" name="terms3" ngModel #terms3="ngModel" id="terms3"  [(ngModel)]="checkSubscribe">
             <span style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;" >{{'land.Email me' | translate }}</span>
         </mat-checkbox>
+      </div>
+      <div class="form-group">
+        <mat-checkbox
+            class="example-margin" name="termscontrol" ngModel #terms="ngModel" id="termscontrol" required [(ngModel)]="acceptTerms">
+            <span style="margin-top: 0.4em;white-space: normal;text-transform: none;letter-spacing: 0px;">{{'termsform.accept' | translate }} <a href="javascript:;" (click)="openModal2(termsModal)">{{'termsform.terms' | translate }}</a></span>
+        </mat-checkbox>
+        <small class="danger d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
       </div>
       <div *ngIf="!sending" class="mt-2 col-md-12 center-elements">
         <div *ngIf="f.valid;then formValid else formError"></div>
@@ -201,4 +224,8 @@
       </div>
     </form>
   </div>
+</ng-template>
+
+<ng-template #termsModal let-c="close" let-d="dismiss">
+  <app-termsform (termsAccepted)="onTermsAccepted()"></app-termsform>
 </ng-template>

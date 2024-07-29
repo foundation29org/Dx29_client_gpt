@@ -76,15 +76,6 @@ export class jsPDFService {
             return lineText;
         }
     }
-    
-    private writeText(doc, pos, lineText, text) {
-        lineText = this.checkIfNewPage(doc, lineText);
-        doc.setTextColor(0, 0, 0)
-        doc.setFont(undefined, 'normal');
-        doc.setFontSize(10);
-        doc.text(text, pos, lineText);
-        return lineText;
-    }
 
     private writeHeader(doc, pos, lineText, text) {
         doc.setTextColor(117, 120, 125)
@@ -141,7 +132,7 @@ export class jsPDFService {
         doc.setTextColor(0, 0, 0);
     }
 
-    generateResultsPDF(entryText, infoDiseases, lang){
+    async generateResultsPDF(entryText, infoDiseases, lang){
         this.lang = lang;
         const doc = new jsPDF();
         var lineText = 0;
@@ -194,11 +185,21 @@ export class jsPDFService {
         //escribir el texto de entrada
         this.newSectionDoc(doc,this.translate.instant("diagnosis.Patient text entered"),'',null,lineText += 10)
         lineText += 5;
-        lineText = this.writeLongText(doc, 10, lineText, entryText);
+        lineText = this.writeLongText2(doc, 10, lineText, entryText);
         lineText += 2;
         
         //Diseases
         if(infoDiseases.length>0){
+
+            // Load icons
+            var img_check = new Image();
+            img_check.src = "assets/img/icons/check.png";
+            var img_cross = new Image();
+            img_cross.src = "assets/img/icons/cross.png";
+
+            await img_check.onload;
+            await img_cross.onload;
+
             this.newSectionDoc(doc,this.translate.instant("diagnosis.Candidate diagnosis"),'',null,lineText += 10)
             //this.writeHeaderText(doc, 10, lineText += 7, this.translate.instant("generics.Name"));
             //this.writeHeaderText(doc, 175, lineText, "Id");
@@ -218,6 +219,20 @@ export class jsPDFService {
                 // Escribir la descripción
                 lineText = this.writeLongText(doc, 10, lineText, infoDiseases[i].description);
                 lineText += 7;
+
+             
+
+                    // Añadir síntomas coincidentes con imagen de check
+                doc.addImage(img_check, 'png', 10, lineText-3, 4, 4);
+                let textMatchingSymptoms = `${this.translate.instant("diagnosis.Matching symptoms")}: ${infoDiseases[i].matchingSymptoms}`;
+                lineText = this.writeLongText(doc, 16, lineText, textMatchingSymptoms);
+                lineText += 5;
+
+                // Añadir síntomas no coincidentes con imagen de cross
+                doc.addImage(img_cross, 'png', 10, lineText-3, 4, 4);
+                let textNonMatchingSymptoms = `${this.translate.instant("diagnosis.Non-matching symptoms")}: ${infoDiseases[i].nonMatchingSymptoms}`;
+                lineText = this.writeLongText(doc, 16, lineText, textNonMatchingSymptoms);
+                lineText += 10;
 
             }
         }
@@ -269,6 +284,35 @@ export class jsPDFService {
             if (text.length > 0) y += 5;  // Si hay más texto, ajusta la posición y para la siguiente línea.
         }
         
+        return y;
+    }
+
+    writeLongText2(doc, x, y, text) {
+        const maxChars = 125;
+        const lines = text.split('\n');  // Divide el texto en líneas usando el salto de línea como delimitador
+    
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i].trim();
+            while (line.length > 0) {
+                let chunk;
+                if (line.length > maxChars) {
+                    let breakPoint = maxChars;
+                    while (breakPoint > 0 && line[breakPoint] !== ' ') {
+                        breakPoint--;
+                    }
+                    chunk = breakPoint > 0 ? line.substr(0, breakPoint) : line.substr(0, maxChars);
+                } else {
+                    chunk = line;
+                }
+    
+                y = this.writeTextDesc(doc, x, y, chunk);
+                line = line.substr(chunk.length).trim();
+    
+                if (line.length > 0) y += 5;  // Si hay más texto, ajusta la posición y para la siguiente línea.
+            }
+            y += 5;  // Ajusta la posición y para la próxima línea del texto dividido.
+        }
+    
         return y;
     }
 

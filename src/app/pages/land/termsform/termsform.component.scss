@@ -1,0 +1,69 @@
+:host ::ng-deep ngb-rating span {
+  font-size: 2.5rem;
+}
+
+.my-rating {
+  color: #B30000;
+}
+
+.testimonial {
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 80%; /* Ajustar para no ocupar el 100% del ancho */
+  margin: 0 auto; /* Centrando horizontalmente */
+  align-items: center; 
+}
+
+.testimonial p {
+  margin: 0;
+}
+
+.testimonial p strong {
+  display: block;
+  margin-top: 10px;
+}
+
+.carousel-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px; /* Ajustar según sea necesario */
+  width: 100%; /* Asegurando que el item ocupe el ancho completo */
+  position: relative; /* Posicionando relativo para las flechas */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5%; /* Ajustar ancho según sea necesario */
+  height: auto;
+}
+
+.carousel-control-prev {
+  left: -5%; /* Ajustar según sea necesario */
+}
+
+.carousel-control-next {
+  right: -5%; /* Ajustar según sea necesario */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro para mejor visibilidad */
+  border-radius: 50%;
+  padding: 10px;
+}
+
+@media (max-width: 380px) {
+  .centerdiv {
+    clear: both;
+    float: none !important;
+  }
+}

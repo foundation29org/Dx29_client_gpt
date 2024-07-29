@@ -31,6 +31,17 @@ export class ApiDx29ServerService {
       })
   }
 
+  callopenaiquestions(info) {
+    return this.http.post(environment.serverapi + '/api/callopenaiquestions', info)
+      .map((res: any) => {
+        return res;
+      }, (err) => {
+        console.log(err);
+        this.insightsService.trackException(err);
+        return err;
+      })
+  }
+
   postAnonymize(info) {
     return this.http.post(environment.serverapi + '/api/callanonymized', info)
       .map((res: any) => {
