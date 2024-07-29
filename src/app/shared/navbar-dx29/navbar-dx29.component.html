@@ -22,6 +22,10 @@
                   </a>
                 </li>
                 <li class="nav-item mr-2">
+                  <a class="nav-link" [ngClass]="(!isFaqPage)?'black':'black text-bold-700'" routerLink="/faq" (click)="lauchEvent('Page - FAQ')">
+                    <span>FAQs</span>
+                  </a>
+                <li class="nav-item mr-2">
                   <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'black text-bold-700'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')">
                     <span>{{'menu.Usage statistics' | translate }}</span>
                   </a>

@@ -1,0 +1,30 @@
+p {
+  font-size: 1.1rem;
+}
+
+.ng-touched.ng-invalid {
+  border-color: #A6A9AE;
+}
+
+
+@media (max-width: 768px) {
+  .margin-left-0{
+    margin-left: 0px !important;
+  }
+}
+
+
+  @media ( max-width: 449px ){
+    .card-body{
+      padding: 0rem;
+    }
+    .card-title{
+      font-size: 1.2rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  
+  

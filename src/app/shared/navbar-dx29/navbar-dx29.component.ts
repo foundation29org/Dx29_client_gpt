@@ -24,6 +24,7 @@ export class NavbarD29Component implements OnDestroy {
   langs: any;
   isHomePage: boolean = false;
   isAboutPage: boolean = false;
+  isFaqPage: boolean = false;
   isReportsPage: boolean = false;
   _startTime: any;
   private subscription: Subscription = new Subscription();
@@ -39,18 +40,27 @@ export class NavbarD29Component implements OnDestroy {
         if (tempUrl.indexOf('/.') != -1 || tempUrl == '/') {
           this.isHomePage = true;
           this.isAboutPage = false;
+          this.isFaqPage = false;
           this.isReportsPage = false;
         } else if (tempUrl.indexOf('/aboutus') != -1) {
           this.isHomePage = false;
           this.isAboutPage = true;
+          this.isFaqPage = false;
+          this.isReportsPage = false;
+        }else if (tempUrl.indexOf('/faq') != -1) {
+          this.isHomePage = false;
+          this.isAboutPage = false;
+          this.isFaqPage = true;
           this.isReportsPage = false;
         } else if (tempUrl.indexOf('/reports') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
+          this.isFaqPage = false;
           this.isReportsPage = true;
         } else {
           this.isHomePage = false;
           this.isAboutPage = false;
+          this.isFaqPage = false;
           this.isReportsPage = false;
         }
       }

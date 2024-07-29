@@ -18,13 +18,17 @@ export class FooterComponent{
 
   isHomePage: boolean = false;
   isAboutPage: boolean = false;
+  isFaqPage: boolean = false;
   isReportsPage: boolean = false;
   modalReference: NgbModalRef;
+  modalReference2: NgbModalRef;
   sending: boolean = false;
   msgfeedBack: string = '';
+  userName: string = '';
   checkSubscribe: boolean = false;
+  acceptTerms: boolean = false;
   showErrorForm: boolean = false;
-  terms2: boolean = false;
+  terms3: boolean = false;
   @ViewChild('f') feedbackDownForm: NgForm;
   @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
   email: string = '';
@@ -37,18 +41,27 @@ export class FooterComponent{
         if (tempUrl.indexOf('/.') != -1 || tempUrl == '/') {
           this.isHomePage = true;
           this.isAboutPage = false;
+          this.isFaqPage = false;
           this.isReportsPage = false;
         } else if (tempUrl.indexOf('/aboutus') != -1) {
           this.isHomePage = false;
           this.isAboutPage = true;
+          this.isFaqPage = false;
+          this.isReportsPage = false;
+        }else if (tempUrl.indexOf('/faq') != -1) {
+          this.isHomePage = false;
+          this.isAboutPage = false;
+          this.isFaqPage = true;
           this.isReportsPage = false;
         }else if (tempUrl.indexOf('/reports') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
+          this.isFaqPage = false;
           this.isReportsPage = true;
         } else {
           this.isHomePage = false;
           this.isAboutPage = false;
+          this.isFaqPage = false;
           this.isReportsPage = false;
         }
       }
@@ -57,11 +70,11 @@ export class FooterComponent{
 
   openSupport(content){
     let ngbModalOptions: NgbModalOptions = {
-        backdrop: 'static',
-        keyboard: false,
+        keyboard: true,
         windowClass: 'ModalClass-sm'// xl, lg, sm
       };
     this.modalReference = this.modalService.open(content, ngbModalOptions);
+    this.scrollTo();
 }
 
 submitInvalidForm() {
@@ -77,13 +90,15 @@ submitInvalidForm() {
 
 onSubmitRevolution() {
   this.sending = true;
-  var params = { email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe };
-  this.http.post(environment.serverapi + '/api/subscribe/', params)
+  var params = { userName: this.userName ,email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe };
+  this.http.post(environment.serverapi + '/api/homesupport/', params)
       .subscribe((res: any) => {
           this.sending = false;
+          this.userName = '';
           this.msgfeedBack = '';
           this.email = '';
           this.checkSubscribe = false;
+          this.acceptTerms = false;
           this.modalReference.close();
           Swal.fire({
               icon: 'success',
@@ -99,6 +114,7 @@ onSubmitRevolution() {
           console.log(err);
           this.sending = false;
           this.checkSubscribe = false;
+          this.acceptTerms = false;
           this.toastr.error('', this.translate.instant("generics.error try again"));
       });
 
@@ -123,9 +139,12 @@ private resizeTextAreaFunc(elements: QueryList<ElementRef>) {
 }
 
 closeSupport(){
+  this.userName = '';
   this.msgfeedBack = '';
   this.email = '';
   this.modalReference.close();
+  this.acceptTerms = false;
+  this.checkSubscribe = false;
 }
 
 closeModal() {
@@ -141,6 +160,33 @@ openModal(panel) {
       windowClass: 'ModalClass-sm'// xl, lg, sm
   };
   this.modalReference = this.modalService.open(panel, ngbModalOptions);
+  this.scrollTo();
+}
+
+async openModal2(panel) {
+  let ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+      keyboard: false,
+      windowClass: 'ModalClass-sm'// xl, lg, sm
+  };
+  this.modalReference2 = this.modalService.open(panel, ngbModalOptions);
+  await this.delay(400);
+  document.getElementById('initpopup2').scrollIntoView(true);
+}
+
+onTermsAccepted() {
+  this.acceptTerms = true;
+  this.modalReference2.close();
+}
+
+async scrollTo() {
+  await this.delay(400);
+  //document.getElementById('initpopup').scrollIntoView(true);
+  document.getElementById('initpopup').scrollIntoView({ behavior: "smooth" });
+}
+
+delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 }

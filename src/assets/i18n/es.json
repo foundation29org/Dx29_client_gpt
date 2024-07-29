@@ -1,12 +1,10 @@
 {
   "menu":{
     "Dashboard": "Inicio",
-    "Register": "Registro",
-    "About us": "Sobre nosotros",
-    "Usage statistics": "Estadísticas de uso"
-  },
-  "registration":{
-    "Privacy Policy": "Política de privacidad"
+    "About us": "Sobre DxGPT",
+    "Usage statistics": "Estadísticas de uso",
+    "Privacy Policy": "Política de privacidad",
+    "Contact us": "Contáctanos"
   },
   "generics":{
     "Email": "Correo electrónico",
@@ -30,14 +28,7 @@
     "Please wait": "Por favor, espera...",
     "sorry cant anwser1": "Hemos detectado contenido en su texto que puede no alinearse con nuestras políticas internas. Le rogamos que revise y ajuste el texto que ha proporcionado. Si el problema persiste, considere volver a visitarnos otro día mientras trabajamos para mejorar la experiencia. También puedes proporcionar una descripción alternativa. Para obtener asistencia inmediata, comuníquese con nuestro equipo de soporte dedicado en support@foundation29.org. Nos disculpamos sinceramente por cualquier inconveniente causado. Recuerde la importancia de cumplir con nuestras pautas de uso para mantener el acceso a nuestra herramienta.",
     "sorry cant anwser2": "Ahora mismo no podemos responder a eso. Pruebe otro día para darnos tiempo a solucionarlo. Mientras tanto, puede selecionar otra opción. Si necesitas ayuda inmediata, escribe a nuestro equipo de soporte: support@foundation29.org Disculpe las molestias.",
-    "sorry cant anwser3": "La longitud máxima del contexto de este modelo es 8192 tokens. Sin embargo, sus mensajes dieron como resultado 9150 tokens. Por favor reduzca la longitud de los mensajes. Para calcular el número de tokens puedes hacerlo aquí:"
-  },
-  "navbar":{
-    "Toggle navigation": "Alternar navegación"
-  },
-  "errors":{
-    "The user does not exist": "El usuario no existe",
-    "The session has been closed": "La sesión ha sido cerrada."
+    "sorry cant anwser3": "La longitud máxima del contexto de este modelo es 1048576 tokens. Por favor reduzca la longitud de los mensajes. Para calcular el número de tokens puedes hacerlo aquí:"
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnósticos propuestos",
@@ -51,7 +42,10 @@
     "correctly anonymized": "El texto ha sido anonimizado correctamente",
     "not detected personal information": "No hemos detectado información personal en la descripción clínica que ha introducido.",
     "detected personal information": "Hemos detectado información personal en la descripción clínica que ha introducido.",
-    "proceeded to delete": "Hemos procedido a eliminar esta información y guardar el texto anonimizado."
+    "proceeded to delete": "Hemos procedido a eliminar esta información y guardar el texto anonimizado.",
+    "Matching symptoms": "Síntomas coincidentes",
+    "Non-matching symptoms": "Síntomas no coincidentes",
+    "None": "Ninguno"
   },
   "policy":{
     "p1": "DxGPT se compromete a proteger la privacidad de sus usuarios. Esta política de privacidad explica cómo se recopilan, utilizan y protegen sus datos personales.",
@@ -73,42 +67,6 @@
     "p6.3": "Solicitud de Eliminación de Datos: Si desea que eliminemos cualquier información personal que tengamos sobre usted (por ejemplo, su dirección de correo electrónico proporcionada a través de nuestro formulario de contacto), puede solicitarlo enviándonos un correo electrónico a support@foundation29.org. Nos comprometemos a procesar su solicitud en un plazo razonable y a confirmarle una vez que sus datos hayan sido eliminados.",
     "p7": "Si tiene alguna pregunta sobre esta política, no dude en contactarnos: support@foundation29.org. Nos comprometemos a mantener la transparencia sobre la gestión de datos en DxGPT para preservar su confianza."
   },
-  "dataprocessing": {
-    "I agree with the": "Estoy de acuerdo con el",
-    "data processing by DX29": "tratamiento de datos por DxGPT.",
-    "title": "ACUERDO DE TRATAMIENTO DE DATOS POR PARTE DE DxGPT",
-    "p1-1": "El servicio prestado por Fundación 29 de Febrero a través de la herramienta DxGPT está enfocado a ayudar a profesionales de la medicina y la genética durante el proceso de diagnóstico de enfermedades raras, reduciendo el tiempo y haciéndolo más preciso. Usando algoritmos de inteligencia artificial, ayuda a los especialistas a incorporar información del paciente para identificar síntomas y buscar conexiones entre los mismos, guiándoles en la identificación de nuevos síntomas. Finalmente, DxGPT sugiere una lista clasificada de patologías para que el profesional considere la realización de nuevas pruebas y así confirmar el diagnóstico final. Los algoritmos utilizados durante este proceso se mejoran periódicamente con los datos aportados por los especialistas.",
-    "p1-2": "Los usuarios son profesionales especialistas, relacionados con la medicina y la genética (en adelante, 'el usuario' / 'los usuarios'), que quieren hacer uso del servicio prestado por DxGPT. Como tales, son RESPONSABLES DEL TRATAMIENTO de los datos de sus pacientes",
-    "p1-3": "De esta forma Fundación 29 será el ENCARGADO DEL TRATAMIENTO de los datos para proveer del servicio con la finalidad expresada en el párrafo primero.",
-    "p1-4": "Para la prestación de dicho servicio es necesario que el ENCARGADO tenga acceso y realice tratamientos de datos de carácter personal de los pacientes",
-    "p1-5": "Ambas partes, RESPONSABLE y ENCARGADO, reconocen cumplir con todas las obligaciones derivadas de la normativa comunitaria y nacional en materia de protección de datos, en especial las relativas al derecho de información, consentimiento y deber de secreto, y a la adopción de las medidas de seguridad técnicas y organizativas que garanticen la seguridad de los datos personales.",
-    "p1-6": "Mediante el presente texto se habilita a la entidad ENCARGADA DE TRATAMIENTO, para tratar por cuenta del RESPONSABLE DEL TRATAMIENTO, los datos de carácter personal necesarios para prestar el servicio anteriormente descrito.",
-    "p1-7": "Para la ejecución de las prestaciones derivadas del cumplimiento de este encargo, el RESPONSABLE DEL TRATAMIENTO pone a disposición del ENCARGADO DEL TRATAMIENTO la información que se describe a continuación:",
-    "p1-7-1": "Información clínica descriptiva del paciente",
-    "p1-7-2": "Información genética del paciente",
-    "p2-1": "El ENCARGADO DEL TRATAMIENTO se obliga a:",
-    "p2-2": "Utilizar los datos personales objeto de tratamiento, o los que recoja para su inclusión para la finalidad objeto de este encargo.",
-    "p2-3": "No comunicar los datos a terceras personas, salvo que cuente con la autorización expresa del RESPONSABLE DEL TRATAMIENTO, en los supuestos legalmente admisibles",
-    "p2-4": "El ENCARGADO DEL TRATAMIENTO deberá observar en todo momento, y en relación con los ficheros de datos de carácter personal a los que tuviera acceso o le pudieren ser entregados por el Responsable, para la realización en cada caso de los trabajos y servicios que pudieren acordarse, el deber de confidencialidad y secreto profesional que, de conformidad con lo dispuesto en la normativa de Protección de Datos Europea, subsistirá aun después de finalizar la relación de los trabajos encargados en relación con cualquier fichero así como, en su caso, tras la finalización por cualquier causa del presente contrato.",
-    "p2-5": "El ENCARGADO DEL TRATAMIENTO notificará al responsable del tratamiento, sin dilación indebida, y en cualquier caso antes del plazo máximo de 72 horas, y a través de correo electrónico, las violaciones de la seguridad de los datos personales a su cargo de las que tenga conocimiento, juntamente con toda la información relevante para la documentación y comunicación de la incidencia. No será necesaria la notificación cuando sea improbable que dicha violación de la seguridad constituya un riesgo para los derechos y las libertades de las personas cuyos datos estén recogidos en la plataforma.",
-    "p2-6": "Implantar las medidas de seguridad necesarias para:",
-    "p2-6-1": "Garantizar la confidencialidad, integridad, disponibilidad y resiliencia permanentes de los sistemas y servicios de tratamiento.",
-    "p2-6-2": "Restaurar la disponibilidad y el acceso a los datos personales de la forma más rápida posible de acuerdo con la situación, en caso de incidente físico o técnico.",
-    "p2-6-3": "Verificar, evaluar y valorar, de forma regular, la eficacia de las medidas técnicas y organizativas implantadas para garantizar la seguridad del tratamiento.",
-    "p2-7": "Destino de los datos:",
-    "p2-7-1": "El ENCARGADO se compromete a destruir los datos, una vez cumplida la prestación. Una vez destruidos, el encargado debe certificar su destrucción por escrito y debe entregar verificación al RESPONSABLE DEL TRATAMIENTO. No obstante, el ENCARGADO puede conservar una copia, con los datos debidamente boqueados, mientras puedan derivarse responsabilidades de la ejecución de la prestación.",
-    "p3": "El RESPONSABLE DEL TRATAMIENTO se obliga a:",
-    "p3-1": "Realizar una evaluación del impacto en la protección de datos personales de las operaciones de tratamiento a realizar por el encargado.",
-    "p3-2": "Realizar las consultas previas que corresponda.",
-    "p3-3": "Velar, de forma previa y durante todo el tratamiento, por el cumplimiento del Reglamento (GDPR en UE)",
-    "p3-4": "Resolver con sus pacientes, en relación con los datos objeto del servicio, el ejercicio de los derechos de:",
-    "p3-4-1": "Acceso, rectificación, supresión y oposición",
-    "p3-4-2": "Limitación del tratamiento",
-    "p3-4-3": "Portabilidad de datos",
-    "p4-1": "El RESPONSABLE DEL TRATAMIENTO, en su condición, se reserva el derecho de efectuar en cualquier momento los controles y auditorías que estime oportunos para comprobar el correcto cumplimiento por parte del ENCARGADO DEL TRATAMIENTO del presente acuerdo. Por su parte, el Encargado deberá facilitar al RESPONSABLE DEL TRATAMIENTO cuantos datos o documentos le requiera para el adecuado cumplimiento de dichos controles y auditorías.",
-    "p4-2": "Cualquier notificación que se efectúe entre las partes se hará por escrito y será entregada personalmente o de cualquier otra forma que certifique la recepción por la parte notificada.",
-    "p4-3": "El presente escrito y las relaciones entre el RESPONSABLE DEL TRATAMIENTO y el ENCARGADO DEL TRATAMIENTO no constituyen en ningún caso sociedad, empresa conjunta, agencia o contrato de trabajo entre las partes."
-  },
   "support": {
     "support": "Soporte",
     "New message": "Nuevo mensaje",
@@ -119,23 +77,8 @@
     "Old messages": "Mensajes antiguos",
     "Uploading a capture can help us a lot": "Subir una captura puede ayudarnos mucho"
   },
-  "homedx": {
-    "Contact us": "Contáctanos",
-    "Donate": "Donar"
-  },
   "footer":{
     "Dx29info": "DxGPT es una herramienta de búsqueda y referencia que se proporciona con fines informativos y no pretende sustituir el juicio o la experiencia del clínico. No debe utilizarse para diagnosticar o tratar afecciones médicas."
-  },
-  "parser":{
-    "OcrOnlyTitle": "Hemos detectado que hay imágenes en el texto.",
-    "OcrOnlyText": "¿Quiere que extraigamos el texto? Puede que lleve un par de minutos.",
-    "msgOcrInline": "Si cree que hay más texto del que hemos extraido, haga click aquí",
-    "Advanced extraction": "Extracción avanzada",
-    "We have detected that the document is in another language": "Hemos detectado que el documento está en otro idioma",
-    "Analyzed as": "Analizado como",
-    "detected as": "detectado como",
-    "do you want us to do it": "Ahora que lo sabemos, podemos intentar analizar mejor el documento, ¿quieres que lo hagamos?",
-    "No text has been detected in the file": "No se ha detectado ningún texto en el archivo."
   },
   "land":{
     "disclaimer": "<p><strong>DxGPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo lingúistico GPT-4 de OpenAI como modelo predictivo para una herramienta que proporciona información sobre raras relacionadas enfermedades. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende reemplazar el consejo médico profesional ni respaldar el diagnóstico, la prevención, el seguimiento, la predicción o el tratamiento y nunca debe usarse para hacer juicios de diagnóstico con paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y cualquier riesgo potencial asociado al uso de la herramienta basada en inteligencia artificial.</p>",
@@ -160,7 +103,7 @@
     "q5": "¿Por qué crees que este paciente tiene esta enfermedad?",
     "recommended diagnosis test": "¿Cuál es la prueba diagnóstica recomendada para cada una de estas enfermedades?",
     "Indicates the quality of the result": "Ayúdanos a mejorar, indique la calidad del resultado",
-    "thanks": "Has hecho una gran contribución a la comunidad de enfermedades raras. ¡Gracias!",
+    "thanks": "Has hecho una gran contribución a la comunidad de enfermedades. ¡Gracias!",
     "whynotexpected": "¿Porqué resultados no eran los esperados?",
     "msgimprove": "Para poder mejorar, necesitamos tu opinion",
     "Email me": "Enviarme un correo electrónico cuando haya una nueva versión disponible",
@@ -191,7 +134,7 @@
     "p3.title": "Limitaciones",
     "p3.1": "Ocasionalmente puede generar información incorrecta",
     "p3.2": "No se puede utilizar para el diagnóstico sin supervisión humana",
-    "errorLocation": "Hemos detectado que estás utilizando una VPN o una red que no permite la detección de tu ubicación. Te recomendamos desactivar la VPN o utilizar una red que permita la detección de tu ubicación.",
+    "errorLocation": "Hemos detectado que estás utilizando una VPN o una red que no permite la detección de tu ubicación. Esto puede afectar el funcionamiento correcto de nuestra aplicación y la seguridad de nuestros servicios. Por favor, desactiva la VPN o utiliza una red que permita la detección de tu ubicación para continuar.",
     "Select a question": "Seleccione una pregunta",
     "Answer": "Respuesta",
     "Select the symptoms": "Seleccione los síntomas adicionales que tienes, para recalcular la lista de enfermedades propuestas. Están ordenados con los más probables en la parte superior",
@@ -220,32 +163,64 @@
     "Show common diseases": "Mostrar enfermedades comunes",
     "Show rare diseases": "Mostrar enfermedades raras",
     "Load more": "Cargar más",
-    "prom1": "Behave like a hypotethical doctor who has to do a diagnosis for a patient. Give me a list of potential {{value}} with a short description. Shows for each potential {{value}} always with '\n\n+' and a number, starting with '\n\n+1', for example '\n\n+23.' (never return \n\n-), the name of the disease and finish with ':'. Dont return '\n\n-', return '\n\n+' instead. You have to indicate which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
-    "prom2": "Behave like a hypotethical doctor who has to do a diagnosis for a patient. Continue the list of potential {{value}} without repeating any disease from the list I give you. If you repeat any, it is better not to return it. Shows for each potential {{value}} always with '\n\n+' and a number, starting with '\n\n+1', for example '\n\n+23.' (never return \n\n-), the name of the disease and finish with ':'. Dont return '\n\n-', return '\n\n+' instead. You have to indicate a short description and which symptoms the patient has in common with the proposed disease and which symptoms the patient does not have in common. The text is \n ",
-    "aboutUs":{
-      "title": "¿Qué es DxGPT?",
-      "p2": "Una vez generada la lista de enfermedades, se puede completar con más información para afinar el diagnóstico. Esto incluye la recopilación de datos clínicos, la realización de pruebas de laboratorio y la recopilación de información de la historia clínica. Esto ayudará a los médicos a tomar una decisión más informada sobre el diagnóstico. Es importante que los usuarios nos den feedback sobre el uso del software para que podamos mejorar el modelo. Esto es importante porque nos ayuda a entender mejor cómo se está usando el software y cómo podemos mejorarlo.",
-      "p1": "DxGPT es un software de ayuda a la toma de decisiones en el diagnóstico basado en GPT-4. GPT-4 es un modelo de lenguaje de Inteligencia Artificial (IA) desarrollado por OpenAI. Está diseñado para generar texto a partir de una entrada previa. Esto significa que el software puede generar una lista de enfermedades a partir de una descripción de los síntomas. Sin embargo, debido a las características del modelo, hay una posibilidad de que el software tenga errores. Por lo tanto, no se debe usar para uso médico.",
-      "p3": "Actualmente, estamos trabajando en el desarrollo de nuevas características para el software. Estamos buscando colaboradores que quieran investigar el uso de estos modelos en el diagnóstico. Si estás interesado, puedes ponerte en contacto con nosotros para obtener más información.",
-      "btn1": "Visitar la página web de Foundation 29",
-      "Who are we": "Visita nuestra web",
-      "titlef29": "¿Qué es Fundación 29?",
-      "p1f29": "Somos una fundación sin ánimo de lucro. Trabajamos por una medicina en la que pacientes empoderados toman el control de su salud a través de sus datos y trabajan con médicos e instituciones para mejorar su bienestar y el de los demás.",
-      "p2f29": "Creamos tecnologías que permiten un cambio radical en sus capacidades como usuarios y en todo el ecosistema médico.",
-      "p3f29": "El activismo de los pacientes, sus familias y las asociaciones están en nuestra esencia. Ponemos especial foco en las enfermedades raras. Están en nuestro origen y en nuestro nombre: 29 de febrero, día mundial de las enfermedades raras.",
-      "Sign up": "Inscribirme",
-      "Current model accuracy": "Precisión actual del modelo",
-      "modelp1": "En una evaluación preliminar reciente realizada por Fundación 29 utilizando 200 casos sintéticos de pacientes generados por modelos de lenguaje, DxGPT demostró cierta capacidad para sugerir diagnósticos correctos de enfermedades raras. Específicamente, cuando se evaluó la precisión estricta (es decir, si el diagnóstico correcto aparecía en primera posición), DxGPT obtuvo una precisión del 67,5%, acertando el diagnóstico en 135 de los 200 casos. Si se considera una métrica más flexible, contabilizando los diagnósticos correctos tanto en la primera como en las primeras 5 posiciones, la precisión aumenta al 88,5% (177 de 200 casos). Si bien estos resultados iniciales son alentadores, DxGPT aún se encuentra en una fase temprana de desarrollo.",
-      "modelp2": "Para más detalles sobre la metodología de evaluación y los resultados, consulte nuestro",
-      "modelp3": "repositorio de GitHub y el artículo asociado.",
-      "repos": "En nuestra constante búsqueda por mejorar la transparencia y facilitar la colaboración con la comunidad científica y tecnológica, ponemos a disposición el código fuente de nuestra plataforma DxGPT. Para aquellos interesados en explorar más a fondo cómo funciona DxGPT, o en contribuir a su desarrollo, pueden acceder a los repositorios de GitHub tanto del cliente como del servidor. El repositorio del cliente, que gestiona la interfaz de usuario y la interacción con el modelo, se encuentra disponible en <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>DxGPT_client</a>. Por otro lado, el repositorio del servidor, que se encarga de procesar las solicitudes y ejecutar el modelo de inteligencia artificial, puede ser consultado en <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>DxGPT_server</a>. Invitamos a la comunidad a explorar estos recursos y a unirse a nosotros en este emocionante viaje hacia la innovación en el diagnóstico de enfermedades raras.",
-      "spontit": "Patrocinadores",
-      "spon1": "Fundación 29 y el proyecto DxGPT agradecen profundamente el apoyo económico desinteresado de nuestros patrocinadores. Su generosa contribución ha sido fundamental para el desarrollo de esta herramienta y para avanzar en nuestra misión de empoderar a los pacientes y mejorar el diagnóstico de enfermedades raras.",
-      "spon2": "Es importante destacar que la ayuda de nuestros patrocinadores es completamente altruista y no conlleva ningún tipo de contraprestación comercial o cesión de datos. Mantenemos un firme compromiso con la privacidad y la protección de los datos de los usuarios, por lo que en ningún caso se comparte o vende información a terceros.",
-      "spon3": "Nuestros patrocinadores respaldan este proyecto movidos únicamente por su deseo de impulsar la innovación médica y mejorar la atención sanitaria para todos. Su generosidad desinteresada es un ejemplo inspirador del poder de la colaboración y la filantropía para catalizar avances transformadores.",
-      "spon4": "Además, todo el código fuente de DxGPT está disponible para la comunidad bajo una licencia MIT de software libre permisiva, fomentando la transparencia y la colaboración abierta.",
-      "spon5": "Gracias a:",
-      "spon6": "Si desea sumarse como patrocinador y apoyar esta iniciativa, no dude en ponerse en contacto con nosotros. Juntos podemos seguir construyendo un futuro más saludable para todos."
+    "aboutUs": {
+      "t1": "¿Qué es DxGPT?",
+      "p1": "DxGPT es un software de soporte a la decisión diagnóstica de última generación, basado en el modelo de lenguaje GPT-4 desarrollado por OpenAI. Nuestro objetivo es asistir a los profesionales de la salud generando una lista de posibles enfermedades a partir de una descripción de síntomas. Aunque es potente, nuestro modelo no es perfecto y no debe usarse como sustituto del consejo médico profesional.",
+      "t2": "Cómo funciona",
+      "p2": "Cuando introduces los síntomas de un paciente, DxGPT utiliza modelos avanzados de inteligencia artificial para generar una lista de posibles diagnósticos. Esta lista inicial es un punto de partida. Para refinar el diagnóstico, los clínicos deben recopilar información adicional como datos clínicos, pruebas de laboratorio y la historia médica del paciente. Tu retroalimentación es crucial para ayudarnos a mejorar la precisión y usabilidad de DxGPT.",
+      "t3": "Nuestro compromiso con la mejora",
+      "p3": "Estamos trabajando continuamente en nuevas características para mejorar DxGPT. La colaboración está en el corazón de nuestra misión, y estamos ansiosos por asociarnos con investigadores y profesionales de la salud interesados en explorar el potencial de la IA en diagnósticos. Si estás interesado en colaborar, por favor contáctanos.",
+      "t4": "Transparencia y colaboración",
+      "p4": "En nuestra búsqueda de transparencia y colaboración, hemos hecho público el código fuente de DxGPT. Puedes explorar y contribuir a nuestros repositorios de cliente y servidor en GitHub. Creemos que la colaboración abierta con la comunidad científica impulsará la innovación y mejorará el diagnóstico de enfermedades raras.",
+      "t5": "Precisión del modelo",
+      "p5.1": "DxGPT, una herramienta de soporte diagnóstico basada en GPT-4, ha demostrado una precisión prometedora en evaluaciones preliminares. En un estudio con 200 casos sintéticos de enfermedades raras, DxGPT logró un 67.5% de precisión estricta (diagnóstico correcto como la primera sugerencia) y un 88.5% de precisión en los cinco primeros (diagnóstico correcto dentro de las cinco primeras sugerencias)[3][4].",
+      "p5.2": "Sin embargo, el rendimiento varió según los diferentes conjuntos de datos y modelos:",
+      "p5.2.1": "En casos sintéticos, modelos cerrados como GPT-4, Claude y Gemini mostraron una precisión relativamente alta, mientras que modelos abiertos como Llama 3 y Mixtral tuvieron un rendimiento razonable pero quedaron rezagados[1].",
+      "p5.2.2": "Para casos reales de enfermedades raras de RAMEDIS, el modelo Claude 3 Opus logró un 55% de precisión estricta y un 70% de precisión en los cinco primeros, superando a otros modelos cerrados[1].",
+      "p5.2.3": "El conjunto de datos PUMCH resultó desafiante para todos los modelos, con la mayor precisión estricta en un 59.46% (GPT-4 Turbo 1106) y una precisión en los cinco primeros de un 64.86%[1].",
+      "p5.3": "Actualmente, nuevos modelos de vanguardia como GPT-4o, Claude 3.5 Sonnet y Llama 3.1 405b están siendo probados por nuestro equipo de investigación y estos resultados se actualizarán en un futuro artículo.",
+      "p5.4": "Aquí hay algunos resultados iniciales de GPT-4o y Claude 3.5 Sonnet en comparación con otros modelos de nuestro último artículo:",
+      "p5.5": "En este gráfico, las barras verdes y naranjas corresponden respectivamente a P1 (probabilidad de acertar el primer diagnóstico) y P5 (probabilidad de acertar entre los cinco diagnósticos).",
+      "p5.6": "Además, la línea negra es la diferencia en precisión entre enfermedades comunes (arriba) y enfermedades raras (abajo).",
+      "p5.7": "Es crucial enfatizar que DxGPT todavía está en desarrollo y está destinado como una herramienta de apoyo a la decisión, no como un reemplazo del juicio médico profesional[1][5]. La herramienta tiene como objetivo asistir a los profesionales de la salud generando hipótesis diagnósticas basadas en los síntomas del paciente y datos clínicos, lo que podría reducir el tiempo para el diagnóstico de enfermedades raras y comunes[2][5]. Se necesita una validación adicional en datos clínicos reales y una comparación con diagnósticos de expertos humanos para evaluar completamente su rendimiento y potencial impacto en la atención al paciente[1][4]. También estamos llevando a cabo estos estudios en hospitales y los primeros resultados se publicarán pronto.",
+      "citations": {
+        "t1": "Citas",
+        "c1": "https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1",
+        "c2": "https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1.full.pdf",
+        "c3": "https://github.com/foundation29org/Dx29_client_gpt",
+        "c4": "https://github.com/foundation29org/dxgpt_testing/blob/main/README.md",
+        "c5": "https://news.microsoft.com/es-es/2023/09/15/madrid-health-service-a-pioneer-in-applying-generative-artificial-intelligence-to-improve-diagnosis-for-patients-with-rare-diseases/"
+      },
+      "Who are we": "Visita nuestro sitio web",
+      "t6": "Acerca de Fundación 29",
+      "p6": "Fundación 29 es una organización sin fines de lucro dedicada a empoderar a los pacientes a través de datos y la colaboración con médicos e instituciones. Nos enfocamos en enfermedades raras, inspirados por nuestro homónimo, el 29 de febrero, el Día Mundial de las Enfermedades Raras. Nuestra misión es crear tecnologías que transformen la atención médica y empoderen a los usuarios.",
+      "Sign up": "Regístrate",
+      "t7": "Nuestros patrocinadores",
+      "p7": "Extendemos nuestro más sincero agradecimiento a nuestros generosos patrocinadores cuyo apoyo altruista es vital para nuestra misión. Sus contribuciones son puramente filantrópicas, sin intereses comerciales ni intercambio de datos. El compromiso de nuestros patrocinadores con la innovación médica y la mejora de la atención sanitaria ejemplifica el poder de la colaboración y la generosidad.",
+      "t8": "Únete a nosotros",
+      "p8.1": "Si estás interesado en convertirte en patrocinador o en colaborar con nosotros, por favor contáctanos. Juntos, podemos seguir construyendo un futuro más saludable para todos.",
+      "p8.2": "Gracias a nuestros patrocinadores:"
+    },
+    "faqs": {
+      "title": "Preguntas Frecuentes",
+      "q1": "¿Mi información médica se mantiene confidencial?",
+      "a1": "Sí, priorizamos tu privacidad. Toda la información proporcionada se almacena de manera segura. No compartimos tu información de salud personal con terceros sin tu consentimiento explícito.",
+      "q2": "¿Puedo usar DxGPT en situaciones de emergencia?",
+      "a2": "No, DxGPT no está destinado a situaciones de emergencia. Si estás experimentando una emergencia médica, por favor contacta a los servicios de emergencia locales de inmediato.",
+      "q3": "¿Cómo realiza DxGPT tu diagnóstico?",
+      "a3": "DxGPT es como un ordenador que ha leído millones de libros y artículos médicos. Cuando introduces tus síntomas, busca en toda esta información que ha leído. Luego, lista las enfermedades que coinciden con tus síntomas basándose en todo este conocimiento médico. No es un doctor y no diagnostica nada; comparte lo que ha aprendido de todas sus 'lecturas'. Siempre consulta a un médico real para obtener un consejo médico real.",
+      "q4": "¿Puedo hablar con un médico a través de DxGPT?",
+      "a4": "Actualmente, DxGPT está completamente automatizado y no proporciona acceso directo a médicos humanos. Recomendamos encarecidamente que sigas consultando a tu proveedor de atención médica para cualquier preocupación médica.",
+      "q5": "¿DxGPT está disponible en todo el mundo?",
+      "a5": "Sí, DxGPT es accesible globalmente. Sin embargo, ten en cuenta que las prácticas médicas y las terminologías pueden variar entre países.",
+      "q6": "¿Con qué frecuencia se actualizan los conocimientos médicos de DxGPT?",
+      "a6": "DxGPT no actualiza sus conocimientos en el sentido tradicional. En cambio, nuestro equipo siempre está probando los modelos de IA médica más nuevos y mejores disponibles. Observamos qué tan bien cada modelo comprende y sugiere diagnósticos para diferentes situaciones médicas. Nuestro objetivo es encontrar las mejores partes de cada modelo y combinarlas para que las sugerencias de DxGPT sean lo más útiles posible.",
+      "a6.1": "Además, estamos explorando nuevas técnicas para mejorar aún más la precisión. También estamos realizando estudios clínicos con hospitales públicos y privados para probar y validar el rendimiento de DxGPT en entornos médicos reales.",
+      "a6.2": "Este proceso continuo significa que, aunque el conocimiento central de DxGPT no cambia directamente, la forma en que usa ese conocimiento para hacer sugerencias está en constante mejora. Siempre estamos trabajando para que DxGPT sea mejor ayudando a los médicos y pacientes a comprender posibles diagnósticos.",
+      "q7": "¿Cómo puedo proporcionar comentarios sobre DxGPT?",
+      "a7": "Tus comentarios son invaluables para mejorar DxGPT. Puedes proporcionar comentarios directamente a través de la aplicación o contactarnos a través de nuestro sitio web. Tus ideas nos ayudan a refinar el modelo y mejorar su precisión y usabilidad.",
+      "q8": "¿Quién puede colaborar en el desarrollo de DxGPT?",
+      "a8": "Damos la bienvenida a colaboradores interesados en explorar el uso de modelos de IA en diagnósticos. Por favor, contáctanos para más información sobre cómo involucrarte."
     },
     "diagnosed":{
       "timeline":{
@@ -282,6 +257,7 @@
     "doctor": "Médico",
     "patient": "Paciente",
     "none": "Prefiero no decirlo",
+    "caregiver": "Cuidador",
     "userType": "Tipo de usuario"
   },
   "seo":{
@@ -319,5 +295,34 @@
     "p5.3": "La web no utiliza cookies de personalización, cookies publicitarias ni cookies de publicidad comportamental.",
     "t6": "6. Desactivación y desinstalación de las cookies",
     "p6.1": "El usuario que desee deshabilitar las cookies puede hacerlo desde la sección de preferencias de su navegador de Internet. A continuación, indicamos los enlaces habilitados por los navegadores más populares, con las instrucciones para gestionar las cookies, en diversos dispositivos y versiones si es necesario."
+  },
+  "testimonials": {
+    "title": "Testimonios de nuestros usuarios",
+    "testi1": "Esta herramienta es realmente excepcional. Proporciona información precisa y exacta, lo cual es inmensamente valioso. Lo que la distingue es su capacidad para sugerir síntomas adicionales cruciales para el diagnóstico. No proporciona información engañosa ni sesgada. Estoy profundamente impresionado por su precisión y utilidad. Muy recomendada para cualquiera que busque soporte diagnóstico confiable.",
+    "testi2": "¡Esto es maravilloso! Me habría llevado HORAS dar toda mi información a un médico para siquiera comenzar con un diagnóstico. He sospechado de la esclerosis múltiple durante un tiempo, y era la posibilidad principal. Realmente, ¡gracias por esto!",
+    "testi3": "Me encantó, no soy médico, así que soy consciente de las limitaciones, pero aún así la encontré increíblemente intuitiva y fue bastante útil para un no profesional médico obtener información… Excelente APP.",
+    "Anonymous": "Anónimo"
+  },
+  "termsform":{
+    "accept": "Acepto los",
+    "terms": "términos de uso de los datos del formulario",
+    "acceptterms": "Debe aceptar los términos para continuar.",
+    "modalTitle": "Términos de uso de los datos del formulario",
+    "modalBody2": "Al enviar el formulario, usted acepta que DxGPT puede utilizar su información de contacto (correo electrónico) para los siguientes propósitos:",
+    "modalBody3": "Soporte y asistencia:",
+    "modalBody4": "Responder a sus consultas y solicitudes de soporte.",
+    "modalBody5": "Comunicaciones y actualizaciones:",
+    "modalBody6": "Informarle sobre nuevas versiones, actualizaciones y mejoras del software DxGPT.",
+    "modalBody7": "Retroalimentación y mejora del Servicio:",
+    "modalBody8": "Solicitar su retroalimentación para mejorar la calidad y funcionalidad del software.",
+    "modalBody9": "Protección de sus datos",
+    "modalBody10": "Su información personal será tratada con la máxima confidencialidad y no será compartida con terceros sin su consentimiento expreso.",
+    "modalBody11": "Implementamos medidas técnicas y organizativas apropiadas para proteger sus datos personales contra el acceso no autorizado, pérdida o destrucción.",
+    "modalBody12": "Derechos del usuario",
+    "modalBody13": "Tiene derecho a acceder, rectificar y eliminar sus datos personales. Para ejercer estos derechos, puede contactarnos en support@foundation29.org.",
+    "modalBody14": "Puede revocar su consentimiento para el uso de sus datos en cualquier momento enviándonos una solicitud a support@foundation29.org.",
+    "modalBody15": "Contacto",
+    "modalBody16": "Si tiene alguna pregunta sobre estos términos, no dude en contactarnos: support@foundation29.org.",
+    "modalFooterButton": "Aceptar"
   }
 }

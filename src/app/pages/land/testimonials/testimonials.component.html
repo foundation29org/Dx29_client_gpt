@@ -1,0 +1,40 @@
+<div class="container pt-5 pb-5">
+  <h2 class="text-center mb-0 white">{{'testimonials.title' | translate }}</h2>
+  <ngb-carousel>
+    <ng-template ngbSlide>
+      <div class="carousel-item">
+        <div class="testimonial">
+          <ngb-rating max="5" class="my-rating mb-2" rate="5" readonly="true"></ngb-rating>
+          <p>"{{'testimonials.testi1' | translate }}"</p>
+          <p class="mb-3"><strong class="">- {{'testimonials.Anonymous' | translate }}</strong></p>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="carousel-item">
+        <div class="testimonial">
+          <ngb-rating max="5" class="my-rating mb-2" rate="5" readonly="true"></ngb-rating>
+          <p>"{{'testimonials.testi2' | translate }}"</p>
+          <p class="mb-3"><strong class="">- {{'testimonials.Anonymous' | translate }}</strong></p>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="carousel-item">
+        <div class="testimonial">
+          <ngb-rating max="5" class="my-rating mb-2" rate="5" readonly="true"></ngb-rating>
+          <p>"{{'testimonials.testi3' | translate }}"</p>
+          <p class="mb-3"><strong class="">- {{'testimonials.Anonymous' | translate }}</strong></p>
+        </div>
+      </div>
+    </ng-template>
+    <a class="carousel-control-prev" href="#testimonialsCarousel" role="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#testimonialsCarousel" role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </a>
+  </ngb-carousel>
+</div>
