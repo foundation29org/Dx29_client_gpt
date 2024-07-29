@@ -489,6 +489,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.showError(msgError, null);
                     this.callingOpenai = false;
                     break;
+                case 'error max tokens':
+                    msgError = this.translate.instant("generics.sorry cant anwser3") + '<a href="https://platform.openai.com/tokenizer" class="ml-1 danger" target="_blank">Tokenizer</a>';
+                    this.showError(msgError, null);
+                    this.callingOpenai = false;
+                    break;
                 case 'success':
                     this.processOpenAiSuccess(res.data, value);
                     break;
