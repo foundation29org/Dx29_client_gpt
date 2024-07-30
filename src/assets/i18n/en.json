@@ -28,8 +28,8 @@
     "Please wait": "Please wait ...",
     "sorry cant anwser1": "We've detected content in your text that may not align with our internal policies. We kindly ask you to review and adjust the text you've provided. If the problem persists, kindly consider revisiting us another day while we work on enhancing the experience. You're also welcome to provide an alternative description. For immediate assistance, please reach out to our dedicated support team at support@foundation29.org. We sincerely apologize for any inconvenience caused. Please remember the importance of adhering to our usage guidelines to maintain access to our tool.",
     "sorry cant anwser2": "We can't answer that right now. Please try another day to give us time to fix it. In the meantime, you can select another option. If you need immediate help, please write to our support team: support@foundation29.org We apologize for the inconvenience.",
-    "sorry cant anwser3": "The maximum length is 1500 tokens, about 1000 words. Please reduce the length of the description. To calculate the number of tokens you can do it here:",
-    "exceedingTokens": "The maximum length is 1500 tokens, about 1000 words. You have exceeded by {{excessTokens}} tokens, about {{wordsToRemove}} words. Please reduce the length of the description."
+    "sorry cant anwser3": "The maximum length is 700 tokens, about 525 words. Please reduce the length of the description. To calculate the number of tokens you can do it here:",
+    "exceedingTokens": "The maximum length is 700 tokens, about 525 words. You have exceeded by {{excessTokens}} tokens, about {{wordsToRemove}} words. Please reduce the length of the description."
   },
   "diagnosis":{
     "Proposed diagnoses":"Proposed diagnoses",
