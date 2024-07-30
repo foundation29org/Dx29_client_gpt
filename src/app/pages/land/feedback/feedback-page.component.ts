@@ -33,7 +33,8 @@ export class FeedbackPageComponent implements OnDestroy {
     sending: boolean = false;
     terms2: boolean = false;
     @ViewChild('f') mainForm: NgForm;
-
+    moreFunctLength: number = 0;
+    freeTextLength: number = 0;
     formulario: FormGroup;
 
     constructor(private searchService: SearchService, public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService) {
@@ -56,11 +57,26 @@ export class FeedbackPageComponent implements OnDestroy {
             terms2: new FormControl('')
           });
 
+          this.moreFunctLength = this.formulario.get('moreFunct').value.length;
+          this.freeTextLength = this.formulario.get('freeText').value.length;
+
           setTimeout(function () {
             //this.goTo('initpos');
         }.bind(this), 500);
 
     }
+
+    onInput(event: Event, controlName: string): void {
+        const inputElement = event.target as HTMLTextAreaElement;
+        if (controlName === 'moreFunct') {
+          this.moreFunctLength = inputElement.value.length;
+        } else if (controlName === 'freeText') {
+          this.freeTextLength = inputElement.value.length;
+        }
+        const textarea = event.target as HTMLTextAreaElement;
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+      }
 
       goTo(url){
         document.getElementById(url).scrollIntoView(true);
@@ -106,6 +122,8 @@ export class FeedbackPageComponent implements OnDestroy {
             this.toastr.success(this.translate.instant("feedback.thanks"), this.translate.instant("feedback.Submitted"));
             // Limpie el formulario después de enviar
             this.formulario.reset();
+            this.freeTextLength = 0;
+            this.moreFunctLength = 0;
             this.lauchEvent('Send email GENERAL FEEDBACK');
             this.activeModal.close();
             //broadcast event

@@ -7,6 +7,17 @@ p {
 }
 
 
+::ng-deep .mat-checkbox-layout {
+  display: block !important;
+}
+
+.mat-checkbox-label {
+  margin-top: 0.4em;
+  white-space: normal;
+  text-transform: none;
+  letter-spacing: 0px;
+}
+
 @media (max-width: 768px) {
   .margin-left-0{
     margin-left: 0px !important;
