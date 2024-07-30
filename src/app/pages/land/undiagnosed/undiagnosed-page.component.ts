@@ -1134,6 +1134,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.renderer.listen(nativeElement, 'input', () => {
                 let height = nativeElement.scrollHeight;
                 if (height < 50) height = 50;
+                this.renderer.setStyle(nativeElement, 'height', `auto`);
                 this.renderer.setStyle(nativeElement, 'height', `${height}px`);
             });
             let height = nativeElement.scrollHeight;
