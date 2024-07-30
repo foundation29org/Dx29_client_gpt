@@ -120,22 +120,10 @@ onSubmitRevolution() {
 
 }
 
-resizeTextArea(){
-  this.resizeTextAreaFunc(this.textAreas);
-}
-
-private resizeTextAreaFunc(elements: QueryList<ElementRef>) {
-  elements.forEach((element: ElementRef) => {
-    const nativeElement = element.nativeElement;
-    this.renderer.listen(nativeElement, 'input', () => {
-      let height = nativeElement.scrollHeight;
-      if (height < 50) height = 50;
-      this.renderer.setStyle(nativeElement, 'height', `${height}px`);
-    });
-    let height = nativeElement.scrollHeight;
-    if (height < 50) height = 50;
-    this.renderer.setStyle(nativeElement, 'height', `${height}px`);
-  });
+autoResize(event: Event) {
+  const textarea = event.target as HTMLTextAreaElement;
+  textarea.style.height = 'auto';
+  textarea.style.height = textarea.scrollHeight + 'px';
 }
 
 closeSupport(){

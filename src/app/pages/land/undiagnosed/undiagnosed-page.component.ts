@@ -18,6 +18,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
 import { prompts } from 'assets/js/prompts';
+import  {encodingForModel} from "js-tiktoken";
 
 
 declare let gtag: any;
@@ -89,8 +90,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     terms2: boolean = false;
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
-    @ViewChildren('autoajustable2') textAreas2: QueryList<ElementRef>;
-    @ViewChild("autoajustable") inputTextAreaElement: ElementRef;
+    @ViewChild('autoajustable2') textarea: ElementRef;
 
     constructor(private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
         this.initialize();
@@ -344,6 +344,26 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             this.showError(text, null);
         }
+        let tokens = this.countTokens(this.medicalTextOriginal);
+        if(tokens>1500){
+            let excessTokens = tokens - 1500;
+            //round excessTokens/1.4 to get the number of words that can be removed
+            let wordsToRemove = Math.round(excessTokens*0.75);
+            let errorMessage = this.translate.instant("generics.exceedingTokens", {
+                excessTokens: excessTokens,
+                wordsToRemove: wordsToRemove
+              });
+              Swal.fire({
+                icon: 'error',
+                html: errorMessage,
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+                });
+            this.insightsService.trackEvent(errorMessage);
+            return;
+        }
+        
         if (!this.showErrorCall1) {
             if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
                 this.showPanelIntro(contentIntro)
@@ -1086,10 +1106,26 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.showSuccess(msgSuccess);
     }
 
+    countTokens(text) {
+        let tokens = 0;
+        if (text.length > 0) {
+            const enc = encodingForModel("gpt-4o");
+            tokens = enc.encode(text).length;
+          } else {
+            tokens = 0;
+          }
+          return tokens;
+    }
 
     resizeTextArea() {
         this.resizeTextAreaFunc(this.textAreas);
     }
+
+    autoResize(event: Event) {
+        const textarea = event.target as HTMLTextAreaElement;
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+      }
 
     private resizeTextAreaFunc(elements: QueryList<ElementRef>) {
         elements.forEach((element: ElementRef) => {
@@ -1261,8 +1297,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.editmedicalText = this.medicalTextOriginal;
         this.modalReference = this.modalService.open(panel, ngbModalOptions);
         await this.delay(200);
-        this.resizeTextArea();
+        const textarea = this.textarea.nativeElement as HTMLTextAreaElement;
+        this.resizeTextArea2(textarea);
     }
+
+    resizeTextArea2(textarea: HTMLTextAreaElement) {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+      }
 
     async checkText(step) {
         this.showErrorCall1 = false;
@@ -1279,6 +1321,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.showError(text, null);
         }
         if (!this.showErrorCall1) {
+            let tokens = this.countTokens(this.editmedicalText);
+            if(tokens>1500){
+                let excessTokens = tokens - 1500;
+                //round excessTokens/1.4 to get the number of words that can be removed
+                let wordsToRemove = Math.round(excessTokens*0.75);
+                let errorMessage = this.translate.instant("generics.exceedingTokens", {
+                    excessTokens: excessTokens,
+                    wordsToRemove: wordsToRemove
+                });
+                Swal.fire({
+                    icon: 'error',
+                    html: errorMessage,
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    allowOutsideClick: false
+                    });
+                this.insightsService.trackEvent(errorMessage);
+                return;
+            }
             this.closeModal();
             this.medicalTextOriginal = this.editmedicalText;
             this.preparingCallOpenAi(step);
