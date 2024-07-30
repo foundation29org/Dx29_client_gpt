@@ -345,25 +345,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             this.showError(text, null);
         }
-        let tokens = this.countTokens(this.medicalTextOriginal);
-        if(tokens>700){
-            let excessTokens = tokens - 700;
-            //round excessTokens/1.4 to get the number of words that can be removed
-            let wordsToRemove = Math.round(excessTokens*0.75);
-            let errorMessage = this.translate.instant("generics.exceedingTokens", {
-                excessTokens: excessTokens,
-                wordsToRemove: wordsToRemove
-              });
-              Swal.fire({
-                icon: 'error',
-                html: errorMessage,
-                showCancelButton: false,
-                showConfirmButton: true,
-                allowOutsideClick: false
-                });
-            this.insightsService.trackEvent(errorMessage);
-            return;
-        }
+        // let tokens = this.countTokens(this.medicalTextOriginal);
+        // if(tokens>700){
+        //     let excessTokens = tokens - 700;
+        //     //round excessTokens/1.4 to get the number of words that can be removed
+        //     let wordsToRemove = Math.round(excessTokens*0.75);
+        //     let errorMessage = this.translate.instant("generics.exceedingTokens", {
+        //         excessTokens: excessTokens,
+        //         wordsToRemove: wordsToRemove
+        //       });
+        //       Swal.fire({
+        //         icon: 'error',
+        //         html: errorMessage,
+        //         showCancelButton: false,
+        //         showConfirmButton: true,
+        //         allowOutsideClick: false
+        //         });
+        //     this.insightsService.trackEvent(errorMessage);
+        //     return;
+        // }
         
         if (!this.showErrorCall1) {
             if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
