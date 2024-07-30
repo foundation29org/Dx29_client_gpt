@@ -28,8 +28,8 @@
     "Please wait": "Veuillez patienter...",
     "sorry cant anwser1": "Nous avons détecté du contenu dans votre texte qui pourrait ne pas être conforme à nos politiques internes. Nous vous prions gentiment de revoir et d'ajuster le texte que vous avez fourni. Si le problème persiste, n'hésitez pas à nous revoir un autre jour pendant que nous travaillons à améliorer l'expérience. Vous pouvez également fournir une description alternative. Pour une assistance immédiate, veuillez contacter notre équipe de support dédiée à support@foundation29.org. Nous nous excusons sincèrement pour tout inconvénient causé. N'oubliez pas l'importance de respecter nos directives d'utilisation pour maintenir l'accès à notre outil.",
     "sorry cant anwser2": "Nous ne pouvons pas répondre à cela pour le moment. Veuillez réessayer un autre jour pour nous laisser le temps de le résoudre. En attendant, vous pouvez sélectionner une autre option. Si vous avez besoin d'une aide immédiate, veuillez écrire à notre équipe de support : support@foundation29.org Nous nous excusons pour la gêne occasionnée.",
-    "sorry cant anwser3": "La longueur maximale est de 750 jetons, soit environ 1 000 mots. Veuillez réduire la longueur de la description. Pour calculer le nombre de jetons vous pouvez le faire ici:",
-    "exceedingTokens": "La longueur maximale est de 750 jetons, environ 1000 mots. Vous avez dépassé de {{excessTokens}} jetons, environ {{wordsToRemove}} mots. Veuillez réduire la longueur de la description."
+    "sorry cant anwser3": "La longueur maximale est de 700 jetons, soit environ 525 mots. Veuillez réduire la longueur de la description. Pour calculer le nombre de jetons vous pouvez le faire ici:",
+    "exceedingTokens": "La longueur maximale est de 700 jetons, environ 525 mots. Vous avez dépassé de {{excessTokens}} jetons, environ {{wordsToRemove}} mots. Veuillez réduire la longueur de la description."
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnostics proposés",

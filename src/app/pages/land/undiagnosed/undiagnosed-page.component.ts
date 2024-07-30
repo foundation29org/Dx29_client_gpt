@@ -345,8 +345,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.showError(text, null);
         }
         let tokens = this.countTokens(this.medicalTextOriginal);
-        if(tokens>750){
-            let excessTokens = tokens - 750;
+        if(tokens>700){
+            let excessTokens = tokens - 700;
             //round excessTokens/1.4 to get the number of words that can be removed
             let wordsToRemove = Math.round(excessTokens*0.75);
             let errorMessage = this.translate.instant("generics.exceedingTokens", {
@@ -1322,8 +1322,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         if (!this.showErrorCall1) {
             let tokens = this.countTokens(this.editmedicalText);
-            if(tokens>750){
-                let excessTokens = tokens - 750;
+            if(tokens>700){
+                let excessTokens = tokens - 700;
                 //round excessTokens/1.4 to get the number of words that can be removed
                 let wordsToRemove = Math.round(excessTokens*0.75);
                 let errorMessage = this.translate.instant("generics.exceedingTokens", {
