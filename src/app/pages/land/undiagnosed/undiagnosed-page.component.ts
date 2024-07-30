@@ -90,7 +90,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     terms2: boolean = false;
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
-    @ViewChild('autoajustable2') textarea: ElementRef;
+    //@ViewChild('autoajustable2', { static: false }) textareaEdit: ElementRef;
+    @ViewChild('textareaedit') textareaEdit: ElementRef;
 
     constructor(private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
         this.initialize();
@@ -1296,14 +1297,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         };
         this.editmedicalText = this.medicalTextOriginal;
         this.modalReference = this.modalService.open(panel, ngbModalOptions);
-        await this.delay(200);
-        const textarea = this.textarea.nativeElement as HTMLTextAreaElement;
-        this.resizeTextArea2(textarea);
+        await this.delay(500);
+      setTimeout(() => {
+        const modalElement = document.getElementById('textareaedit');
+        if (modalElement) {
+          this.textareaEdit = new ElementRef(modalElement);
+          if (this.textareaEdit) {
+            const textarea = this.textareaEdit.nativeElement as HTMLTextAreaElement;
+            this.resizeTextArea2(textarea);
+          }
+        }
+      }, 0);       
+        
     }
 
     resizeTextArea2(textarea: HTMLTextAreaElement) {
         textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + 'px';
+        textarea.style.height = textarea.scrollHeight + 10 + 'px';
       }
 
     async checkText(step) {
