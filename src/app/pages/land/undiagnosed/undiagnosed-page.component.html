@@ -256,7 +256,7 @@
       <div class="form-group">
         <span>{{'land.whynotexpected' | translate }}*</span>
         <div>
-          <textarea maxlength="2000" #autoajustable id="textarea1" type="text" name="FeedBack1input" required #FeedBack1input="ngModel" ngModel
+          <textarea maxlength="2000" #autoajustable id="textareadescr" type="text" name="FeedBack1input" required #FeedBack1input="ngModel" ngModel
             class="autoajustable data-hj-allow w-100" [(ngModel)]="feedBack1input" rows="4"
             (input)="autoResize($event)"></textarea>
           <small class="form-text text-muted danger" *ngIf="!FeedBack1input.valid && showErrorForm">{{'generics.required' | translate
@@ -388,7 +388,7 @@
       <div>
         <div class="">
           <div class="form-group">
-            <textarea #autoajustable2 id="textarea1" rows="4" type="text" class="autoajustable searchTerm data-hj-allow"
+            <textarea #autoajustable2 id="textareaedit" rows="4" type="text" class="autoajustable searchTerm data-hj-allow"
               [(ngModel)]="editmedicalText" name="editmedicalText" placeholder="{{'land.Type here' | translate }}"
               (input)="autoResize($event)"></textarea>
           </div>
