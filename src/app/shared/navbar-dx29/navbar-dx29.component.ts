@@ -28,6 +28,7 @@ export class NavbarD29Component implements OnDestroy {
   isReportsPage: boolean = false;
   _startTime: any;
   private subscription: Subscription = new Subscription();
+  isMenuExpanded = false;
 
   constructor(public translate: TranslateService, private langService: LangService, private router: Router, private inj: Injector, public insightsService: InsightsService) {
     /*this.translate.use('en');
@@ -134,6 +135,13 @@ export class NavbarD29Component implements OnDestroy {
   goBackEvent() {
     var eventsLang = this.inj.get(EventsService);
     eventsLang.broadcast('backEvent', true);
+  }
+  toggleMenu() {
+    this.isMenuExpanded = !this.isMenuExpanded;
+  }
+
+  closeMenu() {
+    this.isMenuExpanded = false;
   }
 
 }

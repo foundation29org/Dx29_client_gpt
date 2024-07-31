@@ -346,8 +346,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.showError(text, null);
         }
         let tokens = this.countTokens(this.medicalTextOriginal);
-        if(tokens>700){
-            let excessTokens = tokens - 700;
+        if(tokens>4000){
+            let excessTokens = tokens - 4000;
             //round excessTokens/1.4 to get the number of words that can be removed
             let wordsToRemove = Math.round(excessTokens*0.75);
             let errorMessage = this.translate.instant("generics.exceedingTokens", {
@@ -994,8 +994,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var nameEvent = 'Undiagnosed - Select Disease - ' + this.topRelatedConditions[this.selectedInfoDiseaseIndex].name;
         this.lauchEvent(nameEvent);
         let ngbModalOptions: NgbModalOptions = {
-            backdrop: 'static',
-            keyboard: false,
+            keyboard: true,
             windowClass: 'ModalClass-lg'// xl, lg, sm
         };
         if (this.modalReference != undefined) {
@@ -1333,9 +1332,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         if (!this.showErrorCall1) {
             let tokens = this.countTokens(this.editmedicalText);
-            if(tokens>700){
-                let excessTokens = tokens - 700;
-                //round excessTokens/1.4 to get the number of words that can be removed
+            if(tokens>4000){
+                let excessTokens = tokens - 4000;
                 let wordsToRemove = Math.round(excessTokens*0.75);
                 let errorMessage = this.translate.instant("generics.exceedingTokens", {
                     excessTokens: excessTokens,
