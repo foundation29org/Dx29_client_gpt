@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -142,6 +142,19 @@ export class NavbarD29Component implements OnDestroy {
 
   closeMenu() {
     this.isMenuExpanded = false;
+  }
+
+   @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const clickedInsideMenu = target.closest('.navbar-collapse');
+    const clickedToggleButton = target.closest('.navbar-toggler');
+
+    if (!clickedInsideMenu && !clickedToggleButton) {
+      this.closeMenu();
+    } else if (clickedInsideMenu && !clickedToggleButton) {
+      this.closeMenu();
+    }
   }
 
 }
