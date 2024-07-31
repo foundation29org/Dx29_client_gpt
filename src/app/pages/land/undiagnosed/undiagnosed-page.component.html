@@ -1,6 +1,6 @@
 <a id="initsteps" class="anchorSteps"></a>
 <div class="vertical-center background-dark">
-  <section *ngIf="currentStep.stepIndex == 1" class="col-12 d-flex flex-column">
+  <section *ngIf="currentStep == 1" class="col-12 d-flex flex-column">
     <div class="row mt-4">
       <div class="col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
         <h2 class="white">{{'land.title' | translate }}</h2>
@@ -38,7 +38,7 @@
 
     </div>
   </section>
-  <section *ngIf="currentStep.stepIndex == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 mb-5 mt-2">
+  <section *ngIf="currentStep == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 mb-5 mt-2">
     <a id="step2"></a>
     <div class="row">
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
