@@ -5,13 +5,10 @@
 >
   <app-navbar-dx29></app-navbar-dx29>
   <div class="main-panel">
-    <div>
-      <div class="main-content">
-          <div class="">
-              <router-outlet></router-outlet>
-              <div><app-footer></app-footer></div>
-          </div>
-      </div>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
     </div>
+    <button class="btn btn-primary scroll-top" type="button" *ngIf="isScrollTopVisible" (click)="scrollToTop();"><i class="fa fa-arrow-up"></i></button>
   </div>
 </div>

@@ -1,12 +1,15 @@
 import {
   Component,
   OnInit,
-  AfterViewInit
+  Inject,
+  Renderer2,
+  HostListener
 } from "@angular/core";
-import { Router, NavigationStart } from '@angular/router';
 import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.component';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService } from 'app/shared/services/events.service';
+import { WINDOW } from 'app/shared/services/window.service';
+import { DOCUMENT } from "@angular/common";
 
 @Component({
     selector: 'app-land-page-layout',
@@ -14,51 +17,23 @@ import { EventsService } from 'app/shared/services/events.service';
     styleUrls: ['./land-page-layout.component.scss']
 })
 
-export class LandPageLayoutComponent implements OnInit, AfterViewInit {
-  isGTPPage: boolean = false;
-  isHomePage: boolean = false;
+export class LandPageLayoutComponent implements OnInit {
   hasShownDialog: boolean = false;
+  isScrollTopVisible = false;
 
   constructor(
-    private router: Router,
     private modalService: NgbModal,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(WINDOW) private window: Window,
+    private renderer: Renderer2
   ) {
-    if ((this.router.url).indexOf('/.') != -1 || (this.router.url)== '/') {
-      this.isHomePage = true;
-      this.isGTPPage = false;
-    }else if((this.router.url).indexOf('/juntoshaciaeldiagnostico')!=-1){
-      this.isGTPPage = true;
-      this.isHomePage = false;
-    }else{
-      this.isGTPPage = false;
-      this.isHomePage = false;
-    }
   }
 
   ngOnInit() {
     this.eventsService.on('sentFeedbackDxGPT', function (event) {
       this.hasShownDialog = true;
     }.bind(this));
-  }
-
-  ngAfterViewInit() {
-    this.router.events.filter((event: any) => event instanceof NavigationStart).subscribe(
-
-      event => {
-        var tempUrl = (event.url).toString();
-        if(tempUrl.indexOf('/.') != -1 || tempUrl== '/'){
-          this.isHomePage = true;
-          this.isGTPPage = false;
-        }else if(tempUrl.indexOf('/juntoshaciaeldiagnostico')!=-1){
-          this.isGTPPage = true;
-          this.isHomePage = false;
-        }else{
-          this.isGTPPage = false;
-          this.isHomePage = false;
-        }
-      }
-    );
   }
 
   async sidebarMouseleave(e) {
@@ -72,5 +47,36 @@ export class LandPageLayoutComponent implements OnInit, AfterViewInit {
       //this.hasShownDialog = true;
     }
   }
+
+  scrollToTop() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    let number = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
+    if (number > 60) {
+      this.renderer.addClass(this.document.body, "navbar-scrolled");
+    } else {
+      this.renderer.removeClass(this.document.body, "navbar-scrolled");
+    }
+
+    if (number > 400) {
+      this.isScrollTopVisible = true;
+    } else {
+      this.isScrollTopVisible = false;
+    }
+
+    if (number > 20) {
+      this.renderer.addClass(this.document.body, "page-scrolled");
+    } else {
+      this.renderer.removeClass(this.document.body, "page-scrolled");
+    }
+  }
+
 
 }
