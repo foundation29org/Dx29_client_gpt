@@ -51,8 +51,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     _startTime: any;
     myuuid: string = uuidv4();
     eventList: any = [];
-    steps = [];
-    currentStep: any = {};
+    currentStep: number = 1;
     questions: any = [];
     answerOpenai: string = '';
     showErrorCall1: boolean = false;
@@ -102,11 +101,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this._startTime = Date.now();
         this.setUUID();
         this.lauchEvent("Init Page");
-        this.steps = [
-          { stepIndex: 1, isComplete: false, title: this.translate.instant("land.step1") },
-          { stepIndex: 2, isComplete: false, title: this.translate.instant("land.step3") }
-        ];
-        this.currentStep = this.steps[0];
+        this.currentStep = 1;
         this.loadSponsors();
         this.loadingIP();
       }
@@ -153,23 +148,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }));
     }
 
-    initQuestions() {
-        this.questions = [
-            { id: 1, question: this.translate.instant("land.q1") },
-            { id: 2, question: this.translate.instant("land.q2") },
-            { id: 3, question: this.translate.instant("land.q3") },
-            { id: 4, question: this.translate.instant("land.q4") },
-            { id: 5, question: this.translate.instant("land.q5") },
-        ];
-    }
-
-    initOptions() {
-        this.options = { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") };
-    }
-
     async goPrevious() {
         this.topRelatedConditions = [];
-        this.currentStep = this.steps[0];
+        this.currentStep = 1;
         await this.delay(200);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
@@ -224,25 +205,24 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     loadTranslations() {
-        this.translate.get('land.step1').subscribe((res: string) => {
-            this.steps[0].title = res;
-        });
-        this.translate.get('land.step3').subscribe(async (res: string) => {
-            this.steps[1].title = res;
-            await this.delay(500);
-            this.initQuestions();
-            this.initOptions()
-        });
         this.translate.get('land.Symptoms').subscribe((res: string) => {
             this.symtpmsLabel = res;
         });
+        this.questions = [
+            { id: 1, question: this.translate.instant("land.q1") },
+            { id: 2, question: this.translate.instant("land.q2") },
+            { id: 3, question: this.translate.instant("land.q3") },
+            { id: 4, question: this.translate.instant("land.q4") },
+            { id: 5, question: this.translate.instant("land.q5") },
+        ];
+        this.options = { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") };
     }
 
     subscribeToEvents() {
         this.eventsService.on('changelang', async (lang) => {
             this.lang = lang;
             this.loadTranslations();
-            if (this.currentStep.stepIndex == 2 && this.originalLang != lang) {
+            if (this.currentStep == 2 && this.originalLang != lang) {
                 Swal.fire({
                     title: this.translate.instant("land.Language has changed"),
                     text: this.translate.instant("land.Do you want to start over"),
@@ -259,13 +239,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     if (result.value) {
                         this.originalLang = lang;
                         this.restartInitVars();
-                        this.currentStep = this.steps[0];
+                        this.currentStep = 1;
                     }
                 });
             }
         });
         this.eventsService.on('backEvent', async (event) => {
-            if (this.currentStep.stepIndex == 2) {
+            if (this.currentStep == 2) {
                 this.newPatient();
             }
         });
@@ -591,7 +571,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     processOpenAiSuccess(data: any, value: any) {
-        //if (this.currentStep.stepIndex == 1) {
+        //if (this.currentStep == 1) {
             this.copyMedicalText = this.medicalTextEng;
             //}
             this.callAnonymize(value, data);//parseChoices0
@@ -665,8 +645,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         });
 
         this.loadMoreDiseases = false;
-        if (this.currentStep.stepIndex == 1) {
-            this.currentStep = this.steps[1];
+        if (this.currentStep == 1) {
+            this.currentStep = 2;
         }
         this.callingOpenai = false;
         Swal.close();
