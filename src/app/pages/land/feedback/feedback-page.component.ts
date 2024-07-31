@@ -139,11 +139,32 @@ export class FeedbackPageComponent implements OnDestroy {
            }));
         } else {
             if (this.formulario.get('email') && this.formulario.get('email').invalid ) {
-                this.toastr.error(this.translate.instant("generics.entervalidemail"), 'Error');
+                //this.toastr.error(this.translate.instant("generics.entervalidemail"), 'Error');
+                Swal.fire({
+                    icon: 'error',
+                    html: this.translate.instant("generics.entervalidemail"),
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    allowOutsideClick: false
+                })
             } else if (!this.formulario.get('userType')?.value) {
-                this.toastr.error(this.translate.instant("feedback.selectusertype"), 'Error');
+                //this.toastr.error(this.translate.instant("feedback.selectusertype"), 'Error');
+                Swal.fire({
+                    icon: 'error',
+                    html: this.translate.instant("feedback.selectusertype"),
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    allowOutsideClick: false
+                })
             } else {
-                this.toastr.error(this.translate.instant("feedback.onstarts"), 'Error');
+                //this.toastr.error(this.translate.instant("feedback.onstarts"), 'Error');
+                Swal.fire({
+                    icon: 'error',
+                    html: this.translate.instant("feedback.onstarts"),
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    allowOutsideClick: false
+                })
             }
         } 
       }
