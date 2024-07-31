@@ -18,7 +18,6 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
 import { prompts } from 'assets/js/prompts';
-import  {encodingForModel} from "js-tiktoken";
 
 
 declare let gtag: any;
@@ -345,25 +344,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             this.showError(text, null);
         }
-        // let tokens = this.countTokens(this.medicalTextOriginal);
-        // if(tokens>700){
-        //     let excessTokens = tokens - 700;
-        //     //round excessTokens/1.4 to get the number of words that can be removed
-        //     let wordsToRemove = Math.round(excessTokens*0.75);
-        //     let errorMessage = this.translate.instant("generics.exceedingTokens", {
-        //         excessTokens: excessTokens,
-        //         wordsToRemove: wordsToRemove
-        //       });
-        //       Swal.fire({
-        //         icon: 'error',
-        //         html: errorMessage,
-        //         showCancelButton: false,
-        //         showConfirmButton: true,
-        //         allowOutsideClick: false
-        //         });
-        //     this.insightsService.trackEvent(errorMessage);
-        //     return;
-        // }
         
         if (!this.showErrorCall1) {
             if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
@@ -994,8 +974,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var nameEvent = 'Undiagnosed - Select Disease - ' + this.topRelatedConditions[this.selectedInfoDiseaseIndex].name;
         this.lauchEvent(nameEvent);
         let ngbModalOptions: NgbModalOptions = {
-            backdrop: 'static',
-            keyboard: false,
+            keyboard: true,
             windowClass: 'ModalClass-lg'// xl, lg, sm
         };
         if (this.modalReference != undefined) {
@@ -1105,17 +1084,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.acceptTerms = false;
         let msgSuccess = this.translate.instant("land.thanks");
         this.showSuccess(msgSuccess);
-    }
-
-    countTokens(text) {
-        let tokens = 0;
-        if (text.length > 0) {
-            const enc = encodingForModel("gpt-4o");
-            tokens = enc.encode(text).length;
-          } else {
-            tokens = 0;
-          }
-          return tokens;
     }
 
     resizeTextArea() {
@@ -1332,25 +1300,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.showError(text, null);
         }
         if (!this.showErrorCall1) {
-            let tokens = this.countTokens(this.editmedicalText);
-            if(tokens>700){
-                let excessTokens = tokens - 700;
-                //round excessTokens/1.4 to get the number of words that can be removed
-                let wordsToRemove = Math.round(excessTokens*0.75);
-                let errorMessage = this.translate.instant("generics.exceedingTokens", {
-                    excessTokens: excessTokens,
-                    wordsToRemove: wordsToRemove
-                });
-                Swal.fire({
-                    icon: 'error',
-                    html: errorMessage,
-                    showCancelButton: false,
-                    showConfirmButton: true,
-                    allowOutsideClick: false
-                    });
-                this.insightsService.trackEvent(errorMessage);
-                return;
-            }
             this.closeModal();
             this.medicalTextOriginal = this.editmedicalText;
             this.preparingCallOpenAi(step);

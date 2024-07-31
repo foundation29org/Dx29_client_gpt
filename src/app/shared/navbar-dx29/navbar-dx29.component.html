@@ -1,59 +1,68 @@
 <!-- Navbar (Header) Starts -->
-<nav class="navbar navbar-expand-lg navbar-light bg-faded damemarger custom-navbar">
-    <div class="container-fluid">
-      <div>
-          <span class="ml-2 navbar-header-logos">
-            <img *ngIf="isHomePage" width="140px" height="37px" src='assets/img/logo-Dx29.png' alt="logo dxgpt" (click)="lauchEvent('Logo');goBackEvent();"/>
-            <img *ngIf="!isHomePage" width="140px" height="37px" src='assets/img/logo-Dx29.png' alt="logo dxgpt" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
-          </span>
-
-      </div>
+<nav class="navbar navbar-expand-md navbar-light bg-faded damemarger custom-navbar">
+  <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMenu()">
+          <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="d-none d-md-block">
-        <div class="navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav m-r-0">
-                <li class="nav-item mr-2">
-                    <a class="nav-link" [ngClass]="(!isHomePage)?'black':'black text-bold-700'" routerLink="/." (click)="lauchEvent('Page - Home'); goBackEvent();">
+          <span class="navbar-header-logos">
+              <img *ngIf="isHomePage" class="logo-header" src='assets/img/logo-Dx29.png' alt="logo dxgpt" (click)="lauchEvent('Logo');goBackEvent();"/>
+              <img *ngIf="!isHomePage" class="logo-header" src='assets/img/logo-Dx29.png' alt="logo dxgpt" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
+          </span>
+      </div>
+      <div class="d-block">
+        <div class="d-sm-block d-md-none pointer">
+          <img *ngIf="isHomePage" class="mt-1 logo-header" src='assets/img/logo-Dx29.png' alt="logo dxgpt" (click)="lauchEvent('Logo');goBackEvent();"/>
+          <img *ngIf="!isHomePage" class="mt-1 logo-header" src='assets/img/logo-Dx29.png' alt="logo dxgpt" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
+      </div>
+        <div [class.collapse]="!isMenuExpanded" [class.show]="isMenuExpanded" class="navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav m-r-0 menu-items">
+              <li class="nav-item mr-2">
+                  <a class="nav-link" [ngClass]="(!isHomePage)?'black':'black text-bold-700'" routerLink="/." (click)="lauchEvent('Page - Home'); goBackEvent();">
                       <span>{{'menu.Dashboard' | translate }}</span>
-                    </a>
-                </li>
-                <li class="nav-item mr-2">
-                  <a class="nav-link" [ngClass]="(!isAboutPage)?'black':'black text-bold-700'" routerLink="/aboutus" (click)="lauchEvent('Page - About us')">
-                    <span>{{'menu.About us' | translate }}</span>
-                  </a>
-                </li>
-                <li class="nav-item mr-2">
-                  <a class="nav-link" [ngClass]="(!isFaqPage)?'black':'black text-bold-700'" routerLink="/faq" (click)="lauchEvent('Page - FAQ')">
-                    <span>FAQs</span>
-                  </a>
-                <li class="nav-item mr-2">
-                  <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'black text-bold-700'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')">
-                    <span>{{'menu.Usage statistics' | translate }}</span>
-                  </a>
-                </li>
-                <li class="nav-item mr-2">
-                  <a class="nav-link btn btn-info round white mb-0 btn-sm" style="width: 120px;" href="https://www.foundation29.org/donate/" target="_blank" (click)="lauchEvent('Page - Donate')">
-                    <span>{{'land.Donate' | translate }} <em class="ml-1 fa fa-heart"></em></span>
                   </a>
               </li>
+              <li class="nav-item mr-2">
+                  <a class="nav-link" [ngClass]="(!isAboutPage)?'black':'black text-bold-700'" routerLink="/aboutus" (click)="lauchEvent('Page - About us')">
+                      <span>{{'menu.About us' | translate }}</span>
+                  </a>
+              </li>
+              <li class="nav-item mr-2">
+                  <a class="nav-link" [ngClass]="(!isFaqPage)?'black':'black text-bold-700'" routerLink="/faq" (click)="lauchEvent('Page - FAQ')">
+                      <span>FAQs</span>
+                  </a>
+              </li>
+              <li class="nav-item mr-2">
+                  <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'black text-bold-700'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')">
+                      <span>{{'menu.Usage statistics' | translate }}</span>
+                  </a>
+              </li>
+              <li class="nav-item mr-2 donate-link">
+                  <a class="nav-link btn btn-info round white mb-0 btn-sm donate-a" href="https://www.foundation29.org/donate/" target="_blank" (click)="lauchEvent('Page - Donate')">
+                      <span>{{'land.Donate' | translate }} <em class="ml-1 fa fa-heart"></em></span>
+                  </a>
+              </li>
+          </ul>
+      </div>
+      </div>
+      
+      <div class="navbar-container pl-0">
+          <div id="navbarSupportedContent">
+              <ul class="navbar-nav m-r-0">
+                  <li class="nav-item mr-2" ngbDropdown display="dynamic" placement="bottom-right">
+                      <a class="position-relative colorlink" id="dropdownLang" ngbDropdownToggle role="button">
+                          <u>{{currentLang}}</u>
+                      </a>
+                      <div ngbDropdownMenu aria-labelledby="dropdownLang" class="dropdownLang">
+                          <a *ngFor="let lang of langs" class="dropdown-item py-1 lang" href="javascript:;" (click)="ChangeLanguage(lang.code)">
+                              <span>{{lang.name}}</span>
+                          </a>
+                      </div>
+                  </li>
               </ul>
           </div>
       </div>
-        <div class="navbar-container pl-0">
-            <div  id="navbarSupportedContent">
-                <ul class="navbar-nav m-r-0">
-                    <li class="nav-item mr-2" ngbDropdown display="dynamic" placement="bottom-right">
-                        <a class="position-relative colorlink" id="dropdownLang" ngbDropdownToggle role="button">
-                            <u>{{currentLang}}</u>
-                        </a>
-                        <div ngbDropdownMenu aria-labelledby="dropdownLang" class="dropdownLang">
-                            <a *ngFor="let lang of langs" class="dropdown-item py-1 lang" href="javascript:;" (click)="ChangeLanguage(lang.code)">
-                                <span>{{lang.name}}</span>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+  </div>
 </nav>
 <!-- Navbar (Header) Ends -->

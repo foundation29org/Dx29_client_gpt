@@ -2,22 +2,6 @@
 <footer>
     <div class="container-fluid pt-2" style="background-color: #ffffff !important;">
       <div class="row margin-0 center-elements">
-        <div class="col-md-12 pb-3 d-md-none">
-          <div class="center-elements border-bottom mt-2 pb-3 ">
-            <a *ngIf="!isHomePage" class="mr-2 text-decoration-underline" routerLink="/.">
-                <span>{{'menu.Dashboard' | translate }}</span>
-              </a>
-            <a *ngIf="!isAboutPage" class="mr-2 text-decoration-underline" routerLink="/aboutus">
-              <span>{{'menu.About us' | translate }}</span>
-            </a>
-            <a *ngIf="!isFaqPage" class="mr-2 text-decoration-underline" routerLink="/faq">
-              <span>FAQs</span>
-            </a>
-            <a *ngIf="!isReportsPage" class="mr-2 text-decoration-underline" routerLink="/reports">
-              <span>{{'menu.Usage statistics' | translate }}</span>
-            </a>
-          </div>
-        </div>
         <div class="col-lg-12">
           <div class="row">
             <div [ngClass]="(!isHomePage)?'col-md-6':'col-md-4'">

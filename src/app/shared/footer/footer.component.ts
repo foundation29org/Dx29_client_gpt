@@ -17,9 +17,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class FooterComponent{
 
   isHomePage: boolean = false;
-  isAboutPage: boolean = false;
-  isFaqPage: boolean = false;
-  isReportsPage: boolean = false;
   modalReference: NgbModalRef;
   modalReference2: NgbModalRef;
   sending: boolean = false;
@@ -40,29 +37,8 @@ export class FooterComponent{
         var tempUrl = (event.url).toString();
         if (tempUrl.indexOf('/.') != -1 || tempUrl == '/') {
           this.isHomePage = true;
-          this.isAboutPage = false;
-          this.isFaqPage = false;
-          this.isReportsPage = false;
-        } else if (tempUrl.indexOf('/aboutus') != -1) {
+        }else {
           this.isHomePage = false;
-          this.isAboutPage = true;
-          this.isFaqPage = false;
-          this.isReportsPage = false;
-        }else if (tempUrl.indexOf('/faq') != -1) {
-          this.isHomePage = false;
-          this.isAboutPage = false;
-          this.isFaqPage = true;
-          this.isReportsPage = false;
-        }else if (tempUrl.indexOf('/reports') != -1) {
-          this.isHomePage = false;
-          this.isAboutPage = false;
-          this.isFaqPage = false;
-          this.isReportsPage = true;
-        } else {
-          this.isHomePage = false;
-          this.isAboutPage = false;
-          this.isFaqPage = false;
-          this.isReportsPage = false;
         }
       }
     );
