@@ -35,8 +35,7 @@
   <link rel="dns-prefetch" href="//www.google.com">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="preload" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"></noscript>
+  <script async src="https://kit.fontawesome.com/e0f1c8c0ac.js" crossorigin="anonymous"></script>
 
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap" media="print" onload="this.media='all'">
@@ -86,6 +85,30 @@
       }
     }
     </script>
+
+    <!-- Scripts que pueden cargarse asíncronamente -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FZQ49SRWY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      if((location.hostname).indexOf('dxgpt')!=-1){
+        gtag('config', 'G-2FZQ49SRWY');
+      }      
+    </script>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-335378785"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-335378785');
+    </script>
+  
+    <script>
+      gtag('event', 'conversion', {'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'});
+    </script>
+
 </head>
 
 <body>
@@ -93,32 +116,6 @@
   <div class="page-loading">
     <img src="assets/img/oval.svg" alt="loading icon" class="loading-icon" loading="lazy" />
   </div>
-
-  <!-- Scripts que pueden cargarse asíncronamente -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FZQ49SRWY"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    if((location.hostname).indexOf('dxgpt')!=-1){
-      gtag('config', 'G-2FZQ49SRWY');
-    }      
-  </script>
-  
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-335378785"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-335378785');
-  </script>
-  
-  <!-- Event snippet for Website traffic dxgpt conversion page -->
-  <script>
-    gtag('event', 'conversion', {'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'});
-  </script>
-
   <!-- Hotjar script -->
   <script defer>
     (function(h,o,t,j,a,r){

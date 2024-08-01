@@ -1,40 +1,40 @@
 <div class="container pt-5 pb-5">
-  <h2 id="testimonialsTitle" class="text-center mb-0 white">{{ 'testimonials.title' | translate }}</h2>
-  <ngb-carousel id="testimonialsCarousel" aria-labelledby="testimonialsTitle">
-    <div class="carousel-inner" role="listbox">
-      <ng-template ngbSlide>
-        <div class="carousel-item active" role="option">
-          <div class="testimonial">
-            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
-            <p>"{{ 'testimonials.testi1' | translate }}"</p>
-            <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
-          </div>
+  <h2 class="text-center mb-0 white">{{ 'testimonials.title' | translate }}</h2>
+  <ngb-carousel id="testimonialsCarousel" role="region" aria-label="Testimonios de clientes">
+    <ng-template ngbSlide>
+      <div class="carousel-item" role="group" aria-label="Slide 1 of 3">
+        <div class="testimonial">
+          <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
+          <p>"{{ 'testimonials.testi1' | translate }}"</p>
+          <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
         </div>
-      </ng-template>
-      <ng-template ngbSlide>
-        <div class="carousel-item" role="option">
-          <div class="testimonial">
-            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
-            <p>"{{ 'testimonials.testi2' | translate }}"</p>
-            <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
-          </div>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="carousel-item" role="group" aria-label="Slide 2 of 3">
+        <div class="testimonial">
+          <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
+          <p>"{{ 'testimonials.testi2' | translate }}"</p>
+          <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
         </div>
-      </ng-template>
-      <ng-template ngbSlide>
-        <div class="carousel-item" role="option">
-          <div class="testimonial">
-            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
-            <p>"{{ 'testimonials.testi3' | translate }}"</p>
-            <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
-          </div>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="carousel-item" role="group" aria-label="Slide 3 of 3">
+        <div class="testimonial">
+          <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
+          <p>"{{ 'testimonials.testi3' | translate }}"</p>
+          <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
         </div>
-      </ng-template>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev" aria-label="Anterior">
+      </div>
+    </ng-template>
+    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next" aria-label="Siguiente">
+    <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
     </button>
   </ngb-carousel>
 </div>
