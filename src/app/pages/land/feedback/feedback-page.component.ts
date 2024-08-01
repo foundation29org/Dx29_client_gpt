@@ -3,7 +3,7 @@ import { NgForm, FormGroup, FormBuilder, Validators, FormControl } from '@angula
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { SearchService } from 'app/shared/services/search.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
