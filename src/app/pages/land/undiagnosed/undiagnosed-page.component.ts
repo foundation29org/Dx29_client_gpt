@@ -18,7 +18,6 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
 import { prompts } from 'assets/js/prompts';
-import  {encodingForModel} from "js-tiktoken";
 
 
 declare let gtag: any;
@@ -325,14 +324,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             this.showError(text, null);
         }
-        let tokens = this.countTokens(this.medicalTextOriginal);
-        if(tokens>4000){
-            let excessTokens = tokens - 4000;
-            //round excessTokens/1.4 to get the number of words that can be removed
-            let wordsToRemove = Math.round(excessTokens*0.75);
-            let errorMessage = this.translate.instant("generics.exceedingTokens", {
-                excessTokens: excessTokens,
-                wordsToRemove: wordsToRemove
+        let words = this.countWords(this.medicalTextOriginal);
+        if(words>3000){
+            let excessWords = words - 3000;
+            let errorMessage = this.translate.instant("generics.exceedingWords", {
+                excessWords: excessWords
               });
               Swal.fire({
                 icon: 'error',
@@ -492,7 +488,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     break;
                 case 'error max tokens':
                     this.lauchEvent("error max tokens: "+this.medicalTextOriginal.length);
-                    msgError = this.translate.instant("generics.sorry cant anwser3") + '<a href="https://platform.openai.com/tokenizer" class="ml-1 danger" target="_blank">Tokenizer</a>';
+                    msgError = this.translate.instant("generics.sorry cant anwser3");
                     this.showError(msgError, null);
                     this.callingOpenai = false;
                     break;
@@ -525,7 +521,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         } else if (err.error.type == 'invalid_request_error') {
             if (err.error.code == 'string_above_max_length') {
                 this.lauchEvent("error max tokens: "+this.medicalTextOriginal.length);
-                let msgError = this.translate.instant("generics.sorry cant anwser3") + '<a href="https://platform.openai.com/tokenizer" class="ml-1 danger" target="_blank">Tokenizer</a>';
+                let msgError = this.translate.instant("generics.sorry cant anwser3");
                 this.showError(msgError, err);
                 this.callingOpenai = false;
             } else {
@@ -1086,16 +1082,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.showSuccess(msgSuccess);
     }
 
-    countTokens(text) {
-        let tokens = 0;
-        if (text.length > 0) {
-            const enc = encodingForModel("gpt-4o");
-            tokens = enc.encode(text).length;
-          } else {
-            tokens = 0;
-          }
-          return tokens;
-    }
+    countWords(text) {
+        text = text.trim();
+        if (text === '') {
+          return 0;
+        }
+        return text.split(/\s+/).length;
+      }
 
     resizeTextArea() {
         this.resizeTextAreaFunc(this.textAreas);
@@ -1311,13 +1304,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.showError(text, null);
         }
         if (!this.showErrorCall1) {
-            let tokens = this.countTokens(this.editmedicalText);
-            if(tokens>4000){
-                let excessTokens = tokens - 4000;
-                let wordsToRemove = Math.round(excessTokens*0.75);
-                let errorMessage = this.translate.instant("generics.exceedingTokens", {
-                    excessTokens: excessTokens,
-                    wordsToRemove: wordsToRemove
+            let words = this.countWords(this.editmedicalText);
+            if(words>3000){
+                let excessWords = words - 3000;
+                let errorMessage = this.translate.instant("generics.exceedingWords", {
+                    excessWords: excessWords
                 });
                 Swal.fire({
                     icon: 'error',

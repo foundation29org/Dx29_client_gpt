@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AboutUsPageComponent } from "./about-us/about-us-page.component";
-import { FaqsPageComponent } from "./faqs/faqs-page.component";
 import { ReportsPageComponent } from "./reports/reports-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
@@ -21,17 +19,13 @@ const routes: Routes = [
       },
       {
         path: 'aboutus',
-        component: AboutUsPageComponent,
-        data: {
-          title: 'menu.About us'
-        }
+        loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule),
+        data: { title: 'menu.About us' }
       },
       {
         path: 'faq',
-        component: FaqsPageComponent,
-        data: {
-          title: 'FAQs'
-        }
+        loadChildren: () => import('./faqs/faqs.module').then(m => m.FaqsModule),
+        data: { title: 'FAQs' }
       },
       {
         path: 'reports',
