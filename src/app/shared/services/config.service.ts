@@ -56,7 +56,7 @@ export class ConfigService {
           size: "sidebar-md",
           backgroundColor: "man-of-steel",
           backgroundImage: false,
-          backgroundImageURL: "assets/img/sidebar-bg/01.jpg"
+          backgroundImageURL: ""
         }
       }
     };

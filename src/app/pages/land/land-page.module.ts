@@ -5,8 +5,6 @@ import { CustomFormsModule } from 'ngx-custom-validators';
 import { LandPageRoutingModule } from "./land-page-routing.module";
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AboutUsPageComponent } from "./about-us/about-us-page.component";
-import { FaqsPageComponent } from "./faqs/faqs-page.component";
 import { ReportsPageComponent } from "./reports/reports-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
@@ -37,8 +35,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         SharedModule
     ],
     declarations: [
-        AboutUsPageComponent,
-        FaqsPageComponent,
         ReportsPageComponent,
         UndiagnosedPageComponent,
         FeedbackPageComponent,
