@@ -35,27 +35,41 @@
           <hr class="hr-custom mb-0">
         </h2>
         <span class="text-left row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p5.1' | translate }}</p>
-          <p>{{'land.aboutUs.p5.2' | translate }}</p>
+          <p [innerHTML]="'land.aboutUs.p5' | translate "></p>
+          <p><a target="_blank" class="white text-decoration-underline" href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1"> Evaluation of the Clinical Utility of DxGPT, a GPT-4 Based Large Language Model, through an Analysis of Diagnostic Accuracy and User Experience | medRxiv</a> </p>
+        </span>
+        
+        <h2 class="white card-title pt-4 text-bold-500 mb-0">
+          {{'land.aboutUs.t6' | translate }}
+          <hr class="hr-custom mb-0">
+        </h2>
+        <span class="text-left row margin-left-0 p-2">
+          <p>{{'land.aboutUs.p6.1' | translate }}</p>
+          <p>{{'land.aboutUs.p6.2' | translate }}</p>
           <ul>
-            <li>{{'land.aboutUs.p5.2.1' | translate }}</li>
-            <li>{{'land.aboutUs.p5.2.2' | translate }}</li>
-            <li>{{'land.aboutUs.p5.2.3' | translate }}</li>
+            <li>{{'land.aboutUs.p6.2.1' | translate }}</li>
           </ul>
-          <p>{{'land.aboutUs.p5.3' | translate }}</p>
-          <p>{{'land.aboutUs.p5.4' | translate }}</p>
+          <p>{{'land.aboutUs.p6.3' | translate }}</p>
+          <ul>
+            <li>{{'land.aboutUs.p6.3.1' | translate }}</li>
+            <li>{{'land.aboutUs.p6.3.2' | translate }}</li>
+          </ul>
+          <p>{{'land.aboutUs.p6.4' | translate }}</p>
+          <p>{{'land.aboutUs.p6.5' | translate }}</p>
+          <p>{{'land.aboutUs.p6.6' | translate }}</p>
+          <p>{{'land.aboutUs.p6.7' | translate }}</p>
           <img class="w-100 pb-2" alt="accuracy dxgpt" src='assets/img/home/accuracy.webp'>
-          <p>{{'land.aboutUs.p5.5' | translate }}</p>
-          <p>{{'land.aboutUs.p5.6' | translate }}</p>
-          <p>{{'land.aboutUs.p5.7' | translate }}</p>
+          <p>{{'land.aboutUs.p6.8' | translate }}</p>
+          <p>{{'land.aboutUs.p6.9' | translate }}</p>
+          <p>{{'land.aboutUs.p6.10' | translate }}</p>
         </span>
         <div class="text-left row margin-left-0 p-2 d-block">
-          <p class="mb-0">{{'land.aboutUs.citations.t1' | translate }}:</p>
-          <p class="mb-0">[1] <a target="_blank" class="white text-decoration-underline" href="{{'land.aboutUs.citations.c1' | translate }}"> {{'land.aboutUs.citations.c1' | translate }}</a> </p>
-          <p class="mb-0">[2] <a target="_blank" class="white text-decoration-underline" href="{{'land.aboutUs.citations.c2' | translate }}"> {{'land.aboutUs.citations.c2' | translate }}</a> </p>
-          <p class="mb-0">[3] <a target="_blank" class="white text-decoration-underline" href="{{'land.aboutUs.citations.c3' | translate }}"> {{'land.aboutUs.citations.c3' | translate }}</a> </p>
-          <p class="mb-0">[4] <a target="_blank" class="white text-decoration-underline" href="{{'land.aboutUs.citations.c4' | translate }}"> {{'land.aboutUs.citations.c4' | translate }}</a> </p>
-          <p class="mb-0">[5] <a target="_blank" class="white text-decoration-underline" href="{{'land.aboutUs.citations.c5' | translate }}"> {{'land.aboutUs.citations.c5' | translate }}</a> </p>
+          <p class="mb-0">{{'land.aboutUs.citations' | translate }}:</p>
+          <p class="mb-0">[1] <a target="_blank" class="white text-decoration-underline" href="https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1"> https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1</a> </p>
+          <p class="mb-0">[2] <a target="_blank" class="white text-decoration-underline" href="https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1.full.pdf"> https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1.full.pdf</a> </p>
+          <p class="mb-0">[3] <a target="_blank" class="white text-decoration-underline" href="https://github.com/foundation29org/Dx29_client_gpt"> https://github.com/foundation29org/Dx29_client_gpt</a> </p>
+          <p class="mb-0">[4] <a target="_blank" class="white text-decoration-underline" href="https://github.com/foundation29org/dxgpt_testing/blob/main/README.md"> https://github.com/foundation29org/dxgpt_testing/blob/main/README.md</a> </p>
+          <p class="mb-0">[5] <a target="_blank" class="white text-decoration-underline" href="https://news.microsoft.com/es-es/2023/09/15/madrid-health-service-a-pioneer-in-applying-generative-artificial-intelligence-to-improve-diagnosis-for-patients-with-rare-diseases/"> https://news.microsoft.com/es-es/2023/09/15/madrid-health-service-a-pioneer-in-applying-generative-artificial-intelligence-to-improve-diagnosis-for-patients-with-rare-diseases/</a> </p>
         </div>
       </div>
     </div>
@@ -66,11 +80,11 @@
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
         <h2 class="primary card-title text-bold-500 mb-0">
-          {{'land.aboutUs.t6' | translate }}
+          {{'land.aboutUs.t7' | translate }}
           <hr class="hr-custom mb-0">
         </h2>
         <span class="text-left row margin-left-0 p-2">
-          <p class="mb-0">{{'land.aboutUs.p6' | translate }}</p>
+          <p class="mb-0">{{'land.aboutUs.p7' | translate }}</p>
         </span>
         <div class="col-md-12 center-elements mb-3">
           <button (click)="lauchEvent('Info foundation29');openWeb();" class="mt-2 mr-2 ml-2 btn btn-info btn-lg round mb-1"
@@ -78,19 +92,19 @@
           </button>
         </div>
         <h2 class="primary card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.t7' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-left row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p7' | translate }}</p>
-        </span>
-        <h2 class="primary card-title pt-4 text-bold-500 mb-0">
           {{'land.aboutUs.t8' | translate }}
           <hr class="hr-custom mb-0">
         </h2>
         <span class="text-left row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p8.1' | translate }}</p>
-          <p>{{'land.aboutUs.p8.2' | translate }}</p>
+          <p>{{'land.aboutUs.p8' | translate }}</p>
+        </span>
+        <h2 class="primary card-title pt-4 text-bold-500 mb-0">
+          {{'land.aboutUs.t9' | translate }}
+          <hr class="hr-custom mb-0">
+        </h2>
+        <span class="text-left row margin-left-0 p-2">
+          <p>{{'land.aboutUs.p9.1' | translate }}</p>
+          <p>{{'land.aboutUs.p9.2' | translate }}</p>
         </span>
         <div class="row center-elements pad-logos">
           <div class="col-6 col-sm-4 mb-3 p-4">
