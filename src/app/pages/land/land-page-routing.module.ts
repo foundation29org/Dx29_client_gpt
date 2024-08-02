@@ -5,6 +5,7 @@ import { ReportsPageComponent } from "./reports/reports-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
+import { CookiesPageComponent } from "./cookies/cookies.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,13 @@ const routes: Routes = [
         component: PrivacyPolicyPageComponent,
         data: {
           title: 'menu.Privacy Policy'
+        }
+      },
+      {
+        path: 'cookies',
+        component: CookiesPageComponent,
+        data: {
+          title: 'cookies.title'
         }
       }
     ]

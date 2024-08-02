@@ -9,6 +9,7 @@ import { ReportsPageComponent } from "./reports/reports-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
+import { CookiesPageComponent } from "./cookies/cookies.component";
 import { TestimonialsComponent } from "./testimonials/testimonials.component";
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -39,6 +40,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         UndiagnosedPageComponent,
         FeedbackPageComponent,
         PrivacyPolicyPageComponent,
+        CookiesPageComponent,
         TestimonialsComponent
     ]
 })
