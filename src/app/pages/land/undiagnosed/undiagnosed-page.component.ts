@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from "@angular/common/http";
 import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
-import { SearchService } from 'app/shared/services/search.service';
 import { Clipboard } from "@angular/cdk/clipboard"
 import { v4 as uuidv4 } from 'uuid';
 import { jsPDFService } from 'app/shared/services/jsPDF.service'
@@ -49,7 +48,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     selectedInfoDiseaseIndex: number = -1;
     _startTime: any;
     myuuid: string = uuidv4();
-    eventList: any = [];
     currentStep: number = 1;
     questions: any = [];
     answerOpenai: string = '';
@@ -91,7 +89,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     //@ViewChild('autoajustable2', { static: false }) textareaEdit: ElementRef;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
 
-    constructor(private http: HttpClient, public translate: TranslateService, private searchService: SearchService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
+    constructor(private http: HttpClient, public translate: TranslateService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
         this.initialize();
     }
 
@@ -178,18 +176,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
-        var savedEvent = this.searchService.search(this.eventList, 'name', category);
         if (category == "Info Disease") {
             var subcate = 'Info Disease - ' + this.selectedDisease;
-            this.eventList.push({ name: subcate });
             gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
             subcate = 'Info quest - ' + this.selectedDisease + ' - ' + this.selectedQuestion
             gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
 
-        }
-        if (!savedEvent) {
-            this.eventList.push({ name: category });
+        }else{
             gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+
         }
     }
 
