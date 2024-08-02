@@ -4,7 +4,6 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { SearchService } from 'app/shared/services/search.service';
 import { ToastrService } from 'ngx-toastr';
 import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
@@ -24,7 +23,6 @@ export class SendMsgComponent implements OnDestroy {
   _startTime: any;
   role: string = '';
   myuuid: string = uuidv4();
-  eventList: any = [];
   email: string = '';
   showErrorForm: boolean = false;
   sending: boolean = false;
@@ -34,7 +32,7 @@ export class SendMsgComponent implements OnDestroy {
   modalReference: NgbModalRef;
   descriptionBind: string = '';
 
-  constructor( private searchService: SearchService, public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public insightsService: InsightsService, private modalService: NgbModal) {
+  constructor(public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public insightsService: InsightsService, private modalService: NgbModal) {
     this._startTime = Date.now();
     if(sessionStorage.getItem('uuid')!=null){
         this.myuuid = sessionStorage.getItem('uuid');
@@ -52,11 +50,7 @@ getElapsedSeconds() {
 
 lauchEvent(category) {
     var secs = this.getElapsedSeconds();
-    var savedEvent = this.searchService.search(this.eventList, 'name', category);
-    if(!savedEvent){
-        this.eventList.push({name:category});
-        gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
-    }
+    gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
 }
   
     ngOnDestroy() {

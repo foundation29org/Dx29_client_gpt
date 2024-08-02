@@ -4,13 +4,12 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { SearchService } from 'app/shared/services/search.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService} from 'app/shared/services/events.service';
-import { Injectable, Injector } from '@angular/core';
+import { Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 declare let gtag: any;
@@ -27,7 +26,6 @@ export class FeedbackPageComponent implements OnDestroy {
     _startTime: any;
     role: string = '';
     myuuid: string = uuidv4();
-    eventList: any = [];
     email: string = '';
     showErrorForm: boolean = false;
     sending: boolean = false;
@@ -37,7 +35,7 @@ export class FeedbackPageComponent implements OnDestroy {
     freeTextLength: number = 0;
     formulario: FormGroup;
 
-    constructor(private searchService: SearchService, public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService) {
+    constructor(public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
@@ -90,11 +88,7 @@ export class FeedbackPageComponent implements OnDestroy {
 
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
-        var savedEvent = this.searchService.search(this.eventList, 'name', category);
-        if(!savedEvent){
-            this.eventList.push({name:category});
-            gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
-        }
+        gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
     }
 
     ngOnDestroy() {

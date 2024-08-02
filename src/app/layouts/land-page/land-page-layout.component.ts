@@ -6,7 +6,7 @@ import {
   HostListener
 } from "@angular/core";
 import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.component';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService } from 'app/shared/services/events.service';
 import { WINDOW } from 'app/shared/services/window.service';
 import { DOCUMENT } from "@angular/common";
@@ -20,6 +20,7 @@ import { DOCUMENT } from "@angular/common";
 export class LandPageLayoutComponent implements OnInit {
   hasShownDialog: boolean = false;
   isScrollTopVisible = false;
+  modalReference: NgbModalRef;
 
   constructor(
     private modalService: NgbModal,
@@ -28,6 +29,39 @@ export class LandPageLayoutComponent implements OnInit {
     @Inject(WINDOW) private window: Window,
     private renderer: Renderer2
   ) {
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && this.modalReference == undefined) {
+        this.showFeedbackDialog();
+      }
+    });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event: BeforeUnloadEvent) {
+    if(this.modalReference == undefined){
+      this.showFeedbackDialog();
+    }
+    
+  }
+
+  async showFeedbackDialog() {
+    if (!this.hasShownDialog && localStorage.getItem('sentFeedbackDxGPT') == 'true') {
+      let ngbModalOptions: NgbModalOptions = {
+        backdrop: 'static',
+        keyboard: false,
+        windowClass: 'ModalClass-lg'// xl, lg, sm
+      };
+      this.modalReference = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
+      this.modalReference.result
+      .then(() => {
+        this.modalReference = undefined;
+      })
+      .catch(() => {
+        this.modalReference = undefined;
+      });
+      //this.hasShownDialog = true;
+    }
   }
 
   ngOnInit() {
@@ -37,14 +71,8 @@ export class LandPageLayoutComponent implements OnInit {
   }
 
   async sidebarMouseleave(e) {
-    if (!this.hasShownDialog && e.clientY == -1 && localStorage.getItem('sentFeedbackDxGPT') == 'true') {
-      let ngbModalOptions: NgbModalOptions = {
-        backdrop: 'static',
-        keyboard: false,
-        windowClass: 'ModalClass-lg'// xl, lg, sm
-      };
-      const modalRef = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
-      //this.hasShownDialog = true;
+    if(e.clientY == -1){
+      this.showFeedbackDialog();
     }
   }
 
