@@ -7,6 +7,8 @@ import { environment } from 'environments/environment';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { PrivacyPolicyPageComponent } from 'app/pages/land/privacy-policy/privacy-policy.component';
+import { CookiesPageComponent } from 'app/pages/land/cookies/cookies.component';
 
 @Component({
     selector: 'app-footer',
@@ -17,6 +19,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class FooterComponent{
 
   isHomePage: boolean = false;
+  isPolicyPage: boolean = false;
+  isCookiesPage: boolean = false;
   modalReference: NgbModalRef;
   modalReference2: NgbModalRef;
   sending: boolean = false;
@@ -37,8 +41,20 @@ export class FooterComponent{
         var tempUrl = (event.url).toString();
         if (tempUrl.indexOf('/.') != -1 || tempUrl == '/') {
           this.isHomePage = true;
+          this.isPolicyPage = false;
+          this.isCookiesPage = false;
+        }else if(tempUrl == '/privacy-policy'){
+          this.isHomePage = false;
+          this.isPolicyPage = true;
+          this.isCookiesPage = false;
+        }else if(tempUrl == '/cookies'){
+          this.isHomePage = false;
+          this.isPolicyPage = false;
+          this.isCookiesPage = true;
         }else {
           this.isHomePage = false;
+          this.isPolicyPage = false;
+          this.isCookiesPage = false;
         }
       }
     );
@@ -111,23 +127,26 @@ closeSupport(){
   this.checkSubscribe = false;
 }
 
-closeModal() {
-  if (this.modalReference != undefined) {
-      this.modalReference.close();
-      this.modalReference = undefined;
-  }
-}
-
-openModal(panel) {
+openModalPolicy() {
   let ngbModalOptions: NgbModalOptions = {
       keyboard: true,
       windowClass: 'ModalClass-sm'// xl, lg, sm
   };
-  this.modalReference = this.modalService.open(panel, ngbModalOptions);
+  this.modalService.open(PrivacyPolicyPageComponent, ngbModalOptions);
   this.scrollTo();
 }
 
-async openModal2(panel) {
+openModalCookies() {
+  let ngbModalOptions: NgbModalOptions = {
+      keyboard: true,
+      windowClass: 'ModalClass-sm'// xl, lg, sm
+  };
+  this.modalService.open(CookiesPageComponent, ngbModalOptions);
+  this.scrollTo();
+}
+
+
+async openModal(panel) {
   let ngbModalOptions: NgbModalOptions = {
     backdrop : 'static',
       keyboard: false,

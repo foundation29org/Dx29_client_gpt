@@ -4,9 +4,9 @@
       <div class="row margin-0 center-elements">
         <div class="col-lg-12">
           <div class="row">
-            <div [ngClass]="(!isHomePage)?'col-md-6':'col-md-4'">
+            <div [ngClass]="(!isHomePage)?'col-md-6':'col-md-4'" *ngIf="!isPolicyPage">
               <p>
-                <a href="javascript:;" class="underline" (click)="openModal(policyPanel)">
+                <a href="javascript:;" class="underline" (click)="openModalPolicy()">
                   <span>{{'menu.Privacy Policy' | translate }}</span>
                 </a>
               </p>
@@ -17,9 +17,9 @@
               </p>
     
             </div>
-            <div [ngClass]="(!isHomePage)?'col-md-6':'col-md-4'">
+            <div [ngClass]="(!isHomePage)?'col-md-6':'col-md-4'" *ngIf="!isCookiesPage">
               <p>
-                <a href="javascript:;" class="underline" (click)="openModal(cookiesPanel)">
+                <a href="javascript:;" class="underline" (click)="openModalCookies()">
                   <span>{{'cookies.title' | translate }}</span>
                 </a>
               </p>
@@ -32,129 +32,6 @@
 
     </div>
 </footer>
-<ng-template #cookiesPanel let-c="close" let-d="dismiss">
-  <a id="initpopup" class="anchorSteps"></a>
-  <div class="modal-header">
-    <h4 class="modal-title">{{'cookies.title' | translate }}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="px-3">
-      <div class="form-body">
-        <div class="row">
-          <div class="col-sm-12">
-            <h6 class="pt-2 text-bold-600">{{'cookies.t1' | translate }}</h6>
-            <p [innerHTML]="'cookies.p1.1' | translate "></p>
-            <p>{{'cookies.p1.2' | translate }}</p>
-            <h6 class="pt-2 text-bold-600">{{'cookies.t2' | translate }}</h6>
-            <p>{{'cookies.p2.1' | translate }}</p>
-            <h6 class="pt-2 text-bold-600">{{'cookies.t3' | translate }}</h6>
-            <p>{{'cookies.p3.1' | translate }}</p>
-            <h6 class="pt-2 text-bold-600">{{'cookies.t4' | translate }}</h6>
-            <p>{{'cookies.p4.1' | translate }}</p>
-            <h6 class="pt-2 text-bold-600">{{'cookies.t5' | translate }}</h6>
-            <p [innerHTML]="'cookies.p5.1' | translate "></p>
-            <p [innerHTML]="'cookies.p5.2' | translate "></p>
-            <ul>
-              <li>
-                {{'cookies.p5.2.1' | translate }}
-              </li>
-              <li>
-                {{'cookies.p5.2.2' | translate }}
-              </li>
-            </ul>
-            <p>{{'cookies.p5.3' | translate }}</p>
-            <h6 class="pt-2 text-bold-600">{{'cookies.t6' | translate }}</h6>
-            <p>{{'cookies.p6.1' | translate }}</p>
-
-            <ul class="mt-2">
-              <li>
-                <a class="underline" href="https://support.google.com/chrome/answer/95647?hl={{lang}}" target="_blank">Google Chrome.</a>
-              </li>
-              <li>
-                <a class="underline" href="https://support.microsoft.com/{{lang}}/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d"
-                  target="_blank">Internet Explorer.</a>
-              </li>
-              <li>
-                <a class="underline" *ngIf="lang=='es'"
-                  href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias"
-                  target="_blank">Mozilla Firefox.</a>
-                <a class="underline" *ngIf="lang!='es'"
-                  href="https://support.mozilla.org/en-US/kb/block-websites-storing-cookies-site-data-firefox"
-                  target="_blank">Mozilla Firefox.</a>
-              </li>
-              <li>
-                <span class="danger" *ngIf="lang=='es'">
-                  <a class="underline" href="https://support.apple.com/es-es/HT201265" target="_blank">Safari iPhone, iPad
-                    {{'generics.and' | translate }} iPod touch</a>
-                  & <a class="underline" href="https://support.apple.com/es-es/guide/safari/sfri11471/mac"
-                    target="_blank">Safari iPhone, iPad {{'generics.and' | translate }} Safari para Mac.</a>
-                </span>
-                <span class="danger" *ngIf="lang!='es'">
-                  <a class="underline" href="https://support.apple.com/en-en/HT201265" target="_blank">Safari iPhone, iPad
-                    {{'generics.and' | translate }} iPod touch</a>
-                  & <a class="underline" href="https://support.apple.com/en-en/guide/safari/sfri11471/mac"
-                    target="_blank">Safari iPhone, iPad {{'generics.and' | translate }} Safari para Mac.</a>
-                </span>
-
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
-<ng-template #policyPanel let-c="close" let-d="dismiss">
-  <a id="initpopup" class="anchorSteps"></a>
-  <div class="modal-header">
-    <h4 class="modal-title">{{'menu.Privacy Policy' | translate }}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="px-3">
-      <div class="form-body">
-        <div class="row">
-          <div class="col-sm-12">
-            <p>{{'policy.p1' | translate }}</p>
-            <p class="mb-0"><strong>{{'policy.p2.1' | translate }}</strong></p>
-            <ul>
-              <li><p class="mb-0">{{'policy.p2.2' | translate }}</p></li>
-              <li><p>{{'policy.p2.3' | translate }}</p></li>
-            </ul>
-            <p class="mb-0"><strong>{{'policy.p3.1' | translate }}</strong></p>
-            <ul>
-              <li><p class="mb-0">{{'policy.p3.2' | translate }}</p></li>
-              <li><p>{{'policy.p3.3' | translate }}</p></li>
-            </ul>
-            <p class="mb-0"><strong>{{'policy.p4.1' | translate }}</strong></p>
-            <ul>
-              <li><p class="mb-0">{{'policy.p4.2' | translate }}</p></li>
-              <li><p class="mb-0">{{'policy.p4.3' | translate }}</p></li>
-              <li><p>{{'policy.p4.4' | translate }}</p></li>
-            </ul>
-            <p class="mb-0"><strong>{{'policy.p5.1' | translate }}</strong></p>
-            <ul>
-              <li><p class="mb-0">{{'policy.p5.2' | translate }}</p></li>
-              <li><p>{{'policy.p5.3' | translate }}</p></li>
-            </ul>
-            <p class="mb-0"><strong>{{'policy.p6.1' | translate }}</strong></p>
-            <ul>
-              <li><p class="mb-0">{{'policy.p6.2' | translate }}</p></li>
-              <li><p>{{'policy.p6.3' | translate }}</p></li>
-            </ul>
-            <p>{{'policy.p7' | translate }}</p>
-            <p>Fundacion 29 de Febrero</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
 <ng-template #contentSubs let-c="close" let-d="dismiss">
   <a id="initpopup" class="anchorSteps"></a>
   <div class="modal-header">
@@ -195,7 +72,7 @@
       <div class="form-group">
         <mat-checkbox
             class="example-margin" name="termscontrol" ngModel #terms="ngModel" id="termscontrol" required [(ngModel)]="acceptTerms">
-            <span class="mat-checkbox-label">{{'termsform.accept' | translate }} <a href="javascript:;" (click)="openModal2(termsModal)">{{'termsform.terms' | translate }}</a></span>
+            <span class="mat-checkbox-label">{{'termsform.accept' | translate }} <a href="javascript:;" (click)="openModal(termsModal)">{{'termsform.terms' | translate }}</a></span>
         </mat-checkbox>
         <small class="danger d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
       </div>

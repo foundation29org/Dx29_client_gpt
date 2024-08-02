@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector: 'app-privacy-policy',
-    templateUrl: './privacy-policy.component.html',
-    styleUrls: ['./privacy-policy.component.scss']
+    selector: 'app-cookies',
+    templateUrl: './cookies.component.html',
+    styleUrls: ['./cookies.component.scss']
 })
 
-export class PrivacyPolicyPageComponent {
+export class CookiesPageComponent {
+  lang: string = 'en';
   constructor(public translate: TranslateService, private router: Router, @Optional() public activeModal: NgbActiveModal) {
+    this.lang = this.translate.store.currentLang
   }
 
   goTo(url){
@@ -18,7 +20,7 @@ export class PrivacyPolicyPageComponent {
   }
   
   isDirectRoute(): boolean {
-    return this.router.url === '/privacy-policy';
+    return this.router.url === '/cookies';
   }
 
   goHome() {
