@@ -306,9 +306,13 @@
 },
 "testimonials": {
     "title": "Témoignages de nos utilisateurs",
-    "testi1": "Cet outil est vraiment exceptionnel. Il fournit des informations précises et exactes, ce qui est extrêmement précieux. Ce qui le distingue, c'est sa capacité à suggérer des symptômes supplémentaires cruciaux pour le diagnostic. Il ne fournit aucune information trompeuse ou biaisée. Je suis très impressionné par sa précision et son utilité. Fortement recommandé pour toute personne recherchant un soutien diagnostique fiable.",
-    "testi2": "C'est merveilleux !! Cela aurait pris des HEURES pour donner toutes mes informations à un médecin pour même commencer un diagnostic. J'ai soupçonné la sclérose en plaques depuis un certain temps maintenant, et c'était la principale possibilité. Vraiment, merci pour cela !!",
-    "testi3": "J'ai adoré, je ne suis pas médecin, donc je suis conscient des limites, mais je l'ai quand même trouvé incroyablement intuitif et il a été assez utile pour un non-professionnel de la santé pour obtenir des informations… Excellente application.",
+    "testi1": "Je suis convaincu que cette application peut simplifier la complexité du processus de soins, sans affecter la qualité des soins, ce qui est le grand défi de toute solution technologique lorsqu'on aborde le monde des soins de santé. De plus, comme l'application est entièrement gratuite, tout professionnel de la santé ou patient peut l'utiliser indépendamment des implications économiques et sans compromettre la vie privée et la sécurité de ses utilisateurs.",
+    "testi2": "Un bon assistant qui complète notre capacité de diagnostic différentiel, en particulier chez les patients atteints de maladies moins répandues, où il n'est pas toujours possible de garder à l'esprit toutes les possibilités de diagnostic qui composent une conjonction donnée de symptômes, de signes et d'examens complémentaires.",
+    "testi3": "Cet outil est vraiment exceptionnel. Il fournit des informations précises et exactes, ce qui est extrêmement précieux. Ce qui le distingue, c'est sa capacité à suggérer des symptômes supplémentaires cruciaux pour le diagnostic. Il ne fournit aucune information trompeuse ou biaisée. Je suis très impressionné par sa précision et son utilité. Fortement recommandé pour toute personne recherchant un soutien diagnostique fiable.",
+    "testi4": "C'est merveilleux !! Cela aurait pris des HEURES pour donner toutes mes informations à un médecin pour même commencer un diagnostic. J'ai soupçonné la sclérose en plaques depuis un certain temps maintenant, et c'était la principale possibilité. Vraiment, merci pour cela !!",
+    "testi5": "J'ai adoré, je ne suis pas médecin, donc je suis conscient des limites, mais je l'ai quand même trouvé incroyablement intuitif et il a été assez utile pour un non-professionnel de la santé pour obtenir des informations… Excellente application.",
+    "Julio Mayol": "Julio Mayol, spécialiste en chirurgie à l'hôpital Clínico San Carlos (Espagne)",
+    "Juanjo Ríos": "Juanjo Ríos, directeur médical de l'hôpital La Paz (Espagne)",
     "Anonymous": "Anonyme"
   },
   "termsform":{
