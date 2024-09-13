@@ -306,9 +306,13 @@
   },
   "testimonials": {
     "title": "Testimonios de nuestros usuarios",
-    "testi1": "Esta herramienta es realmente excepcional. Proporciona información precisa y exacta, lo cual es inmensamente valioso. Lo que la distingue es su capacidad para sugerir síntomas adicionales cruciales para el diagnóstico. No proporciona información engañosa ni sesgada. Estoy profundamente impresionado por su precisión y utilidad. Muy recomendada para cualquiera que busque soporte diagnóstico confiable.",
-    "testi2": "¡Esto es maravilloso! Me habría llevado HORAS dar toda mi información a un médico para siquiera comenzar con un diagnóstico. He sospechado de la esclerosis múltiple durante un tiempo, y era la posibilidad principal. Realmente, ¡gracias por esto!",
-    "testi3": "Me encantó, no soy médico, así que soy consciente de las limitaciones, pero aún así la encontré increíblemente intuitiva y fue bastante útil para un no profesional médico obtener información… Excelente APP.",
+    "testi1": "Estoy convencido de que esta aplicación puede simplificar la complejidad del proceso asistencial, sin que se vea afectada la calidad del mismo, lo que es el gran reto de cualquier solución tecnológica cuando se aproxima al mundo de la salud. Además, como la aplicación es completamente gratuita, cualquier profesional de la salud o paciente puede usarla sin tener en cuenta las implicaciones económicas y sin comprometer la privacidad y seguridad de sus usuarios.",
+    "testi2": "Un buen asistente que complementa nuestra capacidad de diagnóstico diferencial, en especial en aquellos pacientes con enfermedades menos prevalentes, donde no siempre es posible tener en mente todas las posibilidades diagnósticas que configuran una determinada conjunción de síntomas, signos y pruebas complementarias.",
+    "testi3": "Esta herramienta es realmente excepcional. Proporciona información precisa y exacta, lo cual es inmensamente valioso. Lo que la distingue es su capacidad para sugerir síntomas adicionales cruciales para el diagnóstico. No proporciona información engañosa ni sesgada. Estoy profundamente impresionado por su precisión y utilidad. Muy recomendada para cualquiera que busque soporte diagnóstico confiable.",
+    "testi4": "¡Esto es maravilloso! Me habría llevado HORAS dar toda mi información a un médico para siquiera comenzar con un diagnóstico. He sospechado de la esclerosis múltiple durante un tiempo, y era la posibilidad principal. Realmente, ¡gracias por esto!",
+    "testi5": "Me encantó, no soy médico, así que soy consciente de las limitaciones, pero aún así la encontré increíblemente intuitiva y fue bastante útil para un no profesional médico obtener información… Excelente APP.",
+    "Julio Mayol": "Julio Mayol, especialista en cirugía del Hospital Clínico San Carlos (España)",
+    "Juanjo Ríos": "Juanjo Ríos, director médico del Hospital La Paz (España)",
     "Anonymous": "Anónimo"
   },
   "termsform":{

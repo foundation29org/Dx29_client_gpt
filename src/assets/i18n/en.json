@@ -306,9 +306,13 @@
   },
   "testimonials":{
     "title": "Testimonials from our users",
-    "testi1": "This tool is truly exceptional. It delivers precise and accurate information, which is immensely valuable. What sets it apart is its capability to suggest additional symptoms crucial for diagnosis. It doesn’t provide any misleading or biased information. I’m thoroughly impressed by its accuracy and helpfulness. Highly recommended for anyone seeking reliable diagnostic support.",
-    "testi2": "This is wonderful!! It would have taken HOURS to give all of my info to a doctor to even start on a diagnosis. I’ve suspected MS for a little while now, and it was the top possibility. Really, thank you for this!!.",
-    "testi3": "Loved it, I am not an MD so I am aware of the limitations but still found it to be incredibly intuitive and it was quite helpful for a non medical professional to gain insight… Excellent APP.",
+    "testi1": "I am convinced that this application can simplify the complexity of the healthcare process, without affecting the quality of care, which is the great challenge of any technological solution when approaching the healthcare world. Moreover, as the application is completely free, any healthcare professional or patient can use it regardless of the economic implications and without compromising the privacy and security of its users.",
+    "testi2": "A good assistant that complements our capacity for differential diagnosis, especially in those patients with less prevalent diseases, where it is not always possible to keep in mind all the diagnostic possibilities that make up a given conjunction of symptoms, signs and complementary tests.",
+    "testi3": "This tool is truly exceptional. It delivers precise and accurate information, which is immensely valuable. What sets it apart is its capability to suggest additional symptoms crucial for diagnosis. It doesn’t provide any misleading or biased information. I’m thoroughly impressed by its accuracy and helpfulness. Highly recommended for anyone seeking reliable diagnostic support.",
+    "testi4": "This is wonderful!! It would have taken HOURS to give all of my info to a doctor to even start on a diagnosis. I’ve suspected MS for a little while now, and it was the top possibility. Really, thank you for this!!.",
+    "testi5": "Loved it, I am not an MD so I am aware of the limitations but still found it to be incredibly intuitive and it was quite helpful for a non medical professional to gain insight… Excellent APP.",
+    "Julio Mayol": "Julio Mayol, specialist in surgery at Hospital Clínico San Carlos (Spain)",
+    "Juanjo Ríos": "Juanjo Ríos, medical director of Hospital La Paz (Spain)",
     "Anonymous": "Anonymous"
   },
   "termsform":{
