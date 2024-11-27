@@ -37,13 +37,21 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script defer src="https://kit.fontawesome.com/e0f1c8c0ac.js" crossorigin="anonymous"></script>
 
-   <!-- Modificar el onload del stylesheet para usar un atributo nonce o moverlo a un script separado -->
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap" media="print">
-   <script>
-     window.addEventListener('load', function() {
-       document.querySelector('link[media="print"]').media = 'all';
-     });
-   </script>
+<!-- Con esta nueva implementación -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap">
+
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://static.hotjar.com https://kit.fontawesome.com https://www.googleadservices.com https://googleads.g.doubleclick.net;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com;
+  img-src 'self' data: https:;
+  connect-src 'self' https:;
+  frame-src 'self';
+  script-src-attr 'none';
+">
+
   <link rel="preload" href="assets/img/oval.svg" as="image">
   <style type="text/css">
     .pace .pace-activity {
