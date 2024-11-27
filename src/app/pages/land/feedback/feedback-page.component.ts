@@ -88,7 +88,7 @@ export class FeedbackPageComponent implements OnDestroy {
 
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
-        //gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+        gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
     }
 
     ngOnDestroy() {

@@ -177,12 +177,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var secs = this.getElapsedSeconds();
         if (category == "Info Disease") {
             var subcate = 'Info Disease - ' + this.selectedDisease;
-            //gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
+            gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
             subcate = 'Info quest - ' + this.selectedDisease + ' - ' + this.selectedQuestion
-            //gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
+            gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
 
         }else{
-            //gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+            gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
 
         }
     }
