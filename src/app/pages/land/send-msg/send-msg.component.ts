@@ -10,6 +10,11 @@ import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 declare let gtag: any;
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
 
 @Component({
     selector: 'app-send-msg',

@@ -13,7 +13,12 @@ import { Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 declare let gtag: any;
-
+declare global {
+    interface Window {
+      gtag: (...args: any[]) => void;
+    }
+  }
+  
 @Component({
     selector: 'app-feedback-page',
     templateUrl: './feedback-page.component.html',

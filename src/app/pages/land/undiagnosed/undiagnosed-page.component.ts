@@ -19,6 +19,11 @@ import 'rxjs/add/operator/toPromise';
 
 
 declare let gtag: any;
+declare global {
+    interface Window {
+      gtag: (...args: any[]) => void;
+    }
+  }
 
 @Component({
     selector: 'app-undiagnosed-page',

@@ -8,6 +8,11 @@ import { Injectable, Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 declare let gtag: any;
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
 
 @Component({
   selector: 'app-navbar-dx29',

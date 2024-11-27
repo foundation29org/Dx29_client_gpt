@@ -5,6 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 declare let gtag: any;
+declare global {
+    interface Window {
+      gtag: (...args: any[]) => void;
+    }
+  }
 
 @Component({
     selector: 'app-about-us-page',
