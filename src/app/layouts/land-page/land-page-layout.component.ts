@@ -46,8 +46,9 @@ export class LandPageLayoutComponent implements OnInit {
   }
 
   async showFeedbackDialog() {
-    const showFeedbackDxGPT = localStorage.getItem('showFeedbackDxGPT');
-    if (!this.hasShownDialog && localStorage.getItem('sentFeedbackDxGPT') == 'true' && (showFeedbackDxGPT == null || showFeedbackDxGPT != 'true')) {
+    /*const showFeedbackDxGPT = localStorage.getItem('showFeedbackDxGPT');
+    if (!this.hasShownDialog && localStorage.getItem('sentFeedbackDxGPT') == 'true' && (showFeedbackDxGPT == null || showFeedbackDxGPT != 'true')) {*/
+    if (!this.hasShownDialog && localStorage.getItem('sentFeedbackDxGPT') == 'true') {
       let ngbModalOptions: NgbModalOptions = {
         backdrop: 'static',
         keyboard: false,

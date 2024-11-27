@@ -35,10 +35,15 @@
   <link rel="dns-prefetch" href="//www.google.com">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script async src="https://kit.fontawesome.com/e0f1c8c0ac.js" crossorigin="anonymous"></script>
+  <script defer src="https://kit.fontawesome.com/e0f1c8c0ac.js" crossorigin="anonymous"></script>
 
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap" media="print" onload="this.media='all'">
+   <!-- Modificar el onload del stylesheet para usar un atributo nonce o moverlo a un script separado -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap" media="print">
+   <script>
+     window.addEventListener('load', function() {
+       document.querySelector('link[media="print"]').media = 'all';
+     });
+   </script>
   <link rel="preload" href="assets/img/oval.svg" as="image">
   <style type="text/css">
     .pace .pace-activity {
@@ -76,37 +81,22 @@
     }
   </style>
   <script async type="text/javascript">
-    var isApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && location.hostname != "localhost" && location.hostname != "127.0.0.1";
-    if (!isApp){
-      if (location.hostname != "localhost" && location.hostname != "127.0.0.1" && window.location.protocol == "http:") {
-        var restOfUrl = window.location.href.substr(5);
-        window.location = "https:" + restOfUrl;
+     (function() {
+      var isApp = document.URL.indexOf('http://') === -1 && 
+                  document.URL.indexOf('https://') === -1 && 
+                  location.hostname !== "localhost" && 
+                  location.hostname !== "127.0.0.1";
+      
+      if (!isApp && 
+          location.hostname !== "localhost" && 
+          location.hostname !== "127.0.0.1" && 
+          window.location.protocol === "http:") {
+        window.location.href = window.location.href.replace('http:', 'https:');
       }
-    }
+    })();
     </script>
 
-    <!-- Scripts que pueden cargarse asíncronamente -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FZQ49SRWY"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      if((location.hostname).indexOf('dxgpt')!=-1){
-        gtag('config', 'G-2FZQ49SRWY');
-      }      
-    </script>
-  
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-335378785"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-335378785');
-    </script>
-  
-    <script>
-      gtag('event', 'conversion', {'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'});
-    </script>
+<script defer src="assets/js/analytics.js"></script>
 
 </head>
 
@@ -116,17 +106,7 @@
     <img src="assets/img/oval.svg" alt="loading icon" class="loading-icon" loading="lazy" />
   </div>
   <!-- Hotjar script -->
-  <script defer>
-    (function(h,o,t,j,a,r){
-      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-      var idHotJar= 3279828;
-      h._hjSettings={hjid:idHotJar,hjsv:6};
-      a=o.getElementsByTagName('head')[0];
-      r=o.createElement('script');r.async=1;
-      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-      a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-  </script>
+  <script defer src="assets/js/hotjar.js"></script>
 </body>
 
 </html>
