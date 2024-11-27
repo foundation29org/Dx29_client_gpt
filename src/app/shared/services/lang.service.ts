@@ -18,7 +18,7 @@ export class LangService {
         .map( (res : any) => {
             this.langs = res;
             return res;
-         }, (err) => {
+         }, (err: any) => {
            console.log(err);
            this.insightsService.trackException(err);
            return {};

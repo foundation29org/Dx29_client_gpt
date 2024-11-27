@@ -14,50 +14,50 @@ export class ApiDx29ServerService {
     return this.http.get('https://ipinfo.io?token=87ec8c4192db17')
     .map( (res : any) => {
         return res;
-    }, (err) => {
+    }, (err: any) => {
         console.log(err);
         return err;
     })
 }
 
-  postOpenAi(info) {
+  postOpenAi(info: any) {
     return this.http.post(environment.serverapi + '/api/callopenai', info)
       .map((res: any) => {
         return res;
-      }, (err) => {
+      }, (err: any) => {
         console.log(err);
         this.insightsService.trackException(err);
         return err;
       })
   }
 
-  callopenaiquestions(info) {
+  callopenaiquestions(info: any) {
     return this.http.post(environment.serverapi + '/api/callopenaiquestions', info)
       .map((res: any) => {
         return res;
-      }, (err) => {
+      }, (err: any) => {
         console.log(err);
         this.insightsService.trackException(err);
         return err;
       })
   }
 
-  opinion(info) {
+  opinion(info: any) {
     return this.http.post(environment.serverapi + '/api/opinion', info)
       .map((res: any) => {
         return res;
-      }, (err) => {
+      }, (err: any) => {
         console.log(err);
         this.insightsService.trackException(err);
         return err;
       })
   }
 
-  feedback(info) {
+  feedback(info: any) {
     return this.http.post(environment.serverapi + '/api/feedback', info)
       .map((res: any) => {
         return res;
-      }, (err) => {
+      }, (err: any) => {
         console.log(err);
         this.insightsService.trackException(err);
         return err;

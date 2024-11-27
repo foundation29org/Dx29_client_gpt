@@ -6,7 +6,7 @@
     "module": "es2020",
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
-    "sourceMap": true,
+    "sourceMap": false,
     "declaration": false,
     "moduleResolution": "node",
     "experimentalDecorators": true,
@@ -18,9 +18,16 @@
       "es2016",
       "dom"
     ],
+    "removeComments": true,    // Añadido para reducir tamaño
+    "noEmitOnError": true,    // Añadido para mejor build
+    "allowSyntheticDefaultImports": true, // Mejor manejo de imports
     //"noUnusedLocals": true
   },
   "angularCompilerOptions": {
-    "preserveWhitespaces": false
+    "preserveWhitespaces": false,
+    "enableIvy": true,         // Asegura que Ivy está habilitado
+    "fullTemplateTypeCheck": true, // Mejor optimización de templates
+    "strictInjectionParameters": true,
+    "compilationMode": "partial" // Mejor rendimiento en build
   }
 }

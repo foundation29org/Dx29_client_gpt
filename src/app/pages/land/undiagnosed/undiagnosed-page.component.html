@@ -66,13 +66,11 @@
                           <span class="float-right">
                             <ng-container *ngIf="!sendingVote; else loadingSpinner">
                               <button class="mr-1 btn btn-success" (click)="vote('up', contentFeedbackDown)"
-                                [disabled]="sendingVote || callingAnonymize" title="Vote up"
-                                aria-label="Vote up">
+                                [disabled]="sendingVote || callingAnonymize" title="Vote up">
                                 <em class="icon-hand white fa fa-2x fa-thumbs-up"></em>
                               </button>
                               <button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)"
-                                [disabled]="sendingVote || callingAnonymize" title="Vote down"
-                                aria-label="Vote down">
+                                [disabled]="sendingVote || callingAnonymize" title="Vote down">
                                 <em class="icon-hand fa fa-2x fa-thumbs-down"></em>
                               </button>
                             </ng-container>
@@ -101,7 +99,6 @@
                         <span class="float-right ml-1">
                           <button class="btn-outline-info btn btn-sm mr-1 mb-0 btn-fab round"
                             title="{{'generics.More information' | translate }}"
-                            aria-label="{{'generics.More information' | translate }}"
                             >
                             <em class="fa fa-info w-13"></em>
                           </button>
@@ -109,7 +106,6 @@
                         <span class="custom-bold pointer"
                           (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
                           title="{{'generics.More information' | translate }} ({{disease.name}})"
-                          aria-label="{{'generics.More information' | translate }} ({{disease.name}})"
                           [innerHTML]="disease.content"></span>
                         <div *ngIf="disease.name!=''">
                           <div *ngIf="disease.url!=''" class="col-12 center-elements mt-2">
@@ -133,7 +129,7 @@
               <div class="col-md-12 mb-0 white p-2 center-elements background-dark">
                 <button class="btn btn-info mt-2 mb-2" (click)="loadMore()">{{'land.Load more' | translate }}</button>
                 <span class="optionsResults mt-2 mb-2">
-                  <em class="mt-1 fa fa-clipboard fa-2x info mr-2 pointer" title="{{'land.Copy results' | translate }}" aria-label="{{'land.Copy results' | translate }}"
+                  <em class="mt-1 fa fa-clipboard fa-2x info mr-2 pointer" title="{{'land.Copy results' | translate }}"
                     (click)="copyResults()"></em>
                   <em class="mt-1 fa fa-2x fa-download info ml-1 pointer" [class.not-allowed]="callingAnonymize"
                     [attr.title]="(callingAnonymize) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
@@ -157,7 +153,7 @@
     <div class="content-header text-left">
       <h4 class="card-title text-bold-700 mb-0 primary">{{ selectedDisease }}</h4>
     </div>
-    <button type="button" class="close" aria-label="Close" (click)="closeDiseaseUndiagnosed()">
+    <button type="button" class="close" title="Close" (click)="closeDiseaseUndiagnosed()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -165,7 +161,7 @@
     <p>{{'land.Select a question' | translate }}:</p>
     <div class="list-group mb-2">
       <button class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
-        (click)="showQuestion(question, i)" [disabled]="loadingAnswerOpenai" aria-label="{{question.question | translate}}">
+        (click)="showQuestion(question, i)" [disabled]="loadingAnswerOpenai" title="{{question.question | translate}}">
         <div class="d-flex w-100 justify-content-between">
           <span class="mb-1">{{question.question | translate}}</span>
         </div>
@@ -214,7 +210,7 @@
 <ng-template #contentIntro let-c="close" let-d="dismiss" id="contentIntro" aria-labelledby="contentIntro"
   appendTo="body">
   <div class="modal-header">
-    <button type="button" class="close" aria-label="Close" (click)="closePopup()">
+    <button type="button" class="close" title="Close" (click)="closePopup()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -309,7 +305,7 @@
     <div class="content-header text-left">
       <h4 class="text-bold-400 mb-0">{{ selectedDisease }}</h4>
     </div>
-    <button type="button" class="close" aria-label="Close" (click)="closeDiseaseUndiagnosed()">
+    <button type="button" class="close" title="Close" (click)="closeDiseaseUndiagnosed()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -356,7 +352,7 @@
     <div class="content-header text-left">
       <h4 class="card-title text-bold-700 mb-0 primary">{{'diagnosis.Anonymized text' | translate }}</h4>
     </div>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal();">
+    <button type="button" class="close" title="Close" (click)="closeModal();">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -379,7 +375,7 @@
     <div class="content-header text-left">
       <h4 class="card-title text-bold-700 mb-0 primary">{{'land.Edit description' | translate }}</h4>
     </div>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal();">
+    <button type="button" class="close" title="Close" (click)="closeModal();">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
