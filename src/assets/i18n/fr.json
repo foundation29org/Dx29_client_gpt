@@ -32,7 +32,11 @@
     "exceedingWords": "La longueur maximale est de 3000 mots. Vous avez dépassé de {{excessWords}} mots. Veuillez réduire la longueur de la description.",
     "Reload the page": "Recharger la page ?",
     "Unsaved changes will be lost": "Les modifications non sauvegardées seront perdues",
-    "Yes, reload": "Oui, recharger"
+    "Yes, reload": "Oui, recharger",
+    "Invalid request format or content": "Format de requête ou contenu invalide",
+    "Translation error": "Erreur de traduction",
+    "errorQuestionType": "Le type de question est invalide. Veuillez vérifier la question et réessayer.",
+    "errorDiseaseName": "Le format du nom de la maladie est invalide. Veuillez vérifier le nom de la maladie et réessayer."
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnostics proposés",
@@ -100,7 +104,7 @@
     "error extension": "Le fichier téléchargé doit avoir une extension .pdf, .docx ou être des fichiers image",
     "Extracting the text from the document": "Extraction du texte à partir du document",
     "swal": "DxGPT calcule. Veuillez patienter quelques secondes pour qu'il termine",
-    "swal2": "Nous avons une forte demande, si cela prend plus de 2 minutes, annulez et réessayez.",
+    "swal2": "Nous avons une forte demande, si cela prend plus de 1 minute, annulez et réessayez.",
     "q1": "Quels sont les symptômes courants ?",
     "q2": "Donnez-moi plus d'informations",
     "q3": "Fournissez un test de diagnostic",

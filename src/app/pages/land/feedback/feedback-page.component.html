@@ -47,7 +47,7 @@
                   </div>
                   <div class="mt-3 mb-3">
                     <p for="email" class="text-bold-400 mb-0">{{'feedback.emailquestion' | translate }} ({{'generics.Optional' | translate }})</p>
-                    <input type="email" formControlName="email" class="form-control" placeholder="{{'generics.Email' | translate }}">
+                    <input type="email" formControlName="email" name="email" class="form-control" placeholder="{{'generics.Email' | translate }}">
                   </div>
                   <mat-checkbox class="example-margin" [(ngModel)]="terms2" formControlName="terms2" (change)="changeTerm($event)">
                     <label style="margin-top: 0.2em;white-space: normal;text-transform: none;letter-spacing: 0px;letter-spacing: 0.3px;font-weight: 400 !important;"  >

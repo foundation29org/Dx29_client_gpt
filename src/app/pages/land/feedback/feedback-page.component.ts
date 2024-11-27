@@ -129,7 +129,13 @@ export class FeedbackPageComponent implements OnDestroy {
             this.insightsService.trackException(err);
              console.log(err);
              this.sending = false;
-             this.toastr.error('', this.translate.instant("generics.error try again"));
+             if (err.error.message === 'Invalid request format or content') {
+                const msgError = this.translate.instant("generics.Invalid request format or content");
+                this.toastr.error('', msgError);
+            } else {
+                this.toastr.error('', this.translate.instant("generics.error try again"));
+            }
+             
            }));
         } else {
             if (this.formulario.get('email') && this.formulario.get('email').invalid ) {
