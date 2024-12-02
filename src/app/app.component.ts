@@ -63,6 +63,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   ngOnInit() {
+    this.gaService.gtag('config', environment.GA_ID, {
+      anonymize_ip: true,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+      cookie_flags: 'SameSite=None; Secure'
+    });
 
     this.gaService.gtag('config', environment.GA_SecondId, {
       'cookie_domain': environment.serverapi,
