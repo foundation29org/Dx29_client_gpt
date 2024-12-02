@@ -11,25 +11,17 @@ import { HttpClient } from "@angular/common/http";
 import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
 import { Clipboard } from "@angular/cdk/clipboard"
 import { v4 as uuidv4 } from 'uuid';
-import { jsPDFService } from 'app/shared/services/jsPDF.service'
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
-
-
-declare let gtag: any;
-declare global {
-    interface Window {
-      gtag: (...args: any[]) => void;
-    }
-  }
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-undiagnosed-page',
     templateUrl: './undiagnosed-page.component.html',
     styleUrls: ['./undiagnosed-page.component.scss'],
-    providers: [ApiDx29ServerService, jsPDFService],
+    providers: [ApiDx29ServerService],
 })
 
 export class UndiagnosedPageComponent implements OnInit, OnDestroy {
@@ -93,7 +85,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     //@ViewChild('autoajustable2', { static: false }) textareaEdit: ElementRef;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
 
-    constructor(private http: HttpClient, public translate: TranslateService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public jsPDFService: jsPDFService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
+    constructor(private http: HttpClient, public translate: TranslateService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private gaService: GoogleAnalyticsService) {
         this.initialize();
     }
 
@@ -182,12 +174,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var secs = this.getElapsedSeconds();
         if (category == "Info Disease") {
             var subcate = 'Info Disease - ' + this.selectedDisease;
-            gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
+            this.gaService.gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
             subcate = 'Info quest - ' + this.selectedDisease + ' - ' + this.selectedQuestion
-            gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
+            this.gaService.gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
 
         }else{
-            gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+            this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
 
         }
     }
@@ -835,10 +827,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return this.topRelatedConditions.map(condition => condition.name).join("\n");
       }
 
-    downloadResults() {
+      async downloadResults() {
         if (!this.callingAnonymize) {
-            this.jsPDFService.generateResultsPDF(this.medicalTextOriginal, this.topRelatedConditions, this.lang)
-            this.lauchEvent("Download results");
+            try {
+                const { jsPDFService } = await import('app/shared/services/jsPDF.service');
+                const pdfService = new jsPDFService(this.translate);
+                pdfService.generateResultsPDF(this.medicalTextOriginal, this.topRelatedConditions, this.lang);
+                this.lauchEvent('Download results');
+            } catch (error) {
+                console.error('Error loading PDF service:', error);
+                this.insightsService.trackException(error);
+            }
         }
     }
 

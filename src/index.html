@@ -23,136 +23,22 @@
   <meta name="twitter:description" content="DxGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients." />
   <meta name="twitter:image" content="https://dxgpt.app/assets/img/logo-Dx29.png" />
 
-  <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://static.hotjar.com https://kit.fontawesome.com https://www.googleadservices.com https://googleads.g.doubleclick.net;
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://kit-free.fontawesome.com https://ka-f.fontawesome.com;
-  font-src 'self' data: https://fonts.gstatic.com https://ka-f.fontawesome.com https://kit-free.fontawesome.com;
-  img-src 'self' data: blob: https: https://maps.gstatic.com https://maps.googleapis.com;
-  connect-src 'self' http://localhost:* https: ws://localhost:* wss://*.hotjar.com;
-  frame-src 'self' https://www.google.com https://vars.hotjar.com;
-  style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://kit-free.fontawesome.com;
-  script-src-elem 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.hotjar.com https://kit.fontawesome.com;
-  script-src-attr 'unsafe-inline'
-">
-
-  <!-- Preconnect -->
-  <link rel="preconnect" href="https://www.googleadservices.com">
-  <link rel="preconnect" href="https://googleads.g.doubleclick.net">
-  <link rel="preconnect" href="https://www.google.com">
-  <link rel="preconnect" href="https://www.google.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- DNS Prefetch -->
-  <link rel="dns-prefetch" href="//www.googleadservices.com">
-  <link rel="dns-prefetch" href="//googleads.g.doubleclick.net">
-  <link rel="dns-prefetch" href="//www.google.com">
-
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-  <!-- Font Awesome -->
-  <script defer src="https://kit.fontawesome.com/e0f1c8c0ac.js" crossorigin="anonymous"></script>
-
-  <!-- Fonts -->
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap" as="style">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap" media="print" id="font-loader">
-
-  <!-- Preload images -->
-  <link rel="preload" href="assets/img/oval.svg" as="image">
-
-  <!-- Styles -->
-  <style type="text/css">
-    .pace .pace-activity {
-      top: 19px;
-      right: 19px;
-      display: none;
-    }
-    .page-loading {
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      overflow: hidden;
-      background: rgba(51, 51, 51, 1.00);
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-      z-index: -1;
-    }
-    .loading-icon {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 38px;
-      height: 38px;
-      margin-left: -19px;
-      margin-top: -19px;
-    }
-    app-root:empty~.page-loading {
-      opacity: 1;
-      z-index: 1;
-    }
-  </style>
+  <link rel="preload" href="/assets/i18n/en.json" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="/assets/i18n/es.json" as="fetch" crossorigin="anonymous">
 
   <!-- Scripts -->
   <script>
-    // Definir gtag como función vacía por defecto
-    window.gtag = function() {
-      console.log('GA Event (development):', arguments);
-    };
-
     // Verificar protocolo y redirección HTTPS
     var isApp = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && location.hostname != "localhost" && location.hostname != "127.0.0.1";
     if (!isApp && location.hostname != "localhost" && location.hostname != "127.0.0.1" && window.location.protocol == "http:") {
       window.location.href = window.location.href.replace('http:', 'https:');
     }
-
-    // Cargar Google Analytics solo en producción
-    if (window.location.hostname === 'dxgpt.app') {
-      (function() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-2FZQ49SRWY';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-        
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = function(){dataLayer.push(arguments);};
-        gtag('js', new Date());
-        gtag('config', 'G-2FZQ49SRWY');
-        gtag('config', 'AW-335378785');
-        gtag('event', 'conversion', {'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'});
-      })();
-
-      // Hotjar
-      (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:3279828,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    }
-
-    // Cargar fuentes de forma segura
-    window.addEventListener('load', function() {
-      const fontLoader = document.getElementById('font-loader');
-      if (fontLoader) {
-        fontLoader.media = 'all';
-      }
-    });
   </script>
 </head>
 
 <body>
   <app-root></app-root>
-  <div class="page-loading">
-    <img src="assets/img/oval.svg" alt="loading icon" class="loading-icon" loading="lazy" />
-  </div>
 </body>
-
 </html>
