@@ -8,7 +8,13 @@ import { ToastrService } from 'ngx-toastr';
 import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
+
+declare let gtag: any;
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
 
 @Component({
     selector: 'app-send-msg',
@@ -31,7 +37,7 @@ export class SendMsgComponent implements OnDestroy {
   modalReference: NgbModalRef;
   descriptionBind: string = '';
 
-  constructor(public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public insightsService: InsightsService, private modalService: NgbModal, private gaService: GoogleAnalyticsService) {
+  constructor(public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public insightsService: InsightsService, private modalService: NgbModal) {
     this._startTime = Date.now();
     if(sessionStorage.getItem('uuid')!=null){
         this.myuuid = sessionStorage.getItem('uuid');
@@ -49,7 +55,7 @@ getElapsedSeconds() {
 
 lauchEvent(category) {
     var secs = this.getElapsedSeconds();
-    this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+    gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
 }
   
     ngOnDestroy() {
