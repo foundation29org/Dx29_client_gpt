@@ -7,6 +7,7 @@ import { filter } from 'rxjs/operators';
 import { Title, Meta } from '@angular/platform-browser';
 import { EventsService } from 'app/shared/services/events.service';
 import { IconsService } from 'app/shared/services/icon.service';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { DOCUMENT } from '@angular/common';
 import Swal from 'sweetalert2';
 
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   private scrollPosition: number = 0;
   private ticking: boolean = false;
   private isOpenSwal: boolean = false;
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, public translate: TranslateService, private ccService: NgcCookieConsentService, private eventsService: EventsService, private titleService: Title, private meta: Meta, private activatedRoute: ActivatedRoute, private ngZone: NgZone, private iconsService: IconsService) {
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, public translate: TranslateService, private ccService: NgcCookieConsentService, private eventsService: EventsService, private titleService: Title, private meta: Meta, private activatedRoute: ActivatedRoute, private ngZone: NgZone, private iconsService: IconsService, private gaService: GoogleAnalyticsService) {
     this.translate.use('en');
   }
 
@@ -59,24 +60,24 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
         a?.appendChild(r);
       })(window as any, this.document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     }
-
-    // Google Analytics setup
-    ((i: any, s: Document, o: string, g: string, r?: any) => {
-      i['dataLayer'] = i['dataLayer'] || [];
-      i['gtag'] = function() { i['dataLayer'].push(arguments); };
-      r = s.createElement('script');
-      r.async = 1;
-      r.src = g;
-      s.getElementsByTagName('head')[0].appendChild(r);
-      i['gtag']('js', new Date());
-      i['gtag']('config', 'G-2FZQ49SRWY');
-      i['gtag']('config', 'AW-335378785');
-      i['gtag']('event', 'conversion', {'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'});
-    })(window as any, this.document, 'script', 'https://www.googletagmanager.com/gtag/js?id=G-2FZQ49SRWY');
-
   }
 
   ngOnInit() {
+
+    this.gaService.gtag('config', environment.GA_SecondId, {
+      'cookie_domain': environment.serverapi,
+      'cookie_flags': 'SameSite=Lax;Secure',
+      'cookie_expires': 63072000, // 2 años en segundos
+      'allow_google_signals': true,
+      'allow_ad_personalization_signals': true
+    }); 
+
+    this.gaService.gtag('event', 'conversion', {
+      'send_to': environment.GA_Conversion_ID,
+      'cookie_flags': 'SameSite=Lax;Secure',
+      'cookie_domain': environment.serverapi
+    });
+
     this.iconsService.loadIcons();
 
     this.meta.addTags([

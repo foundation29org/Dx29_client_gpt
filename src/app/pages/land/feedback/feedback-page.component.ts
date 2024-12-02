@@ -11,13 +11,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService} from 'app/shared/services/events.service';
 import { Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
-
-declare let gtag: any;
-declare global {
-    interface Window {
-      gtag: (...args: any[]) => void;
-    }
-  }
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
   
 @Component({
     selector: 'app-feedback-page',
@@ -40,7 +34,7 @@ export class FeedbackPageComponent implements OnDestroy {
     freeTextLength: number = 0;
     formulario: FormGroup;
 
-    constructor(public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService) {
+    constructor(public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private gaService: GoogleAnalyticsService) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
@@ -93,7 +87,7 @@ export class FeedbackPageComponent implements OnDestroy {
 
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
-        gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+        this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
     }
 
     ngOnDestroy() {

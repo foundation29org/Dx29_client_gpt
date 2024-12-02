@@ -15,14 +15,7 @@ import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
-
-
-declare let gtag: any;
-declare global {
-    interface Window {
-      gtag: (...args: any[]) => void;
-    }
-  }
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-undiagnosed-page',
@@ -92,7 +85,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     //@ViewChild('autoajustable2', { static: false }) textareaEdit: ElementRef;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
 
-    constructor(private http: HttpClient, public translate: TranslateService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
+    constructor(private http: HttpClient, public translate: TranslateService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private gaService: GoogleAnalyticsService) {
         this.initialize();
     }
 
@@ -181,12 +174,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var secs = this.getElapsedSeconds();
         if (category == "Info Disease") {
             var subcate = 'Info Disease - ' + this.selectedDisease;
-            gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
+            this.gaService.gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
             subcate = 'Info quest - ' + this.selectedDisease + ' - ' + this.selectedQuestion
-            gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
+            this.gaService.gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
 
         }else{
-            gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+            this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
 
         }
     }

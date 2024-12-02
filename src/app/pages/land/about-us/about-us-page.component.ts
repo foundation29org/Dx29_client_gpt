@@ -3,13 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
-
-declare let gtag: any;
-declare global {
-    interface Window {
-      gtag: (...args: any[]) => void;
-    }
-  }
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-about-us-page',
@@ -22,7 +16,7 @@ export class AboutUsPageComponent {
     _startTime: any;
     myuuid: string = uuidv4();
 
-    constructor( public translate: TranslateService, public toastr: ToastrService, public insightsService: InsightsService) {
+    constructor( public translate: TranslateService, public toastr: ToastrService, public insightsService: InsightsService, private gaService: GoogleAnalyticsService) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
@@ -40,7 +34,7 @@ export class AboutUsPageComponent {
 
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
-        gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+        this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
     }
 
 
