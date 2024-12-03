@@ -5,10 +5,10 @@ import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstr
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import Swal from 'sweetalert2';
-import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { PrivacyPolicyPageComponent } from 'app/pages/land/privacy-policy/privacy-policy.component';
 import { CookiesPageComponent } from 'app/pages/land/cookies/cookies.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'app-footer',
@@ -34,11 +34,12 @@ export class FooterComponent{
   @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
   email: string = '';
 
-  constructor(private modalService: NgbModal, private http: HttpClient, public toastr: ToastrService, public translate: TranslateService, private renderer: Renderer2, private router: Router) { 
-    this.router.events.filter((event: any) => event instanceof NavigationEnd).subscribe(
-
+  constructor(private modalService: NgbModal, private http: HttpClient, public translate: TranslateService, private renderer: Renderer2, private router: Router) { 
+    this.router.events.pipe(
+      filter((event: any) => event instanceof NavigationEnd)
+    ).subscribe(
       event => {
-        var tempUrl = (event.url).toString();
+        const tempUrl = (event.url).toString();
         if (tempUrl.indexOf('/.') != -1 || tempUrl == '/') {
           this.isHomePage = true;
           this.isPolicyPage = false;
@@ -107,7 +108,13 @@ onSubmitRevolution() {
           this.sending = false;
           this.checkSubscribe = false;
           this.acceptTerms = false;
-          this.toastr.error('', this.translate.instant("generics.error try again"));
+          Swal.fire({
+            icon: 'error',
+            html: this.translate.instant('generics.error try again'),
+            showCancelButton: false,
+            showConfirmButton: true,
+            allowOutsideClick: false
+          });
       });
 
 }

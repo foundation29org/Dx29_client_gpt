@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class LangService {
@@ -15,13 +16,16 @@ export class LangService {
     getLangs(){
       //load the available languages
       return this.http.get(environment.serverapi+'/api/langs')
-        .map( (res : any) => {
+        .pipe(
+          map((res: any) => {
             this.langs = res;
             return res;
-         }, (err: any) => {
-           console.log(err);
-           this.insightsService.trackException(err);
-           return {};
-         })
+          }),
+          catchError((err) => {
+            console.log(err);
+            this.insightsService.trackException(err);
+            return err;
+          })
+        );
     }
 }

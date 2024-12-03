@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 
@@ -34,7 +33,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         TranslateModule,
         FormsModule,
         ReactiveFormsModule ,
-        PerfectScrollbarModule,
         PipeModule,
         MatCheckboxModule
     ],

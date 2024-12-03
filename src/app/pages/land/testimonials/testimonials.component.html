@@ -1,58 +1,82 @@
 <div class="container pt-5 pb-5">
   <h2 class="text-center mb-0 white">{{ 'testimonials.title' | translate }}</h2>
-  <ngb-carousel id="testimonialsCarousel" role="region" aria-label="Testimonios de clientes">
-    <ng-template ngbSlide>
-      <div class="carousel-item" role="group" aria-label="Slide 1 of 5">
+  <div id="testimonialsCarousel" 
+       class="carousel slide" 
+       data-bs-ride="carousel"
+       role="region"
+       aria-roledescription="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" role="group">
         <div class="testimonial">
-          <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
+          <div class="rating-container">
+            <label id="rating1" class="visually-hidden">Valoración 5 de 5 estrellas</label>
+            <ngb-rating [max]="5" 
+                       class="my-rating mb-2" 
+                       [rate]="5" 
+                       [readonly]="true" 
+                       aria-labelledby="rating1">
+            </ngb-rating>
+          </div>
           <p>"{{ 'testimonials.testi1' | translate }}"</p>
           <p class="mb-3"><strong>- {{ 'testimonials.Julio Mayol' | translate }}</strong></p>
         </div>
       </div>
-    </ng-template>
-    <ng-template ngbSlide>
-      <div class="carousel-item" role="group" aria-label="Slide 2 of 5">
+      <div class="carousel-item">
         <div class="testimonial">
-          <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
+          <div class="rating-container">
+            <label id="rating2" class="visually-hidden">Valoración 5 de 5 estrellas</label>
+            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-labelledby="rating2"></ngb-rating>
+          </div>
           <p>"{{ 'testimonials.testi2' | translate }}"</p>
           <p class="mb-3"><strong>- {{ 'testimonials.Juanjo Ríos' | translate }}</strong></p>
         </div>
       </div>
-    </ng-template>
-    <ng-template ngbSlide>
-      <div class="carousel-item" role="group" aria-label="Slide 3 of 5">
+      <div class="carousel-item">
         <div class="testimonial">
-          <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
+          <div class="rating-container">
+            <label id="rating3" class="visually-hidden">Valoración 5 de 5 estrellas</label>
+            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-labelledby="rating3"></ngb-rating>
+          </div>
           <p>"{{ 'testimonials.testi3' | translate }}"</p>
           <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
         </div>
       </div>
-    </ng-template>
-    <ng-template ngbSlide>
-      <div class="carousel-item" role="group" aria-label="Slide 4 of 5">
+      <div class="carousel-item">
         <div class="testimonial">
-          <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
+          <div class="rating-container">
+            <label id="rating4" class="visually-hidden">Valoración 5 de 5 estrellas</label>
+            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-labelledby="rating4"></ngb-rating>
+          </div>
           <p>"{{ 'testimonials.testi4' | translate }}"</p>
           <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
         </div>
       </div>
-    </ng-template>
-    <ng-template ngbSlide>
-      <div class="carousel-item" role="group" aria-label="Slide 5 of 5">
+      <div class="carousel-item">
         <div class="testimonial">
-          <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-label="Calificación de 5 estrellas"></ngb-rating>
+          <div class="rating-container">
+            <label id="rating5" class="visually-hidden">Valoración 5 de 5 estrellas</label>
+            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-labelledby="rating5"></ngb-rating>
+          </div>
           <p>"{{ 'testimonials.testi5' | translate }}"</p>
           <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
         </div>
       </div>
-    </ng-template>
-    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
+    </div>
+    <button class="carousel-control-prev" 
+            type="button" 
+            data-bs-target="#testimonialsCarousel" 
+            data-bs-slide="prev"
+            aria-label="Previous">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
+      <span class="visually-hidden">{{ 'generics.Previous' | translate }}</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
+    <button class="carousel-control-next" 
+            type="button" 
+            data-bs-target="#testimonialsCarousel" 
+            data-bs-slide="next"
+            aria-label="Next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Siguiente</span>
+      <span class="visually-hidden">{{ 'generics.Next' | translate }}</span>
     </button>
-  </ngb-carousel>
+  </div>
 </div>

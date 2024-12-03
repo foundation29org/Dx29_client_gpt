@@ -5,16 +5,12 @@ import { Subscription } from 'rxjs';
 import { EventsService } from 'app/shared/services/events.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastrService } from 'ngx-toastr';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from "@angular/common/http";
 import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
 import { Clipboard } from "@angular/cdk/clipboard"
 import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
-import { Observable } from 'rxjs';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/toPromise';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
@@ -85,7 +81,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     //@ViewChild('autoajustable2', { static: false }) textareaEdit: ElementRef;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
 
-    constructor(private http: HttpClient, public translate: TranslateService, public toastr: ToastrService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private gaService: GoogleAnalyticsService) {
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private gaService: GoogleAnalyticsService) {
         this.initialize();
     }
 
@@ -152,16 +148,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     async newPatient() {
         this.medicalTextOriginal = '';
         this.goPrevious();
-    }
-
-    canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-        if (this.modalReference != undefined) {
-            this.modalReference.close();
-            this.modalReference = undefined;
-            return false;
-        } else {
-            return true;
-        }
     }
 
     getElapsedSeconds() {

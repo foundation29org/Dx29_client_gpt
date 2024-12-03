@@ -1,28 +1,27 @@
-import { Component, AfterViewChecked } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Injectable } from '@angular/core';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { HighlightService } from 'app/shared/services/highlight.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Carousel } from 'bootstrap';
 
 @Component({
     selector: 'app-testimonials',
     templateUrl: './testimonials.component.html',
-    styleUrls: ['./testimonials.component.scss'],
-    providers: [NgbCarouselConfig]
+    styleUrls: ['./testimonials.component.scss']
 })
 
-@Injectable({ providedIn: 'root' })
-export class TestimonialsComponent implements AfterViewChecked{
+export class TestimonialsComponent implements OnInit, AfterViewInit {
 
-    constructor(public translate: TranslateService, config: NgbCarouselConfig, private highlightService: HighlightService) {
-        config.interval = 10000;
-        config.wrap = false;
-        config.keyboard = false;
-        config.pauseOnHover = false;
+    ngAfterViewInit() {
+        // Inicializar el carousel de Bootstrap
+        const myCarousel = document.getElementById('testimonialsCarousel');
+        if (myCarousel) {
+            new Carousel(myCarousel, {
+                interval: 5000,
+                wrap: true
+            });
+        }
     }
 
-    ngAfterViewChecked() {
-        this.highlightService.highlightAll();
-      }
-
+    ngOnInit() {
+        // Rest of the component initialization
+    }
 }
+

@@ -23,12 +23,6 @@ import '@angular/localize/init';
 */  // Run `npm install --save classlist.js`.  // Run `npm install --save web-animations-js`.
 
 
-/** Evergreen browsers require these. **/
-import 'core-js/es/reflect';
-import 'core-js/es/reflect';  // Run `npm install --save web-animations-js`.
-
-
-
 /***************************************************************************************************
  * Zone JS is required by Angular itself.
  */

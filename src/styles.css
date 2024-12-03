@@ -1,3 +1,112 @@
+.btn-info {
+  color: #fff;
+  background-color: #b30000;
+  border-color: #b30000;
+}
+
+.btn-outline-info:hover {
+  background-color: #a40000 !important;
+  color: #fff !important;
+}
+
+.btn:hover {
+  box-shadow: 0 2px 7px #00000047 !important;
+  cursor: pointer !important;
+}
+
+.btn-outline-info:hover {
+  color: #fff !important;
+  background-color: #b30000 !important;
+  border-color: #b30000 !important;
+}
+.btn:hover {
+  text-decoration: none !important;
+}
+
+.btn-info:hover {
+  background-color: #c20000 !important;
+  border-color: #c20000 !important;
+  color: #fff !important;
+}
+.btn-info:active {
+  background-color: #c20000 !important;
+  border-color: #c20000;
+  color: #fff;
+}
+
+
+  /* Mantener el mismo color del botón en focus-visible */
+  .btn:focus-visible {
+    background-color: #c20000 !important;
+    border-color: #c20000 !important;
+    color: #fff !important;
+    box-shadow: none;
+  }
+
+  /* Para botones específicos */
+  .btn-primary:focus-visible {
+    background-color: #c20000 !important;
+    border-color: #c20000 !important;
+    color: #fff !important;
+  }
+
+  .btn-info:focus-visible {
+    background-color: #c20000 !important;
+    border-color: #c20000 !important;
+    color: #fff !important;
+  }
+
+  /* Si quieres quitar el outline por defecto */
+  .btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+
+.success {
+  color: #40c057 !important;
+}
+
+.danger {
+  color: #b30000 !important;
+}
+.info {
+  color: #b30000 !important;
+}
+.primary {
+  color: #b30000 !important;
+}
+
+.btn-outline-info {
+  border: 1px solid;
+    border-top-color: currentcolor;
+    border-right-color: currentcolor;
+    border-bottom-color: currentcolor;
+    border-left-color: currentcolor;
+  border-color: #b30000 !important;
+  background-color: transparent !important;
+  color: #b30000 !important;
+}
+
+
+a:not([href]) {
+  color:inherit;
+  text-decoration:none
+}
+
+.navbar {
+  z-index: 1;
+}
+
+.card {
+  margin: 15px 0;
+  box-shadow: -8px 8px 14px #192a461c;
+}
+
+.white {
+  color: #fff !important;
+}
+
 .underline{
   text-decoration: underline !important;
   color: #b30000;

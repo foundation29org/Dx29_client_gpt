@@ -12,22 +12,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "dragula",
-              "@mattlewis92/dom-autoscroller",
-              "angular-calendar/date-adapters/date-fns",
-              "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard",
-              "nouislider",
-              "ngx-quill",
-              "lodash",
-              "css-element-queries",
-              "chart.js",
-              "quill",
-              "hopscotch",
-              "moment",
               "sweetalert2",
-              "screenfull",
-              "clipboard",
-              "prismjs"
+              "clipboard"
             ],
             "outputPath": "dist",
             "index": "src/index.html",
@@ -41,14 +27,11 @@
               "src/robots.txt"
             ],
             "styles": [
-              "src/assets/sass/core.scss",
+              "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.css",
-              "node_modules/ngx-toastr/toastr.css",
-              "src/assets/css/custom.css",
               "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
             "scripts": [
-              "src/assets/vendor/pace/pace.min.js",
               "node_modules/cookieconsent/build/cookieconsent.min.js"
             ],
             "vendorChunk": true,
@@ -132,14 +115,9 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [
-              "src/assets/vendor/pace/pace.min.js"
-            ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/custom.css",
-              "node_modules/ngx-toastr/toastr.css",
-              "src/assets/sass/core.scss"
+              "node_modules/bootstrap/scss/bootstrap.scss"
             ],
             "assets": [
               "src/assets",
