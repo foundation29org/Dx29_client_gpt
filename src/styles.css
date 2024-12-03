@@ -1,3 +1,7 @@
+.form-group {
+  margin-bottom: 1rem;
+}
+
 .btn-info {
   color: #fff;
   background-color: #b30000;

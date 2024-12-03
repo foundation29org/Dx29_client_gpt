@@ -67,12 +67,14 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
       anonymize_ip: true,
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
-      cookie_flags: 'SameSite=None; Secure'
+      cookie_flags: 'SameSite=Strict; Secure',
+      cookie_domain: environment.serverapi,
+      cookie_partitioned: true
     });
-
     this.gaService.gtag('config', environment.GA_SecondId, {
       'cookie_domain': environment.serverapi,
-      'cookie_flags': 'SameSite=Lax;Secure',
+      'cookie_flags': 'SameSite=Strict;Secure',
+      'cookie_partitioned': true,
       'cookie_expires': 63072000, // 2 años en segundos
       'allow_google_signals': true,
       'allow_ad_personalization_signals': true
@@ -80,8 +82,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
 
     this.gaService.gtag('event', 'conversion', {
       'send_to': environment.GA_Conversion_ID,
-      'cookie_flags': 'SameSite=Lax;Secure',
-      'cookie_domain': environment.serverapi
+      'cookie_flags': 'SameSite=Strict;Secure',
+      'cookie_domain': environment.serverapi,
+      'cookie_partitioned': true
     });
 
     this.iconsService.loadIcons();

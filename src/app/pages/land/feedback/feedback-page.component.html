@@ -37,17 +37,17 @@
               </div>
                 <div class="mt-3">
                   <p for="moreFunct" class="text-bold-400 mb-0">{{'feedback.q3' | translate }} ({{'generics.Optional' | translate }})</p>
-                  <textarea maxlength="2000" formControlName="moreFunct" rows="4" class="form-control" (input)="onInput($event, 'moreFunct')"></textarea>
+                  <textarea id="moreFunct" name="moreFunct" maxlength="2000" formControlName="moreFunct" rows="4" class="form-control" (input)="onInput($event, 'moreFunct')"></textarea>
                   <small class="form-text text-muted">{{ moreFunctLength }} / 2000</small>
                 </div>
                 <div class="mt-3">
                     <p for="freeText" class="text-bold-400 mb-0">{{'feedback.commment' | translate }} ({{'generics.Optional' | translate }})</p>
-                    <textarea maxlength="2000" formControlName="freeText" rows="4" class="form-control" (input)="onInput($event, 'freeText')"></textarea>
+                    <textarea id="freeText" name="freeText" maxlength="2000" formControlName="freeText" rows="4" class="form-control" (input)="onInput($event, 'freeText')"></textarea>
                     <small class="form-text text-muted">{{ freeTextLength }} / 2000</small>
                   </div>
                   <div class="mt-3 mb-3">
                     <p for="email" class="text-bold-400 mb-0">{{'feedback.emailquestion' | translate }} ({{'generics.Optional' | translate }})</p>
-                    <input type="email" formControlName="email" name="email" class="form-control" placeholder="{{'generics.Email' | translate }}">
+                    <input type="email" formControlName="email" name="email" class="form-control" placeholder="{{'generics.Email' | translate }}" autocomplete="email">
                   </div>
                   <mat-checkbox class="example-margin" [(ngModel)]="terms2" formControlName="terms2" (change)="changeTerm($event)">
                     <label style="margin-top: 0.2em;white-space: normal;text-transform: none;letter-spacing: 0px;letter-spacing: 0.3px;font-weight: 400 !important;"  >
