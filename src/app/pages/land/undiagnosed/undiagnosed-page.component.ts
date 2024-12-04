@@ -474,44 +474,45 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     handleOpenAiError(err: any) {
-        console.log(err)
-        if (err.error.error) {
-            if (err.error.error.code == 'content_filter') {
-                let msgError = this.translate.instant("generics.sorry cant anwser1");
-                this.showError(msgError, err);
-                this.callingOpenai = false;
-            } else {
-                let msgError = this.translate.instant("generics.error try again");
-                this.showError(msgError, err);
-                this.callingOpenai = false;
-            }
-        } else if (err.error.type == 'invalid_request_error') {
-            if (err.error.code == 'string_above_max_length') {
-                this.lauchEvent("error max tokens: "+this.medicalTextOriginal.length);
-                let msgError = this.translate.instant("generics.sorry cant anwser3");
-                this.showError(msgError, err);
-                this.callingOpenai = false;
-            } else {
-                let msgError = err.error.code + ': ' + err.error.message;
-                this.showError(msgError, err);
-                this.callingOpenai = false;
-            }
-        } else {
-            let msgError = '';
-            if(err.error.message){
-                if(err.error.message=='Invalid request format or content'){
-                    msgError = this.translate.instant("generics.Invalid request format or content");
-                }else if(err.error.message=='Translation error'){
-                    msgError = this.translate.instant("generics.Translation error");
-                }else{
-                    msgError = this.translate.instant("generics.error try again");
-                }
-            }else{
-                msgError = this.translate.instant("generics.error try again");
-            }
-            this.showError(msgError, err);
-            this.callingOpenai = false;
+        console.log(err);
+        let msgError = '';
+        
+        // Si el error es un objeto con la propiedad result
+        if (err.result === 'translation error') {
+            msgError = this.translate.instant('generics.Translation error');
         }
+        // Si el error tiene la estructura error.error
+        else if (err.error) {
+            if (err.error.error && err.error.error.code === 'content_filter') {
+                msgError = this.translate.instant('generics.sorry cant anwser1');
+            } else if (err.error.type === 'invalid_request_error') {
+                if (err.error.code === 'string_above_max_length') {
+                    this.lauchEvent('error max tokens: '+this.medicalTextOriginal.length);
+                    msgError = this.translate.instant('generics.sorry cant anwser3');
+                } else {
+                    msgError = err.error.code + ': ' + err.error.message;
+                }
+            } else if (err.error.message) {
+                switch(err.error.message) {
+                    case 'Invalid request format or content':
+                        msgError = this.translate.instant('generics.Invalid request format or content');
+                        break;
+                    case 'Translation error':
+                        msgError = this.translate.instant('generics.Translation error');
+                        break;
+                    default:
+                        msgError = this.translate.instant('generics.error try again');
+                }
+            }
+        }
+        
+        // Si no se ha establecido ningún mensaje de error específico
+        if (!msgError) {
+            msgError = this.translate.instant('generics.error try again');
+        }
+    
+        this.showError(msgError, err);
+        this.callingOpenai = false;
     }
 
     showError(message: string, err: any) {
