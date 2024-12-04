@@ -13,6 +13,12 @@
   color: #fff !important;
 }
 
+.btn:focus {
+  background-color: #c20000 !important;
+  border-color: #c20000 !important;
+  color: #fff !important;
+}
+
 .btn:hover {
   box-shadow: 0 2px 7px #00000047 !important;
   cursor: pointer !important;

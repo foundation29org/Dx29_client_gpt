@@ -60,7 +60,7 @@
         <span>{{'support.Message' | translate }} ({{'generics.Optional' | translate }}):</span>
         <div>
           <textarea maxlength="2000" #autoajustable id="textarea1" type="text" name="msgfeedBack" class="autoajustable data-hj-allow form-control" style="width: 100%;" [(ngModel)]="msgfeedBack" (input)="autoResize($event)"></textarea>
-          <p class="float-right">{{ msgfeedBack.length }} / 2000</p>
+          <p class="float-end">{{ msgfeedBack.length }} / 2000</p>
         </div>
       </div>
       <div class="">
@@ -78,9 +78,9 @@
       </div>
       <div *ngIf="!sending" class="mt-2 col-md-12 center-elements">
         <div *ngIf="f.valid;then formValid else formError"></div>
-        <button class="btn btn-secondary ml-1" type="button" (click)="closeSupport()">{{'generics.Cancel' | translate }}</button>
-        <ng-template #formValid><button class="btn btn-info mr-1" (click)="onSubmitRevolution();"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
-        <ng-template #formError><button class="btn btn-info mr-1" type="button" (click)="submitInvalidForm()"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
+        <button class="btn btn-secondary ms-1" type="button" (click)="closeSupport()">{{'generics.Cancel' | translate }}</button>
+        <ng-template #formValid><button class="btn btn-info me-1" (click)="onSubmitRevolution();"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
+        <ng-template #formError><button class="btn btn-info me-1" type="button" (click)="submitInvalidForm()"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
       </div>
       <div class="form-actions col-md-12 center-elements" *ngIf="sending">
           <span class=""><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>

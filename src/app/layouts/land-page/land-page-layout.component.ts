@@ -19,7 +19,6 @@ import { DOCUMENT } from "@angular/common";
 
 export class LandPageLayoutComponent implements OnInit {
   hasShownDialog: boolean = false;
-  isScrollTopVisible = false;
   modalReference: NgbModalRef;
 
   constructor(
@@ -93,12 +92,6 @@ export class LandPageLayoutComponent implements OnInit {
       this.renderer.addClass(this.document.body, "navbar-scrolled");
     } else {
       this.renderer.removeClass(this.document.body, "navbar-scrolled");
-    }
-
-    if (number > 400) {
-      this.isScrollTopVisible = true;
-    } else {
-      this.isScrollTopVisible = false;
     }
 
     if (number > 20) {

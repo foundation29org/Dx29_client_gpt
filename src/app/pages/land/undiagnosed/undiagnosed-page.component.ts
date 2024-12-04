@@ -588,8 +588,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             const nonMatchingSymptoms = disease.symptoms_not_in_common.length > 0 ? disease.symptoms_not_in_common.join(', ') : this.translate.instant("diagnosis.None");
             const content = `
                 <strong>${indexDisease + i + 1}. ${disease.diagnosis}:</strong> ${disease.description}
-                <br> <em class="fa fa-check success mr-1"></em>${this.translate.instant("diagnosis.Matching symptoms")}: ${matchingSymptoms}
-                <br> <em class="fa fa-times danger mr-1"></em>${this.translate.instant("diagnosis.Non-matching symptoms")}: ${nonMatchingSymptoms}
+                <br> <em class="fa fa-check success me-1"></em>${this.translate.instant("diagnosis.Matching symptoms")}: ${matchingSymptoms}
+                <br> <em class="fa fa-times danger me-1"></em>${this.translate.instant("diagnosis.Non-matching symptoms")}: ${nonMatchingSymptoms}
             `;
             this.topRelatedConditions.push({ content, name: disease.diagnosis, url: sponsor?.url || '', description: disease.description, matchingSymptoms: matchingSymptoms, nonMatchingSymptoms: nonMatchingSymptoms });
         });
@@ -983,7 +983,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         const msgcheck = this.translate.instant("land.check");
                         Swal.fire({
                             icon: 'info',
-                            html: `<p>${detectePer}</p><p>${procDelete}</p><br><br><input type="checkbox" id="dont-show-again" class="mr-1">${msgcheck}`,
+                            html: `<p>${detectePer}</p><p>${procDelete}</p><br><br><input type="checkbox" id="dont-show-again" class="me-1">${msgcheck}`,
                             showCancelButton: false,
                             showConfirmButton: true,
                             allowOutsideClick: false

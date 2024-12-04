@@ -1,7 +1,6 @@
 <a id="initpopup" class="anchorSteps"></a>
 <div *ngIf="!isDirectRoute()" class="modal-header">
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Close click')">
-    <span aria-hidden="true">&times;</span>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close('Close click')">
   </button>
 </div>
 <div class="row" [ngClass]="(!isDirectRoute())?'':'card mt-0'">
