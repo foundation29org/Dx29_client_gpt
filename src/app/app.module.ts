@@ -16,7 +16,6 @@ import { WINDOW_PROVIDERS } from './shared/services/window.service';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { environment } from '../environments/environment';
-import { GoogleTagManagerService } from "angular-google-tag-manager";
 
 const cookieConfig:NgcCookieConsentConfig = {
   cookie: {
@@ -64,9 +63,7 @@ export function createTranslateLoader(http: HttpClient) {
       useClass: AuthInterceptor,
       multi   : true
     },
-    WINDOW_PROVIDERS,
-    { provide: "googleTagManagerId", useValue: "GTM-TMZTND6L" },
-    GoogleTagManagerService
+    WINDOW_PROVIDERS
   ],
   bootstrap: [AppComponent]
 })
