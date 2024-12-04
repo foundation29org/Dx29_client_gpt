@@ -8,7 +8,7 @@ import { Injectable, Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { filter } from 'rxjs/operators';
-
+import { GoogleTagManagerService } from "angular-google-tag-manager";
 @Component({
   selector: 'app-navbar-dx29',
   templateUrl: './navbar-dx29.component.html',
@@ -30,7 +30,7 @@ export class NavbarD29Component implements OnDestroy {
   private subscription: Subscription = new Subscription();
   isMenuExpanded = false;
 
-  constructor(public translate: TranslateService, private langService: LangService, private router: Router, private inj: Injector, public insightsService: InsightsService, private gaService: GoogleAnalyticsService) {
+  constructor(public translate: TranslateService, private langService: LangService, private router: Router, private inj: Injector, public insightsService: InsightsService, private gaService: GoogleAnalyticsService, private gtmService: GoogleTagManagerService ) {
     /*this.translate.use('en');
     sessionStorage.setItem('lang', 'en');*/
     this.loadLanguages();
@@ -123,8 +123,18 @@ export class NavbarD29Component implements OnDestroy {
   }
 
   lauchEvent(category) {
-    var secs = this.getElapsedSeconds();
-    this.gaService.gtag('event', category, { 'myuuid': sessionStorage.getItem('uuid'), 'event_label': secs });
+    const secs = this.getElapsedSeconds();
+    //this.gaService.gtag('event', category, { 'myuuid': sessionStorage.getItem('uuid'), 'event_label': secs });
+    const eventData = {
+      'event': 'custom_event',
+      'event_category': category,
+      'event_action': 'click',
+      'event_label': secs.toString(),
+      'myuuid': sessionStorage.getItem('uuid')
+  };
+  
+  console.log('Sending GTM event:', eventData); // Para debug
+  this.gtmService.pushTag(eventData);
   }
 
   getElapsedSeconds() {

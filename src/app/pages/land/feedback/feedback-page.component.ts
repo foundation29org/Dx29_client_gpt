@@ -11,7 +11,8 @@ import { EventsService} from 'app/shared/services/events.service';
 import { Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
-  
+import { GoogleTagManagerService } from "angular-google-tag-manager";
+
 @Component({
     selector: 'app-feedback-page',
     templateUrl: './feedback-page.component.html',
@@ -33,7 +34,7 @@ export class FeedbackPageComponent implements OnDestroy {
     freeTextLength: number = 0;
     formulario: FormGroup;
 
-    constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private gaService: GoogleAnalyticsService) {
+    constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private gaService: GoogleAnalyticsService, private gtmService: GoogleTagManagerService) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
@@ -85,8 +86,18 @@ export class FeedbackPageComponent implements OnDestroy {
     };
 
     lauchEvent(category) {
-        var secs = this.getElapsedSeconds();
-        this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+        const secs = this.getElapsedSeconds();
+        //this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+        const eventData = {
+            'event': 'custom_event',
+            'event_category': category,
+            'event_action': 'click',
+            'event_label': secs.toString(),
+            'myuuid': this.myuuid
+        };
+        
+        console.log('Sending GTM event:', eventData); // Para debug
+        this.gtmService.pushTag(eventData);
     }
 
     ngOnDestroy() {

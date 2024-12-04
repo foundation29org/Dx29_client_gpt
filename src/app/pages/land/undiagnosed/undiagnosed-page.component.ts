@@ -12,6 +12,7 @@ import { Clipboard } from "@angular/cdk/clipboard"
 import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { GoogleTagManagerService } from "angular-google-tag-manager";
 
 @Component({
     selector: 'app-undiagnosed-page',
@@ -81,7 +82,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     //@ViewChild('autoajustable2', { static: false }) textareaEdit: ElementRef;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private gaService: GoogleAnalyticsService) {
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private gaService: GoogleAnalyticsService, private gtmService: GoogleTagManagerService) {
         this.initialize();
     }
 
@@ -157,16 +158,33 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     };
 
     lauchEvent(category) {
-        var secs = this.getElapsedSeconds();
-        if (category == "Info Disease") {
-            var subcate = 'Info Disease - ' + this.selectedDisease;
-            this.gaService.gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
-            subcate = 'Info quest - ' + this.selectedDisease + ' - ' + this.selectedQuestion
-            this.gaService.gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
+        const secs = this.getElapsedSeconds();
+        if (category == 'Info Disease') {
+            const subcate = 'Info Disease - ' + this.selectedDisease;
+            this.gtmService.pushTag({
+                'event': 'custom_event',
+                'event_category': subcate,
+                'event_action': 'click',
+                'event_label': secs.toString(),
+                'myuuid': this.myuuid
+            });
 
-        }else{
-            this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
-
+            const questSubcate = 'Info quest - ' + this.selectedDisease + ' - ' + this.selectedQuestion;
+            this.gtmService.pushTag({
+                'event': 'custom_event',
+                'event_category': questSubcate,
+                'event_action': 'click',
+                'event_label': secs.toString(),
+                'myuuid': this.myuuid
+            });
+        } else {
+            this.gtmService.pushTag({
+                'event': 'custom_event',
+                'event_category': category,
+                'event_action': 'click',
+                'event_label': secs.toString(),
+                'myuuid': this.myuuid
+            });
         }
     }
 
