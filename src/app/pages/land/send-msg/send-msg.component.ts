@@ -9,7 +9,6 @@ import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import Swal from 'sweetalert2';
-import { GoogleTagManagerService } from "angular-google-tag-manager";
 
 @Component({
     selector: 'app-send-msg',
@@ -32,7 +31,7 @@ export class SendMsgComponent implements OnDestroy {
   modalReference: NgbModalRef;
   descriptionBind: string = '';
 
-  constructor(public translate: TranslateService, private http: HttpClient, public insightsService: InsightsService, private modalService: NgbModal, private gaService: GoogleAnalyticsService, private gtmService: GoogleTagManagerService) {
+  constructor(public translate: TranslateService, private http: HttpClient, public insightsService: InsightsService, private modalService: NgbModal, private gaService: GoogleAnalyticsService) {
     this._startTime = Date.now();
     if(sessionStorage.getItem('uuid')!=null){
         this.myuuid = sessionStorage.getItem('uuid');
@@ -49,18 +48,8 @@ getElapsedSeconds() {
 };
 
 lauchEvent(category) {
-  const secs = this.getElapsedSeconds();
-  //this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
-  const eventData = {
-    'event': 'custom_event',
-    'event_category': category,
-    'event_action': 'click',
-    'event_label': secs.toString(),
-    'myuuid': this.myuuid
-};
-
-console.log('Sending GTM event:', eventData); // Para debug
-this.gtmService.pushTag(eventData);
+    var secs = this.getElapsedSeconds();
+    this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
 }
   
     ngOnDestroy() {

@@ -3,7 +3,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
-import { GoogleTagManagerService } from "angular-google-tag-manager";
 
 @Component({
     selector: 'app-about-us-page',
@@ -16,7 +15,7 @@ export class AboutUsPageComponent {
     _startTime: any;
     myuuid: string = uuidv4();
 
-    constructor( public translate: TranslateService, public insightsService: InsightsService, private gaService: GoogleAnalyticsService, private gtmService: GoogleTagManagerService) {
+    constructor( public translate: TranslateService, public insightsService: InsightsService, private gaService: GoogleAnalyticsService) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
@@ -33,19 +32,10 @@ export class AboutUsPageComponent {
     };
 
     lauchEvent(category) {
-        const secs = this.getElapsedSeconds();
-        //this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
-        const eventData = {
-            'event': 'custom_event',
-            'event_category': category,
-            'event_action': 'click',
-            'event_label': secs.toString(),
-            'myuuid': this.myuuid
-        };
-        
-        console.log('Sending GTM event:', eventData); // Para debug
-        this.gtmService.pushTag(eventData);
+        var secs = this.getElapsedSeconds();
+        this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
     }
+
 
     openWeb(){
         window.open('https://www.foundation29.org', '_blank');

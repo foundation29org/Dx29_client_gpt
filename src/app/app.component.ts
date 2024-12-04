@@ -10,7 +10,6 @@ import { IconsService } from 'app/shared/services/icon.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { DOCUMENT } from '@angular/common';
 import Swal from 'sweetalert2';
-import { GoogleTagManagerService } from "angular-google-tag-manager";
 
 import {
   NgcCookieConsentService,
@@ -31,7 +30,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   private scrollPosition: number = 0;
   private ticking: boolean = false;
   private isOpenSwal: boolean = false;
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, public translate: TranslateService, private ccService: NgcCookieConsentService, private eventsService: EventsService, private titleService: Title, private meta: Meta, private activatedRoute: ActivatedRoute, private ngZone: NgZone, private iconsService: IconsService, private gaService: GoogleAnalyticsService, private gtmService: GoogleTagManagerService) {
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, public translate: TranslateService, private ccService: NgcCookieConsentService, private eventsService: EventsService, private titleService: Title, private meta: Meta, private activatedRoute: ActivatedRoute, private ngZone: NgZone, private iconsService: IconsService, private gaService: GoogleAnalyticsService) {
     this.translate.use('en');
   }
 
@@ -43,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     if (!this.document) return;
     
     if(environment.production) {
-      /*((h: any, o: Document, t: string, j: string, a?: any, r?: any) => {
+      ((h: any, o: Document, t: string, j: string, a?: any, r?: any) => {
         h.hj = h.hj || function() {
           (h.hj.q = h.hj.q || []).push(arguments);
         };
@@ -59,12 +58,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
         r.async = 1;
         r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
         a?.appendChild(r);
-      })(window as any, this.document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');*/
+      })(window as any, this.document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     }
   }
 
   ngOnInit() {
-   /* this.gaService.gtag('config', environment.GA_ID, {
+    this.gaService.gtag('config', environment.GA_ID, {
       anonymize_ip: true,
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
@@ -87,7 +86,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
       'cookie_domain': environment.serverapi,
       'cookie_partitioned': true
     });
-*/
+
     this.iconsService.loadIcons();
 
     this.meta.addTags([
@@ -108,7 +107,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     .pipe(mergeMap((route) => route.data))
     .subscribe((event) => {
       (async () => {
-        this.gtmService.pushTag({ 'event': 'page_view', 'myuuid': sessionStorage.getItem('uuid'), 'pagePath': event.urlAfterRedirects });
         window.scrollTo(0, 0);
         await this.delay(500);
         this.tituloEvent = event['title'];
