@@ -29,6 +29,7 @@
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.css",
+              "src/assets/css/custom.css",
               "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
             "scripts": [
@@ -117,6 +118,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "styles": [
               "src/styles.css",
+              "src/assets/css/custom.css",
               "node_modules/bootstrap/scss/bootstrap.scss"
             ],
             "assets": [

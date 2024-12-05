@@ -18,27 +18,27 @@
       </div>
         <div [class.collapse]="!isMenuExpanded" [class.show]="isMenuExpanded" class="navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav m-r-0 menu-items">
-              <li class="nav-item mr-2">
+              <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isHomePage)?'black':'black text-bold-700'" routerLink="/." (click)="lauchEvent('Page - Home'); goBackEvent();">
                       <span>{{'menu.Dashboard' | translate }}</span>
                   </a>
               </li>
-              <li class="nav-item mr-2">
+              <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isAboutPage)?'black':'black text-bold-700'" routerLink="/aboutus" (click)="lauchEvent('Page - About us')">
                       <span>{{'menu.About us' | translate }}</span>
                   </a>
               </li>
-              <li class="nav-item mr-2">
+              <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isFaqPage)?'black':'black text-bold-700'" routerLink="/faq" (click)="lauchEvent('Page - FAQ')">
                       <span>FAQs</span>
                   </a>
               </li>
-              <li class="nav-item mr-2">
+              <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'black text-bold-700'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')">
                       <span>{{'menu.Usage statistics' | translate }}</span>
                   </a>
               </li>
-              <li class="nav-item mr-2 donate-link">
+              <li class="nav-item me-2 donate-link">
                   <a class="nav-link btn btn-info round white mb-0 btn-sm donate-a" href="https://www.foundation29.org/donate/" target="_blank" (click)="lauchEvent('Page - Donate')">
                       <span>{{'land.Donate' | translate }} <em class="ms-1 fa fa-heart"></em></span>
                   </a>
@@ -50,7 +50,7 @@
       <div class="navbar-container ps-0">
           <div id="navbarSupportedContent2">
               <ul class="navbar-nav m-r-0">
-                  <li class="nav-item mr-2" ngbDropdown display="dynamic" placement="bottom-right">
+                  <li class="nav-item me-2" ngbDropdown display="dynamic" placement="bottom-right">
                       <a class="position-relative colorlink" id="dropdownLang" ngbDropdownToggle role="button">
                           <u>{{currentLang}}</u>
                       </a>

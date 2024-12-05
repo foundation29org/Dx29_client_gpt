@@ -10,6 +10,16 @@
   outline: none;
 }
 
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
 ::ng-deep .mat-radio-label{
   white-space: normal;
   text-transform: none;

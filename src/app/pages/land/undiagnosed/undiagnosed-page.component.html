@@ -171,16 +171,12 @@
       </div>
       <div *ngIf="!loadingAnswerOpenai && symptomsDifferencial.length>0" class="mt-3">
         <h6>{{'land.Select the symptoms' | translate }}:</h6>
-        <div class="row">
-          <div *ngFor="let symptom of symptomsDifferencial; let j = index" class="col-md-6 col-xl-4">
-            <div class="custom-control custom-checkbox">
-              <mat-checkbox class="example-margin" name="customCheck{{j}}" [(ngModel)]="symptom.checked"
-                id="customCheck{{j}}" (change)="changeSymptom($event)">
-                <label class="mb-2">
-                  <span>{{symptom.name}}</span>
-                </label>
-              </mat-checkbox>
-            </div>
+        <div class="symptoms-grid">
+          <div *ngFor="let symptom of symptomsDifferencial; let j = index" class="symptom-item">
+            <mat-checkbox class="example-margin" name="customCheck{{j}}" [(ngModel)]="symptom.checked"
+              id="customCheck{{j}}" (change)="changeSymptom($event)">
+              <span class="symptom-text">{{symptom.name}}</span>
+            </mat-checkbox>
           </div>
         </div>
         <div class="row">
@@ -211,12 +207,12 @@
   <a id="topmodal"></a>
   <div class="modal-body">
     <div class="row text-start">
-      <div class="card-body col-md-12">
+      <div class="card-body">
 
 
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="" [innerHTML]="'land.disclaimer' | translate"></p>
+        <div class="col-md-12">
+          <div class="p-2">
+            <span class="" [innerHTML]="'land.disclaimer' | translate"></span>
           </div>
         </div>
       </div>

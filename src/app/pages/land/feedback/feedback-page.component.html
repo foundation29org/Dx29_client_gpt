@@ -1,8 +1,8 @@
 <a id="initpos"></a>
-<span class="p-2 m-1 float-end btn-close pointer" (click)="activeModal.close('Close click')" style="z-index: 3;position: relative;">
+<span class="p-2 m-1 float-end btn-close pointer" (click)="activeModal.close('Close click')" style="z-index: 3;position: absolute; right: 0px;">
 </span>
 <section>
-  <div class="col-12 p-2">
+  <div class="col-12 p-3">
     <div class="card-body" style="max-width: 1200px;">
       <div class="row">
         <div class="col-12">
@@ -27,9 +27,9 @@
                   <p for="userType" class="col-md-12 text-bold-400 mb-0 mt-2" style="margin-top: 1rem !important;">{{'feedback.userType' | translate }}</p>
                   <div class="col-md-12 mt-1">
                       <mat-radio-group formControlName="userType">
-                          <mat-radio-button class="mat-radio-button mr-3" value="doctor">{{'feedback.doctor' | translate }}</mat-radio-button>
-                          <mat-radio-button class="mat-radio-button mr-3" value="patient">{{'feedback.patient' | translate }}</mat-radio-button>
-                          <mat-radio-button class="mat-radio-button mr-3" value="caregiver">{{'feedback.caregiver' | translate }}</mat-radio-button>
+                          <mat-radio-button class="mat-radio-button me-3" value="doctor">{{'feedback.doctor' | translate }}</mat-radio-button>
+                          <mat-radio-button class="mat-radio-button me-3" value="patient">{{'feedback.patient' | translate }}</mat-radio-button>
+                          <mat-radio-button class="mat-radio-button me-3" value="caregiver">{{'feedback.caregiver' | translate }}</mat-radio-button>
                           <mat-radio-button class="mat-radio-button" value="none">{{'feedback.none' | translate }}</mat-radio-button>
                       </mat-radio-group>
                   </div>
