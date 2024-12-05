@@ -6,6 +6,10 @@
   color: #B30000;
 }
 
+.my-rating:focus-visible {
+  outline: none;
+}
+
 ::ng-deep .mat-radio-label{
   white-space: normal;
   text-transform: none;

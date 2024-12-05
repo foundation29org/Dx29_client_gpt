@@ -13,6 +13,14 @@
   color: #fff !important;
 }
 
+.btn-close:focus {
+  box-shadow: 0 0 0 0.25rem #fff !important;
+}
+
+.btn-close:hover {
+  box-shadow: 0 0 0 0.25rem #ffd4d4 !important;
+}
+
 .btn:focus {
   background-color: #c20000 !important;
   border-color: #c20000 !important;
