@@ -33,7 +33,6 @@
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "6.0.0",
     "@popperjs/core": "^2.11.8",
-    "angular-google-tag-manager": "^1.6.1",
     "bootstrap": "5.2.0",
     "clipboard": "^2.0.8",
     "cookieconsent": "^3.1.1",

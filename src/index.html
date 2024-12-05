@@ -35,15 +35,7 @@
   <link rel="preload" href="/assets/i18n/en.json" as="fetch" type="application/json" crossorigin="anonymous">
   <link rel="preload" href="/assets/i18n/es.json" as="fetch" type="application/json" crossorigin="anonymous">
 
-  <!-- Scripts -->
-  <script>
-    // Verificar protocolo y redirección HTTPS
-    var isApp = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && location.hostname != "localhost" && location.hostname != "127.0.0.1";
-    if (!isApp && location.hostname != "localhost" && location.hostname != "127.0.0.1" && window.location.protocol == "http:") {
-      window.location.href = window.location.href.replace('http:', 'https:');
-    }
-
-  </script>
+  <script src="assets/js/protocol-check.js"></script>
   
 </head>
 
