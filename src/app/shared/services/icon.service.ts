@@ -10,7 +10,7 @@ export class IconsService {
     if (this.loaded) {
       return Promise.resolve();
     }
-   return new Promise((resolve) => {
+   /*return new Promise((resolve) => {
       const script = document.createElement('script');
       script.src = 'assets/js/e1638781bd.js';
       script.onload = () => {
@@ -18,9 +18,9 @@ export class IconsService {
         resolve();
       };
       document.body.appendChild(script);
-    });
+    });*/
 
-    /*return new Promise((resolve) => {
+    return new Promise((resolve) => {
       // Cargar CSS principal
       const link = document.createElement('link');
       link.href = 'assets/fontawesome/free.min.css';
@@ -29,6 +29,6 @@ export class IconsService {
 
       // No es necesario cargar el script JS
       resolve();
-    });*/
+    });
   }
 }
