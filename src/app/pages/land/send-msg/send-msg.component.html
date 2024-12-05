@@ -16,7 +16,7 @@
                   <div class="form-group">
                     <input type="text" class="form-control" name="userName" id="userName"
                       placeholder="{{'generics.Name' | translate }}" ngModel required #userName="ngModel">
-                    <small class="form-text text-muted danger"
+                    <small class="form-text text-muted"
                       *ngIf="!userName.valid && (userName.dirty || userName.touched)">{{'generics.required' | translate
                       }}</small>
                   </div>
@@ -25,7 +25,7 @@
                   <div class="form-group">
                     <input type="email" class="form-control" name="email" id="email"
                       placeholder="{{'generics.Email' | translate }}" ngModel required email #email="ngModel">
-                    <small class="form-text text-muted danger"
+                    <small class="form-text text-muted"
                       *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate
                       }}</small>
                   </div>
@@ -34,9 +34,9 @@
                   <div class="form-group">
                     <textarea maxlength="2000" name="description" id="textarea1" rows="4"
                       placeholder="{{'support.Message' | translate }}" class="form-control" ngModel
-                      required #description="ngModel" (input)="autoResize($event)" [(ngModel)]="descriptionBind"></textarea>
-                      <p class="float-end">{{ descriptionBind.length }} / 2000</p>
-                    <small class="form-text text-muted danger"
+                      required #description="ngModel" description (input)="autoResize($event)"></textarea>
+                      <p class="float-end">{{ descriptionLength }} / 2000</p>
+                    <small class="form-text text-muted"
                       *ngIf="!description.valid && (description.dirty || description.touched)">{{'generics.required' |
                       translate }}</small>
                   </div>
@@ -52,7 +52,7 @@
                       class="example-margin" name="terms" ngModel #terms="ngModel" id="terms" required [(ngModel)]="acceptTerms">
                       <span class="mat-checkbox-label">{{'termsform.accept' | translate }} <a class="white" style="text-decoration: underline !important;" href="javascript:;" (click)="openModal2(termsModal)">{{'termsform.terms' | translate }}</a></span>
                   </mat-checkbox>
-                  <small class="danger d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
+                  <small class="text-muted d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
                 </div>
               </div>
             </div>

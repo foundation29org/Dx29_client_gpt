@@ -29,7 +29,7 @@ export class SendMsgComponent implements OnDestroy {
   checkSubscribe: boolean = false;
   acceptTerms: boolean = false;
   modalReference: NgbModalRef;
-  descriptionBind: string = '';
+  descriptionLength: number = 0;
 
   constructor(public translate: TranslateService, private http: HttpClient, public insightsService: InsightsService, private modalService: NgbModal, private gaService: GoogleAnalyticsService) {
     this._startTime = Date.now();
@@ -85,10 +85,14 @@ lauchEvent(category) {
             showConfirmButton: false,
             allowOutsideClick: false
           });
+          setTimeout(function () {
+            Swal.close();
+          }, 2000);
           this.checkSubscribe = false;
           this.acceptTerms = false;
           this.showErrorForm = false;
           this.mainForm.reset();
+          this.descriptionLength = 0;
           this.lauchEvent('Send email');
          }, (err) => {
           this.insightsService.trackException(err);
@@ -125,6 +129,8 @@ lauchEvent(category) {
     }
 
     autoResize(event: Event) {
+      const inputElement = event.target as HTMLTextAreaElement;
+      this.descriptionLength = inputElement.value.length;
       const textarea = event.target as HTMLTextAreaElement;
       textarea.style.height = 'auto';
       textarea.style.height = textarea.scrollHeight + 'px';

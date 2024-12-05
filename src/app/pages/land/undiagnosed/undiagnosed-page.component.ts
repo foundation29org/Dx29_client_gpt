@@ -716,10 +716,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     }
 
-    changeSymptom(event, index) {
-        console.log(event);
-    }
-
     recalculateDifferencial() {
         var newSymptoms = this.symptomsDifferencial
           .filter(symptom => symptom.checked)
