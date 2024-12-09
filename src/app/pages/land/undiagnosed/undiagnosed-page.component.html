@@ -1,12 +1,11 @@
 <a id="initsteps" class="anchorSteps"></a>
-<div class="vertical-center background-dark">
+<div class="p-2 vertical-center background-dark">
   <section *ngIf="currentStep == 1" class="col-12 d-flex flex-column">
-    <div class="row mt-4">
+    <div class="mt-4">
       <div class="col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
         <h2 class="white">{{'land.title' | translate }}</h2>
       </div>
     </div>
-    <div class="row">
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
         <div class="search">
@@ -17,8 +16,6 @@
 
         <p class="">{{'land.Recommendations' | translate }}</p>
       </div>
-    </div>
-    <div class="row">
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
         <button type="submit" class="btn btn-lg btn-info" (click)="checkPopup(contentIntro)"
@@ -35,18 +32,16 @@
         [attr.title]="getLiteral('land.Need help')" [attr.aria-label]="getLiteral('land.Need help')">{{'land.Need help' |
           translate }}</span>
       </div>
-
-    </div>
   </section>
   <section *ngIf="currentStep == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 mb-5 mt-2">
     <a id="step2"></a>
     <div class="row">
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
-        <button type="button" class="mt-2 btn btn-info mr-1" (click)="newPatient()">{{'land.New patient' | translate
+        <button type="button" class="mt-2 btn btn-info me-1" (click)="newPatient()">{{'land.New patient' | translate
           }}</button>
-        <button type="button" class="mt-2 btn btn-info ml-1 mr-1"
+        <button type="button" class="mt-2 btn btn-info ms-1 me-1"
           (click)="openDescripModal(contentEditDescription)">{{'land.Edit description' | translate }}</button>
-        <span *ngIf="hasAnonymize" class="ml-1"><button class="mt-2 btn btn-info mr-2"
+        <span *ngIf="hasAnonymize" class="ms-1"><button class="mt-2 btn btn-info me-2"
             (click)="openAnonymize(contentviewDoc)">
             <em class="fa-solid fa-user-shield"></em> {{'diagnosis.View anonymized text' | translate }}</button>
         </span>
@@ -55,24 +50,22 @@
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
             <div class="section maintxt min-height-0">
-              <table class="col-md-12 table mb-0 white background-dark" aria-labelledby="get diagnosis">
-                <thead>
-                  <tr>
-                    <th id="headerTable" class="border-top-none">
+              <div class="col-md-12 p-2 mb-0 white background-dark" aria-labelledby="get diagnosis">
+                <div>
+                  <div>
+                    <div id="headerTable" class="border-top-none">
                       <span class="row">
                         <span class="col-12">
                           <h4 class="white card-title text-bold-700 margin-top-0">{{'diagnosis.Proposed diagnoses' |
                             translate }}</h4>
-                          <span class="float-right">
+                          <span class="float-end">
                             <ng-container *ngIf="!sendingVote; else loadingSpinner">
-                              <button class="mr-1 btn btn-success" (click)="vote('up', contentFeedbackDown)"
-                                [disabled]="sendingVote || callingAnonymize" title="Vote up"
-                                aria-label="Vote up">
+                              <button class="me-1 btn btn-success" (click)="vote('up', contentFeedbackDown)"
+                                [disabled]="sendingVote || callingAnonymize" title="Vote up">
                                 <em class="icon-hand white fa fa-2x fa-thumbs-up"></em>
                               </button>
-                              <button class="ml-1 btn btn-info" (click)="vote('down', contentFeedbackDown)"
-                                [disabled]="sendingVote || callingAnonymize" title="Vote down"
-                                aria-label="Vote down">
+                              <button class="ms-1 btn btn-info" (click)="vote('down', contentFeedbackDown)"
+                                [disabled]="sendingVote || callingAnonymize" title="Vote down">
                                 <em class="icon-hand fa fa-2x fa-thumbs-down"></em>
                               </button>
                             </ng-container>
@@ -88,20 +81,19 @@
                             options' | translate }}</span>
                         </span>
                       </span>
-                    </th>
-                  </tr>
-                </thead>
-              </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="table-cont" *ngIf="topRelatedConditions.length>0">
                 <table class="table mb-0 bg-white" aria-labelledby="rare disease">
                   <tbody>
                     <tr *ngFor="let disease of topRelatedConditions ; let i = index" class="d-flex">
-                      <td class="col-md-12 diseaseClass pointer"
+                      <td class="col-md-12 p-2 diseaseClass pointer"
                         (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
-                        <span class="float-right ml-1">
-                          <button class="btn-outline-info btn btn-sm mr-1 mb-0 btn-fab round"
+                        <span class="float-end ms-1">
+                          <button class="btn-outline-info btn btn-sm me-1 mb-0 btn-fab round"
                             title="{{'generics.More information' | translate }}"
-                            aria-label="{{'generics.More information' | translate }}"
                             >
                             <em class="fa fa-info w-13"></em>
                           </button>
@@ -109,13 +101,12 @@
                         <span class="custom-bold pointer"
                           (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');"
                           title="{{'generics.More information' | translate }} ({{disease.name}})"
-                          aria-label="{{'generics.More information' | translate }} ({{disease.name}})"
                           [innerHTML]="disease.content"></span>
-                        <div *ngIf="disease.name!=''">
-                          <div *ngIf="disease.url!=''" class="col-12 center-elements mt-2">
+                        <div *ngIf="disease.name!==''">
+                          <div *ngIf="disease.url!==''" class="col-12 center-elements mt-2">
                             <a class="btn btn-sm btn-primary mb-1" [href]="disease.url"
                               target="_blank">{{'diagnosis.SponsorMsg' | translate }} <em
-                                class="ml-1 ft-external-link"></em></a>
+                                class="ms-1 ft-external-link"></em></a>
                           </div>
                         </div>
 
@@ -124,7 +115,7 @@
                   </tbody>
                 </table>
                 <div class="pt-2 border-top text-muted">
-                  <p class="ml-2">{{'diagnosis.advise' | translate }}</p>
+                  <p class="ms-2">{{'diagnosis.advise' | translate }}</p>
                 </div>
               </div>
               <span *ngIf="topRelatedConditions.length==0">
@@ -133,9 +124,9 @@
               <div class="col-md-12 mb-0 white p-2 center-elements background-dark">
                 <button class="btn btn-info mt-2 mb-2" (click)="loadMore()">{{'land.Load more' | translate }}</button>
                 <span class="optionsResults mt-2 mb-2">
-                  <em class="mt-1 fa fa-clipboard fa-2x info mr-2 pointer" title="{{'land.Copy results' | translate }}" aria-label="{{'land.Copy results' | translate }}"
+                  <em class="mt-1 fa fa-clipboard fa-2x info me-2 pointer" title="{{'land.Copy results' | translate }}"
                     (click)="copyResults()"></em>
-                  <em class="mt-1 fa fa-2x fa-download info ml-1 pointer" [class.not-allowed]="callingAnonymize"
+                  <em class="mt-1 fa fa-2x fa-download info ms-1 pointer" [class.not-allowed]="callingAnonymize"
                     [attr.title]="(callingAnonymize) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
                     [attr.aria-label]="(callingAnonymize) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
                     (click)="downloadResults()"></em>
@@ -154,20 +145,19 @@
 
 <ng-template #contentInfoDisease let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
-    <div class="content-header text-left">
+    <div class="content-header text-start">
       <h4 class="card-title text-bold-700 mb-0 primary">{{ selectedDisease }}</h4>
     </div>
-    <button type="button" class="close" aria-label="Close" (click)="closeDiseaseUndiagnosed()">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" title="Close" (click)="closeDiseaseUndiagnosed()">
     </button>
   </div>
   <div class="modal-body content-wrapper p-2 mt-2">
     <p>{{'land.Select a question' | translate }}:</p>
     <div class="list-group mb-2">
       <button class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
-        (click)="showQuestion(question, i)" [disabled]="loadingAnswerOpenai" aria-label="{{question.question}}">
+        (click)="showQuestion(question, i)" [disabled]="loadingAnswerOpenai" title="{{question.question | translate}}">
         <div class="d-flex w-100 justify-content-between">
-          <span class="mb-1">{{question.question}}</span>
+          <span class="mb-1">{{question.question | translate}}</span>
         </div>
       </button>
       <div *ngIf="loadingAnswerOpenai" class="mt-3 center-elements">
@@ -175,22 +165,18 @@
         <em class="fa fa-spinner info fa-2x fa-spin fa-fw"></em>
         <p class="info pointer" (click)="cancelCallQuestion();">{{'generics.Cancel' | translate }}</p>
       </div>
-      <div *ngIf="!loadingAnswerOpenai && answerOpenai!=''" class="mt-3">
-        <h6>{{selectedQuestion}}</h6>
+      <div *ngIf="!loadingAnswerOpenai && answerOpenai!==''" class="mt-3">
+        <h6>{{selectedQuestion | translate}}</h6>
         <div [innerHTML]="answerOpenai" class="margin-bottom-2"></div>
       </div>
       <div *ngIf="!loadingAnswerOpenai && symptomsDifferencial.length>0" class="mt-3">
         <h6>{{'land.Select the symptoms' | translate }}:</h6>
-        <div class="row">
-          <div *ngFor="let symptom of symptomsDifferencial; let j = index" class="col-md-6 col-xl-4">
-            <div class="custom-control custom-checkbox">
-              <mat-checkbox class="example-margin" name="customCheck{{j}}" [(ngModel)]="symptom.checked"
-                id="customCheck{{j}}" (change)="changeSymptom($event,j)">
-                <label class="custom-text">
-                  <span>{{symptom.name}}</span>
-                </label>
-              </mat-checkbox>
-            </div>
+        <div class="symptoms-grid">
+          <div *ngFor="let symptom of symptomsDifferencial; let j = index" class="symptom-item">
+            <mat-checkbox class="example-margin" name="customCheck{{j}}" [(ngModel)]="symptom.checked"
+              id="customCheck{{j}}">
+              <span class="symptom-text">{{symptom.name}}</span>
+            </mat-checkbox>
           </div>
         </div>
         <div class="row">
@@ -214,26 +200,25 @@
 <ng-template #contentIntro let-c="close" let-d="dismiss" id="contentIntro" aria-labelledby="contentIntro"
   appendTo="body">
   <div class="modal-header">
-    <button type="button" class="close" aria-label="Close" (click)="closePopup()">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" title="Close" (click)="closePopup()">
     </button>
   </div>
 
   <a id="topmodal"></a>
   <div class="modal-body">
-    <div class="row text-left">
-      <div class="card-body col-md-12">
+    <div class="row text-start">
+      <div class="card-body">
 
 
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="" [innerHTML]="'land.disclaimer' | translate"></p>
+        <div class="col-md-12">
+          <div class="p-2">
+            <span class="" [innerHTML]="'land.disclaimer' | translate"></span>
           </div>
         </div>
       </div>
       <div class="col-md-12 center-elements">
         <mat-checkbox class="example-margin" [(ngModel)]="terms2" (change)="changeTerm($event)">
-          <label class="custom-text">
+          <label class="">
             <span (click)="showOptions()">{{'land.check' | translate }}</span>
           </label>
         </mat-checkbox>
@@ -261,7 +246,7 @@
             (input)="autoResize($event)"></textarea>
           <small class="form-text text-muted danger" *ngIf="!FeedBack1input.valid && showErrorForm">{{'generics.required' | translate
             }}</small>
-          <p class="float-right">{{ feedBack1input.length }} / 2000</p>
+          <p class="float-end">{{ feedBack1input.length }} / 2000</p>
         </div>
       </div>
       <div class="form-group">
@@ -286,11 +271,11 @@
       </div>
       <div *ngIf="!sending" class="mt-2 col-md-12 center-elements">
         <div *ngIf="f.valid;then formValid else formError"></div>
-        <button class="btn btn-secondary ml-1" type="button" (click)="closeFeedback()">{{'generics.Cancel' | translate
+        <button class="btn btn-secondary ms-1" type="button" (click)="closeFeedback()">{{'generics.Cancel' | translate
           }}</button>
-        <ng-template #formValid><button class="btn btn-info mr-1"
+        <ng-template #formValid><button class="btn btn-info me-1"
             (click)="onSubmitFeedbackDown();"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
-        <ng-template #formError><button class="btn btn-info mr-1" type="button"
+        <ng-template #formError><button class="btn btn-info me-1" type="button"
             (click)="submitInvalidForm()"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
       </div>
       <div class="form-actions col-md-12 center-elements" *ngIf="sending">
@@ -306,17 +291,13 @@
 
 <ng-template #contentInfoAPP let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
-    <div class="content-header text-left">
-      <h4 class="text-bold-400 mb-0">{{ selectedDisease }}</h4>
-    </div>
-    <button type="button" class="close" aria-label="Close" (click)="closeDiseaseUndiagnosed()">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" title="Close" (click)="closeDiseaseUndiagnosed()">
     </button>
   </div>
   <div class="modal-body content-wrapper p-2">
     <div class="row center-elements pad-logos">
       <div class="col-lg-4 mb-3 pt-4">
-        <em class="fa fa-sun-o fa-2x"></em>
+        <em class="fas fa-gear fa-2x"></em>
         <h4 class="mt-2 mb-0">{{'land.p1.title' | translate }}</h4>
         <span>{{'land.p1.subtitle' | translate }}</span>
         <div class="card custom-card-1 custom-card-2 p-2 pointer"
@@ -353,11 +334,10 @@
 </ng-template>
 <ng-template #contentviewDoc id="contentviewDoc" let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
-    <div class="content-header text-left">
+    <div class="content-header text-start">
       <h4 class="card-title text-bold-700 mb-0 primary">{{'diagnosis.Anonymized text' | translate }}</h4>
     </div>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal();">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" title="Close" (click)="closeModal();">
     </button>
   </div>
   <div class="modal-body content-wrapper p-2" id="idBody">
@@ -376,11 +356,10 @@
 </ng-template>
 <ng-template #contentEditDescription let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
-    <div class="content-header text-left">
+    <div class="content-header text-start">
       <h4 class="card-title text-bold-700 mb-0 primary">{{'land.Edit description' | translate }}</h4>
     </div>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal();">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" title="Close" (click)="closeModal();">
     </button>
   </div>
   <div class="modal-body content-wrapper p-2" id="idBody">

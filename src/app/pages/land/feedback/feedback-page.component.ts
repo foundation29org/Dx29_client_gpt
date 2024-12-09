@@ -4,16 +4,14 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService} from 'app/shared/services/events.service';
 import { Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
-
-declare let gtag: any;
-
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
+  
 @Component({
     selector: 'app-feedback-page',
     templateUrl: './feedback-page.component.html',
@@ -35,7 +33,7 @@ export class FeedbackPageComponent implements OnDestroy {
     freeTextLength: number = 0;
     formulario: FormGroup;
 
-    constructor(public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService) {
+    constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private gaService: GoogleAnalyticsService) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
@@ -88,7 +86,7 @@ export class FeedbackPageComponent implements OnDestroy {
 
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
-        gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+        this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
     }
 
     ngOnDestroy() {
@@ -113,7 +111,13 @@ export class FeedbackPageComponent implements OnDestroy {
           this.subscription.add( this.http.post(environment.serverapi+'/api/generalfeedback/', value)
           .subscribe( (res : any) => {
             this.sending = false;
-            this.toastr.success(this.translate.instant("feedback.thanks"), this.translate.instant("feedback.Submitted"));
+            Swal.fire({
+                icon: 'success',
+                html: this.translate.instant('feedback.thanks'),
+                title: this.translate.instant('feedback.Submitted'),
+                showConfirmButton: true,
+                allowOutsideClick: false
+              });
             // Limpie el formulario después de enviar
             this.formulario.reset();
             this.freeTextLength = 0;
@@ -129,11 +133,29 @@ export class FeedbackPageComponent implements OnDestroy {
             this.insightsService.trackException(err);
              console.log(err);
              this.sending = false;
-             this.toastr.error('', this.translate.instant("generics.error try again"));
+             if (err.error.message === 'Invalid request format or content') {
+                const msgError = this.translate.instant("generics.Invalid request format or content");
+                Swal.fire({
+                    icon: 'error',
+                    html: msgError,
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    allowOutsideClick: false
+                });
+            } else {
+                const msgError = this.translate.instant('generics.error try again');
+                Swal.fire({
+                    icon: 'error',
+                    html: msgError,
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    allowOutsideClick: false
+                });
+            }
+             
            }));
         } else {
             if (this.formulario.get('email') && this.formulario.get('email').invalid ) {
-                //this.toastr.error(this.translate.instant("generics.entervalidemail"), 'Error');
                 Swal.fire({
                     icon: 'error',
                     html: this.translate.instant("generics.entervalidemail"),
@@ -142,7 +164,6 @@ export class FeedbackPageComponent implements OnDestroy {
                     allowOutsideClick: false
                 })
             } else if (!this.formulario.get('userType')?.value) {
-                //this.toastr.error(this.translate.instant("feedback.selectusertype"), 'Error');
                 Swal.fire({
                     icon: 'error',
                     html: this.translate.instant("feedback.selectusertype"),
@@ -151,7 +172,6 @@ export class FeedbackPageComponent implements OnDestroy {
                     allowOutsideClick: false
                 })
             } else {
-                //this.toastr.error(this.translate.instant("feedback.onstarts"), 'Error');
                 Swal.fire({
                     icon: 'error',
                     html: this.translate.instant("feedback.onstarts"),

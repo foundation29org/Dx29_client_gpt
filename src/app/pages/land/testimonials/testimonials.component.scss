@@ -2,6 +2,10 @@
   font-size: 2.5rem;
 }
 
+:host ::ng-deep .carousel-control-prev-icon, .carousel-control-next-icon {
+  background-color: transparent !important;
+}
+
 .my-rating {
   color: #B30000;
 }
@@ -14,9 +18,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 80%; /* Ajustar para no ocupar el 100% del ancho */
-  margin: 0 auto; /* Centrando horizontalmente */
-  align-items: center; 
+  max-width: 80%;
+  margin: 0 auto;
+  align-items: center;
 }
 
 .testimonial p {
@@ -28,37 +32,31 @@
   margin-top: 10px;
 }
 
-.carousel-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px; /* Ajustar según sea necesario */
-  width: 100%; /* Asegurando que el item ocupe el ancho completo */
-  position: relative; /* Posicionando relativo para las flechas */
+.carousel {
+  .carousel-inner {
+    .carousel-item {
+      display: none;
+      
+      &.active {
+        display: block;
+      }
+    }
+  }
 }
 
 .carousel-control-prev,
 .carousel-control-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 5%; /* Ajustar ancho según sea necesario */
-  height: auto;
+  width: 5%;
+  
+  &-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+  }
 }
 
-.carousel-control-prev {
-  left: -5%; /* Ajustar según sea necesario */
-}
-
-.carousel-control-next {
-  right: -5%; /* Ajustar según sea necesario */
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro para mejor visibilidad */
-  border-radius: 50%;
-  padding: 10px;
+.carousel-item {
+  transition: transform .6s ease-in-out;
 }
 
 @media (max-width: 380px) {

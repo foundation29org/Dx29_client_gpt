@@ -4,12 +4,11 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-
-declare let gtag: any;
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-send-msg',
@@ -30,9 +29,9 @@ export class SendMsgComponent implements OnDestroy {
   checkSubscribe: boolean = false;
   acceptTerms: boolean = false;
   modalReference: NgbModalRef;
-  descriptionBind: string = '';
+  descriptionLength: number = 0;
 
-  constructor(public translate: TranslateService, private http: HttpClient, public toastr: ToastrService, public insightsService: InsightsService, private modalService: NgbModal) {
+  constructor(public translate: TranslateService, private http: HttpClient, public insightsService: InsightsService, private modalService: NgbModal, private gaService: GoogleAnalyticsService) {
     this._startTime = Date.now();
     if(sessionStorage.getItem('uuid')!=null){
         this.myuuid = sessionStorage.getItem('uuid');
@@ -50,7 +49,7 @@ getElapsedSeconds() {
 
 lauchEvent(category) {
     var secs = this.getElapsedSeconds();
-    gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+    this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
 }
   
     ngOnDestroy() {
@@ -79,17 +78,33 @@ lauchEvent(category) {
         this.subscription.add( this.http.post(environment.serverapi+'/api/homesupport/', params)
         .subscribe( (res : any) => {
           this.sending = false;
-          this.toastr.success('', this.translate.instant("generics.Data saved successfully"));
+          Swal.fire({
+            icon: 'success',
+            html: this.translate.instant('generics.Data saved successfully'),
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false
+          });
+          setTimeout(function () {
+            Swal.close();
+          }, 2000);
           this.checkSubscribe = false;
           this.acceptTerms = false;
           this.showErrorForm = false;
           this.mainForm.reset();
+          this.descriptionLength = 0;
           this.lauchEvent('Send email');
          }, (err) => {
           this.insightsService.trackException(err);
            console.log(err);
            this.sending = false;
-           this.toastr.error('', this.translate.instant("generics.error try again"));
+           Swal.fire({
+            icon: 'error',
+            html: this.translate.instant('generics.error try again'),
+            showCancelButton: false,
+            showConfirmButton: true,
+            allowOutsideClick: false
+          });
          }));
     }
 
@@ -114,6 +129,8 @@ lauchEvent(category) {
     }
 
     autoResize(event: Event) {
+      const inputElement = event.target as HTMLTextAreaElement;
+      this.descriptionLength = inputElement.value.length;
       const textarea = event.target as HTMLTextAreaElement;
       textarea.style.height = 'auto';
       textarea.style.height = textarea.scrollHeight + 'px';

@@ -6,13 +6,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from "@angular/common
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { ToastrModule } from 'ngx-toastr';
-
-import {
-  PerfectScrollbarModule,
-  PERFECT_SCROLLBAR_CONFIG,
-  PerfectScrollbarConfigInterface
-} from 'ngx-perfect-scrollbar';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from "./shared/shared.module";
@@ -21,10 +14,12 @@ import { LandPageLayoutComponent } from "./layouts/land-page/land-page-layout.co
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
+import { environment } from '../environments/environment';
 
 const cookieConfig:NgcCookieConsentConfig = {
   cookie: {
-    domain: 'localhost' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+    domain:  environment.serverapi // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
   },
   palette: {
     popup: {
@@ -36,11 +31,6 @@ const cookieConfig:NgcCookieConsentConfig = {
   },
   theme: 'edgeless',
   type: 'opt-out'
-};
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
-  wheelPropagation: false
 };
 
 export function createTranslateLoader(http: HttpClient) {
@@ -56,7 +46,6 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     NgbModule,
     NgxSpinnerModule,
-    ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -64,8 +53,9 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    PerfectScrollbarModule,
-    NgcCookieConsentModule.forRoot(cookieConfig)
+    NgcCookieConsentModule.forRoot(cookieConfig),
+    NgxGoogleAnalyticsModule.forRoot(environment.GA_ID),
+    NgxGoogleAnalyticsRouterModule
   ],
   providers: [
     {
@@ -73,7 +63,6 @@ export function createTranslateLoader(http: HttpClient) {
       useClass: AuthInterceptor,
       multi   : true
     },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     WINDOW_PROVIDERS
   ],
   bootstrap: [AppComponent]

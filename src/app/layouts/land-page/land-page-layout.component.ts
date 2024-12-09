@@ -19,7 +19,6 @@ import { DOCUMENT } from "@angular/common";
 
 export class LandPageLayoutComponent implements OnInit {
   hasShownDialog: boolean = false;
-  isScrollTopVisible = false;
   modalReference: NgbModalRef;
 
   constructor(
@@ -46,6 +45,8 @@ export class LandPageLayoutComponent implements OnInit {
   }
 
   async showFeedbackDialog() {
+    /*const showFeedbackDxGPT = localStorage.getItem('showFeedbackDxGPT');
+    if (!this.hasShownDialog && localStorage.getItem('sentFeedbackDxGPT') == 'true' && (showFeedbackDxGPT == null || showFeedbackDxGPT != 'true')) {*/
     if (!this.hasShownDialog && localStorage.getItem('sentFeedbackDxGPT') == 'true') {
       let ngbModalOptions: NgbModalOptions = {
         backdrop: 'static',
@@ -91,12 +92,6 @@ export class LandPageLayoutComponent implements OnInit {
       this.renderer.addClass(this.document.body, "navbar-scrolled");
     } else {
       this.renderer.removeClass(this.document.body, "navbar-scrolled");
-    }
-
-    if (number > 400) {
-      this.isScrollTopVisible = true;
-    } else {
-      this.isScrollTopVisible = false;
     }
 
     if (number > 20) {

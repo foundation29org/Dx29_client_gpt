@@ -10,6 +10,8 @@
   <meta name="keywords" content="dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease" />
   <meta name="description" content="DxGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients." />
   <base href="/">
+  
+  <!-- Meta tags para Open Graph y Twitter -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="DxGPT: Diagnostic decision support software based on GPT-4" />
   <meta property="og:title" content="DxGPT: Diagnostic decision support software based on GPT-4" />
@@ -21,112 +23,19 @@
   <meta name="twitter:description" content="DxGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients." />
   <meta name="twitter:image" content="https://dxgpt.app/assets/img/logo-Dx29.png" />
 
-  <!-- Preconnect -->
-  <link rel="preconnect" href="https://www.googleadservices.com">
-  <link rel="preconnect" href="https://googleads.g.doubleclick.net">
-  <link rel="preconnect" href="https://www.google.com">
-  <link rel="preconnect" href="https://www.google.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- DNS Prefetch -->
-  <link rel="dns-prefetch" href="//www.googleadservices.com">
-  <link rel="dns-prefetch" href="//googleads.g.doubleclick.net">
-  <link rel="dns-prefetch" href="//www.google.com">
-  <link rel="dns-prefetch" href="//www.google.com">
-
+  
+  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script async src="https://kit.fontawesome.com/e0f1c8c0ac.js" crossorigin="anonymous"></script>
+  <link rel="preload" href="/assets/i18n/en.json" as="fetch" type="application/json" crossorigin="anonymous">
+  <link rel="preload" href="/assets/i18n/es.json" as="fetch" type="application/json" crossorigin="anonymous">
 
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900&display=swap" media="print" onload="this.media='all'">
-  <link rel="preload" href="assets/img/oval.svg" as="image">
-  <style type="text/css">
-    .pace .pace-activity {
-      top: 19px;
-      right: 19px;
-      display: none;
-    }
-
-    .page-loading {
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      overflow: hidden;
-      background: rgba(51, 51, 51, 1.00);
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-      z-index: -1;
-    }
-
-    .loading-icon {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 38px;
-      height: 38px;
-      margin-left: -19px;
-      margin-top: -19px;
-    }
-
-    app-root:empty~.page-loading {
-      opacity: 1;
-      z-index: 1;
-    }
-  </style>
-  <script async type="text/javascript">
-    var isApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && location.hostname != "localhost" && location.hostname != "127.0.0.1";
-    if (!isApp){
-      if (location.hostname != "localhost" && location.hostname != "127.0.0.1" && window.location.protocol == "http:") {
-        var restOfUrl = window.location.href.substr(5);
-        window.location = "https:" + restOfUrl;
-      }
-    }
-    </script>
-
-    <!-- Scripts que pueden cargarse asíncronamente -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FZQ49SRWY"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      if((location.hostname).indexOf('dxgpt')!=-1){
-        gtag('config', 'G-2FZQ49SRWY');
-      }      
-    </script>
+  <script src="assets/js/protocol-check.js"></script>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-335378785"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-335378785');
-    </script>
-  
-    <script>
-      gtag('event', 'conversion', {'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'});
-    </script>
-
 </head>
 
 <body>
   <app-root></app-root>
-  <div class="page-loading">
-    <img src="assets/img/oval.svg" alt="loading icon" class="loading-icon" loading="lazy" />
-  </div>
-  <!-- Hotjar script -->
-  <script defer>
-    (function(h,o,t,j,a,r){
-      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-      var idHotJar= 3279828;
-      h._hjSettings={hjid:idHotJar,hjsv:6};
-      a=o.getElementsByTagName('head')[0];
-      r=o.createElement('script');r.async=1;
-      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-      a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-  </script>
 </body>
 
 </html>

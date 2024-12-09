@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CustomFormsModule } from 'ngx-custom-validators';
 import { LandPageRoutingModule } from "./land-page-routing.module";
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -28,7 +27,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         FormsModule,
         ReactiveFormsModule,
         TranslateModule,
-        CustomFormsModule,
         NgbModule,
         MatCheckboxModule,
         MatRadioModule,
