@@ -14,7 +14,6 @@ import { LandPageLayoutComponent } from "./layouts/land-page/land-page-layout.co
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
-import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { environment } from '../environments/environment';
 
 const cookieConfig:NgcCookieConsentConfig = {
@@ -53,9 +52,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    NgcCookieConsentModule.forRoot(cookieConfig),
-    NgxGoogleAnalyticsModule.forRoot(environment.GA_ID),
-    NgxGoogleAnalyticsRouterModule
+    NgcCookieConsentModule.forRoot(cookieConfig)
   ],
   providers: [
     {

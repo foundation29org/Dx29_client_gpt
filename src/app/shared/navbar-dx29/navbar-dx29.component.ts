@@ -6,8 +6,8 @@ import { LangService } from 'app/shared/services/lang.service';
 import { EventsService } from 'app/shared/services/events.service';
 import { Injectable, Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { filter } from 'rxjs/operators';
+declare let gtag: any;
 
 @Component({
   selector: 'app-navbar-dx29',
@@ -30,7 +30,7 @@ export class NavbarD29Component implements OnDestroy {
   private subscription: Subscription = new Subscription();
   isMenuExpanded = false;
 
-  constructor(public translate: TranslateService, private langService: LangService, private router: Router, private inj: Injector, public insightsService: InsightsService, private gaService: GoogleAnalyticsService) {
+  constructor(public translate: TranslateService, private langService: LangService, private router: Router, private inj: Injector, public insightsService: InsightsService) {
     /*this.translate.use('en');
     sessionStorage.setItem('lang', 'en');*/
     this.loadLanguages();
@@ -124,7 +124,7 @@ export class NavbarD29Component implements OnDestroy {
 
   lauchEvent(category) {
     var secs = this.getElapsedSeconds();
-    this.gaService.gtag('event', category, { 'myuuid': sessionStorage.getItem('uuid'), 'event_label': secs });
+    gtag('event', category, { 'myuuid': sessionStorage.getItem('uuid'), 'event_label': secs });
   }
 
   getElapsedSeconds() {

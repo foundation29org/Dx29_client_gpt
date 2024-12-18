@@ -10,7 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService} from 'app/shared/services/events.service';
 import { Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
+declare let gtag: any;
   
 @Component({
     selector: 'app-feedback-page',
@@ -33,7 +33,7 @@ export class FeedbackPageComponent implements OnDestroy {
     freeTextLength: number = 0;
     formulario: FormGroup;
 
-    constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private gaService: GoogleAnalyticsService) {
+    constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
@@ -86,7 +86,7 @@ export class FeedbackPageComponent implements OnDestroy {
 
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
-        this.gaService.gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+        gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
     }
 
     ngOnDestroy() {

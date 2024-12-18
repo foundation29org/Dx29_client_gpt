@@ -39,7 +39,6 @@
     "cookieconsent": "^3.1.1",
     "jspdf": "^2.3.1",
     "ngx-cookieconsent": "^4.0.2",
-    "ngx-google-analytics": "^14.0.1",
     "ngx-spinner": "^14.0.0",
     "rxjs": "~7.5.0",
     "sweetalert2": "^10.11.1",
