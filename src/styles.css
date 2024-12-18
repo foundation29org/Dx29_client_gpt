@@ -80,8 +80,8 @@
 
   /* Para botones específicos */
   .btn-primary:focus-visible {
-    background-color: #c20000 !important;
-    border-color: #c20000 !important;
+    background-color: #0356ad !important;
+    border-color: #0356ad !important;
     color: #fff !important;
   }
 

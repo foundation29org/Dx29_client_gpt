@@ -40,6 +40,20 @@ getInfoLocation() {
       );
   }
 
+  postOpenAiNewModel(info: any) {
+    return this.http.post(environment.serverapi + '/api/callopenaiV2', info)
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError((err) => {
+          console.log(err);
+          this.insightsService.trackException(err);
+          return err;
+        })
+      );
+  }
+
   callopenaiquestions(info: any) {
     return this.http.post(environment.serverapi + '/api/callopenaiquestions', info)
       .pipe(
