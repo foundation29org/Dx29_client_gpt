@@ -446,6 +446,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     callNewModel(){
+        this.lauchEvent('callNewModel');
         this.callingOpenai = true;
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
