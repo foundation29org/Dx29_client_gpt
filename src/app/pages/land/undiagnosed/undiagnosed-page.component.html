@@ -79,6 +79,7 @@
                             translate }}</span>
                           <span class="mt-1 font-small-3 d-block">2. {{'diagnosis.Click on the disease to see more
                             options' | translate }}</span>
+                          <span class="mt-1 font-small-3 d-block">3. <strong>{{'land.Point3.1' | translate }}:</strong> {{'land.Point3.2' | translate }}</span>
                         </span>
                       </span>
                     </div>
@@ -114,8 +115,10 @@
                     </tr>
                   </tbody>
                 </table>
-                <div class="pt-2 border-top text-muted">
-                  <p class="ms-2">{{'diagnosis.advise' | translate }}</p>
+                <div class="pt-2 border-top text-center">
+                  <p class="text-muted">{{'diagnosis.advise' | translate }}</p>
+                  <p class="text-dark"><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></p>
+                  <button class="btn btn-primary mb-4" (click)="callNewModel()">{{'diagnosis.Try our advanced mode' | translate }}</button>
                 </div>
               </div>
               <span *ngIf="topRelatedConditions.length==0">

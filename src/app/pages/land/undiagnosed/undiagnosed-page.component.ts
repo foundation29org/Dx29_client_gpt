@@ -76,6 +76,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     feedbackTimestampDxGPT = localStorage.getItem('feedbackTimestampDxGPT');
     threeMonthsAgo = Date.now() - (3 * 30 * 24 * 60 * 60 * 1000); // 3 meses
     terms2: boolean = false;
+    model: boolean = false;
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
     //@ViewChild('autoajustable2', { static: false }) textareaEdit: ElementRef;
@@ -386,7 +387,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     continuePreparingCallOpenAi(step) {
         if (step == 'step3' || step == 'step4') {
-            this.callOpenAi();
+            this.callOpenAi(false);
         } else {
             Swal.fire({
                 title: this.translate.instant("generics.Please wait"),
@@ -397,15 +398,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }).then((result) => {
 
             });
-            this.callOpenAi();
+            this.callOpenAi(false);
         }
 
     }
 
-    callOpenAi() {
+    callOpenAi(newModel: boolean) {
+        this.model = newModel;
         Swal.close();
         Swal.fire({
-            html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p><em class="primary fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
+            html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p>' + this.translate.instant("land.swal3") + '</p>' + '<p><em class="primary fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
             showCancelButton: true,
             showConfirmButton: false,
             cancelButtonText: this.translate.instant("generics.Cancel"),
@@ -425,13 +427,30 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (this.loadMoreDiseases) {
             value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
         }
+        if(newModel){
+            this.subscription.add(
+                this.apiDx29ServerService.postOpenAiNewModel(value).subscribe(
+                    (res: any) => this.handleOpenAiResponse(res, value),
+                    (err: any) => this.handleOpenAiError(err)
+                )
+            );
+        }else{
+            this.subscription.add(
+                this.apiDx29ServerService.postOpenAi(value).subscribe(
+                    (res: any) => this.handleOpenAiResponse(res, value),
+                    (err: any) => this.handleOpenAiError(err)
+                )
+            );
+        }
+        
+    }
 
-        this.subscription.add(
-            this.apiDx29ServerService.postOpenAi(value).subscribe(
-                (res: any) => this.handleOpenAiResponse(res, value),
-                (err: any) => this.handleOpenAiError(err)
-            )
-        );
+    callNewModel(){
+        this.callingOpenai = true;
+        this.medicalTextEng = this.medicalTextOriginal;
+        this.differentialTextOriginal = '';
+        this.differentialTextTranslated = '';
+        this.callOpenAi(true);
     }
 
     handleOpenAiResponse(res: any, value: any) {
@@ -831,7 +850,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     vote(valueVote, contentFeedbackDown) {
         this.sendingVote = true;
 
-        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions }
+        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, isNewModel: this.model }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Vote: " + valueVote);
@@ -872,7 +891,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.showErrorForm = false;
         this.sending = true;
 
-        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe }
+        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe, isNewModel: this.model }
         this.subscription.add(this.apiDx29ServerService.feedback(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Feedback");
