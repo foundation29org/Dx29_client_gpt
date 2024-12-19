@@ -79,7 +79,7 @@
                             translate }}</span>
                           <span class="mt-1 font-small-3 d-block">2. {{'diagnosis.Click on the disease to see more
                             options' | translate }}</span>
-                          <span class="mt-1 font-small-3 d-block">3. <strong>{{'land.Point3.1' | translate }}:</strong> {{'land.Point3.2' | translate }}</span>
+                          <span *ngIf="!model" class="mt-1 font-small-3 d-block">3. <strong>{{'land.Point3.1' | translate }}</strong> {{'land.Point3.2' | translate }}</span>
                         </span>
                       </span>
                     </div>
@@ -117,8 +117,15 @@
                 </table>
                 <div class="pt-2 border-top text-center">
                   <p class="text-muted">{{'diagnosis.advise' | translate }}</p>
-                  <p class="text-dark"><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></p>
-                  <button class="btn btn-primary mb-4" (click)="callNewModel()">{{'diagnosis.Try our advanced mode' | translate }}</button>
+                  <div *ngIf="!model">
+                    <p class="text-dark"><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></p>
+                    <button class="btn btn-primary mb-4" (click)="callNewModel()">{{'diagnosis.Try our advanced mode' | translate }}</button>
+                  </div>
+                  <div *ngIf="model">
+                    <!--resultados generados con el modelo avanzado-->
+                    <p class="text-muted"><strong>{{'land.Results generated with the advanced model' | translate }}</strong></p>
+                    <button class="btn btn-primary mb-4" (click)="callOldModel()">{{'diagnosis.Try our faster mode' | translate }}</button>
+                  </div>
                 </div>
               </div>
               <span *ngIf="topRelatedConditions.length==0">
@@ -381,7 +388,7 @@
       <div class="col-md-12 center-elements">
         <button type="button" class="btn btn-secondary round" (click)="closeModal();">{{'generics.Cancel' | translate
           }}</button>
-        <button type="button" class="btn btn-info round" (click)="checkText('step1')"
+        <button type="button" class="btn btn-info round" (click)="checkText()"
           [attr.title]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
           [attr.aria-label]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
           [disabled]="callingOpenai">{{'land.Recalculate' | translate }}</button>
