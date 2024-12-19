@@ -139,6 +139,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async goPrevious() {
+        this.model = false;
         this.topRelatedConditions = [];
         this.currentStep = 1;
         await this.delay(200);
@@ -364,29 +365,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.continuePreparingCallOpenAi(step);
     }
 
-    preparingCallOpenAi2(step) {
-        this.callingOpenai = true;
-        if (step == 'step4') {
-            var labelMoreSymptoms = this.translate.instant("land.msgmoresymptoms")
-            if (this.medicalTextOriginal.indexOf(labelMoreSymptoms) == -1) {
-                this.copyMedicalText = this.copyMedicalText + '. ' + this.optionSelected.value + ' ' + this.differentialTextTranslated
-                this.medicalTextOriginal = this.medicalTextOriginal + '. ' + labelMoreSymptoms + ' ' + this.differentialTextOriginal;
-            } else {
-                this.copyMedicalText = this.copyMedicalText + ', ' + this.differentialTextTranslated
-                this.medicalTextOriginal = this.medicalTextOriginal + ', ' + this.differentialTextOriginal;
-            }
-            this.medicalTextEng = this.copyMedicalText;
-        }else {
-            this.medicalTextEng = this.medicalTextOriginal;
-        }
-        this.differentialTextOriginal = '';
-        this.differentialTextTranslated = '';
-        this.continuePreparingCallOpenAi(step);
-    }
-
 
     continuePreparingCallOpenAi(step) {
-        if (step == 'step3' || step == 'step4') {
+        if (step == 'step4') {
             this.callOpenAi(false);
         } else {
             Swal.fire({
@@ -452,6 +433,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.differentialTextOriginal = '';
         this.differentialTextTranslated = '';
         this.callOpenAi(true);
+    }
+
+    callOldModel(){
+        this.lauchEvent('callOldModel');
+        this.callingOpenai = true;
+        this.medicalTextEng = this.medicalTextOriginal;
+        this.differentialTextOriginal = '';
+        this.differentialTextTranslated = '';
+        this.callOpenAi(false);
     }
 
     handleOpenAiResponse(res: any, value: any) {
@@ -647,7 +637,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var diseases = this.diseaseListEn.map(disease => '+' + disease).join(', ');
         this.diseaseListText = diseases;
         this.loadMoreDiseases = true;
-        this.continuePreparingCallOpenAi('step3');
+        this.callOpenAi(this.model);
     }
 
     async scrollTo() {
@@ -777,10 +767,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
             });
             this.differentialTextTranslated = this.differentialTextOriginal;
-            this.preparingCallOpenAi('step4'); 
-        } else {
-            this.preparingCallOpenAi('step4');
+            
         }
+        this.preparingCallOpenAi('step4'); 
     }
 
     closeDiseaseUndiagnosed() {
@@ -1086,7 +1075,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         textarea.style.height = textarea.scrollHeight + 10 + 'px';
       }
 
-    async checkText(step) {
+    async checkText() {
         this.showErrorCall1 = false;
         if (this.callingOpenai || this.editmedicalText.length < 15) {
             this.showErrorCall1 = true;
@@ -1119,8 +1108,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             this.closeModal();
             this.medicalTextOriginal = this.editmedicalText;
-            this.preparingCallOpenAi(step);
+            this.finishEditDescription();
         }
+    }
+
+    finishEditDescription() {
+        this.medicalTextEng = this.medicalTextOriginal;
+        this.differentialTextOriginal = '';
+        this.differentialTextTranslated = '';
+        this.callOpenAi(this.model);
     }
 
     async openModal2(panel) {
