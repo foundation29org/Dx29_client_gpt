@@ -92,6 +92,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.setUUID();
         this.lauchEvent("Init Page");
         this.currentStep = 1;
+        localStorage.removeItem('sentFeedbackDxGPT');
         this.loadSponsors();
         this.loadingIP();
       }
@@ -142,6 +143,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.model = false;
         this.topRelatedConditions = [];
         this.currentStep = 1;
+        localStorage.removeItem('sentFeedbackDxGPT');
         await this.delay(200);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
@@ -218,6 +220,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.originalLang = lang;
                         this.restartInitVars();
                         this.currentStep = 1;
+                        localStorage.removeItem('sentFeedbackDxGPT');
                     }
                 });
             }
@@ -607,6 +610,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.loadMoreDiseases = false;
         if (this.currentStep == 1) {
             this.currentStep = 2;
+            history.pushState({ step: 2 }, 'DxGPT');
         }
         this.callingOpenai = false;
         Swal.close();

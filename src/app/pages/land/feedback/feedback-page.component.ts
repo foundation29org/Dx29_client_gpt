@@ -33,7 +33,7 @@ export class FeedbackPageComponent implements OnDestroy {
     freeTextLength: number = 0;
     formulario: FormGroup;
 
-    constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService) {
+    constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private eventsService: EventsService) {
         this._startTime = Date.now();
         if(sessionStorage.getItem('uuid')!=null){
             this.myuuid = sessionStorage.getItem('uuid');
@@ -59,6 +59,11 @@ export class FeedbackPageComponent implements OnDestroy {
           setTimeout(function () {
             //this.goTo('initpos');
         }.bind(this), 500);
+
+        this.subscription.add(this.eventsService.on('backEvent', () => {
+            this.activeModal.close('Close click');
+            this.clearLocalStorage();
+          }));
 
     }
 
@@ -125,8 +130,7 @@ export class FeedbackPageComponent implements OnDestroy {
             this.lauchEvent('Send email GENERAL FEEDBACK');
             this.activeModal.close();
             //broadcast event
-            var eventsLang = this.inj.get(EventsService);
-            eventsLang.broadcast('sentFeedbackDxGPT', true);
+            this.eventsService.broadcast('sentFeedbackDxGPT', true);
             localStorage.setItem('sentFeedbackDxGPT', 'sent')
             localStorage.setItem('feedbackTimestampDxGPT', Date.now().toString());
            }, (err) => {
@@ -199,6 +203,10 @@ export class FeedbackPageComponent implements OnDestroy {
         } else {
             localStorage.setItem('showFeedbackDxGPT', 'false')
         }
+    }
+
+    clearLocalStorage(){
+        localStorage.removeItem('sentFeedbackDxGPT');
     }
 
 }

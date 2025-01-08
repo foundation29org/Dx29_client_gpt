@@ -29,20 +29,20 @@ export class LandPageLayoutComponent implements OnInit {
     private renderer: Renderer2
   ) {
 
-    document.addEventListener("visibilitychange", () => {
+    /*document.addEventListener("visibilitychange", () => {
       if (document.hidden && this.modalReference == undefined) {
         this.showFeedbackDialog();
       }
-    });
+    });*/
   }
 
-  @HostListener('window:beforeunload', ['$event'])
+  /*@HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: BeforeUnloadEvent) {
     if(this.modalReference == undefined){
       this.showFeedbackDialog();
     }
     
-  }
+  }*/
 
   async showFeedbackDialog() {
     /*const showFeedbackDxGPT = localStorage.getItem('showFeedbackDxGPT');

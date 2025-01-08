@@ -1,5 +1,5 @@
 <a id="initpos"></a>
-<span class="p-2 m-1 float-end btn-close pointer" (click)="activeModal.close('Close click')" style="z-index: 3;position: absolute; right: 0px;">
+<span class="p-2 m-1 float-end btn-close pointer" (click)="activeModal.close('Close click'); clearLocalStorage()" style="z-index: 3;position: absolute; right: 0px;">
 </span>
 <section>
   <div class="col-12 p-3">
@@ -54,7 +54,7 @@
                     </label>
                   </mat-checkbox>
                 <div class="col-12 center-elements mt-3" *ngIf="!sending">
-                  <button type="button" class="btn btn-secondary btn-lg me-1" (click)="activeModal.close('Close click')">{{'generics.Close' | translate }}</button>
+                  <button type="button" class="btn btn-secondary btn-lg me-1" (click)="activeModal.close('Close click'); clearLocalStorage()">{{'generics.Close' | translate }}</button>
                   <button type="submit" class="btn btn-info btn-lg ms-1">{{'generics.Send' | translate }}</button>
                 </div>
                 <div class="col-md-12 center-elements" *ngIf="sending">
