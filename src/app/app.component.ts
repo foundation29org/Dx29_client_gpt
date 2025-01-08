@@ -31,6 +31,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   private isOpenSwal: boolean = false;
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, public translate: TranslateService, private ccService: NgcCookieConsentService, private eventsService: EventsService, private titleService: Title, private meta: Meta, private activatedRoute: ActivatedRoute, private ngZone: NgZone, private iconsService: IconsService) {
     this.translate.use('en');
+
+    // Detectar específicamente navegación hacia atrás
+    window.onpopstate = (event) => {
+      this.ngZone.run(() => {
+        this.eventsService.broadcast('backEvent', event);
+      });
+    };
   }
 
   delay(ms: number) {
