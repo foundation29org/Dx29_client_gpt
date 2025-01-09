@@ -92,7 +92,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.setUUID();
         this.lauchEvent("Init Page");
         this.currentStep = 1;
-        localStorage.removeItem('sentFeedbackDxGPT');
+        this.clearLocalStorage();
         this.loadSponsors();
         this.loadingIP();
       }
@@ -143,7 +143,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.model = false;
         this.topRelatedConditions = [];
         this.currentStep = 1;
-        localStorage.removeItem('sentFeedbackDxGPT');
+        this.clearLocalStorage();
         await this.delay(200);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
@@ -220,7 +220,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.originalLang = lang;
                         this.restartInitVars();
                         this.currentStep = 1;
-                        localStorage.removeItem('sentFeedbackDxGPT');
+                        this.clearLocalStorage();
                     }
                 });
             }
@@ -388,6 +388,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     callOpenAi(newModel: boolean) {
+        this.clearLocalStorage();
         this.model = newModel;
         Swal.close();
         Swal.fire({
@@ -1137,5 +1138,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
       onTermsAccepted() {
         this.acceptTerms = true;
         this.modalReference2.close();
+      }
+
+      clearLocalStorage() {
+        if(localStorage.getItem('sentFeedbackDxGPT') == 'true'){
+          localStorage.removeItem('sentFeedbackDxGPT');
+          localStorage.removeItem('feedbackTimestampDxGPT');
+        }
       }
 }
