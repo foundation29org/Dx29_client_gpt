@@ -15,6 +15,7 @@
     "Yes": "Si",
     "No": "No",
     "error try again": "Se ha producido un error, intente de nuevo",
+    "error edit patient description": "Si el problema persiste, edite la descripción del paciente",
     "entervalidemail": "¡Por favor introduzca una dirección de correo electrónico válida!",
     "required": "Este campo es requerido",
     "Back": "Atrás",

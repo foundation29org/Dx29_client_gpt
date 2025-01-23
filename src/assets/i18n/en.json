@@ -15,6 +15,7 @@
     "Yes": "Yes",
     "No": "No",
     "error try again": "An error has occurred, please try again",
+    "error edit patient description": "If the problem persists, edit the patient description",
     "entervalidemail": "Please enter a valid email!",
     "required": "This field is required",
     "Back": "Back",
