@@ -617,6 +617,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callingOpenai = false;
         Swal.close();
         //window.scrollTo(0, 0);
+         // Nueva conversión para la cuenta de display
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
+        });
         this.lauchEvent("Search Disease");
         await this.delay(200);
         this.scrollTo();
