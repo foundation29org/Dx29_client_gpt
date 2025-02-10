@@ -572,13 +572,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             this.setDiseaseListEn(parseChoices0);
             this.continueCallOpenAi(parseChoices0);
-            gtag('event', 'conversion', {
-                'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'
-            });
-            // Nueva conversión para la cuenta de display
-            gtag('event', 'conversion', {
-                'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
-            });
     }
 
     includesElement(array, string) {
@@ -624,6 +617,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callingOpenai = false;
         Swal.close();
         //window.scrollTo(0, 0);
+         // Nueva conversión para la cuenta de display
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
+        });
         this.lauchEvent("Search Disease");
         await this.delay(200);
         this.scrollTo();
