@@ -37,7 +37,8 @@
     "Invalid request format or content": "Format de requête ou contenu invalide",
     "Translation error": "Erreur de traduction",
     "errorQuestionType": "Le type de question est invalide. Veuillez vérifier la question et réessayer.",
-    "errorDiseaseName": "Le format du nom de la maladie est invalide. Veuillez vérifier le nom de la maladie et réessayer."
+    "errorDiseaseName": "Le format du nom de la maladie est invalide. Veuillez vérifier le nom de la maladie et réessayer.",
+    "unsupported language": "Désolé, la langue dans laquelle vous avez rédigé la description du patient n'est pas prise en charge. Veuillez rédiger la description du patient dans une autre langue."
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnostics proposés",

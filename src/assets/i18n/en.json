@@ -37,7 +37,8 @@
     "Invalid request format or content": "Invalid request format or content",
     "Translation error": "Translation error",
     "errorQuestionType": "The question type is invalid. Please check the question and try again.",
-    "errorDiseaseName": "The disease name format is invalid. Please check the disease name and try again."
+    "errorDiseaseName": "The disease name format is invalid. Please check the disease name and try again.",
+    "unsupported language": "Sorry, the language in which you have written the patient's description is not supported. Please write the patient's description in another language."
   },
   "diagnosis":{
     "Proposed diagnoses":"Proposed diagnoses",
