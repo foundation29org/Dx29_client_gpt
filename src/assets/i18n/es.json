@@ -37,7 +37,8 @@
     "Invalid request format or content": "Formato de solicitud inválido o contenido",
     "Translation error": "Error de traducción",
     "errorQuestionType": "El tipo de pregunta es inválido. Por favor, revisa la pregunta y vuelve a intentarlo.",
-    "errorDiseaseName": "El formato del nombre de la enfermedad es inválido. Por favor, revisa el nombre de la enfermedad y vuelve a intentarlo."
+    "errorDiseaseName": "El formato del nombre de la enfermedad es inválido. Por favor, revisa el nombre de la enfermedad y vuelve a intentarlo.",
+    "unsupported language": "Lo sentimos, el idioma en el que ha escrito la descripción del paciente no es soportado. Por favor, escriba la descripción del paciente en otro idioma."
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnósticos propuestos",
