@@ -109,7 +109,7 @@
     "error extension": "El archivo cargado debe tener una extensión .pdf, .docx o archivos de imagen",
     "Extracting the text from the document": "Extrayendo el texto del documento",
     "swal": "DxGPT está calculando. Espera unos segundos a que termine",
-    "swal2": "Estamos teniendo alta demanda, si tarda más de 1 minuto, cancela e intenta de nuevo.",
+    "swal2": "Estamos teniendo alta demanda, si tarda más de 2 minutos, cancela e intenta de nuevo.",
     "swal3": "Ayúdanos a mejorar, indica la calidad del resultado haciendo clic en los pulgares.",
     "q1": "¿Cuáles son los síntomas comunes?",
     "q2": "Dame más información",

@@ -721,7 +721,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }, (err) => {
                 console.log(err);
                 let msgError = '';
-                if(err.error.message){
+                if(err && err.error && err.error.message){
                     switch(err.error.message) {
                         case 'Invalid question type':
                             msgError = this.translate.instant("generics.errorQuestionType");
