@@ -206,7 +206,8 @@
     </div>
   </div>
 </ng-template>
-
+<!-- Botón oculto que se activará automáticamente cuando se reciban parámetros -->
+<button id="hiddenCheckPopupButton" style="display:none;" (click)="checkPopup(contentIntro)"></button>
 <ng-template #contentIntro let-c="close" let-d="dismiss" id="contentIntro" aria-labelledby="contentIntro"
   appendTo="body">
   <div class="modal-header">
