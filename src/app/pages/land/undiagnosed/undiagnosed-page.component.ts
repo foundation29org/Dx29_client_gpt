@@ -179,6 +179,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.route.queryParams.subscribe(params => {
             if (params['medicalText']) {
                 this.medicalTextOriginal = params['medicalText'];
+                setTimeout(() => {
+                    const hiddenButton = document.getElementById('hiddenCheckPopupButton');
+                    if (hiddenButton) {
+                        (hiddenButton as HTMLElement).click();
+                    }
+                }, 500);
             }
         });
         this.subscribeToEvents();
