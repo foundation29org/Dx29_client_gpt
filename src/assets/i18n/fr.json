@@ -47,6 +47,7 @@
     "Patient text entered": "Texte du patient saisi",
     "advise": "Veuillez noter que les diagnostics suggérés sont générés à l’aide d’un modèle d’intelligence artificielle avancé basé sur un langage et peuvent contenir des erreurs.",
     "Not satisfied with the results?": "Vous n'êtes pas satisfait des résultats ?",
+    "Improve patient description": "Améliorer la description du patient",
     "Try our advanced mode": "Essayez notre mode avancé",
     "Try our faster mode": "Essayez notre mode plus rapide",
     "SponsorMsg": "En savoir plus sur la maladie ici",
@@ -181,6 +182,23 @@
   "Show common diseases": "Voir les maladies courantes",
   "Show rare diseases": "Voir les maladies rares",
   "Load more": "Charger plus",
+  "followup": {
+    "title": "Sont-ils utiles?",
+    "question": "Correspondent-ils à vos symptômes?",
+    "yes": "Oui, ils sont pertinents",
+    "no": "Non, j'ai besoin de plus de précision",
+    "modal": {
+      "title": "Aider-nous à mieux comprendre vos symptômes",
+      "description": "Veuillez répondre à ces questions pour que nous puissions vous fournir des diagnostics plus précis :",
+      "loading": "Génération de questions spécifiques pour vos symptômes...",
+      "answer_placeholder": "Votre réponse ici...",
+      "no_questions": "Nous n'avons pas pu générer de questions spécifiques. Veuillez essayer de modifier manuellement votre description.",
+      "skip": "Passer",
+      "submit": "Envoyer les réponses",
+      "processing": "Traitement..."
+    }
+  },
+  "Please answer at least one question": "Veuillez répondre à au moins une question",
   "aboutUs": {
     "t0": "Quel problème résout DxGPT?",
     "p0.1": "Le diagnostic médical, en particulier pour les maladies rares, peut être un processus complexe et long. Les médecins doivent souvent examiner plusieurs symptômes, les antécédents médicaux et les résultats des tests, ce qui peut rendre le diagnostic correct difficile à atteindre rapidement. Cela non seulement retarde le traitement approprié du patient, mais augmente également l'incertitude dans le processus de prise de décision.",

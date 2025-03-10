@@ -47,6 +47,7 @@
     "Patient text entered": "Texto introducido del paciente",
     "advise": "Tenga en cuenta que los diagnósticos sugeridos se generan mediante un modelo avanzado de inteligencia artificial basado en el lenguaje, y puede contener errores.",
     "Not satisfied with the results?": "¿No estás satisfecho con los resultados?",
+    "Improve patient description": "Mejorar la descripción del paciente",
     "Try our advanced mode": "Prueba nuestro modo avanzado",
     "Try our faster mode": "Prueba nuestro modo más rápido",
     "SponsorMsg": "Conoce más de la enfermedad aquí",
@@ -181,6 +182,23 @@
     "Show common diseases": "Mostrar enfermedades comunes",
     "Show rare diseases": "Mostrar enfermedades raras",
     "Load more": "Cargar más",
+    "followup": {
+      "title": "¿Te resultan útiles estos diagnósticos?",
+      "question": "¿Alguna de estas descripciones se acerca a lo que experimentas?",
+      "yes": "Sí, son relevantes",
+      "no": "No, necesito más precisión",
+      "modal": {
+        "title": "Ayúdanos a entender mejor tus síntomas",
+        "description": "Por favor, responde a estas preguntas para que podamos ofrecerte diagnósticos más precisos:",
+        "loading": "Generando preguntas específicas para tus síntomas...",
+        "answer_placeholder": "Tu respuesta aquí...",
+        "no_questions": "No se pudieron generar preguntas específicas. Por favor, intenta editar tu descripción manualmente.",
+        "skip": "Omitir",
+        "submit": "Enviar respuestas",
+        "processing": "Procesando..."
+      }
+    },
+    "Please answer at least one question": "Por favor, responde al menos una pregunta",
     "aboutUs": {
       "t0": "¿Qué problema resuelve DxGPT?",
       "p0.1": "El diagnóstico médico, especialmente cuando se trata de enfermedades raras, puede ser un proceso complejo y largo. A menudo, los médicos necesitan revisar múltiples síntomas, antecedentes médicos y resultados de pruebas, lo que puede hacer que el diagnóstico correcto sea difícil de alcanzar rápidamente. Esto no solo puede retrasar el tratamiento adecuado para el paciente, sino también aumentar la incertidumbre en el proceso de toma de decisiones.",

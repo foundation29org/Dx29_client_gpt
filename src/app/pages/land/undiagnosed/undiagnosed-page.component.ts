@@ -78,6 +78,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     terms2: boolean = false;
     model: boolean = false;
 
+    // Nuevas propiedades para la funcionalidad de preguntas de seguimiento
+    showFollowUpQuestions: boolean = false;
+    followUpQuestions: any[] = [];
+    selectedFollowUpAnswer: string = '';
+    followUpAnswers: any = {};
+    loadingFollowUpQuestions: boolean = false;
+    processingFollowUpAnswers: boolean = false;
+
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
     //@ViewChild('autoajustable2', { static: false }) textareaEdit: ElementRef;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
@@ -1162,4 +1170,157 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
           localStorage.removeItem('feedbackTimestampDxGPT');
         }
       }
+
+    // Nuevos métodos para la funcionalidad de preguntas de seguimiento
+    
+    async handleFollowUpResponse(contentFollowUp?) {
+        this.showFollowUpQuestions = false;
+        
+        // Si el usuario no encuentra relevantes los diagnósticos, generamos preguntas de seguimiento
+        this.lauchEvent("FollowUp - Solicitar más información");
+        
+        if (contentFollowUp) {
+            let ngbModalOptions: NgbModalOptions = {
+                backdrop: 'static',
+                keyboard: false,
+                windowClass: 'ModalClass-lg'
+            };
+            
+            this.loadingFollowUpQuestions = true;
+            
+            if (this.modalReference != undefined) {
+                this.modalReference.close();
+            }
+            
+            this.modalReference = this.modalService.open(contentFollowUp, ngbModalOptions);
+            
+            // Generar preguntas de seguimiento basadas en la descripción actual
+            await this.generateFollowUpQuestions();
+        }
+    }
+    
+    async generateFollowUpQuestions() {
+        // Llamar a la API para generar preguntas de seguimiento
+        const value = { 
+            description: this.medicalTextEng, 
+            diseases: this.diseaseListEn.slice(0, 5).join(', '), 
+            myuuid: this.myuuid, 
+            operation: 'generate follow-up questions', 
+            lang: this.lang, 
+            ip: this.ip, 
+            timezone: this.timezone 
+        };
+        
+        this.subscription.add(
+            this.apiDx29ServerService.generateFollowUpQuestions(value).subscribe(
+                (res: any) => {
+                    if (res.result === 'success' && res.data && res.data.questions) {
+                        this.followUpQuestions = res.data.questions;
+                        this.followUpAnswers = {};
+                        this.loadingFollowUpQuestions = false;
+                    } else {
+                        this.handleFollowUpQuestionsError(res);
+                    }
+                },
+                (err) => {
+                    this.handleFollowUpQuestionsError(err);
+                }
+            )
+        );
+    }
+    
+    handleFollowUpQuestionsError(err: any) {
+        console.log(err);
+        let msgError = this.translate.instant("generics.error try again");
+        if (err && err.error && err.error.message) {
+            msgError = this.translate.instant("generics.error try again");
+        }
+        this.showError(msgError, err);
+        this.loadingFollowUpQuestions = false;
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+        }
+    }
+    
+    updateFollowUpAnswer(questionIndex: number, answer: string) {
+        this.followUpAnswers[questionIndex] = answer;
+    }
+    
+    hasAnswers(): boolean {
+        return Object.keys(this.followUpAnswers).length > 0;
+    }
+    
+    async processFollowUpAnswers() {
+        if (!this.hasAnswers()) {
+            const msgError = this.translate.instant("land.Please answer at least one question");
+            this.showError(msgError, null);
+            return;
+        }
+        
+        this.processingFollowUpAnswers = true;
+        
+        // Preparar las respuestas para enviarlas
+        const answeredQuestions = this.followUpQuestions
+            .filter((_, index) => this.followUpAnswers[index])
+            .map((question, index) => ({
+                question: question,
+                answer: this.followUpAnswers[index]
+            }));
+        
+        // Llamar a la API para procesar las respuestas y actualizar la descripción
+        const value = { 
+            description: this.medicalTextEng, 
+            answers: answeredQuestions,
+            myuuid: this.myuuid, 
+            operation: 'process follow-up answers', 
+            lang: this.lang, 
+            ip: this.ip, 
+            timezone: this.timezone 
+        };
+        
+        this.subscription.add(
+            this.apiDx29ServerService.processFollowUpAnswers(value).subscribe(
+                (res: any) => {
+                    if (res.result === 'success' && res.data && res.data.updatedDescription) {
+                        // Actualizar la descripción con la información adicional
+                        this.medicalTextOriginal = res.data.updatedDescription;
+                        this.medicalTextEng = res.data.updatedDescription;
+                        
+                        // Cerrar el modal
+                        if (this.modalReference != undefined) {
+                            this.modalReference.close();
+                        }
+                        
+                        // Realizar una nueva búsqueda con la descripción actualizada
+                        this.processingFollowUpAnswers = false;
+                        this.callOpenAi(this.model);
+                        
+                        this.lauchEvent("FollowUp - Descripción actualizada");
+                    } else {
+                        this.handleProcessFollowUpAnswersError(res);
+                    }
+                },
+                (err) => {
+                    this.handleProcessFollowUpAnswersError(err);
+                }
+            )
+        );
+    }
+    
+    handleProcessFollowUpAnswersError(err: any) {
+        console.log(err);
+        let msgError = this.translate.instant("generics.error try again");
+        if (err && err.error && err.error.message) {
+            msgError = this.translate.instant("generics.error try again");
+        }
+        this.showError(msgError, err);
+        this.processingFollowUpAnswers = false;
+    }
+    
+    skipFollowUpQuestions() {
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+        }
+        this.lauchEvent("FollowUp - Omitir preguntas");
+    }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map} from 'rxjs/operators';
 
 
@@ -92,6 +93,33 @@ getInfoLocation() {
           console.log(err);
           this.insightsService.trackException(err);
           return err;
+        })
+      );
+  }
+
+  generateFollowUpQuestions(value): Observable<any> {
+    return this.http.post(environment.serverapi + '/api/generatefollowupquestions', value)
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError((err) => {
+          console.log(err);
+          return throwError(err || 'Server error');
+        })
+      );
+  }
+
+  // Nuevo método para procesar las respuestas a las preguntas de seguimiento
+  processFollowUpAnswers(value): Observable<any> {
+    return this.http.post(environment.serverapi + '/api/processfollowupanswers', value)
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError((err) => {
+          console.log(err);
+          return throwError(err || 'Server error');
         })
       );
   }

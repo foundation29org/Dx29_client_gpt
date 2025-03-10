@@ -115,18 +115,7 @@
                     </tr>
                   </tbody>
                 </table>
-                <div class="pt-2 border-top text-center">
-                  <p class="text-muted">{{'diagnosis.advise' | translate }}</p>
-                  <div *ngIf="!model">
-                    <p class="text-dark"><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></p>
-                    <button class="btn btn-primary mb-4" (click)="callNewModel()">{{'diagnosis.Try our advanced mode' | translate }}</button>
-                  </div>
-                  <div *ngIf="model">
-                    <!--resultados generados con el modelo avanzado-->
-                    <p class="text-muted"><strong>{{'land.Results generated with the advanced model' | translate }}</strong></p>
-                    <button class="btn btn-primary mb-4" (click)="callOldModel()">{{'diagnosis.Try our faster mode' | translate }}</button>
-                  </div>
-                </div>
+                <p class="text-muted text-center pt-2">{{'diagnosis.advise' | translate }}</p>
               </div>
               <span *ngIf="topRelatedConditions.length==0">
                 <p>{{'land.nofound' | translate }}</p>
@@ -141,6 +130,30 @@
                     [attr.aria-label]="(callingAnonymize) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
                     (click)="downloadResults()"></em>
                 </span>
+              </div>
+              <div class="pt-2 border-top text-center" *ngIf="topRelatedConditions.length>0">
+                
+                <div>
+                  <p class="text-dark"><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></p>
+                  <div class="row col-md-12 justify-content-center mb-4">
+                    <div class="col-md-5 mb-2">
+                      <button class="btn btn-danger w-100" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
+                        <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
+                      </button>
+                      
+                    </div>
+                    <div class="col-md-5 mb-2">
+                      <button class="btn btn-primary w-100" (click)="callNewModel()">
+                        <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="model">
+                  <!--resultados generados con el modelo avanzado-->
+                  <p class="text-muted"><strong>{{'land.Results generated with the advanced model' | translate }}</strong></p>
+                  <button class="btn btn-primary mb-4" (click)="callOldModel()">{{'diagnosis.Try our faster mode' | translate }}</button>
+                </div>
               </div>
             </div>
           </span>
@@ -395,5 +408,58 @@
           [disabled]="callingOpenai">{{'land.Recalculate' | translate }}</button>
       </div>
     </div>
+  </div>
+</ng-template>
+
+<!-- Modal para preguntas de seguimiento -->
+<ng-template #contentFollowUpQuestions let-c="close" let-d="dismiss">
+  <div class="modal-header" id="topmodal">
+    <h4 class="modal-title">{{ 'land.followup.modal.title' | translate }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="skipFollowUpQuestions()"></button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="loadingFollowUpQuestions" class="text-center">
+      <p>{{ 'land.followup.modal.loading' | translate }}</p>
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    
+    <div *ngIf="!loadingFollowUpQuestions">
+      <p>{{ 'land.followup.modal.description' | translate }}</p>
+      
+      <div class="mb-4" *ngFor="let question of followUpQuestions; let i = index">
+        <div class="form-group">
+          <label class="form-label">{{ question }}</label>
+          <textarea 
+            class="form-control" 
+            rows="2" 
+            [placeholder]="'land.followup.modal.answer_placeholder' | translate" 
+            [(ngModel)]="followUpAnswers[i]"
+            (input)="updateFollowUpAnswer(i, followUpAnswers[i])">
+          </textarea>
+        </div>
+      </div>
+      
+      <div class="alert alert-info" *ngIf="followUpQuestions.length === 0">
+        {{ 'land.followup.modal.no_questions' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="skipFollowUpQuestions()">
+      {{ 'land.followup.modal.skip' | translate }}
+    </button>
+    <button 
+      type="button" 
+      class="btn btn-primary" 
+      [disabled]="!hasAnswers() || processingFollowUpAnswers" 
+      (click)="processFollowUpAnswers()">
+      <span *ngIf="!processingFollowUpAnswers">{{ 'land.followup.modal.submit' | translate }}</span>
+      <span *ngIf="processingFollowUpAnswers">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{ 'land.followup.modal.processing' | translate }}
+      </span>
+    </button>
   </div>
 </ng-template>
