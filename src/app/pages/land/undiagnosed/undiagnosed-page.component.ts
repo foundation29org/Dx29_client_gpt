@@ -1263,12 +1263,30 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.processingFollowUpAnswers = true;
         
         // Preparar las respuestas para enviarlas
-        const answeredQuestions = this.followUpQuestions
-            .filter((_, index) => this.followUpAnswers[index])
-            .map((question, index) => ({
-                question: question,
-                answer: this.followUpAnswers[index]
-            }));
+        const answeredQuestions = [];
+        
+        for (let i = 0; i < this.followUpQuestions.length; i++) {
+            // Solo incluir preguntas que tienen respuestas
+            if (this.followUpAnswers[i] && this.followUpAnswers[i].trim() !== '') {
+                // Asegurarnos de extraer correctamente el texto de la pregunta
+                // Si followUpQuestions[i] es un string, usarlo directamente
+                // Si es un objeto, intentar acceder a la propiedad de texto adecuada
+                let questionText = this.followUpQuestions[i];
+                
+                // Si questionText es un objeto y tiene una propiedad de texto
+                if (typeof questionText === 'object' && questionText !== null) {
+                    // Intentar diferentes propiedades comunes para el texto de la pregunta
+                    questionText = questionText.text || questionText.question || 
+                                 questionText.content || questionText.value || 
+                                 JSON.stringify(questionText);
+                }
+                
+                answeredQuestions.push({
+                    question: questionText,
+                    answer: this.followUpAnswers[i]
+                });
+            }
+        }
         
         // Llamar a la API para procesar las respuestas y actualizar la descripción
         const value = { 
