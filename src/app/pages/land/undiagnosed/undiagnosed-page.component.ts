@@ -403,7 +403,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     callOpenAi(newModel: boolean) {
         this.clearLocalStorage();
-        this.model = newModel;
+        
         Swal.close();
         Swal.fire({
             html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p>' + this.translate.instant("land.swal3") + '</p>' + '<p><em class="primary fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
@@ -429,14 +429,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if(newModel){
             this.subscription.add(
                 this.apiDx29ServerService.postOpenAiNewModel(value).subscribe(
-                    (res: any) => this.handleOpenAiResponse(res, value),
+                    (res: any) => this.handleOpenAiResponse(res, value, newModel),
                     (err: any) => this.handleOpenAiError(err)
                 )
             );
         }else{
             this.subscription.add(
                 this.apiDx29ServerService.postOpenAi(value).subscribe(
-                    (res: any) => this.handleOpenAiResponse(res, value),
+                    (res: any) => this.handleOpenAiResponse(res, value, newModel),
                     (err: any) => this.handleOpenAiError(err)
                 )
             );
@@ -462,7 +462,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callOpenAi(false);
     }
 
-    handleOpenAiResponse(res: any, value: any) {
+    handleOpenAiResponse(res: any, value: any, newModel: boolean) {
+       
         let msgError = this.translate.instant("generics.error try again");
         if (res.result) {
             switch (res.result) {
@@ -494,6 +495,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.callingOpenai = false;
                     break;
                 case 'success':
+                    this.model = newModel;
                     this.processOpenAiSuccess(res, value);
                     break;
                 default:
@@ -509,6 +511,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     handleOpenAiError(err: any) {
         console.log(err);
+        
         let msgError = '';
         
         // Si el error es un objeto con la propiedad result
