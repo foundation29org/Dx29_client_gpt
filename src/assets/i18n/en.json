@@ -47,6 +47,7 @@
     "Patient text entered": "Patient text entered",
     "advise": "Please note that suggested diagnoses are generated using an advanced language-based artificial intelligence model and may contain errors.",
     "Not satisfied with the results?": "Not satisfied with the results?",
+    "Improve patient description": "Improve patient description",
     "Try our advanced mode": "Try our advanced mode",
     "Try our faster mode": "Try our faster mode",
     "SponsorMsg": "Learn more about the disease here",
@@ -121,6 +122,7 @@
     "Point3.1": "Not satisfied with the results?",
     "Point3.2": "Try our advanced mode using the blue button below the list",
     "Results generated with the advanced model": "Results generated with the advanced model",
+    "Results generated with the faster model": "Results generated with the faster model",
     "thanks": "You made a great contribution to the disease community. Thank you!",
     "whynotexpected": "Why the results were not as expected?",
     "msgimprove": "In order to improve, we need your opinion",
@@ -181,6 +183,23 @@
     "Show common diseases": "Show common diseases",
     "Show rare diseases": "Show rare diseases",
     "Load more": "Load more",
+    "followup": {
+      "title": "Are these diagnoses helpful?",
+      "question": "Do any of these descriptions match what you're experiencing?",
+      "yes": "Yes, they're relevant",
+      "no": "No, I need more precision",
+      "modal": {
+        "title": "Help us better understand your symptoms",
+        "description": "Please answer these questions so we can provide more accurate diagnoses:",
+        "loading": "Generating specific questions for your symptoms...",
+        "answer_placeholder": "Your answer here...",
+        "no_questions": "We couldn't generate specific questions. Please try editing your description manually.",
+        "skip": "Skip",
+        "submit": "Submit answers",
+        "processing": "Processing..."
+      }
+    },
+    "Please answer at least one question": "Please answer at least one question",
     "aboutUs":{
       "t0": "What problem does DxGPT solve?",
       "p0.1": "Medical diagnosis, especially for rare diseases, can be a complex and lengthy process. Doctors often need to review multiple symptoms, medical history, and test results, which can make reaching the correct diagnosis challenging. This not only delays appropriate treatment for the patient but also increases uncertainty in the decision-making process.",
