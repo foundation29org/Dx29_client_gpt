@@ -115,7 +115,11 @@
                     </tr>
                   </tbody>
                 </table>
-                <p class="text-muted text-center pt-2">{{'diagnosis.advise' | translate }}</p>
+                <div class="text-center pt-3">
+                  <p class="text-muted mb-0" *ngIf="model"><strong>{{'land.Results generated with the advanced model' | translate }}</strong></p>
+                  <p class="text-muted mb-0" *ngIf="!model"><strong>{{'land.Results generated with the faster model' | translate }}</strong></p>
+                </div>
+                <p class="text-muted text-center">{{'diagnosis.advise' | translate }}</p>
               </div>
               <span *ngIf="topRelatedConditions.length==0">
                 <p>{{'land.nofound' | translate }}</p>
@@ -143,16 +147,12 @@
                       
                     </div>
                     <div class="col-md-5 mb-2">
-                      <button class="btn btn-primary w-100" (click)="callNewModel()">
+                      <button *ngIf="!model" class="btn btn-primary w-100" (click)="callNewModel()">
                         <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
                       </button>
+                      <button *ngIf="model" class="btn btn-primary w-100" (click)="callOldModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
                     </div>
                   </div>
-                </div>
-                <div *ngIf="model">
-                  <!--resultados generados con el modelo avanzado-->
-                  <p class="text-muted"><strong>{{'land.Results generated with the advanced model' | translate }}</strong></p>
-                  <button class="btn btn-primary mb-4" (click)="callOldModel()">{{'diagnosis.Try our faster mode' | translate }}</button>
                 </div>
               </div>
             </div>
