@@ -400,9 +400,9 @@
     </div>
     <div class="modal-footer">
       <div class="col-md-12 center-elements">
-        <button type="button" class="btn btn-secondary round" (click)="closeModal();">{{'generics.Cancel' | translate
+        <button type="button" class="me-1 btn btn-secondary round" (click)="closeModal();">{{'generics.Cancel' | translate
           }}</button>
-        <button type="button" class="btn btn-info round" (click)="checkText()"
+        <button type="button" class="ms-1 btn btn-info round" (click)="checkText()"
           [attr.title]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
           [attr.aria-label]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
           [disabled]="callingOpenai">{{'land.Recalculate' | translate }}</button>
