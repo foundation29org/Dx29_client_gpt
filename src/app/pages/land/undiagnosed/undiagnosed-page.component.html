@@ -19,8 +19,8 @@
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
         <button type="submit" class="btn btn-lg btn-info" (click)="checkPopup(contentIntro)"
-          [attr.title]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
-          [attr.aria-label]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
+          [attr.title]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
+          [attr.aria-label]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
           [disabled]="callingOpenai">
           {{'land.Search' | translate }}
         </button>
@@ -403,8 +403,8 @@
         <button type="button" class="me-1 btn btn-secondary round" (click)="closeModal();">{{'generics.Cancel' | translate
           }}</button>
         <button type="button" class="ms-1 btn btn-info round" (click)="checkText()"
-          [attr.title]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
-          [attr.aria-label]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Extract')"
+          [attr.title]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
+          [attr.aria-label]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
           [disabled]="callingOpenai">{{'land.Recalculate' | translate }}</button>
       </div>
     </div>
