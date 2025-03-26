@@ -123,4 +123,8 @@ getInfoLocation() {
         })
       );
   }
+
+  summarizeText(value: any): Observable<any> {
+    return this.http.post(environment.serverapi + '/api/summarize', value);
+  }
 }

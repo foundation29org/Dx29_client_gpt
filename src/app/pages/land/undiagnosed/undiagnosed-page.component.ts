@@ -241,7 +241,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         });
         this.eventsService.on('backEvent', async (event) => {
             if (this.currentStep == 2) {
-                this.newPatient();
+                //ask for confirmation
+                Swal.fire({
+                    title: this.translate.instant("land.Do you want to start over"),
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#B30000',
+                    cancelButtonColor: '#B0B6BB',
+                    confirmButtonText: this.translate.instant("generics.Yes"),
+                    cancelButtonText: this.translate.instant("generics.No"),
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        this.newPatient();
+                    }
+                });
             }
         });
     }
@@ -319,21 +335,69 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 text = text + ' ' + introText;
             }
             this.showError(text, null);
+            return;
         }
-        let words = this.countWords(this.medicalTextOriginal);
-        if(words>3000){
-            let excessWords = words - 3000;
-            let errorMessage = this.translate.instant("generics.exceedingWords", {
-                excessWords: excessWords
-              });
-              Swal.fire({
-                icon: 'error',
-                html: errorMessage,
-                showCancelButton: false,
-                showConfirmButton: true,
-                allowOutsideClick: false
-                });
+        let characters = this.countCharacters(this.medicalTextOriginal);
+        if (characters > 400000) {
+            Swal.fire({
+              title: this.translate.instant("generics.textTooLongMax"),
+              text: this.translate.instant("generics.textTooLongMaxModel"),
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            });
+            return;
+          }
+        if(characters > 8000) {
+            let errorMessage = this.translate.instant("generics.excessCharacters", {
+                excessCharacters: characters
+            });
             this.insightsService.trackEvent(errorMessage);
+            Swal.fire({
+                title: this.translate.instant("generics.textTooLongMax"),
+                html: this.translate.instant("generics.textTooLongMaxMessage") + '<br><br>' + this.translate.instant("generics.recommendedLength") + '<br><br>' + this.translate.instant("generics.aiSummaryWarning"),
+                icon: 'error',
+                showDenyButton: true,
+                confirmButtonText: this.translate.instant("generics.ShortenWithAI"),
+                denyButtonText: this.translate.instant("generics.Shorten"),
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.callOpenAiForSummary('new');
+                } else if (result.isDenied) {
+                    this.scrollTo();
+                }
+            });
+            return;
+        }
+
+        if(characters > 3000) {
+            Swal.fire({
+                title: this.translate.instant("generics.textTooLong"),
+                html: this.translate.instant("generics.textTooLongOptions") + '<br><br>' + this.translate.instant("generics.aiSummaryWarning"),
+                icon: 'warning',
+                showCancelButton: true,
+                showDenyButton: true,
+                confirmButtonText: this.translate.instant("generics.Continue"),
+                denyButtonText: this.translate.instant("generics.ShortenWithAI"),
+                cancelButtonText: this.translate.instant("generics.Shorten"),
+                allowOutsideClick: false
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    if (!this.showErrorCall1) {
+                        if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
+                            this.showPanelIntro(contentIntro)
+                            await this.delay(200);
+                            document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
+                        } else {
+                            this.preparingCallOpenAi('step1');
+                        }
+                    }
+                } else if (result.isDenied) {
+                    this.callOpenAiForSummary('new');
+                } else if (result.isDismissed) {
+                    this.scrollTo();
+                }
+            });
             return;
         }
         
@@ -955,16 +1019,32 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.showSuccess(msgSuccess);
     }
 
-    countWords(text) {
+    countCharacters(text) {
         text = text.trim();
         if (text === '') {
           return 0;
         }
-        return text.split(/\s+/).length;
+        return text.length;
       }
 
     resizeTextArea() {
-        this.resizeTextAreaFunc(this.textAreas);
+        if (this.textAreas) {
+            this.textAreas.forEach(textArea => {
+                const element = textArea.nativeElement;
+                const maxHeight = 500; // altura máxima en píxeles
+                
+                // Reset height before recalculating
+                element.style.height = 'auto';
+                // Set new height
+                const newHeight = element.scrollHeight;
+                // Ensure height is between min and max values
+                const finalHeight = Math.min(Math.max(newHeight, 100), maxHeight);
+                element.style.height = finalHeight + 'px';
+                
+                // Add scrolling if content exceeds max height
+                element.style.overflowY = newHeight > maxHeight ? 'auto' : 'hidden';
+            });
+        }
     }
 
     autoResize(event: Event) {
@@ -1103,9 +1183,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     resizeTextArea2(textarea: HTMLTextAreaElement) {
+        const maxHeight = 500; // altura máxima en píxeles
+        
         textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + 10 + 'px';
-      }
+        const newHeight = textarea.scrollHeight + 10;
+        const finalHeight = Math.min(Math.max(newHeight, 100), maxHeight);
+        textarea.style.height = finalHeight + 'px';
+        textarea.style.overflowY = newHeight > maxHeight ? 'auto' : 'hidden';
+    }
 
     async checkText() {
         this.showErrorCall1 = false;
@@ -1122,20 +1207,62 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.showError(text, null);
         }
         if (!this.showErrorCall1) {
-            let words = this.countWords(this.editmedicalText);
-            if(words>3000){
-                let excessWords = words - 3000;
-                let errorMessage = this.translate.instant("generics.exceedingWords", {
-                    excessWords: excessWords
-                });
+            let characters = this.countCharacters(this.editmedicalText);
+            if (characters > 400000) {
                 Swal.fire({
-                    icon: 'error',
-                    html: errorMessage,
-                    showCancelButton: false,
-                    showConfirmButton: true,
-                    allowOutsideClick: false
-                    });
+                  title: this.translate.instant("generics.textTooLongMax"),
+                  text: this.translate.instant("generics.textTooLongMaxModel"),
+                  icon: 'error',
+                  confirmButtonText: 'Ok'
+                });
+                return;
+              }
+            if(characters > 8000) {
+                let errorMessage = this.translate.instant("generics.excessCharacters", {
+                    excessCharacters: characters
+                });
                 this.insightsService.trackEvent(errorMessage);
+                Swal.fire({
+                    title: this.translate.instant("generics.textTooLongMax"),
+                    html: this.translate.instant("generics.textTooLongMaxMessage") + '<br><br>' + this.translate.instant("generics.recommendedLength") + '<br><br>' + this.translate.instant("generics.aiSummaryWarning"),
+                    icon: 'error',
+                    showDenyButton: true,
+                    confirmButtonText: this.translate.instant("generics.ShortenWithAI"),
+                    denyButtonText: this.translate.instant("generics.Shorten"),
+                    allowOutsideClick: false
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        this.callOpenAiForSummary('edit');
+                    } else if (result.isDenied) {
+                        await this.delay(400);
+                        document.getElementById('textareaedit').scrollIntoView({ behavior: "smooth" });
+                    }
+                });
+                return;
+            }
+            if(characters > 3000) {
+                Swal.fire({
+                    title: this.translate.instant("generics.textTooLong"),
+                    html: this.translate.instant("generics.textTooLongOptions") + '<br><br>' + this.translate.instant("generics.aiSummaryWarning"),
+                    icon: 'warning',
+                    showCancelButton: true,
+                    showDenyButton: true,
+                    confirmButtonText: this.translate.instant("generics.Continue"),
+                    denyButtonText: this.translate.instant("generics.ShortenWithAI"),
+                    cancelButtonText: this.translate.instant("generics.Shorten"),
+                    allowOutsideClick: false
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        this.closeModal();
+                        this.medicalTextOriginal = this.editmedicalText;
+                        this.finishEditDescription();
+                    } else if (result.isDenied) {
+                        this.callOpenAiForSummary('edit');
+                    } else if (result.isDismissed) {
+                        await this.delay(400);
+                        document.getElementById('textareaedit').scrollIntoView({ behavior: "smooth" });
+                    }
+                });
                 return;
             }
             this.closeModal();
@@ -1343,5 +1470,105 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.modalReference.close();
         }
         this.lauchEvent("FollowUp - Omitir preguntas");
+    }
+
+    callOpenAiForSummary(option: string) {
+        Swal.fire({
+            title: this.translate.instant("generics.Please wait"),
+            html: this.translate.instant("generics.summarizingText"),
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        });
+
+        let text = '';
+        if(option == 'edit'){
+            text = this.editmedicalText;
+        } else {
+            text = this.medicalTextOriginal;
+        }
+        const value = {
+            description: text,
+            myuuid: this.myuuid,
+            operation: 'summarize text',
+            lang: this.lang,
+            ip: this.ip,
+            timezone: this.timezone
+        };
+
+        this.subscription.add(
+            this.apiDx29ServerService.summarizeText(value).subscribe(
+                async (res: any) => {
+                    if (res.result === 'success' && res.data && res.data.summary) {
+                        if(option == 'edit'){
+                            this.editmedicalText = res.data.summary;
+                        } else {
+                            this.medicalTextOriginal = res.data.summary;
+                            this.medicalTextEng = res.data.summary;
+                        }
+                        Swal.close();
+                        
+                        // Usar setTimeout para asegurar que el DOM se actualice antes de redimensionar
+                        setTimeout(async () => {
+                            if(option=='edit'){
+                                await this.delay(500);
+                                setTimeout(() => {
+                                  const modalElement = document.getElementById('textareaedit');
+                                  if (modalElement) {
+                                    this.textareaEdit = new ElementRef(modalElement);
+                                    if (this.textareaEdit) {
+                                      const textarea = this.textareaEdit.nativeElement as HTMLTextAreaElement;
+                                      this.resizeTextArea2(textarea);
+                                    }
+                                  }
+                                }, 0);
+                            }else{
+                                if (this.textAreas) {
+                                    this.textAreas.forEach(textArea => {
+                                        const element = textArea.nativeElement;
+                                        element.style.height = 'auto';
+                                        element.style.height = element.scrollHeight + 'px';
+                                        // Asegurar un tamaño mínimo
+                                        if (element.scrollHeight < 100) {
+                                            element.style.height = '100px';
+                                        }
+                                    });
+                                }
+                            }
+                            
+                            
+                            Swal.fire({
+                                icon: 'info',
+                                title: this.translate.instant("generics.Please review the summary"),
+                                showConfirmButton: true,
+                                allowOutsideClick: true,
+                                didClose: () => {
+                                    if(option=='edit'){
+                                        document.getElementById('textareaedit').scrollIntoView({ behavior: "smooth" });
+                                    }else{
+                                        document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
+                                    }
+                                }
+                            });
+                        }, 0);
+                    } else {
+                        this.handleSummarizeError(res);
+                    }
+                },
+                (err) => {
+                    this.handleSummarizeError(err);
+                }
+            )
+        );
+    }
+
+    handleSummarizeError(err: any) {
+        console.log(err);
+        let msgError = this.translate.instant("generics.error try again");
+        if (err && err.error && err.error.message) {
+            msgError = this.translate.instant("generics.error try again");
+        }
+        this.showError(msgError, err);
     }
 }

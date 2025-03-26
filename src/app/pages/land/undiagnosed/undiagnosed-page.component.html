@@ -11,7 +11,16 @@
         <div class="search">
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
             [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" placeholder="{{'land.Type here' | translate }}"
-            (ngModelChange)="resizeTextArea()"></textarea>
+            (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()"></textarea>
+        </div>
+        <div class="text-end text-muted small mt-1">
+          <span [class.text-danger]="countCharacters(medicalTextOriginal) > 8000" 
+                [class.text-warning]="countCharacters(medicalTextOriginal) > 3000 && countCharacters(medicalTextOriginal) <= 8000">
+            {{ countCharacters(medicalTextOriginal) }} {{'generics.characters' | translate}}
+            <span class="ms-1" *ngIf="countCharacters(medicalTextOriginal) > 2000">
+              ({{'generics.recommended' | translate}}: 2000-3000)
+            </span>
+          </span>
         </div>
 
         <p class="">{{'land.Recommendations' | translate }}</p>
@@ -394,6 +403,15 @@
             <textarea #autoajustable2 id="textareaedit" rows="4" type="text" class="autoajustable searchTerm data-hj-allow"
               [(ngModel)]="editmedicalText" name="editmedicalText" placeholder="{{'land.Type here' | translate }}"
               (input)="autoResize($event)"></textarea>
+          </div>
+          <div class="text-end text-muted small mt-1">
+            <span [class.text-danger]="countCharacters(editmedicalText) > 8000" 
+                  [class.text-warning]="countCharacters(editmedicalText) > 3000 && countCharacters(editmedicalText) <= 8000">
+              {{ countCharacters(editmedicalText) }} {{'generics.characters' | translate}}
+              <span class="ms-1" *ngIf="countCharacters(editmedicalText) > 2000">
+                ({{'generics.recommended' | translate}}: 2000-3000)
+              </span>
+            </span>
           </div>
         </div>
       </div>
