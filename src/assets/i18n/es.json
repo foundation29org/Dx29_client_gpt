@@ -38,6 +38,7 @@
     "Translation error": "Error de traducción",
     "errorQuestionType": "El tipo de pregunta es inválido. Por favor, revisa la pregunta y vuelve a intentarlo.",
     "errorDiseaseName": "El formato del nombre de la enfermedad es inválido. Por favor, revisa el nombre de la enfermedad y vuelve a intentarlo.",
+    "minDescriptionLength": "La descripción debe tener al menos 100 caracteres para poder realizar un análisis preciso.",
     "unsupported language": "Lo sentimos, el idioma en el que ha escrito la descripción del paciente no es soportado. Por favor, escriba la descripción del paciente en otro idioma.",
     "textTooLong": "Texto demasiado largo",
     "textTooLongOptions": "Para obtener mejores resultados, se recomienda un texto entre 2000 y 3000 caracteres. ¿Qué desea hacer?",

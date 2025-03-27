@@ -543,7 +543,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.callingOpenai = false;
                     break;
                 case 'unsupported_language':
-                    msgError = this.translate.instant("generics.unsupported language");
+                    if(this.medicalTextEng.length > 100){
+                        msgError = this.translate.instant("generics.unsupported language");
+                    }else{
+                        msgError = this.translate.instant("generics.minDescriptionLength");
+                    }
+                    
                     this.showError(msgError, null);
                     this.callingOpenai = false;
                     break;

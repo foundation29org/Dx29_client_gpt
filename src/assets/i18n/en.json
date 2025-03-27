@@ -38,6 +38,7 @@
     "Translation error": "Translation error",
     "errorQuestionType": "The question type is invalid. Please check the question and try again.",
     "errorDiseaseName": "The disease name format is invalid. Please check the disease name and try again.",
+    "minDescriptionLength": "The description must be at least 100 characters to perform an accurate analysis.",
     "unsupported language": "Sorry, the language in which you have written the patient's description is not supported. Please write the patient's description in another language.",
     "textTooLong": "Text too long",
     "textTooLongOptions": "For better results, a text between 2000 and 3000 characters is recommended. What would you like to do?",
