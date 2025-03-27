@@ -15,16 +15,17 @@ export class ApiDx29ServerService {
 
 
 getInfoLocation() {
-  return this.http.get('https://ipinfo.io?token=87ec8c4192db17').pipe(
-    map((res: any) => {
-      return res;
-    }),
-    catchError((err) => {
-      console.log(err);
-      this.insightsService.trackException(err);
-      return err;
-    })
-  );
+  return new Observable(observer => {
+    try {
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      observer.next({ timezone });
+      observer.complete();
+    } catch (error) {
+      console.log(error);
+      this.insightsService.trackException(error);
+      observer.error(error);
+    }
+  });
 }
 
   postOpenAi(info: any) {

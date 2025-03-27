@@ -71,7 +71,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     tienePrisa: boolean = false;
     resultAnonymized: string = '';
     copyResultAnonymized: string = '';
-    ip: string = '29.29.29.29';
     timezone: string = '';
     feedbackTimestampDxGPT = localStorage.getItem('feedbackTimestampDxGPT');
     threeMonthsAgo = Date.now() - (3 * 30 * 24 * 60 * 60 * 1000); // 3 meses
@@ -125,8 +124,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     loadingIP() {
         this.subscription.add(this.apiDx29ServerService.getInfoLocation()
             .subscribe((res: any) => {
-                if (res.ip) {
-                    this.ip = res.ip
+                if (res.timezone) {
+                    console.log(res.timezone);
                     this.timezone = res.timezone
                 } else {
                     this.insightsService.trackException(res);
@@ -486,9 +485,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }.bind(this));
 
         this.callingOpenai = true;
-        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
+        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, operation: 'find disease', lang: this.lang, timezone: this.timezone }
         if (this.loadMoreDiseases) {
-            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, ip: this.ip, timezone: this.timezone }
+            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, timezone: this.timezone }
         }
         if(newModel){
             this.subscription.add(
@@ -782,7 +781,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const infoOptionEvent = this.getInfoOptionEvent(index);
         this.lauchEvent(infoOptionEvent);
 
-        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, operation: 'info disease', lang: this.lang, timezone: this.timezone, ip: this.ip, detectedLang: this.detectedLang }
+        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, operation: 'info disease', lang: this.lang, timezone: this.timezone, detectedLang: this.detectedLang }
         this.subscription.add(this.apiDx29ServerService.callopenaiquestions(value)
             .subscribe((res: any) => {
                 if (res.result === 'success') {
@@ -1341,8 +1340,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             diseases: this.diseaseListEn.slice(0, 5).join(', '), 
             myuuid: this.myuuid, 
             operation: 'generate follow-up questions', 
-            lang: this.lang, 
-            ip: this.ip, 
+            lang: this.lang,
             timezone: this.timezone 
         };
         
@@ -1426,8 +1424,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             answers: answeredQuestions,
             myuuid: this.myuuid, 
             operation: 'process follow-up answers', 
-            lang: this.lang, 
-            ip: this.ip, 
+            lang: this.lang,
             timezone: this.timezone 
         };
         
@@ -1498,7 +1495,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             myuuid: this.myuuid,
             operation: 'summarize text',
             lang: this.lang,
-            ip: this.ip,
             timezone: this.timezone
         };
 
