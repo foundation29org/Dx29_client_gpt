@@ -53,7 +53,15 @@
     "Please review the summary": "Por favor, revise el resumen",
     "characters": "caracteres",
     "recommended": "máx. recomendado",
-    "textTooLongMaxModel": "El texto excede el límite máximo de 400,000 caracteres permitido por el modelo. Por favor, acorte significativamente el texto para continuar."
+    "textTooLongMaxModel": "El texto excede el límite máximo de 400,000 caracteres permitido por el modelo. Por favor, acorte significativamente el texto para continuar.",
+    "Processing in queue": "Procesando en cola",
+    "Your request is in queue": "Tu solicitud está en cola",
+    "Position": "Posición",
+    "Estimated wait time": "Tiempo estimado de espera",
+    "minutes": "minutos",
+    "Please keep this window open": "Por favor, mantén esta ventana abierta",
+    "High demand": "Demanda alta",
+    "Waiting": "Esperando"
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnósticos propuestos",

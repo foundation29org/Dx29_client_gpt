@@ -53,7 +53,15 @@
     "Please review the summary": "Please review the summary",
     "characters": "characters",
     "recommended": "max. recommended",
-    "textTooLongMaxModel": "The text exceeds the maximum limit of 400,000 characters allowed by the model. Please significantly shorten the text to continue."
+    "textTooLongMaxModel": "The text exceeds the maximum limit of 400,000 characters allowed by the model. Please significantly shorten the text to continue.",
+    "Processing in queue": "Processing in queue",
+    "Your request is in queue": "Your request is in queue",
+    "Position": "Position",
+    "Estimated wait time": "Estimated wait time",
+    "minutes": "minutes",
+    "Please keep this window open": "Please keep this window open",
+    "High demand": "High demand",
+    "Waiting": "Waiting"
   },
   "diagnosis":{
     "Proposed diagnoses":"Proposed diagnoses",

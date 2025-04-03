@@ -10,6 +10,7 @@ import { catchError, map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiDx29ServerService {
+  
   constructor(private http: HttpClient, public insightsService: InsightsService) { }
 
 
@@ -32,6 +33,13 @@ getInfoLocation() {
     return this.http.post(environment.serverapi + '/api/callopenai', info)
       .pipe(
         map((res: any) => {
+          if (res.result === 'queued') {
+            return {
+              ...res,
+              isQueued: true,
+              queueInfo: res.queueInfo
+            };
+          }
           return res;
         }),
         catchError((err) => {
@@ -127,5 +135,20 @@ getInfoLocation() {
 
   summarizeText(value: any): Observable<any> {
     return this.http.post(environment.serverapi + '/api/summarize', value);
+  }
+
+  getQueueStatus(ticketId: string, timezone: string): Observable<any> {
+    const timestamp = new Date().getTime();
+    return this.http.post(environment.serverapi + '/api/queue-status/' + ticketId + '?t=' + timestamp, { timezone })
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError((err) => {
+          console.log(err);
+          this.insightsService.trackException(err);
+          return throwError(() => err);
+        })
+      );
   }
 }

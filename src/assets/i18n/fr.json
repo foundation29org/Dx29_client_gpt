@@ -53,7 +53,15 @@
     "Please review the summary": "Veuillez revoir le résumé",
     "characters": "caractères",
     "recommended": "max. recommandé",
-    "textTooLongMaxModel": "Le texte dépasse la limite maximale de 400 000 caractères autorisée par le modèle. Veuillez réduire significativement le texte pour continuer."
+    "textTooLongMaxModel": "Le texte dépasse la limite maximale de 400 000 caractères autorisée par le modèle. Veuillez réduire significativement le texte pour continuer.",
+    "Processing in queue": "En cours de traitement",
+    "Your request is in queue": "Votre demande est en cours de traitement",
+    "Position": "Position",
+    "Estimated wait time": "Temps estimé d'attente",
+    "minutes": "minutes",
+    "Please keep this window open": "Veuillez conserver cette fenêtre ouverte",
+    "High demand": "Demande élevée",
+    "Waiting": "En attente"
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnostics proposés",
