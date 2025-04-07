@@ -11,4 +11,252 @@
     </div>
 </div>
 </section>
+<span (click)="callShowStats()" *ngIf="!showStats">
+.
+</span>
+<div class="container-fluid" *ngIf="showStats">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">{{ 'reports.System Status' | translate }}</h4>
+                    <div class="d-flex align-items-center">
+                        <small class="text-muted me-2">{{ 'reports.Last update' | translate }}: {{ lastUpdate }}</small>
+                        <button class="btn btn-sm btn-primary" (click)="refreshData()" [disabled]="loading">
+                            <i class="fa" [ngClass]="{'fa-sync-alt': !loading, 'fa-spinner fa-spin': loading}"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div *ngIf="error" class="alert alert-danger">
+                        {{ error }}
+                    </div>
+
+                    <div *ngIf="!error && systemStatus">
+                        <!-- Health Status -->
+                        <div class="mb-4">
+                            <h5>{{ 'reports.Health Status' | translate }}</h5>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card" [ngClass]="'bg-' + (healthStatus?.status === 'healthy' ? 'success' : healthStatus?.status === 'unhealthy' ? 'danger' : 'warning')">
+                                        <div class="card-body">
+                                            <h6>{{ 'reports.System Health' | translate }}</h6>
+                                            <h3>
+                                                <span [ngClass]="getHealthStatusClass(healthStatus?.status)">
+                                                    {{ healthStatus?.status }}
+                                                </span>
+                                            </h3>
+                                            <small class="">{{ 'reports.Last check' | translate }}: {{ healthStatus?.timestamp | date:'medium' }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card" [ngClass]="'bg-' + (healthStatus?.checks?.servicebus?.status === 'healthy' ? 'success' : 'danger')">
+                                        <div class="card-body">
+                                            <h6>{{ 'reports.Service Bus' | translate }}</h6>
+                                            <h3>
+                                                <span [ngClass]="getHealthStatusClass(healthStatus?.checks?.servicebus?.status)">
+                                                    {{ healthStatus?.checks?.servicebus?.status }}
+                                                </span>
+                                            </h3>
+                                            <small *ngIf="healthStatus?.checks?.servicebus?.error" class="text-danger">
+                                                {{ healthStatus?.checks?.servicebus?.error }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card" [ngClass]="'bg-' + (healthStatus?.checks?.metrics?.status === 'healthy' ? 'success' : 'danger')">
+                                        <div class="card-body">
+                                            <h6>{{ 'reports.Metrics' | translate }}</h6>
+                                            <h3>
+                                                <span [ngClass]="getHealthStatusClass(healthStatus?.checks?.metrics?.status)">
+                                                    {{ healthStatus?.checks?.metrics?.status }}
+                                                </span>
+                                            </h3>
+                                            <small *ngIf="healthStatus?.checks?.metrics?.metricsLastHour" class="">
+                                                {{ 'reports.Metrics last hour' | translate }}: {{ healthStatus?.checks?.metrics?.metricsLastHour }}
+                                            </small>
+                                            <small *ngIf="healthStatus?.checks?.metrics?.error" class="text-danger">
+                                                {{ healthStatus?.checks?.metrics?.error }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Queues Health -->
+                        <div class="mb-4">
+                            <h5>{{ 'reports.Queues Health' | translate }}</h5>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'reports.Region' | translate }}</th>
+                                            <th>{{ 'reports.Status' | translate }}</th>
+                                            <th>{{ 'reports.Active Messages' | translate }}</th>
+                                            <th>{{ 'reports.Queued Messages' | translate }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let queue of healthStatus?.checks?.queues | keyvalue">
+                                            <td>{{ queue.key }}</td>
+                                            <td>
+                                                <span [ngClass]="getHealthStatusClass(queue.value.status)">
+                                                    {{ queue.value.status }}
+                                                </span>
+                                            </td>
+                                            <td>{{ queue.value.activeMessages }}</td>
+                                            <td>{{ queue.value.queuedMessages }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Global Status -->
+                        <div class="mb-4">
+                            <h5>{{ 'reports.Global Status' | translate }}</h5>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h6>{{ 'reports.Total Capacity' | translate }}</h6>
+                                            <h3>{{ systemStatus.queues.global.totalCapacity }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h6>{{ 'reports.Active Requests' | translate }}</h6>
+                                            <h3>{{ systemStatus.queues.global.totalActiveRequests }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h6>{{ 'reports.Queued Messages' | translate }}</h6>
+                                            <h3>{{ systemStatus.queues.global.totalQueuedMessages }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card" [ngClass]="'bg-' + getUtilizationClass(systemStatus.queues.global.globalUtilizationPercentage)">
+                                        <div class="card-body">
+                                            <h6>{{ 'reports.Global Utilization' | translate }}</h6>
+                                            <h3>{{ formatNumber(systemStatus.queues.global.globalUtilizationPercentage) }}%</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Regional Status -->
+                        <div class="mb-4">
+                            <h5>{{ 'reports.Regional Status' | translate }}</h5>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'reports.Region' | translate }}</th>
+                                            <th>{{ 'reports.Capacity' | translate }}</th>
+                                            <th>{{ 'reports.Active' | translate }}</th>
+                                            <th>{{ 'reports.Queued' | translate }}</th>
+                                            <th>{{ 'reports.Scheduled' | translate }}</th>
+                                            <th>{{ 'reports.Wait Time' | translate }}</th>
+                                            <th>{{ 'reports.Utilization' | translate }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let region of systemStatus.queues.regions | keyvalue">
+                                            <td>{{ region.key }}</td>
+                                            <td>{{ region.value.capacity }}</td>
+                                            <td>{{ region.value.activeRequests }}</td>
+                                            <td>{{ region.value.queuedMessages }}</td>
+                                            <td>{{ region.value.scheduledMessages }}</td>
+                                            <td>{{ region.value.estimatedWaitTime }} min</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="progress flex-grow-1 me-2" style="height: 6px;">
+                                                        <div class="progress-bar" 
+                                                             [ngClass]="'bg-' + getUtilizationClass(region.value.utilizationPercentage)"
+                                                             [style.width.%]="region.value.utilizationPercentage">
+                                                        </div>
+                                                    </div>
+                                                    <span [ngClass]="'text-' + getUtilizationClass(region.value.utilizationPercentage)">
+                                                        {{ formatNumber(region.value.utilizationPercentage) }}%
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Endpoints Status -->
+                        <div>
+                            <h5>{{ 'reports.Endpoints Status' | translate }}</h5>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'reports.Region' | translate }}</th>
+                                            <th>{{ 'reports.Primary Status' | translate }}</th>
+                                            <th>{{ 'reports.Backup Status' | translate }}</th>
+                                            <th>{{ 'reports.Capacity' | translate }}</th>
+                                            <th>{{ 'reports.Active' | translate }}</th>
+                                            <th>{{ 'reports.Queued' | translate }}</th>
+                                            <th>{{ 'reports.Utilization' | translate }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let endpoint of systemStatus.endpoints | keyvalue">
+                                            <td>{{ endpoint.key }}</td>
+                                            <td>
+                                                <span [ngClass]="getStatusClass(endpoint.value.status.primary)">
+                                                    {{ endpoint.value.status.primary }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span [ngClass]="getStatusClass(endpoint.value.status.backup)">
+                                                    {{ endpoint.value.status.backup }}
+                                                </span>
+                                            </td>
+                                            <td>{{ endpoint.value.capacity }}</td>
+                                            <td>{{ endpoint.value.activeRequests }}</td>
+                                            <td>{{ endpoint.value.queuedMessages }}</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="progress flex-grow-1 me-2" style="height: 6px;">
+                                                        <div class="progress-bar" 
+                                                             [ngClass]="'bg-' + getUtilizationClass(endpoint.value.utilizationPercentage)"
+                                                             [style.width.%]="endpoint.value.utilizationPercentage">
+                                                        </div>
+                                                    </div>
+                                                    <span [ngClass]="'text-' + getUtilizationClass(endpoint.value.utilizationPercentage)">
+                                                        {{ formatNumber(endpoint.value.utilizationPercentage) }}%
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!error && !systemStatus" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">{{ 'generics.Loading' | translate }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <app-send-msg></app-send-msg>

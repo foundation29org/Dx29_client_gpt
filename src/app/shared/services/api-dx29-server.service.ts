@@ -151,4 +151,34 @@ getInfoLocation() {
         })
       );
   }
+
+  getSystemStatus(): Observable<any> {
+    const timestamp = new Date().getTime();
+    return this.http.get(environment.serverapi + '/api/getSystemStatus?t=' + timestamp)
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError((err) => {
+          console.log(err);
+          this.insightsService.trackException(err);
+          return throwError(() => err);
+        })
+      );
+  }
+
+  getHealthStatus(): Observable<any> {
+    const timestamp = new Date().getTime();
+    return this.http.get(environment.serverapi + '/api/health?t=' + timestamp)
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError((err) => {
+          console.log(err);
+          this.insightsService.trackException(err);
+          return throwError(() => err);
+        })
+      );
+  }
 }

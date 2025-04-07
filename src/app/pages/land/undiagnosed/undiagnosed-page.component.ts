@@ -1687,17 +1687,48 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.subscription.add(
             this.apiDx29ServerService.getQueueStatus(this.currentTicketId, this.timezone).subscribe(
                 (res: any) => {
+                    console.log('Queue status update:', res);
+                    
+                    // Verificar si la respuesta tiene el formato esperado
                     if (res.result === 'success') {
                         if (res.status === 'completed') {
                             // La solicitud está completa
                             this.cancelQueueStatusCheck();
                             this.processOpenAiSuccess(res.data, {});
                         } else if (res.status === 'processing' || res.status === 'queued') {
-                            // Si la posición cambió, reiniciar el contador
+                            // Actualizar la posición y reiniciar el contador si cambió
                             if (this.currentPosition !== res.position) {
+                                console.log('Position changed from', this.currentPosition, 'to', res.position);
                                 this.currentPosition = res.position;
+                                
+                                // Solo actualizar el tiempo estimado si es menor al actual
+                                const currentEstimatedTime = this.totalWaitTime ? this.totalWaitTime / (60 * 1000) : Infinity;
+                                if (res.estimatedWaitTime < currentEstimatedTime) {
+                                    console.log('Estimated wait time improved from', currentEstimatedTime, 'to', res.estimatedWaitTime);
+                                    this.startCountdown(res.estimatedWaitTime);
+                                }
+                                
+                                // Forzar la actualización del modal
+                                this.updateQueueStatusModal(res.position, res.estimatedWaitTime);
+                            }
+                        }
+                    } 
+                    // Manejar el caso cuando la respuesta tiene un formato diferente
+                    else if (res.result === 'queued' && res.status === 'processing') {
+                        console.log('Received direct queue status update:', res);
+                        if (this.currentPosition !== res.position) {
+                            console.log('Position changed from', this.currentPosition, 'to', res.position);
+                            this.currentPosition = res.position;
+                            
+                            // Solo actualizar el tiempo estimado si es menor al actual
+                            const currentEstimatedTime = this.totalWaitTime ? this.totalWaitTime / (60 * 1000) : Infinity;
+                            if (res.estimatedWaitTime < currentEstimatedTime) {
+                                console.log('Estimated wait time improved from', currentEstimatedTime, 'to', res.estimatedWaitTime);
                                 this.startCountdown(res.estimatedWaitTime);
                             }
+                            
+                            // Forzar la actualización del modal
+                            this.updateQueueStatusModal(res.position, res.estimatedWaitTime);
                         }
                     }
                 },
@@ -1708,6 +1739,58 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 }
             )
         );
+    }
+    
+    private updateQueueStatusModal(position: number, estimatedWaitTime: number) {
+        // Obtener todas las traducciones necesarias
+        const translations = {
+            inQueue: this.translate.instant("generics.Your request is in queue"),
+            position: this.translate.instant("generics.Position"),
+            estimatedTime: this.translate.instant("generics.Estimated wait time"),
+            minutes: this.translate.instant("generics.minutes"),
+            seconds: this.translate.instant("generics.seconds"),
+            keepOpen: this.translate.instant("generics.Please keep this window open")
+        };
+        
+        // Calcular el tiempo restante
+        const elapsedTime = Date.now() - this.startTime;
+        const remainingTime = Math.max(0, this.totalWaitTime - elapsedTime);
+        const progressValue = Math.min(100, ((elapsedTime / this.totalWaitTime) * 100));
+        
+        const remainingMinutes = Math.floor(remainingTime / (60 * 1000));
+        const remainingSeconds = Math.floor((remainingTime % (60 * 1000)) / 1000);
+        
+        // Actualizar el modal con la nueva información
+        Swal.update({
+            html: `
+                <div class="queue-status-message" style="text-align: center; margin: 20px 0;">
+                    <p style="color: #666; margin: 10px 0;">${translations.inQueue}</p>
+                    <div style="background: #f3f3f3; border-radius: 10px; padding: 15px; margin: 15px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="color: #666;">${translations.position}:</span>
+                            <span style="font-weight: bold; color: #333;">#${position}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: #666;">${translations.estimatedTime}:</span>
+                            <span style="font-weight: bold; color: #333;">${remainingMinutes}:${remainingSeconds.toString().padStart(2, '0')}</span>
+                        </div>
+                    </div>
+                    <div style="background: #e8e8e8; height: 8px; border-radius: 4px; margin: 20px 0;">
+                        <div style="background: #4CAF50; width: ${progressValue}%; height: 100%; border-radius: 4px; transition: width 0.3s ease;"></div>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: center; margin-top: 15px;">
+                        <div class="queue-spinner" style="border: 3px solid #f3f3f3; border-top: 3px solid #3498db; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>
+                        <span style="color: #666; margin-left: 10px;">${translations.keepOpen}</span>
+                    </div>
+                </div>
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                </style>
+            `
+        });
     }
 
     private startCountdown(estimatedWaitTime: number) {
