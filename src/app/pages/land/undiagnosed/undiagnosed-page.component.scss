@@ -306,3 +306,43 @@ body {
   }
 
 }
+
+.queue-status-card {
+  padding: 20px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 20px 0;
+  text-align: center;
+
+  h3 {
+    color: #B30000;
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+  }
+
+  .queue-status-message {
+    margin-bottom: 20px;
+    
+    p {
+      margin: 8px 0;
+      color: #666;
+      font-size: 0.95rem;
+    }
+  }
+
+  .queue-progress {
+    margin: 20px 0;
+    padding: 0 20px;
+  }
+
+  .queue-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+    color: #666;
+    font-size: 0.9rem;
+  }
+}
