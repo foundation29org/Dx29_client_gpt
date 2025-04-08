@@ -399,12 +399,12 @@
     <div class="p-1">
       <div>
         <div class="">
-          <div class="form-group">
+          <div class="form-group mb-0">
             <textarea #autoajustable2 id="textareaedit" rows="4" type="text" class="autoajustable searchTerm data-hj-allow"
               [(ngModel)]="editmedicalText" name="editmedicalText" placeholder="{{'land.Type here' | translate }}"
               (input)="autoResize($event)"></textarea>
           </div>
-          <div class="text-end text-muted small mt-1">
+          <div class="text-end text-muted small">
             <span [class.text-danger]="countCharacters(editmedicalText) > 8000" 
                   [class.text-warning]="countCharacters(editmedicalText) > 3000 && countCharacters(editmedicalText) <= 8000">
               {{ countCharacters(editmedicalText) }} {{'generics.characters' | translate}}

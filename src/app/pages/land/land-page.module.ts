@@ -11,6 +11,9 @@ import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.comp
 import { CookiesPageComponent } from "./cookies/cookies.component";
 import { TestimonialsComponent } from "./testimonials/testimonials.component";
 
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
@@ -31,7 +34,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         MatCheckboxModule,
         MatRadioModule,
         PipeModule,
-        SharedModule
+        SharedModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule
     ],
     declarations: [
         ReportsPageComponent,
