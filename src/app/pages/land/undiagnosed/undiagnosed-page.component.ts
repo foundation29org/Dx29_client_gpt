@@ -642,6 +642,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.showError(msgError, null);
                     this.callingOpenai = false;
                     break;
+                case 'translation error':
+                    msgError = this.translate.instant("generics.Translation error");
+                    this.showError(msgError, null);
+                    this.callingOpenai = false;
+                    break;
                 case 'error openai':
                     msgError = this.translate.instant("generics.sorry cant anwser1");
                     this.showError(msgError, null);

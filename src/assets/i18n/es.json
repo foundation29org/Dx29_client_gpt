@@ -35,7 +35,7 @@
     "Unsaved changes will be lost": "Los cambios no guardados se perderán",
     "Yes, reload": "Sí, recargar",
     "Invalid request format or content": "Formato de solicitud inválido o contenido",
-    "Translation error": "Error de traducción",
+    "Translation error": "Ha habido un error con el servicio de traducción, modifique la descripción del paciente y vuelva a intentarlo.",
     "errorQuestionType": "El tipo de pregunta es inválido. Por favor, revisa la pregunta y vuelve a intentarlo.",
     "errorDiseaseName": "El formato del nombre de la enfermedad es inválido. Por favor, revisa el nombre de la enfermedad y vuelve a intentarlo.",
     "minDescriptionLength": "La descripción debe tener al menos 100 caracteres para poder realizar un análisis preciso.",
