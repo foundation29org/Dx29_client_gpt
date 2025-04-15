@@ -119,6 +119,19 @@ getInfoLocation() {
       );
   }
 
+  generateERQuestions(value): Observable<any> {
+    return this.http.post(environment.serverapi + '/api/generateerquestions', value)
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError((err) => {
+          console.log(err);
+          return throwError(err || 'Server error');
+        })
+      );
+  }
+
   // Nuevo método para procesar las respuestas a las preguntas de seguimiento
   processFollowUpAnswers(value): Observable<any> {
     return this.http.post(environment.serverapi + '/api/processfollowupanswers', value)

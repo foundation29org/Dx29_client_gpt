@@ -3,7 +3,10 @@
   <section *ngIf="currentStep == 1" class="col-12 d-flex flex-column">
     <div class="mt-4">
       <div class="col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
-        <h2 class="white">{{'land.title' | translate }}</h2>
+        <h2 class="white" (click)="changeModeFunctionality()">{{'land.title' | translate }}</h2>
+        <div *ngIf="modeFunctionality" class="badge bg-danger pulse-animation mb-3">
+          <i class="fa fa-ambulance me-1"></i> ER
+        </div>
       </div>
     </div>
       <div
@@ -27,13 +30,18 @@
       </div>
       <div
         class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-        <button type="submit" class="btn btn-lg btn-info" (click)="checkPopup(contentIntro)"
+        <button *ngIf="!modeFunctionality" type="submit" class="btn btn-lg btn-info" (click)="checkPopup(contentIntro)"
           [attr.title]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
           [attr.aria-label]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
           [disabled]="callingOpenai">
           {{'land.Search' | translate }}
         </button>
-
+        <button *ngIf="modeFunctionality" type="submit" class="btn btn-lg btn-info" (click)="handleERResponse(contentFollowUpQuestions)"
+          [attr.title]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
+          [attr.aria-label]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
+          [disabled]="callingOpenai">
+          {{'land.Search' | translate }}
+        </button>
       </div>
       <div
         class="mt-3 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
@@ -481,3 +489,25 @@
     </button>
   </div>
 </ng-template>
+
+<style>
+  .pulse-animation {
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+    }
+    
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+    
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+  }
+</style>
