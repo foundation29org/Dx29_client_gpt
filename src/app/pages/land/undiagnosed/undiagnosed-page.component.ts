@@ -230,7 +230,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.eventsService.on('changelang', async (lang) => {
             this.lang = lang;
             this.loadTranslations();
-            if (this.currentStep == 2 && this.originalLang != lang) {
+            if (this.currentStep == 2 && this.originalLang != lang && this.topRelatedConditions.length>0) {
                 Swal.fire({
                     title: this.translate.instant("land.Language has changed"),
                     text: this.translate.instant("land.Do you want to start over"),
@@ -254,7 +254,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         });
         this.eventsService.on('backEvent', async (event) => {
-            if (this.currentStep == 2) {
+            console.log(event);
+            console.log(this.currentStep);
+            console.log(this.topRelatedConditions.length);
+            if (this.currentStep == 2 && this.topRelatedConditions.length>0) {
                 //ask for confirmation
                 Swal.fire({
                     title: this.translate.instant("land.Do you want to start over"),
@@ -314,6 +317,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
         }
+        
+        // Desuscribirse de los eventos
+        this.eventsService.off('changelang');
+        this.eventsService.off('backEvent');
+        
+        // Cancelar todas las suscripciones
         this.subscription.unsubscribe();
     }
 
