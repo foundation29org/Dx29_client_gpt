@@ -134,6 +134,7 @@ export class NavbarD29Component implements OnDestroy {
   };
 
   goBackEvent() {
+    console.log('goBackEvent');
     var eventsLang = this.inj.get(EventsService);
     eventsLang.broadcast('backEvent', true);
   }

@@ -100,6 +100,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     private currentPosition: number = 0;
 
+    modeFunctionality: boolean = false;
+    private clickCounter: number = 0;
+    private lastClickTime: number = 0;
+
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
         this.initialize();
     }
@@ -226,7 +230,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.eventsService.on('changelang', async (lang) => {
             this.lang = lang;
             this.loadTranslations();
-            if (this.currentStep == 2 && this.originalLang != lang) {
+            if (this.currentStep == 2 && this.originalLang != lang && this.topRelatedConditions.length>0) {
                 Swal.fire({
                     title: this.translate.instant("land.Language has changed"),
                     text: this.translate.instant("land.Do you want to start over"),
@@ -250,7 +254,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         });
         this.eventsService.on('backEvent', async (event) => {
-            if (this.currentStep == 2) {
+            console.log(event);
+            console.log(this.currentStep);
+            console.log(this.topRelatedConditions.length);
+            if (this.currentStep == 2 && this.topRelatedConditions.length>0) {
                 //ask for confirmation
                 Swal.fire({
                     title: this.translate.instant("land.Do you want to start over"),
@@ -310,6 +317,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
         }
+        
+        // Desuscribirse de los eventos
+        this.eventsService.off('changelang');
+        this.eventsService.off('backEvent');
+        
+        // Cancelar todas las suscripciones
         this.subscription.unsubscribe();
     }
 
@@ -1428,6 +1441,82 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             await this.generateFollowUpQuestions();
         }
     }
+
+    changeModeFunctionality(){
+        const currentTime = new Date().getTime();
+        
+        // Reiniciar contador si han pasado más de 3 segundos desde el último clic
+        if (currentTime - this.lastClickTime > 3000) {
+            this.clickCounter = 0;
+        }
+        
+        // Incrementar contador y actualizar tiempo
+        this.clickCounter++;
+        this.lastClickTime = currentTime;
+        
+        // Cambiar modeFunctionality solo si se han registrado 5 clics rápidos
+        if (this.clickCounter >= 5) {
+            this.modeFunctionality = !this.modeFunctionality;
+            this.clickCounter = 0; // Reiniciar contador después de activar
+            console.log('Modo de funcionalidad cambiado:', this.modeFunctionality);
+        }
+    }
+
+    async handleERResponse(contentFollowUp?) {
+        this.showFollowUpQuestions = false;
+        
+        // Si el usuario no encuentra relevantes los diagnósticos, generamos preguntas de seguimiento
+        this.lauchEvent("FollowUp - Solicitar más información");
+        
+        if (contentFollowUp) {
+            let ngbModalOptions: NgbModalOptions = {
+                backdrop: 'static',
+                keyboard: false,
+                windowClass: 'ModalClass-lg'
+            };
+            
+            this.loadingFollowUpQuestions = true;
+            
+            if (this.modalReference != undefined) {
+                this.modalReference.close();
+            }
+            
+            this.modalReference = this.modalService.open(contentFollowUp, ngbModalOptions);
+            
+            // Generar preguntas de seguimiento basadas en la descripción actual
+            await this.generateERQuestions();
+        }
+    }
+
+    
+
+    async generateERQuestions() {
+        // Llamar a la API para generar preguntas de seguimiento
+        const value = { 
+            description: this.medicalTextOriginal, 
+            myuuid: this.myuuid, 
+            operation: 'generate ER questions', 
+            lang: this.lang,
+            timezone: this.timezone 
+        };
+        
+        this.subscription.add(
+            this.apiDx29ServerService.generateERQuestions(value).subscribe(
+                (res: any) => {
+                    if (res.result === 'success' && res.data && res.data.questions) {
+                        this.followUpQuestions = res.data.questions;
+                        this.followUpAnswers = {};
+                        this.loadingFollowUpQuestions = false;
+                    } else {
+                        this.handleFollowUpQuestionsError(res);
+                    }
+                },
+                (err) => {
+                    this.handleFollowUpQuestionsError(err);
+                }
+            )
+        );
+    }
     
     async generateFollowUpQuestions() {
         // Llamar a la API para generar preguntas de seguimiento
@@ -1523,7 +1612,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             lang: this.lang,
             timezone: this.timezone 
         };
+        if(this.modeFunctionality && this.medicalTextEng ==''){
+            value.description = this.medicalTextOriginal;
+        }
         
+
         this.subscription.add(
             this.apiDx29ServerService.processFollowUpAnswers(value).subscribe(
                 (res: any) => {
