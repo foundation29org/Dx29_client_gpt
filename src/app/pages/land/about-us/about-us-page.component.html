@@ -46,14 +46,16 @@
           <hr class="hr-custom mb-0">
         </h2>
         <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p2' | translate }}</p>
+          <p>{{'land.aboutUs.p2.1' | translate }}</p>
+          <p>{{'land.aboutUs.p2.2' | translate }}</p>
         </span>
         <h2 class="white card-title pt-4 text-bold-500 mb-0">
           {{'land.aboutUs.t3' | translate }}
           <hr class="hr-custom mb-0">
         </h2>
         <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p3' | translate }}</p>
+          <p>{{'land.aboutUs.p3.1' | translate }}</p>
+          <p>{{'land.aboutUs.p3.2' | translate }}</p>
         </span>
         <h2 class="white card-title pt-4 text-bold-500 mb-0">
           {{'land.aboutUs.t4' | translate }}
@@ -67,8 +69,8 @@
           <hr class="hr-custom mb-0">
         </h2>
         <span class="text-start row margin-left-0 p-2">
-          <p [innerHTML]="'land.aboutUs.p5' | translate "></p>
-          <p><a target="_blank" class="white text-decoration-underline" href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1"> Evaluation of the Clinical Utility of DxGPT, a GPT-4 Based Large Language Model, through an Analysis of Diagnostic Accuracy and User Experience | medRxiv</a> </p>
+          <p [innerHTML]="'land.aboutUs.p5.1' | translate "></p>
+          <p>{{'land.aboutUs.p5.2' | translate }} <a target="_blank" class="white text-decoration-underline" href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1">{{'land.aboutUs.p5.3' | translate }}</a></p>
         </span>
         
         <h2 class="white card-title pt-4 text-bold-500 mb-0">
@@ -78,30 +80,45 @@
         <span class="text-start row margin-left-0 p-2">
           <p>{{'land.aboutUs.p6.1' | translate }}</p>
           <p>{{'land.aboutUs.p6.2' | translate }}</p>
-          <ul>
-            <li>{{'land.aboutUs.p6.2.1' | translate }}</li>
-          </ul>
           <p>{{'land.aboutUs.p6.3' | translate }}</p>
-          <ul>
-            <li>{{'land.aboutUs.p6.3.1' | translate }}</li>
-            <li>{{'land.aboutUs.p6.3.2' | translate }}</li>
-          </ul>
-          <p>{{'land.aboutUs.p6.4' | translate }}</p>
-          <p>{{'land.aboutUs.p6.5' | translate }}</p>
-          <p>{{'land.aboutUs.p6.6' | translate }}</p>
-          <p>{{'land.aboutUs.p6.7' | translate }}</p>
-          <img class="w-100 pb-2" alt="accuracy dxgpt" src='assets/img/home/accuracy.webp'>
-          <p>{{'land.aboutUs.p6.8' | translate }}</p>
-          <p>{{'land.aboutUs.p6.9' | translate }}</p>
-          <p>{{'land.aboutUs.p6.10' | translate }}</p>
         </span>
-        <div class="text-start row margin-left-0 p-2 d-block">
-          <p class="mb-1">{{'land.aboutUs.citations' | translate }}:</p>
-          <p class="mb-1">[1] <a target="_blank" style="word-break: break-all;" class="white text-decoration-underline" href="https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1"> https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1</a> </p>
-          <p class="mb-1">[2] <a target="_blank" style="word-break: break-all;" class="white text-decoration-underline" href="https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1.full.pdf"> https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1.full.pdf</a> </p>
-          <p class="mb-1">[3] <a target="_blank" style="word-break: break-all;" class="white text-decoration-underline" href="https://github.com/foundation29org/Dx29_client_gpt"> https://github.com/foundation29org/Dx29_client_gpt</a> </p>
-          <p class="mb-1">[4] <a target="_blank" style="word-break: break-all;" class="white text-decoration-underline" href="https://github.com/foundation29org/dxgpt_testing/blob/main/README.md"> https://github.com/foundation29org/dxgpt_testing/blob/main/README.md</a> </p>
-          <p class="mb-1">[5] <a target="_blank" style="word-break: break-all;" class="white text-decoration-underline" href="https://news.microsoft.com/es-es/2023/09/15/madrid-health-service-a-pioneer-in-applying-generative-artificial-intelligence-to-improve-diagnosis-for-patients-with-rare-diseases/"> https://news.microsoft.com/es-es/2023/09/15/madrid-health-service-a-pioneer-in-applying-generative-artificial-intelligence-to-improve-diagnosis-for-patients-with-rare-diseases/</a> </p>
+        <h2 class="white card-title pt-4 text-bold-500 mb-0">
+          {{'land.aboutUs.implementationTitle' | translate }}
+          <hr class="hr-custom mb-0">
+        </h2>
+        <span class="text-start row margin-left-0 p-2">
+          <p>{{'land.aboutUs.implementationText1' | translate }}</p>
+          <p>{{'land.aboutUs.implementationText2' | translate }}</p>
+        </span>
+
+        <div class="row mt-4 mb-4 p-3">
+          <div class="col-md-4 center-elements">
+            <img class="img-responsive" alt="logo SERMAS" src='assets/img/home/sermas.webp' style="max-width: 100%;">
+          </div>
+          <div class="col-md-8">
+            <h3 class="white text-bold-500">{{'land.aboutUs.sermas.title' | translate }}</h3>
+            <p>{{'land.aboutUs.sermas.text' | translate }}</p>
+            <p>
+              <a target="_blank" class="white text-decoration-underline" href="https://news.microsoft.com/es-es/2023/09/15/el-servicio-madrileno-de-salud-pionero-en-la-aplicacion-de-inteligencia-artificial-generativa-para-la-mejora-del-diagnostico-en-pacientes-con-enfermedades-raras/">
+                {{'land.aboutUs.sermas.news1' | translate }}
+              </a>
+            </p>
+            <p>
+              <a target="_blank" class="white text-decoration-underline" href="https://www.comunidad.madrid/noticias/2025/01/12/comunidad-madrid-posibilita-acceso-6000-medicos-atencion-primaria-ia-diagnostico-enfermedades-raras">
+                {{'land.aboutUs.sermas.news2' | translate }}
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div class="row mt-4 mb-4 p-3">
+          <div class="col-md-4 center-elements">
+            <img class="img-responsive" alt="logo CatSalut" src='assets/img/home/logo-catsalut.webp' style="max-width: 100%;">
+          </div>
+          <div class="col-md-8">
+            <h3 class="white text-bold-500">{{'land.aboutUs.catsalut.title' | translate }}</h3>
+            <p>{{'land.aboutUs.catsalut.text' | translate }}</p>
+          </div>
         </div>
         <h2 class="white card-title pt-4 text-bold-500 mb-0">
           {{'land.aboutUs.ft' | translate }}
@@ -111,9 +128,31 @@
           <p>{{'land.aboutUs.fp1' | translate }}</p>
           <p>{{'land.aboutUs.fp2' | translate }}</p>
           <p>{{'land.aboutUs.fp3' | translate }}</p>
-          <p>{{'land.aboutUs.fp4' | translate }}</p>
-          <p>{{'land.aboutUs.fp5' | translate }}</p>
         </span>
+        <h2 class="white card-title pt-4 text-bold-500 mb-0">
+          {{'land.aboutUs.fstitle' | translate }}
+          <hr class="hr-custom mb-0">
+        </h2>
+        <span class="text-start row margin-left-0 p-2">
+          <p>{{'land.aboutUs.fs1' | translate }}</p>
+        </span>
+        <h2 class="white card-title pt-4 text-bold-500 mb-0">
+          {{'land.aboutUs.tptitle' | translate }}
+          <hr class="hr-custom mb-0">
+        </h2>
+        <span class="text-start row margin-left-0 p-2">
+          <p>{{'land.aboutUs.tp1' | translate }}</p>
+          <p>{{'land.aboutUs.tp2' | translate }}</p>
+          <p>{{'land.aboutUs.tp3' | translate }}</p>
+        </span>
+        <div class="row center-elements pad-logos">
+          <div class="col-12 col-sm-6 mb-3 p-4">
+            <img class="img-responsive" alt="logo Microsoft" src='assets/img/home/microsoft.webp' style="max-height: 130px !important;">
+          </div>
+                    <div class="col-12 col-sm-6 mb-3 p-4">
+            <img class="img-responsive" alt="logo Google" src='assets/img/home/google.webp' style="max-height: 130px !important;">
+          </div>
+        </div>
       </div>
     </div>
 </div>
@@ -123,46 +162,6 @@
     <div class="card-body" style="max-width: 1200px;">
       
       <div class="row m-0">
-
-        <h2 class="primary card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.implementationTitle' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.implementationText1' | translate }}</p>
-          <p>{{'land.aboutUs.implementationText2' | translate }}</p>
-        </span>
-
-        <div class="row mt-4 mb-4 p-3" style="background-color: #f5f5f5; border-radius: 10px;">
-          <div class="col-md-4 center-elements">
-            <img class="img-responsive" alt="logo SERMAS" src='assets/img/home/sermas.webp' style="max-width: 100%;">
-          </div>
-          <div class="col-md-8">
-            <h3 class="primary text-bold-500">{{'land.aboutUs.sermas.title' | translate }}</h3>
-            <p>{{'land.aboutUs.sermas.text' | translate }}</p>
-            <p>
-              <a target="_blank" class="primary text-decoration-underline" href="https://news.microsoft.com/es-es/2023/09/15/el-servicio-madrileno-de-salud-pionero-en-la-aplicacion-de-inteligencia-artificial-generativa-para-la-mejora-del-diagnostico-en-pacientes-con-enfermedades-raras/">
-                {{'land.aboutUs.sermas.news1' | translate }}
-              </a>
-            </p>
-            <p>
-              <a target="_blank" class="primary text-decoration-underline" href="https://www.comunidad.madrid/noticias/2025/01/12/comunidad-madrid-posibilita-acceso-6000-medicos-atencion-primaria-ia-diagnostico-enfermedades-raras">
-                {{'land.aboutUs.sermas.news2' | translate }}
-              </a>
-            </p>
-          </div>
-        </div>
-
-        <div class="row mt-4 mb-4 p-3" style="background-color: #f5f5f5; border-radius: 10px;">
-          <div class="col-md-4 center-elements">
-            <img class="img-responsive" alt="logo CatSalut" src='assets/img/home/logo-catsalut.webp' style="max-width: 100%;">
-          </div>
-          <div class="col-md-8">
-            <h3 class="primary text-bold-500">{{'land.aboutUs.catsalut.title' | translate }}</h3>
-            <p>{{'land.aboutUs.catsalut.text' | translate }}</p>
-          </div>
-        </div>
-
         <h2 class="primary card-title pt-4 text-bold-500 mb-0">
           {{'land.aboutUs.t8' | translate }}
           <hr class="hr-custom mb-0">
@@ -170,21 +169,6 @@
         <span class="text-start row margin-left-0 p-2">
           <p>{{'land.aboutUs.p8' | translate }}</p>
         </span>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p9.1' | translate }}</p>
-          <p>{{'land.aboutUs.p9.2' | translate }}</p>
-        </span>
-
-        <div class="row mt-4 mb-4 p-3" style="background-color: #f5f5f5; border-radius: 10px;">
-          <div class="col-md-4 center-elements">
-            <img class="img-responsive" alt="logo Microsoft" src='assets/img/home/microsoft.webp' style="max-width: 100%;">
-          </div>
-          <div class="col-md-8">
-            <h3 class="primary text-bold-500">{{'land.aboutUs.microsoft.title' | translate }}</h3>
-            <p>{{'land.aboutUs.microsoft.text' | translate }}</p>
-          </div>
-        </div>
-
         <div class="row center-elements pad-logos">
           <div class="col-12 col-sm-4 mb-3 p-4">
             <img class="img-responsive" alt="logo global commission" src='assets/img/home/header-logo.webp'>
@@ -203,9 +187,6 @@
           </div>
           <div class="col-12 col-sm-4 mb-3 p-4">
             <img class="img-responsive" alt="logo italfarmaco" src='assets/img/home/italfarmaco.webp'>
-          </div>
-          <div class="col-12 col-sm-12 mb-3 p-4 text-center">
-            <img class="img-responsive" alt="logo Google" src='assets/img/home/google.webp' style="max-width: 250px;">
           </div>
         </div>
         <h2 class="primary card-title pt-4 text-bold-500 mb-0">
