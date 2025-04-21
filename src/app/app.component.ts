@@ -89,16 +89,23 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     .pipe(mergeMap((route) => route.data))
     .subscribe((event) => {
       (async () => {
-        window.scrollTo(0, 0);
+        
+        // Asegurar que el scroll se ejecute después de renderizado
+        setTimeout(() => {
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'auto'
+          });
+        }, 500);
+        
         await this.delay(500);
         this.tituloEvent = event['title'];
         const titulo = this.translate.instant(this.tituloEvent);
         this.titleService.setTitle(titulo);
         this.changeMeta();
       })();
-
     });
-
 
     this.eventsService.on('changelang', async (lang) => {
 

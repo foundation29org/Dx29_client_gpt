@@ -25,6 +25,7 @@ export class NavbarD29Component implements OnDestroy {
   isHomePage: boolean = false;
   isAboutPage: boolean = false;
   isFaqPage: boolean = false;
+  isPrivacyPolicyPage: boolean = false;
   isReportsPage: boolean = false;
   _startTime: any;
   private subscription: Subscription = new Subscription();
@@ -43,26 +44,37 @@ export class NavbarD29Component implements OnDestroy {
           this.isHomePage = true;
           this.isAboutPage = false;
           this.isFaqPage = false;
+          this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
         } else if (tempUrl.indexOf('/aboutus') != -1) {
           this.isHomePage = false;
           this.isAboutPage = true;
           this.isFaqPage = false;
+          this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
         }else if (tempUrl.indexOf('/faq') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
           this.isFaqPage = true;
+          this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
         } else if (tempUrl.indexOf('/reports') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
           this.isFaqPage = false;
+          this.isPrivacyPolicyPage = false;
           this.isReportsPage = true;
+         }else if (tempUrl.indexOf('/privacy-policy') != -1) {
+            this.isHomePage = false;
+            this.isAboutPage = false;
+            this.isFaqPage = false;
+            this.isPrivacyPolicyPage = true;
+            this.isReportsPage = false;
         } else {
           this.isHomePage = false;
           this.isAboutPage = false;
           this.isFaqPage = false;
+          this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
         }
       }

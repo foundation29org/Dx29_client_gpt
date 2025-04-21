@@ -103,6 +103,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     modeFunctionality: boolean = false;
     private clickCounter: number = 0;
     private lastClickTime: number = 0;
+    currentYear: number = new Date().getFullYear();
 
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
         this.initialize();

@@ -33,6 +33,13 @@
                       <span>FAQs</span>
                   </a>
               </li>
+              <!--privacy-policy-->
+              <li class="nav-item me-2">
+                  <a class="nav-link" [ngClass]="(!isPrivacyPolicyPage)?'black':'black text-bold-700'" routerLink="/privacy-policy" (click)="lauchEvent('Page - Privacy policy')">
+                      <span>{{'menu.Privacy Policy' | translate }}</span>
+                  </a>
+              </li>
+              <!--privacy-policy-->
               <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'black text-bold-700'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')">
                       <span>{{'menu.Usage statistics' | translate }}</span>

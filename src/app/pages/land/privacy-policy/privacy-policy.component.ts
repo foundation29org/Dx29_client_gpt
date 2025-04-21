@@ -10,6 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class PrivacyPolicyPageComponent {
+  isShortVersion: boolean = true;
   constructor(public translate: TranslateService, private router: Router, @Optional() public activeModal: NgbActiveModal) {
   }
 
@@ -23,5 +24,9 @@ export class PrivacyPolicyPageComponent {
 
   goHome() {
     this.router.navigate(['/']);
+  }
+
+  toggleShortVersion() {
+    this.isShortVersion = !this.isShortVersion;
   }
 }
