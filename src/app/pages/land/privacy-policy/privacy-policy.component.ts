@@ -10,7 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class PrivacyPolicyPageComponent {
-  isShortVersion: boolean = true;
+  isShortVersion: boolean = false;
   constructor(public translate: TranslateService, private router: Router, @Optional() public activeModal: NgbActiveModal) {
   }
 
