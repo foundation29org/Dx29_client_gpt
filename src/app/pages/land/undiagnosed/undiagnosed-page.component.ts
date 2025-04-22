@@ -87,7 +87,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     processingFollowUpAnswers: boolean = false;
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
-    //@ViewChild('autoajustable2', { static: false }) textareaEdit: ElementRef;
+    @ViewChild('autoajustable', { static: false }) mainTextArea: ElementRef;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
 
     private queueStatusInterval: any;
@@ -1957,4 +1957,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         }, 1000); // Actualizar cada segundo
     }
+
+    // Agregar este método después del método resizeTextArea() o en una ubicación lógica
+    focusTextArea() {
+        if (this.mainTextArea) {
+            const element = this.mainTextArea.nativeElement;
+            element.placeholder = '';
+            element.focus();
+        }
+    }
+
+    restorePlaceholder() {
+        if (this.mainTextArea) {
+            const element = this.mainTextArea.nativeElement;
+            if (!this.medicalTextOriginal || this.medicalTextOriginal.trim() === '') {
+                element.placeholder = this.translate.instant('land.Placeholder help');
+            }
+        }
+    }
+
 }
