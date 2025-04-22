@@ -1,13 +1,9 @@
 import {
   Component,
-  OnInit,
   Inject,
   Renderer2,
   HostListener
 } from "@angular/core";
-import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.component';
-import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { EventsService } from 'app/shared/services/events.service';
 import { WINDOW } from 'app/shared/services/window.service';
 import { DOCUMENT } from "@angular/common";
 
@@ -17,64 +13,13 @@ import { DOCUMENT } from "@angular/common";
     styleUrls: ['./land-page-layout.component.scss']
 })
 
-export class LandPageLayoutComponent implements OnInit {
-  hasShownDialog: boolean = false;
-  modalReference: NgbModalRef;
+export class LandPageLayoutComponent {
 
   constructor(
-    private modalService: NgbModal,
-    private eventsService: EventsService,
     @Inject(DOCUMENT) private document: Document,
     @Inject(WINDOW) private window: Window,
     private renderer: Renderer2
   ) {
-
-    /*document.addEventListener("visibilitychange", () => {
-      if (document.hidden && this.modalReference == undefined) {
-        this.showFeedbackDialog();
-      }
-    });*/
-  }
-
-  /*@HostListener('window:beforeunload', ['$event'])
-  beforeunloadHandler(event: BeforeUnloadEvent) {
-    if(this.modalReference == undefined){
-      this.showFeedbackDialog();
-    }
-    
-  }*/
-
-  async showFeedbackDialog() {
-    /*const showFeedbackDxGPT = localStorage.getItem('showFeedbackDxGPT');
-    if (!this.hasShownDialog && localStorage.getItem('sentFeedbackDxGPT') == 'true' && (showFeedbackDxGPT == null || showFeedbackDxGPT != 'true')) {*/
-    if (!this.hasShownDialog && localStorage.getItem('sentFeedbackDxGPT') == 'true') {
-      let ngbModalOptions: NgbModalOptions = {
-        backdrop: 'static',
-        keyboard: false,
-        windowClass: 'ModalClass-lg'// xl, lg, sm
-      };
-      this.modalReference = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
-      this.modalReference.result
-      .then(() => {
-        this.modalReference = undefined;
-      })
-      .catch(() => {
-        this.modalReference = undefined;
-      });
-      //this.hasShownDialog = true;
-    }
-  }
-
-  ngOnInit() {
-    this.eventsService.on('sentFeedbackDxGPT', function (event) {
-      this.hasShownDialog = true;
-    }.bind(this));
-  }
-
-  async sidebarMouseleave(e) {
-    if(e.clientY == -1){
-      this.showFeedbackDialog();
-    }
   }
 
   scrollToTop() {

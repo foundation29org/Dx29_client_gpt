@@ -11,6 +11,7 @@ import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.servic
 import { Clipboard } from "@angular/cdk/clipboard"
 import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
+import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.component';
 declare let gtag: any;
 
 @Component({
@@ -73,8 +74,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     resultAnonymized: string = '';
     copyResultAnonymized: string = '';
     timezone: string = '';
-    feedbackTimestampDxGPT = localStorage.getItem('feedbackTimestampDxGPT');
-    threeMonthsAgo = Date.now() - (3 * 30 * 24 * 60 * 60 * 1000); // 3 meses
     terms2: boolean = false;
     model: boolean = false;
 
@@ -115,7 +114,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.setUUID();
         this.lauchEvent("Init Page");
         this.currentStep = 1;
-        this.clearLocalStorage();
         this.loadSponsors();
         this.loadingIP();
       }
@@ -166,7 +164,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.model = false;
         this.topRelatedConditions = [];
         this.currentStep = 1;
-        this.clearLocalStorage();
         await this.delay(200);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
@@ -249,7 +246,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.originalLang = lang;
                         this.restartInitVars();
                         this.currentStep = 1;
-                        this.clearLocalStorage();
                     }
                 });
             }
@@ -494,7 +490,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     callOpenAi(newModel: boolean) {
-        this.clearLocalStorage();
         
         Swal.close();
         Swal.fire({
@@ -824,15 +819,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.lauchEvent("Search Disease");
         await this.delay(200);
         this.scrollTo();
-        if (localStorage.getItem('sentFeedbackDxGPT') == null) {
-            localStorage.setItem('sentFeedbackDxGPT', 'true')
-        } else {
-            if (localStorage.getItem('showFeedbackDxGPT') == null || localStorage.getItem('showFeedbackDxGPT') != 'true') {
-                if (this.feedbackTimestampDxGPT === null || parseInt(this.feedbackTimestampDxGPT) < this.threeMonthsAgo) {
-                    localStorage.setItem('sentFeedbackDxGPT', 'true')
-                }
-            }
-        }
     }
 
     setDiseaseListEn(text) {
@@ -1055,9 +1041,21 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             .subscribe((res: any) => {
                 this.lauchEvent("Vote: " + valueVote);
                 this.sendingVote = false;
-                if (valueVote == 'down') {
+                /*if (valueVote == 'down') {
                     this.modalReference = this.modalService.open(contentFeedbackDown);
                 } else {
+                    let msgSuccess = this.translate.instant("land.thanks");
+                    this.showSuccess(msgSuccess);
+                }*/
+                // Abrir el modal de FeedbackPageComponent
+                if (localStorage.getItem('showFeedbackDxGPT') == null || localStorage.getItem('showFeedbackDxGPT') != 'true') {
+                    let ngbModalOptions: NgbModalOptions = {
+                        backdrop: 'static',
+                        keyboard: false,
+                        windowClass: 'ModalClass-lg'// xl, lg, sm
+                    };
+                    this.modalReference = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
+                }else{
                     let msgSuccess = this.translate.instant("land.thanks");
                     this.showSuccess(msgSuccess);
                 }
@@ -1406,13 +1404,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
       onTermsAccepted() {
         this.acceptTerms = true;
         this.modalReference2.close();
-      }
-
-      clearLocalStorage() {
-        if(localStorage.getItem('sentFeedbackDxGPT') == 'true'){
-          localStorage.removeItem('sentFeedbackDxGPT');
-          localStorage.removeItem('feedbackTimestampDxGPT');
-        }
       }
 
     // Nuevos métodos para la funcionalidad de preguntas de seguimiento

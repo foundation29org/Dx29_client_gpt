@@ -62,7 +62,6 @@ export class FeedbackPageComponent implements OnDestroy {
 
         this.subscription.add(this.eventsService.on('backEvent', () => {
             this.activeModal.close('Close click');
-            this.clearLocalStorage();
           }));
 
     }
@@ -129,10 +128,6 @@ export class FeedbackPageComponent implements OnDestroy {
             this.moreFunctLength = 0;
             this.lauchEvent('Send email GENERAL FEEDBACK');
             this.activeModal.close();
-            //broadcast event
-            this.eventsService.broadcast('sentFeedbackDxGPT', true);
-            localStorage.setItem('sentFeedbackDxGPT', 'sent')
-            localStorage.setItem('feedbackTimestampDxGPT', Date.now().toString());
            }, (err) => {
             this.insightsService.trackException(err);
              console.log(err);
@@ -203,10 +198,6 @@ export class FeedbackPageComponent implements OnDestroy {
         } else {
             localStorage.setItem('showFeedbackDxGPT', 'false')
         }
-    }
-
-    clearLocalStorage(){
-        localStorage.removeItem('sentFeedbackDxGPT');
     }
 
 }
