@@ -14,7 +14,7 @@
         <div class="search">
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
             [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" placeholder="{{'land.Placeholder help' | translate }}"
-            (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()"></textarea>
+            (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"></textarea>
         </div>
         <div class="text-end text-muted small mt-1">
           <span [class.text-danger]="countCharacters(medicalTextOriginal) > 8000" 
@@ -418,7 +418,7 @@
           <div class="form-group mb-0">
             <textarea #autoajustable2 id="textareaedit" rows="4" type="text" class="autoajustable searchTerm data-hj-allow"
               [(ngModel)]="editmedicalText" name="editmedicalText" placeholder="{{'land.Placeholder help' | translate }}"
-              (input)="autoResize($event)"></textarea>
+              (input)="autoResize($event)" (click)="focusTextArea()" (blur)="restorePlaceholder()"></textarea>
           </div>
           <div class="text-end text-muted small">
             <span [class.text-danger]="countCharacters(editmedicalText) > 8000" 
