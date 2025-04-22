@@ -7,7 +7,7 @@
   <section [ngClass]="(!isDirectRoute())?'col-md-12':'offset-md-2 col-md-8'">
     <div class="modal-header mt-4">
       <h4 class="modal-title">{{'menu.Privacy Policy' | translate }}</h4>
-      <button class="btn btn-sm btn-outline-danger ms-auto" (click)="toggleShortVersion()">
+      <button class="btn btn-sm btn-info ms-auto" (click)="toggleShortVersion()">
         {{ isShortVersion ? ('policyShort.fullVersion' | translate) : ('policyShort.shortVersion' | translate) }}
       </button>
     </div>
