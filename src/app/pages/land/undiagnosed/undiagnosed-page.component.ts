@@ -31,7 +31,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     differentialTextTranslated: string = '';
     copyMedicalText: string = '';
     modalReference: NgbModalRef;
-    modalReference2: NgbModalRef;
     topRelatedConditions: any = [];
     diseaseListEn: any = [];
     diseaseListText: string = '';
@@ -54,17 +53,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     sendingVote: boolean = false;
     selectorOption: string = '';
     symtpmsLabel: string = '';
-    feedBack1input: string = '';
-    feedBack2input: string = '';
     sending: boolean = false;
     symptomsDifferencial: any = [];
     selectedQuestion: string = '';
     email: string = '';
-    checkSubscribe: boolean = false;
-    acceptTerms: boolean = false;
     loadMoreDiseases: boolean = false;
     currentTicketId: string = '';
-    @ViewChild('f') feedbackDownForm: NgForm;
     showErrorForm: boolean = false;
     sponsors = [];
 
@@ -1035,7 +1029,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return this.translate.instant(literal);
     }
 
-    vote(valueVote, contentFeedbackDown) {
+    vote(valueVote) {
         this.sendingVote = true;
 
         var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, isNewModel: this.model }
@@ -1043,12 +1037,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             .subscribe((res: any) => {
                 this.lauchEvent("Vote: " + valueVote);
                 this.sendingVote = false;
-                /*if (valueVote == 'down') {
-                    this.modalReference = this.modalService.open(contentFeedbackDown);
-                } else {
-                    let msgSuccess = this.translate.instant("land.thanks");
-                    this.showSuccess(msgSuccess);
-                }*/
                 // Abrir el modal de FeedbackPageComponent
                 if (localStorage.getItem('showFeedbackDxGPT') == null || localStorage.getItem('showFeedbackDxGPT') != 'true') {
                     let ngbModalOptions: NgbModalOptions = {
@@ -1074,63 +1062,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 console.log(err);
                 this.sendingVote = false;
             }));
-    }
-
-    submitInvalidForm() {
-        this.showErrorForm = true;
-        if (!this.feedbackDownForm) { return; }
-        const base = this.feedbackDownForm;
-        for (const field in base.form.controls) {
-            if (!base.form.controls[field].valid) {
-                base.form.controls[field].markAsTouched()
-            }
-        }
-    }
-
-    onSubmitFeedbackDown() {
-        this.showErrorForm = false;
-        this.sending = true;
-
-        var value = { email: this.feedBack2input, myuuid: this.myuuid, lang: this.lang, info: this.feedBack1input, value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, topRelatedConditions: this.topRelatedConditions, subscribe: this.checkSubscribe, isNewModel: this.model }
-        this.subscription.add(this.apiDx29ServerService.feedback(value)
-            .subscribe((res: any) => {
-                this.lauchEvent("Feedback");
-                this.sending = false;
-                this.feedBack1input = '';
-                this.feedBack2input = '';
-                this.checkSubscribe = false;
-                this.acceptTerms = false;
-                if (this.modalReference != undefined) {
-                    this.modalReference.close();
-                    this.modalReference = undefined;
-                }
-                let msgSuccess = this.translate.instant("land.thanks");
-                this.showSuccess(msgSuccess);
-            }, (err) => {
-                if (err.error.message === 'Invalid request format or content') {
-                    const msgError = this.translate.instant("generics.Invalid request format or content");
-                    this.showError(msgError, err.error);
-                } else {
-                    const msgError = this.translate.instant("generics.error try again");
-                    this.showError(msgError, err.error);
-                }
-                this.insightsService.trackException(err);
-                console.log(err);
-                this.sending = false;
-            }));
-
-
-    }
-
-    closeFeedback() {
-        if (this.modalReference != undefined) {
-            this.modalReference.close();
-            this.modalReference = undefined;
-        }
-        this.checkSubscribe = false;
-        this.acceptTerms = false;
-        let msgSuccess = this.translate.instant("land.thanks");
-        this.showSuccess(msgSuccess);
     }
 
     countCharacters(text) {
@@ -1392,21 +1323,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callOpenAi(this.model);
     }
 
-    async openModal2(panel) {
-        let ngbModalOptions: NgbModalOptions = {
-          backdrop : 'static',
-            keyboard: false,
-            windowClass: 'ModalClass-sm'// xl, lg, sm
-        };
-        this.modalReference2 = this.modalService.open(panel, ngbModalOptions);
-        await this.delay(400);
-        document.getElementById('initpopup2').scrollIntoView(true);
-      }
-      
-      onTermsAccepted() {
-        this.acceptTerms = true;
-        this.modalReference2.close();
-      }
 
     // Nuevos métodos para la funcionalidad de preguntas de seguimiento
     
