@@ -1003,7 +1003,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var finalReport = "";
         var infoDiseases = this.getPlainInfoDiseases2();
         if (infoDiseases != "") {
-            finalReport = this.translate.instant("diagnosis.Proposed diagnoses") + ":\n" + infoDiseases;
+            // Dividir los diagnósticos en una lista y formatearlos
+            const formattedDiseases = infoDiseases.split('\n').map(disease => `- ${disease}`).join('\n');
+            finalReport = this.translate.instant("diagnosis.Proposed diagnoses") + ":\n" + formattedDiseases;
         }
         this.clipboard.copy(finalReport);
         let msgSuccess = this.translate.instant("land.Results copied to the clipboard");
