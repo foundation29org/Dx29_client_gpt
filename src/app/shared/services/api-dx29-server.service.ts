@@ -92,20 +92,6 @@ getInfoLocation() {
       );
   }
 
-  feedback(info: any) {
-    return this.http.post(environment.serverapi + '/api/feedback', info)
-      .pipe(
-        map((res: any) => {
-          return res;
-        }),
-        catchError((err) => {
-          console.log(err);
-          this.insightsService.trackException(err);
-          return err;
-        })
-      );
-  }
-
   generateFollowUpQuestions(value): Observable<any> {
     return this.http.post(environment.serverapi + '/api/generatefollowupquestions', value)
       .pipe(

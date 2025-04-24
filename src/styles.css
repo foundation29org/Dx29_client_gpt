@@ -8,6 +8,13 @@
   border-color: #b30000;
 }
 
+.dropdown-item:active {
+  color: #ffffff !important;
+  text-decoration:
+none;
+  background-color: #b30000 !important;
+}
+
 .btn-info {
   --bs-btn-color: #fff !important;
   --bs-btn-bg: #b30000 !important;

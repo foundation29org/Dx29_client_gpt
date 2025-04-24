@@ -30,7 +30,7 @@ export class FooterComponent{
   acceptTerms: boolean = false;
   showErrorForm: boolean = false;
   terms3: boolean = false;
-  @ViewChild('f') feedbackDownForm: NgForm;
+  @ViewChild('f') dataForm: NgForm;
   @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
   email: string = '';
 
@@ -72,8 +72,8 @@ export class FooterComponent{
 
 submitInvalidForm() {
   this.showErrorForm = true;
-  if (!this.feedbackDownForm) { return; }
-  const base = this.feedbackDownForm;
+  if (!this.dataForm) { return; }
+  const base = this.dataForm;
   for (const field in base.form.controls) {
       if (!base.form.controls[field].valid) {
           base.form.controls[field].markAsTouched()
