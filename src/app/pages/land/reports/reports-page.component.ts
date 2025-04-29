@@ -48,6 +48,7 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
         if (this.refreshInterval) {
             clearInterval(this.refreshInterval);
+            this.refreshInterval.unsubscribe();
         }
     }
 
