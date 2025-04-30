@@ -1,8 +1,8 @@
 <a id="initsteps" class="anchorSteps"></a>
 <div class="p-2 vertical-center background-dark">
   <section *ngIf="currentStep == 1" class="col-12 d-flex flex-column">
-    <div class="mt-4">
-      <div class="col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
+    <div class="">
+      <div class="mb-5 col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
         <h2 class="white" (click)="changeModeFunctionality()">{{'land.title' | translate }}</h2>
         <div *ngIf="modeFunctionality" class="badge bg-danger pulse-animation mb-3">
           <i class="fa fa-ambulance me-1"></i> ER
@@ -52,16 +52,16 @@
     <a id="step2"></a>
     <div class="row">
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
-        <button type="button" class="mt-2 btn btn-info me-1" (click)="newPatient()">{{'land.New patient' | translate
+        <button type="button" class="mt-2 btn btn-info me-2 min-widht-btn" (click)="newPatient()">{{'land.New patient' | translate
           }}</button>
-        <button type="button" class="mt-2 btn btn-info ms-1 me-1"
+        <button type="button" class="mt-2 btn btn-info ms-1 me-2 min-widht-btn"
           (click)="openDescripModal(contentEditDescription)">{{'land.Edit description' | translate }}</button>
-        <span *ngIf="hasAnonymize" class="ms-1"><button class="mt-2 btn btn-info me-2"
+        <span *ngIf="hasAnonymize" class="ms-1"><button class="mt-2 btn btn-info ms-1 min-widht-btn"
             (click)="openAnonymize(contentviewDoc)">
             <em class="fa-solid fa-user-shield"></em> {{'diagnosis.View anonymized text' | translate }}</button>
         </span>
       </span>
-      <div class="col-12">
+      <div class="col-12 mt-3">
         <div class="card rounded-lg border shadow">
           <span class="mt-0 mb-0">
             <div class="section maintxt min-height-0">
@@ -69,17 +69,17 @@
                 <div>
                   <div>
                     <div id="headerTable" class="border-top-none">
-                      <span class="row">
+                      <span class="row p-2">
                         <span class="col-12">
-                          <h4 class="white card-title text-bold-700 margin-top-0">{{'diagnosis.Proposed diagnoses' |
-                            translate }}</h4>
+                          <h4 class="white card-title text-bold-700 margin-top-0"><strong>{{'diagnosis.Proposed diagnoses' |
+                            translate }}</strong></h4>
                           <span class="float-end">
                             <ng-container *ngIf="!sendingVote; else loadingSpinner">
                               <button class="me-1 btn btn-success" (click)="vote('up')"
                                 [disabled]="sendingVote || callingAnonymize" title="Vote up">
                                 <em class="icon-hand white fa fa-2x fa-thumbs-up"></em>
                               </button>
-                              <button class="ms-1 btn btn-info" (click)="vote('down')"
+                              <button class="ms-1 btn btn-danger" (click)="vote('down')"
                                 [disabled]="sendingVote || callingAnonymize" title="Vote down">
                                 <em class="icon-hand fa fa-2x fa-thumbs-down"></em>
                               </button>
@@ -96,10 +96,10 @@
                             options' | translate }}</span>
                           <span class="mt-1 font-small-3 d-block">3. <strong>{{'land.Point3.1' | translate }}</strong> 
                             <div class="mt-2">
-                              <button class="me-2 mb-2 btn btn-danger btn-sm" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
+                              <button class="me-2 mb-2 btn btn-danger btn-sm size-btn" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
                                 <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
                               </button>
-                              <button *ngIf="!model" class="mb-2 btn btn-primary btn-sm" (click)="callNewModel()">
+                              <button *ngIf="!model" class="mb-2 btn btn-primary btn-sm size-btn" (click)="callNewModel()">
                                 <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
                               </button>
                               <button *ngIf="model" class="mb-2 btn btn-primary btn-sm" (click)="callOldModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
@@ -115,7 +115,7 @@
                 <table class="table mb-0 bg-white" aria-labelledby="rare disease">
                   <tbody>
                     <tr *ngFor="let disease of topRelatedConditions ; let i = index" class="d-flex">
-                      <td class="col-md-12 p-2 diseaseClass pointer"
+                      <td class="col-md-12 p-3 diseaseClass pointer"
                         (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
                         <span class="float-end ms-1">
                           <button class="btn-outline-info btn btn-sm me-1 mb-0 btn-fab round"
@@ -150,38 +150,34 @@
                 <p>{{'land.nofound' | translate }}</p>
               </span>
               <div class="col-md-12 mb-0 white p-2 center-elements background-dark">
-                <button class="btn btn-info mt-2 mb-2" (click)="loadMore()">{{'land.Load more' | translate }}</button>
+                <button class="btn btn-info mt-2 mb-2 min-widht-btn" (click)="loadMore()">{{'land.Load more' | translate }}</button>
                 <span class="optionsResults mt-2 mb-2">
-                  <em class="mt-1 fa fa-clipboard fa-2x info me-2 pointer" title="{{'land.Copy results' | translate }}"
+                  <em class="mt-1 fa fa-clipboard fa-2x info me-3 pointer white" title="{{'land.Copy results' | translate }}"
                     (click)="copyResults()"></em>
-                  <em class="mt-1 fa fa-2x fa-download info ms-1 pointer" [class.not-allowed]="callingAnonymize"
+                  <em class="mt-1 fa fa-2x fa-download info ms-1 pointer white" [class.not-allowed]="callingAnonymize"
                     [attr.title]="(callingAnonymize) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
                     [attr.aria-label]="(callingAnonymize) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
                     (click)="downloadResults()"></em>
                 </span>
               </div>
-              <div class="pt-4 border-top text-center" *ngIf="topRelatedConditions.length>0">
-                
-                <div>
-                  <p class="text-dark"><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></p>
-                  <div class="row center-elements p-2 mb-4">
-                    <div class="col-md-6 mb-2">
-                      <button class="btn btn-danger w-100" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
-                        <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
-                      </button>
-                      
-                    </div>
-                    <div class="col-md-6 mb-2">
-                      <button *ngIf="!model" class="btn btn-primary w-100" (click)="callNewModel()">
-                        <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
-                      </button>
-                      <button *ngIf="model" class="btn btn-primary w-100" (click)="callOldModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </span>
+        </div>
+        <div class="pt-4 text-center" *ngIf="topRelatedConditions.length>0">
+                
+          <div>
+            <h4 class=""><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></h4>
+            <div class="p-2 mb-4">
+              <button class="btn btn-danger me-3" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
+                <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
+              </button>
+              <button *ngIf="!model" class="btn btn-primary" (click)="callNewModel()">
+                <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
+              </button>
+              <button *ngIf="model" class="btn btn-primary" (click)="callOldModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -288,7 +284,7 @@
     </button>
   </div>
   <div class="modal-body content-wrapper p-2">
-    <div class="row center-elements pad-logos">
+    <div class="row center-elements pad-logos mb-5">
       <div class="col-lg-4 mb-3 pt-4">
         <em class="fas fa-gear fa-2x"></em>
         <h4 class="mt-2 mb-0">{{'land.p1.title' | translate }}</h4>
@@ -331,6 +327,7 @@
         </div>
       </div>
     </div>
+    <app-send-msg></app-send-msg>
   </div>
 </ng-template>
 <ng-template #contentviewDoc id="contentviewDoc" let-c="close" let-d="dismiss" appendTo="body">
@@ -438,7 +435,7 @@
     </button>
     <button 
       type="button" 
-      class="btn btn-primary" 
+      class="btn btn-info" 
       [disabled]="!hasAnswers() || processingFollowUpAnswers" 
       (click)="processFollowUpAnswers()">
       <span *ngIf="!processingFollowUpAnswers">{{ 'land.followup.modal.submit' | translate }}</span>

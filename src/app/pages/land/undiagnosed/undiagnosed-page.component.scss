@@ -1,5 +1,23 @@
 //@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+.autoajustable {
+  padding-top: 12px;
+  padding-right: 16px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+}
+
+.min-widht-btn{
+  min-width: 150px !important;
+  //background-color: #fff;
+  //color: #1c202a;
+  //border-color:#1c202a;
+}
+
+.size-btn{
+  font-size: 1rem !important;
+}
+
 .symptoms-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -37,7 +55,7 @@
 }
 
 .background-dark {
-  background-color: #353540;
+  background-color: #1c202a;
 }
 
 .help-link {
@@ -64,14 +82,15 @@
   min-height: 150px;
   height: 150px;
   //border: 3px solid #B30000;
-  padding: 5px;
-  border-radius: 5px 0 0 5px;
+  //padding: 5px;
+  border-radius: 15px 15px 0 15px;
   outline: none;
-  color: #353540;
+  color: #fff;
+  background:#1f232e;
 }
 
 .searchTerm:focus {
-  border-color: #B30000;
+  border-color: #1f232e;
 }
 
 .anchorSteps{
@@ -137,7 +156,7 @@ section {
 
 .custom-card-2{
   color: white !important;
-  background-color: #B30000 !important;
+  background-color: #1f232e !important;
 }
 
 .custom-card-2:hover {
@@ -145,11 +164,11 @@ section {
 }
 
 .diseaseClass:hover {
-  background-color: #ff00003D !important;
+  background-color: #acacac3d !important;
 }
 
 .list-group-item-action:hover {
-  background-color: #ff00003D !important;
+  background-color: #acacac3d !important;
 }
 
 .btn-primary {

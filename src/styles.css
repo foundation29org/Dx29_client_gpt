@@ -4,8 +4,8 @@
 
 .btn-info {
   color: #fff;
-  background-color: #b30000;
-  border-color: #b30000;
+  background-color: #253146;
+  border-color:#fff;
 }
 
 .dropdown-item:active {
@@ -116,7 +116,7 @@ none;
   color: #b30000 !important;
 }
 .primary {
-  color: #b30000 !important;
+  color: #1f232e !important;
 }
 
 .btn-outline-info {
