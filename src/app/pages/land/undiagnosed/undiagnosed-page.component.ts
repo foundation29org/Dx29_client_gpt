@@ -97,6 +97,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private clickCounter: number = 0;
     private lastClickTime: number = 0;
     currentYear: number = new Date().getFullYear();
+    generatingPDF: boolean = false;
 
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
         this.initialize();
@@ -1014,6 +1015,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
       async downloadResults() {
         if (!this.callingAnonymize) {
           try {
+            this.generatingPDF = true;
             const pdfMakeModule = await import('pdfmake/build/pdfmake');
             const vfsFontsModule = await import('pdfmake/build/vfs_fonts');
       
@@ -1033,10 +1035,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
               this.lang,
               pdfMake
             );
-      
+            this.generatingPDF = false;
             this.lauchEvent('Download results');
       
           } catch (error) {
+            this.generatingPDF = false;
             console.error('Error loading PDF service:', error);
             this.insightsService.trackException(error);
           }
