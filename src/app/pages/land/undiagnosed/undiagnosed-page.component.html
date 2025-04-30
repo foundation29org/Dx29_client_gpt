@@ -158,7 +158,7 @@
                     [attr.title]="(callingAnonymize || generatingPDF) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
                     [attr.aria-label]="(callingAnonymize || generatingPDF) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
                     (click)="!callingAnonymize && !generatingPDF && downloadResults()"></em>
-                    <span *ngIf="generatingPDF" class="generating-pdf-message">
+                    <span *ngIf="generatingPDF" class="ms-2">
                       <em class="fa fa-spinner fa-spin"></em> {{'land.Generating PDF' | translate }}...
                     </span>
                 </span>
