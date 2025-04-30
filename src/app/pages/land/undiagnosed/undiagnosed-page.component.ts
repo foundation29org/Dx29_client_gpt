@@ -1013,17 +1013,35 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
       async downloadResults() {
         if (!this.callingAnonymize) {
-            try {
-                const { jsPDFService } = await import('app/shared/services/jsPDF.service');
-                const pdfService = new jsPDFService(this.translate);
-                pdfService.generateResultsPDF(this.medicalTextOriginal, this.topRelatedConditions, this.lang);
-                this.lauchEvent('Download results');
-            } catch (error) {
-                console.error('Error loading PDF service:', error);
-                this.insightsService.trackException(error);
-            }
+          try {
+            const pdfMakeModule = await import('pdfmake/build/pdfmake');
+            const vfsFontsModule = await import('pdfmake/build/vfs_fonts');
+      
+            // Extraer los módulos correctamente
+            const pdfMake = (pdfMakeModule as any).default || pdfMakeModule;
+            const vfsFonts = (vfsFontsModule as any).default || vfsFontsModule;
+      
+            // Asignar VFS correctamente
+            pdfMake.vfs = vfsFonts.vfs;
+      
+            const { PdfMakeService } = await import('app/shared/services/pdf-make.service');
+            const pdfService = new PdfMakeService(this.translate);
+      
+            await pdfService.generateResultsPDF(
+              this.medicalTextOriginal,
+              this.topRelatedConditions,
+              this.lang,
+              pdfMake
+            );
+      
+            this.lauchEvent('Download results');
+      
+          } catch (error) {
+            console.error('Error loading PDF service:', error);
+            this.insightsService.trackException(error);
+          }
         }
-    }
+      }
 
     getLiteral(literal) {
         return this.translate.instant(literal);

@@ -1,4 +1,4 @@
-<section class="white" style="padding-bottom: 70px !important;padding-top: 70px !important;background-color: #353540;">
+<section class="white" style="padding-bottom: 70px !important;padding-top: 70px !important;background-color: #1c202a;">
   <div class="col-sm-12 offset-md-3 col-md-6 offset-xl-4 col-xl-4">
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
@@ -56,14 +56,14 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="!sending" class="center-elements">
+            <div *ngIf="!sending" class="">
               <div *ngIf="f.valid;then formValid else formError"></div>
               <ng-template #formValid><button class="btn btn-info round" type="submit"> {{'support.Send' |
                   translate }}</button></ng-template>
               <ng-template #formError><button class="btn btn-info round" type="button"
                   (click)="submitInvalidForm()"> {{'support.Send' | translate }}</button></ng-template>
             </div>
-            <div class="form-actions" *ngIf="sending" class="center-elements">
+            <div class="form-actions" *ngIf="sending" class="">
               <span><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
             </div>
           </form>
