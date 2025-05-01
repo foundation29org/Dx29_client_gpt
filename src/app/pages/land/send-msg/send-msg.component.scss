@@ -11,6 +11,14 @@ p {
   display: block !important;
 }
 
+::ng-deep .white-checkbox .mat-checkbox-frame {
+  border-color: white !important;
+}
+
+::ng-deep .modal-body.content-wrapper .mat-checkbox-frame {
+  border-color: initial; // O el color que desees
+}
+
 .mat-checkbox-label {
   margin-top: 0.4em;
   white-space: normal;
