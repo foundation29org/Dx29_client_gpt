@@ -81,16 +81,24 @@
   width: 100%;
   min-height: 150px;
   height: 150px;
-  //border: 3px solid #B30000;
-  //padding: 5px;
   border-radius: 15px 15px 0 15px;
   outline: none;
   color: #fff;
-  background:#1f232e;
-}
+  background: #1f232e;
+  border: 2px solid #2d3243; // Borde sutil visible SIEMPRE
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: text;
 
-.searchTerm:focus {
-  border-color: #1f232e;
+  &::placeholder {
+    color: #b0b3c6;
+    opacity: 1;
+  }
+
+  &:focus {
+    border-color: #4f8cff;
+    box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.2);
+    background: #23273a;
+  }
 }
 
 .anchorSteps{
