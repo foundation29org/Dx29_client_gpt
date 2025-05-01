@@ -1138,8 +1138,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var nameEvent = 'showContentInfoAPP';
         this.lauchEvent(nameEvent);
         let ngbModalOptions: NgbModalOptions = {
-            backdrop: 'static',
-            keyboard: false,
             windowClass: 'ModalClass-lg'// xl, lg, sm
         };
         if (this.modalReference != undefined) {
