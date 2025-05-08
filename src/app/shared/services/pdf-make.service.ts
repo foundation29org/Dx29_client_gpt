@@ -15,7 +15,7 @@ export class PdfMakeService {
     const logoFooterBase64 = await this.getBase64ImageFromURL('assets/img/logo-foundation-twentynine-footer.png');
 
     const currentDate = new Date().toLocaleDateString(
-      lang === 'es' ? 'es-ES' : lang === 'fr' ? 'fr-FR' : lang === 'ru' ? 'ru-RU' : 'en-US',
+      lang === 'es' ? 'es-ES' : lang === 'fr' ? 'fr-FR' : lang === 'ru' ? 'ru-RU' : lang === 'uk' ? 'uk-UA' : lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-US',
       { year: 'numeric', month: 'long', day: 'numeric' }
     );
 
