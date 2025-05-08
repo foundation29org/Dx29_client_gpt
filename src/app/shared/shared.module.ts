@@ -13,8 +13,11 @@ import { NavbarD29Component } from "./navbar-dx29/navbar-dx29.component";
 import { FooterComponent } from 'app/shared/footer/footer.component'
 import { TermFormComponent } from 'app/pages/land/termsform/termsform.component';
 import { SendMsgComponent } from 'app/pages/land/send-msg/send-msg.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { DeploymentLogoComponent } from './components/deployment-logo/deployment-logo.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
+// SERVICES
+import { DeploymentConfigService } from './services/deployment-config.service';
 
 @NgModule({
     exports: [
@@ -24,7 +27,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         TranslateModule,
         FooterComponent,
         TermFormComponent,
-        SendMsgComponent
+        SendMsgComponent,
+        DeploymentLogoComponent
     ],
     imports: [
         RouterModule,
@@ -32,7 +36,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         NgbModule,
         TranslateModule,
         FormsModule,
-        ReactiveFormsModule ,
+        ReactiveFormsModule,
         PipeModule,
         MatCheckboxModule
     ],
@@ -40,7 +44,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         NavbarD29Component,
         FooterComponent,
         TermFormComponent,
-        SendMsgComponent
+        SendMsgComponent,
+        DeploymentLogoComponent
+    ],
+    providers: [
+        DeploymentConfigService
     ]
 })
 export class SharedModule { }

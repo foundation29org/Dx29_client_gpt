@@ -1,0 +1,27 @@
+.deployment-logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-small {
+  height: 24px;
+  width: auto;
+  margin-right: 8px;
+}
+
+.logo-medium {
+  height: 32px;
+  width: auto;
+  margin-right: 10px;
+}
+
+.logo-large {
+  height: 48px;
+  width: auto;
+  margin-right: 12px;
+}
+
+.deployment-name {
+  font-weight: 600;
+  color: var(--primary-color, #000);
+} 

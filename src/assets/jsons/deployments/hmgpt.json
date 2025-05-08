@@ -1,0 +1,16 @@
+{
+  "deploymentId": "hmgpt",
+  "name": "HM GPT",
+  "logo": "assets/img/clients/hm-logo.png",
+  "favicon": "assets/img/clients/hm-favicon.ico",
+  "theme": {
+    "primaryColor": "#D32F2F",
+    "secondaryColor": "#B71C1C",
+    "backgroundColor": "#FFFFFF",
+    "textColor": "#212121"
+  },
+  "footer": "© 2023 HM Hospitales - Powered by DxGPT",
+  "api": {
+    "baseUrl": "https://dxgpt.app"
+  }
+} 

@@ -1,0 +1,50 @@
+{
+  "default": {
+    "name": "DxGPT",
+    "logo": "assets/img/logo.png",
+    "favicon": "favicon.ico",
+    "theme": {
+      "primaryColor": "#4285F4",
+      "secondaryColor": "#34A853",
+      "backgroundColor": "#FFFFFF",
+      "textColor": "#202124"
+    },
+    "footer": "© 2023 DxGPT"
+  },
+  "sermas": {
+    "name": "SERMAS Asistente IA",
+    "logo": "assets/img/clients/sermas-logo.png",
+    "theme": {
+      "primaryColor": "#1976D2",
+      "secondaryColor": "#004BA0"
+    },
+    "footer": "© 2023 SERMAS - Powered by DxGPT"
+  },
+  "iasalut": {
+    "name": "IA Salut Ajuda DX",
+    "logo": "assets/img/clients/iasalut-logo.png",
+    "theme": {
+      "primaryColor": "#00796B",
+      "secondaryColor": "#004C40"
+    },
+    "footer": "© 2023 IA Salut - Con tecnología DxGPT"
+  },
+  "hmgpt": {
+    "name": "HM GPT",
+    "logo": "assets/img/clients/hm-logo.png",
+    "theme": {
+      "primaryColor": "#D32F2F",
+      "secondaryColor": "#B71C1C"
+    },
+    "footer": "© 2023 HM Hospitales - Powered by DxGPT"
+  },
+  "aragon": {
+    "name": "Aragón GPT",
+    "logo": "assets/img/clients/aragon-logo.png",
+    "theme": {
+      "primaryColor": "#FF9800",
+      "secondaryColor": "#F57C00"
+    },
+    "footer": "© 2023 Aragón Salud - Con tecnología DxGPT"
+  }
+} 

@@ -1,0 +1,16 @@
+{
+  "deploymentId": "iasalut",
+  "name": "IA Salut Ajuda DX",
+  "logo": "assets/img/clients/iasalut-logo.png",
+  "favicon": "assets/img/clients/iasalut-favicon.ico",
+  "theme": {
+    "primaryColor": "#00796B",
+    "secondaryColor": "#004C40",
+    "backgroundColor": "#E0F2F1",
+    "textColor": "#212121"
+  },
+  "footer": "© 2023 IA Salut - Con tecnología DxGPT",
+  "api": {
+    "baseUrl": "https://dxgpt.app"
+  }
+} 

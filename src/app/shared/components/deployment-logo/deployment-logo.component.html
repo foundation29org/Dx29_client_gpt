@@ -1,0 +1,4 @@
+<div class="deployment-logo">
+  <img *ngIf="logo" [src]="logo" [alt]="name" [class]="logoClass">
+  <span *ngIf="showName && name" class="deployment-name">{{ name }}</span>
+</div> 

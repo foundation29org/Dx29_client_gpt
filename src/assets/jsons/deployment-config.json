@@ -1,0 +1,29 @@
+{
+  "deploymentId": "default",
+  "name": "DxGPT",
+  "logo": "assets/img/logo.png",
+  "favicon": "favicon.ico",
+  "theme": {
+    "primaryColor": "#4285F4",
+    "secondaryColor": "#34A853",
+    "backgroundColor": "#FFFFFF",
+    "textColor": "#202124"
+  },
+  "footer": "© 2023 DxGPT",
+  "api": {
+    "baseUrl": "https://dxgpt.app",
+    "features": {
+      "anonymize": true,
+      "diagnose": true,
+      "summarize": true
+    },
+    "rateLimit": {
+      "requestsPerMinute": 60,
+      "tokensPerDay": 100000
+    }
+  },
+  "deployment": {
+    "type": "shared",
+    "region": "westeurope"
+  }
+} 

@@ -1,0 +1,30 @@
+{
+  "deploymentId": "sermas",
+  "name": "SERMAS Asistente IA",
+  "logo": "assets/img/clients/sermas-logo.png",
+  "favicon": "assets/img/clients/sermas-favicon.ico",
+  "theme": {
+    "primaryColor": "#1976D2",
+    "secondaryColor": "#004BA0",
+    "backgroundColor": "#F5F5F5",
+    "textColor": "#202124"
+  },
+  "footer": "© 2023 Servicio Madrileño de Salud - Powered by DxGPT",
+  "api": {
+    "baseUrl": "https://sermas-api.azurecontainerapps.io",
+    "features": {
+      "anonymize": true,
+      "diagnose": true,
+      "summarize": true,
+      "customReports": true
+    },
+    "rateLimit": {
+      "requestsPerMinute": 120,
+      "tokensPerDay": 1500000
+    }
+  },
+  "deployment": {
+    "type": "dedicated",
+    "region": "westeurope"
+  }
+} 

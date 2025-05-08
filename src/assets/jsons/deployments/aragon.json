@@ -1,0 +1,16 @@
+{
+  "deploymentId": "aragon",
+  "name": "Aragón GPT",
+  "logo": "assets/img/clients/aragon-logo.png",
+  "favicon": "assets/img/clients/aragon-favicon.ico",
+  "theme": {
+    "primaryColor": "#FF9800",
+    "secondaryColor": "#F57C00",
+    "backgroundColor": "#FFF3E0",
+    "textColor": "#212121"
+  },
+  "footer": "© 2023 Aragón Salud - Con tecnología DxGPT",
+  "api": {
+    "baseUrl": "https://dxgpt.app"
+  }
+} 
