@@ -347,12 +347,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
             if (this.medicalTextOriginal.length > 0) {
-                text = this.translate.instant("land.requiredMIN5");
                 let introText = this.translate.instant("land.charactersleft", {
                     value: (15 - this.medicalTextOriginal.length)
                 })
-                text = text + ' ' + introText;
+                text = text + '<br><br>' + introText;
             }
+            let introText2 = this.translate.instant("land.recommended");
+            text = text + '<br><br>' + introText2;
             this.showError(text, null);
             return;
         }
@@ -1262,12 +1263,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
             if (this.editmedicalText.length > 0) {
-                text = this.translate.instant("land.requiredMIN5");
                 let introText = this.translate.instant("land.charactersleft", {
                     value: (15 - this.editmedicalText.length)
                 })
-                text = text + ' ' + introText;
+                text = text + '<br><br>' + introText;
             }
+            let introText2 = this.translate.instant("land.recommended");
+            text = text + '<br><br>' + introText2;
             this.showError(text, null);
         }
         if (!this.showErrorCall1) {

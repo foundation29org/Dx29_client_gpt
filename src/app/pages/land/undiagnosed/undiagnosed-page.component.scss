@@ -76,7 +76,85 @@
   position: relative;
   display: flex;
 }
+$surface-1: #1f232e;     // fondo principal del sitio
+$surface-2: #23273a;     // 4 % más claro – se usa al focus
+$surface-3: #2d3243;     // borde reposo
+$primary-500: #4f8cff;   // color de marca para el foco
+$primary-600: #3c6bd4;   // tono más oscuro para hover
+$text-100: #ffffff;      // texto principal
+$text-300: #b0b3c6;      // placeholder
+$radius-md: 16px;        // radio coherente con botones
+$duration: 180ms;        // animaciones breves, snappy
 
+/* ÁREA DE TEXTO =============================================== */
+.searchTerm {
+  /* Caja */
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem 1.25rem;
+  border: 2px solid $surface-3;
+  border-radius: $radius-md $radius-md 0 $radius-md;
+  background: $surface-1;
+  color: $text-100;
+  resize: vertical;                /* <‑‑ permite agrandar si hace falta */
+  transition: 
+    border-color $duration ease, 
+    box-shadow   $duration ease, 
+    background   $duration ease;
+
+  /* Tipografía */
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+
+  /* Cursor */
+  cursor: text;
+
+  /* Placeholder accesible */
+  &::placeholder {
+    color: $text-300;
+    opacity: 1;                    /* Firefox */
+  }
+
+  /* Scrollbar (solo WebKit) — opcional */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $surface-3;
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: $primary-600;
+  }
+
+  /* Focus visible (teclado)  ------------------------------- */
+  &:focus-visible {
+    border-color: $primary-500;
+    background: $surface-2;
+    box-shadow: 0 0 0 3px rgba($primary-500, .35);
+    outline: none;                 /* ya se indica con box‑shadow */
+  }
+
+  /* Hover (ratón) — feedback sutil ------------------------- */
+  &:hover:not(:focus) {
+    border-color: lighten($surface-3, 8%);
+  }
+
+  /* Oscurecer automáticamente si el usuario prefiere dark‑mode */
+  @media (prefers-color-scheme: light) {
+    background: #fff;
+    color: #111;
+    border-color: #d5d7e0;
+    &::placeholder { color: #72768c; }
+    &:focus-visible {
+      background: #f1f3fa;
+      border-color: $primary-500;
+      box-shadow: 0 0 0 3px rgba($primary-500, .25);
+    }
+  }
+}
+/*
 .searchTerm {
   width: 100%;
   min-height: 150px;
@@ -99,7 +177,7 @@
     box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.2);
     background: #23273a;
   }
-}
+}*/
 
 .anchorSteps{
   margin-top: -60px;
