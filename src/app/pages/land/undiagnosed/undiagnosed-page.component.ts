@@ -218,11 +218,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         (hiddenButton as HTMLElement).click();
                     }
                 }, 500);
-            } else {
-                // Solo iniciar la animación si no hay texto preestablecido
-                setTimeout(() => {
-                    this.startTypingAnimation();
-                }, 500);
             }
         });
         this.subscribeToEvents();
@@ -239,13 +234,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.symtpmsLabel = res;
         });
         
-        // Actualizar el placeholder completo cuando cambie el idioma
-        this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
-        // Iniciar la animación cuando cambie el idioma si el campo está vacío
-        if (!this.medicalTextOriginal || this.medicalTextOriginal.trim() === '') {
-            this.startTypingAnimation();
-        }
-        
         this.questions = [
             { id: 1, question: 'land.q1' },
             { id: 2, question: 'land.q2' },
@@ -260,12 +248,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.eventsService.on('changelang', async (lang) => {
             this.lang = lang;
             this.loadTranslations();
-            
-            // Forzar la actualización del placeholder con el nuevo idioma
-            this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
-            if (!this.medicalTextOriginal || this.medicalTextOriginal.trim() === '') {
-                this.startTypingAnimation();
-            }
             
             if (this.currentStep == 2 && this.originalLang != lang && this.topRelatedConditions.length>0) {
                 Swal.fire({
