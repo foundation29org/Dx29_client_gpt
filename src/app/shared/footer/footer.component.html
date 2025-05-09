@@ -22,7 +22,9 @@
             </div>
             <div [ngClass]="(!isHomePage)?'d-none':'col-md-4'">
               <p>
-                <span class="pointer underline" (click)="openSupport(contentSubs);">{{'land.Subscribe or send us a message' | translate }}</span>
+                <a href="javascript:;" class="underline" (click)="openSupport(contentSubs)">
+                  <span>{{'land.Subscribe or send us a message' | translate }}</span>
+                </a>
               </p>
     
             </div>
