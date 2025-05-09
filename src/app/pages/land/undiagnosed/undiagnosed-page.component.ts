@@ -70,6 +70,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     timezone: string = '';
     terms2: boolean = false;
     model: boolean = false;
+    
+    // Propiedad para manejar el placeholder
+    textareaPlaceholder: string = '';
+    private fullPlaceholderText: string = ''; // Almacena el texto completo del placeholder
+    private typingInterval: any; // Para el intervalo de animación
 
     // Nuevas propiedades para la funcionalidad de preguntas de seguimiento
     showFollowUpQuestions: boolean = false;
@@ -101,6 +106,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
         this.initialize();
+        
+        // Establecer el idioma explícitamente desde el inicio
+        if (sessionStorage.getItem('lang')) {
+            this.lang = sessionStorage.getItem('lang');
+            this.translate.use(this.lang);
+            this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+        }
     }
 
     private initialize() {
@@ -111,6 +123,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.currentStep = 1;
         this.loadSponsors();
         this.loadingIP();
+        
+        // Inicializar el placeholder con el idioma correcto
+        this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
       }
 
       private setLangFromSession() {
@@ -119,6 +134,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         this.lang = sessionStorage.getItem('lang');
         this.originalLang = sessionStorage.getItem('lang');
+        
+        // Establecer el idioma actual explícitamente
+        this.translate.use(this.lang);
       }
 
       private setUUID() {
@@ -200,15 +218,34 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         (hiddenButton as HTMLElement).click();
                     }
                 }, 500);
+            } else {
+                // Solo iniciar la animación si no hay texto preestablecido
+                setTimeout(() => {
+                    this.startTypingAnimation();
+                }, 500);
             }
         });
         this.subscribeToEvents();
+        
+        // Forzar la actualización del placeholder con el idioma actual
+        setTimeout(() => {
+            this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+            this.startTypingAnimation();
+        }, 200);
     }
 
     loadTranslations() {
         this.translate.get('land.Symptoms').subscribe((res: string) => {
             this.symtpmsLabel = res;
         });
+        
+        // Actualizar el placeholder completo cuando cambie el idioma
+        this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+        // Iniciar la animación cuando cambie el idioma si el campo está vacío
+        if (!this.medicalTextOriginal || this.medicalTextOriginal.trim() === '') {
+            this.startTypingAnimation();
+        }
+        
         this.questions = [
             { id: 1, question: 'land.q1' },
             { id: 2, question: 'land.q2' },
@@ -223,11 +260,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.eventsService.on('changelang', async (lang) => {
             this.lang = lang;
             this.loadTranslations();
+            
+            // Forzar la actualización del placeholder con el nuevo idioma
+            this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+            if (!this.medicalTextOriginal || this.medicalTextOriginal.trim() === '') {
+                this.startTypingAnimation();
+            }
+            
             if (this.currentStep == 2 && this.originalLang != lang && this.topRelatedConditions.length>0) {
                 Swal.fire({
                     title: this.translate.instant("land.Language has changed"),
                     text: this.translate.instant("land.Do you want to start over"),
-                    icon: 'warning',
+                    icon: 'info',
                     showCancelButton: true,
                     confirmButtonColor: '#B30000',
                     cancelButtonColor: '#B0B6BB',
@@ -253,7 +297,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 //ask for confirmation
                 Swal.fire({
                     title: this.translate.instant("land.Do you want to start over"),
-                    icon: 'warning',
+                    icon: 'info',
                     showCancelButton: true,
                     confirmButtonColor: '#B30000',
                     cancelButtonColor: '#B0B6BB',
@@ -269,6 +313,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 });
             }
         });
+        
+        // Suscribirse explícitamente a los cambios de idioma del servicio de traducción
+        this.subscription.add(
+            this.translate.onLangChange.subscribe((event) => {
+                this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+                if (!this.medicalTextOriginal || this.medicalTextOriginal.trim() === '') {
+                    this.startTypingAnimation();
+                }
+            })
+        );
     }
 
     delay(ms: number) {
@@ -308,6 +362,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.cancelQueueStatusCheck();
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
+        }
+        
+        // Limpiar el intervalo de typing
+        if (this.typingInterval) {
+            clearInterval(this.typingInterval);
         }
         
         // Desuscribirse de los eventos
@@ -362,7 +421,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             Swal.fire({
               title: this.translate.instant("generics.textTooLongMax"),
               text: this.translate.instant("generics.textTooLongMaxModel"),
-              icon: 'error',
+              icon: 'info',
               confirmButtonText: 'Ok'
             });
             return;
@@ -375,7 +434,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             Swal.fire({
                 title: this.translate.instant("generics.textTooLongMax"),
                 html: this.translate.instant("generics.textTooLongMaxMessage") + '<br><br>' + this.translate.instant("generics.recommendedLength") + '<br><br>' + this.translate.instant("generics.aiSummaryWarning"),
-                icon: 'error',
+                icon: 'info',
                 showDenyButton: true,
                 confirmButtonText: this.translate.instant("generics.ShortenWithAI"),
                 denyButtonText: this.translate.instant("generics.Shorten"),
@@ -394,7 +453,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             Swal.fire({
                 title: this.translate.instant("generics.textTooLong"),
                 html: this.translate.instant("generics.textTooLongOptions") + '<br><br>' + this.translate.instant("generics.aiSummaryWarning"),
-                icon: 'warning',
+                icon: 'info',
                 showCancelButton: true,
                 showDenyButton: true,
                 confirmButtonText: this.translate.instant("generics.Continue"),
@@ -489,7 +548,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         Swal.close();
         Swal.fire({
-            html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p>' + this.translate.instant("land.swal3") + '</p>' + '<p><em class="primary fa fa-spinner fa-2x fa-spin fa-fw"></em></p>',
+            html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p>' + this.translate.instant("land.swal3") + '</p>' + '<p><em class="primary fa fa-spinner fa-3x fa-spin fa-fw"></em></p>',
             showCancelButton: true,
             showConfirmButton: false,
             cancelButtonText: this.translate.instant("generics.Cancel"),
@@ -724,7 +783,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     showError(message: string, err: any) {
         Swal.close();
         Swal.fire({
-            icon: 'error',
+            icon: 'info',
             html: message,
             showCancelButton: false,
             showConfirmButton: true,
@@ -1278,7 +1337,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 Swal.fire({
                   title: this.translate.instant("generics.textTooLongMax"),
                   text: this.translate.instant("generics.textTooLongMaxModel"),
-                  icon: 'error',
+                  icon: 'info',
                   confirmButtonText: 'Ok'
                 });
                 return;
@@ -1291,15 +1350,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 Swal.fire({
                     title: this.translate.instant("generics.textTooLongMax"),
                     html: this.translate.instant("generics.textTooLongMaxMessage") + '<br><br>' + this.translate.instant("generics.recommendedLength") + '<br><br>' + this.translate.instant("generics.aiSummaryWarning"),
-                    icon: 'error',
+                    icon: 'info',
                     showDenyButton: true,
                     confirmButtonText: this.translate.instant("generics.ShortenWithAI"),
                     denyButtonText: this.translate.instant("generics.Shorten"),
                     allowOutsideClick: false
                 }).then(async (result) => {
                     if (result.isConfirmed) {
-                        this.callOpenAiForSummary('edit');
+                        this.closeModal();
+                        this.medicalTextOriginal = this.editmedicalText;
+                        this.finishEditDescription();
                     } else if (result.isDenied) {
+                        this.callOpenAiForSummary('edit');
+                    } else if (result.isDismissed) {
                         await this.delay(400);
                         document.getElementById('textareaedit').scrollIntoView({ behavior: "smooth" });
                     }
@@ -1310,7 +1373,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 Swal.fire({
                     title: this.translate.instant("generics.textTooLong"),
                     html: this.translate.instant("generics.textTooLongOptions") + '<br><br>' + this.translate.instant("generics.aiSummaryWarning"),
-                    icon: 'warning',
+                    icon: 'info',
                     showCancelButton: true,
                     showDenyButton: true,
                     confirmButtonText: this.translate.instant("generics.Continue"),
@@ -1888,21 +1951,49 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }, 1000); // Actualizar cada segundo
     }
 
-    // Agregar este método después del método resizeTextArea() o en una ubicación lógica
-    focusTextArea() {
-        if (this.mainTextArea) {
-            const element = this.mainTextArea.nativeElement;
-            element.placeholder = '';
-            element.focus();
+    // Método para iniciar la animación de typing
+    startTypingAnimation() {
+        // Limpiar cualquier intervalo existente
+        if (this.typingInterval) {
+            clearInterval(this.typingInterval);
         }
+        
+        // Asegurarse de que fullPlaceholderText esté actualizado si aún no se ha establecido
+        if (!this.fullPlaceholderText) {
+            this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+        }
+        
+        this.textareaPlaceholder = '';
+        
+        let currentIndex = 0;
+        const charsPerStep = 3; // Mostrar 3 caracteres en cada paso
+        
+        // Crear un nuevo intervalo para el efecto de typing
+        this.typingInterval = setInterval(() => {
+            if (currentIndex < this.fullPlaceholderText.length) {
+                // Determinar cuántos caracteres añadir en este paso
+                const charsToAdd = Math.min(charsPerStep, this.fullPlaceholderText.length - currentIndex);
+                this.textareaPlaceholder = this.fullPlaceholderText.substring(0, currentIndex + charsToAdd);
+                currentIndex += charsToAdd;
+            } else {
+                // Una vez completado, detener el intervalo
+                clearInterval(this.typingInterval);
+            }
+        }, 40); // Velocidad de typing moderada
+    }
+
+    focusTextArea() {
+        // Detener la animación y limpiar el placeholder
+        if (this.typingInterval) {
+            clearInterval(this.typingInterval);
+        }
+        this.textareaPlaceholder = '';
     }
 
     restorePlaceholder() {
-        if (this.mainTextArea) {
-            const element = this.mainTextArea.nativeElement;
-            if (!this.medicalTextOriginal || this.medicalTextOriginal.trim() === '') {
-                element.placeholder = this.translate.instant('land.Placeholder help');
-            }
+        if (!this.medicalTextOriginal || this.medicalTextOriginal.trim() === '') {
+            // Reiniciar la animación
+            this.startTypingAnimation();
         }
     }
 

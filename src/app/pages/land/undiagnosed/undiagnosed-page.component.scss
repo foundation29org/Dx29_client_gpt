@@ -77,7 +77,7 @@
   display: flex;
 }
 $surface-1: #1f232e;     // fondo principal del sitio
-$surface-2: #23273a;     // 4 % más claro – se usa al focus
+$surface-2: #23273a;     // 4 % más claro – se usa al focus
 $surface-3: #2d3243;     // borde reposo
 $primary-500: #4f8cff;   // color de marca para el foco
 $primary-600: #3c6bd4;   // tono más oscuro para hover
@@ -85,6 +85,45 @@ $text-100: #ffffff;      // texto principal
 $text-300: #b0b3c6;      // placeholder
 $radius-md: 16px;        // radio coherente con botones
 $duration: 180ms;        // animaciones breves, snappy
+
+/* Animaciones para el placeholder y textarea =================== */
+@keyframes placeholderFade {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes placeholderGlow {
+  0%, 100% { text-shadow: 0 0 0 rgba($primary-500, 0); }
+  50% { text-shadow: 0 0 5px rgba($primary-500, 0.5); }
+}
+
+@keyframes borderPulse {
+  0%, 100% { border-color: $surface-3; }
+  50% { border-color: rgba($primary-500, 0.7); }
+}
+
+@keyframes initialAttention {
+  0% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba($primary-500, 0);
+    border-color: $surface-3;
+  }
+  10% { 
+    transform: scale(1.01);
+    box-shadow: 0 0 18px 0 rgba($primary-500, 0.6);
+    border-color: $primary-500;
+  }
+  40% { 
+    transform: scale(1);
+    box-shadow: 0 0 10px 0 rgba($primary-500, 0.4);
+    border-color: rgba($primary-500, 0.6);
+  }
+  100% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba($primary-500, 0);
+    border-color: $surface-3;
+  }
+}
 
 /* ÁREA DE TEXTO =============================================== */
 .searchTerm {
@@ -101,7 +140,10 @@ $duration: 180ms;        // animaciones breves, snappy
     border-color $duration ease, 
     box-shadow   $duration ease, 
     background   $duration ease;
-
+  
+  /* Animación inicial al cargar - más rápida */
+  animation: initialAttention 1.5s ease-in-out 0.3s 1, borderPulse 2s ease-in-out 2s infinite;
+  
   /* Tipografía */
   font-family: inherit;
   font-size: 1rem;
@@ -110,10 +152,11 @@ $duration: 180ms;        // animaciones breves, snappy
   /* Cursor */
   cursor: text;
 
-  /* Placeholder accesible */
+  /* Placeholder accesible con animación - más rápida */
   &::placeholder {
     color: $text-300;
     opacity: 1;                    /* Firefox */
+    animation: placeholderFade 1.8s ease-in-out infinite, placeholderGlow 1.8s ease-in-out infinite;
   }
 
   /* Scrollbar (solo WebKit) — opcional */
@@ -134,6 +177,7 @@ $duration: 180ms;        // animaciones breves, snappy
     background: $surface-2;
     box-shadow: 0 0 0 3px rgba($primary-500, .35);
     outline: none;                 /* ya se indica con box‑shadow */
+    animation: none;               /* Detener animaciones al enfocar */
   }
 
   /* Hover (ratón) — feedback sutil ------------------------- */
@@ -146,11 +190,15 @@ $duration: 180ms;        // animaciones breves, snappy
     background: #fff;
     color: #111;
     border-color: #d5d7e0;
-    &::placeholder { color: #72768c; }
+    &::placeholder { 
+      color: #72768c; 
+      animation: placeholderFade 1.8s ease-in-out infinite, placeholderGlow 1.8s ease-in-out infinite;
+    }
     &:focus-visible {
       background: #f1f3fa;
       border-color: $primary-500;
       box-shadow: 0 0 0 3px rgba($primary-500, .25);
+      animation: none;               /* Detener animaciones al enfocar */
     }
   }
 }
@@ -342,8 +390,8 @@ body {
 }
 
 ::ng-deep .swal2-icon.swal2-info {
-  border-color: #b30000;
-  color: #b30000;
+  border-color: #253146;
+  color: #253146;
 }
 
 
