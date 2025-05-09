@@ -106,17 +106,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
         this.initialize();
-        
-        // Establecer el idioma explícitamente desde el inicio
-        if (sessionStorage.getItem('lang')) {
-            this.lang = sessionStorage.getItem('lang');
-            this.translate.use(this.lang);
-            this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
-        }
     }
 
     private initialize() {
-        this.setLangFromSession();
         this._startTime = Date.now();
         this.setUUID();
         this.lauchEvent("Init Page");
@@ -128,15 +120,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
       }
 
-      private setLangFromSession() {
-        if (sessionStorage.getItem('lang') == null) {
-          sessionStorage.setItem('lang', this.translate.store.currentLang);
-        }
-        this.lang = sessionStorage.getItem('lang');
-        this.originalLang = sessionStorage.getItem('lang');
-        
-        // Establecer el idioma actual explícitamente
-        this.translate.use(this.lang);
+      private setLangFromSession(lang: string) {
+        this.lang = lang;
+        this.originalLang = lang;
       }
 
       private setUUID() {
@@ -295,6 +281,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 });
             }
         });
+
+        this.eventsService.on('loadLang', async (lang) => {
+            this.setLangFromSession(lang);
+        });
         
         // Suscribirse explícitamente a los cambios de idioma del servicio de traducción
         this.subscription.add(
@@ -354,6 +344,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         // Desuscribirse de los eventos
         this.eventsService.off('changelang');
         this.eventsService.off('backEvent');
+        this.eventsService.off('loadLang');
         
         // Cancelar todas las suscripciones
         this.subscription.unsubscribe();

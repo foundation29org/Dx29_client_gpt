@@ -30,7 +30,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   private ticking: boolean = false;
   private isOpenSwal: boolean = false;
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, public translate: TranslateService, private ccService: NgcCookieConsentService, private eventsService: EventsService, private titleService: Title, private meta: Meta, private activatedRoute: ActivatedRoute, private ngZone: NgZone, private iconsService: IconsService) {
-    this.translate.use('en');
+    //this.translate.use('en');
 
     // Detectar específicamente navegación hacia atrás
     window.onpopstate = (event) => {
@@ -108,7 +108,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     });
 
     this.eventsService.on('changelang', async (lang) => {
-
       await this.delay(500);
       const titulo = this.translate.instant(this.tituloEvent);
       this.titleService.setTitle(titulo);
