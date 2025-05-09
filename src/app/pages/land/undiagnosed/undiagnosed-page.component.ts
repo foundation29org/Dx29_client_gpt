@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewChildren, Quer
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { EventsService } from 'app/shared/services/events.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
@@ -35,7 +36,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     diseaseListEn: any = [];
     diseaseListText: string = '';
     lang: string = 'en';
-    originalLang: string = 'en';
     detectedLang: string = 'en';
     selectedInfoDiseaseIndex: number = -1;
     _startTime: any;
@@ -122,7 +122,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
       private setLangFromSession(lang: string) {
         this.lang = lang;
-        this.originalLang = lang;
       }
 
       private setUUID() {
@@ -234,27 +233,33 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.eventsService.on('changelang', async (lang) => {
             this.lang = lang;
             this.loadTranslations();
-            
-            if (this.currentStep == 2 && this.originalLang != lang && this.topRelatedConditions.length>0) {
-                Swal.fire({
-                    title: this.translate.instant("land.Language has changed"),
-                    text: this.translate.instant("land.Do you want to start over"),
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonColor: '#B30000',
-                    cancelButtonColor: '#B0B6BB',
-                    confirmButtonText: this.translate.instant("generics.Yes"),
-                    cancelButtonText: this.translate.instant("generics.No"),
-                    showLoaderOnConfirm: true,
-                    allowOutsideClick: false,
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        this.originalLang = lang;
-                        this.restartInitVars();
-                        this.currentStep = 1;
-                    }
+            if (this.currentStep == 2 && this.topRelatedConditions.length>0) {
+                this.translate.onLangChange.pipe(first()).subscribe(() => {
+                    console.log('lang: '+lang);
+                    Swal.fire({
+                        title: this.translate.instant("land.Language has changed"),
+                        text: this.translate.instant("land.Do you want to start over"),
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: '#B30000',
+                        cancelButtonColor: '#B0B6BB',
+                        confirmButtonText: this.translate.instant("generics.Yes"),
+                        cancelButtonText: this.translate.instant("generics.No"),
+                        showLoaderOnConfirm: true,
+                        allowOutsideClick: false,
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            this.restartInitVars();
+                            this.currentStep = 1;
+                            setTimeout(() => {
+                                this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+                                this.startTypingAnimation();
+                            }, 200);
+                        }
+                    });
                 });
+                
             }
         });
         this.eventsService.on('backEvent', async (event) => {
