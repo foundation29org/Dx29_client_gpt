@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
         h._hjSettings = { 
           hjid: environment.hotjarSiteId, 
           hjsv: 6,
-          cookieDomain: environment.serverapi,
+          cookieDomain: environment.api,
           cookieSecure: true,
           cookieSameSite: 'Lax'
         };
@@ -77,6 +77,31 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
       { name: 'title', content: this.translate.instant("seo.home.title") },
       { name: 'robots', content: 'index, follow' }
     ]);
+
+    // Listener para el evento loadLang que se emite desde navbar-dx29
+    this.eventsService.on('loadLang', async (lang) => {
+      await this.delay(500);
+      const titulo = this.translate.instant(this.tituloEvent || "seo.home.title");
+      this.titleService.setTitle(titulo);
+      this.changeMeta();
+
+      this.translate
+        .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.policy'])
+        .subscribe(data => {
+          this.ccService.getConfig().content = this.ccService.getConfig().content || {};
+          // Override default messages with the translated ones
+          this.ccService.getConfig().content.header = data['cookie.header'];
+          this.ccService.getConfig().content.message = data['cookie.message'];
+          this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
+          this.ccService.getConfig().content.allow = data['cookie.allow'];
+          this.ccService.getConfig().content.deny = data['cookie.deny'];
+          this.ccService.getConfig().content.link = data['cookie.link'];
+          this.ccService.getConfig().content.policy = data['cookie.policy'];
+          this.ccService.getConfig().content.href = environment.api + '/cookies';
+          this.ccService.destroy(); //remove previous cookie bar (with default messages)
+          this.ccService.init(this.ccService.getConfig()); // update config with translated messages
+        });
+    });
 
     this.subscription = this.router.events
     .pipe(filter((event) => event instanceof NavigationEnd))
@@ -128,7 +153,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
           this.ccService.getConfig().content.deny = data['cookie.deny'];
           this.ccService.getConfig().content.link = data['cookie.link'];
           this.ccService.getConfig().content.policy = data['cookie.policy'];
-          this.ccService.getConfig().content.href = environment.serverapi + '/cookies';
+          this.ccService.getConfig().content.href = environment.api + '/cookies';
           this.ccService.destroy();//remove previous cookie bar (with default messages)
           this.ccService.init(this.ccService.getConfig()); // update config with translated messages
         });
@@ -151,7 +176,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
         this.ccService.getConfig().content.deny = data['cookie.deny'];
         this.ccService.getConfig().content.link = data['cookie.link'];
         this.ccService.getConfig().content.policy = data['cookie.policy'];
-        this.ccService.getConfig().content.href = environment.serverapi + '/cookies';
+        this.ccService.getConfig().content.href = environment.api + '/cookies';
         this.ccService.destroy();//remove previous cookie bar (with default messages)
         this.ccService.init(this.ccService.getConfig()); // update config with translated messages
       });

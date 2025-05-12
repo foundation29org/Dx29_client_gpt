@@ -112,7 +112,7 @@ export class FeedbackPageComponent implements OnDestroy {
           //this.mainForm.value.email = (this.mainForm.value.email).toLowerCase();
           //this.mainForm.value.lang=this.translate.store.currentLang;
           var value = { value: this.formulario.value, myuuid: this.myuuid, lang: this.translate.store.currentLang}
-          this.subscription.add( this.http.post(environment.serverapi+'/api/generalfeedback/', value)
+          this.subscription.add( this.http.post(environment.api+'/api/generalfeedback/', value)
           .subscribe( (res : any) => {
             this.sending = false;
             Swal.fire({

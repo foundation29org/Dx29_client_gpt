@@ -76,7 +76,7 @@ lauchEvent(category) {
         var params = this.mainForm.value;
         params.lang = sessionStorage.getItem('lang');
         params.subscribe = this.checkSubscribe;
-        this.subscription.add( this.http.post(environment.serverapi+'/api/homesupport/', params)
+        this.subscription.add( this.http.post(environment.api+'/api/homesupport/', params)
         .subscribe( (res : any) => {
           this.sending = false;
           Swal.fire({

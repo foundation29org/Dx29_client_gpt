@@ -30,7 +30,7 @@ getInfoLocation() {
 }
 
   postOpenAi(info: any) {
-    return this.http.post(environment.serverapi + '/api/callopenai', info)
+    return this.http.post(environment.api + '/api/callopenai', info)
       .pipe(
         map((res: any) => {
           if (res.result === 'queued') {
@@ -51,7 +51,7 @@ getInfoLocation() {
   }
 
   postOpenAiNewModel(info: any) {
-    return this.http.post(environment.serverapi + '/api/callopenaiV2', info)
+    return this.http.post(environment.api + '/api/callopenaiV2', info)
       .pipe(
         map((res: any) => {
           return res;
@@ -65,7 +65,7 @@ getInfoLocation() {
   }
 
   callopenaiquestions(info: any) {
-    return this.http.post(environment.serverapi + '/api/callopenaiquestions', info)
+    return this.http.post(environment.api + '/api/callopenaiquestions', info)
       .pipe(
         map((res: any) => {
           return res;
@@ -79,7 +79,7 @@ getInfoLocation() {
   }
 
   opinion(info: any) {
-    return this.http.post(environment.serverapi + '/api/opinion', info)
+    return this.http.post(environment.api + '/api/opinion', info)
       .pipe(
         map((res: any) => {
           return res;
@@ -93,7 +93,7 @@ getInfoLocation() {
   }
 
   generateFollowUpQuestions(value): Observable<any> {
-    return this.http.post(environment.serverapi + '/api/generatefollowupquestions', value)
+    return this.http.post(environment.api + '/api/generatefollowupquestions', value)
       .pipe(
         map((res: any) => {
           return res;
@@ -106,7 +106,7 @@ getInfoLocation() {
   }
 
   generateERQuestions(value): Observable<any> {
-    return this.http.post(environment.serverapi + '/api/generateerquestions', value)
+    return this.http.post(environment.api + '/api/generateerquestions', value)
       .pipe(
         map((res: any) => {
           return res;
@@ -120,7 +120,7 @@ getInfoLocation() {
 
   // Nuevo método para procesar las respuestas a las preguntas de seguimiento
   processFollowUpAnswers(value): Observable<any> {
-    return this.http.post(environment.serverapi + '/api/processfollowupanswers', value)
+    return this.http.post(environment.api + '/api/processfollowupanswers', value)
       .pipe(
         map((res: any) => {
           return res;
@@ -133,12 +133,12 @@ getInfoLocation() {
   }
 
   summarizeText(value: any): Observable<any> {
-    return this.http.post(environment.serverapi + '/api/summarize', value);
+    return this.http.post(environment.api + '/api/summarize', value);
   }
 
   getQueueStatus(ticketId: string, timezone: string): Observable<any> {
     const timestamp = new Date().getTime();
-    return this.http.post(environment.serverapi + '/api/queue-status/' + ticketId + '?t=' + timestamp, { timezone })
+    return this.http.post(environment.api + '/api/queue-status/' + ticketId + '?t=' + timestamp, { timezone })
       .pipe(
         map((res: any) => {
           return res;
@@ -153,7 +153,7 @@ getInfoLocation() {
 
   getSystemStatus(): Observable<any> {
     const timestamp = new Date().getTime();
-    return this.http.get(environment.serverapi + '/api/getSystemStatus?t=' + timestamp)
+    return this.http.get(environment.api + '/api/getSystemStatus?t=' + timestamp)
       .pipe(
         map((res: any) => {
           return res;
@@ -168,7 +168,7 @@ getInfoLocation() {
 
   getHealthStatus(): Observable<any> {
     const timestamp = new Date().getTime();
-    return this.http.get(environment.serverapi + '/api/health?t=' + timestamp)
+    return this.http.get(environment.api + '/api/health?t=' + timestamp)
       .pipe(
         map((res: any) => {
           return res;
