@@ -15,7 +15,7 @@ export class LangService {
 
     getLangs(){
       //load the available languages
-      return this.http.get(environment.api+'/api/langs')
+      return this.http.get(environment.api+'/langs')
         .pipe(
           map((res: any) => {
             this.langs = res;

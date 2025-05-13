@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
         h._hjSettings = { 
           hjid: environment.hotjarSiteId, 
           hjsv: 6,
-          cookieDomain: environment.api,
+          cookieDomain: 'https://dxgpt.app',
           cookieSecure: true,
           cookieSameSite: 'Lax'
         };
@@ -97,7 +97,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
           this.ccService.getConfig().content.deny = data['cookie.deny'];
           this.ccService.getConfig().content.link = data['cookie.link'];
           this.ccService.getConfig().content.policy = data['cookie.policy'];
-          this.ccService.getConfig().content.href = environment.api + '/cookies';
+          this.ccService.getConfig().content.href = 'https://dxgpt.app/cookies';
           this.ccService.destroy(); //remove previous cookie bar (with default messages)
           this.ccService.init(this.ccService.getConfig()); // update config with translated messages
         });
@@ -153,7 +153,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
           this.ccService.getConfig().content.deny = data['cookie.deny'];
           this.ccService.getConfig().content.link = data['cookie.link'];
           this.ccService.getConfig().content.policy = data['cookie.policy'];
-          this.ccService.getConfig().content.href = environment.api + '/cookies';
+          this.ccService.getConfig().content.href = 'https://dxgpt.app/cookies';
           this.ccService.destroy();//remove previous cookie bar (with default messages)
           this.ccService.init(this.ccService.getConfig()); // update config with translated messages
         });
@@ -176,7 +176,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
         this.ccService.getConfig().content.deny = data['cookie.deny'];
         this.ccService.getConfig().content.link = data['cookie.link'];
         this.ccService.getConfig().content.policy = data['cookie.policy'];
-        this.ccService.getConfig().content.href = environment.api + '/cookies';
+        this.ccService.getConfig().content.href = 'https://dxgpt.app/cookies';
         this.ccService.destroy();//remove previous cookie bar (with default messages)
         this.ccService.init(this.ccService.getConfig()); // update config with translated messages
       });

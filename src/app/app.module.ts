@@ -18,7 +18,7 @@ import { environment } from '../environments/environment';
 
 const cookieConfig:NgcCookieConsentConfig = {
   cookie: {
-    domain:  environment.api // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+    domain:  'https://dxgpt.app'// or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
   },
   palette: {
     popup: {
