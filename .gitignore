@@ -49,3 +49,5 @@ Thumbs.db
 /src/environments/environment.staging.ts
 /src/environments/environment.prod.ts
 /src/environments/environment.ts
+/staticwebapp.dev.config.json
+/staticwebapp.prod.config.json
