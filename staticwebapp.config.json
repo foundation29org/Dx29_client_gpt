@@ -1,10 +1,5 @@
 {
     "routes": [
-      {
-        "route": "/api/*",
-        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "rewrite": "https://dx29.ai/api/*",
-        "allowedRoles": ["anonymous"]
-      }
+      { "route": "/api/*", "rewrite": "https://dxgpt.app/api/*" }
     ]
   }
