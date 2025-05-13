@@ -1,8 +1,8 @@
 {
     "routes": [
       {
-        "route": "/api/{*rest}",
-        "rewrite": "https://dxgpt.azurewebsites.net/api/{rest}"
+        "route": "/api/*",
+        "rewrite": "https://dxgpt.azurewebsites.net/api/$1"
       }
     ]
   }
