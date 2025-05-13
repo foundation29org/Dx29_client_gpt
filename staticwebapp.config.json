@@ -2,6 +2,7 @@
     "routes": [
       {
         "route": "/api/*",
+        "methods": [ "GET", "POST", "PUT", "OPTIONS" ],
         "rewrite": "https://dxgpt.azurewebsites.net/api/$1"
       }
     ]
