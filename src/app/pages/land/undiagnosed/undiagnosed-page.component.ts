@@ -542,25 +542,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }.bind(this));
 
         this.callingOpenai = true;
-        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, operation: 'find disease', lang: this.lang, timezone: this.timezone }
+        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
         if (this.loadMoreDiseases) {
-            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, timezone: this.timezone }
+            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
         }
         if(newModel){
-            this.subscription.add(
-                this.apiDx29ServerService.postOpenAiNewModel(value).subscribe(
-                    (res: any) => this.handleOpenAiResponse(res, value, newModel),
-                    (err: any) => this.handleOpenAiError(err)
-                )
-            );
-        }else{
-            this.subscription.add(
-                this.apiDx29ServerService.postOpenAi(value).subscribe(
-                    (res: any) => this.handleOpenAiResponse(res, value, newModel),
-                    (err: any) => this.handleOpenAiError(err)
-                )
-            );
+            value.model = 'o1';
         }
+        this.apiDx29ServerService.diagnose(value).subscribe(
+            (res: any) => this.handledDiagnoseResponse(res, value, newModel),
+            (err: any) => this.handleOpenAiError(err)
+        )
         
     }
 
@@ -582,7 +574,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callOpenAi(false);
     }
 
-    handleOpenAiResponse(res: any, value: any, newModel: boolean) {
+    handledDiagnoseResponse(res: any, value: any, newModel: boolean) {
        
         let msgError = this.translate.instant("generics.error try again");
         
@@ -910,8 +902,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const infoOptionEvent = this.getInfoOptionEvent(index);
         this.lauchEvent(infoOptionEvent);
 
-        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, operation: 'info disease', lang: this.lang, timezone: this.timezone, detectedLang: this.detectedLang }
-        this.subscription.add(this.apiDx29ServerService.callopenaiquestions(value)
+        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, detectedLang: this.detectedLang }
+        this.subscription.add(this.apiDx29ServerService.callInfoDisease(value)
             .subscribe((res: any) => {
                 if (res.result === 'success') {
                     if (res.data.type === 'differential') {
@@ -1091,7 +1083,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     vote(valueVote) {
         this.sendingVote = true;
 
-        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, isNewModel: this.model }
+        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, isNewModel: this.model }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Vote: " + valueVote);
@@ -1467,7 +1459,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const value = { 
             description: this.medicalTextOriginal, 
             myuuid: this.myuuid, 
-            operation: 'generate ER questions', 
             lang: this.lang,
             timezone: this.timezone 
         };
@@ -1495,8 +1486,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const value = { 
             description: this.medicalTextEng, 
             diseases: this.diseaseListEn.slice(0, 5).join(', '), 
-            myuuid: this.myuuid, 
-            operation: 'generate follow-up questions', 
+            myuuid: this.myuuid,
             lang: this.lang,
             timezone: this.timezone 
         };
@@ -1579,8 +1569,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const value = { 
             description: this.medicalTextEng, 
             answers: answeredQuestions,
-            myuuid: this.myuuid, 
-            operation: 'process follow-up answers', 
+            myuuid: this.myuuid,
             lang: this.lang,
             timezone: this.timezone 
         };
@@ -1654,7 +1643,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const value = {
             description: text,
             myuuid: this.myuuid,
-            operation: 'summarize text',
             lang: this.lang,
             timezone: this.timezone
         };
