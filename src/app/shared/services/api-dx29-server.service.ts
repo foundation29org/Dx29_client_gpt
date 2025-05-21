@@ -122,9 +122,9 @@ diagnose(info: any) {
     return this.http.post(environment.api + '/medical/summarize', value);
   }
 
-  getQueueStatus(ticketId: string, timezone: string): Observable<any> {
+  getQueueStatus(ticketId: string): Observable<any> {
     const timestamp = new Date().getTime();
-    return this.http.post(environment.api + '/status/' + ticketId + '?t=' + timestamp, { timezone })
+    return this.http.get(environment.api + '/status/' + ticketId + '?t=' + timestamp)
       .pipe(
         map((res: any) => {
           return res;

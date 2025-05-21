@@ -31,13 +31,13 @@
         <button *ngIf="!modeFunctionality" type="submit" class="btn btn-lg btn-info" (click)="checkPopup(contentIntro)"
           [attr.title]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
           [attr.aria-label]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
-          [disabled]="callingOpenai">
+          [disabled]="callingAI">
           {{'land.Search' | translate }}
         </button>
         <button *ngIf="modeFunctionality" type="submit" class="btn btn-lg btn-info" (click)="handleERResponse(contentFollowUpQuestions)"
           [attr.title]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
           [attr.aria-label]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
-          [disabled]="callingOpenai">
+          [disabled]="callingAI">
           {{'land.Search' | translate }}
         </button>
       </div>
@@ -202,21 +202,21 @@
     <p>{{'land.Select a question' | translate }}:</p>
     <div class="list-group mb-2">
       <button class="list-group-item list-group-item-action" *ngFor="let question of questions; let i = index"
-        (click)="showQuestion(question, i)" [disabled]="loadingAnswerOpenai" title="{{question.question | translate}}">
+        (click)="showQuestion(question, i)" [disabled]="loadingAnswerAI" title="{{question.question | translate}}">
         <div class="d-flex w-100 justify-content-between">
           <span class="mb-1">{{question.question | translate}}</span>
         </div>
       </button>
-      <div *ngIf="loadingAnswerOpenai" class="mt-3 center-elements">
+      <div *ngIf="loadingAnswerAI" class="mt-3 center-elements">
         <p>{{'land.swal' | translate }}</p>
         <em class="fa fa-spinner info fa-3x fa-spin fa-fw"></em>
         <p class="info pointer" (click)="cancelCallQuestion();">{{'generics.Cancel' | translate }}</p>
       </div>
-      <div *ngIf="!loadingAnswerOpenai && answerOpenai!==''" class="mt-3">
+      <div *ngIf="!loadingAnswerAI && answerAI!==''" class="mt-3">
         <h6>{{selectedQuestion | translate}}</h6>
-        <div [innerHTML]="answerOpenai" class="margin-bottom-2"></div>
+        <div [innerHTML]="answerAI" class="margin-bottom-2"></div>
       </div>
-      <div *ngIf="!loadingAnswerOpenai && symptomsDifferencial.length>0" class="mt-3">
+      <div *ngIf="!loadingAnswerAI && symptomsDifferencial.length>0" class="mt-3">
         <h6>{{'land.Select the symptoms' | translate }}:</h6>
         <div class="symptoms-grid">
           <div *ngFor="let symptom of symptomsDifferencial; let j = index" class="symptom-item">
@@ -229,7 +229,7 @@
         <div class="row">
           <div class="col-md-12 center-elements">
             <button type="button" class="btn btn-info round" (click)="recalculateDifferencial()"
-              [disabled]="loadingAnswerOpenai">{{'land.Recalculate' | translate }}</button>
+              [disabled]="loadingAnswerAI">{{'land.Recalculate' | translate }}</button>
           </div>
         </div>
       </div>
@@ -393,7 +393,7 @@
         <button type="button" class="ms-1 btn btn-info round" (click)="checkText()"
           [attr.title]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
           [attr.aria-label]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
-          [disabled]="callingOpenai">{{'land.Recalculate' | translate }}</button>
+          [disabled]="callingAI">{{'land.Recalculate' | translate }}</button>
       </div>
     </div>
   </div>
