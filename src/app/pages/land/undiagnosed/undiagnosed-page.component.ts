@@ -1743,7 +1743,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (!this.currentTicketId) return;
 
         this.subscription.add(
-            this.apiDx29ServerService.getQueueStatus(this.currentTicketId).subscribe(
+            this.apiDx29ServerService.getQueueStatus(this.currentTicketId, this.timezone).subscribe(
                 (res: any) => {
                     console.log('Queue status update:', res);
                     
