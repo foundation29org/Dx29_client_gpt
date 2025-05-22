@@ -42,11 +42,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     myuuid: string = uuidv4();
     currentStep: number = 1;
     questions: any = [];
-    answerOpenai: string = '';
+    answerAI: string = '';
     showErrorCall1: boolean = false;
     showErrorCall2: boolean = false;
-    callingOpenai: boolean = false;
-    loadingAnswerOpenai: boolean = false;
+    callingAI: boolean = false;
+    loadingAnswerAI: boolean = false;
     selectedDisease: string = '';
     options: any = {};
     optionSelected: any = {};
@@ -380,7 +380,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async checkPopup(contentIntro) {
         this.showErrorCall1 = false;
-        if (this.callingOpenai || this.medicalTextOriginal.length < 15) {
+        if (this.callingAI || this.medicalTextOriginal.length < 15) {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
             if (this.medicalTextOriginal.length > 0) {
@@ -419,7 +419,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 allowOutsideClick: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.callOpenAiForSummary('new');
+                    this.callAIForSummary('new');
                 } else if (result.isDenied) {
                     this.scrollTo();
                 }
@@ -446,11 +446,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             await this.delay(200);
                             document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
                         } else {
-                            this.preparingCallOpenAi('step1');
+                            this.preparingcallAI('step1');
                         }
                     }
                 } else if (result.isDenied) {
-                    this.callOpenAiForSummary('new');
+                    this.callAIForSummary('new');
                 } else if (result.isDismissed) {
                     this.scrollTo();
                 }
@@ -464,20 +464,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 await this.delay(200);
                 document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
             } else {
-                this.preparingCallOpenAi('step1');
+                this.preparingcallAI('step1');
             }
         }
     }
 
     closePopup() {
-        this.preparingCallOpenAi('step1');
+        this.preparingcallAI('step1');
         if (this.modalReference != undefined) {
             this.modalReference.close();
         }
     }
 
-    preparingCallOpenAi(step) {
-        this.callingOpenai = true;
+    preparingcallAI(step) {
+        this.callingAI = true;
         if (step == 'step4') {
             const cleanDifferentialText = this.differentialTextOriginal.trim();
             const cleanTranslatedText = this.differentialTextTranslated.trim();
@@ -500,13 +500,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         this.differentialTextOriginal = '';
         this.differentialTextTranslated = '';
-        this.continuePreparingCallOpenAi(step);
+        this.continuePreparingcallAI(step);
     }
 
 
-    continuePreparingCallOpenAi(step) {
+    continuePreparingcallAI(step) {
         if (step == 'step4') {
-            this.callOpenAi(false);
+            this.callAI(false);
         } else {
             Swal.fire({
                 title: this.translate.instant("generics.Please wait"),
@@ -517,12 +517,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }).then((result) => {
 
             });
-            this.callOpenAi(false);
+            this.callAI(false);
         }
 
     }
 
-    callOpenAi(newModel: boolean) {
+    callAI(newModel: boolean) {
         
         Swal.close();
         Swal.fire({
@@ -534,55 +534,47 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             allowEscapeKey: false
         }).then(function (event) {
             if (event.dismiss == Swal.DismissReason.cancel) {
-                this.callingOpenai = false;
+                this.callingAI = false;
                 this.subscription.unsubscribe();
                 this.subscription = new Subscription();
             }
 
         }.bind(this));
 
-        this.callingOpenai = true;
-        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, operation: 'find disease', lang: this.lang, timezone: this.timezone }
+        this.callingAI = true;
+        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
         if (this.loadMoreDiseases) {
-            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, operation: 'find disease', lang: this.lang, timezone: this.timezone }
+            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
         }
         if(newModel){
-            this.subscription.add(
-                this.apiDx29ServerService.postOpenAiNewModel(value).subscribe(
-                    (res: any) => this.handleOpenAiResponse(res, value, newModel),
-                    (err: any) => this.handleOpenAiError(err)
-                )
-            );
-        }else{
-            this.subscription.add(
-                this.apiDx29ServerService.postOpenAi(value).subscribe(
-                    (res: any) => this.handleOpenAiResponse(res, value, newModel),
-                    (err: any) => this.handleOpenAiError(err)
-                )
-            );
+            value.model = 'o1';
         }
+        this.apiDx29ServerService.diagnose(value).subscribe(
+            (res: any) => this.handledDiagnoseResponse(res, value, newModel),
+            (err: any) => this.handleAiError(err)
+        )
         
     }
 
     callNewModel(){
         this.lauchEvent('callNewModel');
-        this.callingOpenai = true;
+        this.callingAI = true;
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
         this.differentialTextTranslated = '';
-        this.callOpenAi(true);
+        this.callAI(true);
     }
 
     callOldModel(){
         this.lauchEvent('callOldModel');
-        this.callingOpenai = true;
+        this.callingAI = true;
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
         this.differentialTextTranslated = '';
-        this.callOpenAi(false);
+        this.callAI(false);
     }
 
-    handleOpenAiResponse(res: any, value: any, newModel: boolean) {
+    handledDiagnoseResponse(res: any, value: any, newModel: boolean) {
        
         let msgError = this.translate.instant("generics.error try again");
         
@@ -653,7 +645,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     if (this.countdownInterval) {
                         clearInterval(this.countdownInterval);
                     }
-                    this.callingOpenai = false;
+                    this.callingAI = false;
                     this.subscription.unsubscribe();
                     this.subscription = new Subscription();
                 }
@@ -666,13 +658,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 case 'blocked':
                     msgError = this.translate.instant("land.errorLocation");
                     this.showError(msgError, null);
-                    this.callingOpenai = false;
+                    this.callingAI = false;
                     break;
                 case 'error':
                     msgError = this.translate.instant("generics.error try again");
                     msgError = msgError + '<br><br>' + this.translate.instant("generics.error edit patient description");
                     this.showError(msgError, null);
-                    this.callingOpenai = false;
+                    this.callingAI = false;
                     break;
                 case 'unsupported_language':
                     if(this.medicalTextEng.length > 100){
@@ -682,40 +674,40 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     }
                     
                     this.showError(msgError, null);
-                    this.callingOpenai = false;
+                    this.callingAI = false;
                     break;
                 case 'translation error':
                     msgError = this.translate.instant("generics.Translation error");
                     this.showError(msgError, null);
-                    this.callingOpenai = false;
+                    this.callingAI = false;
                     break;
-                case 'error openai':
+                case 'error ai':
                     msgError = this.translate.instant("generics.sorry cant anwser1");
                     this.showError(msgError, null);
-                    this.callingOpenai = false;
+                    this.callingAI = false;
                     break;
                 case 'error max tokens':
                     this.lauchEvent("error max tokens: "+this.medicalTextOriginal.length);
                     msgError = this.translate.instant("generics.sorry cant anwser3");
                     this.showError(msgError, null);
-                    this.callingOpenai = false;
+                    this.callingAI = false;
                     break;
                 case 'success':
                     this.model = newModel;
-                    this.processOpenAiSuccess(res, value);
+                    this.processAiSuccess(res, value);
                     break;
                 default:
                     this.showError(this.translate.instant("generics.error try again"), null);
-                    this.callingOpenai = false;
+                    this.callingAI = false;
             }
         } else {
             msgError = this.translate.instant("generics.error try again");
             this.showError(msgError, null);
-            this.callingOpenai = false;
+            this.callingAI = false;
         }
     }
 
-    handleOpenAiError(err: any) {
+    handleAiError(err: any) {
         console.log(err);
         
         let msgError = '';
@@ -755,7 +747,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     
         this.showError(msgError, err);
-        this.callingOpenai = false;
+        this.callingAI = false;
     }
 
     showError(message: string, err: any) {
@@ -767,7 +759,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             showConfirmButton: true,
             allowOutsideClick: false
         });
-        this.callingOpenai = false;
+        this.callingAI = false;
         if(err!=null){
             this.insightsService.trackException(err);
         }else{
@@ -788,7 +780,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }, 2000);
     }
 
-    processOpenAiSuccess(data: any, value: any) {
+    processAiSuccess(data: any, value: any) {
         //if (this.currentStep == 1) {
             this.copyMedicalText = this.medicalTextEng;
             //}
@@ -799,7 +791,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.diseaseListEn = [];
             }
             this.setDiseaseListEn(parseChoices0);
-            this.continueCallOpenAi(parseChoices0);
+            this.continuecallAI(parseChoices0);
     }
 
     includesElement(array, string) {
@@ -818,7 +810,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return requests;
     }
 
-    async continueCallOpenAi(parseChoices0) {
+    async continuecallAI(parseChoices0) {
         let parseChoices = parseChoices0;
         if (!this.loadMoreDiseases) {
             this.topRelatedConditions = [];
@@ -842,7 +834,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.currentStep = 2;
             history.pushState({ step: 2 }, 'DxGPT');
         }
-        this.callingOpenai = false;
+        this.callingAI = false;
         Swal.close();
         //window.scrollTo(0, 0);
          // Nueva conversión para la cuenta de display
@@ -866,7 +858,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var diseases = this.diseaseListEn.map(disease => '+' + disease).join(', ');
         this.diseaseListText = diseases;
         this.loadMoreDiseases = true;
-        this.callOpenAi(this.model);
+        this.callAI(this.model);
     }
 
     async scrollTo() {
@@ -876,8 +868,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     cancelCallQuestion() {
         this.symptomsDifferencial = [];
-        this.answerOpenai = '';
-        this.loadingAnswerOpenai = false;
+        this.answerAI = '';
+        this.loadingAnswerAI = false;
         this.selectedQuestion = '';
         this.subscription.unsubscribe();
         this.subscription = new Subscription();
@@ -897,8 +889,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     showQuestion(question, index) {
         this.symptomsDifferencial = [];
-        this.answerOpenai = '';
-        this.loadingAnswerOpenai = true;
+        this.answerAI = '';
+        this.loadingAnswerAI = true;
         this.selectedQuestion = question.question;
         var selectedDiseaseEn = this.diseaseListEn[this.selectedInfoDiseaseIndex];
         let index2 = selectedDiseaseEn.indexOf('.');
@@ -910,26 +902,26 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const infoOptionEvent = this.getInfoOptionEvent(index);
         this.lauchEvent(infoOptionEvent);
 
-        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, operation: 'info disease', lang: this.lang, timezone: this.timezone, detectedLang: this.detectedLang }
-        this.subscription.add(this.apiDx29ServerService.callopenaiquestions(value)
+        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, timezone: this.timezone, detectedLang: this.detectedLang }
+        this.subscription.add(this.apiDx29ServerService.callInfoDisease(value)
             .subscribe((res: any) => {
                 if (res.result === 'success') {
                     if (res.data.type === 'differential') {
                       this.symptomsDifferencial = res.data.symptoms;
                     } else {
-                      this.answerOpenai = res.data.content;
+                      this.answerAI = res.data.content;
                     }
-                    this.loadingAnswerOpenai = false;
+                    this.loadingAnswerAI = false;
                     this.lauchEvent("Info Disease");
                   } else {
                     // Manejar errores según el tipo
                     let msgError = this.translate.instant(
                       res.result === 'blocked' ? "land.errorLocation" :
-                      res.result === 'error openai' ? "generics.sorry cant anwser1" :
+                      res.result === 'error ai' ? "generics.sorry cant anwser1" :
                       "generics.error try again"
                     );
                     this.showError(msgError, null);
-                    this.loadingAnswerOpenai = false;
+                    this.loadingAnswerAI = false;
                 }
 
             }, (err) => {
@@ -950,7 +942,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     msgError = this.translate.instant("generics.error try again");
                 }
                 this.showError(msgError, err);
-                this.loadingAnswerOpenai = false;
+                this.loadingAnswerAI = false;
             }));
 
     }
@@ -974,17 +966,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     verifCallDifferential() {
         this.showErrorCall2 = false;
-        if (this.callingOpenai || this.differentialTextOriginal.length == 0) {
+        if (this.callingAI || this.differentialTextOriginal.length == 0) {
             this.showErrorCall2 = true;
             let msgError = this.translate.instant("land.required");
             this.showError(msgError, null);
         }
         if (!this.showErrorCall2) {
-            this.callOpenAiDifferential();
+            this.callAIDifferential();
         }
     }
 
-    callOpenAiDifferential() {
+    callAIDifferential() {
         if (this.differentialTextOriginal.length > 0) {
             Swal.fire({
                 title: this.translate.instant("generics.Please wait"),
@@ -998,7 +990,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.differentialTextTranslated = this.differentialTextOriginal;
             
         }
-        this.preparingCallOpenAi('step4'); 
+        this.preparingcallAI('step4'); 
     }
 
     closeDiseaseUndiagnosed() {
@@ -1015,7 +1007,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     showMoreInfoDiseasePopup(diseaseIndex, contentInfoDisease) {
-        this.answerOpenai = '';
+        this.answerAI = '';
         this.symptomsDifferencial = [];
         this.selectedInfoDiseaseIndex = diseaseIndex;
         var nameEvent = 'Undiagnosed - Select Disease - ' + this.topRelatedConditions[this.selectedInfoDiseaseIndex].name;
@@ -1091,7 +1083,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     vote(valueVote) {
         this.sendingVote = true;
 
-        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, operation: 'vote', lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, isNewModel: this.model }
+        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, isNewModel: this.model }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 this.lauchEvent("Vote: " + valueVote);
@@ -1296,7 +1288,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async checkText() {
         this.showErrorCall1 = false;
-        if (this.callingOpenai || this.editmedicalText.length < 15) {
+        if (this.callingAI || this.editmedicalText.length < 15) {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
             if (this.editmedicalText.length > 0) {
@@ -1339,7 +1331,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.medicalTextOriginal = this.editmedicalText;
                         this.finishEditDescription();
                     } else if (result.isDenied) {
-                        this.callOpenAiForSummary('edit');
+                        this.callAIForSummary('edit');
                     } else if (result.isDismissed) {
                         await this.delay(400);
                         document.getElementById('textareaedit').scrollIntoView({ behavior: "smooth" });
@@ -1364,7 +1356,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.medicalTextOriginal = this.editmedicalText;
                         this.finishEditDescription();
                     } else if (result.isDenied) {
-                        this.callOpenAiForSummary('edit');
+                        this.callAIForSummary('edit');
                     } else if (result.isDismissed) {
                         await this.delay(400);
                         document.getElementById('textareaedit').scrollIntoView({ behavior: "smooth" });
@@ -1382,7 +1374,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
         this.differentialTextTranslated = '';
-        this.callOpenAi(this.model);
+        this.callAI(this.model);
     }
 
 
@@ -1467,7 +1459,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const value = { 
             description: this.medicalTextOriginal, 
             myuuid: this.myuuid, 
-            operation: 'generate ER questions', 
             lang: this.lang,
             timezone: this.timezone 
         };
@@ -1495,8 +1486,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const value = { 
             description: this.medicalTextEng, 
             diseases: this.diseaseListEn.slice(0, 5).join(', '), 
-            myuuid: this.myuuid, 
-            operation: 'generate follow-up questions', 
+            myuuid: this.myuuid,
             lang: this.lang,
             timezone: this.timezone 
         };
@@ -1579,8 +1569,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const value = { 
             description: this.medicalTextEng, 
             answers: answeredQuestions,
-            myuuid: this.myuuid, 
-            operation: 'process follow-up answers', 
+            myuuid: this.myuuid,
             lang: this.lang,
             timezone: this.timezone 
         };
@@ -1604,7 +1593,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         
                         // Realizar una nueva búsqueda con la descripción actualizada
                         this.processingFollowUpAnswers = false;
-                        this.callOpenAi(this.model);
+                        this.callAI(this.model);
                         
                         this.lauchEvent("FollowUp - Descripción actualizada");
                     } else {
@@ -1635,7 +1624,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.lauchEvent("FollowUp - Omitir preguntas");
     }
 
-    callOpenAiForSummary(option: string) {
+    callAIForSummary(option: string) {
         Swal.fire({
             title: this.translate.instant("generics.Please wait"),
             html: this.translate.instant("generics.summarizingText"),
@@ -1654,7 +1643,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const value = {
             description: text,
             myuuid: this.myuuid,
-            operation: 'summarize text',
             lang: this.lang,
             timezone: this.timezone
         };
@@ -1764,7 +1752,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         if (res.status === 'completed') {
                             // La solicitud está completa
                             this.cancelQueueStatusCheck();
-                            this.processOpenAiSuccess(res.data, {});
+                            this.processAiSuccess(res.data, {});
                         } else if (res.status === 'processing' || res.status === 'queued') {
                             // Actualizar la posición y reiniciar el contador si cambió
                             if (this.currentPosition !== res.position) {
