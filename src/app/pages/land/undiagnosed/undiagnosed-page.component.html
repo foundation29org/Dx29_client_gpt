@@ -172,13 +172,13 @@
           <div>
             <h4 class=""><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></h4>
             <div class="p-2 mb-4">
-              <button class="btn btn-danger me-3" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
+              <button class="btn btn-danger me-3 mt-2" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
                 <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
               </button>
-              <button *ngIf="!model" class="btn btn-primary" (click)="callNewModel()">
+              <button *ngIf="!model" class="btn btn-primary mt-2" (click)="callNewModel()">
                 <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
               </button>
-              <button *ngIf="model" class="btn btn-primary" (click)="callOldModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+              <button *ngIf="model" class="btn btn-primary mt-2" (click)="callOldModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
             </div>
           </div>
         </div>
