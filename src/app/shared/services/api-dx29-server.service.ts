@@ -65,7 +65,7 @@ diagnose(info: any) {
   }
 
   opinion(info: any) {
-    return this.http.post(environment.api + '/opinion', info)
+    return this.http.post(environment.api + '/internal/opinion', info)
       .pipe(
         map((res: any) => {
           return res;
@@ -124,7 +124,7 @@ diagnose(info: any) {
 
   getQueueStatus(ticketId: string, timezone: string): Observable<any> {
     const timestamp = new Date().getTime();
-    return this.http.post(environment.api + '/status/' + ticketId + '?t=' + timestamp, { timezone })
+    return this.http.post(environment.api + '/internal/status/' + ticketId + '?t=' + timestamp, { timezone })
       .pipe(
         map((res: any) => {
           return res;
@@ -139,7 +139,7 @@ diagnose(info: any) {
 
   getSystemStatus(): Observable<any> {
     const timestamp = new Date().getTime();
-    return this.http.get(environment.api + '/getSystemStatus?t=' + timestamp)
+    return this.http.get(environment.api + '/internal/getSystemStatus?t=' + timestamp)
       .pipe(
         map((res: any) => {
           return res;
@@ -154,7 +154,7 @@ diagnose(info: any) {
 
   getHealthStatus(): Observable<any> {
     const timestamp = new Date().getTime();
-    return this.http.get(environment.api + '/health?t=' + timestamp)
+    return this.http.get(environment.api + '/internal/health?t=' + timestamp)
       .pipe(
         map((res: any) => {
           return res;
