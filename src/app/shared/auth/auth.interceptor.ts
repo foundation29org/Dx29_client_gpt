@@ -11,7 +11,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const headers = req.headers
-      .set('Ocp-Apim-Subscription-Key', environment.apiSubscriptionKey);
+      .set('Ocp-Apim-Subscription-Key', environment.apiSubscriptionKey)
+      .set('X-Tenant-Id', environment.tenantId);
 
     const authReq = req.clone({ headers });
 

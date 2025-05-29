@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
 import { PrivacyPolicyPageComponent } from 'app/pages/land/privacy-policy/privacy-policy.component';
 import { CookiesPageComponent } from 'app/pages/land/cookies/cookies.component';
+import { UuidService } from 'app/shared/services/uuid.service';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -33,8 +34,10 @@ export class FooterComponent{
   @ViewChild('f') dataForm: NgForm;
   @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
   email: string = '';
+  myuuid: string;
 
-  constructor(private modalService: NgbModal, private http: HttpClient, public translate: TranslateService, private renderer: Renderer2, private router: Router) { 
+  constructor(private modalService: NgbModal, private http: HttpClient, public translate: TranslateService, private renderer: Renderer2, private router: Router, private uuidService: UuidService) { 
+    this.myuuid = this.uuidService.getUuid();
     this.router.events.pipe(
       filter((event: any) => event instanceof NavigationEnd)
     ).subscribe(
@@ -83,7 +86,7 @@ submitInvalidForm() {
 
 onSubmitRevolution() {
   this.sending = true;
-  var params = { userName: this.userName ,email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe };
+  var params = { userName: this.userName ,email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe, myuuid: this.myuuid };
   this.http.post(environment.api + '/internal/homesupport/', params)
       .subscribe((res: any) => {
           this.sending = false;
