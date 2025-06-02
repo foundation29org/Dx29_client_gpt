@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 declare let gtag: any;
+import { UuidService } from 'app/shared/services/uuid.service';
 
 @Component({
     selector: 'app-about-us-page',
@@ -13,16 +13,11 @@ declare let gtag: any;
 export class AboutUsPageComponent {
 
     _startTime: any;
-    myuuid: string = uuidv4();
+    myuuid: string;
 
-    constructor( public translate: TranslateService, public insightsService: InsightsService) {
+    constructor( public translate: TranslateService, public insightsService: InsightsService, private uuidService: UuidService) {
         this._startTime = Date.now();
-        if(sessionStorage.getItem('uuid')!=null){
-            this.myuuid = sessionStorage.getItem('uuid');
-        }else{
-            this.myuuid = uuidv4();
-            sessionStorage.setItem('uuid', this.myuuid);
-        }
+        this.myuuid = this.uuidService.getUuid();
     }
 
     getElapsedSeconds() {

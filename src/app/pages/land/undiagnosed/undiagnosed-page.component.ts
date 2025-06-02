@@ -10,9 +10,9 @@ import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstr
 import { HttpClient } from "@angular/common/http";
 import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
 import { Clipboard } from "@angular/cdk/clipboard"
-import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.component';
+import { UuidService } from 'app/shared/services/uuid.service';
 declare let gtag: any;
 
 @Component({
@@ -39,7 +39,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     detectedLang: string = 'en';
     selectedInfoDiseaseIndex: number = -1;
     _startTime: any;
-    myuuid: string = uuidv4();
+    myuuid: string;
     currentStep: number = 1;
     questions: any = [];
     answerAI: string = '';
@@ -104,13 +104,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     currentYear: number = new Date().getFullYear();
     generatingPDF: boolean = false;
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute) {
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService) {
         this.initialize();
     }
 
     private initialize() {
         this._startTime = Date.now();
-        this.setUUID();
+        this.myuuid = this.uuidService.getUuid();
         this.lauchEvent("Init Page");
         this.currentStep = 1;
         this.loadSponsors();
@@ -118,20 +118,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         // Inicializar el placeholder con el idioma correcto
         this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
-      }
+    }
 
-      private setLangFromSession(lang: string) {
+    private setLangFromSession(lang: string) {
         this.lang = lang;
-      }
-
-      private setUUID() {
-        if (sessionStorage.getItem('uuid') != null) {
-          this.myuuid = sessionStorage.getItem('uuid');
-        } else {
-          this.myuuid = uuidv4();
-          sessionStorage.setItem('uuid', this.myuuid);
-        }
-      }
+    }
 
     loadingIP() {
         this.subscription.add(this.apiDx29ServerService.getInfoLocation()

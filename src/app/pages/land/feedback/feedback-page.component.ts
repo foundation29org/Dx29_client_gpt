@@ -5,11 +5,11 @@ import { environment } from 'environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { v4 as uuidv4 } from 'uuid';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService} from 'app/shared/services/events.service';
 import { Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
+import { UuidService } from 'app/shared/services/uuid.service';
 declare let gtag: any;
   
 @Component({
@@ -23,7 +23,7 @@ export class FeedbackPageComponent implements OnDestroy {
     private subscription: Subscription = new Subscription();
     _startTime: any;
     role: string = '';
-    myuuid: string = uuidv4();
+    myuuid: string;
     email: string = '';
     showErrorForm: boolean = false;
     sending: boolean = false;
@@ -33,14 +33,9 @@ export class FeedbackPageComponent implements OnDestroy {
     freeTextLength: number = 0;
     formulario: FormGroup;
 
-    constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private eventsService: EventsService) {
+    constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private eventsService: EventsService, private uuidService: UuidService) {
         this._startTime = Date.now();
-        if(sessionStorage.getItem('uuid')!=null){
-            this.myuuid = sessionStorage.getItem('uuid');
-        }else{
-            this.myuuid = uuidv4();
-            sessionStorage.setItem('uuid', this.myuuid);
-        }
+        this.myuuid = this.uuidService.getUuid();
         
 
         this.formulario = new FormGroup({

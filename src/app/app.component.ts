@@ -9,6 +9,7 @@ import { EventsService } from 'app/shared/services/events.service';
 import { IconsService } from 'app/shared/services/icon.service';
 import { DOCUMENT } from '@angular/common';
 import Swal from 'sweetalert2';
+import { UuidService } from './shared/services/uuid.service';
 
 import {
   NgcCookieConsentService,
@@ -29,8 +30,21 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   private scrollPosition: number = 0;
   private ticking: boolean = false;
   private isOpenSwal: boolean = false;
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, public translate: TranslateService, private ccService: NgcCookieConsentService, private eventsService: EventsService, private titleService: Title, private meta: Meta, private activatedRoute: ActivatedRoute, private ngZone: NgZone, private iconsService: IconsService) {
-    //this.translate.use('en');
+  constructor(
+    @Inject(DOCUMENT) private document: Document, 
+    private router: Router, 
+    public translate: TranslateService, 
+    private ccService: NgcCookieConsentService, 
+    private eventsService: EventsService, 
+    private titleService: Title, 
+    private meta: Meta, 
+    private activatedRoute: ActivatedRoute, 
+    private ngZone: NgZone, 
+    private iconsService: IconsService,
+    private uuidService: UuidService
+  ) {
+    // Inicializar el UUID al inicio de la aplicación
+    this.uuidService.getUuid();
 
     // Detectar específicamente navegación hacia atrás
     window.onpopstate = (event) => {

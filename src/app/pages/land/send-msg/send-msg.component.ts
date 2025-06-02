@@ -4,8 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
+import { UuidService } from 'app/shared/services/uuid.service';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 
@@ -22,7 +22,7 @@ export class SendMsgComponent implements OnDestroy {
   private subscription: Subscription = new Subscription();
   _startTime: any;
   role: string = '';
-  myuuid: string = uuidv4();
+  myuuid: string;
   email: string = '';
   showErrorForm: boolean = false;
   sending: boolean = false;
@@ -32,15 +32,10 @@ export class SendMsgComponent implements OnDestroy {
   modalReference: NgbModalRef;
   descriptionLength: number = 0;
 
-  constructor(public translate: TranslateService, private http: HttpClient, public insightsService: InsightsService, private modalService: NgbModal) {
+  constructor(public translate: TranslateService, private http: HttpClient, public insightsService: InsightsService, private modalService: NgbModal, private uuidService: UuidService) {
     this._startTime = Date.now();
-    if(sessionStorage.getItem('uuid')!=null){
-        this.myuuid = sessionStorage.getItem('uuid');
-    }else{
-        this.myuuid = uuidv4();
-        sessionStorage.setItem('uuid', this.myuuid);
-    }
-}
+    this.myuuid = this.uuidService.getUuid();
+  }
 
 getElapsedSeconds() {
     var endDate = Date.now();
@@ -76,6 +71,7 @@ lauchEvent(category) {
         var params = this.mainForm.value;
         params.lang = sessionStorage.getItem('lang');
         params.subscribe = this.checkSubscribe;
+        params.myuuid = this.myuuid;
         this.subscription.add( this.http.post(environment.api+'/internal/homesupport/', params)
         .subscribe( (res : any) => {
           this.sending = false;
