@@ -82,7 +82,22 @@
     "proceeded to delete": "We have proceeded to delete this information and save the anonymized text.",
     "Matching symptoms": "Matching symptoms",
     "Non-matching symptoms": "Non-matching symptoms",
-    "None": "None"
+    "None": "None",
+    "Text generated": "Text generated",
+    "We have processed your inputs": "We have processed your inputs and generated a summary",
+    "Please review the text": "Please review the text in the main box before proceeding with the search",
+    "text input": "text input",
+    "document": "document",
+    "medical image": "medical image",
+    "errorAnalyze": "Error analyzing the information. Please try again.",
+    "Upload document or image": "Upload document or image",
+    "Remove": "Remove",
+    "Analyze": "Analyze",
+    "Summary": "Summary",
+    "Details": "Details",
+    "Text": "Text",
+    "Document": "Document",
+    "Image": "Image"
   },
   "policy": {
     "lastUpdated": "Last updated: 21 April 2025",

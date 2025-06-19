@@ -104,6 +104,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     currentYear: number = new Date().getFullYear();
     generatingPDF: boolean = false;
 
+    selectedFiles: File[] = [];
+    summary: string = '';
+    details: any = null;
+
+    isDragOver = false;
+
+    filesAnalyzed = false;
+
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService) {
         this.initialize();
     }
@@ -1952,6 +1960,161 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             // Reiniciar la animación
             this.startTypingAnimation();
         }
+    }
+
+    onFilesSelected(event: any) {
+        console.log(event);
+      if (event.target.files && event.target.files.length > 0) {
+        // Añadir los archivos seleccionados al array, evitando duplicados por nombre y tamaño
+        const newFiles = Array.from(event.target.files) as File[];
+        newFiles.forEach(file => {
+          if (!this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+            this.selectedFiles.push(file);
+          }
+        });
+        this.filesAnalyzed = false;
+      }
+    }
+
+    removeFile(index: number) {
+      this.selectedFiles.splice(index, 1);
+    }
+
+    analyzeMultimodal() {
+      // Mostrar spinner con Swal
+      Swal.close();
+      Swal.fire({
+        html: '<p>' + this.translate.instant("land.swal") + '</p>' +
+              '<p>' + this.translate.instant("land.swal2") + '</p>' +
+              '<p>' + this.translate.instant("land.swal3") + '</p>' +
+              '<p><em class="primary fa fa-spinner fa-3x fa-spin fa-fw"></em></p>',
+        showCancelButton: true,
+        showConfirmButton: false,
+        cancelButtonText: this.translate.instant("generics.Cancel"),
+        allowOutsideClick: false,
+        allowEscapeKey: false
+      }).then(function (event) {
+        if (event.dismiss == Swal.DismissReason.cancel) {
+          this.callingAI = false;
+          this.subscription.unsubscribe();
+          this.subscription = new Subscription();
+        }
+      }.bind(this));
+
+      this.callingAI = true;
+      const formData = new FormData();
+      formData.append('text', this.medicalTextOriginal || '');
+      // Solo un documento y una imagen según backend, priorizar el primero de cada tipo
+      let docAdded = false;
+      let imgAdded = false;
+      for (const file of this.selectedFiles) {
+        if (!docAdded && [
+          'application/pdf',
+          'application/msword',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'application/vnd.ms-excel',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'text/plain'
+        ].includes(file.type)) {
+          formData.append('document', file);
+          docAdded = true;
+        } else if (!imgAdded && file.type.startsWith('image/')) {
+          formData.append('image', file);
+          imgAdded = true;
+        }
+        if (docAdded && imgAdded) break;
+      }
+      formData.append('lang', this.lang || 'es');
+      formData.append('myuuid', this.myuuid || '');
+      formData.append('timezone', this.timezone || '');
+
+      this.apiDx29ServerService.analyzeMultimodal(formData).pipe(first()).subscribe({
+        next: (res: any) => {
+          this.summary = res.summary;
+          this.details = res.details;
+          this.detectedLang = res.detectedLang;
+          // Concatenar el resumen al texto principal
+          if (res.summary) {
+            if (this.medicalTextOriginal && !this.medicalTextOriginal.endsWith('\n')) {
+              this.medicalTextOriginal += '\n';
+            }
+            this.medicalTextOriginal += res.summary;
+          }
+          this.callingAI = false;
+          Swal.close();
+          setTimeout(async () => {
+          if (this.textAreas) {
+            this.textAreas.forEach(textArea => {
+                const element = textArea.nativeElement;
+                element.style.height = 'auto';
+                element.style.height = element.scrollHeight + 'px';
+                // Asegurar un tamaño mínimo
+                if (element.scrollHeight < 100) {
+                    element.style.height = '100px';
+                }
+            });
+          }
+            // Mostrar Swal informativo
+            Swal.fire({
+                icon: 'info',
+                title: this.translate.instant('diagnosis.Text generated'),
+                html: `
+                  <p>${this.translate.instant('diagnosis.We have processed your inputs')}</p>
+                  <p>${this.translate.instant('diagnosis.Please review the text')}</p>
+                `,
+                confirmButtonText: 'Ok',
+                showCancelButton: false
+              });
+          this.filesAnalyzed = true;
+        }, 0);
+
+        
+        },
+        error: (err) => {
+          this.callingAI = false;
+          Swal.close();
+          Swal.fire({
+            icon: 'error',
+            title: this.translate.instant('generics.error'),
+            text: this.translate.instant('land.errorAnalyze') || 'Error al analizar la información',
+            confirmButtonText: this.translate.instant('generics.Close')
+          });
+        }
+      });
+    }
+
+    onDragOver(event: DragEvent) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.isDragOver = true;
+    }
+
+    onDragLeave(event: DragEvent) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.isDragOver = false;
+    }
+
+    onDrop(event: DragEvent) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.isDragOver = false;
+
+      const files = event.dataTransfer?.files;
+      if (files && files.length > 0) {
+        const newFiles = Array.from(files) as File[];
+        newFiles.forEach(file => {
+          if (!this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+            this.selectedFiles.push(file);
+          }
+        });
+      }
+    }
+
+    triggerFileInput(fileInput: HTMLInputElement) {
+      if (!this.callingAI) {
+        fileInput.click();
+      }
     }
 
 }

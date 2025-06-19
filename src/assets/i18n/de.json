@@ -82,7 +82,22 @@
     "proceeded to delete": "Wir haben diese Informationen gelöscht und den anonymisierten Text gespeichert.",
     "Matching symptoms": "Übereinstimmende Symptome",
     "Non-matching symptoms": "Nicht übereinstimmende Symptome",
-    "None": "Keine"
+    "None": "Keine",
+    "Text generated": "Text generiert",
+    "We have processed your inputs": "Wir haben Ihre Eingaben verarbeitet und einen Zusammenfassung generiert",
+    "Please review the text": "Bitte überprüfen Sie den Text in der Hauptbox, bevor Sie mit der Suche fortfahren",
+    "text input": "Text-Eingabe",
+    "document": "Dokument",
+    "medical image": "Medizinbild",
+    "errorAnalyze": "Fehler beim Analysieren der Informationen. Bitte versuchen Sie es erneut.",
+    "Upload document or image": "Dokument oder Bild hochladen",
+    "Remove": "Entfernen",
+    "Analyze": "Analysieren",
+    "Summary": "Zusammenfassung",
+    "Details": "Details",
+    "Text": "Text",
+    "Document": "Dokument",
+    "Image": "Bild"
   },
   "policy": {
     "lastUpdated": "Zuletzt aktualisiert: 21. April 2025",

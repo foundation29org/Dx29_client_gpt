@@ -166,4 +166,8 @@ diagnose(info: any) {
         })
       );
   }
+
+  analyzeMultimodal(formData: FormData): Observable<any> {
+    return this.http.post(environment.api + '/medical/analyze', formData);
+  }
 }
