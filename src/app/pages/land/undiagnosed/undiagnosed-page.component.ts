@@ -164,6 +164,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         await this.delay(200);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
+        this.filesAnalyzed = false;
+        this.selectedFiles = [];
     }
 
     async newPatient() {
