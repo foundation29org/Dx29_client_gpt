@@ -17,6 +17,12 @@
             [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" [attr.placeholder]="textareaPlaceholder"
             (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
             [readonly]="callingAI"></textarea>
+            <div *ngIf="isDragOver" class="drag-overlay">
+              <div class="drag-overlay-content">
+                <em class="fa fa-upload fa-3x mb-3"></em>
+                <p>{{'land.dropzone' | translate}}</p>
+              </div>
+            </div>
         </div>
         <div class="chips-and-counter-row mt-2 mb-2">
           <div class="file-chips-row">

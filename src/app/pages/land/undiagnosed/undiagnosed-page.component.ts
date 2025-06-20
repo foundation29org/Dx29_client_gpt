@@ -1980,15 +1980,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     removeFile(index: number) {
       this.selectedFiles.splice(index, 1);
+      if (this.selectedFiles.length === 0) {
+        this.filesAnalyzed = false;
+      }
     }
 
     analyzeMultimodal() {
       // Mostrar spinner con Swal
       Swal.close();
       Swal.fire({
-        html: '<p>' + this.translate.instant("land.swal") + '</p>' +
-              '<p>' + this.translate.instant("land.swal2") + '</p>' +
-              '<p>' + this.translate.instant("land.swal3") + '</p>' +
+        html: '<p>' + this.translate.instant("land.swalMultimodal") + '</p>' +
+              '<p>' + this.translate.instant("land.swal2Multimodal") + '</p>' +
+              '<p>' + this.translate.instant("land.swal3Multimodal") + '</p>' +
               '<p><em class="primary fa fa-spinner fa-3x fa-spin fa-fw"></em></p>',
         showCancelButton: true,
         showConfirmButton: false,

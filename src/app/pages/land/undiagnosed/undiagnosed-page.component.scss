@@ -1,3 +1,13 @@
+$surface-1: #1f232e;     // fondo principal del sitio
+$surface-2: #23273a;     // 4 % más claro – se usa al focus
+$surface-3: #2d3243;     // borde reposo
+$primary-500: #4f8cff;   // color de marca para el foco
+$primary-600: #3c6bd4;   // tono más oscuro para hover
+$text-100: #ffffff;      // texto principal
+$text-300: #b0b3c6;      // placeholder
+$radius-md: 16px;        // radio coherente con botones
+$duration: 180ms;        // animaciones breves, snappy
+
 //@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .autoajustable {
@@ -5,6 +15,15 @@
   padding-right: 16px;
   padding-bottom: 12px;
   padding-left: 16px;
+  position: relative;
+  display: flex;
+  &.drag-over {
+    .searchTerm {
+      border-style: dashed;
+      border-color: $primary-500;
+      box-shadow: 0 0 15px rgba($primary-500, 0.5);
+    }
+  }
 }
 
 .min-widht-btn{
@@ -75,16 +94,14 @@
   width: 100%;
   position: relative;
   display: flex;
+  &.drag-over {
+    .searchTerm {
+      border-style: dashed;
+      border-color: $primary-500;
+      box-shadow: 0 0 15px rgba($primary-500, 0.5);
+    }
+  }
 }
-$surface-1: #1f232e;     // fondo principal del sitio
-$surface-2: #23273a;     // 4 % más claro – se usa al focus
-$surface-3: #2d3243;     // borde reposo
-$primary-500: #4f8cff;   // color de marca para el foco
-$primary-600: #3c6bd4;   // tono más oscuro para hover
-$text-100: #ffffff;      // texto principal
-$text-300: #b0b3c6;      // placeholder
-$radius-md: 16px;        // radio coherente con botones
-$duration: 180ms;        // animaciones breves, snappy
 
 /* Animaciones para el placeholder y textarea =================== */
 @keyframes placeholderFade {
@@ -647,5 +664,38 @@ body {
 @media (max-width: 768px) {
   .chip-add-text {
     display: none !important;
+  }
+}
+
+.drag-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(23, 162, 184, 0.85);
+  border-radius: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.search.drag-over .drag-overlay {
+  opacity: 1;
+}
+
+.drag-overlay-content {
+  color: white;
+  text-align: center;
+  
+  p {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
   }
 }
