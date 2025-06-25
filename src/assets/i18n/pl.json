@@ -250,6 +250,16 @@
     "swalMultimodal": "DxGPT przetwarza Twoje pliki. Poczekaj kilka sekund na zakończenie",
     "swal2Multimodal": "Wyodrębniamy i analizujemy zawartość Twoich dokumentów i obrazów.",
     "swal3Multimodal": "Po zakończeniu sprawdź wygenerowany tekst i kliknij przycisk Szukaj, aby kontynuować.",
+    "multimodalInfo": {
+      "title": "Funkcjonalność w fazie testowej",
+      "description": "Ta funkcjonalność do przetwarzania dokumentów i obrazów jest w fazie testowej. Twoja opinia jest bardzo ważna, aby ją ulepszyć.",
+      "instructions": "Aby uzyskać lepsze wyniki:",
+      "instruction1": "Przesyłaj medyczne dokumenty (PDF, Word, Excel) lub obrazy",
+      "instruction2": "Uzupełnij opis pacjenta w polu tekstowym",
+      "instruction3": "Opisz objawy pacjenta i kiedy się pojawiły",
+      "instruction4": "Nie pytaj, tylko opisz sytuację kliniczną",
+      "feedback": "Proszę podzielić się swoją opinią, klikając przycisk opinii (paski na górze)"
+    },
     "q1": "Jakie są typowe objawy?",
     "q2": "Podaj mi więcej informacji",
     "q3": "Podaj test diagnostyczny",

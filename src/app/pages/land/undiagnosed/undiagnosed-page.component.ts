@@ -111,6 +111,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     isDragOver = false;
 
     filesAnalyzed = false;
+    filesModifiedAfterAnalysis = false; // Nueva propiedad para rastrear modificaciones
 
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService) {
         this.initialize();
@@ -165,6 +166,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
         this.filesAnalyzed = false;
+        this.filesModifiedAfterAnalysis = false;
         this.selectedFiles = [];
     }
 
@@ -277,6 +279,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     cancelButtonColor: '#B0B6BB',
                     confirmButtonText: this.translate.instant("generics.Yes"),
                     cancelButtonText: this.translate.instant("generics.No"),
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        this.newPatient();
+                    }
+                });
+            }else if(this.currentStep == 1 && this.selectedFiles.length > 0){
+                Swal.fire({
+                    title: this.translate.instant("land.Do you want to start over"),
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#B30000',
+                    cancelButtonColor: '#B0B6BB',
+                    confirmButtonText: this.translate.instant("generics.Yes"),
+                    cancelButtonText: this.translate.instant("generics.No"),    
                     showLoaderOnConfirm: true,
                     allowOutsideClick: false,
                     reverseButtons: true
@@ -543,12 +562,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }.bind(this));
 
         this.callingAI = true;
-        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
+        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'o3' }
         if (this.loadMoreDiseases) {
-            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
+            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'o3' }
         }
         if(newModel){
-            value.model = 'o1';
+            value.model = 'o3pro';
         }
         this.apiDx29ServerService.diagnose(value).subscribe(
             (res: any) => this.handledDiagnoseResponse(res, value, newModel),
@@ -843,6 +862,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
         });
         this.lauchEvent("Search Disease");
+        if(this.selectedFiles.length > 0){
+            this.lauchEvent("Multimodal" + this.selectedFiles.length);
+        }
         await this.delay(200);
         this.scrollTo();
     }
@@ -1975,6 +1997,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
           }
         });
         this.filesAnalyzed = false;
+        this.filesModifiedAfterAnalysis = true; // Marcar como modificado
       }
     }
 
@@ -1982,6 +2005,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
       this.selectedFiles.splice(index, 1);
       if (this.selectedFiles.length === 0) {
         this.filesAnalyzed = false;
+        this.filesModifiedAfterAnalysis = false; // Resetear si no hay archivos
+      } else {
+        this.filesModifiedAfterAnalysis = true; // Marcar como modificado
       }
     }
 
@@ -2071,6 +2097,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 showCancelButton: false
               });
           this.filesAnalyzed = true;
+          this.filesModifiedAfterAnalysis = false; // Resetear el estado de modificaciones
         }, 0);
 
         
@@ -2113,6 +2140,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.selectedFiles.push(file);
           }
         });
+        this.filesAnalyzed = false;
+        this.filesModifiedAfterAnalysis = true; // Marcar como modificado
       }
     }
 
@@ -2120,6 +2149,40 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
       if (!this.callingAI) {
         fileInput.click();
       }
+    }
+
+    // Métodos para la nueva interfaz de botones
+    getButtonText(): string {
+      if (this.callingAI) {
+        return this.translate.instant('generics.Processing');
+      }
+      
+      if (this.selectedFiles.length > 0 && !this.filesAnalyzed) {
+        return this.translate.instant('diagnosis.Analyze files and search');
+      }
+      
+      return this.translate.instant('land.Search');
+    }
+
+    getButtonTitle(): string {
+      if (this.callingAI) {
+        return this.translate.instant('generics.Please wait');
+      }
+      
+      if (this.medicalTextOriginal.length < 5) {
+        return this.translate.instant('land.placeholderError');
+      }
+      
+      if (this.selectedFiles.length > 0 && !this.filesAnalyzed) {
+        return this.translate.instant('diagnosis.Analyze uploaded files and search for diagnoses');
+      }
+      
+      return this.translate.instant('land.Search');
+    }
+
+    reanalyzeFiles() {
+      this.filesAnalyzed = false;
+      this.analyzeMultimodal();
     }
 
 }

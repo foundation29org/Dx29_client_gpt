@@ -250,6 +250,16 @@
     "swalMultimodal": "DxGPT verarbeitet Ihre Dateien. Bitte warten Sie einige Sekunden, bis es fertig ist",
     "swal2Multimodal": "Wir extrahieren und analysieren den Inhalt Ihrer Dokumente und Bilder.",
     "swal3Multimodal": "Sobald dies abgeschlossen ist, überprüfen Sie den generierten Text und klicken Sie auf Suchen, um fortzufahren.",
+    "multimodalInfo": {
+      "title": "Funktionalität in Test",
+      "description": "Diese Funktionalität für die Verarbeitung von Dokumenten und Bildern ist in der experimentellen Phase. Ihr Feedback ist sehr wichtig, um es zu verbessern.",
+      "instructions": "Für bessere Ergebnisse:",
+      "instruction1": "Hochladen Sie medizinische Dokumente (PDF, Word, Excel) oder medizinische Bilder",
+      "instruction2": "Komplementieren Sie mit einer Beschreibung des Patienten im Textfeld",
+      "instruction3": "Beschreiben Sie die Symptome des Patienten und wann sie begannen",
+      "instruction4": "Fragen Sie nicht, sondern beschreiben Sie die klinische Situation",
+      "feedback": "Bitte teilen Sie Ihre Erfahrung mit, indem Sie den Feedback-Button (roter Reiter) verwenden"
+    },
     "q1": "Was sind die häufigsten Symptome?",
     "q2": "Geben Sie mir mehr Informationen",
     "q3": "Stellen Sie einen Diagnosetest bereit",

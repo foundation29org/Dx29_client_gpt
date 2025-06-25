@@ -97,7 +97,17 @@
     "Details": "Details",
     "Text": "Text",
     "Document": "Document",
-    "Image": "Image"
+    "Image": "Image",
+    "Files uploaded": "Files uploaded",
+    "file": "file",
+    "Analyzed": "Analyzed",
+    "Pending analysis": "Pending analysis",
+    "Analyze files and search": "Analyze files and search",
+    "Analyze uploaded files and search for diagnoses": "Analyze uploaded files and search for diagnoses",
+    "Re-analyze files": "Re-analyze files",
+    "Re-analyze": "Re-analyze",
+    "Analysis completed": "Analysis completed",
+    "Files modified - re-analyze needed": "Files modified - re-analyze needed"
   },
   "policy": {
     "lastUpdated": "Last updated: 21 April 2025",
@@ -226,7 +236,7 @@
     "Uploading a capture can help us a lot": "Uploading a capture can help us a lot"
   },
   "footer":{
-    "Dx29info": "DxGPT is a search and reference tool provided for informational purposes and not intended to replace the clinician’s judgement or experience. It should not be used to diagnose or treat medical conditions."
+    "Dx29info": "DxGPT is a search and reference tool provided for informational purposes and not intended to replace the clinician's judgement or experience. It should not be used to diagnose or treat medical conditions."
   },
   "land":{
     "disclaimer": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-4 linguistic model as a predictive model for a tool to provide information on related rare diseases. It is designed to provide general information and suggestions based on the symptoms provided. The tool is not intended to replace professional medical advice, or support diagnosis, prevention, monitoring, prediction or treatment and should never be used to make diagnostic judgments for real patients.</p><p>Because AI can give variable results, diagnostic accuracy and suggestions from the tool may vary, so it is important to consult a qualified healthcare professional to ensure an accurate and appropriate diagnosis. Use of this tool is at the user's own risk and Foundation 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts any potential risks associated with the use of the artificial intelligence-based tool.</p>",
@@ -250,6 +260,16 @@
     "swalMultimodal": "DxGPT is processing your files. Please wait a few seconds for it to finish",
     "swal2Multimodal": "We are extracting and analyzing the content of your documents and images.",
     "swal3Multimodal": "Once completed, review the generated text and click search to continue.",
+    "multimodalInfo": {
+      "title": "Feature in testing",
+      "description": "This functionality for processing documents and images is in experimental phase. Your feedback is very important to improve it.",
+      "instructions": "For better results:",
+      "instruction1": "Upload medical documents (PDF, Word, Excel) or medical images",
+      "instruction2": "Complement with a patient description in the text box",
+      "instruction3": "Describe the patient's symptoms and when they started",
+      "instruction4": "Don't ask questions, just describe the clinical situation",
+      "feedback": "Please share your experience using the feedback button (Thumbs up and down)"
+    },
     "q1": "What are the common symptoms?",
     "q2": "Give me more information",
     "q3": "Provide a diagnosis test",
@@ -420,12 +440,12 @@
       "a8": "Your feedback is critically important for the continuous improvement of DxGPT. You can conveniently submit feedback directly through the application using the red tab located on the right side of the DxGPT interface. Alternatively, you can reach us via email at support@foundation29.org. We carefully review all feedback and suggestions to enhance our service.",
       "q9": "Can I see statistics on how DxGPT is used?",
       "a9": "Yes, you can access comprehensive statistics through the 'Usage Statistics' section located in the top menu of the DxGPT interface. Here, you can find detailed insights such as the total number of users, most frequently entered symptoms, top suggested diagnoses, geographic distribution of users, and a summary of user feedback. These statistics are presented anonymously and do not contain any personally identifiable information.",
-      "q10": "Who can collaborate on DxGPT’s development? ",
-      "a10": "We actively seek and warmly welcome collaborations from researchers, medical professionals, healthcare institutions, and organizations interested in the advancement of AI-assisted diagnostic technologies. If you are interested in contributing to our project or exploring joint research opportunities, please reach out to us via email at support@foundation29.org, or complete the contact form available on our official website. Collaboration helps us continually enhance DxGPT’s capabilities and practical utility.",
+      "q10": "Who can collaborate on DxGPT's development? ",
+      "a10": "We actively seek and warmly welcome collaborations from researchers, medical professionals, healthcare institutions, and organizations interested in the advancement of AI-assisted diagnostic technologies. If you are interested in contributing to our project or exploring joint research opportunities, please reach out to us via email at support@foundation29.org, or complete the contact form available on our official website. Collaboration helps us continually enhance DxGPT's capabilities and practical utility.",
       "q11": "I represent a patient group. How can we collaborate with DxGPT?",
       "a11": "If you represent a patient group or advocacy organization, we encourage you to collaborate by promoting DxGPT within your networks and communities. We are particularly interested in your group's experiences with specific medical conditions or diseases, as this information helps us better understand your unique needs and refine DxGPT accordingly. Please contact us to discuss potential collaboration and how DxGPT might best support your patient group.",
       "q12": "Is DxGPT considered a medical device?",
-      "a12": "No. DxGPT is not classified or regulated as a medical device under international regulations such as the European Union’s Medical Device Regulation (EU MDR) or the U.S. Food and Drug Administration (FDA). DxGPT serves purely as an experimental clinical decision-support tool, designed exclusively to assist qualified healthcare professionals by providing guidance and suggestions for diagnosis. It should always be used alongside, and not in replacement of, professional medical evaluation.",
+      "a12": "No. DxGPT is not classified or regulated as a medical device under international regulations such as the European Union's Medical Device Regulation (EU MDR) or the U.S. Food and Drug Administration (FDA). DxGPT serves purely as an experimental clinical decision-support tool, designed exclusively to assist qualified healthcare professionals by providing guidance and suggestions for diagnosis. It should always be used alongside, and not in replacement of, professional medical evaluation.",
       "q13": "Is DxGPT free to use?",
       "a13": "Yes, DxGPT is entirely free to use. It is developed and maintained as a non-profit project by Foundation 29, funded through philanthropic donations, grants, and collaborative partnerships. We aim to make advanced AI diagnostic support tools freely available to healthcare professionals and patients globally, promoting equity and access in medical diagnostics.",
       "q14": "Is my data used for secondary use?",
@@ -488,14 +508,14 @@
   "cookies": {
     "title": "Cookies policy",
     "t1": "1. Object",
-    "p1.1": "Foundation 29 recognises the importance of the applicable legislation and regulations pertaining to privacy and data protection. In this sense, the protection of the safety, integrity and confidentiality of our clients' and users' information is very important to us and we therefore strive to act responsibly in this regard. This page describes our web’s (hereinafter, the web) cookies policy <a class='underline' href='https://dxgpt.app' target='_blank'>https://dxgpt.app</a> (hereinafter the web).",
+    "p1.1": "Foundation 29 recognises the importance of the applicable legislation and regulations pertaining to privacy and data protection. In this sense, the protection of the safety, integrity and confidentiality of our clients' and users' information is very important to us and we therefore strive to act responsibly in this regard. This page describes our web's (hereinafter, the web) cookies policy <a class='underline' href='https://dxgpt.app' target='_blank'>https://dxgpt.app</a> (hereinafter the web).",
     "p1.2": "The provisions of both the Legal Notice and the Privacy policy will apply for the purpose of this cookies policy.",
     "t2": "2. Acceptance of the cookies policy",
     "p2.1": "As specified in the first layer ('banner on cookies'), the User has accepted or is able to accept this cookies policy. The use of technical means to prevent cookies from being downloaded to the user's browser does not invalidate the consent given for legal purposes, although the technical result may be that some or none of the cookies will not be downloaded, the effects of which are described later in this cookies policy.",
     "t3": "3. Cookies",
     "p3.1": "Foundation 29 uses cookies to make the browsing of its web more functional and useful for its users. In this sense, and to give the User all the information necessary for correct browsing, we provide the following explanatory text on what cookies are and how the User can disable them.",
     "t4": "4. Definition of cookie",
-    "p4.1": "All websites (regardless of the service they provide) currently use cookies, i.e. they save minimal information about the User’s activity on the website. A cookie can therefore be defined as a small text file or generalised device downloaded onto the User’s device or machine when they are browsing websites with the aim of storing data that may be updated and retrieved by the organisation responsible for their installation.",
+    "p4.1": "All websites (regardless of the service they provide) currently use cookies, i.e. they save minimal information about the User's activity on the website. A cookie can therefore be defined as a small text file or generalised device downloaded onto the User's device or machine when they are browsing websites with the aim of storing data that may be updated and retrieved by the organisation responsible for their installation.",
     "t5": "5. Purposes, management of cookies and type of cookies",
     "p5.1": "<strong>Technical cookies:</strong> These cookies allow the User to browse a web page, platform or application and to use the different options or services provided, such as monitoring traffic and data reporting, identification of session, access to restricted sections, using safety features during browsing, storing content for the streaming of videos or sound or sharing content via the social media.",
     "p5.2": "<strong>Analytical cookies:</strong> These cookies allow the person responsible for them to monitor and analyse the behaviour of users on the websites to which they are linked. The information collected through this type of cookies is used to measure the activity of the websites, application or platform and to generate browsing profiles of the users of these sites, applications and platforms in order to make improvements based on the analysis of the usage data of the users of the service.",
@@ -509,8 +529,8 @@
     "title": "Testimonials from our users",
     "testi1": "I am convinced that this application can simplify the complexity of the healthcare process, without affecting the quality of care, which is the great challenge of any technological solution when approaching the healthcare world. Moreover, as the application is completely free, any healthcare professional or patient can use it regardless of the economic implications and without compromising the privacy and security of its users.",
     "testi2": "A good assistant that complements our capacity for differential diagnosis, especially in those patients with less prevalent diseases, where it is not always possible to keep in mind all the diagnostic possibilities that make up a given conjunction of symptoms, signs and complementary tests.",
-    "testi3": "This tool is truly exceptional. It delivers precise and accurate information, which is immensely valuable. What sets it apart is its capability to suggest additional symptoms crucial for diagnosis. It doesn’t provide any misleading or biased information. I’m thoroughly impressed by its accuracy and helpfulness. Highly recommended for anyone seeking reliable diagnostic support.",
-    "testi4": "This is wonderful!! It would have taken HOURS to give all of my info to a doctor to even start on a diagnosis. I’ve suspected MS for a little while now, and it was the top possibility. Really, thank you for this!!.",
+    "testi3": "This tool is truly exceptional. It delivers precise and accurate information, which is immensely valuable. What sets it apart is its capability to suggest additional symptoms crucial for diagnosis. It doesn't provide any misleading or biased information. I'm thoroughly impressed by its accuracy and helpfulness. Highly recommended for anyone seeking reliable diagnostic support.",
+    "testi4": "This is wonderful!! It would have taken HOURS to give all of my info to a doctor to even start on a diagnosis. I've suspected MS for a little while now, and it was the top possibility. Really, thank you for this!!.",
     "testi5": "Loved it, I am not an MD so I am aware of the limitations but still found it to be incredibly intuitive and it was quite helpful for a non medical professional to gain insight… Excellent APP.",
     "Julio Mayol": "Julio Mayol, specialist in surgery at Hospital Clínico San Carlos (Spain)",
     "Juanjo Ríos": "Juanjo Ríos, medical director of Hospital La Paz (Spain)",
