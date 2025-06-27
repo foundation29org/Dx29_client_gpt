@@ -576,6 +576,12 @@
     "Metrics last hour": "Метрики за последний час",
     "Queues Health": "Здоровье очередей",
     "Status": "Статус",
-    "Active Messages": "Активные сообщения"
+    "Active Messages": "Активные сообщения",
+    "Model-Region": "Модель-Регион",
+    "Model": "Модель",
+    "Endpoints": "Конечные точки",
+    "Scheduled Messages": "Запланированные сообщения",
+    "Total Active Messages": "Общее количество активных сообщений",
+    "Estimated Wait Time": "Оценка времени ожидания"
   }
 } 

@@ -576,6 +576,12 @@
     "Metrics last hour": "Metryki z ostatniej godziny",
     "Queues Health": "Zdrowie kolejek",
     "Status": "Status",
-    "Active Messages": "Aktywne wiadomości"
+    "Active Messages": "Aktywne wiadomości",
+    "Model-Region": "Model-Region",
+    "Model": "Model",
+    "Endpoints": "Punkty końcowe",
+    "Scheduled Messages": "Zaplanowane wiadomości",
+    "Total Active Messages": "Łączna liczba aktywnych wiadomości",
+    "Estimated Wait Time": "Oszacowany czas oczekiwania"
   }
 } 

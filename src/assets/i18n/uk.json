@@ -576,6 +576,12 @@
     "Metrics last hour": "Метрики за останню годину",
     "Queues Health": "Здоров'я черг",
     "Status": "Статус",
-    "Active Messages": "Активні повідомлення"
+    "Active Messages": "Активні повідомлення",
+    "Model-Region": "Модель-Регіон",
+    "Model": "Модель",
+    "Endpoints": "Кінцеві точки",
+    "Scheduled Messages": "Заплановані повідомлення",
+    "Total Active Messages": "Загальна кількість активних повідомлень",
+    "Estimated Wait Time": "Оцінка часу очікування"
   }
 } 

@@ -88,7 +88,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     @ViewChild('autoajustable', { static: false }) mainTextArea: ElementRef;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
 
-    private queueStatusInterval: any;
+    private queueStatusTimeout: any;
     private readonly QUEUE_CHECK_INTERVAL = 1000; // 10 segundos
 
     // Variables para el contador
@@ -1746,19 +1746,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     private startQueueStatusCheck() {
-        // Limpiar cualquier intervalo existente
         this.cancelQueueStatusCheck();
-        
-        // Iniciar nuevo intervalo
-        this.queueStatusInterval = setInterval(() => {
-            this.checkQueueStatus();
-        }, this.QUEUE_CHECK_INTERVAL);
+        this.checkQueueStatus(); // Llama la primera vez
     }
 
     private cancelQueueStatusCheck() {
-        if (this.queueStatusInterval) {
-            clearInterval(this.queueStatusInterval);
-            this.queueStatusInterval = null;
+        if (this.queueStatusTimeout) {
+            clearTimeout(this.queueStatusTimeout);
+            this.queueStatusTimeout = null;
         }
     }
 
@@ -1792,6 +1787,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                                 // Forzar la actualización del modal
                                 this.updateQueueStatusModal(res.position, res.estimatedWaitTime);
                             }
+                            // Programa el siguiente chequeo SOLO después de 10 segundos
+                             this.queueStatusTimeout = setTimeout(() => this.checkQueueStatus(), 10000);
                         }
                     } 
                     // Manejar el caso cuando la respuesta tiene un formato diferente
@@ -1811,6 +1808,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             // Forzar la actualización del modal
                             this.updateQueueStatusModal(res.position, res.estimatedWaitTime);
                         }
+                        // Programa el siguiente chequeo SOLO después de 10 segundos
+                        this.queueStatusTimeout = setTimeout(() => this.checkQueueStatus(), 10000);
+                    } else if (res.result === 'error') {
+                        // Si hay error, cancela el chequeo y muestra mensaje si quieres
+                        console.error('Error en el estado de la cola:', res.message);
+                        this.cancelQueueStatusCheck();
+                        // Aquí podrías mostrar un mensaje al usuario, por ejemplo:
+                        // this.errorMessage = res.message;
                     }
                 },
                 (err) => {

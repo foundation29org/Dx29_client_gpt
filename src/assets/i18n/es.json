@@ -586,6 +586,12 @@
     "Metrics last hour": "Métricas en la última hora",
     "Queues Health": "Salud de Colas",
     "Status": "Estado",
-    "Active Messages": "Mensajes Activos"
+    "Active Messages": "Mensajes Activos",
+    "Model-Region": "Modelo-Región",
+    "Model": "Modelo",
+    "Endpoints": "Endpoints",
+    "Scheduled Messages": "Mensajes Programados",
+    "Total Active Messages": "Total de Mensajes Activos",
+    "Estimated Wait Time": "Tiempo de Espera Estimado"
   }
 }
