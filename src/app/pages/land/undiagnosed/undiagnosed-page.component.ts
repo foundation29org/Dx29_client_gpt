@@ -1993,201 +1993,210 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     onFilesSelected(event: any) {
         console.log(event);
-      if (event.target.files && event.target.files.length > 0) {
-        // Añadir los archivos seleccionados al array, evitando duplicados por nombre y tamaño
-        const newFiles = Array.from(event.target.files) as File[];
-        newFiles.forEach(file => {
-          if (!this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
-            this.selectedFiles.push(file);
-          }
-        });
-        this.filesAnalyzed = false;
-        this.filesModifiedAfterAnalysis = true; // Marcar como modificado
-      }
+        if (event.target.files && event.target.files.length > 0) {
+            // Añadir los archivos seleccionados al array, evitando duplicados por nombre y tamaño
+            const newFiles = Array.from(event.target.files) as File[];
+            newFiles.forEach(file => {
+                if (!this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                    this.selectedFiles.push(file);
+                }
+            });
+            this.filesAnalyzed = false;
+            this.filesModifiedAfterAnalysis = true; // Marcar como modificado
+            this.lauchEvent('Files selected: ' + newFiles.map(f => f.name).join(', '));
+        }
     }
 
     removeFile(index: number) {
-      this.selectedFiles.splice(index, 1);
-      if (this.selectedFiles.length === 0) {
-        this.filesAnalyzed = false;
-        this.filesModifiedAfterAnalysis = false; // Resetear si no hay archivos
-      } else {
-        this.filesModifiedAfterAnalysis = true; // Marcar como modificado
-      }
+        const removedFile = this.selectedFiles[index];
+        this.selectedFiles.splice(index, 1);
+        if (this.selectedFiles.length === 0) {
+            this.filesAnalyzed = false;
+            this.filesModifiedAfterAnalysis = false; // Resetear si no hay archivos
+        } else {
+            this.filesModifiedAfterAnalysis = true; // Marcar como modificado
+        }
+        this.lauchEvent('File removed: ' + (removedFile ? removedFile.name : 'unknown'));
     }
 
     analyzeMultimodal() {
-      // Mostrar spinner con Swal
-      Swal.close();
-      Swal.fire({
-        html: '<p>' + this.translate.instant("land.swalMultimodal") + '</p>' +
-              '<p>' + this.translate.instant("land.swal2Multimodal") + '</p>' +
-              '<p>' + this.translate.instant("land.swal3Multimodal") + '</p>' +
-              '<p><em class="primary fa fa-spinner fa-3x fa-spin fa-fw"></em></p>',
-        showCancelButton: true,
-        showConfirmButton: false,
-        cancelButtonText: this.translate.instant("generics.Cancel"),
-        allowOutsideClick: false,
-        allowEscapeKey: false
-      }).then(function (event) {
-        if (event.dismiss == Swal.DismissReason.cancel) {
-          this.callingAI = false;
-          this.subscription.unsubscribe();
-          this.subscription = new Subscription();
-        }
-      }.bind(this));
-
-      this.callingAI = true;
-      const formData = new FormData();
-      formData.append('text', this.medicalTextOriginal || '');
-      // Solo un documento y una imagen según backend, priorizar el primero de cada tipo
-      let docAdded = false;
-      let imgAdded = false;
-      for (const file of this.selectedFiles) {
-        if (!docAdded && [
-          'application/pdf',
-          'application/msword',
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-          'application/vnd.ms-excel',
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          'text/plain'
-        ].includes(file.type)) {
-          formData.append('document', file);
-          docAdded = true;
-        } else if (!imgAdded && file.type.startsWith('image/')) {
-          formData.append('image', file);
-          imgAdded = true;
-        }
-        if (docAdded && imgAdded) break;
-      }
-      formData.append('lang', this.lang || 'es');
-      formData.append('myuuid', this.myuuid || '');
-      formData.append('timezone', this.timezone || '');
-
-      this.apiDx29ServerService.analyzeMultimodal(formData).pipe(first()).subscribe({
-        next: (res: any) => {
-          this.summary = res.summary;
-          this.details = res.details;
-          this.detectedLang = res.detectedLang;
-          // Concatenar el resumen al texto principal
-          if (res.summary) {
-            if (this.medicalTextOriginal && !this.medicalTextOriginal.endsWith('\n')) {
-              this.medicalTextOriginal += '\n';
+        // Mostrar spinner con Swal
+        Swal.close();
+        Swal.fire({
+            html: '<p>' + this.translate.instant("land.swalMultimodal") + '</p>' +
+                  '<p>' + this.translate.instant("land.swal2Multimodal") + '</p>' +
+                  '<p>' + this.translate.instant("land.swal3Multimodal") + '</p>' +
+                  '<p><em class="primary fa fa-spinner fa-3x fa-spin fa-fw"></em></p>',
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonText: this.translate.instant("generics.Cancel"),
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        }).then(function (event) {
+            if (event.dismiss == Swal.DismissReason.cancel) {
+                this.callingAI = false;
+                this.subscription.unsubscribe();
+                this.subscription = new Subscription();
+                this.lauchEvent('User cancelled multimodal analysis');
             }
-            this.medicalTextOriginal += res.summary;
-          }
-          this.callingAI = false;
-          Swal.close();
-          setTimeout(async () => {
-          if (this.textAreas) {
-            this.textAreas.forEach(textArea => {
-                const element = textArea.nativeElement;
-                element.style.height = 'auto';
-                element.style.height = element.scrollHeight + 'px';
-                // Asegurar un tamaño mínimo
-                if (element.scrollHeight < 100) {
-                    element.style.height = '100px';
-                }
-            });
-          }
-            // Mostrar Swal informativo
-            Swal.fire({
-                icon: 'info',
-                title: this.translate.instant('diagnosis.Text generated'),
-                html: `
-                  <p>${this.translate.instant('diagnosis.We have processed your inputs')}</p>
-                  <p>${this.translate.instant('diagnosis.Please review the text')}</p>
-                `,
-                confirmButtonText: 'Ok',
-                showCancelButton: false
-              });
-          this.filesAnalyzed = true;
-          this.filesModifiedAfterAnalysis = false; // Resetear el estado de modificaciones
-        }, 0);
+        }.bind(this));
 
-        
-        },
-        error: (err) => {
-          this.callingAI = false;
-          Swal.close();
-          Swal.fire({
-            icon: 'error',
-            title: this.translate.instant('generics.error'),
-            text: this.translate.instant('land.errorAnalyze') || 'Error al analizar la información',
-            confirmButtonText: this.translate.instant('generics.Close')
-          });
+        this.lauchEvent('Analyze multimodal started');
+        this.callingAI = true;
+        const formData = new FormData();
+        formData.append('text', this.medicalTextOriginal || '');
+        // Solo un documento y una imagen según backend, priorizar el primero de cada tipo
+        let docAdded = false;
+        let imgAdded = false;
+        for (const file of this.selectedFiles) {
+            if (!docAdded && [
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'text/plain'
+            ].includes(file.type)) {
+                formData.append('document', file);
+                docAdded = true;
+                this.lauchEvent('Document file added: ' + file.name);
+            } else if (!imgAdded && file.type.startsWith('image/')) {
+                formData.append('image', file);
+                imgAdded = true;
+                this.lauchEvent('Image file added: ' + file.name);
+            }
+            if (docAdded && imgAdded) break;
         }
-      });
+        formData.append('lang', this.lang || 'es');
+        formData.append('myuuid', this.myuuid || '');
+        formData.append('timezone', this.timezone || '');
+
+        this.apiDx29ServerService.analyzeMultimodal(formData).pipe(first()).subscribe({
+            next: (res: any) => {
+                this.summary = res.summary;
+                this.details = res.details;
+                this.detectedLang = res.detectedLang;
+                // Concatenar el resumen al texto principal
+                if (res.summary) {
+                    if (this.medicalTextOriginal && !this.medicalTextOriginal.endsWith('\n')) {
+                        this.medicalTextOriginal += '\n';
+                    }
+                    this.medicalTextOriginal += res.summary;
+                }
+                this.callingAI = false;
+                Swal.close();
+                setTimeout(async () => {
+                    if (this.textAreas) {
+                        this.textAreas.forEach(textArea => {
+                            const element = textArea.nativeElement;
+                            element.style.height = 'auto';
+                            element.style.height = element.scrollHeight + 'px';
+                            // Asegurar un tamaño mínimo
+                            if (element.scrollHeight < 100) {
+                                element.style.height = '100px';
+                            }
+                        });
+                    }
+                    // Mostrar Swal informativo
+                    Swal.fire({
+                        icon: 'info',
+                        title: this.translate.instant('diagnosis.Text generated'),
+                        html: `
+                          <p>${this.translate.instant('diagnosis.We have processed your inputs')}</p>
+                          <p>${this.translate.instant('diagnosis.Please review the text')}</p>
+                        `,
+                        confirmButtonText: 'Ok',
+                        showCancelButton: false
+                    });
+                    this.filesAnalyzed = true;
+                    this.filesModifiedAfterAnalysis = false; // Resetear el estado de modificaciones
+                }, 0);
+                this.lauchEvent('Analyze multimodal success');
+            },
+            error: (err) => {
+                this.callingAI = false;
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: this.translate.instant('generics.error'),
+                    text: this.translate.instant('land.errorAnalyze') || 'Error al analizar la información',
+                    confirmButtonText: this.translate.instant('generics.Close')
+                });
+                this.lauchEvent('Analyze multimodal error: ' + (err?.message || 'unknown error'));
+            }
+        });
     }
 
     onDragOver(event: DragEvent) {
-      event.preventDefault();
-      event.stopPropagation();
-      this.isDragOver = true;
+        event.preventDefault();
+        event.stopPropagation();
+        this.isDragOver = true;
     }
 
     onDragLeave(event: DragEvent) {
-      event.preventDefault();
-      event.stopPropagation();
-      this.isDragOver = false;
+        event.preventDefault();
+        event.stopPropagation();
+        this.isDragOver = false;
     }
 
     onDrop(event: DragEvent) {
-      event.preventDefault();
-      event.stopPropagation();
-      this.isDragOver = false;
+        event.preventDefault();
+        event.stopPropagation();
+        this.isDragOver = false;
 
-      const files = event.dataTransfer?.files;
-      if (files && files.length > 0) {
-        const newFiles = Array.from(files) as File[];
-        newFiles.forEach(file => {
-          if (!this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
-            this.selectedFiles.push(file);
-          }
-        });
-        this.filesAnalyzed = false;
-        this.filesModifiedAfterAnalysis = true; // Marcar como modificado
-      }
+        const files = event.dataTransfer?.files;
+        if (files && files.length > 0) {
+            const newFiles = Array.from(files) as File[];
+            newFiles.forEach(file => {
+                if (!this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                    this.selectedFiles.push(file);
+                }
+            });
+            this.filesAnalyzed = false;
+            this.filesModifiedAfterAnalysis = true; // Marcar como modificado
+            this.lauchEvent('Files dropped: ' + newFiles.map(f => f.name).join(', '));
+        }
     }
 
     triggerFileInput(fileInput: HTMLInputElement) {
-      if (!this.callingAI) {
-        fileInput.click();
-      }
+        if (!this.callingAI) {
+            fileInput.click();
+        }
     }
 
     // Métodos para la nueva interfaz de botones
     getButtonText(): string {
-      if (this.callingAI) {
-        return this.translate.instant('generics.Processing');
-      }
-      
-      if (this.selectedFiles.length > 0 && !this.filesAnalyzed) {
-        return this.translate.instant('diagnosis.Analyze files and search');
-      }
-      
-      return this.translate.instant('land.Search');
+        if (this.callingAI) {
+            return this.translate.instant('generics.Processing');
+        }
+        
+        if (this.selectedFiles.length > 0 && !this.filesAnalyzed) {
+            return this.translate.instant('diagnosis.Analyze files and search');
+        }
+        
+        return this.translate.instant('land.Search');
     }
 
     getButtonTitle(): string {
-      if (this.callingAI) {
-        return this.translate.instant('generics.Please wait');
-      }
-      
-      if (this.medicalTextOriginal.length < 5) {
-        return this.translate.instant('land.placeholderError');
-      }
-      
-      if (this.selectedFiles.length > 0 && !this.filesAnalyzed) {
-        return this.translate.instant('diagnosis.Analyze uploaded files and search for diagnoses');
-      }
-      
-      return this.translate.instant('land.Search');
+        if (this.callingAI) {
+            return this.translate.instant('generics.Please wait');
+        }
+        
+        if (this.medicalTextOriginal.length < 5) {
+            return this.translate.instant('land.placeholderError');
+        }
+        
+        if (this.selectedFiles.length > 0 && !this.filesAnalyzed) {
+            return this.translate.instant('diagnosis.Analyze uploaded files and search for diagnoses');
+        }
+        
+        return this.translate.instant('land.Search');
     }
 
     reanalyzeFiles() {
-      this.filesAnalyzed = false;
-      this.analyzeMultimodal();
+        this.filesAnalyzed = false;
+        this.lauchEvent('Reanalyze files clicked');
+        this.analyzeMultimodal();
     }
 
 }
