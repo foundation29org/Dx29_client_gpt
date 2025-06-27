@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, timeout } from 'rxjs';
 import { catchError, map} from 'rxjs/operators';
 
 
@@ -32,6 +32,7 @@ getInfoLocation() {
 diagnose(info: any) {
     return this.http.post(environment.api + '/diagnose', info)
       .pipe(
+        timeout(300000), // 5 minutos de timeout
         map((res: any) => {
           if (res.result === 'queued') {
             return {
@@ -45,7 +46,7 @@ diagnose(info: any) {
         catchError((err) => {
           console.log(err);
           this.insightsService.trackException(err);
-          return err;
+          return throwError(() => err);
         })
       );
   }
