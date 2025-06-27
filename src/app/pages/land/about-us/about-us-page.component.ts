@@ -14,6 +14,9 @@ export class AboutUsPageComponent {
 
     _startTime: any;
     myuuid: string;
+    activeTab: number = 1;
+    expandedSections: { [key: string]: boolean } = {};
+    expandedQuestions: { [key: string]: boolean } = {};
 
     constructor( public translate: TranslateService, public insightsService: InsightsService, private uuidService: UuidService) {
         this._startTime = Date.now();
@@ -31,12 +34,40 @@ export class AboutUsPageComponent {
         gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
     }
 
-
     openWeb(){
         window.open('https://www.foundation29.org', '_blank');
     }
 
+    setActiveTab(tabNumber: number) {
+        this.activeTab = tabNumber;
+        // Close all sections when switching tabs
+        this.expandedSections = {};
+        this.expandedQuestions = {};
+    }
 
-      
+    toggleSection(sectionId: string) {
+        this.expandedSections[sectionId] = !this.expandedSections[sectionId];
+        // Close all questions in this section when collapsing the section
+        if (!this.expandedSections[sectionId]) {
+            Object.keys(this.expandedQuestions).forEach(key => {
+                if (key.startsWith(sectionId)) {
+                    this.expandedQuestions[key] = false;
+                }
+            });
+        }
+    }
+
+    toggleQuestion(questionId: string) {
+        // Close all other questions in the same section
+        const sectionPrefix = questionId.substring(0, 4); // P1S1, P1S2, etc.
+        Object.keys(this.expandedQuestions).forEach(key => {
+            if (key.startsWith(sectionPrefix) && key !== questionId) {
+                this.expandedQuestions[key] = false;
+            }
+        });
+        
+        // Toggle the clicked question
+        this.expandedQuestions[questionId] = !this.expandedQuestions[questionId];
+    }
 
 }
