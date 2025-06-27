@@ -1,158 +1,479 @@
-<div class="p-2 white"style="padding-bottom: 3rem !important;padding-top: 3rem !important;background-color: #1c202a;">
+<div class="p-2 white about-us-background" style="padding-bottom: 3rem !important;padding-top: 3rem !important;">
   <div class="col-sm-12 offset-lg-2 col-lg-8">
     <div class="card-body" style="max-width: 1200px;">
       <div class="row m-0">
 
-        <h2 class="white card-title text-bold-500 mb-0">
-          {{'land.aboutUs.t7' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p class="mb-0">{{'land.aboutUs.p7' | translate }}</p>
-        </span>
-        <div class="row align-items-center">
-          <div class="col-md-6 mb-2 d-flex justify-content-center">
-            <button (click)="lauchEvent('Info foundation29');openWeb();" class="btn btn-info btn-lg round"
-                  type="button"><strong>{{'land.aboutUs.Who are we' | translate }}</strong>
+        <!-- Tabs Navigation -->
+        <div class="tabs-container mt-4">
+          <div class="tabs-header">
+            <button 
+              class="tab-button" 
+              [class.active]="activeTab === 1" 
+              (click)="setActiveTab(1)">
+              {{'land.aboutUs.P1_Title' | translate }}
+            </button>
+            <button 
+              class="tab-button" 
+              [class.active]="activeTab === 2" 
+              (click)="setActiveTab(2)">
+              {{'land.aboutUs.P2_Title' | translate }}
+            </button>
+            <button 
+              class="tab-button" 
+              [class.active]="activeTab === 3" 
+              (click)="setActiveTab(3)">
+              {{'land.aboutUs.P3_Title' | translate }}
             </button>
           </div>
-          <div class="col-md-6 d-flex justify-content-center">
-            <a href="https://foundation29.org" target="_blank">
-              <img class="img-responsive" alt="logo Fundación 29" src='assets/img/logo-f29-white.webp' style="max-width: 200px;">
-            </a>
-          </div>
-        </div>
-        
 
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.t0' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p0.1' | translate }}</p>
-          <p>{{'land.aboutUs.p0.2' | translate }}</p>
-        </span>
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.t1' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p1.1' | translate }}</p>
-          <p>{{'land.aboutUs.p1.2' | translate }}</p>
-          <p>{{'land.aboutUs.p1.3' | translate }}</p>
-        </span>
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.t2' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p2.1' | translate }}</p>
-          <p>{{'land.aboutUs.p2.2' | translate }}</p>
-        </span>
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.t3' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p3.1' | translate }}</p>
-          <p>{{'land.aboutUs.p3.2' | translate }}</p>
-        </span>
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.t4' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p [innerHTML]="'land.aboutUs.p4' | translate "></p>
-        </span>
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.t5' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p [innerHTML]="'land.aboutUs.p5.1' | translate "></p>
-          <p>{{'land.aboutUs.p5.2' | translate }} <a target="_blank" class="white text-decoration-underline" href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1">{{'land.aboutUs.p5.3' | translate }}</a></p>
-        </span>
-        
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.t6' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p6.1' | translate }}</p>
-          <p>{{'land.aboutUs.p6.2' | translate }}</p>
-          <p>{{'land.aboutUs.p6.3' | translate }}</p>
-        </span>
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.implementationTitle' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.implementationText1' | translate }}</p>
-          <p>{{'land.aboutUs.implementationText2' | translate }}</p>
-        </span>
+          <!-- Tab Content -->
+          <div class="tab-content">
+            
+            <!-- Tab 1: Información General -->
+            <div class="tab-panel" *ngIf="activeTab === 1">
+              <div class="summary">
+                <p>{{'land.aboutUs.P1_Summary_P1' | translate }}</p>
+              </div>
 
-        <div class="row mt-4 mb-4 p-3">
-          <div class="col-md-4 center-elements">
-            <img class="img-responsive mb-4" alt="logo SERMAS" src='assets/img/home/sermas.webp' style="max-width: 100%;">
-          </div>
-          <div class="col-md-8">
-            <h3 class="white text-bold-500">{{'land.aboutUs.sermas.title' | translate }}</h3>
-            <p>{{'land.aboutUs.sermas.text' | translate }}</p>
-            <p>
-              <a target="_blank" class="white text-decoration-underline" href="https://news.microsoft.com/es-es/2023/09/15/el-servicio-madrileno-de-salud-pionero-en-la-aplicacion-de-inteligencia-artificial-generativa-para-la-mejora-del-diagnostico-en-pacientes-con-enfermedades-raras/">
-                {{'land.aboutUs.sermas.news1' | translate }}
-              </a>
-            </p>
-            <p>
-              <a target="_blank" class="white text-decoration-underline" href="https://www.comunidad.madrid/noticias/2025/01/12/comunidad-madrid-posibilita-acceso-6000-medicos-atencion-primaria-ia-diagnostico-enfermedades-raras">
-                {{'land.aboutUs.sermas.news2' | translate }}
-              </a>
-            </p>
+              <!-- Section 1: El Desafío del Diagnóstico Clínico -->
+              <div class="section-container">
+                <div class="section-header" (click)="toggleSection('P1S1')">
+                  <h3>{{'land.aboutUs.P1.S1.T' | translate }}</h3>
+                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P1S1']"></i>
+                </div>
+                <div class="section-content" [class.expanded]="expandedSections['P1S1']">
+                  
+                  <!-- Question 1 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P1S1B1')">
+                      <h4>{{'land.aboutUs.P1.S1.B1.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P1S1B1']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P1S1B1']">
+                      <p class="intro-text">{{'land.aboutUs.P1.S1.B1.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Question 2 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P1S1B2')">
+                      <h4>{{'land.aboutUs.P1.S1.B2.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P1S1B2']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P1S1B2']">
+                      <p class="intro-text">{{'land.aboutUs.P1.S1.B2.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Section 2: Por qué DxGPT y no una IA Generalista -->
+              <div class="section-container">
+                <div class="section-header" (click)="toggleSection('P1S2')">
+                  <h3>{{'land.aboutUs.P1.S2.T' | translate }}</h3>
+                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P1S2']"></i>
+                </div>
+                <div class="section-content" [class.expanded]="expandedSections['P1S2']">
+                  
+                  <!-- Question 1 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P1S2B1')">
+                      <h4>{{'land.aboutUs.P1.S2.B1.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P1S2B1']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P1S2B1']">
+                      <p class="intro-text">{{'land.aboutUs.P1.S2.B1.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Question 2 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P1S2B2')">
+                      <h4>{{'land.aboutUs.P1.S2.B2.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P1S2B2']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P1S2B2']">
+                      <p class="intro-text">{{'land.aboutUs.P1.S2.B2.A_P1' | translate }}</p>
+                      <ul class="intro-text">
+                        <li>{{'land.aboutUs.P1.S2.B2.A_L1.I1' | translate }}</li>
+                        <li>{{'land.aboutUs.P1.S2.B2.A_L1.I2' | translate }}</li>
+                        <li>{{'land.aboutUs.P1.S2.B2.A_L1.I3' | translate }}</li>
+                        <li>{{'land.aboutUs.P1.S2.B2.A_L1.I4' | translate }}</li>
+                        <li>{{'land.aboutUs.P1.S2.B2.A_L1.I5' | translate }}</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Question 3 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P1S2B3')">
+                      <h4>{{'land.aboutUs.P1.S2.B3.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P1S2B3']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P1S2B3']">
+                      <p class="intro-text">{{'land.aboutUs.P1.S2.B3.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Section 3: Impacto Real -->
+              <div class="section-container">
+                <div class="section-header" (click)="toggleSection('P1S3')">
+                  <h3>{{'land.aboutUs.P1.S3.T' | translate }}</h3>
+                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P1S3']"></i>
+                </div>
+                <div class="section-content" [class.expanded]="expandedSections['P1S3']">
+                  <p class="intro-text">{{'land.aboutUs.P1.S3.Intro_P1' | translate }}</p>
+                  
+                  <!-- SERMAS -->
+                  <div class="implementation-block">
+                    <h4>{{'land.aboutUs.P1.S3.B1.T' | translate }}</h4>
+                    <div class="row align-items-center">
+                      <div class="col-md-4 text-center">
+                        <img src="assets/img/home/sermas.webp" alt="SERMAS logo" style="max-width: 100px;">
+                      </div>
+                      <div class="col-md-8">
+                        <p class="intro-text">{{'land.aboutUs.P1.S3.B1.Content_P1' | translate }}</p>
+                        <p>
+                          <strong>Noticia relacionada:</strong>
+                          <a href="https://news.microsoft.com/es-es/2023/09/15/el-servicio-madrileno-de-salud-pionero-en-la-aplicacion-de-inteligencia-artificial-generativa-para-la-mejora-del-diagnostico-en-pacientes-con-enfermedades-raras/" target="_blank" class="white text-decoration-underline">
+                            {{'land.aboutUs.P1.S3.B1.RelatedLink1' | translate }}
+                          </a>
+                        </p>
+                        <p>
+                          <strong>Noticia relacionada:</strong>
+                          <a href="https://www.comunidad.madrid/noticias/2025/01/12/comunidad-madrid-posibilita-acceso-6000-medicos-atencion-primaria-ia-diagnostico-enfermedades-raras" target="_blank" class="white text-decoration-underline">
+                            {{'land.aboutUs.P1.S3.B1.RelatedLink2' | translate }}
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- CatSalut -->
+                  <div class="implementation-block">
+                    <h4>{{'land.aboutUs.P1.S3.B2.T' | translate }}</h4>
+                    <div class="row align-items-center">
+                      <div class="col-md-4 text-center">
+                        <img src="assets/img/home/logo-catsalut.webp" alt="CatSalut logo" style="max-width: 100px;">
+                      </div>
+                      <div class="col-md-8">
+                        <p class="intro-text">{{'land.aboutUs.P1.S3.B2.Content_P1' | translate }}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Tab 2: Nuestro Benchmark -->
+            <div class="tab-panel" *ngIf="activeTab === 2">
+              <div class="summary">
+                <p>{{'land.aboutUs.P2_Summary_P1' | translate }}</p>
+              </div>
+
+              <!-- Section 1: La Creación de DxGPT-bench -->
+              <div class="section-container">
+                <div class="section-header" (click)="toggleSection('P2S1')">
+                  <h3>{{'land.aboutUs.P2.S1.T' | translate }}</h3>
+                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P2S1']"></i>
+                </div>
+                <div class="section-content" [class.expanded]="expandedSections['P2S1']">
+                  
+                  <!-- Question 1 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P2S1B1')">
+                      <h4>{{'land.aboutUs.P2.S1.B1.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S1B1']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P2S1B1']">
+                      <p class="intro-text">{{'land.aboutUs.P2.S1.B1.A_P1' | translate }}</p>
+                      <ul class="intro-text">
+                        <li>{{'land.aboutUs.P2.S1.B1.A_L1.I1' | translate }}</li>
+                        <li>{{'land.aboutUs.P2.S1.B1.A_L1.I2' | translate }}</li>
+                        <li>{{'land.aboutUs.P2.S1.B1.A_L1.I3' | translate }}</li>
+                        <li>{{'land.aboutUs.P2.S1.B1.A_L1.I4' | translate }}</li>
+                      </ul>
+                      <div class="text-center mt-3">
+                        <img src="assets/img/home/bench-stats-1.png" alt="Benchmark statistics" class="img-fluid">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Question 2 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P2S1B2')">
+                      <h4>{{'land.aboutUs.P2.S1.B2.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S1B2']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P2S1B2']">
+                      <p class="intro-text">{{'land.aboutUs.P2.S1.B2.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Question 3 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P2S1B3')">
+                      <h4>{{'land.aboutUs.P2.S1.B3.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S1B3']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P2S1B3']">
+                      <p class="intro-text">{{'land.aboutUs.P2.S1.B3.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Section 2: Validación Estadística -->
+              <div class="section-container">
+                <div class="section-header" (click)="toggleSection('P2S2')">
+                  <h3>{{'land.aboutUs.P2.S2.T' | translate }}</h3>
+                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P2S2']"></i>
+                </div>
+                <div class="section-content" [class.expanded]="expandedSections['P2S2']">
+                  
+                  <!-- Question 1 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P2S2B1')">
+                      <h4>{{'land.aboutUs.P2.S2.B1.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S2B1']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P2S2B1']">
+                      <p class="intro-text">{{'land.aboutUs.P2.S2.B1.A_P1' | translate }}</p>
+                      <div class="text-center mt-3">
+                        <img src="assets/img/home/bench-stats-2.jpg" alt="Benchmark statistics" class="img-fluid">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Question 2 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P2S2B2')">
+                      <h4>{{'land.aboutUs.P2.S2.B2.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S2B2']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P2S2B2']">
+                      <p class="intro-text">{{'land.aboutUs.P2.S2.B2.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Question 3 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P2S2B3')">
+                      <h4>{{'land.aboutUs.P2.S2.B3.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S2B3']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P2S2B3']">
+                      <p class="intro-text">{{'land.aboutUs.P2.S2.B3.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Section 3: Proceso de Evaluación -->
+              <div class="section-container">
+                <div class="section-header" (click)="toggleSection('P2S3')">
+                  <h3>{{'land.aboutUs.P2.S3.T' | translate }}</h3>
+                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P2S3']"></i>
+                </div>
+                <div class="section-content" [class.expanded]="expandedSections['P2S3']">
+                  
+                  <!-- Question 1 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P2S3B1')">
+                      <h4>{{'land.aboutUs.P2.S3.B1.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S3B1']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P2S3B1']">
+                      <p class="intro-text">{{'land.aboutUs.P2.S3.B1.A_P1' | translate }}</p>
+                      <ul class="intro-text">
+                        <li>{{'land.aboutUs.P2.S3.B1.A_L1.I1' | translate }}</li>
+                        <li>{{'land.aboutUs.P2.S3.B1.A_L1.I2' | translate }}</li>
+                        <li>{{'land.aboutUs.P2.S3.B1.A_L1.I3' | translate }}</li>
+                        <li>{{'land.aboutUs.P2.S3.B1.A_L1.I4' | translate }}</li>
+                      </ul>
+                      <div class="text-center mt-3">
+                        <img src="assets/img/home/bench-stats-3.jpg" alt="Benchmark evaluation process" class="img-fluid">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Question 2 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P2S3B2')">
+                      <h4>{{'land.aboutUs.P2.S3.B2.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S3B2']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P2S3B2']">
+                      <p class="intro-text">{{'land.aboutUs.P2.S3.B2.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Tab 3: Quiénes Somos -->
+            <div class="tab-panel" *ngIf="activeTab === 3">
+              <div class="summary">
+                
+                <!-- Foundation 29 intro and actions -->
+                <div class="foundation-intro">
+                  <p class="mb-4">{{'land.aboutUs.P3_Summary_P1' | translate }}</p>
+                  
+                  <div class="row justify-content-center">
+                    <div class="col-md-6 mt-4 d-flex flex-column align-items-center">
+                      <a href="https://foundation29.org" target="_blank" class="mb-3">
+                        <img class="logo-f29" alt="logo Fundación 29" src='assets/img/logo-f29-white.webp' style="max-width: 250px; max-height: 150px;">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="mb-4 mt-4">{{'land.aboutUs.P3_Summary_P2' | translate }}</p>
+              </div>
+
+              <!-- Section 1: Nuestra Misión -->
+              <div class="section-container">
+                <div class="section-header" (click)="toggleSection('P3S1')">
+                  <h3>{{'land.aboutUs.P3.S1.T' | translate }}</h3>
+                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P3S1']"></i>
+                </div>
+                <div class="section-content" [class.expanded]="expandedSections['P3S1']">
+                  
+                  <!-- Question 1 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P3S1B1')">
+                      <h4>{{'land.aboutUs.P3.S1.B1.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S1B1']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P3S1B1']">
+                      <p class="intro-text">{{'land.aboutUs.P3.S1.B1.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Question 2 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P3S1B2')">
+                      <h4>{{'land.aboutUs.P3.S1.B2.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S1B2']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P3S1B2']">
+                      <p class="intro-text">{{'land.aboutUs.P3.S1.B2.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Question 3 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P3S1B3')">
+                      <h4>{{'land.aboutUs.P3.S1.B3.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S1B3']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P3S1B3']">
+                      <p class="intro-text">{{'land.aboutUs.P3.S1.B3.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Question 4 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P3S1B4')">
+                      <h4>{{'land.aboutUs.P3.S1.B4.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S1B4']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P3S1B4']">
+                      <p class="intro-text">{{'land.aboutUs.P3.S1.B4.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Section 2: Colaboradores y Apoyos -->
+              <div class="section-container">
+                <div class="section-header" (click)="toggleSection('P3S2')">
+                  <h3>{{'land.aboutUs.P3.S2.T' | translate }}</h3>
+                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P3S2']"></i>
+                </div>
+                <div class="section-content" [class.expanded]="expandedSections['P3S2']">
+                  
+                  <!-- Question 1 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P3S2B1')">
+                      <h4>{{'land.aboutUs.P3.S2.B1.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S2B1']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P3S2B1']">
+                      <p class="intro-text">{{'land.aboutUs.P3.S2.B1.A_P1' | translate }}</p>
+                      <div class="text-center mt-3">
+                        <img src="assets/img/home/microsoft.webp" alt="Microsoft logo" style="max-height: 130px !important;">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Question 2 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P3S2B2')">
+                      <h4>{{'land.aboutUs.P3.S2.B2.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S2B2']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P3S2B2']">
+                      <p class="intro-text">{{'land.aboutUs.P3.S2.B2.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Section 3: Únete a Nuestra Misión -->
+              <div class="section-container">
+                <div class="section-header" (click)="toggleSection('P3S3')">
+                  <h3>{{'land.aboutUs.P3.S3.T' | translate }}</h3>
+                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P3S3']"></i>
+                </div>
+                <div class="section-content" [class.expanded]="expandedSections['P3S3']">
+                  
+                  <!-- Question 1 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P3S3B1')">
+                      <h4>{{'land.aboutUs.P3.S3.B1.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S3B1']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P3S3B1']">
+                      <p class="intro-text">{{'land.aboutUs.P3.S3.B1.A_P1' | translate }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Question 2 -->
+                  <div class="question-container">
+                    <div class="question-header" (click)="toggleQuestion('P3S3B2')">
+                      <h4>{{'land.aboutUs.P3.S3.B2.Q' | translate }}</h4>
+                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S3B2']"></i>
+                    </div>
+                    <div class="question-content" [class.expanded]="expandedQuestions['P3S3B2']">
+                      <p class="intro-text">{{'land.aboutUs.P3.S3.B2.A_P1' | translate }}</p>
+                      <div class="action-buttons mt-3">
+                        <button class="btn btn-primary me-2">{{'land.aboutUs.P3.S3.B2.Action1' | translate }}</button>
+                        <button class="btn btn-outline-primary">{{'land.aboutUs.P3.S3.B2.Action2' | translate }}</button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
           </div>
         </div>
 
-        <div class="row mt-4 mb-4 p-3">
-          <div class="col-md-4 center-elements">
-            <img class="img-responsive mb-4" alt="logo CatSalut" src='assets/img/home/logo-catsalut.webp' style="max-width: 100%;">
-          </div>
-          <div class="col-md-8">
-            <h3 class="white text-bold-500">{{'land.aboutUs.catsalut.title' | translate }}</h3>
-            <p>{{'land.aboutUs.catsalut.text' | translate }}</p>
-          </div>
-        </div>
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.ft' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.fp1' | translate }}</p>
-          <p>{{'land.aboutUs.fp2' | translate }}</p>
-          <p>{{'land.aboutUs.fp3' | translate }}</p>
-        </span>
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.fstitle' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.fs1' | translate }}</p>
-        </span>
-        <h2 class="white card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.tptitle' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.tp1' | translate }}</p>
-          <p>{{'land.aboutUs.tp2' | translate }}</p>
-          <p>{{'land.aboutUs.tp3' | translate }}</p>
-        </span>
-        <div class="row center-elements pad-logos">
-          <div class="col-12 col-sm-12 mb-3 p-4">
-            <img class="img-responsive" alt="logo Microsoft" src='assets/img/home/microsoft.webp' style="max-height: 130px !important;">
-          </div>
-          <!--<div class="col-12 col-sm-6 mb-3 p-4">
-            <img class="img-responsive" alt="logo Google" src='assets/img/home/google.webp' style="max-height: 130px !important;">
-          </div>-->
-        </div>
       </div>
     </div>
 </div>
