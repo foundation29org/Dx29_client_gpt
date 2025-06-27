@@ -562,12 +562,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }.bind(this));
 
         this.callingAI = true;
-        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'o3' }
+        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
         if (this.loadMoreDiseases) {
-            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'o3' }
+            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
         }
         if(newModel){
-            value.model = 'o3pro';
+            value.model = 'o3';
         }
         this.apiDx29ServerService.diagnose(value).subscribe(
             (res: any) => this.handledDiagnoseResponse(res, value, newModel),
