@@ -10,6 +10,7 @@ import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 import { CookiesPageComponent } from "./cookies/cookies.component";
 import { TestimonialsComponent } from "./testimonials/testimonials.component";
+import { PermalinkViewPageComponent } from "./permalink-view/permalink-view-page.component";
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -44,7 +45,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         FeedbackPageComponent,
         PrivacyPolicyPageComponent,
         CookiesPageComponent,
-        TestimonialsComponent
+        TestimonialsComponent,
+        PermalinkViewPageComponent
     ]
 })
 export class LandPageModule { }

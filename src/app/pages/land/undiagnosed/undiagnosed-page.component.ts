@@ -1029,6 +1029,52 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.lauchEvent("Copy results");
     }
 
+    // Nueva funcionalidad para crear permalink
+    creatingPermalink: boolean = false;
+
+    async createPermalink() {
+        if (this.topRelatedConditions.length === 0) {
+            return;
+        }
+
+        try {
+            this.creatingPermalink = true;
+            
+            // Crear objeto con todos los datos necesarios
+            const permalinkData = {
+                medicalDescription: this.medicalTextOriginal,
+                anonymizedDescription: this.resultAnonymized || this.medicalTextOriginal,
+                diagnoses: this.topRelatedConditions.slice(0, 10), // Limitar a top 10
+                lang: this.lang,
+                createdDate: new Date().toISOString()
+            };
+
+            // Codificar datos en base64 para la URL
+            const encodedData = btoa(encodeURIComponent(JSON.stringify(permalinkData)));
+            
+            // Crear URL del permalink
+            const permalinkUrl = `${window.location.origin}/result/${encodedData}`;
+            
+            // Copiar al portapapeles
+            this.clipboard.copy(permalinkUrl);
+            
+            let msgSuccess = this.translate.instant("permalink.Permalink created and copied");
+            this.showSuccess(msgSuccess);
+            this.lauchEvent("Create permalink");
+            
+            this.creatingPermalink = false;
+        } catch (error) {
+            this.handlePermalinkError();
+            this.creatingPermalink = false;
+        }
+    }
+
+    private handlePermalinkError() {
+        let msgError = this.translate.instant("permalink.Error creating permalink");
+        this.showError(msgError, null);
+        console.error('Error creating permalink');
+    }
+
     getPlainInfoDiseases2() {
         return this.topRelatedConditions.map(condition => condition.name).join("\n");
       }

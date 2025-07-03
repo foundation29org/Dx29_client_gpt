@@ -1,22 +1,23 @@
 <!-- Navbar (Header) Starts -->
-<nav class="navbar navbar-expand-md navbar-light bg-faded damemarger custom-navbar">
+<nav class="navbar navbar-expand-lg navbar-light bg-faded damemarger custom-navbar">
   <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMenu()">
           <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="d-none d-md-block">
+      <div class="d-none d-lg-block">
           <span class="navbar-header-logos">
               <img *ngIf="isHomePage" class="logo-header pointer" src='assets/img/logo-Dx29.webp' alt="logo dxgpt" (click)="lauchEvent('Logo');goBackEvent();"/>
               <img *ngIf="!isHomePage" class="logo-header pointer" src='assets/img/logo-Dx29.webp' alt="logo dxgpt" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
           </span>
       </div>
       <div class="d-block">
-        <div class="d-sm-block d-md-none pointer">
+        <div class="d-sm-block d-lg-none pointer">
           <img *ngIf="isHomePage" class="mt-1 logo-header pointer" src='assets/img/logo-Dx29.webp' alt="logo dxgpt" (click)="lauchEvent('Logo');goBackEvent();"/>
           <img *ngIf="!isHomePage" class="mt-1 logo-header pointer" src='assets/img/logo-Dx29.webp' alt="logo dxgpt" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
       </div>
         <div [class.collapse]="!isMenuExpanded" [class.show]="isMenuExpanded" class="navbar-collapse" id="navbarSupportedContent">
+          <button *ngIf="isMenuExpanded" class="close-menu-btn d-lg-none" (click)="toggleMenu()">×</button>
           <ul class="navbar-nav m-r-0 menu-items">
               <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isHomePage)?'black':'black text-bold-700'" routerLink="/." (click)="lauchEvent('Page - Home'); goBackEvent();">
@@ -51,7 +52,7 @@
                   </a>
               </li>
           </ul>
-      </div>
+        </div>
       </div>
       
       <div class="navbar-container ps-0">

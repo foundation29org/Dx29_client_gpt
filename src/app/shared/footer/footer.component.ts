@@ -20,6 +20,7 @@ import { filter } from 'rxjs/operators';
 export class FooterComponent{
 
   isHomePage: boolean = false;
+  isResultPage: boolean = false;
   isPolicyPage: boolean = false;
   isCookiesPage: boolean = false;
   modalReference: NgbModalRef;
@@ -47,18 +48,28 @@ export class FooterComponent{
           this.isHomePage = true;
           this.isPolicyPage = false;
           this.isCookiesPage = false;
+          this.isResultPage = false;
         }else if(tempUrl == '/privacy-policy'){
           this.isHomePage = false;
           this.isPolicyPage = true;
           this.isCookiesPage = false;
+          this.isResultPage = false;
         }else if(tempUrl == '/cookies'){
           this.isHomePage = false;
           this.isPolicyPage = false;
           this.isCookiesPage = true;
-        }else {
+          this.isResultPage = false;
+        }else if(tempUrl == '/result'){
           this.isHomePage = false;
           this.isPolicyPage = false;
           this.isCookiesPage = false;
+          this.isResultPage = true;
+        }
+        else {
+          this.isHomePage = false;
+          this.isPolicyPage = false;
+          this.isCookiesPage = false;
+          this.isResultPage = true;
         }
       }
     );

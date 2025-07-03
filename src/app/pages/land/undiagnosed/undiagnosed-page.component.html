@@ -154,12 +154,19 @@
                 <span class="optionsResults mt-2 mb-2">
                   <em class="mt-1 fa fa-clipboard fa-2x info me-3 pointer white" title="{{'land.Copy results' | translate }}"
                     (click)="copyResults()"></em>
-                  <em class="mt-1 fa fa-2x fa-download info ms-1 pointer white" [class.not-allowed]="callingAnonymize || generatingPDF"
+                  <em class="mt-1 fa fa-2x fa-download info me-3 ms-1 pointer white" [class.not-allowed]="callingAnonymize || generatingPDF"
                     [attr.title]="(callingAnonymize || generatingPDF) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
                     [attr.aria-label]="(callingAnonymize || generatingPDF) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
                     (click)="!callingAnonymize && !generatingPDF && downloadResults()"></em>
+                  <em class="mt-1 fa-solid fa-share fa-2x info ms-1 pointer white" [class.not-allowed]="creatingPermalink"
+                    [attr.title]="creatingPermalink ? getLiteral('generics.Please wait') : getLiteral('permalink.Create permalink')"
+                    [attr.aria-label]="creatingPermalink ? getLiteral('generics.Please wait') : getLiteral('permalink.Create permalink')"
+                    (click)="!creatingPermalink && createPermalink()"></em>
                     <span *ngIf="generatingPDF" class="ms-2">
                       <em class="fa fa-spinner fa-spin"></em> {{'land.Generating PDF' | translate }}...
+                    </span>
+                    <span *ngIf="creatingPermalink" class="ms-2">
+                      <em class="fa fa-spinner fa-spin"></em> {{'permalink.Creating permalink' | translate }}...
                     </span>
                 </span>
               </div>
