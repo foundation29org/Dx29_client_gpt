@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map} from 'rxjs/operators';
+import { catchError, map, timeout} from 'rxjs/operators';
 
 
 @Injectable({
@@ -32,6 +32,7 @@ getInfoLocation() {
 diagnose(info: any) {
     return this.http.post(environment.api + '/diagnose', info)
       .pipe(
+        timeout(95000), // 95 segundos de timeout
         map((res: any) => {
           if (res.result === 'queued') {
             return {
@@ -43,9 +44,15 @@ diagnose(info: any) {
           return res;
         }),
         catchError((err) => {
-          console.log(err);
+          console.log('Diagnose error:', err);
           this.insightsService.trackException(err);
-          return err;
+          
+          // Manejar específicamente errores de timeout
+          if (err.name === 'TimeoutError') {
+            return throwError(() => new Error('La petición de diagnóstico ha excedido el tiempo límite. Por favor, inténtalo de nuevo.'));
+          }
+          
+          return throwError(() => err);
         })
       );
   }
@@ -168,6 +175,20 @@ diagnose(info: any) {
   }
 
   analyzeMultimodal(formData: FormData): Observable<any> {
-    return this.http.post(environment.api + '/medical/analyze', formData);
+    return this.http.post(environment.api + '/medical/analyze', formData)
+      .pipe(
+        timeout(95000), // 95 segundos de timeout
+        catchError((err) => {
+          console.log('Analyze multimodal error:', err);
+          this.insightsService.trackException(err);
+          
+          // Manejar específicamente errores de timeout
+          if (err.name === 'TimeoutError') {
+            return throwError(() => new Error('La petición de análisis multimodal ha excedido el tiempo límite. Por favor, inténtalo de nuevo.'));
+          }
+          
+          return throwError(() => err);
+        })
+      );
   }
 }
