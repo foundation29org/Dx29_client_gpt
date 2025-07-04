@@ -205,10 +205,10 @@
                               <button class="me-2 mb-2 btn btn-danger btn-sm size-btn" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
                                 <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
                               </button>
-                              <button *ngIf="!model" class="mb-2 btn btn-primary btn-sm size-btn" (click)="callNewModel()">
+                              <button *ngIf="!model" class="mb-2 btn btn-primary btn-sm size-btn" (click)="callAdvancedModel()">
                                 <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
                               </button>
-                              <button *ngIf="model" class="mb-2 btn btn-primary btn-sm" (click)="callOldModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+                              <button *ngIf="model" class="mb-2 btn btn-primary btn-sm" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
                             </div>
                           </span>
                         </span>
@@ -281,10 +281,10 @@
               <button class="btn btn-danger me-3 mt-2" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
                 <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
               </button>
-              <button *ngIf="!model" class="btn btn-primary mt-2" (click)="callNewModel()">
+              <button *ngIf="!model" class="btn btn-primary mt-2" (click)="callAdvancedModel()">
                 <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
               </button>
-              <button *ngIf="model" class="btn btn-primary mt-2" (click)="callOldModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+              <button *ngIf="model" class="btn btn-primary mt-2" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
             </div>
           </div>
         </div>

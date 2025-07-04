@@ -685,7 +685,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         Swal.close();
         
         // Determinar el modelo a usar
-        let modelToUse = 'o3pro';
+        let modelToUse = 'gpt4o';
         if (newModel) {
             modelToUse = 'o3';
         }
@@ -716,7 +716,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 <span id="progress-percentage">5%</span>
               </div>
             </div>` :
-            '<p><em class="primary fa fa-spinner fa-3x fa-spin fa-fw"></em></p>');
+            '<p><em class="white fa fa-spinner fa-3x fa-spin fa-fw"></em></p>');
         
         console.log('SweetAlert HTML content:', htmlContent);
 
@@ -726,7 +726,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             showConfirmButton: false,
             cancelButtonText: this.translate.instant("generics.Cancel"),
             allowOutsideClick: false,
-            allowEscapeKey: false
+            allowEscapeKey: false,
+            customClass: {
+                popup: 'dxgpt-modal-loading'
+            }
         }).then(function (event) {
             if (event.dismiss == Swal.DismissReason.cancel) {
                 this.callingAI = false;
@@ -761,13 +764,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
 
         this.apiDx29ServerService.diagnose(value).subscribe(
-            (res: any) => this.handledDiagnoseResponse(res, value, newModel),
+            (res: any) => this.handledDiagnoseResponse(res, value),
             (err: any) => this.handleAiError(err)
         );
     }
 
-    callNewModel(){
-        this.lauchEvent('callNewModel');
+    callAdvancedModel(){
+        this.lauchEvent('callAdvancedModel' );
         this.callingAI = true;
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
@@ -775,8 +778,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callAI(true);
     }
 
-    callOldModel(){
-        this.lauchEvent('callOldModel');
+    callFastModel(){
+        this.lauchEvent('callFastModel');
         this.callingAI = true;
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
@@ -784,7 +787,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callAI(false);
     }
 
-    handledDiagnoseResponse(res: any, value: any, newModel: boolean) {
+    handledDiagnoseResponse(res: any, value: any) {
        
         let msgError = this.translate.instant("generics.error try again");
         
@@ -910,7 +913,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.callingAI = false;
                     break;
                 case 'success':
-                    this.model = newModel;
                     this.processAiSuccess(res, value);
                     break;
                 default:
@@ -998,6 +1000,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     processAiSuccess(data: any, value: any) {
+        if(data.model && data.model != 'gpt4o'){
+            this.model = true;
+        }else{
+            this.model = false;
+        }
         //if (this.currentStep == 1) {
             console.log(data);
         if(data.data){
