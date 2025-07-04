@@ -61,7 +61,16 @@
     "minutes": "minut",
     "Please keep this window open": "Proszę nie zamykać tego okna",
     "High demand": "Duże zapotrzebowanie",
-    "Waiting": "Oczekiwanie"
+    "Waiting": "Oczekiwanie",
+    "seconds": "sekund"
+  },
+  "progress":{
+    "connecting": "Łączenie...",
+    "translating": "Tłumaczenie...",
+    "analyzing": "Analiza...",
+    "getting_details": "Pobieranie szczegółów...",
+    "anonymizing": "Anonimizacja...",
+    "finalizing": "Finalizacja..."
   },
   "diagnosis":{
     "Proposed diagnoses":"Proponowane diagnozy",
@@ -82,7 +91,32 @@
     "proceeded to delete": "Usunęliśmy te informacje i zapisaliśmy zanonimizowany tekst.",
     "Matching symptoms": "Pasujące objawy",
     "Non-matching symptoms": "Niepasujące objawy",
-    "None": "Brak"
+    "None": "Brak",
+    "Text generated": "Tekst generowany",
+    "We have processed your inputs": "Przetworzyliśmy Twoje dane i wygenerowaliśmy podsumowanie",
+    "Please review the text": "Proszę przejrzeć tekst w głównym polu przed kontynuowaniem",
+    "text input": "tekst wejściowy",
+    "document": "dokument",
+    "medical image": "obraz medyczny",
+    "errorAnalyze": "Błąd analizy informacji. Proszę spróbować ponownie.",
+    "Upload document or image": "Prześlij dokument lub obraz",
+    "Remove": "Usuń",
+    "Analyze": "Analizuj",
+    "Summary": "Podsumowanie",
+    "Details": "Szczegóły",
+    "Text": "Tekst",
+    "Document": "Dokument",
+    "Image": "Obraz",
+    "Files uploaded": "Przesłane pliki",
+    "file": "plik",
+    "Analyzed": "Analizowane",
+    "Pending analysis": "Oczekujące analizy",
+    "Analyze files and search": "Analizuj pliki i wyszukuj",
+    "Analyze uploaded files and search for diagnoses": "Analizuj przesłane pliki i wyszukuj diagnozy",
+    "Re-analyze files": "Ponownie analizuj pliki",
+    "Re-analyze": "Ponownie analizuj",
+    "Analysis completed": "Analiza zakończona",
+    "Files modified - re-analyze needed": "Pliki zmodyfikowane - ponowne analizowanie wymagane"
   },
   "policy": {
     "lastUpdated": "Ostatnia aktualizacja: 21 kwietnia 2025",
@@ -219,6 +253,7 @@
     "Recommendations": "Dla najlepszych wyników wskaż, kiedy i dlaczego Twoim zdaniem pojawiły się objawy",
     "Search": "Szukaj",
     "Need help": "Potrzebujesz pomocy?",
+    "dropzone": "Upuść pliki, aby je przesłać",
     "Made with love by": "Stworzone z ❤️ przez",
     "required": "Proszę podać dane pacjenta (wiek, płeć, objawy) i datę rozpoczęcia leczenia. Przykład: Kobieta, 42 lata, silne bóle głowy od 3 miesięcy, zawroty głowy, rodzinne występowanie migren.",
     "charactersleft": "Min. Wymagane jest 15 znaków. Brakuje {{value}}.",
@@ -231,6 +266,19 @@
     "swal": "DxGPT oblicza. Poczekaj kilka sekund na zakończenie",
     "swal2": "Mamy duże zapotrzebowanie, jeśli trwa to dłużej niż 2 minuty, anuluj i spróbuj ponownie.",
     "swal3": "Pomóż nam się doskonalić, oceniając jakość wyniku za pomocą kciuka w górę lub w dół.",
+    "swalMultimodal": "DxGPT przetwarza Twoje pliki. Poczekaj kilka sekund na zakończenie",
+    "swal2Multimodal": "Wyodrębniamy i analizujemy zawartość Twoich dokumentów i obrazów.",
+    "swal3Multimodal": "Po zakończeniu sprawdź wygenerowany tekst i kliknij przycisk Szukaj, aby kontynuować.",
+    "multimodalInfo": {
+      "title": "Funkcjonalność w fazie testowej",
+      "description": "Ta funkcjonalność do przetwarzania dokumentów i obrazów jest w fazie testowej. Twoja opinia jest bardzo ważna, aby ją ulepszyć.",
+      "instructions": "Aby uzyskać lepsze wyniki:",
+      "instruction1": "Przesyłaj medyczne dokumenty (PDF, Word, Excel) lub obrazy",
+      "instruction2": "Uzupełnij opis pacjenta w polu tekstowym",
+      "instruction3": "Opisz objawy pacjenta i kiedy się pojawiły",
+      "instruction4": "Nie pytaj, tylko opisz sytuację kliniczną",
+      "feedback": "Proszę podzielić się swoją opinią, klikając przycisk opinii (paski na górze)"
+    },
     "q1": "Jakie są typowe objawy?",
     "q2": "Podaj mi więcej informacji",
     "q3": "Podaj test diagnostyczny",
@@ -584,6 +632,12 @@
     "Metrics last hour": "Metryki z ostatniej godziny",
     "Queues Health": "Zdrowie kolejek",
     "Status": "Status",
-    "Active Messages": "Aktywne wiadomości"
+    "Active Messages": "Aktywne wiadomości",
+    "Model-Region": "Model-Region",
+    "Model": "Model",
+    "Endpoints": "Punkty końcowe",
+    "Scheduled Messages": "Zaplanowane wiadomości",
+    "Total Active Messages": "Łączna liczba aktywnych wiadomości",
+    "Estimated Wait Time": "Oszacowany czas oczekiwania"
   }
 } 

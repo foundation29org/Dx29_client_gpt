@@ -9,14 +9,39 @@
         </div>
       </div>
     </div>
-      <div
-        class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-        <div class="search">
-          <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
-            [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" [attr.placeholder]="textareaPlaceholder"
-            (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"></textarea>
+    <!-- Banner azul solo si no está analizado -->
+    <div
+      class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
+      <div class="search" [class.drag-over]="isDragOver"
+           (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+        <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
+          [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" [attr.placeholder]="textareaPlaceholder"
+          (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
+          [readonly]="callingAI"></textarea>
+          <div *ngIf="isDragOver" class="drag-overlay">
+            <div class="drag-overlay-content">
+              <em class="fa fa-upload fa-3x mb-3"></em>
+              <p>{{'land.dropzone' | translate}}</p>
+            </div>
+          </div>
+      </div>
+      <div class="chips-and-counter-row mt-2 mb-2">
+        <div class="file-chips-row">
+          <button type="button" class="chip-btn-add" [disabled]="callingAI" (click)="triggerFileInput(fileInput)"
+            title="{{'diagnosis.Upload document or image' | translate}}" aria-label="{{'diagnosis.Upload document or image' | translate}}">
+            <input #fileInput type="file" multiple (change)="onFilesSelected($event)" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,image/*"/>
+            <i class="fa fa-plus"></i>
+          </button>
+          <span *ngIf="!selectedFiles.length" class="chip-add-text d-none d-md-inline ms-1">{{'diagnosis.Upload document or image' | translate}}</span>
+          <ng-container *ngFor="let file of selectedFiles; let i = index">
+            <span class="file-chip">
+              <i class="fa me-1" [class.fa-file-text-o]="!file.type.startsWith('image/')" [class.fa-file-image-o]="file.type.startsWith('image/')"></i>
+              <span class="file-chip-name">{{ file.name }}</span>
+              <button type="button" class="chip-btn-remove" (click)="removeFile(i)"><i class="fa fa-times"></i></button>
+            </span>
+          </ng-container>
         </div>
-        <div class="text-end text-muted small mt-1">
+        <div class="chips-counter">
           <span [class.text-danger]="countCharacters(medicalTextOriginal) > 8000" 
                 [class.text-warning]="countCharacters(medicalTextOriginal) > 3000 && countCharacters(medicalTextOriginal) <= 8000">
             {{ countCharacters(medicalTextOriginal) }} {{'generics.characters' | translate}}
@@ -26,27 +51,108 @@
           </span>
         </div>
       </div>
-      <div
-        class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-        <button *ngIf="!modeFunctionality" type="submit" class="btn btn-lg btn-info" (click)="checkPopup(contentIntro)"
-          [attr.title]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
-          [attr.aria-label]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
-          [disabled]="callingAI">
+      <!-- Mensaje informativo sobre funcionalidad multimodal -->
+      <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info mt-3 mb-3" role="alert" style="text-align: left;">
+        <div class="d-flex align-items-start">
+          <i class="fa fa-info-circle fa-2x me-3 mt-1"></i>
+          <div>
+            <h5 class="alert-heading mb-2">{{'land.multimodalInfo.title' | translate}}</h5>
+            <p class="mb-2">{{'land.multimodalInfo.description' | translate}}</p>
+            <p class="mb-2"><strong>{{'land.multimodalInfo.instructions' | translate}}</strong></p>
+            <ul class="mb-2">
+              <li>{{'land.multimodalInfo.instruction1' | translate}}</li>
+              <li>{{'land.multimodalInfo.instruction2' | translate}}</li>
+              <li>{{'land.multimodalInfo.instruction3' | translate}}</li>
+              <li>{{'land.multimodalInfo.instruction4' | translate}}</li>
+            </ul>
+            <p class="mb-0"><em>{{'land.multimodalInfo.feedback' | translate}}</em></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estado de archivos -->
+      <!--<div *ngIf="selectedFiles.length > 0" class="alert alert-light mt-3 mb-3" role="alert" style="text-align: left;">
+        <div class="d-flex align-items-center">
+          <i class="fa fa-file-text-o fa-lg me-2"></i>
+          <div class="flex-grow-1">
+            <strong>{{'diagnosis.Files uploaded' | translate}}:</strong> {{selectedFiles.length}} {{'diagnosis.file' | translate}}{{selectedFiles.length > 1 ? 's' : ''}}
+            <span *ngIf="filesAnalyzed" class="badge bg-success ms-2">
+              <i class="fa fa-check me-1"></i>{{'diagnosis.Analyzed' | translate}}
+            </span>
+            <span *ngIf="!filesAnalyzed" class="badge bg-warning ms-2">
+              <i class="fa fa-clock-o me-1"></i>{{'diagnosis.Pending analysis' | translate}}
+            </span>
+          </div>
+        </div>
+      </div>-->
+
+      <!-- Banner de revisión después del análisis, ahora encima de la caja de texto -->
+      <div *ngIf="selectedFiles.length > 0 && filesAnalyzed && summary" class="alert alert-success mt-3 mb-3" role="alert" style="text-align: left;">
+        <div class="d-flex align-items-start">
+          <i class="fa fa-check-circle fa-2x me-3 mt-1"></i>
+          <div>
+            <h5 class="alert-heading mb-2">{{'diagnosis.Analysis completed' | translate}}</h5>
+            <p class="mb-2">{{'diagnosis.We have processed your inputs' | translate}}</p>
+            <p class="mb-0"><strong>{{'diagnosis.Please review the text' | translate}}</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 text-center mt-3">
+        <!-- Paso 1: Analizar archivos (solo si hay archivos no analizados) -->
+        <button *ngIf="selectedFiles.length > 0 && !filesAnalyzed" 
+                class="btn btn-lg btn-info" 
+                (click)="analyzeMultimodal()" 
+                [disabled]="callingAI"
+                [attr.title]="'diagnosis.Analyze uploaded files and search for diagnoses' | translate"
+                [attr.aria-label]="'diagnosis.Analyze uploaded files and search for diagnoses' | translate">
+          <i *ngIf="callingAI" class="fa fa-spinner fa-spin me-2"></i>
+          <i *ngIf="!callingAI" class="fa fa-search-plus me-2"></i>
+          {{'diagnosis.Analyze files and search' | translate}}
+        </button>
+
+        <!-- Paso 2: Buscar (cuando no hay archivos O cuando los archivos ya están analizados) -->
+        <button *ngIf="selectedFiles.length === 0 || filesAnalyzed" 
+                class="btn btn-lg btn-info" 
+                (click)="checkPopup(contentIntro)"
+                [attr.title]="getButtonTitle()"
+                [attr.aria-label]="getButtonTitle()"
+                [disabled]="callingAI">
+          <i *ngIf="callingAI" class="fa fa-spinner fa-spin me-2"></i>
+          <i *ngIf="!callingAI" class="fa fa-search me-2"></i>
           {{'land.Search' | translate }}
         </button>
-        <button *ngIf="modeFunctionality" type="submit" class="btn btn-lg btn-info" (click)="handleERResponse(contentFollowUpQuestions)"
-          [attr.title]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
-          [attr.aria-label]="(medicalTextOriginal.length<5) ? getLiteral('land.placeholderError') : getLiteral('land.Search')"
-          [disabled]="callingAI">
-          {{'land.Search' | translate }}
+        
+        <!-- Botón de re-analizar solo si se han modificado los archivos después del análisis -->
+        <button *ngIf="selectedFiles.length > 0 && filesAnalyzed && filesModifiedAfterAnalysis" 
+                class="btn btn-outline-warning btn-lg ms-2" 
+                (click)="reanalyzeFiles()" 
+                [disabled]="callingAI"
+                title="{{'diagnosis.Files modified - re-analyze needed' | translate}}"
+                aria-label="{{'diagnosis.Files modified - re-analyze needed' | translate}}">
+          <i class="fa fa-exclamation-triangle me-2"></i>
+          {{'diagnosis.Re-analyze' | translate}}
         </button>
       </div>
-      <div
-        class="mt-3 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
-        <span class="white pointer help-link" (click)="showContentInfoAPP(contentInfoAPP)"
-        [attr.title]="getLiteral('land.Need help')" [attr.aria-label]="getLiteral('land.Need help')">{{'land.Need help' |
-          translate }}</span>
+    </div>
+    <!--<div *ngIf="summary" class="mt-4">
+      <h5>{{'diagnosis.Summary' | translate}}:</h5>
+      <p>{{ summary }}</p>
+      <div *ngIf="details">
+        <h6>{{'diagnosis.Details' | translate}}:</h6>
+        <ul>
+          <li *ngIf="details.textInput"><b>{{'diagnosis.Text' | translate}}:</b> {{ details.textInput }}</li>
+          <li *ngIf="details.documentAnalysis"><b>{{'diagnosis.Document' | translate}}:</b> {{ details.documentAnalysis }}</li>
+          <li *ngIf="details.imageAnalysis"><b>{{'diagnosis.Image' | translate}}:</b> {{ details.imageAnalysis }}</li>
+        </ul>
       </div>
+    </div>-->
+    <div
+      class="mt-3 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
+      <span class="white pointer help-link" (click)="showContentInfoAPP(contentInfoAPP)"
+      [attr.title]="getLiteral('land.Need help')" [attr.aria-label]="getLiteral('land.Need help')">{{'land.Need help' |
+        translate }}</span>
+    </div>
   </section>
   <section *ngIf="currentStep == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 mb-5 mt-2">
     <a id="step2"></a>
@@ -99,10 +205,10 @@
                               <button class="me-2 mb-2 btn btn-danger btn-sm size-btn" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
                                 <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
                               </button>
-                              <button *ngIf="!model" class="mb-2 btn btn-primary btn-sm size-btn" (click)="callNewModel()">
+                              <button *ngIf="!model" class="mb-2 btn btn-primary btn-sm size-btn" (click)="callAdvancedModel()">
                                 <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
                               </button>
-                              <button *ngIf="model" class="mb-2 btn btn-primary btn-sm" (click)="callOldModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+                              <button *ngIf="model" class="mb-2 btn btn-primary btn-sm" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
                             </div>
                           </span>
                         </span>
@@ -182,10 +288,10 @@
               <button class="btn btn-danger me-3 mt-2" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
                 <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
               </button>
-              <button *ngIf="!model" class="btn btn-primary mt-2" (click)="callNewModel()">
+              <button *ngIf="!model" class="btn btn-primary mt-2" (click)="callAdvancedModel()">
                 <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
               </button>
-              <button *ngIf="model" class="btn btn-primary mt-2" (click)="callOldModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+              <button *ngIf="model" class="btn btn-primary mt-2" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
             </div>
           </div>
         </div>
@@ -458,25 +564,3 @@
     </button>
   </div>
 </ng-template>
-
-<style>
-  .pulse-animation {
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
-    }
-    
-    70% {
-      transform: scale(1);
-      box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
-    }
-    
-    100% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
-    }
-  }
-</style>

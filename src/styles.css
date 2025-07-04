@@ -158,4 +158,32 @@ a:focus
     }
   }
 
+  /* Estilos personalizados para el modal de carga de DxGPT */
+.dxgpt-modal-loading {
+  background: #23272f !important;
+  border-radius: 18px !important;
+  box-shadow: 0 4px 32px #000a !important;
+  color: #e0e0e0 !important;
+  padding: 32px 0 24px 0 !important; /* Aumenta el padding-top */
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  min-width: 350px;
+  max-width: 95vw;
+}
+.swal2-html-container {
+  color: #e0e0e0 !important;
+  font-size: 1.08rem !important;
+}
+.swal2-cancel {
+  background: #444 !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  border: none !important;
+  font-weight: 500 !important;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  box-shadow: 0 2px 8px #0002;
+  transition: background 0.2s;
+}
+.swal2-cancel:hover {
+  background: #666 !important;
+}
   

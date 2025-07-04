@@ -61,7 +61,16 @@
     "minutes": "minutes",
     "Please keep this window open": "Veuillez conserver cette fenêtre ouverte",
     "High demand": "Demande élevée",
-    "Waiting": "En attente"
+    "Waiting": "En attente",
+    "seconds": "secondes"
+  },
+  "progress":{
+    "connecting": "Connexion...",
+    "translating": "Traduction...",
+    "analyzing": "Analyse...",
+    "getting_details": "Récupération des détails...",
+    "anonymizing": "Anonymisation...",
+    "finalizing": "Finalisation..."
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnostics proposés",
@@ -82,7 +91,32 @@
     "proceeded to delete": "Nous avons procédé à la suppression de ces informations et enregistré le texte anonymisé.",
     "Matching symptoms": "Symptômes correspondants",
     "Non-matching symptoms": "Symptômes non correspondants",
-    "None": "Aucun"
+    "None": "Aucun",
+    "Text generated": "Texte généré",
+    "We have processed your inputs": "Nous avons traité vos entrées et généré un résumé",
+    "Please review the text": "Veuillez examiner le texte dans la boîte principale avant de continuer la recherche",
+    "text input": "texte saisi",
+    "document": "document",
+    "medical image": "image médicale",
+    "errorAnalyze": "Erreur lors de l'analyse des informations. Veuillez réessayer.",
+    "Upload document or image": "Télécharger un document ou une image",
+    "Remove": "Supprimer",
+    "Analyze": "Analyser",
+    "Summary": "Résumé",
+    "Details": "Détails",
+    "Text": "Texte",
+    "Document": "Document",
+    "Image": "Image",
+    "Files uploaded": "Fichiers téléchargés",
+    "file": "fichier",
+    "Analyzed": "Analysé",
+    "Pending analysis": "En attente d'analyse",
+    "Analyze files and search": "Analyser les fichiers et rechercher",
+    "Analyze uploaded files and search for diagnoses": "Analyser les fichiers téléchargés et rechercher des diagnostics",
+    "Re-analyze files": "Réanalyser les fichiers",
+    "Re-analyze": "Réanalyser",
+    "Analysis completed": "Analyse terminée",
+    "Files modified - re-analyze needed": "Fichiers modifiés - réanalyse nécessaire"
   },
   "policy": {
     "lastUpdated": "Dernière mise à jour : 21 avril 2025",
@@ -219,6 +253,7 @@
     "Recommendations": "Pour de meilleurs résultats, indiquez quand et pourquoi vous pensez que les symptômes sont apparus",
     "Search": "Rechercher",
     "Need help": "Besoin d'aide?",
+    "dropzone": "Déposez les fichiers pour les télécharger",
     "Made with love by": "Fait avec ❤️ par",
     "required": "Veuillez fournir les détails du patient (âge, sexe, symptômes) et la date à laquelle ils ont commencé. Exemple : Femme, 42 ans, maux de tête sévères depuis 3 mois, vertiges, antécédents familiaux de migraines.",
     "charactersleft": "Min. 15 caractères requis. {{value}} est manquant.",
@@ -231,6 +266,19 @@
     "swal": "DxGPT calcule. Veuillez patienter quelques secondes pour qu'il termine",
     "swal2": "Nous avons une forte demande, si cela prend plus de 2 minutes, annulez et réessayez.",
     "swal3": "Aidez-nous à améliorer, indiquez la qualité du résultat en cliquant sur les pouces vers le haut ou vers le bas.",
+    "swalMultimodal": "DxGPT est en train de traiter vos fichiers. Veuillez patienter quelques secondes pour qu'il termine",
+    "swal2Multimodal": "Nous extrayons et analysons le contenu de vos documents et images.",
+    "swal3Multimodal": "Une fois terminé, examinez le texte généré et cliquez sur rechercher pour continuer.",
+    "multimodalInfo": {
+      "title": "Fonctionnalité en test",
+      "description": "Cette fonctionnalité pour traiter des documents et des images est en phase expérimentale. Votre retour est très important pour l'améliorer.",
+      "instructions": "Pour de meilleurs résultats :",
+      "instruction1": "Téléchargez des documents médicaux (PDF, Word, Excel) ou des images médicales",
+      "instruction2": "Complétez avec une description du patient dans la zone de texte",
+      "instruction3": "Décrivez les symptômes du patient et quand ils ont commencé",
+      "instruction4": "Ne posez pas de questions, décrivez simplement la situation clinique",
+      "feedback": "Veuillez partager votre expérience en utilisant le bouton de retour (pouces vers le haut et vers le bas)"
+    },
     "q1": "Quels sont les symptômes courants ?",
     "q2": "Donnez-moi plus d'informations",
     "q3": "Fournissez un test de diagnostic",
@@ -584,6 +632,12 @@
     "Metrics last hour": "Métriques de la dernière heure",
     "Queues Health": "Santé des files d'attente",
     "Status": "Statut",
-    "Active Messages": "Messages actifs"
+    "Active Messages": "Messages actifs",
+    "Model-Region": "Modèle-Région",
+    "Model": "Modèle",
+    "Endpoints": "Points de terminaison",
+    "Scheduled Messages": "Messages programmés",
+    "Total Active Messages": "Messages actifs totaux",
+    "Estimated Wait Time": "Temps d'attente estimé"
   }
 }

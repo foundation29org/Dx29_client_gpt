@@ -88,7 +88,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     @ViewChild('autoajustable', { static: false }) mainTextArea: ElementRef;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
 
-    private queueStatusInterval: any;
+    private queueStatusTimeout: any;
     private readonly QUEUE_CHECK_INTERVAL = 1000; // 10 segundos
 
     // Variables para el contador
@@ -103,6 +103,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private lastClickTime: number = 0;
     currentYear: number = new Date().getFullYear();
     generatingPDF: boolean = false;
+
+    selectedFiles: File[] = [];
+    summary: string = '';
+    details: any = null;
+
+    isDragOver = false;
+
+    filesAnalyzed = false;
+    filesModifiedAfterAnalysis = false; // Nueva propiedad para rastrear modificaciones
+
+    // Propiedades para WebSocket/PubSub
+    private webSocket: WebSocket | null = null;
+    private isWebSocketConnected: boolean = false;
 
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService) {
         this.initialize();
@@ -156,6 +169,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         await this.delay(200);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
+        this.filesAnalyzed = false;
+        this.filesModifiedAfterAnalysis = false;
+        this.selectedFiles = [];
     }
 
     async newPatient() {
@@ -275,6 +291,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         this.newPatient();
                     }
                 });
+            }else if(this.currentStep == 1 && this.selectedFiles.length > 0){
+                Swal.fire({
+                    title: this.translate.instant("land.Do you want to start over"),
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#B30000',
+                    cancelButtonColor: '#B0B6BB',
+                    confirmButtonText: this.translate.instant("generics.Yes"),
+                    cancelButtonText: this.translate.instant("generics.No"),    
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        this.newPatient();
+                    }
+                });
             }
         });
 
@@ -337,6 +370,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             clearInterval(this.typingInterval);
         }
         
+        // Limpiar WebSocket
+        if (this.webSocket) {
+            this.webSocket.close();
+            this.webSocket = null;
+        }
+        
         // Desuscribirse de los eventos
         this.eventsService.off('changelang');
         this.eventsService.off('backEvent');
@@ -344,6 +383,135 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         // Cancelar todas las suscripciones
         this.subscription.unsubscribe();
+    }
+
+    // Métodos para WebSocket/PubSub
+    private async connectWebSocket(): Promise<void> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // Cerrar conexión existente si la hay
+                if (this.webSocket) {
+                    this.webSocket.close();
+                    this.webSocket = null;
+                }
+    
+                // Obtener token de conexión
+                const response = await this.apiDx29ServerService.negotiatePubSub(this.myuuid).toPromise();
+                const { url } = response as any;
+    
+                // Crear conexión WebSocket
+                this.webSocket = new WebSocket(url);
+    
+                this.webSocket.onopen = () => {
+                    console.log('WebSocket connected');
+                    this.isWebSocketConnected = true;
+                    resolve();
+                };
+    
+                this.webSocket.onmessage = (event) => {
+                    this.handleWebSocketMessage(event);
+                };
+    
+                this.webSocket.onerror = (error) => {
+                    console.error('WebSocket error:', error);
+                    this.isWebSocketConnected = false;
+                    reject(error);
+                };
+    
+                this.webSocket.onclose = (event) => {
+                    console.log('WebSocket disconnected', event.code, event.reason);
+                    this.isWebSocketConnected = false;
+                };
+    
+                // Timeout si no se conecta en 10 segundos (aumentado para Azure)
+                setTimeout(() => {
+                    if (!this.isWebSocketConnected) {
+                        reject(new Error('WebSocket connection timeout'));
+                    }
+                }, 10000); // Azure Web PubSub puede tardar un poco más
+    
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    private handleWebSocketMessage(event: MessageEvent) {
+        try {
+            const message = JSON.parse(event.data);
+            
+            switch (message.type) {
+                case 'progress':
+                    this.updateWebSocketProgress(message.percentage, message.message, message.step);
+                    break;
+                    
+                case 'result':
+                    // Resultado final recibido via WebSocket
+                    Swal.close();
+                    this.webSocket?.close();
+                    this.webSocket = null;
+                    this.processAiSuccess(message.data, null);
+                    break;
+                    
+                case 'error':
+                    // Error recibido via WebSocket
+                    Swal.close();
+                    this.webSocket?.close();
+                    this.webSocket = null;
+                    this.handleWebSocketError(message.data);
+                    break;
+            }
+        } catch (error) {
+            console.error('Error parsing WebSocket message:', error);
+        }
+    }
+
+    private getProgressMessage(phase: string): string {
+        const messages = {
+            'connection': this.translate.instant('progress.connecting') || 'Connecting...',
+            'translation': this.translate.instant('progress.translating') || 'Translating description...',
+            'ai_processing': this.translate.instant('progress.analyzing') || 'Analyzing symptoms with AI...',
+            'ai_details': this.translate.instant('progress.getting_details') || 'Getting diagnosis details...',
+            'anonymization': this.translate.instant('progress.anonymizing') || 'Anonymizing personal information...',
+            'finalizing': this.translate.instant('progress.finalizing') || 'Finalizing diagnosis...'
+        };
+        
+        return messages[phase] || phase; // fallback al mensaje original
+    }
+
+    private updateWebSocketProgress(progress: number, message: string, phase?: string) {
+        const displayMessage = phase ? this.getProgressMessage(phase) : message;
+        
+        const progressBar = document.getElementById('progress-bar');
+        const progressMessage = document.getElementById('progress-message');
+        const progressPercentage = document.getElementById('progress-percentage');
+        
+        if (progressBar) {
+            progressBar.style.width = progress + '%';
+            console.log(`Progress updated: ${progress}% - ${displayMessage}`);
+        }
+        if (progressMessage) {
+            progressMessage.textContent = displayMessage;
+        }
+        if (progressPercentage) {
+            progressPercentage.textContent = Math.round(progress) + '%';
+        }
+    }
+
+    private handleWebSocketError(error: any) {
+        console.error('WebSocket error:', error);
+        let msgError = '';
+        
+        if (error.type === 'PROCESSING_ERROR') {
+            msgError = this.translate.instant("generics.error try again");
+        } else if (error.type === 'QUEUE_PROCESSING_ERROR') {
+            msgError = this.translate.instant("generics.error try again");
+        } else {
+            msgError = this.translate.instant("generics.error try again");
+        }
+        
+        this.showError(msgError, error);
+        this.callingAI = false;
     }
 
     copyText(par) {
@@ -513,42 +681,96 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     }
 
-    callAI(newModel: boolean) {
-        
+    async callAI(newModel: boolean) {
         Swal.close();
+        
+        // Determinar el modelo a usar
+        let modelToUse = 'gpt4o';
+        if (newModel) {
+            modelToUse = 'o3';
+        }
+        
+        // Para modelos largos, conectar WebSocket primero
+        const isLongModel = (modelToUse === 'o3' || modelToUse === 'o3pro');
+        console.log(`Model: ${modelToUse}, isLongModel: ${isLongModel}`);
+        if (isLongModel) {
+            try {
+                await this.connectWebSocket();
+            } catch (error) {
+                console.error('Error connecting WebSocket:', error);
+                this.showError(this.translate.instant("generics.error try again"), error);
+                return;
+            }
+        }
+
+        const htmlContent = '<p>' + this.translate.instant("land.swal") + '</p>' + 
+          '<p>' + this.translate.instant("land.swal2") + '</p>' + 
+          '<p>' + this.translate.instant("land.swal3") + '</p>' + 
+          (isLongModel ?
+            `<div id="websocket-progress" style="margin: 18px 0 10px 0; padding: 12px 18px; background: rgba(30,34,40,0.95); border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); border: 1px solid #23272f;">
+              <div id="progress-message" style="margin-bottom: 8px; font-weight: 500; color: #e0e0e0; font-size: 15px; letter-spacing: 0.01em; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">${this.getProgressMessage('ai_processing')}</div>
+              <div style="width: 100%; height: 18px; background: #23272f; border-radius: 9px; overflow: hidden; border: 1px solid #353b45;">
+                <div id="progress-bar" style="width: 5%; height: 100%; background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%); transition: width 0.5s cubic-bezier(.4,2.3,.3,1); border-radius: 9px; min-width: 10px; box-shadow: 0 1px 6px #43e97b44;"></div>
+              </div>
+              <div style="margin-top: 6px; font-size: 12px; color: #b0b6bb; text-align: right; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
+                <span id="progress-percentage">5%</span>
+              </div>
+            </div>` :
+            '<p><em class="white fa fa-spinner fa-3x fa-spin fa-fw"></em></p>');
+        
+        console.log('SweetAlert HTML content:', htmlContent);
+
         Swal.fire({
-            html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p>' + this.translate.instant("land.swal3") + '</p>' + '<p><em class="primary fa fa-spinner fa-3x fa-spin fa-fw"></em></p>',
+            html: htmlContent,
             showCancelButton: true,
             showConfirmButton: false,
             cancelButtonText: this.translate.instant("generics.Cancel"),
             allowOutsideClick: false,
-            allowEscapeKey: false
+            allowEscapeKey: false,
+            customClass: {
+                popup: 'dxgpt-modal-loading'
+            }
         }).then(function (event) {
             if (event.dismiss == Swal.DismissReason.cancel) {
                 this.callingAI = false;
                 this.subscription.unsubscribe();
                 this.subscription = new Subscription();
+                if (this.webSocket) {
+                    this.webSocket.close();
+                    this.webSocket = null;
+                }
             }
-
         }.bind(this));
 
+        // Inicializar progreso para modelos largos
+        if (isLongModel) {
+            setTimeout(() => {
+                this.updateWebSocketProgress(10, 'Conectando...', 'connection');
+            }, 100);
+        }
+
         this.callingAI = true;
-        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
-        if (this.loadMoreDiseases) {
-            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
-        }
-        if(newModel){
-            value.model = 'o1';
-        }
-        this.apiDx29ServerService.diagnose(value).subscribe(
-            (res: any) => this.handledDiagnoseResponse(res, value, newModel),
-            (err: any) => this.handleAiError(err)
-        )
+        var value = { 
+            description: this.medicalTextEng, 
+            diseases_list: '', 
+            myuuid: this.myuuid, 
+            lang: this.lang, 
+            timezone: this.timezone, 
+            model: modelToUse 
+        };
         
+        if (this.loadMoreDiseases) {
+            value.diseases_list = this.diseaseListText;
+        }
+
+        this.apiDx29ServerService.diagnose(value).subscribe(
+            (res: any) => this.handledDiagnoseResponse(res, value),
+            (err: any) => this.handleAiError(err)
+        );
     }
 
-    callNewModel(){
-        this.lauchEvent('callNewModel');
+    callAdvancedModel(){
+        this.lauchEvent('callAdvancedModel' );
         this.callingAI = true;
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
@@ -556,8 +778,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callAI(true);
     }
 
-    callOldModel(){
-        this.lauchEvent('callOldModel');
+    callFastModel(){
+        this.lauchEvent('callFastModel');
         this.callingAI = true;
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
@@ -565,7 +787,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callAI(false);
     }
 
-    handledDiagnoseResponse(res: any, value: any, newModel: boolean) {
+    handledDiagnoseResponse(res: any, value: any) {
        
         let msgError = this.translate.instant("generics.error try again");
         
@@ -644,6 +866,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             return;
         }
 
+        // Si está procesando via WebSocket (modelos largos)
+        if (res.result === 'processing') {
+            // No hacer nada - el resultado llegará via WebSocket
+            console.log('Processing via WebSocket. Waiting for results...');
+            return;
+        }
+
         if (res.result) {
             switch (res.result) {
                 case 'blocked':
@@ -684,7 +913,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.callingAI = false;
                     break;
                 case 'success':
-                    this.model = newModel;
                     this.processAiSuccess(res, value);
                     break;
                 default:
@@ -772,9 +1000,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     processAiSuccess(data: any, value: any) {
+        if(data.model && data.model != 'gpt4o'){
+            this.model = true;
+        }else{
+            this.model = false;
+        }
         //if (this.currentStep == 1) {
+            console.log(data);
+        if(data.data){
             this.copyMedicalText = this.medicalTextEng;
             //}
+            
             this.dataAnonymize(data.anonymization);//parseChoices0
             this.detectedLang = data.detectedLang;
             let parseChoices0 = data.data;
@@ -783,6 +1019,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             this.setDiseaseListEn(parseChoices0);
             this.continuecallAI(parseChoices0);
+        }
     }
 
     includesElement(array, string) {
@@ -833,6 +1070,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
         });
         this.lauchEvent("Search Disease");
+        if(this.selectedFiles.length > 0){
+            this.lauchEvent("Multimodal" + this.selectedFiles.length);
+        }
         await this.delay(200);
         this.scrollTo();
     }
@@ -1760,19 +2000,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     private startQueueStatusCheck() {
-        // Limpiar cualquier intervalo existente
         this.cancelQueueStatusCheck();
-        
-        // Iniciar nuevo intervalo
-        this.queueStatusInterval = setInterval(() => {
-            this.checkQueueStatus();
-        }, this.QUEUE_CHECK_INTERVAL);
+        this.checkQueueStatus(); // Llama la primera vez
     }
 
     private cancelQueueStatusCheck() {
-        if (this.queueStatusInterval) {
-            clearInterval(this.queueStatusInterval);
-            this.queueStatusInterval = null;
+        if (this.queueStatusTimeout) {
+            clearTimeout(this.queueStatusTimeout);
+            this.queueStatusTimeout = null;
         }
     }
 
@@ -1806,6 +2041,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                                 // Forzar la actualización del modal
                                 this.updateQueueStatusModal(res.position, res.estimatedWaitTime);
                             }
+                            // Programa el siguiente chequeo SOLO después de 10 segundos
+                             this.queueStatusTimeout = setTimeout(() => this.checkQueueStatus(), 10000);
                         }
                     } 
                     // Manejar el caso cuando la respuesta tiene un formato diferente
@@ -1825,6 +2062,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             // Forzar la actualización del modal
                             this.updateQueueStatusModal(res.position, res.estimatedWaitTime);
                         }
+                        // Programa el siguiente chequeo SOLO después de 10 segundos
+                        this.queueStatusTimeout = setTimeout(() => this.checkQueueStatus(), 10000);
+                    } else if (res.result === 'error') {
+                        // Si hay error, cancela el chequeo y muestra mensaje si quieres
+                        console.error('Error en el estado de la cola:', res.message);
+                        this.cancelQueueStatusCheck();
+                        // Aquí podrías mostrar un mensaje al usuario, por ejemplo:
+                        // this.errorMessage = res.message;
                     }
                 },
                 (err) => {
@@ -1998,6 +2243,214 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             // Reiniciar la animación
             this.startTypingAnimation();
         }
+    }
+
+    onFilesSelected(event: any) {
+        console.log(event);
+        if (event.target.files && event.target.files.length > 0) {
+            // Añadir los archivos seleccionados al array, evitando duplicados por nombre y tamaño
+            const newFiles = Array.from(event.target.files) as File[];
+            newFiles.forEach(file => {
+                if (!this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                    this.selectedFiles.push(file);
+                }
+            });
+            this.filesAnalyzed = false;
+            this.filesModifiedAfterAnalysis = true; // Marcar como modificado
+            this.lauchEvent('Files selected: ' + newFiles.map(f => f.name).join(', '));
+        }
+    }
+
+    removeFile(index: number) {
+        const removedFile = this.selectedFiles[index];
+        this.selectedFiles.splice(index, 1);
+        if (this.selectedFiles.length === 0) {
+            this.filesAnalyzed = false;
+            this.filesModifiedAfterAnalysis = false; // Resetear si no hay archivos
+        } else {
+            this.filesModifiedAfterAnalysis = true; // Marcar como modificado
+        }
+        this.lauchEvent('File removed: ' + (removedFile ? removedFile.name : 'unknown'));
+    }
+
+    analyzeMultimodal() {
+        // Mostrar spinner con Swal
+        Swal.close();
+        Swal.fire({
+            html: '<p>' + this.translate.instant("land.swalMultimodal") + '</p>' +
+                  '<p>' + this.translate.instant("land.swal2Multimodal") + '</p>' +
+                  '<p>' + this.translate.instant("land.swal3Multimodal") + '</p>' +
+                  '<p><em class="primary fa fa-spinner fa-3x fa-spin fa-fw"></em></p>',
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonText: this.translate.instant("generics.Cancel"),
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        }).then(function (event) {
+            if (event.dismiss == Swal.DismissReason.cancel) {
+                this.callingAI = false;
+                this.subscription.unsubscribe();
+                this.subscription = new Subscription();
+                this.lauchEvent('User cancelled multimodal analysis');
+            }
+        }.bind(this));
+
+        this.lauchEvent('Analyze multimodal started');
+        this.callingAI = true;
+        const formData = new FormData();
+        formData.append('text', this.medicalTextOriginal || '');
+        // Solo un documento y una imagen según backend, priorizar el primero de cada tipo
+        let docAdded = false;
+        let imgAdded = false;
+        for (const file of this.selectedFiles) {
+            if (!docAdded && [
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'text/plain'
+            ].includes(file.type)) {
+                formData.append('document', file);
+                docAdded = true;
+                this.lauchEvent('Document file added: ' + file.name);
+            } else if (!imgAdded && file.type.startsWith('image/')) {
+                formData.append('image', file);
+                imgAdded = true;
+                this.lauchEvent('Image file added: ' + file.name);
+            }
+            if (docAdded && imgAdded) break;
+        }
+        formData.append('lang', this.lang || 'es');
+        formData.append('myuuid', this.myuuid || '');
+        formData.append('timezone', this.timezone || '');
+
+        this.apiDx29ServerService.analyzeMultimodal(formData).pipe(first()).subscribe({
+            next: (res: any) => {
+                this.summary = res.summary;
+                this.details = res.details;
+                this.detectedLang = res.detectedLang;
+                // Concatenar el resumen al texto principal
+                if (res.summary) {
+                    if (this.medicalTextOriginal && !this.medicalTextOriginal.endsWith('\n')) {
+                        this.medicalTextOriginal += '\n';
+                    }
+                    this.medicalTextOriginal += res.summary;
+                }
+                this.callingAI = false;
+                Swal.close();
+                setTimeout(async () => {
+                    if (this.textAreas) {
+                        this.textAreas.forEach(textArea => {
+                            const element = textArea.nativeElement;
+                            element.style.height = 'auto';
+                            element.style.height = element.scrollHeight + 'px';
+                            // Asegurar un tamaño mínimo
+                            if (element.scrollHeight < 100) {
+                                element.style.height = '100px';
+                            }
+                        });
+                    }
+                    // Mostrar Swal informativo
+                    Swal.fire({
+                        icon: 'info',
+                        title: this.translate.instant('diagnosis.Text generated'),
+                        html: `
+                          <p>${this.translate.instant('diagnosis.We have processed your inputs')}</p>
+                          <p>${this.translate.instant('diagnosis.Please review the text')}</p>
+                        `,
+                        confirmButtonText: 'Ok',
+                        showCancelButton: false
+                    });
+                    this.filesAnalyzed = true;
+                    this.filesModifiedAfterAnalysis = false; // Resetear el estado de modificaciones
+                }, 0);
+                this.lauchEvent('Analyze multimodal success');
+            },
+            error: (err) => {
+                this.callingAI = false;
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: this.translate.instant('generics.error'),
+                    text: this.translate.instant('land.errorAnalyze') || 'Error al analizar la información',
+                    confirmButtonText: this.translate.instant('generics.Close')
+                });
+                this.lauchEvent('Analyze multimodal error: ' + (err?.message || 'unknown error'));
+            }
+        });
+    }
+
+    onDragOver(event: DragEvent) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.isDragOver = true;
+    }
+
+    onDragLeave(event: DragEvent) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.isDragOver = false;
+    }
+
+    onDrop(event: DragEvent) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.isDragOver = false;
+
+        const files = event.dataTransfer?.files;
+        if (files && files.length > 0) {
+            const newFiles = Array.from(files) as File[];
+            newFiles.forEach(file => {
+                if (!this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                    this.selectedFiles.push(file);
+                }
+            });
+            this.filesAnalyzed = false;
+            this.filesModifiedAfterAnalysis = true; // Marcar como modificado
+            this.lauchEvent('Files dropped: ' + newFiles.map(f => f.name).join(', '));
+        }
+    }
+
+    triggerFileInput(fileInput: HTMLInputElement) {
+        if (!this.callingAI) {
+            fileInput.click();
+        }
+    }
+
+    // Métodos para la nueva interfaz de botones
+    getButtonText(): string {
+        if (this.callingAI) {
+            return this.translate.instant('generics.Processing');
+        }
+        
+        if (this.selectedFiles.length > 0 && !this.filesAnalyzed) {
+            return this.translate.instant('diagnosis.Analyze files and search');
+        }
+        
+        return this.translate.instant('land.Search');
+    }
+
+    getButtonTitle(): string {
+        if (this.callingAI) {
+            return this.translate.instant('generics.Please wait');
+        }
+        
+        if (this.medicalTextOriginal.length < 5) {
+            return this.translate.instant('land.placeholderError');
+        }
+        
+        if (this.selectedFiles.length > 0 && !this.filesAnalyzed) {
+            return this.translate.instant('diagnosis.Analyze uploaded files and search for diagnoses');
+        }
+        
+        return this.translate.instant('land.Search');
+    }
+
+    reanalyzeFiles() {
+        this.filesAnalyzed = false;
+        this.lauchEvent('Reanalyze files clicked');
+        this.analyzeMultimodal();
     }
 
 }

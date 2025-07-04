@@ -61,7 +61,16 @@
     "minutes": "Minuten",
     "Please keep this window open": "Bitte halten Sie dieses Fenster offen",
     "High demand": "Hohe Nachfrage",
-    "Waiting": "Warten"
+    "Waiting": "Warten",
+    "seconds": "Sekunden"
+  },
+  "progress":{
+    "connecting": "Verbinden...",
+    "translating": "Beschreibung übersetzen...",
+    "analyzing": "Symptome mit KI analysieren...",
+    "getting_details": "Diagnose-Details abrufen...",
+    "anonymizing": "Persönliche Informationen anonymisieren...",
+    "finalizing": "Diagnose abschließen..."
   },
   "diagnosis":{
     "Proposed diagnoses":"Vorgeschlagene Diagnosen",
@@ -82,7 +91,32 @@
     "proceeded to delete": "Wir haben diese Informationen gelöscht und den anonymisierten Text gespeichert.",
     "Matching symptoms": "Übereinstimmende Symptome",
     "Non-matching symptoms": "Nicht übereinstimmende Symptome",
-    "None": "Keine"
+    "None": "Keine",
+    "Text generated": "Text generiert",
+    "We have processed your inputs": "Wir haben Ihre Eingaben verarbeitet und einen Zusammenfassung generiert",
+    "Please review the text": "Bitte überprüfen Sie den Text in der Hauptbox, bevor Sie mit der Suche fortfahren",
+    "text input": "Text-Eingabe",
+    "document": "Dokument",
+    "medical image": "Medizinbild",
+    "errorAnalyze": "Fehler beim Analysieren der Informationen. Bitte versuchen Sie es erneut.",
+    "Upload document or image": "Dokument oder Bild hochladen",
+    "Remove": "Entfernen",
+    "Analyze": "Analysieren",
+    "Summary": "Zusammenfassung",
+    "Details": "Details",
+    "Text": "Text",
+    "Document": "Dokument",
+    "Image": "Bild",
+    "Files uploaded": "Dateien hochgeladen",
+    "file": "Datei",
+    "Analyzed": "Analysiert",
+    "Pending analysis": "Wird analysiert",
+    "Analyze files and search": "Dateien analysieren und suchen",
+    "Analyze uploaded files and search for diagnoses": "Dateien hochladen und suchen",
+    "Re-analyze files": "Dateien erneut analysieren",
+    "Re-analyze": "Erneut analysieren",
+    "Analysis completed": "Analyse abgeschlossen",
+    "Files modified - re-analyze needed": "Dateien modifiziert - erneut analysieren erforderlich"
   },
   "policy": {
     "lastUpdated": "Zuletzt aktualisiert: 21. April 2025",
@@ -219,6 +253,7 @@
     "Recommendations": "Für beste Ergebnisse geben Sie an, wann und warum die Symptome aufgetreten sind",
     "Search": "Suchen",
     "Need help": "Hilfe benötigt?",
+    "dropzone": "Dateien zum Hochladen hier ablegen",
     "Made with love by": "Mit ❤️ gemacht von",
     "required": "Bitte geben Sie die Patientendaten (Alter, Geschlecht, Symptome) und deren Beginn an. Beispiel: Frau, 42 Jahre alt, seit 3 Monaten starke Kopfschmerzen, Schwindel, Migräne in der Familie.",
     "charactersleft": "Mindest. 15 Zeichen erforderlich. {{value}} fehlt.",
@@ -231,6 +266,19 @@
     "swal": "DxGPT berechnet. Bitte warten Sie einige Sekunden, bis es fertig ist",
     "swal2": "Wir haben eine hohe Nachfrage. Wenn es länger als 2 Minuten dauert, brechen Sie ab und versuchen Sie es erneut.",
     "swal3": "Helfen Sie uns, die Qualität des Ergebnisses zu verbessern, indem Sie den Daumen nach oben oder unten bewerten.",
+    "swalMultimodal": "DxGPT verarbeitet Ihre Dateien. Bitte warten Sie einige Sekunden, bis es fertig ist",
+    "swal2Multimodal": "Wir extrahieren und analysieren den Inhalt Ihrer Dokumente und Bilder.",
+    "swal3Multimodal": "Sobald dies abgeschlossen ist, überprüfen Sie den generierten Text und klicken Sie auf Suchen, um fortzufahren.",
+    "multimodalInfo": {
+      "title": "Funktionalität in Test",
+      "description": "Diese Funktionalität für die Verarbeitung von Dokumenten und Bildern ist in der experimentellen Phase. Ihr Feedback ist sehr wichtig, um es zu verbessern.",
+      "instructions": "Für bessere Ergebnisse:",
+      "instruction1": "Hochladen Sie medizinische Dokumente (PDF, Word, Excel) oder medizinische Bilder",
+      "instruction2": "Komplementieren Sie mit einer Beschreibung des Patienten im Textfeld",
+      "instruction3": "Beschreiben Sie die Symptome des Patienten und wann sie begannen",
+      "instruction4": "Fragen Sie nicht, sondern beschreiben Sie die klinische Situation",
+      "feedback": "Bitte teilen Sie Ihre Erfahrung mit, indem Sie den Feedback-Button (roter Reiter) verwenden"
+    },
     "q1": "Was sind die häufigsten Symptome?",
     "q2": "Geben Sie mir mehr Informationen",
     "q3": "Stellen Sie einen Diagnosetest bereit",
@@ -584,6 +632,12 @@
     "Metrics last hour": "Metriken der letzten Stunde",
     "Queues Health": "Gesundheit der Warteschlangen",
     "Status": "Status",
-    "Active Messages": "Aktive Nachrichten"
+    "Active Messages": "Aktive Nachrichten",
+    "Model-Region": "Modell-Region",
+    "Model": "Modell",
+    "Endpoints": "Endpunkte",
+    "Scheduled Messages": "Geplante Nachrichten",
+    "Total Active Messages": "Gesamtzahl aktiver Nachrichten",
+    "Estimated Wait Time": "Geschätzte Wartezeit"
   }
 } 
