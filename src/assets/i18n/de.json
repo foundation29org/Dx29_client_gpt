@@ -61,7 +61,16 @@
     "minutes": "Minuten",
     "Please keep this window open": "Bitte halten Sie dieses Fenster offen",
     "High demand": "Hohe Nachfrage",
-    "Waiting": "Warten"
+    "Waiting": "Warten",
+    "seconds": "Sekunden"
+  },
+  "progress":{
+    "connecting": "Verbinden...",
+    "translating": "Beschreibung übersetzen...",
+    "analyzing": "Symptome mit KI analysieren...",
+    "getting_details": "Diagnose-Details abrufen...",
+    "anonymizing": "Persönliche Informationen anonymisieren...",
+    "finalizing": "Diagnose abschließen..."
   },
   "diagnosis":{
     "Proposed diagnoses":"Vorgeschlagene Diagnosen",
@@ -97,7 +106,17 @@
     "Details": "Details",
     "Text": "Text",
     "Document": "Dokument",
-    "Image": "Bild"
+    "Image": "Bild",
+    "Files uploaded": "Dateien hochgeladen",
+    "file": "Datei",
+    "Analyzed": "Analysiert",
+    "Pending analysis": "Wird analysiert",
+    "Analyze files and search": "Dateien analysieren und suchen",
+    "Analyze uploaded files and search for diagnoses": "Dateien hochladen und suchen",
+    "Re-analyze files": "Dateien erneut analysieren",
+    "Re-analyze": "Erneut analysieren",
+    "Analysis completed": "Analyse abgeschlossen",
+    "Files modified - re-analyze needed": "Dateien modifiziert - erneut analysieren erforderlich"
   },
   "policy": {
     "lastUpdated": "Zuletzt aktualisiert: 21. April 2025",

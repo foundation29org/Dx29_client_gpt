@@ -61,7 +61,16 @@
     "minutes": "minutes",
     "Please keep this window open": "Veuillez conserver cette fenêtre ouverte",
     "High demand": "Demande élevée",
-    "Waiting": "En attente"
+    "Waiting": "En attente",
+    "seconds": "secondes"
+  },
+  "progress":{
+    "connecting": "Connexion...",
+    "translating": "Traduction...",
+    "analyzing": "Analyse...",
+    "getting_details": "Récupération des détails...",
+    "anonymizing": "Anonymisation...",
+    "finalizing": "Finalisation..."
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnostics proposés",
@@ -97,7 +106,17 @@
     "Details": "Détails",
     "Text": "Texte",
     "Document": "Document",
-    "Image": "Image"
+    "Image": "Image",
+    "Files uploaded": "Fichiers téléchargés",
+    "file": "fichier",
+    "Analyzed": "Analysé",
+    "Pending analysis": "En attente d'analyse",
+    "Analyze files and search": "Analyser les fichiers et rechercher",
+    "Analyze uploaded files and search for diagnoses": "Analyser les fichiers téléchargés et rechercher des diagnostics",
+    "Re-analyze files": "Réanalyser les fichiers",
+    "Re-analyze": "Réanalyser",
+    "Analysis completed": "Analyse terminée",
+    "Files modified - re-analyze needed": "Fichiers modifiés - réanalyse nécessaire"
   },
   "policy": {
     "lastUpdated": "Dernière mise à jour : 21 avril 2025",

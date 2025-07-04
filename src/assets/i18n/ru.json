@@ -61,7 +61,16 @@
     "minutes": "минут",
     "Please keep this window open": "Пожалуйста, не закрывайте это окно",
     "High demand": "Высокий спрос",
-    "Waiting": "Ожидание"
+    "Waiting": "Ожидание",
+    "seconds": "секунд"
+  },
+  "progress":{
+    "connecting": "Подключение...",
+    "translating": "Перевод...",
+    "analyzing": "Анализ...",
+    "getting_details": "Получение деталей...",
+    "anonymizing": "Анонимизация...",
+    "finalizing": "Завершение..."
   },
   "diagnosis":{
     "Proposed diagnoses": "Предлагаемые диагнозы",
@@ -97,7 +106,17 @@
     "Details": "Подробности",
     "Text": "Текст",
     "Document": "Документ",
-    "Image": "Изображение"
+    "Image": "Изображение",
+    "Files uploaded": "Загруженные файлы",
+    "file": "файл",
+    "Analyzed": "Анализирован",
+    "Pending analysis": "Ожидает анализа",
+    "Analyze files and search": "Анализировать файлы и искать",
+    "Analyze uploaded files and search for diagnoses": "Анализировать загруженные файлы и искать диагнозы",
+    "Re-analyze files": "Анализировать файлы снова",
+    "Re-analyze": "Анализировать снова",
+    "Analysis completed": "Анализ завершен",
+    "Files modified - re-analyze needed": "Файлы изменены - необходим повторный анализ"
   },
   "policy": {
     "lastUpdated": "Последнее обновление: 21 апреля 2025",
