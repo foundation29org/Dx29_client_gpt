@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
 
 @Component({
   selector: 'app-permalink-view-page',
@@ -32,7 +33,8 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private apiDx29ServerService: ApiDx29ServerService // inyectar el servicio
   ) {}
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     
     if (this.permalinkId) {
         this.loadPermalink();
-        } else {
+    } else {
         this.showError(this.translate.instant('permalink.Invalid permalink'));
     }
   }
@@ -54,23 +56,24 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.hasError = false;
 
-    try {
-      // Decodificar los datos de la URL
-      const decodedData = decodeURIComponent(atob(this.permalinkId));
-      const permalinkData = JSON.parse(decodedData);
-      
-      // Asignar los datos
-      this.medicalDescription = permalinkData.medicalDescription || '';
-      this.anonymizedDescription = permalinkData.anonymizedDescription || '';
-      this.diagnoses = permalinkData.diagnoses || [];
-      this.lang = permalinkData.lang || 'es';
-      this.createdDate = permalinkData.createdDate || '';
-      
-      this.isLoading = false;
-    } catch (error) {
-      console.error('Error decoding permalink data:', error);
-      this.showError(this.translate.instant('permalink.Invalid permalink'));
-    }
+    // Llamar al backend para obtener los datos del permalink
+    this.subscription.add(
+      this.apiDx29ServerService.getPermalink(this.permalinkId).subscribe(
+        (res: any) => {
+          const permalinkData = res.data; // Acceder a la propiedad 'data'
+          this.medicalDescription = permalinkData.medicalDescription || '';
+          this.anonymizedDescription = permalinkData.anonymizedDescription || '';
+          this.diagnoses = permalinkData.diagnoses || [];
+          this.lang = permalinkData.lang || 'es';
+          this.createdDate = permalinkData.createdDate || '';
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Error loading permalink from backend:', error);
+          this.showError(this.translate.instant('permalink.Invalid permalink'));
+        }
+      )
+    );
   }
 
   private showError(message: string) {

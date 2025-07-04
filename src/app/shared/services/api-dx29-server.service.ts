@@ -185,4 +185,12 @@ diagnose(info: any) {
         })
       );
   }
+
+  createPermalink(data: any) {
+    return this.http.post(environment.api + '/permalink', data);
+  }
+
+  getPermalink(id: string) {
+    return this.http.get(environment.api + '/permalink/' + id);
+  }
 }

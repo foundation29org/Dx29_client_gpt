@@ -1286,23 +1286,26 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 anonymizedDescription: this.resultAnonymized || this.medicalTextOriginal,
                 diagnoses: this.topRelatedConditions.slice(0, 10), // Limitar a top 10
                 lang: this.lang,
-                createdDate: new Date().toISOString()
+                createdDate: new Date().toISOString(),
+                myuuid: this.myuuid
             };
 
-            // Codificar datos en base64 para la URL
-            const encodedData = btoa(encodeURIComponent(JSON.stringify(permalinkData)));
-            
-            // Crear URL del permalink
-            const permalinkUrl = `${window.location.origin}/result/${encodedData}`;
-            
-            // Copiar al portapapeles
-            this.clipboard.copy(permalinkUrl);
-            
-            let msgSuccess = this.translate.instant("permalink.Permalink created and copied");
-            this.showSuccess(msgSuccess);
-            this.lauchEvent("Create permalink");
-            
-            this.creatingPermalink = false;
+            // Llama al backend para crear el permalink
+            this.apiDx29ServerService.createPermalink(permalinkData).subscribe(
+                (res: any) => {
+                    const permalinkId = res.permalinkId || res.id; // según tu backend
+                    const permalinkUrl = `${window.location.origin}/result/${permalinkId}`;
+                    this.clipboard.copy(permalinkUrl);
+                    let msgSuccess = this.translate.instant("permalink.Permalink created and copied");
+                    this.showSuccess(msgSuccess);
+                    this.lauchEvent("Create permalink");
+                    this.creatingPermalink = false;
+                },
+                (error) => {
+                    this.handlePermalinkError();
+                    this.creatingPermalink = false;
+                }
+            );
         } catch (error) {
             this.handlePermalinkError();
             this.creatingPermalink = false;
