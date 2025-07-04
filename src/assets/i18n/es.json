@@ -61,7 +61,16 @@
     "minutes": "minutos",
     "Please keep this window open": "Por favor, mantén esta ventana abierta",
     "High demand": "Demanda alta",
-    "Waiting": "Esperando"
+    "Waiting": "Esperando",
+    "seconds": "segundos"
+  },
+  "progress":{
+    "connecting": "Conectando...",
+    "translating": "Traduciendo descripción...",
+    "analyzing": "Analizando síntomas con IA...",
+    "getting_details": "Obteniendo detalles del diagnóstico...",
+    "anonymizing": "Anonimizando información personal...",
+    "finalizing": "Finalizando diagnóstico..."
   },
   "diagnosis":{
     "Proposed diagnoses":"Diagnósticos propuestos",

@@ -113,6 +113,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     filesAnalyzed = false;
     filesModifiedAfterAnalysis = false; // Nueva propiedad para rastrear modificaciones
 
+    // Propiedades para WebSocket/PubSub
+    private webSocket: WebSocket | null = null;
+    private isWebSocketConnected: boolean = false;
+
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService) {
         this.initialize();
     }
@@ -366,6 +370,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             clearInterval(this.typingInterval);
         }
         
+        // Limpiar WebSocket
+        if (this.webSocket) {
+            this.webSocket.close();
+            this.webSocket = null;
+        }
+        
         // Desuscribirse de los eventos
         this.eventsService.off('changelang');
         this.eventsService.off('backEvent');
@@ -373,6 +383,135 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         // Cancelar todas las suscripciones
         this.subscription.unsubscribe();
+    }
+
+    // Métodos para WebSocket/PubSub
+    private async connectWebSocket(): Promise<void> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // Cerrar conexión existente si la hay
+                if (this.webSocket) {
+                    this.webSocket.close();
+                    this.webSocket = null;
+                }
+    
+                // Obtener token de conexión
+                const response = await this.apiDx29ServerService.negotiatePubSub(this.myuuid).toPromise();
+                const { url } = response as any;
+    
+                // Crear conexión WebSocket
+                this.webSocket = new WebSocket(url);
+    
+                this.webSocket.onopen = () => {
+                    console.log('WebSocket connected');
+                    this.isWebSocketConnected = true;
+                    resolve();
+                };
+    
+                this.webSocket.onmessage = (event) => {
+                    this.handleWebSocketMessage(event);
+                };
+    
+                this.webSocket.onerror = (error) => {
+                    console.error('WebSocket error:', error);
+                    this.isWebSocketConnected = false;
+                    reject(error);
+                };
+    
+                this.webSocket.onclose = (event) => {
+                    console.log('WebSocket disconnected', event.code, event.reason);
+                    this.isWebSocketConnected = false;
+                };
+    
+                // Timeout si no se conecta en 10 segundos (aumentado para Azure)
+                setTimeout(() => {
+                    if (!this.isWebSocketConnected) {
+                        reject(new Error('WebSocket connection timeout'));
+                    }
+                }, 10000); // Azure Web PubSub puede tardar un poco más
+    
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    private handleWebSocketMessage(event: MessageEvent) {
+        try {
+            const message = JSON.parse(event.data);
+            
+            switch (message.type) {
+                case 'progress':
+                    this.updateWebSocketProgress(message.percentage, message.message, message.step);
+                    break;
+                    
+                case 'result':
+                    // Resultado final recibido via WebSocket
+                    Swal.close();
+                    this.webSocket?.close();
+                    this.webSocket = null;
+                    this.processAiSuccess(message.data, null);
+                    break;
+                    
+                case 'error':
+                    // Error recibido via WebSocket
+                    Swal.close();
+                    this.webSocket?.close();
+                    this.webSocket = null;
+                    this.handleWebSocketError(message.data);
+                    break;
+            }
+        } catch (error) {
+            console.error('Error parsing WebSocket message:', error);
+        }
+    }
+
+    private getProgressMessage(phase: string): string {
+        const messages = {
+            'connection': this.translate.instant('progress.connecting') || 'Connecting...',
+            'translation': this.translate.instant('progress.translating') || 'Translating description...',
+            'ai_processing': this.translate.instant('progress.analyzing') || 'Analyzing symptoms with AI...',
+            'ai_details': this.translate.instant('progress.getting_details') || 'Getting diagnosis details...',
+            'anonymization': this.translate.instant('progress.anonymizing') || 'Anonymizing personal information...',
+            'finalizing': this.translate.instant('progress.finalizing') || 'Finalizing diagnosis...'
+        };
+        
+        return messages[phase] || phase; // fallback al mensaje original
+    }
+
+    private updateWebSocketProgress(progress: number, message: string, phase?: string) {
+        const displayMessage = phase ? this.getProgressMessage(phase) : message;
+        
+        const progressBar = document.getElementById('progress-bar');
+        const progressMessage = document.getElementById('progress-message');
+        const progressPercentage = document.getElementById('progress-percentage');
+        
+        if (progressBar) {
+            progressBar.style.width = progress + '%';
+            console.log(`Progress updated: ${progress}% - ${displayMessage}`);
+        }
+        if (progressMessage) {
+            progressMessage.textContent = displayMessage;
+        }
+        if (progressPercentage) {
+            progressPercentage.textContent = Math.round(progress) + '%';
+        }
+    }
+
+    private handleWebSocketError(error: any) {
+        console.error('WebSocket error:', error);
+        let msgError = '';
+        
+        if (error.type === 'PROCESSING_ERROR') {
+            msgError = this.translate.instant("generics.error try again");
+        } else if (error.type === 'QUEUE_PROCESSING_ERROR') {
+            msgError = this.translate.instant("generics.error try again");
+        } else {
+            msgError = this.translate.instant("generics.error try again");
+        }
+        
+        this.showError(msgError, error);
+        this.callingAI = false;
     }
 
     copyText(par) {
@@ -542,11 +681,47 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     }
 
-    callAI(newModel: boolean) {
-        
+    async callAI(newModel: boolean) {
         Swal.close();
+        
+        // Determinar el modelo a usar
+        let modelToUse = 'gpt4o';
+        if (newModel) {
+            modelToUse = 'o3';
+        }
+        
+        // Para modelos largos, conectar WebSocket primero
+        const isLongModel = (modelToUse === 'o3' || modelToUse === 'o3pro');
+        console.log(`Model: ${modelToUse}, isLongModel: ${isLongModel}`);
+        if (isLongModel) {
+            try {
+                await this.connectWebSocket();
+            } catch (error) {
+                console.error('Error connecting WebSocket:', error);
+                this.showError(this.translate.instant("generics.error try again"), error);
+                return;
+            }
+        }
+
+        const htmlContent = '<p>' + this.translate.instant("land.swal") + '</p>' + 
+          '<p>' + this.translate.instant("land.swal2") + '</p>' + 
+          '<p>' + this.translate.instant("land.swal3") + '</p>' + 
+          (isLongModel ?
+            `<div id="websocket-progress" style="margin: 18px 0 10px 0; padding: 12px 18px; background: rgba(30,34,40,0.95); border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); border: 1px solid #23272f;">
+              <div id="progress-message" style="margin-bottom: 8px; font-weight: 500; color: #e0e0e0; font-size: 15px; letter-spacing: 0.01em; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">${this.getProgressMessage('ai_processing')}</div>
+              <div style="width: 100%; height: 18px; background: #23272f; border-radius: 9px; overflow: hidden; border: 1px solid #353b45;">
+                <div id="progress-bar" style="width: 5%; height: 100%; background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%); transition: width 0.5s cubic-bezier(.4,2.3,.3,1); border-radius: 9px; min-width: 10px; box-shadow: 0 1px 6px #43e97b44;"></div>
+              </div>
+              <div style="margin-top: 6px; font-size: 12px; color: #b0b6bb; text-align: right; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
+                <span id="progress-percentage">5%</span>
+              </div>
+            </div>` :
+            '<p><em class="primary fa fa-spinner fa-3x fa-spin fa-fw"></em></p>');
+        
+        console.log('SweetAlert HTML content:', htmlContent);
+
         Swal.fire({
-            html: '<p>' + this.translate.instant("land.swal") + '</p>' + '<p>' + this.translate.instant("land.swal2") + '</p>' + '<p>' + this.translate.instant("land.swal3") + '</p>' + '<p><em class="primary fa fa-spinner fa-3x fa-spin fa-fw"></em></p>',
+            html: htmlContent,
             showCancelButton: true,
             showConfirmButton: false,
             cancelButtonText: this.translate.instant("generics.Cancel"),
@@ -557,23 +732,38 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.callingAI = false;
                 this.subscription.unsubscribe();
                 this.subscription = new Subscription();
+                if (this.webSocket) {
+                    this.webSocket.close();
+                    this.webSocket = null;
+                }
             }
-
         }.bind(this));
 
+        // Inicializar progreso para modelos largos
+        if (isLongModel) {
+            setTimeout(() => {
+                this.updateWebSocketProgress(10, 'Conectando...', 'connection');
+            }, 100);
+        }
+
         this.callingAI = true;
-        var value = { description: this.medicalTextEng, diseases_list: '', myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
+        var value = { 
+            description: this.medicalTextEng, 
+            diseases_list: '', 
+            myuuid: this.myuuid, 
+            lang: this.lang, 
+            timezone: this.timezone, 
+            model: modelToUse 
+        };
+        
         if (this.loadMoreDiseases) {
-            value = { description: this.medicalTextEng, diseases_list:this.diseaseListText, myuuid: this.myuuid, lang: this.lang, timezone: this.timezone, model: 'gpt4o' }
+            value.diseases_list = this.diseaseListText;
         }
-        if(newModel){
-            value.model = 'o3';
-        }
+
         this.apiDx29ServerService.diagnose(value).subscribe(
             (res: any) => this.handledDiagnoseResponse(res, value, newModel),
             (err: any) => this.handleAiError(err)
-        )
-        
+        );
     }
 
     callNewModel(){
@@ -670,6 +860,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.subscription = new Subscription();
                 }
             });
+            return;
+        }
+
+        // Si está procesando via WebSocket (modelos largos)
+        if (res.result === 'processing') {
+            // No hacer nada - el resultado llegará via WebSocket
+            console.log('Processing via WebSocket. Waiting for results...');
             return;
         }
 
@@ -802,8 +999,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     processAiSuccess(data: any, value: any) {
         //if (this.currentStep == 1) {
+            console.log(data);
+        if(data.data){
             this.copyMedicalText = this.medicalTextEng;
             //}
+            
             this.dataAnonymize(data.anonymization);//parseChoices0
             this.detectedLang = data.detectedLang;
             let parseChoices0 = data.data;
@@ -812,6 +1012,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             this.setDiseaseListEn(parseChoices0);
             this.continuecallAI(parseChoices0);
+        }
     }
 
     includesElement(array, string) {

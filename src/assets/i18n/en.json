@@ -61,7 +61,16 @@
     "minutes": "minutes",
     "Please keep this window open": "Please keep this window open",
     "High demand": "High demand",
-    "Waiting": "Waiting"
+    "Waiting": "Waiting",
+    "seconds": "seconds"
+  },
+  "progress":{
+    "connecting": "Connecting...",
+    "translating": "Translating description...",
+    "analyzing": "Analyzing symptoms with AI...",
+    "getting_details": "Getting diagnosis details...",
+    "anonymizing": "Anonymizing personal information...",
+    "finalizing": "Finalizing diagnosis..."
   },
   "diagnosis":{
     "Proposed diagnoses":"Proposed diagnoses",
