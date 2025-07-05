@@ -12,8 +12,9 @@
     <!-- Banner azul solo si no está analizado -->
     <div
       class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-      <div class="search" [class.drag-over]="isDragOver"
-           (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+      <!--<div class="search" [class.drag-over]="isDragOver"
+           (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">-->
+      <div class="search">
         <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
           [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" [attr.placeholder]="textareaPlaceholder"
           (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
@@ -25,7 +26,7 @@
             </div>
           </div>
       </div>
-      <div class="chips-and-counter-row mt-2 mb-2">
+      <div class="chips-and-counter-row mt-2 mb-2" *ngIf="false">
         <div class="file-chips-row">
           <button type="button" class="chip-btn-add" [disabled]="callingAI" (click)="triggerFileInput(fileInput)"
             title="{{'diagnosis.Upload document or image' | translate}}" aria-label="{{'diagnosis.Upload document or image' | translate}}">
@@ -69,23 +70,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Estado de archivos -->
-      <!--<div *ngIf="selectedFiles.length > 0" class="alert alert-light mt-3 mb-3" role="alert" style="text-align: left;">
-        <div class="d-flex align-items-center">
-          <i class="fa fa-file-text-o fa-lg me-2"></i>
-          <div class="flex-grow-1">
-            <strong>{{'diagnosis.Files uploaded' | translate}}:</strong> {{selectedFiles.length}} {{'diagnosis.file' | translate}}{{selectedFiles.length > 1 ? 's' : ''}}
-            <span *ngIf="filesAnalyzed" class="badge bg-success ms-2">
-              <i class="fa fa-check me-1"></i>{{'diagnosis.Analyzed' | translate}}
-            </span>
-            <span *ngIf="!filesAnalyzed" class="badge bg-warning ms-2">
-              <i class="fa fa-clock-o me-1"></i>{{'diagnosis.Pending analysis' | translate}}
-            </span>
-          </div>
-        </div>
-      </div>-->
-
       <!-- Banner de revisión después del análisis, ahora encima de la caja de texto -->
       <div *ngIf="selectedFiles.length > 0 && filesAnalyzed && summary" class="alert alert-success mt-3 mb-3" role="alert" style="text-align: left;">
         <div class="d-flex align-items-start">

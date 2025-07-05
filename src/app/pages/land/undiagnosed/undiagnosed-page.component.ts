@@ -2251,7 +2251,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.startTypingAnimation();
         }
     }
-
+/*
     onFilesSelected(event: any) {
         console.log(event);
         if (event.target.files && event.target.files.length > 0) {
@@ -2458,6 +2458,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.filesAnalyzed = false;
         this.lauchEvent('Reanalyze files clicked');
         this.analyzeMultimodal();
-    }
+    }*/
 
 }
