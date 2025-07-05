@@ -112,7 +112,7 @@ Esto restaurará el index.html y los archivos de traducción desde los backups m
 
 en resumen para actualizar un tenant existente con los ultimos cambios de dxgpt:
 1. crear rama
-2. ejecutar node scripts/prepare-tenant-release.js salud-gpt (nombre tenant)
+2. ejecutar node scripts/prepare-tenant-release.js SALUD-GPT (nombre tenant)
 3. restaurar node scripts/restore-dxgpt-branding.js
 4. cerrar rama si se desea
 
