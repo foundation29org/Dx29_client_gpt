@@ -57,7 +57,8 @@ const TENANT_CONFIGS = {
       googleAds: 'AW-335378785',
       googleAds2: 'AW-16829919003',
       conversion: 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'
-    }
+    },
+    favicon: 'favicon.ico'
   },
   'salud-gpt': {
     name: 'SALUD-GPT',
@@ -72,7 +73,8 @@ const TENANT_CONFIGS = {
       googleAds: null, // No usar Google Ads para SALUD-GPT
       googleAds2: null, // No usar Google Ads para SALUD-GPT
       conversion: null // No usar conversiones para SALUD-GPT
-    }
+    },
+    favicon: 'favicon-salud.ico'
   }
 };
 
@@ -203,6 +205,12 @@ function replaceInHtml(content, config) {
       `// 'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B' // Comentado para ${config.name}`
     );
   }
+  
+  // Reemplazar favicon
+  modifiedContent = modifiedContent.replace(
+    /<link rel="icon" type="image\/x-icon" href="[^"]*">/g,
+    `<link rel="icon" type="image/x-icon" href="${config.favicon}">`
+  );
   
   return modifiedContent;
 }
