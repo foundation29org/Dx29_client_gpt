@@ -69,7 +69,7 @@ const TENANT_CONFIGS = {
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
     analytics: {
-      googleAnalytics: 'G-XXXXXXXXXX', // Configurar cuando esté disponible
+      googleAnalytics: 'G-RT0R7199TB', // Configurar cuando esté disponible
       googleAds: null, // No usar Google Ads para SALUD-GPT
       googleAds2: null, // No usar Google Ads para SALUD-GPT
       conversion: null // No usar conversiones para SALUD-GPT
