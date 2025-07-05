@@ -146,8 +146,8 @@ $duration: 180ms;        // animaciones breves, snappy
   padding: 1rem 1.25rem;
   border: 2px solid $surface-3;
   border-radius: $radius-md $radius-md 0 $radius-md;
-  background: $surface-1;
-  color: $text-100;
+  background: #fff;
+  color: #000;
   resize: vertical;                /* <‑‑ permite agrandar si hace falta */
   transition: 
     border-color $duration ease, 
@@ -187,7 +187,7 @@ $duration: 180ms;        // animaciones breves, snappy
   /* Focus visible (teclado)  ------------------------------- */
   &:focus-visible {
     border-color: $primary-500;
-    background: $surface-2;
+    background: #fff;
     box-shadow: 0 0 0 3px rgba($primary-500, .35);
     outline: none;                 /* ya se indica con box‑shadow */
     animation: none;               /* Detener animaciones al enfocar */
@@ -199,7 +199,7 @@ $duration: 180ms;        // animaciones breves, snappy
   }
 
   /* Oscurecer automáticamente si el usuario prefiere dark‑mode */
-  @media (prefers-color-scheme: light) {
+  /*@media (prefers-color-scheme: light) {
     background: #fff;
     color: #111;
     border-color: #d5d7e0;
@@ -211,9 +211,9 @@ $duration: 180ms;        // animaciones breves, snappy
       background: #f1f3fa;
       border-color: $primary-500;
       box-shadow: 0 0 0 3px rgba($primary-500, .25);
-      animation: none;               /* Detener animaciones al enfocar */
+      animation: none;              
     }
-  }
+  }*/
 }
 /*
 .searchTerm {
