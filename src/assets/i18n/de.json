@@ -679,5 +679,8 @@
     "Scheduled Messages": "Geplante Nachrichten",
     "Total Active Messages": "Gesamtzahl aktiver Nachrichten",
     "Estimated Wait Time": "Geschätzte Wartezeit"
+  },
+  "undiagnosed": {
+    "only_patient_description": "Der eingegebene Text darf nur eine Beschreibung des Patienten enthalten (Alter, Geschlecht, Symptome und Beginn der Symptome). Bitte keine Fragen, Informationen zu Krankheiten oder Behandlungen eingeben. Dieses Tool dient ausschließlich der Diagnoseunterstützung."
   }
 } 

@@ -679,5 +679,8 @@
     "Scheduled Messages": "Mensajes Programados",
     "Total Active Messages": "Total de Mensajes Activos",
     "Estimated Wait Time": "Tiempo de Espera Estimado"
+  },
+  "undiagnosed": {
+    "only_patient_description": "El texto de entrada debe ser únicamente una descripción del paciente (edad, género, síntomas y cuándo comenzaron). No incluyas preguntas, información sobre enfermedades ni tratamientos. Esta herramienta es solo para ayuda al diagnóstico."
   }
 }

@@ -1012,17 +1012,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         //if (this.currentStep == 1) {
             console.log(data);
         if(data.data){
-            this.copyMedicalText = this.medicalTextEng;
-            //}
-            
-            this.dataAnonymize(data.anonymization);//parseChoices0
-            this.detectedLang = data.detectedLang;
-            let parseChoices0 = data.data;
-            if (!this.loadMoreDiseases) {
-                this.diseaseListEn = [];
+            if(data.data.length > 0){
+                this.copyMedicalText = this.medicalTextEng;
+                this.dataAnonymize(data.anonymization);//parseChoices0
+                this.detectedLang = data.detectedLang;
+                let parseChoices0 = data.data;
+                if (!this.loadMoreDiseases) {
+                    this.diseaseListEn = [];
+                }
+                this.setDiseaseListEn(parseChoices0);
+                this.continuecallAI(parseChoices0);
+            }else{
+                this.showError(this.translate.instant("undiagnosed.only_patient_description"), null);
+                this.callingAI = false;
             }
-            this.setDiseaseListEn(parseChoices0);
-            this.continuecallAI(parseChoices0);
         }
     }
 

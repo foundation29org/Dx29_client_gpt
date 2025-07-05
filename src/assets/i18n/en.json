@@ -679,5 +679,8 @@
     "Scheduled Messages": "Scheduled Messages",
     "Total Active Messages": "Total Active Messages",
     "Estimated Wait Time": "Estimated Wait Time"
+  },
+  "undiagnosed": {
+    "only_patient_description": "The input text must only be a description of the patient (age, gender, symptoms, and when they started). Do not include questions, information about diseases, or treatments. This tool is for diagnostic assistance only."
   }
 }

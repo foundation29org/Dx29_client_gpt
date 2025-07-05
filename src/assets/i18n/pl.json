@@ -679,5 +679,8 @@
     "Scheduled Messages": "Zaplanowane wiadomości",
     "Total Active Messages": "Łączna liczba aktywnych wiadomości",
     "Estimated Wait Time": "Oszacowany czas oczekiwania"
+  },
+  "undiagnosed": {
+    "only_patient_description": "Tekst wejściowy powinien zawierać wyłącznie opis pacjenta (wiek, płeć, objawy i czas ich wystąpienia). Nie należy dodawać pytań, informacji o chorobach ani leczeniu. To narzędzie służy wyłącznie do wspomagania diagnostyki."
   }
 } 
