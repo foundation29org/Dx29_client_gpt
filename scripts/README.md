@@ -109,3 +109,15 @@ Esto restaurará el index.html y los archivos de traducción desde los backups m
 - Mantén la carpeta de backups limpia periódicamente si ya no necesitas restaurar.
 
 --- 
+
+en resumen para actualizar un tenant existente:
+1. crear rama
+2. ejecutar node scripts/prepare-tenant-release.js salud-gpt
+3. restaurar node scripts/restore-dxgpt-branding.js
+4. cerrar rama si se desea
+
+si es un nuevo tenant:
+1. crear los environments necesarios
+2. añadir el tenant a configure-index-html para adaptar el html (hotjar, analitycs, etc)
+3. establecer la configuracion en branding-config (para la UI)
+4. poner el favicon en assets de angular.json
