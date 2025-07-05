@@ -420,7 +420,7 @@
       "P2.S1.B3.Q": "How were the final 997 cases selected?",
       "P2.S1.B3.A_P1": "Once the 'datalake' of over 9,500 cases was consolidated, we used a stratified selection algorithm. It extracted an optimal set of 997 cases maximizing diagnostic (ICD-10) coverage and ensuring a uniform distribution of complexity and severity, with significant representation from minority data sources.",
 
-      "P2.S2.T": "Statistical validation of DxGPT-bench",
+      "P2.S2.T": "Statistical validation of salud-gpt-bench",
       "P2.S2.B1.Q": "Why use 997 cases instead of the original 9,583?",
       "P2.S2.B1.A_P1": "The reduction is deliberate and statistically justified. The original set had high redundancy (e.g., 2,373 cases of 'pain'). Our final sample (10.4%) eliminates that redundancy but captures 31.8% of unique diagnoses (908 ICD-10 codes) and 43.3% of unique symptoms (1,210), preserving essential diversity.",
       "P2.S2.B2.Q": "Is this sample sufficient to evaluate varying case difficulty?",

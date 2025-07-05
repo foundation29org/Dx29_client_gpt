@@ -420,7 +420,7 @@
       "P2.S1.B3.Q": "Wie wurden die 997 finalen Fälle ausgewählt?",
       "P2.S1.B3.A_P1": "Nach der Konsolidierung eines 'Datalakes' mit über 9.500 Fällen haben wir einen stratifizierten Auswahlalgorithmus verwendet, der eine optimale Auswahl von 997 Fällen traf, um eine maximale ICD-10-Abdeckung und eine ausgewogene Verteilung von Komplexität und Schweregrad zu gewährleisten – mit bedeutender Repräsentation kleinerer Datenquellen.",
 
-      "P2.S2.T": "Statistische Validierung von DxGPT-bench",
+      "P2.S2.T": "Statistische Validierung von salud-gpt-bench",
       "P2.S2.B1.Q": "Warum wurden 997 Fälle und nicht alle 9.583 verwendet?",
       "P2.S2.B1.A_P1": "Die Reduktion ist absichtlich und statistisch begründet. Die ursprüngliche Sammlung war stark redundant (z. B. 2.373 Fälle mit 'Schmerz'). Unsere Stichprobe (10,4 %) eliminiert diese Redundanz, erfasst aber 31,8 % der einzigartigen Diagnosen (908 ICD-10-Codes) und 43,3 % der einzigartigen Symptome (1.210), wobei die essenzielle Vielfalt erhalten bleibt.",
       "P2.S2.B2.Q": "Ist diese Stichprobe ausreichend für unterschiedliche Schwierigkeitsgrade?",

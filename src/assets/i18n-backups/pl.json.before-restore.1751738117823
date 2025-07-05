@@ -420,7 +420,7 @@
       "P2.S1.B3.Q": "Jak wybrano ostateczne 997 przypadków?",
       "P2.S1.B3.A_P1": "Po zebraniu ponad 9500 przypadków zastosowaliśmy algorytm stratyfikacji. Wybrał on optymalny zestaw 997 przypadków, który maksymalizuje pokrycie kodów ICD-10 i zapewnia równomierne rozłożenie złożoności i ciężkości, dbając o reprezentację rzadkich źródeł danych.",
 
-      "P2.S2.T": "Walidacja statystyczna DxGPT-bench",
+      "P2.S2.T": "Walidacja statystyczna salud-gpt-bench",
       "P2.S2.B1.Q": "Dlaczego użyto 997 przypadków zamiast wszystkich 9583?",
       "P2.S2.B1.A_P1": "Redukcja jest celowa i statystycznie uzasadniona. Oryginalny zestaw zawierał dużą redundancję (np. 2373 przypadków „bólu”). Nasza próbka końcowa (10,4%) eliminuje tę nadmiarowość, ale obejmuje 31,8% unikalnych diagnoz (908 kodów ICD-10) i 43,3% unikalnych objawów (1210), zachowując istotną różnorodność.",
       "P2.S2.B2.Q": "Czy próbka wystarcza do oceny przypadków o różnym poziomie trudności?",

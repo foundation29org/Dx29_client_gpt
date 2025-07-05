@@ -420,7 +420,7 @@
       "P2.S1.B3.Q": "¿Cómo se seleccionaron los 997 casos finales?",
       "P2.S1.B3.A_P1": "Una vez consolidado el \"datalake\" de más de 9.500 casos, usamos un algoritmo de selección estratificada. Este algoritmo extrajo un conjunto óptimo de 997 casos que maximiza la cobertura de diagnósticos (ICD-10) y garantiza una distribución uniforme de complejidad y severidad, asegurando que las fuentes de datos minoritarias tuvieran una representación significativa.",
       
-      "P2.S2.T": "Validación estadística de DxGPT-bench",
+      "P2.S2.T": "Validación estadística de salud-gpt-bench",
       "P2.S2.B1.Q": "¿Por qué usar 997 casos y no los 9.583 originales?",
       "P2.S2.B1.A_P1": "La reducción es deliberada y estadísticamente justificada. El conjunto original de 9.583 casos tenía una alta redundancia (p.ej., 2.373 casos de \"dolor\"). Nuestra muestra final (el 10.4%) elimina esa redundancia pero captura el 31.8% de los diagnósticos únicos (908 códigos ICD-10) y el 43.3% de los síntomas únicos (1.210), preservando la diversidad esencial.",
       "P2.S2.B2.Q": "¿Es esta muestra suficiente para evaluar casos de diferente dificultad?",
