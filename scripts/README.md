@@ -110,9 +110,9 @@ Esto restaurará el index.html y los archivos de traducción desde los backups m
 
 --- 
 
-en resumen para actualizar un tenant existente:
+en resumen para actualizar un tenant existente con los ultimos cambios de dxgpt:
 1. crear rama
-2. ejecutar node scripts/prepare-tenant-release.js salud-gpt
+2. ejecutar node scripts/prepare-tenant-release.js salud-gpt (nombre tenant)
 3. restaurar node scripts/restore-dxgpt-branding.js
 4. cerrar rama si se desea
 
@@ -121,3 +121,8 @@ si es un nuevo tenant:
 2. añadir el tenant a configure-index-html para adaptar el html (hotjar, analitycs, etc)
 3. establecer la configuracion en branding-config (para la UI)
 4. poner el favicon en assets de angular.json
+5. crear el swa y coger el token para ponerlo en los environments
+6. enlazar con el apim de dev y prod y coger los keys de los subcription que crea para ponerlo en los environments
+7. permitir la nueva url en los apim de dev y prod
+8. crear pipes en devops (prod y dev)
+9. Hacer los 4 pasos de tenant existente
