@@ -23,6 +23,7 @@
             "assets": [
               "src/assets",
               "src/favicon.ico",
+              "src/favicon-salud.ico",
               "src/sitemap.xml",
               "src/robots.txt"
             ],
@@ -206,7 +207,8 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/favicon-salud.ico"
             ]
           }
         }

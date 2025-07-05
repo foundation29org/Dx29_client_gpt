@@ -35,7 +35,7 @@
   <link rel="dns-prefetch" href="//www.google.com">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="favicon-salud.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <script async type="text/javascript">
     var isApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && location.hostname != "localhost" && location.hostname != "127.0.0.1";
@@ -63,12 +63,12 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      // // gtag('config', 'AW-335378785'); // Comentado para SALUD-GPT // Comentado para SALUD-GPT
-      // // gtag('config', 'AW-16829919003'); // Comentado para SALUD-GPT // Comentado para SALUD-GPT
+      // gtag('config', 'AW-335378785'); // Comentado para SALUD-GPT
+      // gtag('config', 'AW-16829919003'); // Comentado para SALUD-GPT
     </script>
   
     <script>
-      // gtag('event', 'conversion', { // 'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B' // Comentado para SALUD-GPT }); // Comentado para SALUD-GPT// // 'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B' // Comentado para SALUD-GPT // Comentado para SALUD-GPT});
+      gtag('event', 'conversion', {});// 'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B' // Comentado para SALUD-GPT});
     </script>
 
 

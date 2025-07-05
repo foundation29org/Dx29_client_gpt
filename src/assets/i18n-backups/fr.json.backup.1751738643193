@@ -420,7 +420,7 @@
     "P2.S1.B3.Q": "Comment les 997 cas finaux ont-ils été sélectionnés ?",
     "P2.S1.B3.A_P1": "Une fois le ‘datalake’ de plus de 9 500 cas consolidé, nous avons utilisé un algorithme de sélection stratifiée. Il a extrait un ensemble optimal de 997 cas maximisant la couverture diagnostique (CIM-10) et assurant une distribution équilibrée de la complexité et de la sévérité, avec une bonne représentation des sources minoritaires.",
 
-    "P2.S2.T": "Validation statistique de salud-gpt-bench",
+    "P2.S2.T": "Validation statistique de DxGPT-bench",
     "P2.S2.B1.Q": "Pourquoi utiliser 997 cas et non les 9 583 initiaux ?",
     "P2.S2.B1.A_P1": "Cette réduction est volontaire et justifiée statistiquement. L’ensemble original était très redondant (ex : 2 373 cas de 'douleur'). Notre échantillon final (10,4 %) élimine cette redondance tout en capturant 31,8 % des diagnostics uniques (908 codes CIM-10) et 43,3 % des symptômes uniques (1 210), préservant ainsi la diversité essentielle.",
     "P2.S2.B2.Q": "Cet échantillon est-il suffisant pour évaluer les cas de complexité variable ?",
