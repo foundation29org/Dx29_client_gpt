@@ -466,7 +466,7 @@
     "t8": "Nos sponsors",
     "p8": "Nous remercions profondément nos généreux sponsors. Leur soutien est purement philanthropique, sans intérêt commercial ni échange de données, et il est essentiel pour développer des outils comme DxGPT et les offrir gratuitement.",
     "t9": "Rejoignez notre mission",
-    "p9": "Si vous souhaitez soutenir notre mission, en tant que sponsor ou collaborateur, contactez-nous. Ensemble, nous pouvons construire un avenir plus sain."
+    "p9.1": "Si vous souhaitez soutenir notre mission, en tant que sponsor ou collaborateur, contactez-nous. Ensemble, nous pouvons construire un avenir plus sain."
   },
   "faqs": {
     "title": "Foire aux questions",

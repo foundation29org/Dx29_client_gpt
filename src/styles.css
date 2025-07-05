@@ -8,6 +8,10 @@
   border-color: #fff;
 }
 
+.background-dark {
+  background-color: var(--background-dark, #1c202a);
+}
+
 .dropdown-item:active {
   color: #ffffff !important;
   text-decoration: none;

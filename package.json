@@ -13,6 +13,7 @@
     "buildProd": "ng build --configuration production",
     "build:dxgpt": "ng build --configuration=production",
     "build:salud-gpt": "ng build --configuration=salud-gpt-prod",
+    "build:salud-gpt:dev": "ng build --configuration=salud-gpt-dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

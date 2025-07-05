@@ -466,7 +466,7 @@
       "t8": "Our sponsors",
       "p8": "We extend our heartfelt gratitude to our generous sponsors whose altruistic support is vital to our mission. Their contributions are purely philanthropic, with no commercial interests or data sharing involved.",
       "t9": "Join us",
-      "p9": "If you are interested in becoming a sponsor or collaborating with us, please contact us. Together, we can continue to build a healthier future for everyone."
+      "p9.1": "If you are interested in becoming a sponsor or collaborating with us, please contact us. Together, we can continue to build a healthier future for everyone."
     },
     "faqs": {
       "title": "Frequently Asked Questions",

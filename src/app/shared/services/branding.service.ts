@@ -27,6 +27,12 @@ export interface BrandingConfig {
     foundation: string;
     support: string;
   };
+  backgrounds: {
+    aboutUs: {
+      gradient: string;
+      overlay: string;
+    };
+  };
 }
 
 export interface BrandingConfigs {
@@ -250,5 +256,21 @@ export class BrandingService {
    */
   getAppName(): string {
     return this.getConfigValue<string>('displayName') || 'DxGPT';
+  }
+
+  /**
+   * Obtiene el gradiente de fondo para la página About Us
+   */
+  getAboutUsGradient(): string {
+    return this.getConfigValue<string>('backgrounds.aboutUs.gradient') || 
+           'linear-gradient(135deg, #041d44 0%, #12243a 25%, #2a3a4a 50%, #3c4e5c 75%, #3e4b57 100%)';
+  }
+
+  /**
+   * Obtiene el overlay de fondo para la página About Us
+   */
+  getAboutUsOverlay(): string {
+    return this.getConfigValue<string>('backgrounds.aboutUs.overlay') || 
+           'linear-gradient(45deg, rgba(52, 152, 219, 0.1) 0%, transparent 50%, rgba(41, 128, 185, 0.08) 100%)';
   }
 } 
