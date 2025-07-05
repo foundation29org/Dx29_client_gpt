@@ -2437,6 +2437,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         return this.translate.instant('land.Search');
     }
+        
+    reanalyzeFiles() {
+        this.filesAnalyzed = false;
+        this.lauchEvent('Reanalyze files clicked');
+        this.analyzeMultimodal();
+    }
+        
+    */
 
     getButtonTitle(): string {
         if (this.callingAI) {
@@ -2454,10 +2462,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return this.translate.instant('land.Search');
     }
 
-    reanalyzeFiles() {
-        this.filesAnalyzed = false;
-        this.lauchEvent('Reanalyze files clicked');
-        this.analyzeMultimodal();
-    }*/
+    
 
 }
