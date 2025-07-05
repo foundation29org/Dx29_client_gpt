@@ -60,7 +60,7 @@ const TENANT_CONFIGS = {
     },
     favicon: 'favicon.ico'
   },
-  'salud-gpt': {
+  'SALUD-GPT': {
     name: 'SALUD-GPT',
     // Usar los textos de DxGPT (en inglés)
     title: 'DxGPT: Diagnostic decision support software based on GPT-4',
