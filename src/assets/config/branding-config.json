@@ -1,0 +1,62 @@
+{
+  "dxgpt": {
+    "name": "DxGPT",
+    "displayName": "DxGPT",
+    "description": "AI-powered diagnostic assistance",
+    "colors": {
+      "primary": "#253146",
+      "secondary": "#764ba2",
+      "accent": "#B30000",
+      "background": "#ffffff",
+      "text": "#333333",
+      "backgroundDark": "#1c202a",
+      "sidebar": "man-of-steel"
+    },
+    "logos": {
+      "header": "assets/img/logo-Dx29.webp",
+      "footer": "assets/img/Foundation29logo.webp",
+      "favicon": "favicon.ico"
+    },
+    "links": {
+      "donate": "https://www.foundation29.org/donate/",
+      "foundation": "https://foundation29.org",
+      "support": "DxGPT support"
+    },
+    "backgrounds": {
+      "aboutUs": {
+        "gradient": "linear-gradient(135deg, #041d44 0%, #12243a 25%, #2a3a4a 50%, #3c4e5c 75%, #3e4b57 100%)",
+        "overlay": "linear-gradient(45deg, rgba(52, 152, 219, 0.1) 0%, transparent 50%, rgba(41, 128, 185, 0.08) 100%)"
+      }
+    }
+  },
+  "salud-gpt": {
+    "name": "SALUD-GPT",
+    "displayName": "SALUD-GPT",
+    "description": "Servicio de IA para Aragón de Salud",
+    "colors": {
+      "primary": "#e1a84c",
+      "secondary": "#388E3C",
+      "accent": "#4CAF50",
+      "background": "#ffffff",
+      "text": "#333333",
+      "backgroundDark": "#599da2",
+      "sidebar": "green"
+    },
+    "logos": {
+      "header": "assets/img/tenants/aragon/logo.webp",
+      "footer": "assets/img/tenants/aragon/logo.webp",
+      "favicon": "favicon-salud.ico"
+    },
+    "links": {
+      "donate": null,
+      "foundation": "https://www.aragon.es/organismos/departamento-de-sanidad",
+      "support": "SALUD-GPT support"
+    },
+    "backgrounds": {
+      "aboutUs": {
+        "gradient": "linear-gradient(135deg, #599da2 0%, #7bbdc7 25%, #599da2 50%, #417b8a 75%, #305c66 100%)",
+        "overlay": "linear-gradient(45deg, rgba(56, 142, 60, 0.1) 0%, transparent 50%, rgba(76, 175, 80, 0.08) 100%)"
+      }
+    }
+  }
+} 

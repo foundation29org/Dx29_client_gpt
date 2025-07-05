@@ -1,0 +1,165 @@
+:root {
+  /* Variables de branding por defecto (DxGPT) */
+  --primary-color: #1f232e;
+  --secondary-color: #764ba2;
+  --accent-color: #B30000;
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --background-dark: #1c202a;
+  
+  /* Gradientes */
+  --primary-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  
+  /* Estados de hover */
+  --primary-hover: #2a2f3d;
+  --secondary-hover: #6a4190;
+  --accent-hover: #990000;
+  
+  /* Sombras */
+  --primary-shadow: 0 2px 8px rgba(31, 35, 46, 0.3);
+  --accent-shadow: 0 2px 8px rgba(179, 0, 0, 0.3);
+  
+  /* Alert colors - Bootstrap override */
+  --bs-alert-info-color: var(--primary-color);
+  --bs-alert-info-bg: rgba(37, 49, 70, 0.1);
+  --bs-alert-info-border-color: rgba(37, 49, 70, 0.2);
+}
+
+/* Clases utilitarias para branding */
+.brand-primary {
+  color: var(--primary-color) !important;
+}
+
+.brand-primary-bg {
+  background-color: var(--primary-color) !important;
+}
+
+.brand-secondary {
+  color: var(--secondary-color) !important;
+}
+
+.brand-secondary-bg {
+  background-color: var(--secondary-color) !important;
+}
+
+.brand-accent {
+  color: var(--accent-color) !important;
+}
+
+.brand-accent-bg {
+  background-color: var(--accent-color) !important;
+}
+
+.brand-background-dark {
+  background-color: var(--background-dark) !important;
+}
+
+.brand-gradient {
+  background: var(--primary-gradient) !important;
+}
+
+/* Botones con branding */
+.btn-brand-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.btn-brand-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white;
+}
+
+.btn-brand-primary:focus {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white;
+}
+
+.btn-brand-secondary:hover {
+  background-color: var(--secondary-hover);
+  border-color: var(--secondary-hover);
+  color: white;
+}
+
+.btn-brand-secondary:focus {
+  background-color: var(--secondary-hover);
+  border-color: var(--secondary-hover);
+  color: white;
+}
+.btn-brand-secondary{
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: white;
+}
+
+.btn-brand-accent {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+.btn-brand-accent:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: white;
+}
+
+/* Enlaces con branding */
+.brand-link {
+  color: var(--primary-color);
+}
+
+.brand-link:hover {
+  color: var(--primary-hover);
+}
+
+/* Bordes con branding */
+.brand-border {
+  border-color: var(--primary-color) !important;
+}
+
+.brand-border-accent {
+  border-color: var(--accent-color) !important;
+}
+
+/* Override para btn-info específicamente */
+.btn-info {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.btn-info:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  color: white !important;
+}
+
+.btn-info:focus {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  color: white !important;
+}
+
+/* Override para alerts de Bootstrap */
+.alert-info {
+  --bs-alert-color: var(--bs-alert-info-color) !important;
+  --bs-alert-bg: var(--bs-alert-info-bg) !important;
+  --bs-alert-border-color: var(--bs-alert-info-border-color) !important;
+}
+
+/* Clases utilitarias para alerts */
+.alert-brand-primary {
+  --bs-alert-color: var(--primary-color) !important;
+  --bs-alert-bg: rgba(37, 49, 70, 0.1) !important;
+  --bs-alert-border-color: rgba(37, 49, 70, 0.2) !important;
+   color: white !important;
+}
+
+.alert-brand-accent {
+  --bs-alert-color: var(--accent-color) !important;
+  --bs-alert-bg: rgba(179, 0, 0, 0.1) !important;
+  --bs-alert-border-color: rgba(179, 0, 0, 0.2) !important;
+} 

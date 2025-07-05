@@ -1,8 +1,8 @@
-$surface-1: #1f232e;     // fondo principal del sitio
-$surface-2: #23273a;     // 4 % más claro – se usa al focus
+$surface-1: var(--primary-color, #1f232e);     // fondo principal del sitio
+$surface-2: var(--primary-hover, #23273a);     // 4 % más claro – se usa al focus
 $surface-3: #2d3243;     // borde reposo
-$primary-500: #4f8cff;   // color de marca para el foco
-$primary-600: #3c6bd4;   // tono más oscuro para hover
+$primary-500: var(--primary-color, #4f8cff);   // color de marca para el foco
+$primary-600: var(--primary-hover, #3c6bd4);   // tono más oscuro para hover
 $text-100: #ffffff;      // texto principal
 $text-300: #b0b3c6;      // placeholder
 $radius-md: 16px;        // radio coherente con botones
@@ -66,15 +66,11 @@ $duration: 180ms;        // animaciones breves, snappy
 }
 
 :host ::ng-deep ._hj-ETLL8__MinimizedWidgetMiddle__label{
-  --hjFeedbackAccentColor: #B30000;
+  --hjFeedbackAccentColor: var(--accent-color, #B30000);
 }
 
 ::ng-deep .selectorrare .mat-checkbox-frame {
   border-color: white !important;
-}
-
-.background-dark {
-  background-color: #1c202a;
 }
 
 .help-link {
@@ -307,11 +303,11 @@ section {
 
 .custom-card-2{
   color: white !important;
-  background-color: #1f232e !important;
+  background-color: var(--primary-color, #1f232e) !important;
 }
 
 .custom-card-2:hover {
-  background-color: #202123 !important;
+  background-color: var(--primary-hover, #202123) !important;
 }
 
 .diseaseClass:hover {
@@ -407,14 +403,14 @@ body {
 }
 
 ::ng-deep .swal2-icon.swal2-info {
-  border-color: #253146;
-  color: #253146;
+  border-color: #ffffff;
+  color: #ffffff;
 }
 
 
 .form-control:focus{
-  border-color: #B30000 !important;
-  box-shadow: 0 0 0 0.2rem #B30000;
+  border-color: var(--accent-color, #B30000) !important;
+  box-shadow: 0 0 0 0.2rem var(--accent-color, #B30000);
 }
 
 
@@ -499,7 +495,7 @@ body {
   text-align: center;
 
   h3 {
-    color: #B30000;
+    color: var(--accent-color, #B30000);
     margin-bottom: 16px;
     font-size: 1.2rem;
   }
@@ -551,9 +547,9 @@ body {
   flex: 1 1 auto;
 }
 .chip-btn-add {
-  border: 1.5px dashed #17a2b8;
+  border: 1.5px dashed #ffffff;
   background: transparent;
-  color: #17a2b8;
+  color: #ffffff;
   border-radius: 8px;
   width: 36px;
   height: 36px;
@@ -575,7 +571,7 @@ body {
   pointer-events: none;
 }
 .chip-btn-add:hover {
-  background: #17a2b8;
+  background: #ffffff;
   color: #fff;
 }
 .file-chip {
@@ -583,7 +579,7 @@ body {
   align-items: center;
   background: #23252d;
   color: #fff;
-  border: 1px solid #17a2b8;
+  border: 1px solid #ffffff;
   border-radius: 16px;
   padding: 0.2rem 0.7rem 0.2rem 0.5rem;
   font-size: 0.98rem;
@@ -596,7 +592,7 @@ body {
   height: 32px;
 }
 .file-chip i {
-  color: #17a2b8;
+  color: #ffffff;
   font-size: 1.1rem;
 }
 .file-chip-name {
@@ -624,7 +620,6 @@ body {
 }
 .chips-counter {
   flex-shrink: 0;
-  color: #b0b0b0;
   font-size: 0.98rem;
   text-align: right;
   min-width: 120px;
@@ -656,7 +651,6 @@ body {
 }
 
 .chip-add-text {
-  color: #b0b0b0;
   font-size: 0.98rem;
   vertical-align: middle;
   user-select: none;
@@ -673,7 +667,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(23, 162, 184, 0.85);
+  background-color: rgba(69, 69, 69, 0.85);
   border-radius: 16px;
   z-index: 10;
   display: flex;

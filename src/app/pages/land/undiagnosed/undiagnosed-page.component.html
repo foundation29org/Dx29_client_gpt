@@ -52,7 +52,7 @@
         </div>
       </div>
       <!-- Mensaje informativo sobre funcionalidad multimodal -->
-      <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info mt-3 mb-3" role="alert" style="text-align: left;">
+      <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary mt-3 mb-3" role="alert" style="text-align: left;">
         <div class="d-flex align-items-start">
           <i class="fa fa-info-circle fa-2x me-3 mt-1"></i>
           <div>
@@ -101,7 +101,7 @@
       <div class="col-12 text-center mt-3">
         <!-- Paso 1: Analizar archivos (solo si hay archivos no analizados) -->
         <button *ngIf="selectedFiles.length > 0 && !filesAnalyzed" 
-                class="btn btn-lg btn-info" 
+                class="btn btn-lg btn-brand-primary" 
                 (click)="analyzeMultimodal()" 
                 [disabled]="callingAI"
                 [attr.title]="'diagnosis.Analyze uploaded files and search for diagnoses' | translate"
@@ -113,7 +113,7 @@
 
         <!-- Paso 2: Buscar (cuando no hay archivos O cuando los archivos ya están analizados) -->
         <button *ngIf="selectedFiles.length === 0 || filesAnalyzed" 
-                class="btn btn-lg btn-info" 
+                class="btn btn-lg btn-brand-primary" 
                 (click)="checkPopup(contentIntro)"
                 [attr.title]="getButtonTitle()"
                 [attr.aria-label]="getButtonTitle()"
@@ -158,11 +158,11 @@
     <a id="step2"></a>
     <div class="row">
       <span class="col-md-12 mt-4 center-elements" *ngIf="topRelatedConditions.length>0">
-        <button type="button" class="mt-2 btn btn-info me-2 min-widht-btn" (click)="newPatient()">{{'land.New patient' | translate
+        <button type="button" class="mt-2 btn btn-brand-primary me-2 min-widht-btn" (click)="newPatient()">{{'land.New patient' | translate
           }}</button>
-        <button type="button" class="mt-2 btn btn-info ms-1 me-2 min-widht-btn"
+        <button type="button" class="mt-2 btn btn-brand-primary ms-1 me-2 min-widht-btn"
           (click)="openDescripModal(contentEditDescription)">{{'land.Edit description' | translate }}</button>
-        <span *ngIf="hasAnonymize" class="ms-1"><button class="mt-2 btn btn-info ms-1 min-widht-btn"
+        <span *ngIf="hasAnonymize" class="ms-1"><button class="mt-2 btn btn-brand-primary ms-1 min-widht-btn"
             (click)="openAnonymize(contentviewDoc)">
             <em class="fa-solid fa-user-shield"></em> {{'diagnosis.View anonymized text' | translate }}</button>
         </span>
@@ -205,10 +205,10 @@
                               <button class="me-2 mb-2 btn btn-danger btn-sm size-btn" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
                                 <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
                               </button>
-                              <button *ngIf="!model" class="mb-2 btn btn-primary btn-sm size-btn" (click)="callAdvancedModel()">
+                              <button *ngIf="!model" class="btn btn-brand-secondary mb-2 btn-sm size-btn" (click)="callAdvancedModel()">
                                 <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
                               </button>
-                              <button *ngIf="model" class="mb-2 btn btn-primary btn-sm" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+                              <button *ngIf="model" class="btn btn-brand-secondary mb-2 btn-sm" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
                             </div>
                           </span>
                         </span>
@@ -224,7 +224,7 @@
                       <td class="col-md-12 p-3 diseaseClass pointer"
                         (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
                         <span class="float-end ms-1">
-                          <button class="btn-info btn btn-sm mb-0 btn-fab round"
+                          <button class="btn-brand-primary btn btn-sm mb-0 btn-fab round"
                             title="{{'generics.More information' | translate }}"
                             >
                             <em class="fa fa-info w-13"></em>
@@ -236,7 +236,7 @@
                           [innerHTML]="disease.content"></span>
                         <div *ngIf="disease.name!==''">
                           <div *ngIf="disease.url!==''" class="col-12 center-elements mt-2">
-                            <a class="btn btn-sm btn-info mb-1" [href]="disease.url"
+                            <a class="btn btn-sm btn-brand-primary mb-1" [href]="disease.url"
                               target="_blank">{{'diagnosis.SponsorMsg' | translate }} <em
                                 class="ms-1 ft-external-link"></em></a>
                           </div>
@@ -256,7 +256,7 @@
                 <p>{{'land.nofound' | translate }}</p>
               </span>
               <div class="col-md-12 mb-0 white p-2 center-elements background-dark">
-                <button class="btn btn-info mt-2 mb-2 min-widht-btn" (click)="loadMore()">{{'land.Load more' | translate }}</button>
+                <button class="btn btn-brand-primary mt-2 mb-2 min-widht-btn" (click)="loadMore()">{{'land.Load more' | translate }}</button>
                 <span class="optionsResults mt-2 mb-2">
                   <em class="mt-1 fa fa-clipboard fa-2x info me-3 pointer white" title="{{'land.Copy results' | translate }}"
                     (click)="copyResults()"></em>
@@ -288,10 +288,10 @@
               <button class="btn btn-danger me-3 mt-2" (click)="handleFollowUpResponse(contentFollowUpQuestions)">
                 <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
               </button>
-              <button *ngIf="!model" class="btn btn-primary mt-2" (click)="callAdvancedModel()">
+              <button *ngIf="!model" class="btn btn-brand-secondary mt-2" (click)="callAdvancedModel()">
                 <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
               </button>
-              <button *ngIf="model" class="btn btn-primary mt-2" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+              <button *ngIf="model" class="btn btn-brand-secondary mt-2" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
             </div>
           </div>
         </div>
@@ -341,7 +341,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 center-elements">
-            <button type="button" class="btn btn-info round" (click)="recalculateDifferencial()"
+            <button type="button" class="btn btn-brand-primary round" (click)="recalculateDifferencial()"
               [disabled]="loadingAnswerAI">{{'land.Recalculate' | translate }}</button>
           </div>
         </div>
@@ -351,7 +351,7 @@
   </div>
   <div class="modal-footer">
     <div class="col-md-12 center-elements">
-      <button type="button" class="btn btn-secondary round" (click)="closeDiseaseUndiagnosed()">{{'generics.Close' |
+      <button type="button" class="btn btn-brand-primary round" (click)="closeDiseaseUndiagnosed()">{{'generics.Close' |
         translate }}</button>
     </div>
   </div>
@@ -388,7 +388,7 @@
   </div>
   <div class="modal-footer row">
     <div class="form-actions col-md-12 center-elements">
-      <button type="button" class="btn round btn-info" (click)="closePopup();">{{'generics.Close' | translate
+      <button type="button" class="btn round btn-brand-primary" (click)="closePopup();">{{'generics.Close' | translate
         }}</button>
     </div>
   </div>
@@ -503,7 +503,7 @@
       <div class="col-md-12 center-elements">
         <button type="button" class="me-1 btn btn-secondary round" (click)="closeModal();">{{'generics.Cancel' | translate
           }}</button>
-        <button type="button" class="ms-1 btn btn-info round" (click)="checkText()"
+        <button type="button" class="ms-1 btn btn-brand-primary round" (click)="checkText()"
           [attr.title]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
           [attr.aria-label]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
           [disabled]="callingAI">{{'land.Recalculate' | translate }}</button>
@@ -542,7 +542,7 @@
         </div>
       </div>
       
-      <div class="alert alert-info" *ngIf="followUpQuestions.length === 0">
+      <div class="alert alert-info alert-brand-primary" *ngIf="followUpQuestions.length === 0">
         {{ 'land.followup.modal.no_questions' | translate }}
       </div>
     </div>
@@ -553,7 +553,7 @@
     </button>
     <button 
       type="button" 
-      class="btn btn-info" 
+      class="btn btn-brand-primary" 
       [disabled]="!hasAnswers() || processingFollowUpAnswers" 
       (click)="processFollowUpAnswers()">
       <span *ngIf="!processingFollowUpAnswers">{{ 'land.followup.modal.submit' | translate }}</span>
