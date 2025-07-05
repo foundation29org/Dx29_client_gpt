@@ -192,7 +192,12 @@ function replaceInHtml(content, config) {
       `'send_to': '${config.analytics.conversion}'`
     );
   } else {
-    // Comentar conversión si es null
+    // Comentar toda la línea de conversión para evitar errores de sintaxis
+    modifiedContent = modifiedContent.replace(
+      /gtag\('event', 'conversion', \{[^}]*\}\);/g,
+      `// gtag('event', 'conversion', { 'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B' }); // Comentado para ${config.name}`
+    );
+    // También, por si acaso, comenta la línea de 'send_to' suelta
     modifiedContent = modifiedContent.replace(
       /'send_to': 'AW-335378785\/wcKYCMDpnJIZEOHy9Z8B'/g,
       `// 'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B' // Comentado para ${config.name}`
