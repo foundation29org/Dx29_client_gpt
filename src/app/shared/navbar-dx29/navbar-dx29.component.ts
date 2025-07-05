@@ -6,6 +6,7 @@ import { LangService } from 'app/shared/services/lang.service';
 import { EventsService } from 'app/shared/services/events.service';
 import { Injectable, Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
+import { BrandingService } from 'app/shared/services/branding.service';
 import { filter } from 'rxjs/operators';
 declare let gtag: any;
 
@@ -30,8 +31,17 @@ export class NavbarD29Component implements OnDestroy {
   _startTime: any;
   private subscription: Subscription = new Subscription();
   isMenuExpanded = false;
+  headerLogo: string = 'assets/img/logo-Dx29.webp';
+  shouldShowDonate: boolean = true;
 
-  constructor(public translate: TranslateService, private langService: LangService, private router: Router, private inj: Injector, public insightsService: InsightsService) {
+  constructor(
+    public translate: TranslateService, 
+    private langService: LangService, 
+    private router: Router, 
+    private inj: Injector, 
+    public insightsService: InsightsService,
+    private brandingService: BrandingService
+  ) {
     this.loadLanguages();
     this.router.events.pipe(
       filter((event: any) => event instanceof NavigationEnd)
@@ -79,6 +89,9 @@ export class NavbarD29Component implements OnDestroy {
     );
 
     this._startTime = Date.now();
+    
+    // Cargar configuración de branding
+    this.loadBrandingConfig();
   }
 
 
@@ -199,6 +212,20 @@ export class NavbarD29Component implements OnDestroy {
     console.log('goBackEvent');
     var eventsLang = this.inj.get(EventsService);
     eventsLang.broadcast('backEvent', true);
+  }
+
+  /**
+   * Carga la configuración de branding
+   */
+  private loadBrandingConfig(): void {
+    this.subscription.add(
+      this.brandingService.brandingConfig$.subscribe(config => {
+        if (config) {
+          this.headerLogo = config.logos.header;
+          this.shouldShowDonate = config.links.donate !== null;
+        }
+      })
+    );
   }
   toggleMenu() {
     this.isMenuExpanded = !this.isMenuExpanded;

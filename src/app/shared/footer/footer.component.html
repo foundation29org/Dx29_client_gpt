@@ -3,9 +3,9 @@
     <div class="container-fluid pt-2">
       <div class="text-center">
         <div class="d-flex flex-column align-items-center justify-content-center py-4">
-          <p class="mb-2">{{'land.Made with love by' | translate}}  <a href="https://foundation29.org" target="_blank" class="pointer underline">{{'generics.Foundation 29' | translate}}</a></p>
-          <a href="https://foundation29.org" target="_blank">
-            <img src="assets/img/Foundation29logo.webp" alt="Foundation 29 logo" class="img-fluid footer-logo">
+          <p class="mb-2">{{'land.Made with love by' | translate}}  <a [href]="foundationLink" target="_blank" class="pointer underline">{{'generics.Foundation 29' | translate}}</a></p>
+          <a [href]="foundationLink" target="_blank">
+            <img [src]="footerLogo" alt="Foundation logo" class="img-fluid footer-logo">
           </a>
         </div>
       </div>
@@ -41,7 +41,7 @@
 <ng-template #contentSubs let-c="close" let-d="dismiss">
   <a id="initpopup" class="anchorSteps"></a>
   <div class="modal-header">
-    <h4 class="modal-title">DxGPT support</h4>
+    <h4 class="modal-title">{{brandingService.getSupportText()}}</h4>
     <span type="button" class="btn-close" aria-label="Close" (click)="closeSupport()">
     </span>
   </div>

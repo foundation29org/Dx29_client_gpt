@@ -7,14 +7,14 @@
       </button>
       <div class="d-none d-lg-block">
           <span class="navbar-header-logos">
-              <img *ngIf="isHomePage" class="logo-header pointer" src='assets/img/logo-Dx29.webp' alt="logo dxgpt" (click)="lauchEvent('Logo');goBackEvent();"/>
-              <img *ngIf="!isHomePage" class="logo-header pointer" src='assets/img/logo-Dx29.webp' alt="logo dxgpt" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
+              <img *ngIf="isHomePage" class="logo-header pointer" [src]="headerLogo" alt="logo" (click)="lauchEvent('Logo');goBackEvent();"/>
+              <img *ngIf="!isHomePage" class="logo-header pointer" [src]="headerLogo" alt="logo" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
           </span>
       </div>
       <div class="d-block">
         <div class="d-sm-block d-lg-none pointer">
-          <img *ngIf="isHomePage" class="mt-1 logo-header pointer" src='assets/img/logo-Dx29.webp' alt="logo dxgpt" (click)="lauchEvent('Logo');goBackEvent();"/>
-          <img *ngIf="!isHomePage" class="mt-1 logo-header pointer" src='assets/img/logo-Dx29.webp' alt="logo dxgpt" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
+          <img *ngIf="isHomePage" class="mt-1 logo-header pointer" [src]="headerLogo" alt="logo" (click)="lauchEvent('Logo');goBackEvent();"/>
+          <img *ngIf="!isHomePage" class="mt-1 logo-header pointer" [src]="headerLogo" alt="logo" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
       </div>
         <div [class.collapse]="!isMenuExpanded" [class.show]="isMenuExpanded" class="navbar-collapse" id="navbarSupportedContent">
           <button *ngIf="isMenuExpanded" class="close-menu-btn d-lg-none" (click)="toggleMenu()">×</button>
@@ -46,8 +46,8 @@
                       <span>{{'menu.Usage statistics' | translate }}</span>
                   </a>
               </li>
-              <li class="nav-item me-2 donate-link">
-                  <a class="nav-link btn btn-info round white mb-0 btn-sm donate-a" href="https://www.foundation29.org/donate/" target="_blank" (click)="lauchEvent('Page - Donate')">
+              <li class="nav-item me-2 donate-link" *ngIf="shouldShowDonate">
+                  <a class="nav-link btn btn-info round white mb-0 btn-sm donate-a" [href]="brandingService.getDonateLink()" target="_blank" (click)="lauchEvent('Page - Donate')">
                       <span>{{'land.Donate' | translate }} <em class="ms-1 fa fa-heart"></em></span>
                   </a>
               </li>

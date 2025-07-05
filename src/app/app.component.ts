@@ -10,6 +10,7 @@ import { IconsService } from 'app/shared/services/icon.service';
 import { DOCUMENT } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UuidService } from './shared/services/uuid.service';
+import { BrandingService } from './shared/services/branding.service';
 
 import {
   NgcCookieConsentService,
@@ -41,7 +42,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     private activatedRoute: ActivatedRoute, 
     private ngZone: NgZone, 
     private iconsService: IconsService,
-    private uuidService: UuidService
+    private uuidService: UuidService,
+    private brandingService: BrandingService
   ) {
     // Inicializar el UUID al inicio de la aplicación
     this.uuidService.getUuid();
@@ -84,6 +86,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngOnInit() {
     this.iconsService.loadIcons();
+    
+    // Inicializar el servicio de branding
+    this.brandingService.brandingConfig$.subscribe(config => {
+      if (config) {
+        console.log('Branding config loaded:', config.name);
+      }
+    });
 
     this.meta.addTags([
       { name: 'keywords', content: this.translate.instant("seo.home.keywords") },
@@ -238,12 +247,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
       return;
     }
     this.isOpenSwal = true;
+    const config = this.brandingService.getBrandingConfig();
     Swal.fire({
       title: this.translate.instant("generics.Reload the page"),
       text: this.translate.instant("generics.Unsaved changes will be lost"),
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#B30000',
+      confirmButtonColor: config?.colors.primary || '#B30000',
       cancelButtonColor: '#B0B6BB',
       confirmButtonText: this.translate.instant("generics.Yes, reload"),
       cancelButtonText: this.translate.instant("generics.Cancel")

@@ -30,7 +30,8 @@
               "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.css",
               "src/assets/css/custom.css",
-              "node_modules/cookieconsent/build/cookieconsent.min.css"
+              "node_modules/cookieconsent/build/cookieconsent.min.css",
+              "src/assets/css/branding-variables.css"
             ],
             "scripts": [
               "node_modules/cookieconsent/build/cookieconsent.min.js"
@@ -89,6 +90,58 @@
                   "with": "src/environments/environment.dev.ts"
                 }
               ]
+            },
+            "salud-gpt": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.salud-gpt.ts"
+                }
+              ]
+            },
+            "salud-gpt-prod": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.salud-gpt.prod.ts"
+                }
+              ]
             }
           }
         },
@@ -100,6 +153,15 @@
           "configurations": {
             "production": {
               "browserTarget": "matngular:build:production"
+            },
+            "develop": {
+              "browserTarget": "matngular:build:develop"
+            },
+            "salud-gpt": {
+              "browserTarget": "matngular:build:salud-gpt"
+            },
+            "salud-gpt-prod": {
+              "browserTarget": "matngular:build:salud-gpt-prod"
             }
           }
         },

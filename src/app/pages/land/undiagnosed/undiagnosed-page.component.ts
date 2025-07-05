@@ -13,6 +13,7 @@ import { Clipboard } from "@angular/cdk/clipboard"
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.component';
 import { UuidService } from 'app/shared/services/uuid.service';
+import { BrandingService } from 'app/shared/services/branding.service';
 declare let gtag: any;
 
 @Component({
@@ -117,7 +118,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private webSocket: WebSocket | null = null;
     private isWebSocketConnected: boolean = false;
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService) {
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService) {
         this.initialize();
     }
 
@@ -243,12 +244,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             if (this.currentStep == 2 && this.topRelatedConditions.length>0) {
                 this.translate.onLangChange.pipe(first()).subscribe(() => {
                     console.log('lang: '+lang);
+                    const config = this.brandingService.getBrandingConfig();
                     Swal.fire({
                         title: this.translate.instant("land.Language has changed"),
                         text: this.translate.instant("land.Do you want to start over"),
                         icon: 'info',
                         showCancelButton: true,
-                        confirmButtonColor: '#B30000',
+                        confirmButtonColor: config?.colors.primary || '#B30000',
                         cancelButtonColor: '#B0B6BB',
                         confirmButtonText: this.translate.instant("generics.Yes"),
                         cancelButtonText: this.translate.instant("generics.No"),
@@ -275,11 +277,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             console.log(this.topRelatedConditions.length);
             if (this.currentStep == 2 && this.topRelatedConditions.length>0) {
                 //ask for confirmation
+                const config = this.brandingService.getBrandingConfig();
                 Swal.fire({
                     title: this.translate.instant("land.Do you want to start over"),
                     icon: 'info',
                     showCancelButton: true,
-                    confirmButtonColor: '#B30000',
+                    confirmButtonColor: config?.colors.primary || '#B30000',
                     cancelButtonColor: '#B0B6BB',
                     confirmButtonText: this.translate.instant("generics.Yes"),
                     cancelButtonText: this.translate.instant("generics.No"),
@@ -292,11 +295,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     }
                 });
             }else if(this.currentStep == 1 && this.selectedFiles.length > 0){
+                const config = this.brandingService.getBrandingConfig();
                 Swal.fire({
                     title: this.translate.instant("land.Do you want to start over"),
                     icon: 'info',
                     showCancelButton: true,
-                    confirmButtonColor: '#B30000',
+                    confirmButtonColor: config?.colors.primary || '#B30000',
                     cancelButtonColor: '#B0B6BB',
                     confirmButtonText: this.translate.instant("generics.Yes"),
                     cancelButtonText: this.translate.instant("generics.No"),    

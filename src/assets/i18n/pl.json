@@ -462,7 +462,11 @@
 
       "P3.S3.T": "Dołącz do naszej misji",
       "P3.S3.B1.Q": "Jak mogę współpracować lub zostać sponsorem?",
-      "P3.S3.B1.A_P1": "Jeśli chcesz wesprzeć naszą misję – jako sponsor lub współpracownik – skontaktuj się z nami. Razem możemy budować zdrowszą przyszłość."
+      "P3.S3.B1.A_P1": "Jeśli chcesz wesprzeć naszą misję – jako sponsor lub współpracownik – skontaktuj się z nami. Razem możemy budować zdrowszą przyszłość.",
+      "t8": "Nasze sponsorzy",
+      "p8": "Składamy szczere podziękowania naszym hojnym sponsorom. Ich wsparcie ma charakter wyłącznie filantropijny – bez interesów komercyjnych czy wymiany danych – i jest kluczowe dla rozwoju takich narzędzi jak DxGPT oraz udostępniania ich za darmo.",
+      "t9": "Dołącz do nas",
+      "p9": "Jeśli chcesz wesprzeć naszą misję – jako sponsor lub współpracownik – skontaktuj się z nami. Razem możemy budować zdrowszą przyszłość."
     },
     "faqs": {
         "title": "Często zadawane pytania",

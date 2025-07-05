@@ -1,0 +1,16 @@
+/* Archivo de prueba temporal para verificar branding */
+.test-branding-alert {
+  background-color: var(--bs-alert-info-bg) !important;
+  color: var(--bs-alert-info-color) !important;
+  border-color: var(--bs-alert-info-border-color) !important;
+}
+
+.test-branding-primary {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.test-branding-accent {
+  background-color: var(--accent-color) !important;
+  color: white !important;
+} 

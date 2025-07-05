@@ -462,7 +462,11 @@
 
       "P3.S3.T": "Join our mission",
       "P3.S3.B1.Q": "How can I collaborate or become a sponsor?",
-      "P3.S3.B1.A_P1": "If you’re interested in supporting our mission, whether as a sponsor or collaborator, please contact us. Together, we can keep building a healthier future."
+      "P3.S3.B1.A_P1": "If you’re interested in supporting our mission, whether as a sponsor or collaborator, please contact us. Together, we can keep building a healthier future.",
+      "t8": "Our sponsors",
+      "p8": "We extend our heartfelt gratitude to our generous sponsors whose altruistic support is vital to our mission. Their contributions are purely philanthropic, with no commercial interests or data sharing involved.",
+      "t9": "Join us",
+      "p9": "If you are interested in becoming a sponsor or collaborating with us, please contact us. Together, we can continue to build a healthier future for everyone."
     },
     "faqs": {
       "title": "Frequently Asked Questions",

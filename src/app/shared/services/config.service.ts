@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { BrandingService } from "./branding.service";
 
 export interface ITemplateConfig
 {
@@ -35,7 +36,13 @@ export class ConfigService {
   templateConfSubject = new BehaviorSubject<ITemplateConfig>(this.templateConf);
   templateConf$ = this.templateConfSubject.asObservable();
 
-  constructor() {
+  constructor(private brandingService: BrandingService) {
+    // Suscribirse a cambios en el branding para actualizar la configuración del sidebar
+    this.brandingService.brandingConfig$.subscribe(config => {
+      if (config) {
+        this.updateSidebarConfig(config.colors.sidebar);
+      }
+    });
   }
 
   // Default configurations for Light layout. Please check *customizer.service.ts* for different colors and bg images options
@@ -113,6 +120,14 @@ export class ConfigService {
 
   applyTemplateConfigChange(tempConfig: ITemplateConfig) {
     this.templateConf = Object.assign(this.templateConf, tempConfig);
+    this.templateConfSubject.next(this.templateConf);
+  }
+
+  /**
+   * Actualiza la configuración del sidebar basada en el branding
+   */
+  private updateSidebarConfig(sidebarColor: string): void {
+    this.templateConf.layout.sidebar.backgroundColor = sidebarColor;
     this.templateConfSubject.next(this.templateConf);
   }
 
