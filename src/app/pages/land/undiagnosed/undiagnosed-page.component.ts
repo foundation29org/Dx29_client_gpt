@@ -721,8 +721,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
               </div>
             </div>` :
             '<p><em class="white fa fa-spinner fa-3x fa-spin fa-fw"></em></p>');
-        
-        console.log('SweetAlert HTML content:', htmlContent);
 
         Swal.fire({
             html: htmlContent,
@@ -1010,7 +1008,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.model = false;
         }
         //if (this.currentStep == 1) {
-            console.log(data);
+        console.log(this.model);
+        console.log(data);
+        this.cancelQueueStatusCheck();
+        if (this.countdownInterval) {
+            clearInterval(this.countdownInterval);
+        }
+        this.currentTicketId = null;
+        this.currentPosition = null;
+        this.totalWaitTime = null;
+        this.startTime = null;
         if(data.data){
             if(data.data.length > 0){
                 this.copyMedicalText = this.medicalTextEng;
@@ -2028,13 +2035,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.apiDx29ServerService.getQueueStatus(this.currentTicketId, this.timezone).subscribe(
                 (res: any) => {
                     console.log('Queue status update:', res);
-                    
                     // Verificar si la respuesta tiene el formato esperado
                     if (res.result === 'success') {
                         if (res.status === 'completed') {
                             // La solicitud está completa
-                            this.cancelQueueStatusCheck();
-                            this.processAiSuccess(res.data, {});
+                            //this.cancelQueueStatusCheck();
+                            if(res.data.data){
+                                this.processAiSuccess(res.data, {});
+                            }
+                            //this.processAiSuccess(res.data, {});
                         } else if (res.status === 'processing' || res.status === 'queued') {
                             // Actualizar la posición y reiniciar el contador si cambió
                             if (this.currentPosition !== res.position) {
@@ -2092,6 +2101,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
     
     private updateQueueStatusModal(position: number, estimatedWaitTime: number) {
+        if (!this.currentTicketId) return;
         // Obtener todas las traducciones necesarias
         const translations = {
             inQueue: this.translate.instant("generics.Your request is in queue"),

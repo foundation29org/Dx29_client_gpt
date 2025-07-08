@@ -3,6 +3,7 @@
   --primary-color: #1f232e;
   --secondary-color: #764ba2;
   --accent-color: #B30000;
+  --rating-color: var(--accent-color, #B30000);
   --background-color: #ffffff;
   --text-color: #333333;
   --background-dark: #1c202a;

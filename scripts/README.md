@@ -120,7 +120,7 @@ si es un nuevo tenant:
 1. crear los environments necesarios
 2. añadir el tenant a configure-index-html para adaptar el html (hotjar, analitycs, etc)
 3. establecer la configuracion en branding-config (para la UI)
-4. poner el favicon en assets de angular.json
+4. poner el favicon en assets y los environments del tenant en angular.json, y poner en el package.json como se lanzar esos envs de angular.json
 5. crear el swa y coger el token para ponerlo en los environments
 6. enlazar con el apim de dev y prod y coger los keys de los subcription que crea para ponerlo en los environments
 7. permitir la nueva url en los apim de dev y prod

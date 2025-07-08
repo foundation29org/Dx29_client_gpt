@@ -16,6 +16,7 @@ export interface BrandingConfig {
     text: string;
     sidebar: string;
     backgroundDark: string;
+    rating: string; // Added rating color
   };
   logos: {
     header: string;
@@ -117,6 +118,9 @@ export class BrandingService {
     root.style.setProperty('--primary-color', config.colors.primary);
     root.style.setProperty('--secondary-color', config.colors.secondary);
     root.style.setProperty('--accent-color', config.colors.accent);
+    if (config.colors.rating) {
+      root.style.setProperty('--rating-color', config.colors.rating);
+    }
     root.style.setProperty('--background-color', config.colors.background);
     root.style.setProperty('--text-color', config.colors.text);
     root.style.setProperty('--background-dark', config.colors.backgroundDark);
