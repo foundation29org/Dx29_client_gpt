@@ -125,4 +125,5 @@ si es un nuevo tenant:
 6. enlazar con el apim de dev y prod y coger los keys de los subcription que crea para ponerlo en los environments
 7. permitir la nueva url en los apim de dev y prod
 8. crear pipes en devops (prod y dev)
-9. Hacer los 4 pasos de tenant existente
+9. Crear en la bbdd de prod y test en la coleccion clientconfigs los valores por si quieren guardar resultados y uso en bbdd
+10. Hacer los 4 pasos de tenant existente

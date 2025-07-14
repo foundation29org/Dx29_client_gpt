@@ -14,6 +14,7 @@ import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.component';
 import { UuidService } from 'app/shared/services/uuid.service';
 import { BrandingService } from 'app/shared/services/branding.service';
+import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
 declare let gtag: any;
 
 @Component({
@@ -118,7 +119,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private webSocket: WebSocket | null = null;
     private isWebSocketConnected: boolean = false;
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService) {
+    // Propiedades para parámetros de iframe
+    iframeParams: IframeParams = {};
+    isInIframe: boolean = false;
+
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService) {
         this.initialize();
     }
 
@@ -202,9 +207,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadTranslations();
-        this.route.queryParams.subscribe(params => {
-            if (params['medicalText']) {
-                this.medicalTextOriginal = params['medicalText'];
+        
+        // Detectar si estamos en iframe
+        this.isInIframe = this.iframeParamsService.getIsInIframe();
+        
+        // Capturar parámetros de todas las fuentes (URL directa, fragment, iframe, postMessage)
+        this.iframeParamsService.params$.subscribe(params => {
+            this.iframeParams = params;
+            
+            // Procesar texto médico pre-cargado (desde cualquier fuente: URL directa, iframe, postMessage)
+            if (params.medicalText) {
+                this.medicalTextOriginal = params.medicalText;
                 setTimeout(() => {
                     const hiddenButton = document.getElementById('hiddenCheckPopupButton');
                     if (hiddenButton) {
@@ -212,7 +225,26 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     }
                 }, 500);
             }
+            
+            // Log de parámetros recibidos para debugging
+            if (params.centro) {
+                console.log('Centro hospitalario detectado:', params.centro);
+            }
+            
+            if (params.ambito) {
+                console.log('Ámbito detectado:', params.ambito);
+            }
+            
+            if (params.especialidad) {
+                console.log('Especialidad detectada:', params.especialidad);
+            }
+            
+            // Enviar evento de analytics si hay parámetros
+            if (Object.keys(params).length > 0) {
+                this.trackParametersReceived(params);
+            }
         });
+
         this.subscribeToEvents();
         
         // Forzar la actualización del placeholder con el idioma actual
@@ -758,7 +790,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             myuuid: this.myuuid, 
             lang: this.lang, 
             timezone: this.timezone, 
-            model: modelToUse 
+            model: modelToUse,
+            // Todos los parámetros del iframe para que el backend los procese
+            iframeParams: this.iframeParams
         };
         
         if (this.loadMoreDiseases) {
@@ -1084,6 +1118,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
         });
         this.lauchEvent("Search Disease");
+        if(this.iframeParams){
+            if(this.iframeParams.centro){
+                this.lauchEvent("Search centro: " + this.iframeParams.centro);
+            }
+            if(this.iframeParams.ambito){
+                this.lauchEvent("Search ambito: " + this.iframeParams.ambito);
+            }
+            if(this.iframeParams.especialidad){
+                this.lauchEvent("Search especialidad: " + this.iframeParams.especialidad);
+            }
+            this.lauchEvent("Search medicalText: " + this.iframeParams.medicalText);
+        }
         if(this.selectedFiles.length > 0){
             this.lauchEvent("Multimodal" + this.selectedFiles.length);
         }
@@ -1144,7 +1190,21 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             selectedDiseaseEn = temp[1];
         }
 
-        const infoOptionEvent = this.getInfoOptionEvent(index);
+        let infoOptionEvent = this.getInfoOptionEvent(index);
+        if(this.iframeParams){
+            if(this.iframeParams.centro){
+                infoOptionEvent += " centro: " + this.iframeParams.centro;
+            }
+            if(this.iframeParams.ambito){
+                infoOptionEvent += " ambito: " + this.iframeParams.ambito;
+            }
+            if(this.iframeParams.especialidad){
+                infoOptionEvent += " especialidad: " + this.iframeParams.especialidad;
+            }
+            if(this.iframeParams.medicalText){
+                infoOptionEvent += " medicalText: " + this.iframeParams.medicalText;
+            }
+        }
         this.lauchEvent(infoOptionEvent);
 
         var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, timezone: this.timezone, detectedLang: this.detectedLang }
@@ -1158,6 +1218,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     }
                     this.loadingAnswerAI = false;
                     this.lauchEvent("Info Disease");
+                    if(this.iframeParams){
+                        if(this.iframeParams.centro){
+                            this.lauchEvent("Info centro: " + this.iframeParams.centro);
+                        }
+                        if(this.iframeParams.ambito){
+                            this.lauchEvent("Info ambito: " + this.iframeParams.ambito);
+                        }
+                        if(this.iframeParams.especialidad){
+                            this.lauchEvent("Info especialidad: " + this.iframeParams.especialidad);
+                        }
+                        if(this.iframeParams.medicalText){
+                            this.lauchEvent("Info medicalText: " + this.iframeParams.medicalText);
+                        }
+                    }
                   } else {
                     // Manejar errores según el tipo
                     let msgError = this.translate.instant(
@@ -1330,6 +1404,48 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         let msgError = this.translate.instant("permalink.Error creating permalink");
         this.showError(msgError, null);
         console.error('Error creating permalink');
+    }
+
+    /**
+     * Envía eventos de analytics cuando se reciben parámetros
+     */
+    private trackParametersReceived(params: IframeParams): void {
+        try {
+            // Evento general de parámetros recibidos
+            this.lauchEvent("Parameters received");
+            
+            // Eventos específicos según el tipo de parámetros
+            if (params.centro) {
+                this.lauchEvent("Hospital center parameter: " + params.centro);
+            }
+            
+            if (params.ambito || params.especialidad) {
+                const medicalData = {
+                    ambito: params.ambito || '',
+                    especialidad: params.especialidad || ''
+                };
+                this.lauchEvent("Medical parameters: " + JSON.stringify(medicalData));
+            }
+            
+            if (this.isInIframe) {
+                this.lauchEvent("Iframe execution");
+            }
+            
+            // Enviar a Google Analytics si está disponible
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'iframe_parameters_received', {
+                    'event_category': 'Iframe',
+                    'event_label': JSON.stringify(params),
+                    'custom_map': {
+                        'centro': params.centro || '',
+                        'ambito': params.ambito || '',
+                        'especialidad': params.especialidad || ''
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Error tracking parameters:', error);
+        }
     }
 
     getPlainInfoDiseases2() {
