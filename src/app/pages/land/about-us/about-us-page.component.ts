@@ -17,6 +17,8 @@ export class AboutUsPageComponent {
     activeTab: number = 1;
     expandedSections: { [key: string]: boolean } = {};
     expandedQuestions: { [key: string]: boolean } = {};
+    showImageModal: boolean = false;
+    modalImageSrc: string = '';
 
     constructor( public translate: TranslateService, public insightsService: InsightsService, private uuidService: UuidService) {
         this._startTime = Date.now();
@@ -68,6 +70,16 @@ export class AboutUsPageComponent {
         
         // Toggle the clicked question
         this.expandedQuestions[questionId] = !this.expandedQuestions[questionId];
+    }
+
+    openImageModal(event: MouseEvent, imageSrc: string) {
+        this.modalImageSrc = imageSrc;
+        this.showImageModal = true;
+    }
+
+    closeImageModal() {
+        this.showImageModal = false;
+        this.modalImageSrc = '';
     }
 
 }
