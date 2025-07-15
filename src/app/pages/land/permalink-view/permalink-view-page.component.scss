@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8f9fa;
+  background-color: var(--permalink-background, #f8f9fa);
   min-height: 100vh;
 
   @media print {
@@ -44,7 +44,7 @@
 
 // Content Container
 .content-container {
-  background-color: white;
+  background-color: var(--permalink-background, white);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -57,12 +57,12 @@
 
 // Header Section
 .header-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--permalink-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
   color: white;
   padding: 2rem;
   
   @media print {
-    background: #667eea !important;
+    background: var(--permalink-primary, #667eea) !important;
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
@@ -112,7 +112,7 @@
     .btn-action {
       background-color: rgba(255, 255, 255, 0.95);
       border: 2px solid rgba(255, 255, 255, 0.8);
-      color: #495057;
+      color: var(--permalink-text, #495057);
       font-weight: 600;
       padding: 0.75rem 1.5rem;
       border-radius: 25px;
@@ -132,7 +132,7 @@
       &:hover {
         background-color: white;
         border-color: white;
-        color: #495057;
+        color: var(--permalink-text, #495057);
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       }
@@ -143,13 +143,13 @@
       
       // Estilo especial para el botón de Nuevo Análisis
       &.btn-warning {
-        background-color: #253146;
-        border-color: #253146;
+        background-color: var(--permalink-primary, #253146);
+        border-color: var(--permalink-primary, #253146);
         color: #ffffff;
         
         &:hover {
-          background-color: #ffcd39;
-          border-color: #ffcd39;
+          background-color: var(--permalink-accent, #ffcd39);
+          border-color: var(--permalink-accent, #ffcd39);
           color: #212529;
         }
       }
@@ -159,12 +159,12 @@
 
 // Report Info
 .report-info {
-  background-color: #f8f9fa;
+  background-color: var(--permalink-background, #f8f9fa);
   padding: 1rem 2rem;
   border-bottom: 1px solid #e9ecef;
   
   @media print {
-    background-color: #f8f9fa !important;
+    background-color: var(--permalink-background, #f8f9fa) !important;
     -webkit-print-color-adjust: exact;
   }
   
@@ -195,12 +195,12 @@
   }
   
   .card-header {
-    background-color: #fff;
+    background-color: var(--permalink-background, #fff);
     border-bottom: 2px solid #e9ecef;
     padding: 1.5rem 2rem;
     
     .card-title {
-      color: #495057;
+      color: var(--permalink-text, #495057);
       font-weight: 600;
       
       i {
@@ -218,11 +218,11 @@
 .patient-description {
   font-size: 1.05rem;
   line-height: 1.6;
-  color: #495057;
-  background-color: #f8f9fa;
+  color: var(--permalink-text, #495057);
+  background-color: var(--permalink-background, #f8f9fa);
   padding: 1.5rem;
   border-radius: 8px;
-  border-left: 4px solid #007bff;
+  border-left: 4px solid var(--permalink-primary, #007bff);
 }
 
 // Diagnosis Items
@@ -231,7 +231,7 @@
   border-radius: 8px;
   margin-bottom: 1.5rem;
   padding: 1.5rem;
-  background-color: #ffffff;
+  background-color: var(--permalink-background, #ffffff);
   transition: box-shadow 0.2s ease;
   
   &:hover {
@@ -253,7 +253,7 @@
   margin-bottom: 1rem;
   
   .diagnosis-number {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--permalink-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
     color: white;
     width: 40px;
     height: 40px;
@@ -267,7 +267,7 @@
     flex-shrink: 0;
     
     @media print {
-      background: #667eea !important;
+      background: var(--permalink-primary, #667eea) !important;
       -webkit-print-color-adjust: exact;
     }
   }
@@ -278,13 +278,13 @@
     .diagnosis-name {
       font-size: 1.3rem;
       font-weight: 600;
-      color: #2c3e50;
+      color: var(--permalink-text, #2c3e50);
       margin-bottom: 0.5rem;
     }
     
     .diagnosis-description {
       font-size: 1rem;
-      color: #6c757d;
+      color: var(--permalink-text, #6c757d);
       margin-bottom: 0;
       line-height: 1.5;
       
@@ -295,19 +295,19 @@
         }
         
         strong {
-          color: #495057;
+          color: var(--permalink-text, #495057);
         }
         
         .text-success {
-          color: #28a745 !important;
+          color: var(--permalink-accent, #28a745) !important;
         }
         
         .text-warning {
-          color: #ffc107 !important;
+          color: var(--permalink-rating, #ffc107) !important;
         }
         
         .text-muted {
-          color: #6c757d !important;
+          color: var(--permalink-text, #6c757d) !important;
         }
         
         ul, ol {
@@ -349,15 +349,15 @@
       font-weight: 500;
       
       &.matching {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
+        background-color: rgba(76, 175, 80, 0.1);
+        color: var(--permalink-accent, #155724);
+        border: 1px solid rgba(76, 175, 80, 0.3);
       }
       
       &.non-matching {
-        background-color: #fff3cd;
-        color: #856404;
-        border: 1px solid #ffeaa7;
+        background-color: rgba(255, 193, 7, 0.1);
+        color: var(--permalink-rating, #856404);
+        border: 1px solid rgba(255, 193, 7, 0.3);
       }
     }
   }
@@ -367,9 +367,9 @@
 .additional-info {
   margin-top: 1rem;
   padding: 0.75rem;
-  background-color: #f8f9fa;
+  background-color: var(--permalink-background, #f8f9fa);
   border-radius: 6px;
-  border-left: 3px solid #6c757d;
+  border-left: 3px solid var(--permalink-text, #6c757d);
   
   .btn {
     font-size: 0.9rem;
@@ -393,7 +393,7 @@
       
       &:before {
         content: "•";
-        color: #856404;
+        color: var(--permalink-rating, #856404);
         font-weight: bold;
         position: absolute;
         left: 0;
@@ -405,12 +405,19 @@
 // Footer Section
 .footer-section {
   padding: 2rem;
-  background-color: #f8f9fa;
+  background-color: var(--permalink-background, #f8f9fa);
   border-top: 1px solid #e9ecef;
   
   .footer-text {
     font-size: 1rem;
     margin-bottom: 0.5rem;
+  }
+  
+  .footer-logo {
+    height: 30px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
   }
 }
 
@@ -422,8 +429,6 @@
   
   .header-section {
     padding: 1.5rem;
-    
-
     
     .action-buttons {
       margin-top: 1.5rem;
@@ -465,6 +470,11 @@
   .footer-section {
     padding: 1.5rem;
     text-align: center;
+    
+    .footer-logo {
+      height: 25px;
+      margin: 0 auto 0.5rem;
+    }
   }
 }
 
@@ -492,7 +502,7 @@
   }
   
   .header-section {
-    background: #667eea !important;
+    background: var(--permalink-primary, #667eea) !important;
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }

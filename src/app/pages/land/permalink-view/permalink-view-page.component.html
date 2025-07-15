@@ -150,16 +150,25 @@
       <div class="row">
         <div class="col-md-8">
           <p class="footer-text">
-            <strong>DxGPT</strong> - {{ 'permalink.developedBy' | translate }}
-            <a class="pointer underline" href="https://www.foundation29.org" target="_blank">Fundación 29</a>
+            <strong>{{ brandingConfig?.displayName || 'DxGPT' }}</strong> - {{ 'permalink.developedBy' | translate }}
+            <a class="pointer underline" 
+               [href]="brandingConfig?.links?.foundation || 'https://www.foundation29.org'" 
+               target="_blank">
+              {{ brandingConfig?.name === 'salud-gpt' ? 'Departamento de Sanidad de Aragón' : 'Fundación 29' }}
+            </a>
           </p>
           <small class="text-muted">
             {{ 'permalink.footer' | translate }}
           </small>
         </div>
         <div class="col-md-4 text-end">
-          <small class="text-muted">
-            © {{ currentYear }} Fundación 29 de Febrero
+          <img *ngIf="brandingConfig?.logos?.footer" 
+               [src]="brandingConfig.logos.footer" 
+               [alt]="brandingConfig?.displayName || 'DxGPT'" 
+               class="footer-logo" 
+               style="height: 30px; width: auto;">
+          <small class="text-muted d-block mt-2">
+            © {{ currentYear }} {{ brandingConfig?.name === 'salud-gpt' ? 'Gobierno de Aragón' : 'Fundación 29 de Febrero' }}
           </small>
         </div>
       </div>

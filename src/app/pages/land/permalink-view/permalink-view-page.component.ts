@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
+import { BrandingService, BrandingConfig } from 'app/shared/services/branding.service';
 
 @Component({
   selector: 'app-permalink-view-page',
@@ -29,15 +30,27 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
   
   // UI
   currentYear: number = new Date().getFullYear();
+  
+  // Branding
+  brandingConfig: BrandingConfig | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private translate: TranslateService,
-    private apiDx29ServerService: ApiDx29ServerService // inyectar el servicio
+    private apiDx29ServerService: ApiDx29ServerService,
+    private brandingService: BrandingService
   ) {}
 
   ngOnInit() {
+    // Suscribirse a los cambios de configuración de branding
+    this.subscription.add(
+      this.brandingService.brandingConfig$.subscribe(config => {
+        this.brandingConfig = config;
+        this.applyBrandingStyles();
+      })
+    );
+    
     // Obtener el ID del permalink de la URL
     this.permalinkId = this.route.snapshot.paramMap.get('id') || '';
     
@@ -124,5 +137,49 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
       navigator.clipboard.writeText(url);
       alert(this.translate.instant('permalink.copied'));
     }
+  }
+
+  /**
+   * Aplica los estilos de branding dinámicamente al componente
+   */
+  private applyBrandingStyles(): void {
+    if (!this.brandingConfig) return;
+    
+    const root = document.documentElement;
+    
+    // Aplicar variables CSS específicas para el permalink
+    root.style.setProperty('--permalink-primary', this.brandingConfig.colors.primary);
+    root.style.setProperty('--permalink-secondary', this.brandingConfig.colors.secondary);
+    root.style.setProperty('--permalink-accent', this.brandingConfig.colors.accent);
+    root.style.setProperty('--permalink-rating', this.brandingConfig.colors.rating);
+    root.style.setProperty('--permalink-background', this.brandingConfig.colors.background);
+    root.style.setProperty('--permalink-text', this.brandingConfig.colors.text);
+    root.style.setProperty('--permalink-background-dark', this.brandingConfig.colors.backgroundDark);
+    
+    // Generar gradientes dinámicos
+    const gradientStart = this.brandingConfig.colors.primary;
+    const gradientEnd = this.brandingConfig.colors.secondary;
+    root.style.setProperty('--permalink-gradient', `linear-gradient(135deg, ${gradientStart} 0%, ${gradientEnd} 100%)`);
+    
+    // Generar colores de hover
+    const primaryHover = this.generateHoverColor(this.brandingConfig.colors.primary);
+    root.style.setProperty('--permalink-primary-hover', primaryHover);
+  }
+
+  /**
+   * Genera un color más oscuro para hover
+   */
+  private generateHoverColor(color: string): string {
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+    
+    const darkenFactor = 0.8;
+    const newR = Math.round(r * darkenFactor);
+    const newG = Math.round(g * darkenFactor);
+    const newB = Math.round(b * darkenFactor);
+    
+    return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
   }
 } 
