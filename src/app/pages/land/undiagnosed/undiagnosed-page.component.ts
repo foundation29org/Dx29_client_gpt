@@ -727,7 +727,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         
         // Para modelos largos, conectar WebSocket primero
-        const isLongModel = (modelToUse === 'o3' || modelToUse === 'o3pro');
+        const isLongModel = (modelToUse === 'o3');
         console.log(`Model: ${modelToUse}, isLongModel: ${isLongModel}`);
         if (isLongModel) {
             try {
