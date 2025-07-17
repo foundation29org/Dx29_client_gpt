@@ -285,7 +285,7 @@
     "q3": "Provide a diagnosis test",
     "q4": "What other symptoms could you find out to make a differential diagnosis?",
     "q5": "Why do you think this patient has this disease?",
-    "q6": "What NHS genetic tests would be appropriate?",
+    "q6": "What genetic tests would be appropriate?",
     "recommended diagnosis test": "What is the recommended diagnostic test for each of these diseases?",
     "Indicates the quality of the result": "Help us improve, indicate the quality of the result",
     "Point3.1": "Not satisfied with the results?",

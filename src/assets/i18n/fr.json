@@ -285,7 +285,7 @@
     "q3": "Fournissez un test de diagnostic",
     "q4": "Quels autres symptômes pourriez-vous découvrir pour faire un diagnostic différentiel ?",
     "q5": "Pourquoi pensez-vous que ce patient a cette maladie ?",
-    "q6": "Quels tests génétiques du NHS seraient appropriés?",
+    "q6": "Quels tests génétiques seraient appropriés?",
     "recommended diagnosis test": "Quel est le test de diagnostic recommandé pour chacune de ces maladies ?",
     "Indicates the quality of the result": "Aidez-nous à nous améliorer, indiquez la qualité du résultat",
     "Point3.1": "Pas satisfait des résultats?",
