@@ -264,7 +264,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             { id: 2, question: 'land.q2' },
             { id: 3, question: 'land.q3' },
             { id: 4, question: 'land.q4' },
-            { id: 5, question: 'land.q5' }
+            { id: 5, question: 'land.q5' },
+            { id: 6, question: 'land.q6' }
         ];
         this.options = { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") };
     }

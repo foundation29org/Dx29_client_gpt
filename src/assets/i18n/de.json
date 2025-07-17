@@ -285,6 +285,7 @@
     "q3": "Stellen Sie einen Diagnosetest bereit",
     "q4": "Welche anderen Symptome könnten Sie feststellen, um eine Differentialdiagnose zu erstellen?",
     "q5": "Warum denken Sie, dass dieser Patient diese Krankheit hat?",
+    "q6": "Welche NHS-Gentests wären angemessen?",
     "recommended diagnosis test": "Was ist der empfohlene Diagnosetest für jede dieser Krankheiten?",
     "Indicates the quality of the result": "Helfen Sie uns, die Qualität des Ergebnisses zu verbessern",
     "Point3.1": "Mit den Ergebnissen nicht zufrieden?",
