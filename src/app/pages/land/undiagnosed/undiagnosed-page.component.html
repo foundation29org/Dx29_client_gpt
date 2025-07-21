@@ -96,7 +96,7 @@
         </button>
 
         <!-- Paso 2: Buscar (cuando no hay archivos O cuando los archivos ya están analizados) -->
-        <button *ngIf="selectedFiles.length === 0 || filesAnalyzed" 
+        <button *ngIf="(selectedFiles.length === 0 || filesAnalyzed) && !modeFunctionality"
                 class="btn btn-lg btn-brand-primary" 
                 (click)="checkPopup(contentIntro)"
                 [attr.title]="getButtonTitle()"
@@ -106,9 +106,19 @@
           <i *ngIf="!callingAI" class="fa fa-search me-2"></i>
           {{'land.Search' | translate }}
         </button>
+        <button *ngIf="(selectedFiles.length === 0 || filesAnalyzed) && modeFunctionality" 
+              class="btn btn-lg btn-brand-primary" 
+              (click)="handleERResponse(contentFollowUpQuestions)"
+              [attr.title]="getButtonTitle()"
+              [attr.aria-label]="getButtonTitle()"
+              [disabled]="callingAI">
+        <i *ngIf="callingAI" class="fa fa-spinner fa-spin me-2"></i>
+        <i *ngIf="!callingAI" class="fa fa-search me-2"></i>
+        {{'land.Search' | translate }}
+      </button>
         
         <!-- Botón de re-analizar solo si se han modificado los archivos después del análisis -->
-        <button *ngIf="selectedFiles.length > 0 && filesAnalyzed && filesModifiedAfterAnalysis" 
+        <button *ngIf="selectedFiles.length > 0 && filesAnalyzed && filesModifiedAfterAnalysis && !modeFunctionality" 
                 class="btn btn-outline-warning btn-lg ms-2" 
                 (click)="reanalyzeFiles()" 
                 [disabled]="callingAI"
