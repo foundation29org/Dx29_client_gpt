@@ -76,7 +76,8 @@ done scripts/restore-backup.js
 3. **Revisar los cambios** (`git diff` o en tu editor)
 4. **Hacer commit** de los archivos modificados
 5. **Lanzar el pipeline dedicado al tenant**
-6. **(Opcional) Borrar la rama tras el deploy**
+6. **Restaurar a como estaba** node scripts/restore-dxgpt-branding.js
+7. **(Opcional) Borrar la rama tras el deploy**
 
 ---
 
@@ -87,7 +88,8 @@ done scripts/restore-backup.js
 - [ ] 3. Revisar los cambios (`git diff` o en tu editor)
 - [ ] 4. Hacer commit de los archivos modificados
 - [ ] 5. Lanzar el pipeline dedicado al tenant
-- [ ] 6. (Opcional) Borrar la rama tras el deploy
+- [ ] 6. Restaurar a como estaba `node scripts/restore-dxgpt-branding.js`
+- [ ] 7. (Opcional) Borrar la rama tras el deploy
 
 ---
 
