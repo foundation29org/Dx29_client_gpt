@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
+import { BrandingService } from 'app/shared/services/branding.service';
 declare let gtag: any;
 import { UuidService } from 'app/shared/services/uuid.service';
 
@@ -18,7 +19,12 @@ export class AboutUsPageComponent {
     expandedSections: { [key: string]: boolean } = {};
     expandedQuestions: { [key: string]: boolean } = {};
 
-    constructor( public translate: TranslateService, public insightsService: InsightsService, private uuidService: UuidService) {
+    constructor( 
+        public translate: TranslateService, 
+        public insightsService: InsightsService, 
+        private uuidService: UuidService,
+        private brandingService: BrandingService
+    ) {
         this._startTime = Date.now();
         this.myuuid = this.uuidService.getUuid();
     }
@@ -68,6 +74,32 @@ export class AboutUsPageComponent {
         
         // Toggle the clicked question
         this.expandedQuestions[questionId] = !this.expandedQuestions[questionId];
+    }
+
+    /**
+     * Obtiene el gradiente de fondo para la página About Us
+     */
+    getAboutUsGradient(): string {
+        return this.brandingService.getAboutUsGradient();
+    }
+
+    /**
+     * Obtiene el overlay de fondo para la página About Us
+     */
+    getAboutUsOverlay(): string {
+        return this.brandingService.getAboutUsOverlay();
+    }
+
+    /**
+     * Obtiene todos los estilos para la página About Us
+     */
+    getAboutUsStyles(): any {
+        return {
+            'padding-bottom': '3rem !important',
+            'padding-top': '3rem !important',
+            'background': this.getAboutUsGradient(),
+            '--about-us-overlay': this.getAboutUsOverlay()
+        };
     }
 
 }

@@ -69,6 +69,32 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
                     if (res.result === 'success') {
                         this.systemStatus = res.data;
                         this.lastUpdate = new Date(res.data.lastUpdate).toLocaleString();
+                        
+                        // Log para debugging de la nueva estructura
+                        console.log('System status loaded:', res.data);
+                        
+                        // Verificar si tenemos datos de colas
+                        if (res.data.queues) {
+                            console.log('Queues data available:', res.data.queues);
+                            
+                            // Log de información global
+                            if (res.data.queues.global) {
+                                console.log('Global stats:', res.data.queues.global);
+                            }
+                            
+                            // Log de información por modelo
+                            if (res.data.queues.models) {
+                                Object.keys(res.data.queues.models).forEach(model => {
+                                    console.log(`Model ${model}:`, res.data.queues.models[model]);
+                                });
+                            }
+                        }
+                        
+                        // Verificar si tenemos datos de endpoints
+                        if (res.data.endpoints) {
+                            console.log('Endpoints data available:', res.data.endpoints);
+                        }
+                        
                         this.loading = false;
                     } else {
                         this.error = this.translate.instant('generics.error try again');
@@ -97,15 +123,32 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
                     if (res.status === 'healthy' && res.checks && res.checks.queues) {
                         this.healthStatus = res;
                         
-                        // Registrar información sobre el estado de las colas
-                        Object.keys(res.checks.queues).forEach(region => {
-                            const queueStatus = res.checks.queues[region];
-                            console.log(`Queue status for region ${region}:`, queueStatus);
+                        // Registrar información sobre el estado de las colas por modelo-región
+                        Object.keys(res.checks.queues).forEach(queueKey => {
+                            const queueStatus = res.checks.queues[queueKey];
+                            console.log(`Queue status for ${queueKey}:`, queueStatus);
                             
                             if (queueStatus.queuedMessages > 0) {
-                                console.log(`Region ${region} has ${queueStatus.queuedMessages} messages in queue`);
+                                console.log(`${queueKey} has ${queueStatus.queuedMessages} messages in queue`);
+                            }
+                            
+                            // Calcular utilización si tenemos capacidad
+                            if (queueStatus.capacity > 0) {
+                                const utilization = ((queueStatus.activeMessages + queueStatus.queuedMessages) / queueStatus.capacity) * 100;
+                                console.log(`${queueKey} utilization: ${utilization.toFixed(2)}%`);
                             }
                         });
+                        
+                        // Log del resumen general
+                        if (res.summary) {
+                            console.log('Health summary:', res.summary);
+                        }
+                        
+                        // Log de métricas
+                        if (res.checks.metrics) {
+                            console.log('Metrics status:', res.checks.metrics);
+                        }
+                        
                     } else {
                         console.warn('Unexpected health status format:', res);
                     }

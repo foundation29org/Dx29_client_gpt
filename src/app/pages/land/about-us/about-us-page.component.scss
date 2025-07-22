@@ -8,12 +8,6 @@ p {
 
 // About Us background with blue gradient
 .about-us-background {
-  background: linear-gradient(135deg, 
-    #041d44 0%,
-    #12243a 25%,
-    #2a3a4a 50%,
-    #3c4e5c 75%,
-    #3e4b57 100% );
   position: relative;
   
   &::before {
@@ -23,10 +17,7 @@ p {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, 
-      rgba(52, 152, 219, 0.1) 0%,
-      transparent 50%,
-      rgba(41, 128, 185, 0.08) 100%);
+    background: var(--about-us-overlay);
     pointer-events: none;
   }
 }
@@ -83,7 +74,7 @@ p {
         left: 0;
         right: 0;
         height: 3px;
-        background: linear-gradient(90deg, #dc3545, #c82333);
+        background: linear-gradient(90deg, var(--primary-color), var(--primary-color));
         border-radius: 2px 2px 0 0;
       }
     }
@@ -171,7 +162,7 @@ p {
   
   i {
     transition: transform 0.3s ease;
-    color: #007bff;
+    color: var(--primary-color);
     
     &.rotated {
       transform: rotate(180deg);
@@ -223,7 +214,7 @@ p {
   
   i {
     transition: transform 0.3s ease;
-    color: #28a745;
+    color: var(--primary-color);
     font-size: 0.9rem;
     
     &.rotated {
@@ -270,7 +261,7 @@ p {
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  border-left: 4px solid #28a745;
+  border-left: 4px solid var(--primary-color);
   
   h4 {
     color: #fff;

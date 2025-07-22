@@ -1,0 +1,177 @@
+<div class="permalink-view-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">{{ 'permalink.loading' | translate }}</span>
+    </div>
+    <p class="mt-3">{{ 'permalink.loading' | translate }}</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="hasError" class="error-container">
+    <div class="alert alert-danger" role="alert">
+      <i class="fa fa-exclamation-triangle"></i>
+      <strong>{{ 'permalink.error' | translate }}</strong> {{ errorMessage }}
+    </div>
+    <button class="btn btn-primary" (click)="goHome()">
+      <i class="fa fa-home"></i> {{ 'permalink.newAnalysis' | translate }}
+    </button>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!isLoading && !hasError" class="content-container">
+    <!-- Header -->
+    <div class="header-section">
+      <div class="row align-items-center">
+        <div class="col-md-12 col-lg-5 text-center text-md-start">
+          <h1 class="page-title">
+            {{ 'permalink.title' | translate }}
+          </h1>
+          <p class="subtitle">{{ 'permalink.subtitle' | translate }}</p>
+        </div>
+        <div class="col-md-12 col-lg-7 text-center text-md-end">
+          <div class="action-buttons">
+            <button class="btn btn-light btn-action me-2" (click)="printPage()" title="{{ 'permalink.print' | translate }}">
+              <i class="fa fa-print"></i>
+              <span class="btn-text">{{ 'permalink.print' | translate }}</span>
+            </button>
+            <button class="btn btn-light btn-action me-2" (click)="sharePermalink()" title="{{ 'permalink.share' | translate }}">
+              <i class="fa fa-share-alt"></i>
+              <span class="btn-text">{{ 'permalink.share' | translate }}</span>
+            </button>
+            <button class="btn btn-warning btn-action" (click)="goHome()">
+              <i class="fa fa-home"></i>
+              <span class="btn-text">{{ 'permalink.newAnalysis' | translate }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Info -->
+    <div class="report-info">
+      <div class="row">
+        <div class="col-sm-6">
+          <small class="text-muted">
+            <i class="fa fa-calendar"></i> 
+            {{ 'permalink.generated' | translate }} {{ formatDate(createdDate) }}
+          </small>
+        </div>
+        <div class="d-none d-sm-inline col-sm-6 text-end">
+          <small class="text-muted permalink-id">
+            <i class="fa fa-link"></i> 
+            <span class="d-none d-sm-inline">{{ 'permalink.id' | translate }}</span>
+            <span class="permalink-id-text">{{ permalinkId | slice:0:20 }}{{ permalinkId.length > 20 ? '...' : '' }}</span>
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patient Description -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4 class="card-title mb-0">
+          <i class="fa fa-file-text text-primary"></i>
+          {{ 'permalink.patientDescription' | translate }}
+        </h4>
+      </div>
+      <div class="card-body">
+        <div class="patient-description">
+          {{ medicalDescription }}
+        </div>
+        <div *ngIf="anonymizedDescription && anonymizedDescription !== medicalDescription" class="mt-3">
+          <small class="text-muted">
+            <i class="fa fa-shield-alt"></i>
+            {{ 'permalink.anonInfo' | translate }}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diagnoses Results -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4 class="card-title mb-0">
+          <i class="fa fa-stethoscope text-success"></i>
+          {{ 'permalink.suggestedDiagnoses' | translate }}
+        </h4>
+        <small class="text-muted">{{ 'permalink.orderedByRelevance' | translate }}</small>
+      </div>
+      <div class="card-body">
+        <div *ngIf="diagnoses.length === 0" class="text-center text-muted py-4">
+          <i class="fa fa-info-circle fa-2x mb-3"></i>
+          <p>{{ 'permalink.noDiagnoses' | translate }}</p>
+        </div>
+
+        <div *ngFor="let diagnosis of diagnoses; let i = index" class="diagnosis-item">
+          <div class="diagnosis-header">
+            <div class="diagnosis-number">{{ i + 1 }}</div>
+            <div class="diagnosis-info">
+              <h5 class="diagnosis-name">{{ diagnosis.name }}</h5>
+              <div class="diagnosis-description" [innerHTML]="diagnosis.content"></div>
+            </div>
+          </div>
+
+          <!-- Additional Info/URL -->
+          <div *ngIf="diagnosis.url" class="additional-info">
+            <a [href]="diagnosis.url" target="_blank" class="btn btn-sm btn-outline-info">
+              <i class="fa fa-external-link"></i>
+              {{ 'permalink.moreInfoDisease' | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="card border-warning">
+      <div class="card-header bg-warning text-dark">
+        <h5 class="card-title mb-0">
+          <i class="fa fa-exclamation-triangle"></i>
+          {{ 'permalink.medicalDisclaimerTitle' | translate }}
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="disclaimer-content">
+          <p><strong>{{ 'permalink.medicalDisclaimer' | translate }}</strong></p>
+          <ul class="disclaimer-list">
+            <li>{{ 'permalink.disclaimer1' | translate }}</li>
+            <li>{{ 'permalink.disclaimer2' | translate }}</li>
+            <li>{{ 'permalink.disclaimer3' | translate }}</li>
+            <li>{{ 'permalink.disclaimer4' | translate }}</li>
+            <li>{{ 'permalink.disclaimer5' | translate }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-section">
+      <div class="row">
+        <div class="col-md-8">
+          <p class="footer-text">
+            <strong>{{ brandingConfig?.displayName || 'DxGPT' }}</strong> - {{ 'permalink.developedBy' | translate }}
+            <a class="pointer underline" 
+               [href]="brandingConfig?.links?.foundation || 'https://www.foundation29.org'" 
+               target="_blank">
+              {{ brandingConfig?.name === 'salud-gpt' ? 'Departamento de Sanidad de Aragón' : 'Fundación 29' }}
+            </a>
+          </p>
+          <small class="text-muted">
+            {{ 'permalink.footer' | translate }}
+          </small>
+        </div>
+        <div class="col-md-4 text-end">
+          <img *ngIf="brandingConfig?.logos?.footer" 
+               [src]="brandingConfig.logos.footer" 
+               [alt]="brandingConfig?.displayName || 'DxGPT'" 
+               class="footer-logo" 
+               style="height: 30px; width: auto;">
+          <small class="text-muted d-block mt-2">
+            © {{ currentYear }} {{ brandingConfig?.name === 'salud-gpt' ? 'Gobierno de Aragón' : 'Fundación 29 de Febrero' }}
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

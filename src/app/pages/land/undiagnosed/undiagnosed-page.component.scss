@@ -1,3 +1,13 @@
+$surface-1: var(--primary-color, #1f232e);     // fondo principal del sitio
+$surface-2: var(--primary-hover, #23273a);     // 4 % más claro – se usa al focus
+$surface-3: #2d3243;     // borde reposo
+$primary-500: var(--primary-color, #4f8cff);   // color de marca para el foco
+$primary-600: var(--primary-hover, #3c6bd4);   // tono más oscuro para hover
+$text-100: #ffffff;      // texto principal
+$text-300: #b0b3c6;      // placeholder
+$radius-md: 16px;        // radio coherente con botones
+$duration: 180ms;        // animaciones breves, snappy
+
 //@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .autoajustable {
@@ -5,6 +15,15 @@
   padding-right: 16px;
   padding-bottom: 12px;
   padding-left: 16px;
+  position: relative;
+  display: flex;
+  &.drag-over {
+    .searchTerm {
+      border-style: dashed;
+      border-color: $primary-500;
+      box-shadow: 0 0 15px rgba($primary-500, 0.5);
+    }
+  }
 }
 
 .min-widht-btn{
@@ -47,15 +66,11 @@
 }
 
 :host ::ng-deep ._hj-ETLL8__MinimizedWidgetMiddle__label{
-  --hjFeedbackAccentColor: #B30000;
+  --hjFeedbackAccentColor: var(--accent-color, #B30000);
 }
 
 ::ng-deep .selectorrare .mat-checkbox-frame {
   border-color: white !important;
-}
-
-.background-dark {
-  background-color: #1c202a;
 }
 
 .help-link {
@@ -75,16 +90,14 @@
   width: 100%;
   position: relative;
   display: flex;
+  &.drag-over {
+    .searchTerm {
+      border-style: dashed;
+      border-color: $primary-500;
+      box-shadow: 0 0 15px rgba($primary-500, 0.5);
+    }
+  }
 }
-$surface-1: #1f232e;     // fondo principal del sitio
-$surface-2: #23273a;     // 4 % más claro – se usa al focus
-$surface-3: #2d3243;     // borde reposo
-$primary-500: #4f8cff;   // color de marca para el foco
-$primary-600: #3c6bd4;   // tono más oscuro para hover
-$text-100: #ffffff;      // texto principal
-$text-300: #b0b3c6;      // placeholder
-$radius-md: 16px;        // radio coherente con botones
-$duration: 180ms;        // animaciones breves, snappy
 
 /* Animaciones para el placeholder y textarea =================== */
 @keyframes placeholderFade {
@@ -133,8 +146,8 @@ $duration: 180ms;        // animaciones breves, snappy
   padding: 1rem 1.25rem;
   border: 2px solid $surface-3;
   border-radius: $radius-md $radius-md 0 $radius-md;
-  background: $surface-1;
-  color: $text-100;
+  background: #fff;
+  color: #000;
   resize: vertical;                /* <‑‑ permite agrandar si hace falta */
   transition: 
     border-color $duration ease, 
@@ -174,7 +187,7 @@ $duration: 180ms;        // animaciones breves, snappy
   /* Focus visible (teclado)  ------------------------------- */
   &:focus-visible {
     border-color: $primary-500;
-    background: $surface-2;
+    background: #fff;
     box-shadow: 0 0 0 3px rgba($primary-500, .35);
     outline: none;                 /* ya se indica con box‑shadow */
     animation: none;               /* Detener animaciones al enfocar */
@@ -186,7 +199,7 @@ $duration: 180ms;        // animaciones breves, snappy
   }
 
   /* Oscurecer automáticamente si el usuario prefiere dark‑mode */
-  @media (prefers-color-scheme: light) {
+  /*@media (prefers-color-scheme: light) {
     background: #fff;
     color: #111;
     border-color: #d5d7e0;
@@ -198,9 +211,9 @@ $duration: 180ms;        // animaciones breves, snappy
       background: #f1f3fa;
       border-color: $primary-500;
       box-shadow: 0 0 0 3px rgba($primary-500, .25);
-      animation: none;               /* Detener animaciones al enfocar */
+      animation: none;              
     }
-  }
+  }*/
 }
 /*
 .searchTerm {
@@ -290,11 +303,11 @@ section {
 
 .custom-card-2{
   color: white !important;
-  background-color: #1f232e !important;
+  background-color: var(--primary-color, #1f232e) !important;
 }
 
 .custom-card-2:hover {
-  background-color: #202123 !important;
+  background-color: var(--primary-hover, #202123) !important;
 }
 
 .diseaseClass:hover {
@@ -390,14 +403,14 @@ body {
 }
 
 ::ng-deep .swal2-icon.swal2-info {
-  border-color: #253146;
-  color: #253146;
+  border-color: #ffffff;
+  color: #ffffff;
 }
 
 
 .form-control:focus{
-  border-color: #B30000 !important;
-  box-shadow: 0 0 0 0.2rem #B30000;
+  border-color: var(--accent-color, #B30000) !important;
+  box-shadow: 0 0 0 0.2rem var(--accent-color, #B30000);
 }
 
 
@@ -482,7 +495,7 @@ body {
   text-align: center;
 
   h3 {
-    color: #B30000;
+    color: var(--accent-color, #B30000);
     margin-bottom: 16px;
     font-size: 1.2rem;
   }
@@ -510,5 +523,173 @@ body {
     margin-top: 16px;
     color: #666;
     font-size: 0.9rem;
+  }
+}
+
+// Chips de archivos y contador (migrados desde el HTML)
+.chips-and-counter-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 38px;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+.file-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 38px;
+  margin-bottom: 0.5rem;
+  flex: 1 1 auto;
+}
+.chip-btn-add {
+  border: 1.5px dashed #ffffff;
+  background: transparent;
+  color: #ffffff;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  position: relative;
+  padding: 0;
+  outline: none;
+}
+.chip-btn-add input[type="file"] {
+  display: none;
+}
+.chip-btn-add:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.chip-btn-add:hover {
+  background: #ffffff;
+  color: #fff;
+}
+.file-chip {
+  display: inline-flex;
+  align-items: center;
+  background: #23252d;
+  color: #fff;
+  border: 1px solid #ffffff;
+  border-radius: 16px;
+  padding: 0.2rem 0.7rem 0.2rem 0.5rem;
+  font-size: 0.98rem;
+  margin-right: 0.1rem;
+  margin-bottom: 0.1rem;
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 32px;
+}
+.file-chip i {
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+.file-chip-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.chip-btn-remove {
+  background: none;
+  border: none;
+  color: #dc3545;
+  margin-left: 0.4rem;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.chip-btn-remove:hover {
+  color: #fff;
+  background: #dc3545;
+  border-radius: 50%;
+}
+.chips-counter {
+  flex-shrink: 0;
+  font-size: 0.98rem;
+  text-align: right;
+  min-width: 120px;
+  margin-left: 1rem;
+  margin-right: 0.2rem;
+  white-space: nowrap;
+  margin-top: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+@media (max-width: 600px) {
+  .chips-and-counter-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.2rem;
+  }
+  .chips-counter {
+    position: static;
+    width: auto;
+    text-align: right;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  .file-chips-row {
+    margin-bottom: 0;
+  }
+}
+
+.chip-add-text {
+  font-size: 0.98rem;
+  vertical-align: middle;
+  user-select: none;
+}
+@media (max-width: 768px) {
+  .chip-add-text {
+    display: none !important;
+  }
+}
+
+.drag-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(69, 69, 69, 0.85);
+  border-radius: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.search.drag-over .drag-overlay {
+  opacity: 1;
+}
+
+.drag-overlay-content {
+  color: white;
+  text-align: center;
+  
+  p {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
   }
 }

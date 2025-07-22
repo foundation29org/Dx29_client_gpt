@@ -7,7 +7,7 @@
 }
 
 .my-rating {
-  color: #B30000;
+  color: var(--rating-color, #B30000);
 }
 
 .testimonial {

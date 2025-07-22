@@ -1,34 +1,32 @@
 <!--Footer Starts-->
-<footer>
-    <div class="container-fluid pt-2" style="background-color: #ffffff !important;">
+<footer class="footer-main">
+    <div class="container-fluid pt-2">
       <div class="text-center">
         <div class="d-flex flex-column align-items-center justify-content-center py-4">
-          <p class="mb-2">{{'land.Made with love by' | translate}}  <a href="https://foundation29.org" target="_blank" class="pointer underline">{{'generics.Foundation 29' | translate}}</a></p>
-          <a href="https://foundation29.org" target="_blank">
-            <img src="assets/img/logo-foundation-twentynine-footer-white.png" alt="Foundation 29 logo" class="img-fluid" style="max-width: 120px;">
+          <p class="mb-2">{{'land.Made with love by' | translate}}  <a [href]="foundationLink" target="_blank" class="pointer underline">{{'generics.Foundation 29' | translate}}</a></p>
+          <a [href]="foundationLink" target="_blank">
+            <img [src]="footerLogo" alt="Foundation logo" class="img-fluid footer-logo">
           </a>
-         
         </div>
       </div>
-      <div class="row margin-0 center-elements">
+      <div class="footer-links-wrapper row margin-0 center-elements mb-footer-mobile">
         <div class="col-lg-12">
-          <div class="row">
-            <div [ngClass]="(!isHomePage)?'col-md-6':'col-md-4'" *ngIf="!isPolicyPage">
+          <div class="row footer-links-row">
+            <div [ngClass]="(!isHomePage && !isResultPage)?'col-md-6':'col-md-4'" *ngIf="!isPolicyPage">
               <p>
                 <a href="javascript:;" class="underline" (click)="openModalPolicy()">
                   <span>{{'menu.Privacy Policy' | translate }}</span>
                 </a>
               </p>
             </div>
-            <div [ngClass]="(!isHomePage)?'d-none':'col-md-4'">
+            <div  class="col-md-4" *ngIf="isHomePage || isResultPage">
               <p>
                 <a href="javascript:;" class="underline" (click)="openSupport(contentSubs)">
                   <span>{{'land.Subscribe or send us a message' | translate }}</span>
                 </a>
               </p>
-    
             </div>
-            <div [ngClass]="(!isHomePage)?'col-md-6':'col-md-4'" *ngIf="!isCookiesPage">
+            <div [ngClass]="(!isHomePage && !isResultPage)?'col-md-6':'col-md-4'" *ngIf="!isCookiesPage">
               <p>
                 <a href="javascript:;" class="underline" (click)="openModalCookies()">
                   <span>{{'cookies.title' | translate }}</span>
@@ -37,16 +35,13 @@
             </div>
           </div>
         </div>
-        
-        
       </div>
-
     </div>
 </footer>
 <ng-template #contentSubs let-c="close" let-d="dismiss">
   <a id="initpopup" class="anchorSteps"></a>
   <div class="modal-header">
-    <h4 class="modal-title">DxGPT support</h4>
+    <h4 class="modal-title">{{brandingService.getSupportText()}}</h4>
     <span type="button" class="btn-close" aria-label="Close" (click)="closeSupport()">
     </span>
   </div>

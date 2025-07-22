@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DxGPT: URL directa vs Iframe - Comparación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .method {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        .method h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .direct {
+            border-color: #007bff;
+        }
+        .iframe {
+            border-color: #28a745;
+        }
+        .example {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+        .pros {
+            color: #28a745;
+        }
+        .cons {
+            color: #dc3545;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .button.iframe-btn {
+            background: #28a745;
+        }
+        .button.iframe-btn:hover {
+            background: #1e7e34;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .hidden {
+            display: none;
+        }
+        .usage-examples {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 DxGPT: URL directa vs Iframe</h1>
+        
+        <div class="usage-examples">
+            <h3>📋 Casos de uso reales</h3>
+            <p><strong>URL directa:</strong> SermasGPT tiene su propia URL (https://sermas.azurewebsites.net/)</p>
+            <p><strong>Iframe:</strong> Aragón integra DxGPT dentro de su portal sanitario mediante iframe</p>
+        </div>
+
+        <div class="comparison">
+            <!-- URL Directa -->
+            <div class="method direct">
+                <h3>🔗 URL Directa</h3>
+                
+                <div class="example">
+https://dxgpt.app/?centro=Hospital_Clinico_Zaragoza&ambito=urgencias&especialidad=cardiologia&medicalText=Paciente de 65 años con dolor torácico
+                </div>
+                
+                <h4>Ventajas:</h4>
+                <ul class="pros">
+                    <li>✅ Implementación muy simple</li>
+                    <li>✅ No hay restricciones de iframe</li>
+                    <li>✅ Funciona en todos los navegadores</li>
+                    <li>✅ Fácil de compartir enlaces</li>
+                    <li>✅ SEO-friendly</li>
+                </ul>
+                
+                <h4>Desventajas:</h4>
+                <ul class="cons">
+                    <li>❌ Navegación completa (sale del sistema actual)</li>
+                    <li>❌ Menos control sobre la UX</li>
+                    <li>❌ Requiere nueva pestaña/ventana</li>
+                </ul>
+                
+                <h4>Código ejemplo:</h4>
+                <div class="example">
+// JavaScript
+const params = new URLSearchParams({
+    centro: 'Hospital_Clinico_Zaragoza',
+    ambito: 'urgencias',
+    especialidad: 'cardiologia',
+    medicalText: 'Paciente con dolor torácico'
+});
+window.open(`https://dxgpt.app/?${params.toString()}`, '_blank');
+                </div>
+                
+                <a href="https://dxgpt.app/?centro=Hospital_Clinico_Zaragoza&ambito=urgencias&especialidad=cardiologia&medicalText=Paciente de 65 años con dolor torácico opresivo" 
+                   class="button" target="_blank">
+                   🔗 Probar URL directa
+                </a>
+            </div>
+            
+            <!-- Iframe -->
+            <div class="method iframe">
+                <h3>🖼️ Iframe</h3>
+                
+                <div class="example">
+&lt;iframe src="https://dxgpt.app/?centro=Hospital_X&ambito=urgencias"&gt;&lt;/iframe&gt;
+                </div>
+                
+                <h4>Ventajas:</h4>
+                <ul class="pros">
+                    <li>✅ Integración perfecta en interfaz existente</li>
+                    <li>✅ Usuario no sale del sistema</li>
+                    <li>✅ Control total sobre dimensiones y posición</li>
+                    <li>✅ Comunicación bidireccional con postMessage</li>
+                    <li>✅ Parámetros dinámicos en tiempo real</li>
+                </ul>
+                
+                <h4>Desventajas:</h4>
+                <ul class="cons">
+                    <li>❌ Más complejo de implementar</li>
+                    <li>❌ Posibles restricciones de seguridad</li>
+                    <li>❌ Requiere gestión de altura responsive</li>
+                </ul>
+                
+                <h4>Código ejemplo:</h4>
+                <div class="example">
+// HTML
+&lt;iframe id="dxgpt" src="https://dxgpt.app/"&gt;&lt;/iframe&gt;
+
+// JavaScript - Enviar parámetros dinámicamente
+document.getElementById('dxgpt').contentWindow.postMessage({
+    type: 'dxgpt-params',
+    params: {
+        centro: 'Hospital_Miguel_Servet',
+        ambito: 'pediatria',
+        especialidad: 'neurologia'
+    }
+}, '*');
+                </div>
+                
+                <button class="button iframe-btn" onclick="showIframe()">
+                    🖼️ Probar Iframe
+                </button>
+            </div>
+        </div>
+        
+        <!-- Iframe demo -->
+        <div id="iframe-demo" class="hidden">
+            <h3>📺 Demo de Iframe</h3>
+            <iframe id="dxgpt-iframe" src="about:blank"></iframe>
+            <button class="button" onclick="sendParams()">📤 Enviar parámetros via postMessage</button>
+            <button class="button" onclick="hideIframe()">❌ Cerrar demo</button>
+        </div>
+        
+        <!-- Tabla comparativa -->
+        <h3>📊 Comparación técnica</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <thead>
+                <tr style="background: #f8f9fa;">
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Aspecto</th>
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">URL Directa</th>
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Iframe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>Implementación</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Simple enlace o window.open()</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Iframe + postMessage</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>Parámetros</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Query string en URL</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">URL + postMessage dinámico</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>UX</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Nueva página/pestaña</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Integrado en interfaz actual</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>Seguridad</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Estándar web</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Requiere validación de origen</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>Casos ideales</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Portales sanitarios, enlaces directos</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">EMR, sistemas integrados</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="usage-examples">
+            <h3>🏥 Ejemplos por tipo de organización</h3>
+            
+            <h4>Sistemas con URL propia (URL directa recomendada)</h4>
+            <div class="example">
+<!-- SermasGPT - URL propia independiente -->
+&lt;a href="https://sermas.azurewebsites.net/?ambito=atencion_primaria&centro=Hospital_La_Paz" target="_blank"&gt;
+    Acceder a SermasGPT
+&lt;/a&gt;
+            </div>
+            
+            <h4>Portales sanitarios (Iframe recomendado)</h4>
+            <div class="example">
+&lt;!-- Aragón - Integrado en portal sanitario --&gt;
+&lt;div class="salud-gpt-container"&gt;
+    &lt;iframe src="https://dxgpt.app/" id="salud-gpt-assistant"&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Pasar parámetros específicos de Aragón
+iframe.contentWindow.postMessage({
+    centro: 'Hospital_Clinico_Zaragoza',
+    ambito: 'urgencias',
+    especialidad: 'cardiologia'
+}, '*');
+&lt;/script&gt;
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showIframe() {
+            document.getElementById('iframe-demo').classList.remove('hidden');
+            document.getElementById('dxgpt-iframe').src = 'http://localhost:4200/?centro=Hospital_Demo&ambito=demo';
+        }
+        
+        function hideIframe() {
+            document.getElementById('iframe-demo').classList.add('hidden');
+            document.getElementById('dxgpt-iframe').src = 'about:blank';
+        }
+        
+        function sendParams() {
+            const iframe = document.getElementById('dxgpt-iframe');
+            iframe.contentWindow.postMessage({
+                type: 'dxgpt-params',
+                params: {
+                    centro: 'Hospital_Demo_PostMessage',
+                    ambito: 'urgencias',
+                    especialidad: 'cardiologia',
+                    medicalText: 'Paciente de 65 años con dolor torácico opresivo'
+                }
+            }, '*');
+            alert('Parámetros enviados via postMessage. Revisa la consola del iframe.');
+        }
+        
+        // Escuchar confirmación del iframe
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'dxgpt-ready') {
+                console.log('✅ DxGPT en iframe está listo');
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -3,7 +3,7 @@
 }
 
 .my-rating {
-  color: #B30000;
+  color: var(--primary-color, #B30000);
 }
 
 .my-rating:focus-visible {

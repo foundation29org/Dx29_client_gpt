@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PrivacyPolicyPageComponent } from 'app/pages/land/privacy-policy/privacy-policy.component';
 import { CookiesPageComponent } from 'app/pages/land/cookies/cookies.component';
 import { UuidService } from 'app/shared/services/uuid.service';
+import { BrandingService } from 'app/shared/services/branding.service';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -20,6 +21,7 @@ import { filter } from 'rxjs/operators';
 export class FooterComponent{
 
   isHomePage: boolean = false;
+  isResultPage: boolean = false;
   isPolicyPage: boolean = false;
   isCookiesPage: boolean = false;
   modalReference: NgbModalRef;
@@ -35,8 +37,18 @@ export class FooterComponent{
   @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
   email: string = '';
   myuuid: string;
+  footerLogo: string = 'assets/img/Foundation29logo.webp';
+  foundationLink: string = 'https://foundation29.org';
 
-  constructor(private modalService: NgbModal, private http: HttpClient, public translate: TranslateService, private renderer: Renderer2, private router: Router, private uuidService: UuidService) { 
+  constructor(
+    private modalService: NgbModal, 
+    private http: HttpClient, 
+    public translate: TranslateService, 
+    private renderer: Renderer2, 
+    private router: Router, 
+    private uuidService: UuidService,
+    public brandingService: BrandingService
+  ) { 
     this.myuuid = this.uuidService.getUuid();
     this.router.events.pipe(
       filter((event: any) => event instanceof NavigationEnd)
@@ -47,21 +59,34 @@ export class FooterComponent{
           this.isHomePage = true;
           this.isPolicyPage = false;
           this.isCookiesPage = false;
+          this.isResultPage = false;
         }else if(tempUrl == '/privacy-policy'){
           this.isHomePage = false;
           this.isPolicyPage = true;
           this.isCookiesPage = false;
+          this.isResultPage = false;
         }else if(tempUrl == '/cookies'){
           this.isHomePage = false;
           this.isPolicyPage = false;
           this.isCookiesPage = true;
-        }else {
+          this.isResultPage = false;
+        }else if(tempUrl == '/result'){
           this.isHomePage = false;
           this.isPolicyPage = false;
           this.isCookiesPage = false;
+          this.isResultPage = true;
+        }
+        else {
+          this.isHomePage = false;
+          this.isPolicyPage = false;
+          this.isCookiesPage = false;
+          this.isResultPage = true;
         }
       }
     );
+    
+    // Cargar configuración de branding
+    this.loadBrandingConfig();
   }
 
   openSupport(content){
@@ -180,6 +205,18 @@ async scrollTo() {
 
 delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Carga la configuración de branding
+ */
+private loadBrandingConfig(): void {
+  this.brandingService.brandingConfig$.subscribe(config => {
+    if (config) {
+      this.footerLogo = config.logos.footer;
+      this.foundationLink = config.links.foundation;
+    }
+  });
 }
 
 }

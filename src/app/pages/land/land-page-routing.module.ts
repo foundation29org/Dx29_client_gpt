@@ -6,6 +6,7 @@ import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.compone
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 import { CookiesPageComponent } from "./cookies/cookies.component";
+import { PermalinkViewPageComponent } from "./permalink-view/permalink-view-page.component";
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
         path: '.',
         component: UndiagnosedPageComponent,
         data: {
-          title: 'DxGPT'
+          title: 'menu.Home'
         },
       },
       {
@@ -54,6 +55,13 @@ const routes: Routes = [
         component: CookiesPageComponent,
         data: {
           title: 'cookies.title'
+        }
+      },
+      {
+        path: 'result/:id',
+        component: PermalinkViewPageComponent,
+        data: {
+          title: 'permalink.title'
         }
       }
     ]

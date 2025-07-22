@@ -166,4 +166,31 @@ diagnose(info: any) {
         })
       );
   }
+
+  analyzeMultimodal(formData: FormData): Observable<any> {
+    return this.http.post(environment.api + '/medical/analyze', formData);
+  }
+
+  // Método para negociar conexión WebSocket con Azure Web PubSub
+  negotiatePubSub(myuuid: string): Observable<any> {
+    return this.http.post(environment.api + '/pubsub/negotiate', { myuuid })
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError((err) => {
+          console.log('PubSub negotiation error:', err);
+          this.insightsService.trackException(err);
+          return throwError(() => err);
+        })
+      );
+  }
+
+  createPermalink(data: any) {
+    return this.http.post(environment.api + '/internal/permalink', data);
+  }
+
+  getPermalink(id: string) {
+    return this.http.get(environment.api + '/internal/permalink/' + id);
+  }
 }
