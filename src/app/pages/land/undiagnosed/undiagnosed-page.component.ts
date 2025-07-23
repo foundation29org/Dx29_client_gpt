@@ -1412,38 +1412,32 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
      */
     private trackParametersReceived(params: IframeParams): void {
         try {
-            // Evento general de parámetros recibidos
+            // Logs internos (opcional)
             this.lauchEvent("Parameters received");
-            
-            // Eventos específicos según el tipo de parámetros
-            if (params.centro) {
-                this.lauchEvent("Hospital center parameter: " + params.centro);
-            }
-            
-            if (params.ambito || params.especialidad) {
+            if (params.centro) this.lauchEvent("Center: " + params.centro);
+            if (params.ambito) this.lauchEvent("Ambito: " + params.ambito);
+            if (params.especialidad) this.lauchEvent("Esp.: " + params.especialidad);
+            if (params.ambito || params.especialidad || params.centro) {
                 const medicalData = {
                     ambito: params.ambito || '',
-                    especialidad: params.especialidad || ''
+                    especialidad: params.especialidad || '',
+                    centro: params.centro || ''
                 };
-                this.lauchEvent("Medical parameters: " + JSON.stringify(medicalData));
+                this.lauchEvent("All par: " + JSON.stringify(medicalData));
             }
-            
-            if (this.isInIframe) {
-                this.lauchEvent("Iframe execution");
-            }
-            
-            // Enviar a Google Analytics si está disponible
+    
+            // Evento para Google Analytics 4
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'iframe_parameters_received', {
                     'event_category': 'Iframe',
-                    'event_label': JSON.stringify(params),
-                    'custom_map': {
-                        'centro': params.centro || '',
-                        'ambito': params.ambito || '',
-                        'especialidad': params.especialidad || ''
-                    }
+                    'event_label': 'Parámetros recibidos',
+                    'centro': params.centro || '',
+                    'ambito': params.ambito || '',
+                    'especialidad': params.especialidad || ''
                 });
             }
+    
+            if (this.isInIframe) this.lauchEvent("Iframe execution");
         } catch (error) {
             console.error('Error tracking parameters:', error);
         }
