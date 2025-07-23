@@ -154,6 +154,12 @@ function replaceInHtml(content, config) {
     `<meta name="twitter:image" content="${config.ogImage}">`
   );
   
+  // Reemplazar el ID de Google Analytics en el src del script
+  modifiedContent = modifiedContent.replace(
+    /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+"><\/script>/g,
+    `<script async src="https://www.googletagmanager.com/gtag/js?id=${config.analytics.googleAnalytics}"></script>`
+  );
+
   // Reemplazar Google Analytics
   modifiedContent = modifiedContent.replace(
     /gtag\('config', 'G-2FZQ49SRWY'\);/g,
