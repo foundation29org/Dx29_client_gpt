@@ -406,6 +406,8 @@
     "P1.S3.B1.RelatedLink2": "Madrid permet à plus de 6 000 médecins de soins primaires d’accéder à l’IA pour le diagnostic des maladies rares",
     "P1.S3.B2.T": "En développement : CatSalut (Catalogne)",
     "P1.S3.B2.Content_P1": "Nous travaillons actuellement à l’implémentation de DxGPT dans le système de santé catalan (CatSalut), avec l’objectif d’apporter cet outil innovant aux professionnels de santé de Catalogne pour améliorer le diagnostic des maladies rares dans la région.",
+    "P1.S3.B3.T": "Service Aragonés de Santé",
+    "P1.S3.B3.Content_P1": "DxGPT est déjà disponible pour les professionnels de santé du Service Aragonés de Santé, permettant d’améliorer la précision et la rapidité du diagnostic des maladies rares et courantes dans la région d’Aragon.",
 
     "P2_Title": "Évaluation comparative",
     "P2_Summary_P1": "Pour qu’un outil d’IA soit utile en clinique, il doit être évalué avec la plus grande rigueur. Nous ne nous contentons pas de métriques génériques ; nous avons créé, traité et validé notre propre base de tests : DxGPT-bench. Cet ensemble de 997 cas cliniques, représentatif et diversifié, nous permet de mesurer la précision des modèles de langage dans des scénarios réalistes, assurant que DxGPT repose sur des preuves solides et transparentes.",

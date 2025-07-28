@@ -406,6 +406,8 @@
       "P1.S3.B1.RelatedLink2": "Die Region Madrid ermöglicht über 6.000 Hausärzten den Einsatz von KI zur Diagnose seltener Krankheiten",
       "P1.S3.B2.T": "In Entwicklung: CatSalut (Katalonien)",
       "P1.S3.B2.Content_P1": "Wir arbeiten derzeit an der Implementierung von DxGPT im katalanischen Gesundheitssystem (CatSalut), um diese innovative Lösung auch den Fachkräften in Katalonien bereitzustellen und so die Diagnose seltener Krankheiten in der Region zu verbessern.",
+      "P1.S3.B3.T": "Aragoner Gesundheitsdienst",
+      "P1.S3.B3.Content_P1": "DxGPT ist bereits für die Fachkräfte des Aragoner Gesundheitsdienstes verfügbar, um die Präzision und Geschwindigkeit bei der Diagnose seltener Krankheiten und häufiger Krankheiten in der Region Aragón zu verbessern.",
 
       "P2_Title": "Benchmarking",
       "P2_Summary_P1": "Damit ein KI-Tool klinisch nützlich ist, muss es mit höchster Strenge bewertet werden. Wir verlassen uns nicht auf allgemeine Metriken – wir haben unseren eigenen Testdatensatz gebaut, verarbeitet und validiert: DxGPT-bench. Dieser umfasst 997 klinische Fälle, die statistisch repräsentativ und vielfältig sind, um die Genauigkeit von Sprachmodellen in realitätsnahen Szenarien zu messen und sicherzustellen, dass DxGPT auf soliden und transparenten Daten basiert.",

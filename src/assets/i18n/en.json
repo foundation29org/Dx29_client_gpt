@@ -406,6 +406,8 @@
       "P1.S3.B1.RelatedLink2": "Madrid enables over 6,000 Primary Care doctors to access AI for rare disease diagnosis",
       "P1.S3.B2.T": "In Progress: CatSalut (Catalonia)",
       "P1.S3.B2.Content_P1": "We are currently working to implement DxGPT in the Catalan healthcare system (CatSalut), aiming to bring this innovative tool to healthcare professionals in Catalonia to improve rare disease diagnosis in the region.",
+      "P1.S3.B3.T": "Aragonese Health Service",
+      "P1.S3.B3.Content_P1": "DxGPT is already available for healthcare professionals in the Aragonese Health Service, allowing them to improve the accuracy and speed of diagnosing rare and common diseases in the region of Aragón.",
 
       "P2_Title": "Benchmarking",
       "P2_Summary_P1": "For an AI tool to be clinically useful, it must be rigorously evaluated. We do not settle for generic metrics; we have built, processed, and validated our own test bank: DxGPT-bench. This set of 997 statistically representative and diverse clinical cases allows us to measure language model accuracy in realistic scenarios, ensuring DxGPT is built on solid and transparent evidence.",

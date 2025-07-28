@@ -406,6 +406,8 @@
       "P1.S3.B1.RelatedLink2": "La Comunidad de Madrid posibilita el acceso de más de 6.000 médicos de Atención Primaria a la IA para el diagnóstico de enfermedades raras",
       "P1.S3.B2.T": "En Desarrollo: CatSalut (Cataluña)",
       "P1.S3.B2.Content_P1": "Actualmente estamos trabajando para implementar DxGPT en el sistema de salud catalán (CatSalut), con el objetivo de llevar esta innovadora herramienta a los profesionales sanitarios de Cataluña para mejorar el diagnóstico de enfermedades raras en la región.",
+      "P1.S3.B3.T": "Servicio Aragonés de Salud",
+      "P1.S3.B3.Content_P1": "DxGPT ya está disponible para los profesionales sanitarios del Servicio Aragonés de Salud, permitiendo mejorar la precisión y rapidez en el diagnóstico de enfermedades raras y mayoritarias en la región de Aragón.",
 
       "P2_Title": "Benchmarking",
       "P2_Summary_P1": "Para que una herramienta de IA sea útil en la clínica, debe ser evaluada con el máximo rigor. No nos conformamos con métricas genéricas; hemos construido, procesado y validado nuestro propio banco de pruebas: DxGPT-bench. Este conjunto de 997 casos clínicos, estadísticamente representativo y diverso, nos permite medir la precisión de los modelos de lenguaje en escenarios realistas, garantizando que DxGPT se basa en evidencia sólida y transparente.",
