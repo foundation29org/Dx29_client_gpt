@@ -406,6 +406,8 @@
       "P1.S3.B1.RelatedLink2": "Wspólnota Madrytu udostępnia SI ponad 6000 lekarzy podstawowej opieki do diagnozowania chorób rzadkich",
       "P1.S3.B2.T": "W przygotowaniu: CatSalut (Katalonia)",
       "P1.S3.B2.Content_P1": "Obecnie pracujemy nad wdrożeniem DxGPT w systemie opieki zdrowotnej Katalonii (CatSalut), aby udostępnić to innowacyjne narzędzie specjalistom w regionie i poprawić diagnostykę chorób rzadkich.",
+      "P1.S3.B3.T": "Serwis Zdrowia Aragonu",
+      "P1.S3.B3.Content_P1": "DxGPT jest już dostępne dla specjalistów medycznych w Serwisie Zdrowia Aragonu, co pozwala na poprawę precyzji i szybkości diagnozowania chorób rzadkich i powszechnych w regionie Aragonu.",
 
       "P2_Title": "Benchmarking",
       "P2_Summary_P1": "Aby narzędzie SI było przydatne klinicznie, musi być oceniane z najwyższą dokładnością. Nie opieramy się na ogólnych metrykach – stworzyliśmy, przetworzyliśmy i zweryfikowaliśmy nasz własny zestaw testowy: DxGPT-bench. Ten zestaw 997 przypadków klinicznych, statystycznie reprezentatywnych i zróżnicowanych, pozwala nam mierzyć dokładność modeli językowych w realistycznych scenariuszach, gwarantując, że DxGPT opiera się na solidnych i przejrzystych danych.",
