@@ -718,6 +718,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     }
 
+    // Función para filtrar parámetros del objeto iframeParams - solo permite campos válidos
+    private filterIframeParams(params: any): any {
+        if (!params) return {};
+        
+        // Solo permitir estos campos específicos
+        const validFields = ['centro', 'ambito', 'especialidad', 'medicalText', 'turno', 'servicio', 'id_paciente'];
+        
+        const filteredParams: any = {};
+        
+        // Solo incluir campos válidos
+        validFields.forEach(field => {
+            if (params[field] !== undefined && params[field] !== null && params[field] !== '') {
+                filteredParams[field] = params[field];
+            }
+        });
+        
+        return filteredParams;
+    }
+
     async callAI(newModel: boolean) {
         Swal.close();
         
@@ -792,8 +811,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             lang: this.lang, 
             timezone: this.timezone, 
             model: modelToUse,
-            // Todos los parámetros del iframe para que el backend los procese
-            iframeParams: this.iframeParams
+            // Filtrar parámetros - solo permite campos válidos
+            iframeParams: this.filterIframeParams(this.iframeParams)
         };
         
         if (this.loadMoreDiseases) {
