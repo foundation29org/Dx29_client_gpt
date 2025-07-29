@@ -723,7 +723,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (!params) return {};
         
         // Solo permitir estos campos específicos
-        const validFields = ['centro', 'ambito', 'especialidad', 'medicalText', 'turno', 'servicio', 'id_paciente'];
+        const validFields = ['centro', 'ambito', 'especialidad', 'turno', 'servicio', 'id_paciente'];
         
         const filteredParams: any = {};
         
