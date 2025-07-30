@@ -15,7 +15,7 @@ import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.com
 import { UuidService } from 'app/shared/services/uuid.service';
 import { BrandingService } from 'app/shared/services/branding.service';
 import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
-import { MedicalInfoModalComponent } from './medical-info-modal.component';
+import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
 declare let gtag: any;
 
 @Component({
@@ -1106,9 +1106,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             windowClass: 'medical-info-modal'
         });
         modalRef.componentInstance.content = content.medicalAnswer;
+        console.log(content.disclaimer.text);
         modalRef.componentInstance.disclaimerText = content.disclaimer.text;
-        modalRef.componentInstance.resourcesText = content.resources.text;
-
         modalRef.componentInstance.title = content.question;
     }
 

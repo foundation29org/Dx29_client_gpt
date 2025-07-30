@@ -12,9 +12,8 @@ import { Subscription } from 'rxjs';
 export class MedicalInfoModalComponent implements OnInit, OnDestroy {
   @Input() content: string = '';
   @Input() title: string = 'Información Médica';
+  @Input() disclaimerText: string = '';
   closeButtonText: string = 'Cerrar';
-  disclaimerText: string = '';
-  resourcesText: string = '';
   
   private subscription: Subscription = new Subscription();
   brandingConfig: BrandingConfig | null = null;
