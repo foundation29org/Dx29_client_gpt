@@ -1,0 +1,88 @@
+.modal-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 60px); /* Dejar espacio para el botón de cerrar */
+}
+
+.modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.medical-content {
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.medical-content h1, .medical-content h2, .medical-content h3 {
+  color: var(--primary-color);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.medical-content p {
+  margin-bottom: 1rem;
+}
+
+.medical-content ul, .medical-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.medical-content li {
+  margin-bottom: 0.5rem;
+}
+
+.medical-content strong {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.medical-content em {
+  color: var(--secondary-color);
+  font-style: italic;
+}
+
+.btn-close {
+  filter: invert(1);
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e6;
+  padding: 1rem 1.5rem;
+}
+
+/* Scrollbar personalizada */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+} 

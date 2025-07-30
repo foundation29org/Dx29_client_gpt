@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    <i class="fas fa-info-circle text-white me-2"></i>
+    {{ title }}
+  </h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body">
+  <div class="medical-content" [innerHTML]="content"></div>
+  <div class="disclaimer-content" [innerHTML]="disclaimerText"></div>
+  <div class="resources-content" [innerHTML]="resourcesText"></div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+    {{ closeButtonText }}
+  </button>
+</div> 

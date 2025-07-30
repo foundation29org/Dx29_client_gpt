@@ -15,6 +15,7 @@ import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.com
 import { UuidService } from 'app/shared/services/uuid.service';
 import { BrandingService } from 'app/shared/services/branding.service';
 import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
+import { MedicalInfoModalComponent } from './medical-info-modal.component';
 declare let gtag: any;
 
 @Component({
@@ -1084,10 +1085,31 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.setDiseaseListEn(parseChoices0);
                 this.continuecallAI(parseChoices0);
             }else{
-                this.showError(this.translate.instant("undiagnosed.only_patient_description"), null);
-                this.callingAI = false;
+                if(data.medicalAnswer){
+                    this.callingAI = false;
+                    this.showMedicalInfoModal(data);
+                }else{
+                    this.showError(this.translate.instant("undiagnosed.only_patient_description"), null);
+                    this.callingAI = false;
+                }
             }
         }
+    }
+
+    showMedicalInfoModal(content: any) {
+        Swal.close();
+        const modalRef = this.modalService.open(MedicalInfoModalComponent, {
+            size: 'lg',
+            backdrop: 'static',
+            keyboard: false,
+            centered: true,
+            windowClass: 'medical-info-modal'
+        });
+        modalRef.componentInstance.content = content.medicalAnswer;
+        modalRef.componentInstance.disclaimerText = content.disclaimer.text;
+        modalRef.componentInstance.resourcesText = content.resources.text;
+
+        modalRef.componentInstance.title = content.question;
     }
 
     includesElement(array, string) {
