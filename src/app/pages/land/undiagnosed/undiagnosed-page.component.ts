@@ -1062,9 +1062,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }else{
             this.model = false;
         }
-        //if (this.currentStep == 1) {
-        console.log(this.model);
-        console.log(data);
         this.cancelQueueStatusCheck();
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
@@ -1088,9 +1085,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 if(data.medicalAnswer){
                     this.callingAI = false;
                     this.showMedicalInfoModal(data);
+                    this.lauchEvent("Medical Info Modal");
                 }else{
                     this.showError(this.translate.instant("undiagnosed.only_patient_description"), null);
                     this.callingAI = false;
+                    this.lauchEvent("only_patient_description Modal");
                 }
             }
         }
