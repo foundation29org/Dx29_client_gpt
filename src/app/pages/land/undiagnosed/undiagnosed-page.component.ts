@@ -747,10 +747,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             modelToUse = 'o3';
         }
         
-        // Para modelos largos, conectar WebSocket primero
+        // Para Aragón (salud-gpt), siempre usar WebSocket para mejor UX
+        // Para otros tenants, usar WebSocket solo para modelos largos
+        const isAragonTenant = this.brandingService.getCurrentTenant() === 'salud-gpt';
         const isLongModel = (modelToUse === 'o3');
-        console.log(`Model: ${modelToUse}, isLongModel: ${isLongModel}`);
-        if (isLongModel) {
+        const shouldUseWebSocket = isAragonTenant || isLongModel;
+        
+        console.log(`Model: ${modelToUse}, isLongModel: ${isLongModel}, isAragonTenant: ${isAragonTenant}, shouldUseWebSocket: ${shouldUseWebSocket}`);
+        
+        if (shouldUseWebSocket) {
             try {
                 await this.connectWebSocket();
             } catch (error) {
@@ -763,7 +768,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const htmlContent = '<p>' + this.translate.instant("land.swal") + '</p>' + 
           '<p>' + this.translate.instant("land.swal2") + '</p>' + 
           '<p>' + this.translate.instant("land.swal3") + '</p>' + 
-          (isLongModel ?
+          (shouldUseWebSocket ?
             `<div id="websocket-progress" style="margin: 18px 0 10px 0; padding: 12px 18px; background: rgba(30,34,40,0.95); border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); border: 1px solid #23272f;">
               <div id="progress-message" style="margin-bottom: 8px; font-weight: 500; color: #e0e0e0; font-size: 15px; letter-spacing: 0.01em; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">${this.getProgressMessage('ai_processing')}</div>
               <div style="width: 100%; height: 18px; background: #23272f; border-radius: 9px; overflow: hidden; border: 1px solid #353b45;">
@@ -797,8 +802,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         }.bind(this));
 
-        // Inicializar progreso para modelos largos
-        if (isLongModel) {
+        // Inicializar progreso para WebSocket
+        if (shouldUseWebSocket) {
             setTimeout(() => {
                 this.updateWebSocketProgress(10, 'Conectando...', 'connection');
             }, 100);
