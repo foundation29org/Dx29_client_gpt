@@ -68,6 +68,7 @@
   "progress":{
     "connecting": "Verbinden...",
     "translating": "Beschreibung übersetzen...",
+    "medical_question": "Medizinische Frage verarbeiten...",
     "analyzing": "Symptome mit KI analysieren...",
     "getting_details": "Diagnose-Details abrufen...",
     "anonymizing": "Persönliche Informationen anonymisieren...",
@@ -685,5 +686,8 @@
   },
   "undiagnosed": {
     "only_patient_description": "Der eingegebene Text darf nur eine Beschreibung des Patienten enthalten (Alter, Geschlecht, Symptome und Beginn der Symptome). Bitte keine Fragen, Informationen zu Krankheiten oder Behandlungen eingeben. Dieses Tool dient ausschließlich der Diagnoseunterstützung."
+  },
+  "medicalInfoModal": {
+    "disclaimerText": "Diese Anwendung ist für die Unterstützung bei der Diagnose von Patienten gedacht. Um Ihnen eine hilfreiche Antwort zu geben, haben wir Ihre Frage verarbeitet. Denken Sie daran, dass diese Informationen nicht als Ersatz für professionelle medizinische Beratung dienen."
   }
 } 

@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title" title="{{ title }}">
+    <i class="fas fa-info-circle text-white me-2"></i>
+    {{ title }}
+  </h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body">
+  <!-- Disclaimer Alert -->
+  <div class="disclaimer-alert">
+    <div class="disclaimer-header">
+      <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+      <strong>{{ 'permalink.medicalDisclaimerTitle' | translate }}</strong>
+    </div>
+    <div class="disclaimer-content" [innerHTML]="'medicalInfoModal.disclaimerText' | translate "></div>
+  </div>
+  
+  <!-- Medical Content -->
+  <div class="medical-content" [innerHTML]="content"></div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+    {{ closeButtonText }}
+  </button>
+</div> 

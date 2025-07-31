@@ -15,6 +15,7 @@ import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.com
 import { UuidService } from 'app/shared/services/uuid.service';
 import { BrandingService } from 'app/shared/services/branding.service';
 import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
+import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
 declare let gtag: any;
 
 @Component({
@@ -507,6 +508,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const messages = {
             'connection': this.translate.instant('progress.connecting') || 'Connecting...',
             'translation': this.translate.instant('progress.translating') || 'Translating description...',
+            'medical_question': this.translate.instant('progress.medical_question') || 'Asking medical questions...',
             'ai_processing': this.translate.instant('progress.analyzing') || 'Analyzing symptoms with AI...',
             'ai_details': this.translate.instant('progress.getting_details') || 'Getting diagnosis details...',
             'anonymization': this.translate.instant('progress.anonymizing') || 'Anonymizing personal information...',
@@ -746,10 +748,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             modelToUse = 'o3';
         }
         
-        // Para modelos largos, conectar WebSocket primero
-        const isLongModel = (modelToUse === 'o3');
-        console.log(`Model: ${modelToUse}, isLongModel: ${isLongModel}`);
-        if (isLongModel) {
+        // Siempre usar WebSocket para mejor UX y prepararse para detección de intención
+        // Esto evita problemas cuando el backend detecta automáticamente que debe usar o3
+        const shouldUseWebSocket = true;
+        
+        console.log(`Model: ${modelToUse}, shouldUseWebSocket: ${shouldUseWebSocket}`);
+        
+        if (shouldUseWebSocket) {
             try {
                 await this.connectWebSocket();
             } catch (error) {
@@ -762,17 +767,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const htmlContent = '<p>' + this.translate.instant("land.swal") + '</p>' + 
           '<p>' + this.translate.instant("land.swal2") + '</p>' + 
           '<p>' + this.translate.instant("land.swal3") + '</p>' + 
-          (isLongModel ?
-            `<div id="websocket-progress" style="margin: 18px 0 10px 0; padding: 12px 18px; background: rgba(30,34,40,0.95); border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); border: 1px solid #23272f;">
-              <div id="progress-message" style="margin-bottom: 8px; font-weight: 500; color: #e0e0e0; font-size: 15px; letter-spacing: 0.01em; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">${this.getProgressMessage('ai_processing')}</div>
-              <div style="width: 100%; height: 18px; background: #23272f; border-radius: 9px; overflow: hidden; border: 1px solid #353b45;">
-                <div id="progress-bar" style="width: 5%; height: 100%; background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%); transition: width 0.5s cubic-bezier(.4,2.3,.3,1); border-radius: 9px; min-width: 10px; box-shadow: 0 1px 6px #43e97b44;"></div>
-              </div>
-              <div style="margin-top: 6px; font-size: 12px; color: #b0b6bb; text-align: right; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
-                <span id="progress-percentage">5%</span>
-              </div>
-            </div>` :
-            '<p><em class="white fa fa-spinner fa-3x fa-spin fa-fw"></em></p>');
+          `<div id="websocket-progress" style="margin: 18px 0 10px 0; padding: 12px 18px; background: rgba(30,34,40,0.95); border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); border: 1px solid #23272f;">
+            <div id="progress-message" style="margin-bottom: 8px; font-weight: 500; color: #e0e0e0; font-size: 15px; letter-spacing: 0.01em; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">${this.getProgressMessage('ai_processing')}</div>
+            <div style="width: 100%; height: 18px; background: #23272f; border-radius: 9px; overflow: hidden; border: 1px solid #353b45;">
+              <div id="progress-bar" style="width: 5%; height: 100%; background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%); transition: width 0.5s cubic-bezier(.4,2.3,.3,1); border-radius: 9px; min-width: 10px; box-shadow: 0 1px 6px #43e97b44;"></div>
+            </div>
+            <div style="margin-top: 6px; font-size: 12px; color: #b0b6bb; text-align: right; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
+              <span id="progress-percentage">5%</span>
+            </div>
+          </div>`;
 
         Swal.fire({
             html: htmlContent,
@@ -796,12 +799,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         }.bind(this));
 
-        // Inicializar progreso para modelos largos
-        if (isLongModel) {
-            setTimeout(() => {
-                this.updateWebSocketProgress(10, 'Conectando...', 'connection');
-            }, 100);
-        }
+        // Inicializar progreso para WebSocket
+        setTimeout(() => {
+            this.updateWebSocketProgress(10, 'Conectando...', 'connection');
+        }, 100);
 
         this.callingAI = true;
         var value = { 
@@ -1061,9 +1062,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }else{
             this.model = false;
         }
-        //if (this.currentStep == 1) {
-        console.log(this.model);
-        console.log(data);
         this.cancelQueueStatusCheck();
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
@@ -1084,10 +1082,31 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.setDiseaseListEn(parseChoices0);
                 this.continuecallAI(parseChoices0);
             }else{
-                this.showError(this.translate.instant("undiagnosed.only_patient_description"), null);
-                this.callingAI = false;
+                if(data.medicalAnswer){
+                    this.callingAI = false;
+                    this.showMedicalInfoModal(data);
+                    this.lauchEvent("Medical Info Modal");
+                }else{
+                    this.showError(this.translate.instant("undiagnosed.only_patient_description"), null);
+                    this.callingAI = false;
+                    this.lauchEvent("only_patient_description Modal");
+                }
             }
         }
+    }
+
+    showMedicalInfoModal(content: any) {
+        Swal.close();
+        const modalRef = this.modalService.open(MedicalInfoModalComponent, {
+            size: 'lg',
+            backdrop: 'static',
+            keyboard: false,
+            centered: true,
+            windowClass: 'medical-info-modal'
+        });
+        modalRef.componentInstance.content = content.medicalAnswer;
+        console.log(content.disclaimer.text);
+        modalRef.componentInstance.title = content.question;
     }
 
     includesElement(array, string) {

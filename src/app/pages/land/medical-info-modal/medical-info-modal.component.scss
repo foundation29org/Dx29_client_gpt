@@ -1,0 +1,142 @@
+.modal-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 60px); /* Dejar espacio para el botón de cerrar */
+}
+
+.modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.medical-content {
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.medical-content h1, .medical-content h2, .medical-content h3 {
+  color: var(--primary-color);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.medical-content p {
+  margin-bottom: 1rem;
+}
+
+.medical-content ul, .medical-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.medical-content li {
+  margin-bottom: 0.5rem;
+}
+
+.medical-content strong {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.medical-content em {
+  color: var(--secondary-color);
+  font-style: italic;
+}
+
+/* Disclaimer Alert Styles */
+.disclaimer-alert {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 2px solid #ffc107;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+  position: relative;
+}
+
+.disclaimer-alert::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color) 0%, var(--secondary-color) 100%);
+  border-radius: 8px 8px 0 0;
+}
+
+.disclaimer-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  color: #856404;
+}
+
+.disclaimer-header i {
+  font-size: 1.2rem;
+  color: #ffc107;
+}
+
+.disclaimer-header strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.disclaimer-content {
+  color: #856404;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.disclaimer-content p {
+  margin-bottom: 0.5rem;
+}
+
+.disclaimer-content p:last-child {
+  margin-bottom: 0;
+}
+
+.btn-close {
+  filter: invert(1);
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e6;
+  padding: 1rem 1.5rem;
+}
+
+/* Scrollbar personalizada */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+} 
