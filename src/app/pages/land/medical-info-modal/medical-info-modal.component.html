@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">
+  <h4 class="modal-title" title="{{ title }}">
     <i class="fas fa-info-circle text-white me-2"></i>
     {{ title }}
   </h4>
@@ -12,7 +12,7 @@
       <i class="fas fa-exclamation-triangle text-warning me-2"></i>
       <strong>{{ 'permalink.medicalDisclaimerTitle' | translate }}</strong>
     </div>
-    <div class="disclaimer-content" [innerHTML]="disclaimerText"></div>
+    <div class="disclaimer-content" [innerHTML]="'medicalInfoModal.disclaimerText' | translate "></div>
   </div>
   
   <!-- Medical Content -->

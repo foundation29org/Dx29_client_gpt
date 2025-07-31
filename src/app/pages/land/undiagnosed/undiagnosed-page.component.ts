@@ -1106,8 +1106,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         });
         modalRef.componentInstance.content = content.medicalAnswer;
         console.log(content.disclaimer.text);
-        modalRef.componentInstance.disclaimerText = content.disclaimer.text;
-        modalRef.componentInstance.title = this.translate.instant("medicalInfoModal.titleMedicalQuestion", { originalQuestion: content.question });
+        modalRef.componentInstance.title = content.question;
     }
 
     includesElement(array, string) {

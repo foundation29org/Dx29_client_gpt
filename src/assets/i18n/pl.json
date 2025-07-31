@@ -686,5 +686,8 @@
   },
   "undiagnosed": {
     "only_patient_description": "Tekst wejściowy powinien zawierać wyłącznie opis pacjenta (wiek, płeć, objawy i czas ich wystąpienia). Nie należy dodawać pytań, informacji o chorobach ani leczeniu. To narzędzie służy wyłącznie do wspomagania diagnostyki."
+  },
+  "medicalInfoModal": {
+    "disclaimerText": "To narzędzie jest zaprojektowane głównie w celu <strong>wspomagania diagnostyki</strong>. Odpowiedzi na ogólne pytania medyczne są dostarczane wyłącznie w celach edukacyjnych i powinny być dokładnie oceniane. Nie mogą one zastępować profesjonalnego poradnictwa medycznego."
   }
 } 

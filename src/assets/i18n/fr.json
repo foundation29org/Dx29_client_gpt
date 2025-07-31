@@ -686,5 +686,8 @@
   },
   "undiagnosed": {
     "only_patient_description": "Le texte saisi doit uniquement être une description du patient (âge, sexe, symptômes et date d'apparition). N'incluez pas de questions, d'informations sur des maladies ou des traitements. Cet outil est uniquement destiné à l'aide au diagnostic."
+  },
+  "medicalInfoModal": {
+    "disclaimerText": "Cet outil est conçu principalement pour <strong>aider au diagnostic</strong>. Les réponses aux questions médicales générales sont fournies à des fins éducatives et doivent être évaluées avec prudence. Elles ne remplacent pas un conseil médical professionnel."
   }
 }
