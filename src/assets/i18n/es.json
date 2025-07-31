@@ -68,6 +68,7 @@
   "progress":{
     "connecting": "Conectando...",
     "translating": "Traduciendo descripción...",
+    "medical_question": "Procesando pregunta médica...",
     "analyzing": "Analizando síntomas con IA...",
     "getting_details": "Obteniendo detalles del diagnóstico...",
     "anonymizing": "Anonimizando información personal...",
@@ -685,5 +686,9 @@
   },
   "undiagnosed": {
     "only_patient_description": "El texto de entrada debe ser únicamente una descripción del paciente (edad, género, síntomas y cuándo comenzaron). No incluyas preguntas, información sobre enfermedades ni tratamientos. Esta herramienta es solo para ayuda al diagnóstico."
+  },
+  "medicalInfoModal": {
+    "titleMedicalQuestion": "Hemos detectado una pregunta médica: \"{{originalQuestion}}\"",
+    "infoMessage": "Esta herramienta está diseñada para ayudar en el diagnóstico de pacientes. Sin embargo, para ofrecerte una respuesta útil, hemos procesado tu consulta. Recuerda que esta información no sustituye el consejo médico profesional."
   }
 }

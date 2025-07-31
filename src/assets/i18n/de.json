@@ -68,6 +68,7 @@
   "progress":{
     "connecting": "Verbinden...",
     "translating": "Beschreibung übersetzen...",
+    "medical_question": "Frage zur Medizin verarbeiten...",
     "analyzing": "Symptome mit KI analysieren...",
     "getting_details": "Diagnose-Details abrufen...",
     "anonymizing": "Persönliche Informationen anonymisieren...",

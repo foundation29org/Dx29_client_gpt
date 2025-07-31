@@ -68,6 +68,7 @@
   "progress":{
     "connecting": "Łączenie...",
     "translating": "Tłumaczenie...",
+    "medical_question": "Przetwarzanie pytania medycznego...",
     "analyzing": "Analiza...",
     "getting_details": "Pobieranie szczegółów...",
     "anonymizing": "Anonimizacja...",

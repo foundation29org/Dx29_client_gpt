@@ -68,6 +68,7 @@
   "progress":{
     "connecting": "Підключення...",
     "translating": "Переклад...",
+    "medical_question": "Обробка медичного питання...",
     "analyzing": "Аналіз...",
     "getting_details": "Отримання деталей...",
     "anonymizing": "Анонімізація...",
