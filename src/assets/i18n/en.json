@@ -68,6 +68,7 @@
   "progress":{
     "connecting": "Connecting...",
     "translating": "Translating description...",
+    "medical_question": "Processing medical question...",
     "analyzing": "Analyzing symptoms with AI...",
     "getting_details": "Getting diagnosis details...",
     "anonymizing": "Anonymizing personal information...",
@@ -685,5 +686,8 @@
   },
   "undiagnosed": {
     "only_patient_description": "The input text must only be a description of the patient (age, gender, symptoms, and when they started). Do not include questions, information about diseases, or treatments. This tool is for diagnostic assistance only."
+  },
+  "medicalInfoModal": {
+    "disclaimerText": "This tool is designed primarily to <strong>assist in diagnosis</strong>. General medical questions are provided for educational purposes and should be critically evaluated. They do not replace professional medical advice."
   }
 }
