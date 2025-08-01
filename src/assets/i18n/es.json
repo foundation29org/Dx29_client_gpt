@@ -688,6 +688,7 @@
     "only_patient_description": "El texto de entrada debe ser únicamente una descripción del paciente (edad, género, síntomas y cuándo comenzaron). No incluyas preguntas, información sobre enfermedades ni tratamientos. Esta herramienta es solo para ayuda al diagnóstico."
   },
   "medicalInfoModal": {
-    "disclaimerText": "Esta herramienta está diseñada principalmente para <strong>ayudar en el diagnóstico</strong>. Las respuestas a consultas médicas generales son solo con fines educativos y deben ser evaluadas críticamente. No sustituyen el consejo médico profesional."
+    "disclaimerText": "Esta herramienta está diseñada principalmente para <strong>ayudar en el diagnóstico</strong>. Las respuestas a consultas médicas generales son solo con fines educativos y deben ser evaluadas críticamente. No sustituyen el consejo médico profesional.",
+    "aiGeneratedWarning": "<strong>Nota:</strong> Este texto ha sido generado por inteligencia artificial y puede contener errores."
   }
 }

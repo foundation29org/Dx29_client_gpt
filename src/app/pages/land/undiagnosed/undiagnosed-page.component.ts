@@ -1105,7 +1105,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             windowClass: 'medical-info-modal'
         });
         modalRef.componentInstance.content = content.medicalAnswer;
-        console.log(content.disclaimer.text);
         modalRef.componentInstance.title = content.question;
     }
 

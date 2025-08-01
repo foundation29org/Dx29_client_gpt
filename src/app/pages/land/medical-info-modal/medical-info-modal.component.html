@@ -17,6 +17,8 @@
   
   <!-- Medical Content -->
   <div class="medical-content" [innerHTML]="content"></div>
+
+  <div class="ai-warning" [innerHTML]="'medicalInfoModal.aiGeneratedWarning' | translate"></div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
