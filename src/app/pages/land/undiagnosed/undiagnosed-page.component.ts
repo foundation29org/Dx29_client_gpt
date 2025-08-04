@@ -16,6 +16,7 @@ import { UuidService } from 'app/shared/services/uuid.service';
 import { BrandingService } from 'app/shared/services/branding.service';
 import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
 import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
+import { environment } from 'environments/environment';
 declare let gtag: any;
 
 @Component({
@@ -1152,9 +1153,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         Swal.close();
         //window.scrollTo(0, 0);
          // Nueva conversión para la cuenta de display
-        gtag('event', 'conversion', {
-            'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
-        });
+         if(environment.tenantId == 'dxgpt-prod'){
+            gtag('event', 'conversion', {
+                'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
+            });
+         }
         this.lauchEvent("Search Disease");
         if(this.iframeParams){
             if(this.iframeParams.centro){
