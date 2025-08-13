@@ -453,7 +453,7 @@
       "P3.S1.B1.Q": "¿Qué es la Fundación 29?",
       "P3.S1.B1.A_P1": "Somos una organización sin ánimo de lucro inspirada en el Día Mundial de las Enfermedades Raras (29 de febrero). Buscamos una atención sanitaria más personalizada, inclusiva y eficaz, colaborando con hospitales, investigadores y la comunidad médica. Creemos que los datos pueden generar un cambio positivo en los sistemas de salud.",
       "P3.S1.B2.Q": "¿Cuál es vuestro compromiso con la transparencia y la ciencia abierta?",
-      "P3.S1.B2.A_P1": "Es total. En nuestra apuesta por la transparencia, hemos hecho público el código fuente de DxGPT. Puedes explorar y contribuir a nuestros repositorios del cliente y del servidor en GitHub.",
+      "P3.S1.B2.A_P1": "Es total. En nuestra apuesta por la transparencia, hemos hecho público el código fuente de DxGPT. Puedes explorar y contribuir a nuestros repositorios del <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>cliente</a> y del <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>servidor</a> en GitHub.",
       "P3.S1.B3.Q": "¿DxGPT es un producto finalizado?",
       "P3.S1.B3.A_P1": "No, DxGPT es una plataforma experimental en desarrollo continuo. Su objetivo es explorar las capacidades de la IA en el diagnóstico, entender sus limitaciones y mejorarla con la retroalimentación de los usuarios y la validación clínica rigurosa. Los nuevos hallazgos se compartirán en nuestro GitHub y en MedRxiv.",
       "P3.S1.B4.Q": "¿Qué garantías legales y de protección de datos ofrecéis?",
