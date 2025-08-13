@@ -453,7 +453,7 @@
       "P3.S1.B1.Q": "What is Fundación 29?",
       "P3.S1.B1.A_P1": "We are a nonprofit organization inspired by Rare Disease Day (February 29). We seek more personalized, inclusive, and effective healthcare by collaborating with hospitals, researchers, and the medical community. We believe data can drive positive change in health systems.",
       "P3.S1.B2.Q": "What is your commitment to transparency and open science?",
-      "P3.S1.B2.A_P1": "It is total. In our commitment to transparency, we have made the DxGPT source code public. You can explore and contribute to our client and server repositories on GitHub.",
+      "P3.S1.B2.A_P1": "It is total. In our commitment to transparency, we have made the DxGPT source code public. You can explore and contribute to our <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>client</a> and <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>server</a> repositories on GitHub.",
       "P3.S1.B3.Q": "Is DxGPT a finished product?",
       "P3.S1.B3.A_P1": "No, DxGPT is an experimental platform under continuous development. Its goal is to explore AI’s capabilities in diagnosis, understand its limitations, and improve it with user feedback and rigorous clinical validation. New findings will be shared on our GitHub and on MedRxiv.",
       "P3.S1.B4.Q": "What legal and data protection guarantees do you offer?",

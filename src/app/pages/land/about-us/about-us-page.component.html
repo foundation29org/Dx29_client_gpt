@@ -389,7 +389,7 @@
                       <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S1B2']"></i>
                     </div>
                     <div class="question-content" [class.expanded]="expandedQuestions['P3S1B2']">
-                      <p class="intro-text">{{'land.aboutUs.P3.S1.B2.A_P1' | translate }}</p>
+                      <p class="intro-text" [innerHTML]="'land.aboutUs.P3.S1.B2.A_P1' | translate "></p>
                     </div>
                   </div>
 
