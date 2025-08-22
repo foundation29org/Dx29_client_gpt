@@ -15,7 +15,7 @@
                 <div class="">
                   <div class="form-group">
                     <input type="text" class="form-control" name="userName" id="userName"
-                      placeholder="{{'generics.Name' | translate }}" ngModel required #userName="ngModel">
+                      placeholder="{{'generics.Name' | translate }}" ngModel required #userName="ngModel" autocomplete="name">
                     <small class="form-text text-muted"
                       *ngIf="!userName.valid && (userName.dirty || userName.touched)">{{'generics.required' | translate
                       }}</small>
@@ -24,7 +24,7 @@
                 <div class="">
                   <div class="form-group">
                     <input type="email" class="form-control" name="email" id="email"
-                      placeholder="{{'generics.Email' | translate }}" ngModel required email #email="ngModel">
+                      placeholder="{{'generics.Email' | translate }}" ngModel required email #email="ngModel" autocomplete="email">
                     <small class="form-text text-muted"
                       *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate
                       }}</small>
