@@ -35,7 +35,7 @@ The server code is here: [DxGPT SERVER](https://github.com/foundation29org/Dx29_
 	</div>
 	<div align="right" style="padding-top: 0.5% !important">
 		<p align="right">
-			Copyright © 2024
+			Copyright © 2025
 			<a style="color:#009DA0" href="https://www.foundation29.org/" target="_blank"> Foundation29</a>
 		</p>
 	</div>
