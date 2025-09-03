@@ -1,19 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FaqsPageComponent } from "./faqs-page.component";
-import { RouterModule, Routes } from '@angular/router';
-import { SharedModule } from 'app/shared/shared.module';
+import { Component} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
-const routes: Routes = [
-  { path: '', component: FaqsPageComponent }
-];
-
-@NgModule({
-  declarations: [FaqsPageComponent],
-  imports: [
-    SharedModule,
-    CommonModule,
-    RouterModule.forChild(routes)
-  ]
+@Component({
+    selector: 'app-faqs-page',
+    templateUrl: './faqs-page.component.html',
+    styleUrls: ['./faqs-page.component.scss'],
 })
-export class FaqsModule { }
+
+export class FaqsPageComponent{
+
+    constructor( public translate: TranslateService) {
+    }
+
+}

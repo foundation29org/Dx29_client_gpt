@@ -31,6 +31,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   private scrollPosition: number = 0;
   private ticking: boolean = false;
   private isOpenSwal: boolean = false;
+  private scrollTimeout: any;
   constructor(
     @Inject(DOCUMENT) private document: Document, 
     private router: Router, 
@@ -104,8 +105,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     // Listener para el evento loadLang que se emite desde navbar-dx29
     this.eventsService.on('loadLang', async (lang) => {
       await this.delay(500);
-      const titulo = this.translate.instant(this.tituloEvent || "seo.home.title");
-      this.titleService.setTitle(titulo);
+      this.titleService.setTitle("DxGPT");
       this.changeMeta();
 
       this.translate
@@ -137,28 +137,43 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     .pipe(mergeMap((route) => route.data))
     .subscribe((event) => {
       (async () => {
-        
-        // Asegurar que el scroll se ejecute después de renderizado
-        setTimeout(() => {
+        // Solo hacer scroll al top si no hay fragment en la URL (para permitir navegación a secciones)
+        const currentUrl = this.router.url;
+        const hasFragment = currentUrl.includes('#');
+
+        if (!hasFragment) {
+          // Cancelar cualquier timeout previo para evitar race conditions
+          if (this.scrollTimeout) {
+            clearTimeout(this.scrollTimeout);
+          }
+
+          // Scroll inmediato para evitar flashes de posición anterior
           window.scrollTo({
             top: 0,
             left: 0,
             behavior: 'auto'
           });
-        }, 500);
-        
+
+          // Scroll de seguridad después de renderizado
+          this.scrollTimeout = setTimeout(() => {
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'auto'
+            });
+          }, 100);
+        }
+
         await this.delay(500);
         this.tituloEvent = event['title'];
-        const titulo = this.translate.instant(this.tituloEvent);
-        this.titleService.setTitle(titulo);
+        this.titleService.setTitle("DxGPT");
         this.changeMeta();
       })();
     });
 
     this.eventsService.on('changelang', async (lang) => {
       await this.delay(500);
-      const titulo = this.translate.instant(this.tituloEvent);
-      this.titleService.setTitle(titulo);
+      this.titleService.setTitle("DxGPT");
       this.changeMeta();
       sessionStorage.setItem('lang', lang);
 
@@ -269,6 +284,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout);
     }
   }
 

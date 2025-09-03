@@ -169,4 +169,107 @@ i{
   }
 }
 
+// Navigation active/inactive states with dark/red theme
+.nav-active {
+  color: #8B0000 !important; // Dark red
+  font-weight: 700 !important;
+  border-bottom: 2px solid #8B0000 !important;
+}
+
+.nav-inactive {
+  color: #2C2C2C !important; // Dark gray/black
+  font-weight: 400 !important;
+  
+  &:hover {
+    color: #8B0000 !important; // Dark red on hover
+    transition: color 0.3s ease;
+  }
+}
+
+// Donation dropdown styles
+.donate-link {
+  .dropdown-menu {
+    border: 1px solid #E0E0E0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    min-width: 280px;
+    
+    .dropdown-item {
+      padding: 0.75rem 1.5rem;
+      color: #2C2C2C;
+      transition: all 0.3s ease;
+      
+      i {
+        color: #8B0000;
+        width: 20px;
+      }
+      
+      &:hover {
+        background-color: #F8F9FA;
+        color: #8B0000;
+      }
+    }
+  }
+}
+
+// File Upload Modal Styles
+.file-upload-area {
+  border: 2px dashed #D0D0D0;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  &:hover, &.dragover {
+    border-color: #8B0000;
+    background-color: rgba(139, 0, 0, 0.05);
+  }
+  
+  .upload-content {
+    .fa-cloud-upload-alt, .fa-database {
+      color: #999;
+      transition: color 0.3s ease;
+    }
+    
+    p {
+      margin-bottom: 0.5rem;
+      color: #2C2C2C;
+    }
+    
+    .text-muted {
+      color: #666 !important;
+      font-size: 0.9rem;
+    }
+  }
+  
+  &:hover .upload-content .fa-cloud-upload-alt,
+  &:hover .upload-content .fa-database,
+  &.dragover .upload-content .fa-cloud-upload-alt,
+  &.dragover .upload-content .fa-database {
+    color: #8B0000;
+  }
+}
+
+.selected-files {
+  .list-group-item {
+    border: 1px solid #E0E0E0;
+    
+    .fa-file, .fa-file-alt {
+      color: #8B0000;
+    }
+    
+    .btn-outline-danger {
+      border: none;
+      color: #DC3545;
+      font-size: 0.8rem;
+      
+      &:hover {
+        background-color: #DC3545;
+        color: white;
+      }
+    }
+  }
+}
+
 

@@ -21,13 +21,19 @@ const routes: Routes = [
       },
       {
         path: 'aboutus',
-        loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule),
-        data: { title: 'menu.About us' }
+        loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule)
+      },
+      {
+        path: 'transparencia',
+        loadChildren: () => import('./transparencia/transparencia.module').then(m => m.TransparenciaModule)
+      },
+      {
+        path: 'quienes-somos',
+        loadChildren: () => import('./fundacion-29/fundacion-29.module').then(m => m.Fundacion29Module)
       },
       {
         path: 'faq',
-        loadChildren: () => import('./faqs/faqs.module').then(m => m.FaqsModule),
-        data: { title: 'FAQs' }
+        loadChildren: () => import('./faqs/faqs.module').then(m => m.FaqsModule)
       },
       {
         path: 'reports',

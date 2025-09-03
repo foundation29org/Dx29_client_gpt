@@ -17,8 +17,14 @@ const appRoutes: Routes = [
   }
 ];
 
+
+// 🚩 Se desactiva scrollPositionRestoration porque el proyecto implementa control manual del scroll: el layout principal (land-page-layout.component.ts:25) tiene un método scrollToTop() con smooth scroll y escucha eventos de scroll (@HostListener) para cambiar clases CSS del navbar/página según la posición; si Angular restaurara automáticamente el scroll, interferiría con estas animaciones personalizadas y la lógica de mostrar/ocultar elementos basada en la posición del scroll.
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(appRoutes, { 
+    preloadingStrategy: PreloadAllModules, 
+    relativeLinkResolution: 'legacy',
+    scrollPositionRestoration: 'disabled'
+  })],
   exports: [RouterModule]
 })
 

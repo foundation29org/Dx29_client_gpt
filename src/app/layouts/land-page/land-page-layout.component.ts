@@ -20,6 +20,10 @@ export class LandPageLayoutComponent {
     @Inject(WINDOW) private window: Window,
     private renderer: Renderer2
   ) {
+    // Scroll inmediato al construir el layout para navegación de pestañas
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }
 
   scrollToTop() {

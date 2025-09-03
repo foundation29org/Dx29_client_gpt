@@ -1,91 +1,176 @@
-<!--Footer Starts-->
-<footer class="footer-main">
-    <div class="container-fluid pt-2">
-      <div class="text-center">
-        <div class="d-flex flex-column align-items-center justify-content-center py-4">
-          <p class="mb-2">{{'land.Made with love by' | translate}}  <a [href]="foundationLink" target="_blank" class="pointer underline">{{'generics.Foundation 29' | translate}}</a></p>
-          <a [href]="foundationLink" target="_blank">
-            <img [src]="footerLogo" alt="Foundation logo" class="img-fluid footer-logo">
-          </a>
+<!--Dark Professional Footer-->
+<footer class="dark-footer">
+  <div class="footer-content">
+    <div class="container">
+      
+      <!-- Main Footer Columns -->
+      <div class="footer-main">
+        <div class="row">
+
+          <!-- Column 1: DxGPT -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="footer-column">
+              <h4 class="footer-title">DxGPT</h4>
+              <ul class="footer-links">
+                <li><a href="javascript:void(0)" (click)="navigateToTop('/aboutus')">Qué es DxGPT</a></li>
+                <li><a href="javascript:void(0)" (click)="goToPrecision()">Precisión</a></li>
+                <li><a href="https://github.com/foundation29org/dxgpt-bench-lab/blob/main/bench/__conceptual-model-and-research-notes/evaluacion_modelos_llm_diagnostico_pediatrico_pipeline_pv4.pdf" target="_blank">Evaluación</a></li>
+                <li><a href="javascript:void(0)" (click)="navigateToTop('/reports')">Estadísticas de uso</a></li>
+                <li><a href="javascript:void(0)" (click)="navigateToTop('/faq')">FAQs</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Column 2: Colaboración -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="footer-column">
+              <h4 class="footer-title">Colaboración</h4>
+              <ul class="footer-links">
+                <li><a href="javascript:void(0)" (click)="goToSociosTecnologicos()">Socios tecnológicos</a></li>
+                <li><a href="javascript:void(0)" (click)="goToPatrocinadores()">Nuestros patrocinadores</a></li>
+                <li><a href="javascript:void(0)" (click)="goToImplementaciones()">Implementaciones</a></li>
+                <li><a href="javascript:void(0)" (click)="goToSistemasSalud()">Uso en sistemas de salud</a></li>
+                <li><a href="javascript:void(0)" (click)="goToColaborar()">Quiero colaborar</a></li>
+                <li><a [href]="brandingService.getDonateLink()" target="_blank" *ngIf="brandingService.shouldShowDonateLink()">Dona</a></li>
+              </ul>
+
+            </div>
+          </div>
+
+          <!-- Column 3: Cumplimiento -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="footer-column">
+              <h4 class="footer-title">Cumplimiento</h4>
+              <ul class="footer-links">
+                <li><a href="javascript:void(0)" (click)="navigateToTop('/privacy-policy')">Privacidad (RGPD/HIPAA/AI Act)</a></li>  
+                <li><a href="javascript:;" (click)="openModalCookies()" *ngIf="!isCookiesPage">Cookies</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Column 4: Contact Content -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="footer-column">
+
+              <!-- Contact Button -->
+              <div class="contact-section mb-3">
+                <button class="contact-btn" (click)="openSupport(contentSubs)">
+                  <i class="fas fa-envelope me-2"></i>
+                  <span>{{'menu.Contact us' | translate }}</span> 
+                </button>
+              </div>
+
+              <!-- Subscribe Button -->
+              <div class="subscribe-section mb-4">
+                <button class="subscribe-btn" (click)="openSubscribe(subscribeModal)">
+                  <i class="fas fa-bell me-2"></i>
+                  <span>Actualizaciones</span>
+                </button>
+              </div>
+
+              <!-- Foundation Info -->
+              <div class="foundation-info">
+                <p class="foundation-text mb-2">
+                  {{'land.Made with love by' | translate }}       
+                </p>
+                <a [href]="brandingService.getFoundationLink()" target="_blank" class="foundation-link">
+                  <img [src]="brandingService.getFooterLogo()" 
+                       alt="Foundation logo" 
+                       class="foundation-logo mb-2">
+                </a>
+
+                <!-- Social Icons -->
+                <div class="social-icons">
+                  <a href="https://github.com/foundation29org" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/company/foundation29/" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a href="https://x.com/foundation29feb" target="_blank" class="social-link">
+                    <i class="fab fa-x-twitter"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-      <div class="footer-links-wrapper row margin-0 center-elements mb-footer-mobile">
-        <div class="col-lg-12">
-          <div class="row footer-links-row">
-            <div [ngClass]="(!isHomePage && !isResultPage)?'col-md-6':'col-md-4'" *ngIf="!isPolicyPage">
-              <p>
-                <a href="javascript:;" class="underline" (click)="openModalPolicy()">
-                  <span>{{'menu.Privacy Policy' | translate }}</span>
-                </a>
-              </p>
-            </div>
-            <div  class="col-md-4" *ngIf="isHomePage || isResultPage">
-              <p>
-                <a href="javascript:;" class="underline" (click)="openSupport(contentSubs)">
-                  <span>{{'land.Subscribe or send us a message' | translate }}</span>
-                </a>
-              </p>
-            </div>
-            <div [ngClass]="(!isHomePage && !isResultPage)?'col-md-6':'col-md-4'" *ngIf="!isCookiesPage">
-              <p>
-                <a href="javascript:;" class="underline" (click)="openModalCookies()">
-                  <span>{{'cookies.title' | translate }}</span>
-                </a>
-              </p>
-            </div>
+      
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <p class="copyright-text">
+              &copy; {{ currentYear }} Foundation 29. All rights reserved.
+            </p>
+          </div>
+          <div class="col-md-6 text-end">
+            <p class="powered-text">
+              Powered by AI for Good
+            </p>
           </div>
         </div>
       </div>
+      
     </div>
+  </div>
 </footer>
 <ng-template #contentSubs let-c="close" let-d="dismiss">
   <a id="initpopup" class="anchorSteps"></a>
   <div class="modal-header">
     <h4 class="modal-title">{{brandingService.getSupportText()}}</h4>
-    <span type="button" class="btn-close" aria-label="Close" (click)="closeSupport()">
-    </span>
   </div>
   <div class="modal-body">
     <form class="form" #f="ngForm">
       <div class="form-group">
         <span class="mb-0">{{'generics.Name' | translate }} *</span>
         <div>
-                     <input class="form-control" type="text" id="userName" name="userName" placeholder="{{'generics.Name' | translate }}" ngModel required #userNameModel="ngModel" autocomplete="name" [(ngModel)]="userName">
+          <input class="form-control" type="text" id="userName" name="userName" placeholder="{{'generics.Name' | translate }}" ngModel required #userNameModel="ngModel" autocomplete="name" [(ngModel)]="userName">
           <small class="danger" *ngIf="!userNameModel.valid && showErrorForm">{{'generics.required' | translate }}</small>
         </div>
       </div>
       <div class="form-group">
         <span class="mb-0">{{'generics.Email' | translate }} *</span>
         <div>
-                     <input class="form-control" type="email" id="Email" name="email" placeholder="{{'generics.Email' | translate }}" ngModel required #Email="ngModel" autocomplete="email" email [(ngModel)]="email">
+          <input class="form-control" type="email" id="Email" name="email" placeholder="{{'generics.Email' | translate }}" ngModel required #Email="ngModel" autocomplete="email" email [(ngModel)]="email">
           <small class="danger" *ngIf="!Email.valid && showErrorForm">{{'generics.entervalidemail' | translate }}</small>
         </div>
       </div>
       <div class="form-group">
-        <span>{{'support.Message' | translate }} ({{'generics.Optional' | translate }}):</span>
+        <span>{{'support.Message' | translate }} *</span>
         <div>
-          <textarea maxlength="2000" #autoajustable id="textarea1" type="text" name="msgfeedBack" class="autoajustable data-hj-allow form-control" style="width: 100%;" [(ngModel)]="msgfeedBack" (input)="autoResize($event)"></textarea>
+          <textarea maxlength="2000" #autoajustable id="textarea1" type="text" name="msgfeedBack" class="autoajustable data-hj-allow form-control" style="width: 100%;" ngModel required #messageModel="ngModel" [(ngModel)]="msgfeedBack" (input)="autoResize($event)"></textarea>
+          <small class="danger" *ngIf="!messageModel.valid && showErrorForm">El mensaje es requerido</small>
           <p class="float-end">{{ msgfeedBack.length }} / 2000</p>
         </div>
       </div>
-      <div class="">
-        <mat-checkbox
-            class="example-margin" name="terms3" ngModel #terms3="ngModel" id="terms3"  [(ngModel)]="checkSubscribe">
-            <span class="mat-checkbox-label" >{{'land.Email me' | translate }}</span>
-        </mat-checkbox>
+      <div class="checkboxes-container">
+        <div class="checkbox-item">
+          <mat-checkbox
+              name="terms3" ngModel #terms3="ngModel" id="terms3" [(ngModel)]="checkSubscribe">
+              {{'land.Email me' | translate }}
+          </mat-checkbox>
+        </div>
+        
+        <div class="checkbox-item">
+          <mat-checkbox
+              name="termscontrol" ngModel #terms="ngModel" id="termscontrol" required [(ngModel)]="acceptTerms">
+              {{'termsform.accept' | translate }} <a href="javascript:;" (click)="openModal(termsModal)">{{'termsform.terms' | translate }}</a>
+          </mat-checkbox>
+          <small class="danger d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>       
+        </div>
       </div>
-      <div class="form-group">
-        <mat-checkbox
-            class="example-margin" name="termscontrol" ngModel #terms="ngModel" id="termscontrol" required [(ngModel)]="acceptTerms">
-            <span class="mat-checkbox-label">{{'termsform.accept' | translate }} <a href="javascript:;" (click)="openModal(termsModal)">{{'termsform.terms' | translate }}</a></span>
-        </mat-checkbox>
-        <small class="danger d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
-      </div>
-      <div *ngIf="!sending" class="mt-2 col-md-12 center-elements">
-        <div *ngIf="f.valid;then formValid else formError"></div>
-        <button class="btn btn-secondary ms-1" type="button" (click)="closeSupport()">{{'generics.Cancel' | translate }}</button>
-        <ng-template #formValid><button class="btn btn-info me-1" (click)="onSubmitRevolution();"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
-        <ng-template #formError><button class="btn btn-info me-1" type="button" (click)="submitInvalidForm()"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
+      <div *ngIf="!sending" class="button-group">
+        <button class="btn btn-cancel" type="button" (click)="closeSupport()">
+          {{'generics.Cancel' | translate }}
+        </button>
+        <button class="btn btn-submit" 
+                [disabled]="!f.valid" 
+                (click)="f.valid ? onSubmitRevolution() : submitInvalidForm()">
+          <strong>{{'generics.Send' | translate }}</strong>       
+        </button>
       </div>
       <div class="form-actions col-md-12 center-elements" *ngIf="sending">
           <span class=""><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
@@ -95,5 +180,65 @@
 </ng-template>
 
 <ng-template #termsModal let-c="close" let-d="dismiss">
-  <app-termsform (termsAccepted)="onTermsAccepted()"></app-termsform>
+  <div class="terms-wrapper">
+    <button type="button" class="close-terms-btn" (click)="c()" aria-label="Close">
+      ×
+    </button>
+    <app-termsform (termsAccepted)="onTermsAcceptedAndClose(c)"></app-termsform>
+  </div>
+</ng-template>
+
+<!-- Subscribe Modal Template -->
+<ng-template #subscribeModal let-c="close" let-d="dismiss">       
+  <div class="modal-header">
+    <h4 class="modal-title">Recibir actualizaciones</h4>
+  </div>
+  <div class="modal-body">
+    <p class="subscribe-description">
+      Suscríbete para recibir actualizaciones sobre nuevas funcionalidades, casos de éxito y avances en diagnóstico médico asistido por IA.
+    </p>
+    
+    <form class="form" #subscribeForm="ngForm">
+      <div class="form-group">
+        <span class="mb-0">Nombre *</span>
+        <div>
+          <input class="form-control" type="text" id="subscribeName" name="subscribeName" placeholder="Tu nombre" ngModel required #subscribeNameModel="ngModel" [(ngModel)]="subscribeUserName">       
+          <small class="danger" *ngIf="!subscribeNameModel.valid && showSubscribeErrorForm">Campo requerido</small>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <span class="mb-0">Correo electrónico *</span>
+        <div>
+          <input class="form-control" type="email" id="subscribeEmail" name="subscribeEmail" placeholder="Tu correo electrónico" ngModel required #subscribeEmailModel="ngModel" email [(ngModel)]="subscribeEmail">
+          <small class="danger" *ngIf="!subscribeEmailModel.valid && showSubscribeErrorForm">Correo electrónico válido requerido</small>
+        </div>
+      </div>
+      
+      <div class="checkboxes-container">
+        <div class="checkbox-item">
+          <mat-checkbox
+              name="subscribeTermsControl" ngModel #subscribeTerms="ngModel" id="subscribeTermsControl" required [(ngModel)]="subscribeAcceptTerms">
+              Acepto los <a href="javascript:;" (click)="openModal(termsModal)">términos de uso</a>
+          </mat-checkbox>
+          <small class="danger d-block" *ngIf="!subscribeTerms.valid && showSubscribeErrorForm">Debes aceptar los términos</small>   
+        </div>
+      </div>
+      
+      <div *ngIf="!subscribeSending" class="button-group">        
+        <button class="btn btn-cancel" type="button" (click)="closeSubscribe()">
+          Cancelar
+        </button>
+        <button class="btn btn-submit" 
+                [disabled]="!subscribeForm.valid" 
+                (click)="subscribeForm.valid ? onSubmitSubscription() : submitInvalidSubscribeForm()">
+          <strong>Suscribirme</strong>
+        </button>
+      </div>
+      
+      <div class="form-actions" *ngIf="subscribeSending">
+        <span class=""><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
+      </div>
+    </form>
+  </div>
 </ng-template>

@@ -1,11 +1,12 @@
 <a id="initpopup" class="anchorSteps"></a>
 <div *ngIf="!isDirectRoute()" class="modal-header">
+  <h4 class="modal-title">{{'cookies.title' | translate }}</h4>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close('Close click')">
   </button>
 </div>
 <div class="row" [ngClass]="(!isDirectRoute())?'':'card mt-0'">
   <section [ngClass]="(!isDirectRoute())?'col-md-12':'offset-md-2 col-md-8'">
-    <div class="modal-header mt-2">
+    <div *ngIf="isDirectRoute()" class="modal-header mt-2">
       <h4 class="modal-title">{{'cookies.title' | translate }}</h4>
     </div>
   <div class="modal-body">

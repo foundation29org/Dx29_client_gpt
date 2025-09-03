@@ -1,0 +1,399 @@
+// Dark and red color scheme - same as about-us
+$dark-red: #8B0000;
+$medium-red: #B22222;
+$dark-gray: #2C2C2C;
+$light-gray: #F8F9FA;
+$white: #FFFFFF;
+
+.colaboracion-page-container {
+  min-height: 100vh;
+}
+
+// Hero Section
+.hero-section {
+  background: linear-gradient(135deg, $dark-gray 0%, #1a1a1a 100%);
+  color: $white;
+  padding: 6rem 0 4rem;
+  margin-bottom: 0;
+  
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: $white;
+    text-align: center;
+    
+    @media (max-width: 768px) {
+      font-size: 2.2rem;
+    }
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    color: #E0E0E0;
+    line-height: 1.6;
+  }
+}
+
+// Main Content
+.main-content {
+  background-color: $white;
+  padding: 4rem 0;
+}
+
+.content-section {
+  margin-bottom: 4rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  h1, h2, h3, h4 {
+    color: $dark-gray;
+    margin-bottom: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    border-bottom: 3px solid $dark-red;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+  }
+  
+  p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #444;
+    font-size: 1.1rem;
+  }
+  
+  .intro-text {
+    font-size: 1.2rem;
+    color: $dark-gray;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    
+    .contact-link {
+      color: $dark-red;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        color: $medium-red;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Partners Section
+.partners-logos {
+  margin-top: 2rem;
+  
+  .partner-logo {
+    max-height: 80px;
+    max-width: 200px;
+    filter: grayscale(20%);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+  }
+  
+  h4 {
+    color: $dark-gray;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+// Sponsors Section
+.sponsors-grid {
+  margin-top: 2rem;
+}
+
+.sponsor-card {
+  background: $white;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  padding: 2rem;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(139, 0, 0, 0.1);
+    border-color: $dark-red;
+  }
+  
+  .sponsor-logo {
+    max-width: 100%;
+    max-height: 60px;
+    filter: grayscale(30%);
+    transition: all 0.3s ease;
+  }
+  
+  &:hover .sponsor-logo {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+  }
+}
+
+// Implementation Cards
+.implementation-card {
+  background: $white;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 20px rgba(139, 0, 0, 0.12);
+    border-color: $dark-red;
+  }
+  
+  .implementation-logo {
+    max-width: 100px;
+    max-height: 60px;
+    object-fit: contain;
+  }
+  
+  .implementation-period {
+    color: $dark-gray;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .implementation-details {
+    background: $light-gray;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    
+    .detail-item {
+      text-align: center;
+      
+      strong {
+        color: $dark-red;
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+  
+  .news-links, .info-note {
+    p {
+      margin-bottom: 0.5rem;
+      
+      strong {
+        color: $dark-gray;
+      }
+    }
+    
+    ul {
+      margin: 0;
+      padding-left: 1.5rem;
+      
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+// Collaboration Content
+.collaboration-content {
+  margin-top: 2rem;
+  
+  h3 {
+    color: $dark-gray;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 2.5rem 0 1rem 1.5rem;
+    border-bottom: 2px solid rgba(139, 0, 0, 0.2);
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    
+    &:first-child {
+      margin-top: 1.5rem;
+    }
+    
+    i {
+      color: $dark-red;
+      margin-right: 0.75rem;
+      font-size: 1.2rem;
+      width: 1.5rem;
+      text-align: center;
+    }
+  }
+  
+  p {
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    margin-left: 1.5rem;
+    color: #444;
+    font-size: 1.05rem;
+    text-align: justify;
+  }
+}
+
+// Final Contact Section
+.contact-section-final {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(139, 0, 0, 0.2);
+  
+  p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: $dark-gray;
+    text-align: justify;
+    
+    .contact-link {
+      color: $dark-red;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        color: $medium-red;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Additional intro text styling (for consistency)
+.content-section .intro-text {
+  p {
+    font-size: 1.2rem;
+    color: $dark-gray;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    text-align: justify;
+    
+    .contact-link {
+      color: $dark-red;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        color: $medium-red;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 4rem 0 3rem;
+    
+    .hero-title {
+      font-size: 2.2rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.1rem;
+    }
+  }
+  
+  .main-content {
+    padding: 3rem 0;
+  }
+  
+  .content-section {
+    margin-bottom: 3rem;
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .partners-logos {
+    .partner-logo {
+      max-height: 60px;
+      max-width: 150px;
+    }
+  }
+  
+  .sponsor-card {
+    height: 100px;
+    padding: 1.5rem;
+    
+    .sponsor-logo {
+      max-height: 50px;
+    }
+  }
+  
+  .collaboration-content {
+    h3 {
+      font-size: 1.2rem;
+      margin: 2rem 0 0.75rem 0;
+    }
+    
+    p {
+      font-size: 1rem;
+      text-align: left;
+    }
+  }
+  
+  .contact-section-final {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    
+    p {
+      font-size: 1rem;
+      text-align: left;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section {
+    .hero-title {
+      font-size: 1.8rem;
+    }
+  }
+  
+  .sponsor-card {
+    height: 80px;
+    padding: 1rem;
+    
+    .sponsor-logo {
+      max-height: 40px;
+    }
+  }
+  
+  .collaboration-content {
+    h3 {
+      font-size: 1.1rem;
+    }
+    
+    p {
+      font-size: 0.95rem;
+    }
+  }
+}
+

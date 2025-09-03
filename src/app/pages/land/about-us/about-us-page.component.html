@@ -1,532 +1,393 @@
-<div class="p-2 white about-us-background" 
-     [ngStyle]="getAboutUsStyles()">
-  <div class="col-sm-12 offset-lg-2 col-lg-8">
-    <div class="card-body" style="max-width: 1200px;">
-      <div class="row m-0">
-
-        <!-- Tabs Navigation -->
-        <div class="tabs-container mt-4">
-          <div class="tabs-header">
-            <button 
-              class="tab-button" 
-              [class.active]="activeTab === 1" 
-              (click)="setActiveTab(1)">
-              {{'land.aboutUs.P1_Title' | translate }}
+<div class="product-page-container">
+  
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+          <h1 class="hero-title">DxGPT: Inteligencia Aumentada para la Confianza Diagnóstica</h1>
+          <p class="hero-subtitle">Transforme la incertidumbre clínica en claridad.
+            DxGPT es su copiloto diagnóstico: estructure el razonamiento, reduzca la carga cognitiva y minimice sesgos en segundos, incluso en casos complejos o raros.</p>
+          
+          <div class="hero-buttons">
+            <button class="btn btn-primary btn-lg me-3" (click)="goHome()">
+              <i class="fas fa-play me-2"></i>Probar DxGPT
             </button>
-            <button 
-              class="tab-button" 
-              [class.active]="activeTab === 2" 
-              (click)="setActiveTab(2)">
-              {{'land.aboutUs.P2_Title' | translate }}
-            </button>
-            <button 
-              class="tab-button" 
-              [class.active]="activeTab === 3" 
-              (click)="setActiveTab(3)">
-              {{'land.aboutUs.P3_Title' | translate }}
+            <button class="btn btn-outline-light btn-lg" (click)="scrollToBenchmarking()">
+              <i class="fas fa-chart-line me-2"></i>Explorar nuestra evidencia científica
             </button>
           </div>
 
-          <!-- Tab Content -->
-          <div class="tab-content">
+          <!-- Feature Pills -->
+          <div class="feature-pills">
+            <div class="feature-pill">
+              <div class="feature-icon">
+                <i class="fas fa-clipboard-list"></i>
+              </div>
+              <span class="feature-text">Diagnóstico diferencial estructurado</span>
+            </div>
             
-            <!-- Tab 1: Información General -->
-            <div class="tab-panel" *ngIf="activeTab === 1">
-              <div class="summary">
-                <p>{{'land.aboutUs.P1_Summary_P1' | translate }}</p>
+            <div class="feature-pill">
+              <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
               </div>
-
-              <!-- Section 1: El Desafío del Diagnóstico Clínico -->
-              <div class="section-container">
-                <div class="section-header" (click)="toggleSection('P1S1')">
-                  <h3>{{'land.aboutUs.P1.S1.T' | translate }}</h3>
-                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P1S1']"></i>
-                </div>
-                <div class="section-content" [class.expanded]="expandedSections['P1S1']">
-                  
-                  <!-- Question 1 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P1S1B1')">
-                      <h4>{{'land.aboutUs.P1.S1.B1.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P1S1B1']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P1S1B1']">
-                      <p class="intro-text">{{'land.aboutUs.P1.S1.B1.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 2 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P1S1B2')">
-                      <h4>{{'land.aboutUs.P1.S1.B2.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P1S1B2']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P1S1B2']">
-                      <p class="intro-text">{{'land.aboutUs.P1.S1.B2.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- Section 2: Por qué DxGPT y no una IA Generalista -->
-              <div class="section-container">
-                <div class="section-header" (click)="toggleSection('P1S2')">
-                  <h3>{{'land.aboutUs.P1.S2.T' | translate }}</h3>
-                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P1S2']"></i>
-                </div>
-                <div class="section-content" [class.expanded]="expandedSections['P1S2']">
-                  
-                  <!-- Question 1 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P1S2B1')">
-                      <h4>{{'land.aboutUs.P1.S2.B1.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P1S2B1']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P1S2B1']">
-                      <p class="intro-text">{{'land.aboutUs.P1.S2.B1.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 2 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P1S2B2')">
-                      <h4>{{'land.aboutUs.P1.S2.B2.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P1S2B2']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P1S2B2']">
-                      <p class="intro-text">{{'land.aboutUs.P1.S2.B2.A_P1' | translate }}</p>
-                      <ul class="intro-text">
-                        <li>{{'land.aboutUs.P1.S2.B2.A_L1.I1' | translate }}</li>
-                        <li>{{'land.aboutUs.P1.S2.B2.A_L1.I2' | translate }}</li>
-                        <li>{{'land.aboutUs.P1.S2.B2.A_L1.I3' | translate }}</li>
-                        <li>{{'land.aboutUs.P1.S2.B2.A_L1.I4' | translate }}</li>
-                        <li>{{'land.aboutUs.P1.S2.B2.A_L1.I5' | translate }}</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <!-- Question 3 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P1S2B3')">
-                      <h4>{{'land.aboutUs.P1.S2.B3.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P1S2B3']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P1S2B3']">
-                      <p class="intro-text">{{'land.aboutUs.P1.S2.B3.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- Section 3: Impacto Real -->
-              <div class="section-container">
-                <div class="section-header" (click)="toggleSection('P1S3')">
-                  <h3>{{'land.aboutUs.P1.S3.T' | translate }}</h3>
-                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P1S3']"></i>
-                </div>
-                <div class="section-content" [class.expanded]="expandedSections['P1S3']">
-                  <p class="intro-text">{{'land.aboutUs.P1.S3.Intro_P1' | translate }}</p>
-                  
-                  <!-- SERMAS -->
-                  <div class="implementation-block">
-                    <h4>{{'land.aboutUs.P1.S3.B1.T' | translate }}</h4>
-                    <div class="row align-items-center">
-                      <div class="col-md-4 text-center">
-                        <img src="assets/img/home/sermas.webp" alt="SERMAS logo" style="max-width: 100px;">
-                      </div>
-                      <div class="col-md-8">
-                        <p class="intro-text">{{'land.aboutUs.P1.S3.B1.Content_P1' | translate }}</p>
-                        <p>
-                          <strong>Noticia relacionada:</strong>
-                          <a href="https://news.microsoft.com/es-es/2023/09/15/el-servicio-madrileno-de-salud-pionero-en-la-aplicacion-de-inteligencia-artificial-generativa-para-la-mejora-del-diagnostico-en-pacientes-con-enfermedades-raras/" target="_blank" class="white text-decoration-underline">
-                            {{'land.aboutUs.P1.S3.B1.RelatedLink1' | translate }}
-                          </a>
-                        </p>
-                        <p>
-                          <strong>Noticia relacionada:</strong>
-                          <a href="https://www.comunidad.madrid/noticias/2025/01/12/comunidad-madrid-posibilita-acceso-6000-medicos-atencion-primaria-ia-diagnostico-enfermedades-raras" target="_blank" class="white text-decoration-underline">
-                            {{'land.aboutUs.P1.S3.B1.RelatedLink2' | translate }}
-                          </a>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Servicio Aragonés de Salud -->
-                  <div class="implementation-block">
-                    <h4>{{'land.aboutUs.P1.S3.B3.T' | translate }}</h4>
-                    <div class="row align-items-center">
-                      <div class="col-md-4 text-center">
-                        <img src="assets/img/tenants/aragon/logo.webp" alt="Servicio Aragonés de Salud logo">
-                      </div>
-                      <div class="col-md-8">
-                        <p class="intro-text">{{'land.aboutUs.P1.S3.B3.Content_P1' | translate }}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- CatSalut -->
-                  <div class="implementation-block">
-                    <h4>{{'land.aboutUs.P1.S3.B2.T' | translate }}</h4>
-                    <div class="row align-items-center">
-                      <div class="col-md-4 text-center">
-                        <img src="assets/img/home/logo-catsalut.webp" alt="CatSalut logo" style="max-width: 100px;">
-                      </div>
-                      <div class="col-md-8">
-                        <p class="intro-text">{{'land.aboutUs.P1.S3.B2.Content_P1' | translate }}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  
-
-                </div>
-              </div>
-
+              <span class="feature-text">Seguridad y validación clínica</span>
             </div>
-
-            <!-- Tab 2: Nuestro Benchmark -->
-            <div class="tab-panel" *ngIf="activeTab === 2">
-              <div class="summary">
-                <p>{{'land.aboutUs.P2_Summary_P1' | translate }}</p>
+            
+            <div class="feature-pill">
+              <div class="feature-icon">
+                <i class="fas fa-hospital"></i>
               </div>
-
-              <!-- Section 1: La Creación de DxGPT-bench -->
-              <div class="section-container">
-                <div class="section-header" (click)="toggleSection('P2S1')">
-                  <h3>{{'land.aboutUs.P2.S1.T' | translate }}</h3>
-                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P2S1']"></i>
-                </div>
-                <div class="section-content" [class.expanded]="expandedSections['P2S1']">
-                  
-                  <!-- Question 1 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P2S1B1')">
-                      <h4>{{'land.aboutUs.P2.S1.B1.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S1B1']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P2S1B1']">
-                      <p class="intro-text">{{'land.aboutUs.P2.S1.B1.A_P1' | translate }}</p>
-                      <ul class="intro-text">
-                        <li>{{'land.aboutUs.P2.S1.B1.A_L1.I1' | translate }}</li>
-                        <li>{{'land.aboutUs.P2.S1.B1.A_L1.I2' | translate }}</li>
-                        <li>{{'land.aboutUs.P2.S1.B1.A_L1.I3' | translate }}</li>
-                        <li>{{'land.aboutUs.P2.S1.B1.A_L1.I4' | translate }}</li>
-                      </ul>
-                      <div class="text-center mt-3">
-                        <img src="assets/img/home/bench-stats-1.png" alt="Benchmark statistics" class="img-fluid">
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Question 2 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P2S1B2')">
-                      <h4>{{'land.aboutUs.P2.S1.B2.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S1B2']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P2S1B2']">
-                      <p class="intro-text">{{'land.aboutUs.P2.S1.B2.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 3 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P2S1B3')">
-                      <h4>{{'land.aboutUs.P2.S1.B3.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S1B3']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P2S1B3']">
-                      <p class="intro-text">{{'land.aboutUs.P2.S1.B3.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- Section 2: Validación Estadística -->
-              <div class="section-container">
-                <div class="section-header" (click)="toggleSection('P2S2')">
-                  <h3>{{'land.aboutUs.P2.S2.T' | translate }}</h3>
-                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P2S2']"></i>
-                </div>
-                <div class="section-content" [class.expanded]="expandedSections['P2S2']">
-                  
-                  <!-- Question 1 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P2S2B1')">
-                      <h4>{{'land.aboutUs.P2.S2.B1.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S2B1']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P2S2B1']">
-                      <p class="intro-text">{{'land.aboutUs.P2.S2.B1.A_P1' | translate }}</p>
-                      <div class="text-center mt-3">
-                        <img src="assets/img/home/bench-stats-2.jpg" alt="Benchmark statistics" class="img-fluid">
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Question 2 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P2S2B2')">
-                      <h4>{{'land.aboutUs.P2.S2.B2.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S2B2']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P2S2B2']">
-                      <p class="intro-text">{{'land.aboutUs.P2.S2.B2.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 3 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P2S2B3')">
-                      <h4>{{'land.aboutUs.P2.S2.B3.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S2B3']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P2S2B3']">
-                      <p class="intro-text">{{'land.aboutUs.P2.S2.B3.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- Section 3: Proceso de Evaluación -->
-              <div class="section-container">
-                <div class="section-header" (click)="toggleSection('P2S3')">
-                  <h3>{{'land.aboutUs.P2.S3.T' | translate }}</h3>
-                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P2S3']"></i>
-                </div>
-                <div class="section-content" [class.expanded]="expandedSections['P2S3']">
-                  
-                  <!-- Question 1 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P2S3B1')">
-                      <h4>{{'land.aboutUs.P2.S3.B1.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S3B1']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P2S3B1']">
-                      <p class="intro-text">{{'land.aboutUs.P2.S3.B1.A_P1' | translate }}</p>
-                      <ul class="intro-text">
-                        <li>{{'land.aboutUs.P2.S3.B1.A_L1.I1' | translate }}</li>
-                        <li>{{'land.aboutUs.P2.S3.B1.A_L1.I2' | translate }}</li>
-                        <li>{{'land.aboutUs.P2.S3.B1.A_L1.I3' | translate }}</li>
-                        <li>{{'land.aboutUs.P2.S3.B1.A_L1.I4' | translate }}</li>
-                      </ul>
-                      <p class="intro-text">{{'land.aboutUs.P2.S3.B1.A_P2' | translate }}</p>
-                      <div class="text-center mt-3">
-                        <img src="assets/img/home/bench-stats-3.jpg" alt="Benchmark evaluation process" class="img-fluid">
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Question 2 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P2S3B2')">
-                      <h4>{{'land.aboutUs.P2.S3.B2.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P2S3B2']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P2S3B2']">
-                      <p class="intro-text">
-                        {{'land.aboutUs.P2.S3.B2.A_P1' | translate }}
-                        <a href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1" target="_blank" class="white text-decoration-underline">
-                          {{'land.aboutUs.P2.S3.B2.A_P2' | translate }}
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
+              <span class="feature-text">Integración en sistemas de salud</span>
             </div>
-
-            <!-- Tab 3: Quiénes Somos -->
-            <div class="tab-panel" *ngIf="activeTab === 3">
-              <div class="summary">
-                
-                <!-- Foundation 29 intro and actions -->
-                <div class="foundation-intro">
-                  <p class="mb-4">{{'land.aboutUs.P3_Summary_P1' | translate }}</p>
-                  
-                  <div class="row justify-content-center">
-                    <div class="col-md-6 mt-4 d-flex flex-column align-items-center">
-                      <a href="https://foundation29.org" target="_blank" class="mb-3">
-                        <img class="logo-f29" alt="logo Fundación 29" src='assets/img/logo-f29-white.webp' style="max-width: 250px; max-height: 150px;">
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <p class="mb-4 mt-4">{{'land.aboutUs.P3_Summary_P2' | translate }}</p>
-              </div>
-
-              <!-- Section 1: Nuestra Misión -->
-              <div class="section-container">
-                <div class="section-header" (click)="toggleSection('P3S1')">
-                  <h3>{{'land.aboutUs.P3.S1.T' | translate }}</h3>
-                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P3S1']"></i>
-                </div>
-                <div class="section-content" [class.expanded]="expandedSections['P3S1']">
-                  
-                  <!-- Question 1 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P3S1B1')">
-                      <h4>{{'land.aboutUs.P3.S1.B1.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S1B1']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P3S1B1']">
-                      <p class="intro-text">{{'land.aboutUs.P3.S1.B1.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 2 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P3S1B2')">
-                      <h4>{{'land.aboutUs.P3.S1.B2.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S1B2']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P3S1B2']">
-                      <p class="intro-text" [innerHTML]="'land.aboutUs.P3.S1.B2.A_P1' | translate "></p>
-                    </div>
-                  </div>
-
-                  <!-- Question 3 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P3S1B3')">
-                      <h4>{{'land.aboutUs.P3.S1.B3.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S1B3']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P3S1B3']">
-                      <p class="intro-text">{{'land.aboutUs.P3.S1.B3.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 4 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P3S1B4')">
-                      <h4>{{'land.aboutUs.P3.S1.B4.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S1B4']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P3S1B4']">
-                      <p class="intro-text">{{'land.aboutUs.P3.S1.B4.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- Section 2: Colaboradores y Apoyos -->
-              <div class="section-container">
-                <div class="section-header" (click)="toggleSection('P3S2')">
-                  <h3>{{'land.aboutUs.P3.S2.T' | translate }}</h3>
-                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P3S2']"></i>
-                </div>
-                <div class="section-content" [class.expanded]="expandedSections['P3S2']">
-                  
-                  <!-- Question 1 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P3S2B1')">
-                      <h4>{{'land.aboutUs.P3.S2.B1.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S2B1']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P3S2B1']">
-                      <p class="intro-text">{{'land.aboutUs.P3.S2.B1.A_P1' | translate }}</p>
-                      <div class="text-center mt-3">
-                        <img src="assets/img/home/microsoft.webp" alt="Microsoft logo" style="max-height: 130px !important;">
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Question 2 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P3S2B2')">
-                      <h4>{{'land.aboutUs.P3.S2.B2.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S2B2']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P3S2B2']">
-                      <p class="intro-text">{{'land.aboutUs.P3.S2.B2.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- Section 3: Únete a Nuestra Misión -->
-              <div class="section-container">
-                <div class="section-header" (click)="toggleSection('P3S3')">
-                  <h3>{{'land.aboutUs.P3.S3.T' | translate }}</h3>
-                  <i class="fa fa-chevron-down" [class.rotated]="expandedSections['P3S3']"></i>
-                </div>
-                <div class="section-content" [class.expanded]="expandedSections['P3S3']">
-                  
-                  <!-- Question 1 -->
-                  <div class="question-container">
-                    <div class="question-header" (click)="toggleQuestion('P3S3B1')">
-                      <h4>{{'land.aboutUs.P3.S3.B1.Q' | translate }}</h4>
-                      <i class="fa fa-chevron-down" [class.rotated]="expandedQuestions['P3S3B1']"></i>
-                    </div>
-                    <div class="question-content" [class.expanded]="expandedQuestions['P3S3B1']">
-                      <p class="intro-text">{{'land.aboutUs.P3.S3.B1.A_P1' | translate }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
           </div>
         </div>
-
-      </div>
-    </div>
-</div>
-</div>
-<section style="padding-bottom: 3rem !important;padding-top: 3rem !important;">
-  <div class="col-sm-12 offset-lg-2 col-lg-8">
-    <div class="card-body" style="max-width: 1200px;">
-      
-      <div class="row m-0">
-        <h2 class="primary card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.t8' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p8' | translate }}</p>
-        </span>
-        <div class="row center-elements pad-logos">
-          <div class="col-12 col-sm-4 mb-3 p-4">
-            <img class="img-responsive" alt="logo global commission" src='assets/img/home/header-logo.webp'>
-          </div>
-          <div class="col-12 col-sm-4 mb-3 p-4">
-            <img class="img-responsive" alt="logo takeda" src='assets/img/home/takeda.webp'>
-          </div>
-          <div class="col-12 col-sm-4 mb-3 p-4">
-            <img class="img-responsive" alt="logo sanofi" src='assets/img/home/sanofi.webp'>
-          </div>
-          <div class="col-12 col-sm-4 mb-3 p-4">
-            <img class="img-responsive" alt="logo ucb" src='assets/img/home/ucb.webp'>
-          </div>
-          <div class="col-12 col-sm-4 mb-3 p-4">
-            <img class="img-responsive" alt="logo KyowaKirin" src='assets/img/home/KyowaKirin.webp'>
-          </div>
-          <div class="col-12 col-sm-4 mb-3 p-4">
-            <img class="img-responsive" alt="logo italfarmaco" src='assets/img/home/italfarmaco.webp'>
-          </div>
-        </div>
-        <h2 class="primary card-title pt-4 text-bold-500 mb-0">
-          {{'land.aboutUs.t9' | translate }}
-          <hr class="hr-custom mb-0">
-        </h2>
-        <span class="text-start row margin-left-0 p-2">
-          <p>{{'land.aboutUs.p9.1' | translate }}</p>
-        </span>
       </div>
     </div>
   </div>
-</section>
-<div class="white-checkbox">
-  <app-send-msg></app-send-msg>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          
+          <!-- Introduction -->
+          <div class="content-section">
+            <p class="intro-text">
+              DxGPT es una herramienta de inteligencia aumentada diseñada por y para el entorno clínico. A diferencia de las IAs de propósito general, no genera texto narrativo abierto, sino un análisis estructurado de cinco hipótesis diagnósticas, clasificadas y razonadas con síntomas a favor y en contra. Utilizamos modelos de lenguaje avanzados, como GPT-5 de OpenAI, dentro de un marco de control médico que garantiza relevancia, consistencia y seguridad en cada resultado. No sustituimos el juicio clínico: lo potenciamos. Le ofrecemos un análisis diferencial instantáneo que ahorra tiempo, neutraliza sesgos cognitivos y eleva la calidad del razonamiento clínico desde el primer momento.
+            </p>
+          </div>
+
+          <!-- Clinical Diagnosis Challenge -->
+          <div class="content-section">
+            <h2>El desafío del diagnóstico clínico</h2>
+            <p>
+              El diagnóstico, especialmente en enfermedades raras, es un laberinto de datos y síntomas que consume tiempo y genera incertidumbre. Con más de 10.000 enfermedades raras, la mayoría desconocidas para el profesional medio debido a su baja prevalencia, la familiaridad es un lujo imposible. DxGPT actúa como una potente  herramienta de descarga cognitiva, agilizando el análisis y ampliando el espectro de posibilidades para llegar antes a un diagnóstico acertado. En este contexto, la tecnología de apoyo ya no es una opción, sino una necesidad para la seguridad del paciente y la calidad asistencial. 
+            </p>
+          </div>
+
+          <!-- Why DxGPT -->
+          <div class="content-section">
+            <h2>¿Por qué DxGPT y no una IA de propósito general?</h2>
+            <p>
+              Las herramientas conversacionales como ChatGPT, Claude o Gemini son modelos de lenguaje de amplio espectro. En el contexto médico, esta flexibilidad es una debilidad fundamental. Su naturaleza no estructurada puede generar respuestas variables, incompletas o clínicamente irrelevantes, careciendo de los controles de seguridad indispensables en la toma de decisiones de alto riesgo.
+            </p>
+          </div>
+
+          <!-- Differentials Cards -->
+          <div class="content-section">
+            <h3>Diferenciales clave de DxGPT</h3>
+            <div class="row g-4">
+              
+              <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-list-check"></i>
+                  </div>
+                  <h4>Análisis estructurado y consistente</h4>
+                  <p>Mientras una IA generalista produce texto libre, DxGPT ofrece un análisis riguroso y reproducible de cinco hipótesis diagnósticas. Cada hipótesis incluye síntomas compatibles e incompatibles, un formato diseñado para desafiar sesgos como el de confirmación y disponibilidad. Nuestro control sobre la instrucción que recibe el modelo (el prompt) garantiza resultados consistentes, fiables y explicables.</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                  </div>
+                  <h4>Marco de control clínico</h4>
+                  <p>DxGPT opera dentro de un entorno de control diseñado para mitigar los riesgos inherentes a los grandes modelos de lenguaje (LLMs). Su arquitectura y sus resultados están supervisados por profesionales sanitarios para asegurar que las respuestas no solo sean técnicamente correctas, sino también clínicamente relevantes y seguras.</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-microscope"></i>
+                  </div>
+                  <h4>Especialización en enfermedades raras</h4>
+                  <p>DxGPT está concebido para incluir sistemáticamente las enfermedades raras en el diagnóstico diferencial, un área donde los sistemas generalistas y, a menudo, el razonamiento humano, pueden fallar. El sistema integra conocimiento especializado para detectar patrones atípicos y explorar hipótesis que de otro modo serían ignoradas, expandiendo el radar diagnóstico del clínico y mejorando las oportunidades de un diagnóstico temprano y preciso.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Hospital Implementation -->
+          <div class="content-section">
+            <h2>Implementación en proveedores sanitarios</h2>
+            <p>Cuando DxGPT se despliega en proveedores sanitarioshospitales, incluye capacidades ampliadas:</p>
+            
+            <ul class="feature-list">
+              <li><strong>Gestión del dato clínico</strong> (integración con sistemas de información hospitalaria).</li>
+              <li><strong>Recogida estructurada de datos</strong> (formatos estandarizados para análisis posteriores).</li>
+              <li><strong>Feedback clínico</strong> (profesionales aportan correcciones y observaciones).</li>
+              <li><strong>Exploración y mejora</strong> (ajuste continuo en práctica clínica real).</li>
+              <li><strong>Seguridad reforzada</strong> (protección de datos y control de uso alineados con la normativa sanitaria).</li>
+            </ul>
+          </div>
+
+          <!-- Clinical Benefits -->
+          <div class="content-section">
+            <h2>Beneficios clínicos de DxGPT</h2>
+            <div class="row g-4">
+              
+              <div class="col-md-6">
+                <div class="benefit-card">
+                  <div class="benefit-icon">
+                    <i class="fas fa-clock"></i>
+                  </div>
+                  <h4>Recupere tiempo para lo que más importa: el paciente</h4>
+                  <p>DxGPT automatiza la generación del diagnóstico diferencial, transformando minutos de búsqueda e incertidumbre en segundos de análisis estructurado. Esta eficiencia libera al profesional sanitario para centrarse en el juicio clínico, la comunicación con el paciente y la toma de decisiones.</p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="benefit-card">
+                  <div class="benefit-icon">
+                    <i class="fas fa-eye"></i>
+                  </div>
+                  <h4>Del caos de datos a la claridad diagnóstica</h4>
+                  <p>Presentamos la información en un formato limpio y estructurado, diseñado para el pensamiento clínico. Las hipótesis se muestran con síntomas a favor y en contra, permitiendo una evaluación rápida y una toma de decisiones más segura e informada.</p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="benefit-card">
+                  <div class="benefit-icon">
+                    <i class="fas fa-cogs"></i>
+                  </div>
+                  <h4>Una herramienta, no una aplicación</h4>
+                  <p>A diferencia de las IAs conversacionales, la interfaz de DxGPT está optimizada para una única función: apoyar el diagnóstico. Cada elemento está diseñado para guiar el razonamiento clínico de forma eficiente y segura, eliminando distracciones y centrándose en la utilidad práctica.</p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="benefit-card">
+                  <div class="benefit-icon">
+                    <i class="fas fa-brain"></i>
+                  </div>
+                  <h4>Un sistema de seguridad contra los atajos mentales</h4>
+                  <p>El diagnóstico clínico es vulnerable a sesgos cognitivos como el de disponibilidad o el de confirmación. DxGPT actúa como un contrapeso objetivo, presentando sistemáticamente un abanico de posibilidades basadas en la evidencia del caso, incluidas las enfermedades raras. Esto promueve una evaluación más exhaustiva y reduce el riesgo de errores diagnósticos, mejorando la seguridad del paciente.</p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="benefit-card">
+                  <div class="benefit-icon">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                  <h4>Estandarice la excelencia diagnóstica</h4>
+                  <p>DxGPT garantiza que cada caso se analiza con el mismo rigor metodológico, independientemente del profesional o del momento. Esta consistencia reduce la variabilidad en la calidad asistencial y establece un estándar de análisis elevado para todo el equipo. Nuestro rendimiento se valida continuamente frente a un exigente banco de casos clínicos para asegurar una fiabilidad constante.</p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="benefit-card">
+                  <div class="benefit-icon">
+                    <i class="fas fa-user-md"></i>
+                  </div>
+                  <h4>Creado en la práctica clínica, para la práctica clínica</h4>
+                  <p>DxGPT no es un producto de laboratorio. Ha sido desarrollado en un ciclo continuo de colaboración con médicos de primera línea, hospitales y sociedades científicas. Su diseño y funcionalidades responden a los desafíos reales del diagnóstico, garantizando que no solo es tecnológicamente avanzado, sino también clínicamente útil, relevante y fácil de integrar en el flujo de trabajo mental del profesional.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Commitment and Regulatory -->
+          <div class="content-section">
+            <h2>Compromiso y marco regulatorio</h2>
+            
+            <div class="regulatory-note mb-4">
+              <div class="d-flex align-items-start">
+                <div class="regulatory-icon me-3">
+                  <i class="fas fa-search"></i>
+                </div>
+                <div>
+                  <p><strong>DxGPT es una plataforma experimental en mejora continua.</strong></p>
+                  <p>Su objetivo es explorar las capacidades de la IA en el diagnóstico, entender sus limitaciones y mejorarla con la retroalimentación de los usuarios y la validación clínica rigurosa. Los nuevos hallazgos se comparten en abierto a través de <a href="https://github.com/foundation29org" target="_blank" class="external-link">GitHub</a> y <a href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1" target="_blank" class="external-link">MedRxiv</a>.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="regulatory-note">
+              <div class="d-flex align-items-start">
+                <div class="regulatory-icon me-3">
+                  <i class="fas fa-balance-scale"></i>
+                </div>
+                <div>
+                  <p><strong>DxGPT protege los datos clínicos con estándares europeos.</strong></p>
+                  <p>
+                    DxGPT garantiza la protección de los datos clínicos mediante anonimización estricta, sin almacenar información personal ni usarla para otros fines. Todo el procesamiento se realiza en centros de datos europeos bajo GDPR, asegurando<a href="#regulacion" class="external-link ms-2" (click)="$event.preventDefault(); scrollToRegulacion()">seguridad, privacidad y transparencia</a> en cada interacción.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Separator Line -->
+          <div class="content-separator">
+            <hr class="separator-line">
+          </div>
+
+          <!-- Evaluación Section -->
+          <div class="content-section" id="benchmarking">
+            <h2>Evaluación</h2>
+            
+            <h3>Nuestro compromiso con la evidencia: El marco de validación clínica</h3>
+            <p>
+              La confianza en una herramienta clínica no se otorga, se gana con evidencia rigurosa. En DxGPT, la validación no es un evento, sino un proceso continuo. Nuestro rendimiento fue evaluado inicialmente en una validación clínica independiente realizada por el Hospital Sant Joan de Déu, cuyos resultados, publicados en medRxiv, demostraron una precisión diagnóstica comparable a la de expertos clínicos.
+            </p>
+            <p>
+              Sobre esa base, hemos construido un Marco de validación constante, un ecosistema de evaluación diseñado para someter a DxGPT a los desafíos de la práctica médica real y garantizar que su fiabilidad evoluciona constantemente.
+            </p>
+
+            <h3>Un banco de pruebas diseñado para desafiar al sistema</h3>
+            <p>
+              No validamos DxGPT con casos de libro de texto. Nuestro banco de pruebas contiene más de 1.000 casos clínicos reales, seleccionados por su complejidad: descripciones extensas, síntomas superpuestos y diagnósticos diferenciales no triviales. Estos casos provienen de fuentes de élite para garantizar la diversidad y el realismo:
+            </p>
+            <ul>
+              <li><strong>Bancos de preguntas clínicas de alto nivel:</strong> MedBullets y MedQA USMLE.</li>
+              <li><strong>Publicaciones científicas de enfermedades raras:</strong> RAMEDIS y Ramebench.</li>
+              <li><strong>Casos reales de urgencias hospitalarias:</strong> HM Hospitales y Hospital de Torrejón.</li>
+              <li><strong>Colaboraciones especializadas:</strong> Casos supervisados de enfermedades raras.</li>
+            </ul>
+            <p>
+              Este exigente banco de pruebas asegura que evaluamos a DxGPT en el entorno más desafiante posible, reflejando la complejidad a la que se enfrentan los profesionales sanitarios cada día.
+            </p>
+
+            <h3>La ciencia de preguntar: El secreto de la consistencia</h3>
+            <p>
+              Nuestra investigación ha revelado un factor crítico: la calidad de la respuesta de un LLM depende decisivamente de la calidad de la pregunta. Por ello, hemos desarrollado y validado más de 30 formulaciones de prompts (instrucciones) para encontrar la estructura óptima que activa un razonamiento clínico efectivo y consistente.
+            </p>
+            <p>
+              Este control experto sobre la formulación es lo que diferencia a DxGPT de una IA generalista. No dejamos la calidad del resultado al azar; hemos diseñado un proceso que garantiza que, ante el mismo caso, el sistema siempre aplique el mismo rigor analítico, produciendo resultados fiables y reproducibles.
+            </p>
+           
+            <div class="chart-container text-center">
+              <img src="assets/bench29/prompt_battle_by_prompt_labeled.jpg" alt="Benchmark de precisión diagnóstica" class="benchmark-chart">
+              <p class="chart-description">
+                El gráfico ilustra cómo nuestra optimización de la formulación (el salto de la familia 4o → o3) no solo incrementa la precisión (eje X), sino que también permite resolver casos de mayor complejidad (eje Y), demostrando un avance significativo en la capacidad de razonamiento clínico del sistema.
+              </p>
+            </div>
+
+            <h3>Una metodología de evaluación que piensa como un clínico</h3>
+            <p>
+              Medir la precisión va más allá de un simple "correcto" o "incorrecto". Nuestro proceso de evaluación en cascada de 3 niveles mide lo que realmente importa en la práctica clínica:
+            </p>
+            <ol>
+              <li><strong>Verificación Objetiva:</strong> Comparamos la hipótesis principal con códigos médicos estandarizados (SNOMED CT, CIE-10). Es nuestra línea de validación más estricta.</li>
+              <li><strong>Análisis de Contexto Clínico:</strong> Si no hay una coincidencia exacta, una IA experta evalúa si la respuesta es un sinónimo clínico válido (p. ej., "fallo renal agudo" vs. "insuficiencia renal aguda"), reconociendo aciertos que un análisis de texto simple ignoraría.</li>
+              <li><strong>Calidad de la Priorización:</strong> Esta es nuestra métrica más innovadora. No nos basta con que el diagnóstico correcto esté en la lista; medimos su posición promedio. Un diagnóstico correcto en la primera posición es infinitamente más útil que en la quinta. Esta métrica evalúa la capacidad de DxGPT para priorizar como un especialista, ofreciendo la máxima relevancia clínica en el menor tiempo posible.</li>
+            </ol>
+
+            <h3>¿Qué significa esto para el usuario?</h3>
+            <p>
+              Este riguroso proceso se traduce en beneficios tangibles para su práctica:
+            </p>
+            <ul>
+              <li><strong>Confianza en cada resultado:</strong> Sabe que la herramienta ha sido probada en escenarios complejos y realistas.</li>
+              <li><strong>Consistencia garantizada:</strong> La misma información clínica produce el mismo análisis estructurado, siempre.</li>
+              <li><strong>Relevancia clínica:</strong> Las hipótesis no solo son precisas, sino que están priorizadas para reflejar la urgencia y probabilidad clínica.</li>
+            </ul>
+            <p>
+              En definitiva, DxGPT no es solo un modelo avanzado; es una herramienta de apoyo clínico con un compromiso demostrable con la evidencia, la fiabilidad y la seguridad.
+            </p>
+
+          </div>
+
+          <!-- Separator Line -->
+          <div class="content-separator">
+            <hr class="separator-line">
+          </div>
+
+          <!-- Nuestro pacto de confianza y seguridad Section -->
+          <div class="content-section" id="regulacion">
+            <h2>Nuestro pacto de confianza y seguridad</h2>
+            
+            <p>
+              La confianza es la base de la medicina. En DxGPT, la protección de los datos clínicos y el cumplimiento normativo no son una ocurrencia tardía, sino el núcleo de nuestro diseño. Operamos con una transparencia radical para que profesionales y sistemas de salud puedan utilizar nuestra herramienta con total tranquilidad.
+            </p>
+
+            <h3>Cómo protegemos cada consulta: Un proceso de cero retención de información personal</h3>
+            <p>
+              Nuestro flujo de trabajo está diseñado para maximizar la utilidad clínica y minimizar a cero el riesgo de exposición de datos.
+            </p>
+            <ol>
+              <li><strong>Entrada de datos y anonimización automática:</strong> Antes de que cualquier información clínica sea procesada por el modelo de IA, nuestro sistema detecta y elimina automáticamente cualquier Información de Identificación Personal (PII). Nombres, direcciones o números de identificación son eliminados para garantizar que solo se procesan datos clínicos anónimos.</li>
+              <li><strong>Procesamiento en memoria:</strong> El análisis diagnóstico se realiza en tiempo real y en memoria. No almacenamos ningún dato clínico o personal del paciente en nuestros servidores.</li>
+              <li><strong>Prohibición de reentrenamiento:</strong> Los datos clínicos anónimos utilizados para una consulta nunca se utilizan para reentrenar o mejorar nuestros modelos de IA. Esto elimina el riesgo de aprendizaje inadvertido a partir de datos sensibles y garantiza la integridad de nuestro sistema.</li>
+              <li><strong>Cero huella:</strong> Una vez que se genera la respuesta, la información que permitiría identificar al paciente se elimina por completo. No queda ningún registro del caso clínico personal en nuestra plataforma.</li>
+            </ol>
+
+            <h3>Gobernanza de datos</h3>
+            <p>
+              La siguiente tabla resume nuestro compromiso con las mejores prácticas de seguridad y privacidad, diseñada para facilitar la evaluación por parte de los equipos de TI y cumplimiento normativo.
+            </p>
+            
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Característica / Política</th>
+                    <th scope="col">Compromiso de DxGPT</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Ubicación del Procesamiento de Datos</td>
+                    <td>Exclusivamente en centros de datos de la Unión Europea (Microsoft Azure).</td>
+                  </tr>
+                  <tr>
+                    <td>Almacenamiento de Datos de Pacientes</td>
+                    <td>Política de cero retención. No se almacena ninguna Información de Salud Protegida (PHI).</td>
+                  </tr>
+                  <tr>
+                    <td>Anonimización de Datos</td>
+                    <td>Automática y proactiva. La PII se identifica y elimina antes del procesamiento.</td>
+                  </tr>
+                  <tr>
+                    <td>Uso de datos para Entrenamiento</td>
+                    <td>Estrictamente prohibido. Los datos enviados por el usuario nunca se utilizan para entrenar modelos de IA.</td>
+                  </tr>
+                  <tr>
+                    <td>Cifrado de datos</td>
+                    <td>De extremo a extremo. Todos los datos se cifran en tránsito (TLS 1.2+) y en reposo.</td>
+                  </tr>
+                  <tr>
+                    <td>Cumplimiento principal</td>
+                    <td>RGPD (UE), HIPAA (EE. UU.), Ley de IA de la UE (Alineación en curso).</td>
+                  </tr>
+                  <tr>
+                    <td>Acuerdos con socios</td>
+                    <td>Acuerdos de Asociación Comercial (BAA) disponibles para socios institucionales.</td>
+                  </tr>
+                  <tr>
+                    <td>Registros de Auditoría</td>
+                    <td>La actividad del sistema se registra para monitorizar la seguridad e integridad (sin almacenar PHI).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Nuestro Marco Regulatorio</h3>
+            <p>
+              Contamos con una amplia experiencia en el complejo entorno regulatorio de la salud digital. DxGPT está diseñado para alinearse con los estándares más exigentes a nivel mundial:
+            </p>
+            <ul>
+              <li><strong>RGPD (Reglamento General de Protección de Datos):</strong> Cumplimos plenamente con los principios de legalidad, transparencia, minimización de datos y limitación de la finalidad. El procesamiento exclusivo en la UE garantiza el cumplimiento de las normativas de soberanía de datos.</li>
+              <li><strong>HIPAA (Ley de Portabilidad y Responsabilidad de Seguros Médicos):</strong> Nuestra arquitectura cumple con las salvaguardas técnicas, físicas y administrativas exigidas por la Regla de Seguridad de HIPAA, lo que nos permite firmar BAAs con entidades cubiertas en los Estados Unidos.</li>
+              <li><strong>Ley de IA de la UE:</strong> Estamos trabajando activamente para una alineación total con la Ley de IA de la Unión Europea. Colaboramos con expertos y autoridades reguladoras para garantizar que DxGPT cumpla con los más altos estándares de gestión de riesgos, gobernanza de datos, transparencia y robustez, posicionándonos a la vanguardia de la IA responsable en salud.</li>
+            </ul>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>

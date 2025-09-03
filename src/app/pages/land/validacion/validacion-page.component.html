@@ -1,0 +1,451 @@
+<!-- Hero Section -->
+<section class="validation-hero">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 text-center">
+        <h1>Validación y Calidad de DxGPT</h1>
+        <p class="subtitle">
+          Metodología rigurosa, evaluación transparente y resultados validados 
+          para garantizar la máxima calidad en el soporte diagnóstico.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Navigation Tabs -->
+<section class="section-tabs">
+  <div class="container">
+    <ul class="nav nav-tabs" id="validationTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="calidad-tab" data-bs-toggle="tab" data-bs-target="#calidad" 
+                type="button" role="tab" aria-controls="calidad" aria-selected="true">
+          Calidad
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="metodologia-tab" data-bs-toggle="tab" data-bs-target="#metodologia" 
+                type="button" role="tab" aria-controls="metodologia" aria-selected="false">
+          Metodologías
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="dataset-tab" data-bs-toggle="tab" data-bs-target="#dataset" 
+                type="button" role="tab" aria-controls="dataset" aria-selected="false">
+          Dataset
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="resultados-tab" data-bs-toggle="tab" data-bs-target="#resultados" 
+                type="button" role="tab" aria-controls="resultados" aria-selected="false">
+          Resultados
+        </button>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Tab Content -->
+<div class="tab-content" id="validationTabContent">
+  
+  <!-- Calidad Tab - TEXTO APROBADO -->
+  <div class="tab-pane fade show active calidad-section" id="calidad" role="tabpanel" aria-labelledby="calidad-tab">
+    <section class="content-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Sobre la Calidad de DxGPT</h2>
+            
+            <p class="intro-text">
+              Nuestro objetivo es ofrecer a los profesionales de la salud hipótesis diagnósticas que no solo sean correctas, 
+              sino también clínicamente relevantes, bien priorizadas y, sobre todo, fiables. En esta sección te explicamos 
+              cómo nos aseguramos de que cada respuesta de DxGPT cumpla con los más altos estándares de calidad.
+            </p>
+
+            <h3>1. Un banco de pruebas clínico exigente y diverso</h3>
+            
+            <p class="intro-text">
+              La calidad de cualquier sistema de IA comienza con la calidad de sus datos de entrenamiento y evaluación. 
+              Para validar DxGPT, no usamos preguntas sencillas ni casos de libro de texto. Hemos construido un banco 
+              de pruebas con 450 casos clínicos reales caracterizados por descripciones extensas, síntomas superpuestos 
+              y la presencia de varias posibles interpretaciones diagnósticas no triviales.
+            </p>
+
+            <div class="highlight-box">
+              <h4>Diversidad garantizada</h4>
+              <p>
+                Estos casos han sido seleccionados cuidadosamente de siete fuentes médicas distintas para cubrir un amplio 
+                espectro de la medicina, incluyendo enfermedades raras, casos de urgencias y escenarios de alta complejidad 
+                diagnóstica.
+              </p>
+            </div>
+
+            <div class="data-sources">
+              <div class="data-source">
+                <strong>MedBulletS</strong><br>
+                <small>Banco de preguntas clínicas estructuradas (5-option MCQ)</small>
+              </div>
+              <div class="data-source">
+                <strong>MedQA USMLE</strong><br>
+                <small>Casos académicos de examen de licencia médica (4-option MCQ)</small>
+              </div>
+              <div class="data-source">
+                <strong>ProCheck</strong><br>
+                <small>Casos reales de enfermedades raras (colaboración interna)</small>
+              </div>
+              <div class="data-source">
+                <strong>URG_TORRE</strong><br>
+                <small>6.272 episodios de urgencias hospitalarias (Hospital Torrejón, Madrid)</small>
+              </div>
+              <div class="data-source">
+                <strong>RAMEDIS / Ramebench</strong><br>
+                <small>Casos académicos de enfermedades raras consolidados de múltiples colecciones (MME, LIRICAL, HMS, RAMEDIS, PUMCH_ADM)</small>
+              </div>
+            </div>
+
+            <div class="highlight-box">
+              <h4>Selección inteligente</h4>
+              <p>
+                No es una muestra al azar. Un algoritmo se encargó de elegir los casos para maximizar la diversidad y evitar 
+                la redundancia, asegurando que DxGPT sea evaluado en un entorno lo más desafiante y realista posible.
+              </p>
+            </div>
+
+            <p class="intro-text">
+              Este exigente "examen final" garantiza que el rendimiento que medimos refleja la capacidad del sistema 
+              para enfrentarse a los desafíos del mundo real.
+            </p>
+
+            <h3>2. Metodología de la evaluación por pasos</h3>
+            
+            <p class="intro-text">
+              Para evaluar las respuestas de DxGPT, hemos desarrollado un sistema de evaluación que va más allá de un simple 
+              "correcto" o "incorrecto". Lo llamamos el <strong>marco de validación clínica</strong>, un proceso en cascada 
+              que equilibra la objetividad de los estándares médicos con la inteligencia del contexto clínico.
+            </p>
+
+            <p class="intro-text">Funciona en 3 niveles para cada caso:</p>
+
+            <div class="methodology-step">
+              <div class="step-number">1</div>
+              <h4>Verificación objetiva con estándares médicos</h4>
+              <p>
+                Primero, comparamos la respuesta de DxGPT con las bases de datos de codificación médica reconocidas 
+                internacionalmente (como <strong>SNOMED CT</strong> y <strong>CIE-10</strong>). Si el diagnóstico propuesto 
+                coincide con el código del diagnóstico de referencia del caso, se valida como un acierto directo y objetivo. 
+                Es nuestra primera línea de verificación, la más estricta.
+              </p>
+            </div>
+
+            <div class="methodology-step">
+              <div class="step-number">2</div>
+              <h4>Análisis de contexto clínico por una IA experta</h4>
+              <p>
+                A veces, una respuesta es clínicamente correcta aunque no use exactamente las mismas palabras. Por ejemplo, 
+                "fallo renal agudo" es semánticamente muy cercano a "insuficiencia renal aguda". Si el Nivel 1 no encuentra 
+                una coincidencia exacta, un segundo sistema de IA, entrenado para entender el lenguaje médico, evalúa si la 
+                propuesta es clínicamente equivalente o una causa/consecuencia directa y relevante. Esta "red de seguridad" 
+                nos permite reconocer aciertos que una simple comparación de texto ignoraría.
+              </p>
+            </div>
+
+            <div class="methodology-step">
+              <div class="step-number">3</div>
+              <h4>La calidad de la priorización</h4>
+              <p>
+                Aquí reside una de las mayores innovaciones de nuestro método. No nos conformamos con que el diagnóstico 
+                correcto aparezca en la lista de cinco posibilidades. Para un clínico, <strong>el orden es crucial</strong>. 
+                Un diagnóstico correcto en la primera posición es infinitamente más útil que en la quinta. Por eso, nuestra 
+                métrica principal es la <strong>posición promedio del diagnóstico correcto</strong>. Esto nos permite medir 
+                la capacidad real de DxGPT para priorizar y pensar como un especialista, colocando las hipótesis más probables 
+                en primer lugar. Un modelo que acierta, pero acierta tarde, no cumple nuestros estándares.
+              </p>
+            </div>
+
+            <h3>3. Impacto de la formulación en el diagnóstico</h3>
+            
+            <p class="intro-text">
+              Nuestro proceso de validación ha revelado un hallazgo clave: la manera en que se formula la solicitud diagnóstica 
+              al sistema influye de forma decisiva en la calidad de la respuesta. No se trata solo del contenido clínico, sino 
+              de cómo se introduce y estructura la petición para activar un razonamiento clínico efectivo.
+            </p>
+
+            <p class="intro-text">
+              Con este objetivo, evaluamos más de 30 formas distintas de plantear los casos clínicos al sistema, cada una 
+              con variaciones en el estilo, nivel de detalle y enfoque de la instrucción. Muchas de estas formulaciones 
+              iniciales no superaron los umbrales mínimos de calidad exigidos: generaban respuestas poco precisas, mal 
+              priorizadas o directamente irrelevantes. Solo un subconjunto reducido logró mantener un rendimiento consistente 
+              al ser probado en un conjunto amplio y exigente de casos.
+            </p>
+
+            <p class="intro-text">
+              El análisis de estas diferencias muestra que la forma de presentar el caso puede marcar 
+              una diferencia significativa tanto en la tasa de aciertos como —más críticamente— en la capacidad del sistema 
+              para priorizar correctamente los diagnósticos.
+            </p>
+            <p class="intro-text">
+              Los resultados muestran la precisión frente a la dificultad de los casos resueltos para distintos modelos 
+              médicos. Cada modelo presenta una evolución entre versiones, destacando especialmente 
+              el salto de la familia O3 → 4o, que mejora en precisión y resuelve casos más complejos.
+            </p>
+
+            <div class="highlight-box">
+              <h4>¿Qué significa esto para ti?</h4>
+              <p>
+                Esto significa que DxGPT no solo se basa en un modelo de inteligencia artificial avanzado, sino que también 
+                aprovecha una manera optimizada de presentar los casos clínicos al modelo. Esta estructura ha sido seleccionada 
+                tras un proceso riguroso de evaluación comparativa, diseñado para maximizar la precisión y la relevancia 
+                clínica de las respuestas. El sistema opera, por tanto, con una configuración validada que favorece un 
+                desempeño diagnóstico consistente y fiable.
+              </p>
+            </div>
+
+            <h3>Compromiso con la transparencia y el rigor metodológico</h3>
+            
+            <p class="intro-text">
+              En Foundation 29 trabajamos en el desarrollo de herramientas fiables, éticamente fundamentadas y orientadas 
+              a la utilidad clínica. DxGPT ha sido diseñado y evaluado como un sistema de soporte al diagnóstico, no como 
+              un asistente generalista.
+            </p>
+
+            <ul>
+              <li>Ha sido evaluado con un conjunto de casos clínicos exigente y heterogéneo.</li>
+              <li>Su rendimiento se mide con un marco que prioriza no solo la precisión, sino también la relevancia 
+                  clínica y el orden de priorización diagnóstica.</li>
+              <li>El sistema está configurado para operar bajo condiciones que maximizan su desempeño, fruto de un 
+                  análisis detallado sobre cómo estructurar eficazmente las consultas clínicas.</li>
+            </ul>
+
+            <div class="metric-highlight">
+              <span class="metric-number">450</span>
+              Casos clínicos de validación
+            </div>
+
+            <div class="metric-highlight">
+              <span class="metric-number">7</span>
+              Fuentes médicas distintas
+            </div>
+
+            <div class="metric-highlight">
+              <span class="metric-number">30+</span>
+              Formulaciones evaluadas
+            </div>
+
+            <p class="intro-text">
+              Para quienes deseen explorar en mayor profundidad el enfoque metodológico, está disponible un documento 
+              técnico que presenta con mayor nivel de detalle el proceso de desarrollo del sistema de evaluación: incluye 
+              desgloses estructurados del marco de validación, visualizaciones complementarias, aprendizajes obtenidos 
+              a lo largo de múltiples iteraciones, y un análisis progresivo de las decisiones metodológicas que condujeron 
+              a la versión final actualmente en uso.
+            </p>
+
+            <div class="text-center mt-4">
+              <a href="https://github.com/foundation29org/dxgpt-bench-lab/blob/main/bench/__conceptual-model-and-research-notes/evaluacion_modelos_llm_diagnostico_pediatrico_pipeline_pv4.pdf" 
+                 target="_blank" class="btn btn-primary btn-lg">
+                <i class="fa fa-file-pdf me-2"></i>Acceso al Informe Completo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Metodología Tab -->
+  <div class="tab-pane fade" id="metodologia" role="tabpanel" aria-labelledby="metodologia-tab">
+    <section class="content-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Evolución de la Metodología de Evaluación</h2>
+            
+            <p class="lead text-center mb-5">
+              Nuestra metodología ha evolucionado a medida que profundizábamos en el problema. 
+              Cada etapa nos aportó nuevos conocimientos sobre cómo medir el razonamiento clínico de una IA.
+            </p>
+
+            <h3>3.1. Evaluación inicial basada en código y semántica</h3>
+            <p class="intro-text">
+              Nuestro primer sistema automatizado medía la precisión con un criterio inicial de coincidencia del código 
+              de diagnóstico (ICD-10). Inicialmente, observamos una paradoja: los modelos teóricamente más avanzados 
+              a veces obtenían puntuaciones más bajas porque el sistema penalizaba respuestas clínicamente más específicas 
+              que no coincidían literalmente con la etiqueta del diagnóstico.
+            </p>
+            <p class="intro-text">
+              Para corregir esto, integramos una <strong>"red de seguridad semántica" basada en BERT</strong>. Si la 
+              coincidencia de código fallaba, BERT calculaba la similitud de significado, y solo si superaba un umbral 
+              de confianza (0.80) la respuesta se consideraba correcta. Este método, que combinaba reglas con flexibilidad 
+              semántica, mostró una diferenciación clara en el rendimiento. Bajo este sistema, los resultados fueron: 
+              <strong>o3 (80.46%)</strong>, <strong>o3-pro (79.89%)</strong>, <strong>GPT-4o (78.78%)</strong> y 
+              <strong>o1 (76.33%)</strong>.
+            </p>
+
+            <h3>3.2. Juicio clínico simulado por un LLM (LLM-as-a-Judge)</h3>
+            <p class="intro-text">
+              Para incorporar una capa de juicio más holística, implementamos una nueva metodología (Pipeline v3) donde 
+              un LLM avanzado (GPT-4o) actúa como "Juez". Este sistema evalúa si una respuesta es clínicamente plausible, 
+              relevante o parte del mismo proceso diagnóstico.
+            </p>
+            <p class="intro-text">
+              Este cambio metodológico reveló una <strong>notable convergencia en las puntuaciones</strong> de los diferentes 
+              modelos, sugiriendo que el método de Juez LLM es menos sensible para diferenciar las capacidades de los modelos 
+              de alto rendimiento.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Dataset Tab -->
+  <div class="tab-pane fade" id="dataset" role="tabpanel" aria-labelledby="dataset-tab">
+    <section class="content-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Datasets de Casos Clínicos: La Base de Nuestra Evaluación</h2>
+            
+            <p class="intro-text">
+              Para asegurar una evaluación objetiva y reproducible, hemos construido <strong>DxGPT-bench</strong>, 
+              un banco de pruebas compuesto por 997 casos clínicos seleccionados de un universo de más de 9.500 registros.
+            </p>
+            <h4 class="mt-3 mb-2">Creación del benchmark</h4>
+            <p class="intro-text">
+              La construcción de este recurso implicó un proceso detallado. Partimos de fuentes diversas (sistemas 
+              hospitalarios, casos de formación USMLE, registros de enfermedades raras) y aplicamos un proceso de 
+              <strong>normalización y filtrado</strong>. En él, se usó un modelo de IA para descartar casos no evaluables, 
+              como aquellos donde el diagnóstico ya estaba implícito.
+            </p>
+            
+            <div class="highlight-box">
+              <p class="intro-text">
+                El conjunto de datos final no es una simple muestra aleatoria. Fue seleccionado mediante un 
+                <strong>algoritmo de estratificación</strong> para maximizar la diversidad diagnóstica. Aunque los 997 casos 
+                representan el 10.4% del total, capturan el <strong>31.8% de los diagnósticos únicos (908 códigos ICD-10)</strong>. 
+                Esto nos permite probar los modelos contra un espectro amplio y equilibrado de la práctica clínica.
+              </p>
+            </div>
+
+            <div class="row mt-5">
+              <div class="col-md-4">
+                <div class="metric-highlight">
+                  <span class="metric-number">997</span>
+                  Casos seleccionados
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="metric-highlight">
+                  <span class="metric-number">9.500+</span>
+                  Registros totales
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="metric-highlight">
+                  <span class="metric-number">908</span>
+                  Códigos ICD-10 únicos
+                </div>
+              </div>
+            </div>
+
+            <p class="intro-text text-center mt-4">
+              El subconjunto de evaluación incluye una amplia diversidad de especialidades clínicas, 
+              lo que permite probar los modelos en un amplio espectro de patologías y casos clínicos reales.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Resultados Tab -->
+  <div class="tab-pane fade" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
+    <section class="content-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Resultados y Comparativas</h2>
+            
+            <h3>4.1. Comparativa con modelos de código abierto</h3>
+            <p class="intro-text">
+              Además de evaluar modelos comerciales de última generación, hemos analizado el rendimiento de modelos 
+              de código abierto especializados en el ámbito biomédico (como MedGemma, OpenBio, etc.). Para esta 
+              comparativa, utilizamos una metodología inicial (Pipeline v0) basada exclusivamente en similitud 
+              semántica (BERT).
+            </p>
+            <p class="intro-text">
+              Los resultados muestran el posicionamiento relativo de cada familia de modelos bajo estos criterios específicos, 
+              permitiendo una evaluación comparativa del ecosistema actual de IA médica.
+            </p>
+
+            <h3>4.2. Un resumen global del rendimiento</h3>
+            <p class="intro-text">
+              Al combinar los resultados de nuestras distintas metodologías de evaluación, obtenemos un mapa completo 
+              del estado actual de la IA diagnóstica. Este análisis multifacético nos permite entender las fortalezas 
+              y debilidades de cada modelo según el criterio aplicado.
+            </p>
+            <p class="intro-text">
+              Esta vista agregada resume el posicionamiento de cada modelo a través de los diferentes frameworks de 
+              evaluación desarrollados, proporcionando una visión integral del rendimiento comparativo.
+            </p>
+
+            <h3>5. Conclusiones y próximos pasos</h3>
+            
+            <p class="intro-text">
+              Nuestro exhaustivo proceso de evaluación demuestra que el diagnóstico diferencial asistido por IA es un campo 
+              complejo donde la metodología de medición es tan importante como la propia tecnología.
+            </p>
+            
+            <p class="intro-text">
+              Nuestros hallazgos indican que, si bien los modelos de IA más avanzados alcanzan un nivel de rendimiento muy alto, 
+              el método de evaluación puede cambiar drásticamente la percepción de sus capacidades relativas. La aparente 
+              convergencia de resultados bajo un Juez LLM no disminuye el valor de los modelos de vanguardia, sino que subraya 
+              la necesidad de desarrollar métricas aún más sensibles.
+            </p>
+            
+            <div class="highlight-box">
+              <p class="intro-text">
+                Creemos que la transparencia es fundamental para el progreso. Por ello, compartimos nuestra metodología y hallazgos. 
+                El diagnóstico por IA es un campo en plena evolución, y nosotros estamos en la frontera, explorando su potencial 
+                y sus límites. <strong>Estamos continuamente refinando nuestras metodologías y damos la bienvenida a la discusión 
+                de la comunidad experta.</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Downloads Section -->
+<section class="download-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h3>Recursos y Publicaciones</h3>
+        <p class="lead">
+          Accede a nuestros recursos técnicos, código fuente y publicaciones para profundizar en la metodología.
+        </p>
+        <div class="mt-4">
+          <a href="https://github.com/foundation29org/dxgpt-bench-lab" target="_blank" 
+             class="btn btn-outline-light download-btn">
+            <i class="fa fa-github me-2"></i>GitHub Repository
+          </a>
+          <a href="https://github.com/foundation29org/dxgpt-bench-lab/blob/main/bench/__conceptual-model-and-research-notes/evaluacion_modelos_llm_diagnostico_pediatrico_pipeline_pv4.pdf" 
+             target="_blank" class="btn btn-outline-light download-btn">
+            <i class="fa fa-file-pdf me-2"></i>Informe Técnico (PDF)
+          </a>
+          <button class="btn btn-outline-light download-btn" disabled>
+            <i class="fa fa-flask me-2"></i>Artículo MedRxiv (Próximamente)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact Section -->
+<div class="white-checkbox">
+  <app-send-msg></app-send-msg>
+</div>

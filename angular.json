@@ -25,10 +25,16 @@
               "src/favicon.ico",
               "src/favicon-salud.ico",
               "src/sitemap.xml",
-              "src/robots.txt"
+              "src/robots.txt",
+              {
+                "glob": "**/*",
+                "input": "node_modules/@fortawesome/fontawesome-free/webfonts",
+                "output": "/webfonts/"
+              }
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.css",
               "src/assets/css/custom.css",
               "node_modules/cookieconsent/build/cookieconsent.min.css",
