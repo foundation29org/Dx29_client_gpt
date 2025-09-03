@@ -61,7 +61,7 @@
 .disclaimer-alert {
   background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
   border: 2px solid #ffc107;
-  border-radius: 8px;
+  border-radius: var(--dx-radius-md);
   padding: 1rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
@@ -76,7 +76,7 @@
   right: 0;
   height: 4px;
   background: linear-gradient(90deg, var(--accent-color) 0%, var(--secondary-color) 100%);
-  border-radius: 8px 8px 0 0;
+  border-radius: var(--dx-radius-md) 8px 0 0;
 }
 
 .disclaimer-header {
@@ -123,13 +123,13 @@
 }
 
 .btn-close {
-  filter: invert(1);
+  filter: none !important;
   flex-shrink: 0;
   margin-left: 1rem;
 }
 
 .modal-footer {
-  border-top: 1px solid #dee2e6;
+  border-top: 1px solid var(--dx-gray-200);
   padding: 1rem 1.5rem;
 }
 

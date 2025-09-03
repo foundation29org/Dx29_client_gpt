@@ -1,12 +1,4 @@
-$surface-1: var(--primary-color, #1f232e);     // fondo principal del sitio
-$surface-2: var(--primary-hover, #23273a);     // 4 % más claro – se usa al focus
-$surface-3: #2d3243;     // borde reposo
-$primary-500: var(--primary-color, #4f8cff);   // color de marca para el foco
-$primary-600: var(--primary-hover, #3c6bd4);   // tono más oscuro para hover
-$text-100: #ffffff;      // texto principal
-$text-300: #b0b3c6;      // placeholder
-$radius-md: 16px;        // radio coherente con botones
-$duration: 180ms;        // animaciones breves, snappy
+// Using unified CSS variables system instead of SCSS variables
 
 //@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
@@ -20,8 +12,8 @@ $duration: 180ms;        // animaciones breves, snappy
   &.drag-over {
     .searchTerm {
       border-style: dashed;
-      border-color: $primary-500;
-      box-shadow: 0 0 15px rgba($primary-500, 0.5);
+      border-color: var(--bs-primary);
+      box-shadow: var(--dx-shadow-primary);
     }
   }
 }
@@ -59,7 +51,7 @@ $duration: 180ms;        // animaciones breves, snappy
 }
 
 /* Para pantallas pequeñas */
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
   .symptoms-grid {
     grid-template-columns: 1fr;
   }
@@ -93,8 +85,8 @@ $duration: 180ms;        // animaciones breves, snappy
   &.drag-over {
     .searchTerm {
       border-style: dashed;
-      border-color: $primary-500;
-      box-shadow: 0 0 15px rgba($primary-500, 0.5);
+      border-color: var(--bs-primary);
+      box-shadow: var(--dx-shadow-primary);
     }
   }
 }
@@ -106,35 +98,35 @@ $duration: 180ms;        // animaciones breves, snappy
 }
 
 @keyframes placeholderGlow {
-  0%, 100% { text-shadow: 0 0 0 rgba($primary-500, 0); }
-  50% { text-shadow: 0 0 5px rgba($primary-500, 0.5); }
+  0%, 100% { text-shadow: 0 0 0 rgba(var(--bs-primary), 0); }
+  50% { text-shadow: 0 0 5px rgba(var(--bs-primary), 0.5); }
 }
 
 @keyframes borderPulse {
-  0%, 100% { border-color: $surface-3; }
-  50% { border-color: rgba($primary-500, 0.7); }
+  0%, 100% { border-color: var(--dx-gray-600); }
+  50% { border-color: rgba(var(--bs-primary), 0.7); }
 }
 
 @keyframes initialAttention {
   0% { 
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba($primary-500, 0);
-    border-color: $surface-3;
+    box-shadow: none;
+    border-color: var(--dx-gray-600);
   }
   10% { 
     transform: scale(1.01);
-    box-shadow: 0 0 18px 0 rgba($primary-500, 0.6);
-    border-color: $primary-500;
+    box-shadow: var(--dx-shadow-hover);
+    border-color: var(--bs-primary);
   }
   40% { 
     transform: scale(1);
-    box-shadow: 0 0 10px 0 rgba($primary-500, 0.4);
-    border-color: rgba($primary-500, 0.6);
+    box-shadow: var(--dx-shadow-primary);
+    border-color: rgba(var(--bs-primary), 0.6);
   }
   100% { 
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba($primary-500, 0);
-    border-color: $surface-3;
+    box-shadow: none;
+    border-color: var(--dx-gray-600);
   }
 }
 
@@ -144,15 +136,15 @@ $duration: 180ms;        // animaciones breves, snappy
   width: 100%;
   min-height: 150px;
   padding: 1rem 1.25rem;
-  border: 2px solid $surface-3;
-  border-radius: $radius-md $radius-md 0 $radius-md;
+  border: 2px solid var(--dx-gray-600);
+  border-radius: var(--dx-radius-xl) var(--dx-radius-xl) 0 var(--dx-radius-xl);
   background: #fff;
   color: #000;
-  resize: vertical;                /* <‑‑ permite agrandar si hace falta */
+  resize: vertical;                /* <── permite agrandar si hace falta */
   transition: 
-    border-color $duration ease, 
-    box-shadow   $duration ease, 
-    background   $duration ease;
+    border-color var(--dx-duration-fast) ease, 
+    box-shadow   var(--dx-duration-fast) ease, 
+    background   var(--dx-duration-fast) ease;
   
   /* Animación inicial al cargar - más rápida */
   animation: initialAttention 1.5s ease-in-out 0.3s 1, borderPulse 2s ease-in-out 2s infinite;
@@ -167,38 +159,47 @@ $duration: 180ms;        // animaciones breves, snappy
 
   /* Placeholder accesible con animación - más rápida */
   &::placeholder {
-    color: $text-300;
+    color: var(--dx-gray-300);
     opacity: 1;                    /* Firefox */
     animation: placeholderFade 1.8s ease-in-out infinite, placeholderGlow 1.8s ease-in-out infinite;
   }
 
-  /* Scrollbar (solo WebKit) — opcional */
+  /* Scrollbar (solo WebKit) – opcional */
   &::-webkit-scrollbar {
     width: 8px;
   }
   &::-webkit-scrollbar-thumb {
-    background: $surface-3;
-    border-radius: 8px;
+    background: var(--dx-gray-600);
+    border-radius: var(--dx-radius-md);
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: $primary-600;
+    background: var(--dx-medium-red);
+  }
+
+  /* Focus normal (ratón y teclado) ------------------------ */
+  &:focus {
+    border-color: var(--bs-primary);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(var(--bs-primary), .35);
+    outline: none;                 /* ya se indica con box─shadow */
+    animation: none;               /* Detener animaciones al enfocar */
   }
 
   /* Focus visible (teclado)  ------------------------------- */
   &:focus-visible {
-    border-color: $primary-500;
+    border-color: var(--bs-primary);
     background: #fff;
-    box-shadow: 0 0 0 3px rgba($primary-500, .35);
-    outline: none;                 /* ya se indica con box‑shadow */
+    box-shadow: 0 0 0 3px rgba(var(--bs-primary), .35);
+    outline: none;                 /* ya se indica con box─shadow */
     animation: none;               /* Detener animaciones al enfocar */
   }
 
-  /* Hover (ratón) — feedback sutil ------------------------- */
+  /* Hover (ratón) – feedback sutil ------------------------- */
   &:hover:not(:focus) {
-    border-color: lighten($surface-3, 8%);
+    border-color: var(--dx-gray-700);
   }
 
-  /* Oscurecer automáticamente si el usuario prefiere dark‑mode */
+  /* Oscurecer automáticamente si el usuario prefiere dark─mode */
   /*@media (prefers-color-scheme: light) {
     background: #fff;
     color: #111;
@@ -209,8 +210,8 @@ $duration: 180ms;        // animaciones breves, snappy
     }
     &:focus-visible {
       background: #f1f3fa;
-      border-color: $primary-500;
-      box-shadow: 0 0 0 3px rgba($primary-500, .25);
+      border-color: var(--bs-primary);
+      box-shadow: 0 0 0 3px rgba(var(--bs-primary), .25);
       animation: none;              
     }
   }*/
@@ -318,11 +319,6 @@ section {
   background-color: #acacac3d !important;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #007BFF;
-    border-color: #007BFF;
-}
 
 .border-top {
     border-top: 1px solid #e5e5e5;
@@ -387,7 +383,7 @@ body {
   }
 
   .shadow{
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+    box-shadow: var(--dx-shadow-md);
   }
 
 ::ng-deep  .swal2-styled.swal2-confirm:focus {
@@ -488,9 +484,9 @@ body {
 
 .queue-status-card {
   padding: 20px;
-  border-radius: 8px;
+  border-radius: var(--dx-radius-md);
   background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: var(--dx-shadow-sm);
   margin: 20px 0;
   text-align: center;
 
@@ -550,7 +546,7 @@ body {
   border: 1.5px dashed #ffffff;
   background: transparent;
   color: #ffffff;
-  border-radius: 8px;
+  border-radius: var(--dx-radius-md);
   width: 36px;
   height: 36px;
   display: flex;
@@ -580,7 +576,7 @@ body {
   background: #23252d;
   color: #fff;
   border: 1px solid #ffffff;
-  border-radius: 16px;
+  border-radius: var(--dx-radius-xl);
   padding: 0.2rem 0.7rem 0.2rem 0.5rem;
   font-size: 0.98rem;
   margin-right: 0.1rem;
@@ -655,7 +651,7 @@ body {
   vertical-align: middle;
   user-select: none;
 }
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
   .chip-add-text {
     display: none !important;
   }
@@ -668,7 +664,7 @@ body {
   right: 0;
   bottom: 0;
   background-color: rgba(69, 69, 69, 0.85);
-  border-radius: 16px;
+  border-radius: var(--dx-radius-xl);
   z-index: 10;
   display: flex;
   align-items: center;

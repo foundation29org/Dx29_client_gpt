@@ -1,0 +1,637 @@
+# ELEMENTOS DE INTERFAZ - FOOTER COMPONENT
+# Identificación completa de elementos visuales y su SCSS correspondiente
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 🎨 VARIABLES Y COLORES BASE
+
+### Variables de Color Footer
+**Aspecto:** Conjunto completo de colores temáticos oscuros y rojos
+**Ubicación:** Definiciones de variables SCSS al inicio del archivo
+**Propósito:** Centralizar paleta de colores para consistencia y mantenimiento
+**SCSS:** Variables (líneas 1-12) - `$dark-red: #8B0000, $footer-dark: #1a1d23, $text-light: #e0e0e0`
+
+## 🦶 FOOTER PRINCIPAL
+
+### Footer Base Oscuro
+**Aspecto:** Fondo gris muy oscuro con degradado sutil, padding generoso
+**Ubicación:** Contenedor principal del footer en toda la aplicación
+**Propósito:** Crear base elegante para contenido footer con tema oscuro
+**SCSS:** `.footer` (líneas 14-22) - `background: linear-gradient(135deg, $footer-dark 0%, #0f1419 100%); color: $text-light`
+
+### Footer Responsive Compacto
+**Aspecto:** Padding reducido en dispositivos móviles
+**Ubicación:** Footer en tablets y móviles
+**Propósito:** Optimizar espacio vertical en dispositivos pequeños
+**SCSS:** `@media (max-width: 768px) .footer` (líneas 767-770) - `padding: 2rem 0 1rem 0`
+
+## 📰 SECCIÓN NEWSLETTER
+
+### Newsletter Container Base
+**Aspecto:** Contenedor con separación inferior y responsive
+**Ubicación:** Sección superior del footer para suscripción
+**Propósito:** Destacar suscripción a newsletter como acción principal
+**SCSS:** `.newsletter` (líneas 26-28) - `margin-bottom: 3rem`
+
+### Newsletter Responsive
+**Aspecto:** Margen inferior reducido en móviles
+**Ubicación:** Newsletter section en dispositivos pequeños
+**Propósito:** Compactar espacio en móviles manteniendo funcionalidad
+**SCSS:** `@media (max-width: 768px) .newsletter` (líneas 772-774) - `margin-bottom: 2rem`
+
+### Título Newsletter
+**Aspecto:** Texto claro destacado (24px) con margen inferior
+**Ubicación:** Título de la sección newsletter
+**Propósito:** Identificar claramente la funcionalidad de suscripción
+**SCSS:** `.newsletter h4` (líneas 30-34) - `color: $text-light; font-size: 1.5rem; margin-bottom: 1rem`
+
+### Descripción Newsletter
+**Aspecto:** Texto gris medio con margen inferior para formulario
+**Ubicación:** Descripción bajo el título de newsletter
+**Propósito:** Explicar beneficios de la suscripción
+**SCSS:** `.newsletter p` (líneas 36-40) - `color: $text-secondary; margin-bottom: 1.5rem`
+
+## 📧 FORMULARIO NEWSLETTER
+
+### Input Group Newsletter
+**Aspecto:** Flexbox horizontal con gap moderno para input + botón
+**Ubicación:** Contenedor del formulario de suscripción
+**Propósito:** Alinear input y botón de forma elegante y moderna
+**SCSS:** `.newsletter .input-group` (líneas 42-47) - `display: flex; gap: 0.5rem; max-width: 400px`
+
+### Input Newsletter Elegante
+**Aspecto:** Fondo semi-transparente con borde sutil, texto claro, bordes redondeados
+**Ubicación:** Campo de email para newsletter
+**Propósito:** Integrar elegantemente con tema oscuro del footer
+**SCSS:** `.newsletter input[type="email"]` (líneas 49-59) - `background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3)`
+
+### Input Newsletter Focus
+**Aspecto:** Borde rojo brand sin outline, con transición suave
+**Ubicación:** Campo email cuando recibe focus
+**Propósito:** Feedback visual brand-consistent al interactuar
+**SCSS:** `.newsletter input[type="email"]:focus` (líneas 61-65) - `border-color: $dark-red; outline: none`
+
+### Botón Newsletter Brand
+**Aspecto:** Fondo rojo brand, texto blanco, bordes redondeados, sin flexbox grow
+**Ubicación:** Botón suscribirse en formulario newsletter
+**Propósito:** Acción principal destacada con colores brand
+**SCSS:** `.newsletter .btn-primary` (líneas 67-74) - `background-color: $dark-red; border-color: $dark-red; flex-shrink: 0`
+
+### Botón Newsletter Hover
+**Aspecto:** Fondo ligeramente más claro con transición suave
+**Ubicación:** Botón newsletter al hacer hover
+**Propósito:** Feedback visual de interactividad manteniendo brand
+**SCSS:** `.newsletter .btn-primary:hover` (líneas 76-79) - `background-color: lighten($dark-red, 10%)`
+
+### Formulario Newsletter Responsive
+**Aspecto:** Formulario apilado verticalmente en móviles
+**Ubicación:** Input group en dispositivos pequeños
+**Propósito:** Layout optimizado para pantallas táctiles pequeñas
+**SCSS:** `@media (max-width: 768px) .newsletter .input-group` (líneas 776-779) - `flex-direction: column`
+
+### Input Newsletter Móvil
+**Aspecto:** Margen inferior para separación del botón
+**Ubicación:** Input email en layout móvil
+**Propósito:** Espaciado adecuado en layout vertical
+**SCSS:** `@media (max-width: 768px) .newsletter input[type="email"]` (líneas 781-783) - `margin-bottom: 0.5rem`
+
+## 🔗 ENLACES FOOTER
+
+### Enlaces Footer Base
+**Aspecto:** Color gris secundario sin decoración, transición suave
+**Ubicación:** Todos los enlaces dentro del footer
+**Propósito:** Integración visual con tema oscuro, feedback de interactividad
+**SCSS:** `.footer a` (líneas 83-89) - `color: $text-secondary; text-decoration: none; transition: color 0.3s ease`
+
+### Enlaces Footer Hover
+**Aspecto:** Color claro con transición suave
+**Ubicación:** Enlaces footer al hacer hover
+**Propósito:** Feedback visual claro de interactividad
+**SCSS:** `.footer a:hover` (líneas 91-93) - `color: $text-light`
+
+## 📋 LISTAS FOOTER
+
+### Listas Footer Sin Estilo
+**Aspecto:** Sin viñetas, sin padding, con espaciado vertical
+**Ubicación:** Listas de enlaces en secciones del footer
+**Propósito:** Presentación limpia de enlaces agrupados temáticamente
+**SCSS:** `.footer ul` (líneas 95-99) - `list-style: none; padding: 0; margin: 0 0 1rem 0`
+
+### Items Lista Footer
+**Aspecto:** Margen inferior para respiración entre enlaces
+**Ubicación:** Cada elemento de las listas footer
+**Propósito:** Espaciado legible entre enlaces relacionados
+**SCSS:** `.footer ul li` (líneas 101-103) - `margin-bottom: 0.5rem`
+
+### Links Lista Footer Hover Brand
+**Aspecto:** Color rojo brand al hacer hover
+**Ubicación:** Enlaces específicos dentro de listas
+**Propósito:** Destacar enlaces importantes con color brand
+**SCSS:** `.footer ul li a:hover` (líneas 105-107) - `color: $dark-red`
+
+## 🏢 SECCIÓN EMPRESA
+
+### Sección Empresa Base
+**Aspecto:** Margen inferior para separación de otras secciones
+**Ubicación:** Información corporativa en el footer
+**Propósito:** Agrupar información de la empresa/organización
+**SCSS:** `.footer-company` (líneas 109-111) - `margin-bottom: 2rem`
+
+### Logo Empresa Footer
+**Aspecto:** Altura máxima controlada (50px) con margen inferior
+**Ubicación:** Logo de la empresa en sección footer
+**Propósito:** Mostrar logo corporativo sin dominar visualmente
+**SCSS:** `.footer-company .logo` (líneas 113-117) - `max-height: 50px; margin-bottom: 1rem`
+
+### Descripción Empresa
+**Aspecto:** Texto gris secundario con interlineado legible
+**Ubicación:** Texto descriptivo de la empresa
+**Propósito:** Proporcionar información corporativa breve
+**SCSS:** `.footer-company p` (líneas 119-123) - `color: $text-secondary; line-height: 1.6; margin-bottom: 1rem`
+
+## 🌐 REDES SOCIALES
+
+### Enlaces Sociales Container
+**Aspecto:** Flexbox horizontal con gap entre iconos
+**Ubicación:** Contenedor de iconos de redes sociales
+**Propósito:** Alinear iconos sociales de forma elegante
+**SCSS:** `.social-links` (líneas 125-129) - `display: flex; gap: 1rem; margin-top: 1rem`
+
+### Enlaces Sociales Individuales
+**Aspecto:** Círculos de 40px con fondo semi-transparente, iconos centrados
+**Ubicación:** Cada icono de red social
+**Propósito:** Presentación uniforme y elegante de redes sociales
+**SCSS:** `.social-links a` (líneas 131-141) - `width: 40px; height: 40px; background-color: rgba(255,255,255,0.1); border-radius: 50%`
+
+### Redes Sociales Hover
+**Aspecto:** Fondo más intenso con escala aumentada (110%)
+**Ubicación:** Iconos sociales al hacer hover
+**Propósito:** Feedback visual atractivo con microinteracción
+**SCSS:** `.social-links a:hover` (líneas 143-147) - `background-color: rgba(255,255,255,0.2); transform: scale(1.1)`
+
+### Redes Sociales Responsive
+**Aspecto:** Iconos más pequeños (35px) en móviles
+**Ubicación:** Social links en dispositivos pequeños
+**Propósito:** Optimizar espacio en pantallas pequeñas
+**SCSS:** `@media (max-width: 768px) .social-links a` (líneas 785-788) - `width: 35px; height: 35px`
+
+## 📞 INFORMACIÓN CONTACTO
+
+### Sección Contacto
+**Aspecto:** Margen inferior estándar para separación
+**Ubicación:** Información de contacto en footer
+**Propósito:** Agrupar datos de contacto de forma accesible
+**SCSS:** `.footer-contact` (líneas 149-151) - `margin-bottom: 2rem`
+
+### Título Contacto
+**Aspecto:** Texto claro destacado (20px) con margen inferior
+**Ubicación:** Título de sección de contacto
+**Propósito:** Identificar claramente información de contacto
+**SCSS:** `.footer-contact h5` (líneas 153-157) - `color: $text-light; font-size: 1.25rem; margin-bottom: 1rem`
+
+### Items Contacto con Iconos
+**Aspecto:** Flexbox con iconos alineados, gap moderno
+**Ubicación:** Cada elemento de contacto (teléfono, email, dirección)
+**Propósito:** Presentación clara con iconografía de identificación
+**SCSS:** `.footer-contact .contact-item` (líneas 159-164) - `display: flex; align-items: center; gap: 0.75rem`
+
+### Iconos Contacto
+**Aspecto:** Color rojo brand con ancho fijo para alineación
+**Ubicación:** Iconos junto a información de contacto
+**Propósito:** Identificación rápida del tipo de contacto
+**SCSS:** `.footer-contact .contact-item i` (líneas 166-170) - `color: $dark-red; width: 20px; text-align: center`
+
+### Texto Contacto
+**Aspecto:** Color gris secundario
+**Ubicación:** Texto de información de contacto
+**Propósito:** Información legible integrada con tema oscuro
+**SCSS:** `.footer-contact .contact-item span` (líneas 172-174) - `color: $text-secondary`
+
+## 🔒 FOOTER INFERIOR (COPYRIGHT)
+
+### Footer Bottom Base
+**Aspecto:** Borde superior sutil, padding superior, fondo ligeramente más oscuro
+**Ubicación:** Sección inferior del footer con copyright
+**Propósito:** Separar información legal/copyright del contenido principal
+**SCSS:** `.footer-bottom` (líneas 176-182) - `border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; background-color: rgba(0,0,0,0.3)`
+
+### Texto Copyright
+**Aspecto:** Texto pequeño gris secundario centrado
+**Ubicación:** Información de copyright en footer bottom
+**Propósito:** Mostrar información legal de forma discreta
+**SCSS:** `.footer-bottom p` (líneas 184-189) - `color: $text-secondary; font-size: 0.875rem; text-align: center; margin: 0`
+
+### Footer Bottom Responsive
+**Aspecto:** Padding superior reducido en móviles
+**Ubicación:** Footer bottom en dispositivos pequeños
+**Propósito:** Compactar espacio vertical en móviles
+**SCSS:** `@media (max-width: 768px) .footer-bottom` (líneas 790-792) - `padding-top: 1rem`
+
+## 🎭 SISTEMA MODAL COMPLETO
+
+### Backdrop Modal Personalizado
+**Aspecto:** Fondo negro semi-transparente con z-index alto
+**Ubicación:** Fondo de todos los modales del sistema
+**Propósito:** Crear overlay elegante para modales
+**SCSS:** `.modal-backdrop.show` (líneas 191-195) - `background-color: rgba(0, 0, 0, 0.7) !important; z-index: 1040`
+
+### Modal Base Moderno
+**Aspecto:** Fondo gris muy oscuro, texto claro, bordes redondeados grandes
+**Ubicación:** Contenedor principal de todos los modales
+**Propósito:** Crear base visual moderna y elegante para modales
+**SCSS:** `.modal-content` (líneas 197-205) - `background-color: #2c3e50; color: #ecf0f1; border-radius: 15px`
+
+### Modal Header Limpio
+**Aspecto:** Sin borde inferior, padding controlado
+**Ubicación:** Header de todos los modales
+**Propósito:** Apariencia limpia sin líneas divisorias innecesarias
+**SCSS:** `.modal-header` (líneas 207-210) - `border-bottom: none; padding: 1.5rem 1.5rem 0.5rem`
+
+### Título Modal Destacado
+**Aspecto:** Texto claro con peso medium y tamaño destacado
+**Ubicación:** Títulos de todos los modales
+**Propósito:** Jerarquía visual clara para identificar modal
+**SCSS:** `.modal-title` (líneas 212-216) - `color: #ecf0f1; font-weight: 500; font-size: 1.25rem`
+
+### Botón Cerrar Modal Elegante
+**Aspecto:** Color claro con hover más claro y transición
+**Ubicación:** Botón X para cerrar modales
+**Propósito:** Integración visual con tema oscuro
+**SCSS:** `.btn-close` (líneas 218-225) - `color: #bdc3c7; &:hover color: #ecf0f1`
+
+### Modal Body Espacioso
+**Aspecto:** Padding generoso para contenido
+**Ubicación:** Cuerpo principal de todos los modales
+**Propósito:** Espacio adecuado para contenido sin sensación de hacinamiento
+**SCSS:** `.modal-body` (líneas 227-229) - `padding: 1.5rem`
+
+### Modal Footer Limpio
+**Aspecto:** Sin borde superior, padding controlado, centrado
+**Ubicación:** Footer de todos los modales
+**Propósito:** Área para botones de acción sin líneas divisorias
+**SCSS:** `.modal-footer` (líneas 231-236) - `border-top: none; padding: 0.5rem 1.5rem 1.5rem; justify-content: center`
+
+## 🔘 SISTEMA BOTONES MODAL
+
+### Botón Primario Modal
+**Aspecto:** Fondo azul elegante, texto blanco, bordes redondeados
+**Ubicación:** Botones de acción principal en modales
+**Propósito:** Acción primaria destacada en tema oscuro
+**SCSS:** `.modal .btn-primary` (líneas 238-245) - `background-color: #3498db; border-color: #3498db; border-radius: 8px`
+
+### Botón Primario Hover
+**Aspecto:** Azul más oscuro con transición suave
+**Ubicación:** Botones primarios al hacer hover
+**Propósito:** Feedback visual de interactividad
+**SCSS:** `.modal .btn-primary:hover` (líneas 247-250) - `background-color: #2980b9; border-color: #2980b9`
+
+### Botón Secundario Modal
+**Aspecto:** Fondo gris, texto claro, bordes redondeados
+**Ubicación:** Botones de acción secundaria en modales
+**Propósito:** Acciones secundarias integradas con tema
+**SCSS:** `.modal .btn-secondary` (líneas 252-259) - `background-color: #95a5a6; border-color: #95a5a6; color: #2c3e50`
+
+### Botón Secundario Hover
+**Aspecto:** Gris más oscuro con transición
+**Ubicación:** Botones secundarios al hacer hover
+**Propósito:** Feedback consistente con botones primarios
+**SCSS:** `.modal .btn-secondary:hover` (líneas 261-264) - `background-color: #7f8c8d; border-color: #7f8c8d`
+
+## 📝 ELEMENTOS FORMULARIO MODAL
+
+### Labels Modal
+**Aspecto:** Color claro con peso medium
+**Ubicación:** Labels de formularios dentro de modales
+**Propósito:** Legibilidad óptima en tema oscuro
+**SCSS:** `.modal label` (líneas 266-269) - `color: #ecf0f1; font-weight: 500`
+
+### Inputs Modal Base
+**Aspecto:** Fondo semi-transparente, borde sutil, texto claro
+**Ubicación:** Campos de input en formularios de modal
+**Propósito:** Integración elegante con tema oscuro del modal
+**SCSS:** `.modal .form-control` (líneas 271-279) - `background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3)`
+
+### Inputs Modal Focus
+**Aspecto:** Borde azul con sombra sutil, sin outline
+**Ubicación:** Campos input cuando reciben focus
+**Propósito:** Feedback visual moderno de focus
+**SCSS:** `.modal .form-control:focus` (líneas 281-286) - `border-color: #3498db; box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25)`
+
+### Placeholder Modal
+**Aspecto:** Color gris claro para contraste adecuado
+**Ubicación:** Texto placeholder en campos de modal
+**Propósito:** Guías visuales legibles en tema oscuro
+**SCSS:** `.modal .form-control::placeholder` (líneas 288-290) - `color: #bdc3c7`
+
+## 📚 SISTEMA ACCORDION MODAL
+
+### Accordion Modal Base
+**Aspecto:** Sin borde, fondo transparente
+**Ubicación:** Accordions dentro de modales
+**Propósito:** Integración limpia con tema modal
+**SCSS:** `.modal .accordion` (líneas 292-295) - `border: none; background: transparent`
+
+### Accordion Item Modal
+**Aspecto:** Fondo semi-transparente con borde sutil
+**Ubicación:** Items individuales de accordion en modal
+**Propósito:** Separación visual entre secciones de accordion
+**SCSS:** `.modal .accordion-item` (líneas 297-302) - `background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1)`
+
+### Accordion Header Modal
+**Aspecto:** Sin borde inferior, padding controlado
+**Ubicación:** Headers de accordion en modal
+**Propósito:** Apariencia limpia sin líneas innecesarias
+**SCSS:** `.modal .accordion-header` (líneas 304-307) - `border-bottom: none; padding: 0`
+
+### Accordion Button Modal
+**Aspecto:** Fondo transparente, texto claro, sin borde, sin sombra
+**Ubicación:** Botones de accordion en modal
+**Propósito:** Integración perfecta con tema oscuro
+**SCSS:** `.modal .accordion-button` (líneas 309-317) - `background-color: transparent; color: #ecf0f1; border: none; box-shadow: none`
+
+### Accordion Button Focus
+**Aspecto:** Sombra azul sutil sin borde
+**Ubicación:** Botones accordion al recibir focus
+**Propósito:** Feedback de focus accesible
+**SCSS:** `.modal .accordion-button:focus` (líneas 319-322) - `border-color: transparent; box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25)`
+
+### Accordion Button Collapsed
+**Aspecto:** Mismo fondo y texto que estado normal
+**Ubicación:** Botones accordion en estado colapsado
+**Propósito:** Consistencia visual entre estados
+**SCSS:** `.modal .accordion-button.collapsed` (líneas 324-327) - `background-color: transparent; color: #ecf0f1`
+
+### Accordion Body Modal
+**Aspecto:** Fondo ligeramente más oscuro, padding generoso
+**Ubicación:** Contenido de accordion en modal
+**Propósito:** Diferenciación sutil del header
+**SCSS:** `.modal .accordion-body` (líneas 329-333) - `background-color: rgba(0,0,0,0.2); padding: 1.5rem; color: #bdc3c7`
+
+## 📋 LISTAS Y ELEMENTOS ESPECIALES MODAL
+
+### Listas Modal
+**Aspecto:** Sin viñetas, padding controlado
+**Ubicación:** Listas dentro de modales
+**Propósito:** Presentación limpia de información listada
+**SCSS:** `.modal ul` (líneas 335-339) - `list-style: none; padding-left: 0; margin-bottom: 1rem`
+
+### Items Lista Modal
+**Aspecto:** Padding, borde inferior sutil, transición
+**Ubicación:** Elementos individuales de listas en modal
+**Propósito:** Separación visual entre elementos relacionados
+**SCSS:** `.modal ul li` (líneas 341-347) - `padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); transition: background-color 0.3s`
+
+### Items Lista Hover
+**Aspecto:** Fondo semi-transparente al hacer hover
+**Ubicación:** Items de lista al interactuar
+**Propósito:** Feedback visual de interactividad
+**SCSS:** `.modal ul li:hover` (líneas 349-351) - `background-color: rgba(255,255,255,0.05)`
+
+### Enlaces Lista Modal
+**Aspecto:** Color claro sin decoración, transición suave
+**Ubicación:** Enlaces dentro de listas de modal
+**Propósito:** Integración visual con tema oscuro
+**SCSS:** `.modal ul li a` (líneas 353-359) - `color: #ecf0f1; text-decoration: none; transition: color 0.3s`
+
+### Enlaces Lista Hover
+**Aspecto:** Color azul al hacer hover
+**Ubicación:** Enlaces de lista al interactuar
+**Propósito:** Feedback visual consistente con botones primarios
+**SCSS:** `.modal ul li a:hover` (líneas 361-363) - `color: #3498db`
+
+## ⚠️ SISTEMA ALERTAS MODAL
+
+### Alertas Info Modal
+**Aspecto:** Fondo azul semi-transparente, borde azul, texto claro
+**Ubicación:** Alertas informativas en modales
+**Propósito:** Mostrar información importante con colores apropiados
+**SCSS:** `.modal .alert-info` (líneas 365-371) - `background-color: rgba(52, 152, 219, 0.2); border-color: #3498db; color: #ecf0f1`
+
+### Alertas Warning Modal
+**Aspecto:** Fondo naranja semi-transparente, borde naranja, texto oscuro
+**Ubicación:** Alertas de advertencia en modales
+**Propósito:** Destacar advertencias manteniendo legibilidad
+**SCSS:** `.modal .alert-warning` (líneas 373-379) - `background-color: rgba(243, 156, 18, 0.2); border-color: #f39c12; color: #2c3e50`
+
+### Alertas Danger Modal
+**Aspecto:** Fondo rojo semi-transparente, borde rojo, texto claro
+**Ubicación:** Alertas de error/peligro en modales
+**Propósito:** Comunicar errores/peligros de forma clara
+**SCSS:** `.modal .alert-danger` (líneas 381-387) - `background-color: rgba(231, 76, 60, 0.2); border-color: #e74c3c; color: #ecf0f1`
+
+### Alertas Success Modal
+**Aspecto:** Fondo verde semi-transparente, borde verde, texto claro
+**Ubicación:** Alertas de éxito en modales
+**Propósito:** Confirmar acciones exitosas con colores apropiados
+**SCSS:** `.modal .alert-success` (líneas 389-395) - `background-color: rgba(46, 204, 113, 0.2); border-color: #2ecc71; color: #ecf0f1`
+
+## 📊 TABLAS MODAL
+
+### Tablas Modal Base
+**Aspecto:** Ancho completo, margen inferior
+**Ubicación:** Tablas dentro de modales
+**Propósito:** Presentación estructurada de datos tabulares
+**SCSS:** `.modal table` (líneas 397-401) - `width: 100%; margin-bottom: 1rem; color: #ecf0f1`
+
+### Headers Tabla Modal
+**Aspecto:** Borde inferior sutil, padding generoso, peso bold
+**Ubicación:** Headers de columnas en tablas de modal
+**Propósito:** Identificación clara de columnas
+**SCSS:** `.modal table th` (líneas 403-409) - `border-bottom: 1px solid rgba(255,255,255,0.2); padding: 0.75rem; font-weight: 600`
+
+### Celdas Tabla Modal
+**Aspecto:** Borde inferior muy sutil, padding consistente
+**Ubicación:** Celdas de datos en tablas de modal
+**Propósito:** Separación visual entre filas de datos
+**SCSS:** `.modal table td` (líneas 411-416) - `border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0.75rem`
+
+### Filas Tabla Hover
+**Aspecto:** Fondo semi-transparente al hacer hover
+**Ubicación:** Filas de tabla al interactuar
+**Propósito:** Facilitar seguimiento visual de filas
+**SCSS:** `.modal table tbody tr:hover` (líneas 418-420) - `background-color: rgba(255,255,255,0.05)`
+
+## 🎯 ELEMENTOS ESPECÍFICOS MODAL
+
+### Small Text Modal
+**Aspecto:** Texto pequeño en color gris claro
+**Ubicación:** Texto secundario/explicativo en modales
+**Propósito:** Información complementaria menos prominente
+**SCSS:** `.modal .small, .modal small` (líneas 422-426) - `font-size: 0.875rem; color: #bdc3c7`
+
+### Dividers Modal
+**Aspecto:** Línea horizontal sutil
+**Ubicación:** Separadores de contenido en modal
+**Propósito:** Dividir secciones de contenido visualmente
+**SCSS:** `.modal hr` (líneas 428-432) - `border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 1.5rem 0`
+
+### Code Blocks Modal
+**Aspecto:** Fondo oscuro, fuente monospace, padding, bordes redondeados
+**Ubicación:** Bloques de código en modales
+**Propósito:** Mostrar código con formato apropiado
+**SCSS:** `.modal code, .modal pre` (líneas 434-442) - `background-color: rgba(0,0,0,0.3); color: #e74c3c; font-family: 'Courier New', monospace`
+
+## 🏷️ BADGES Y ETIQUETAS MODAL
+
+### Badge Primary Modal
+**Aspecto:** Fondo azul elegante con texto blanco
+**Ubicación:** Badges/etiquetas primarias en modal
+**Propósito:** Destacar información importante con color primario
+**SCSS:** `.modal .badge-primary` (líneas 444-448) - `background-color: #3498db; color: white`
+
+### Badge Secondary Modal
+**Aspecto:** Fondo gris con texto oscuro
+**Ubicación:** Badges/etiquetas secundarias en modal
+**Propósito:** Información complementaria menos prominente
+**SCSS:** `.modal .badge-secondary` (líneas 450-454) - `background-color: #95a5a6; color: #2c3e50`
+
+### Badge Success Modal
+**Aspecto:** Fondo verde con texto blanco
+**Ubicación:** Badges de estado exitoso en modal
+**Propósito:** Indicar estados o acciones exitosas
+**SCSS:** `.modal .badge-success` (líneas 456-460) - `background-color: #2ecc71; color: white`
+
+### Badge Danger Modal
+**Aspecto:** Fondo rojo con texto blanco
+**Ubicación:** Badges de error/peligro en modal
+**Propósito:** Indicar estados problemáticos o errores
+**SCSS:** `.modal .badge-danger` (líneas 462-466) - `background-color: #e74c3c; color: white`
+
+### Badge Warning Modal
+**Aspecto:** Fondo naranja con texto oscuro
+**Ubicación:** Badges de advertencia en modal
+**Propósito:** Señalar advertencias o precauciones
+**SCSS:** `.modal .badge-warning` (líneas 468-472) - `background-color: #f39c12; color: #2c3e50`
+
+### Badge Info Modal
+**Aspecto:** Fondo azul claro con texto blanco
+**Ubicación:** Badges informativos en modal
+**Propósito:** Proporcionar información adicional
+**SCSS:** `.modal .badge-info` (líneas 474-478) - `background-color: #17a2b8; color: white`
+
+## 🎨 PROGRESS BARS MODAL
+
+### Progress Container Modal
+**Aspecto:** Fondo oscuro semi-transparente, altura estándar, bordes redondeados
+**Ubicación:** Contenedor de barras de progreso en modal
+**Propósito:** Mostrar progreso de acciones/procesos
+**SCSS:** `.modal .progress` (líneas 480-486) - `background-color: rgba(0,0,0,0.3); height: 1rem; border-radius: 0.5rem`
+
+### Progress Bar Modal
+**Aspecto:** Fondo azul elegante con transición suave
+**Ubicación:** Barra de progreso dentro del contenedor
+**Propósito:** Indicar visualmente el porcentaje de completitud
+**SCSS:** `.modal .progress-bar` (líneas 488-492) - `background-color: #3498db; transition: width 0.6s ease`
+
+## 🎛️ CONTROLES PERSONALIZADOS MODAL
+
+### Custom Select Modal
+**Aspecto:** Fondo semi-transparente, borde sutil, flecha personalizada
+**Ubicación:** Elementos select personalizados en modal
+**Propósito:** Integración visual con tema oscuro del modal
+**SCSS:** `.modal .custom-select` (líneas 494-503) - `background: rgba(255,255,255,0.1) url("data:image/svg+xml;base64,...") no-repeat right 0.75rem center`
+
+### Custom Select Focus
+**Aspecto:** Borde azul con sombra sutil
+**Ubicación:** Select personalizado al recibir focus
+**Propósito:** Feedback visual consistente con otros controles
+**SCSS:** `.modal .custom-select:focus` (líneas 505-508) - `border-color: #3498db; box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25)`
+
+## 🔘 CONTROLES CHECKBOX/RADIO MODAL
+
+### Custom Checkbox Modal
+**Aspecto:** Fondo semi-transparente, borde sutil, tamaño estándar
+**Ubicación:** Checkboxes personalizados en modal
+**Propósito:** Integración visual con tema modal
+**SCSS:** `.modal .custom-control-input:checked ~ .custom-control-label::before` (líneas 510-515) - `background-color: #3498db; border-color: #3498db`
+
+### Custom Radio Modal
+**Aspecto:** Estilo similar a checkbox pero circular
+**Ubicación:** Radio buttons personalizados en modal
+**Propósito:** Consistencia visual con otros controles personalizados
+**SCSS:** `.modal .custom-radio .custom-control-label::before` (líneas 517-521) - `border-radius: 50%`
+
+## 📱 RESPONSIVE MODAL AVANZADO
+
+### Modal Dialog Responsive
+**Aspecto:** Margen reducido en móviles para maximizar espacio
+**Ubicación:** Dialog principal de modal en dispositivos pequeños
+**Propósito:** Aprovechar mejor el espacio disponible en móviles
+**SCSS:** `@media (max-width: 576px) .modal-dialog` (líneas 523-527) - `margin: 0.5rem; max-width: calc(100% - 1rem)`
+
+### Modal Content Móvil
+**Aspecto:** Bordes redondeados reducidos para mejor aprovechamiento
+**Ubicación:** Contenido modal en dispositivos muy pequeños
+**Propósito:** Optimizar espacio visual en pantallas pequeñas
+**SCSS:** `@media (max-width: 576px) .modal-content` (líneas 529-531) - `border-radius: 8px`
+
+### Modal Header Móvil
+**Aspecto:** Padding reducido para compactar espacio
+**Ubicación:** Header modal en móviles
+**Propósito:** Maximizar espacio para contenido principal
+**SCSS:** `@media (max-width: 576px) .modal-header` (líneas 533-535) - `padding: 1rem 1rem 0.25rem`
+
+### Modal Body Móvil
+**Aspecto:** Padding compactado manteniendo legibilidad
+**Ubicación:** Cuerpo modal en dispositivos pequeños
+**Propósito:** Balance entre compactación y usabilidad
+**SCSS:** `@media (max-width: 576px) .modal-body` (líneas 537-539) - `padding: 1rem`
+
+### Modal Footer Móvil
+**Aspecto:** Padding muy reducido para botones
+**Ubicación:** Footer modal en móviles
+**Propósito:** Espacio mínimo necesario para acciones
+**SCSS:** `@media (max-width: 576px) .modal-footer` (líneas 541-543) - `padding: 0.25rem 1rem 1rem`
+
+## 🎯 UTILIDADES MODAL
+
+### Text Utilities Modal
+**Aspecto:** Colores de texto específicos para tema oscuro
+**Ubicación:** Clases utilitarias de texto en modal
+**Propósito:** Proporcionar opciones de color consistentes con tema
+**SCSS:** `.modal .text-primary` etc. (líneas 545-565) - Multiple color utilities
+
+### Background Utilities Modal
+**Aspecto:** Fondos semi-transparentes para elementos destacados
+**Ubicación:** Clases utilitarias de fondo en modal
+**Propósito:** Destacar elementos manteniendo integración visual
+**SCSS:** `.modal .bg-primary` etc. (líneas 567-587) - Multiple background utilities
+
+## 🔧 ELEMENTOS TÉCNICOS MODAL
+
+### Modal Scrollbar Styling
+**Aspecto:** Scrollbar personalizada para tema oscuro
+**Ubicación:** Scrollbars dentro de modales
+**Propósito:** Integración visual completa con tema oscuro
+**SCSS:** `.modal ::-webkit-scrollbar` (líneas 589-605) - Custom scrollbar styling
+
+### Modal Animation Timing
+**Aspecto:** Transiciones personalizadas para entrada/salida
+**Ubicación:** Animaciones de modal
+**Propósito:** Experiencia de usuario suave y profesional
+**SCSS:** `.modal.fade .modal-dialog` (líneas 607-611) - `transition: transform 0.4s ease-out`
+
+### Modal Z-Index Management
+**Aspecto:** Z-index coordinado para elementos modal
+**Ubicación:** Gestión de capas de modal
+**Propósito:** Asegurar orden visual correcto de elementos
+**SCSS:** Various z-index values throughout modal system
+
+## 📐 SISTEMA ESPACIADO FOOTER
+
+### Espaciado Macro (Secciones)
+**Aspecto:** 3rem (48px) entre secciones principales
+**Ubicación:** Separaciones principales del footer
+**Propósito:** Crear respiración visual entre bloques de contenido
+**SCSS:** Multiple `margin-bottom: 3rem` declarations
+
+### Espaciado Medio (Elementos)
+**Aspecto:** 1-2rem (16-32px) para elementos relacionados
+**Ubicación:** Espaciado entre elementos dentro de secciones
+**Propósito:** Agrupar elementos relacionados visualmente
+**SCSS:** Various 1-2rem margins and padding
+
+### Espaciado Micro (Detalles)
+**Aspecto:** 0.5rem (8px) para detalles finos
+**Ubicación:** Espaciado interno de elementos pequeños
+**Propósito:** Refinamiento de detalles visuales
+**SCSS:** Small gap and padding values throughout

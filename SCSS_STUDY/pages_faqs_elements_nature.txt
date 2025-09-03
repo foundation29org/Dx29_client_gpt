@@ -1,0 +1,245 @@
+# ELEMENTOS DE INTERFAZ - FAQS PAGE
+# Identificación completa de elementos visuales y su SCSS correspondiente
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 🎨 FONDOS Y CONTENEDORES
+
+### Contenedor Principal de Página
+**Aspecto:** Fondo blanco puro ocupando altura completa de viewport
+**Ubicación:** Envuelve toda la página FAQs
+**Propósito:** Asegurar que la página ocupe toda la pantalla, fondo neutro para lectura
+**SCSS:** `.faqs-page-container` (líneas 8-11) - `background-color: $white; min-height: 100vh`
+
+## 🏆 HEADER SECTION
+
+### Header Principal FAQs
+**Aspecto:** Rectángulo con degradado diagonal gris claro, borde inferior sutil
+**Ubicación:** Parte superior de la página, antes del contenido principal
+**Propósito:** Introducir la página de forma elegante sin drama, crear separación visual
+**SCSS:** `.faqs-header` (líneas 14-17) - `background: linear-gradient(135deg, $light-gray 0%, #F0F0F0 100%); border-bottom: 1px solid #E0E0E0`
+
+### Título Principal FAQs
+**Aspecto:** Texto gris oscuro muy grande (48px), bold, centrado
+**Ubicación:** Centro superior del header
+**Propósito:** Identificar claramente la sección, crear jerarquía visual máxima
+**SCSS:** `.faqs-title` (líneas 19-29) - `font-size: 3rem; font-weight: 700; color: $dark-gray; text-align: center`
+
+### Subtítulo FAQs
+**Aspecto:** Texto gris medio (20px), centrado, ancho limitado para legibilidad
+**Ubicación:** Debajo del título principal en el header
+**Propósito:** Proporcionar contexto sobre el propósito de las FAQs
+**SCSS:** `.faqs-subtitle` (líneas 31-42) - `font-size: 1.25rem; color: #666; max-width: 600px; margin: 0 auto`
+
+## 📝 CONTENIDO PRINCIPAL
+
+### Contenido FAQs Base
+**Aspecto:** Espacio con padding vertical generoso
+**Ubicación:** Área principal de la página después del header
+**Propósito:** Proporcionar respiración visual alrededor del contenido
+**SCSS:** `.faqs-content` (líneas 46-48) - `padding: 4rem 0`
+
+### Lista de FAQs Container
+**Aspecto:** Contenedor invisible con ancho máximo limitado y centrado
+**Ubicación:** Centro de la página, conteniendo todas las FAQs
+**Propósito:** Limitar ancho para legibilidad óptima, centrar contenido
+**SCSS:** `.faqs-list` (líneas 51-54) - `max-width: 900px; margin: 0 auto`
+
+## ❓ ELEMENTOS FAQ INDIVIDUALES
+
+### Item FAQ Base
+**Aspecto:** Bloque de contenido blanco con separación generosa
+**Ubicación:** Cada pregunta-respuesta individual
+**Propósito:** Contener cada FAQ como unidad visual independiente
+**SCSS:** `.faq-item` (líneas 57-64) - `background: $white; margin-bottom: 3rem`
+
+### Último Item FAQ
+**Aspecto:** Igual que items normales pero sin margen inferior
+**Ubicación:** La última FAQ en la lista
+**Propósito:** Evitar espacio innecesario al final de la lista
+**SCSS:** `.faq-item:last-child` (líneas 61-63) - `margin-bottom: 0`
+
+### Pregunta FAQ
+**Aspecto:** Texto gris oscuro grande (24px), semi-bold, con borde inferior rojo distintivo
+**Ubicación:** Primera línea de cada FAQ item
+**Propósito:** Destacar la pregunta, crear identidad visual con borde brand
+**SCSS:** `.faq-question` (líneas 67-75) - `font-size: 1.5rem; font-weight: 600; border-bottom: 3px solid $dark-red; display: inline-block`
+
+### Respuesta FAQ
+**Aspecto:** Texto gris medio aumentado (18px) con interlineado generoso
+**Ubicación:** Debajo de cada pregunta FAQ
+**Propósito:** Proporcionar respuesta clara y legible, diferenciada de la pregunta
+**SCSS:** `.faq-answer p` (líneas 79-84) - `font-size: 1.1rem; line-height: 1.7; color: #555; margin: 0`
+
+## 📱 ELEMENTOS RESPONSIVE
+
+### Header Responsive (Tablets)
+**Aspecto:** Padding reducido, títulos más pequeños
+**Ubicación:** Header en dispositivos tablet (768px o menos)
+**Propósito:** Adaptarse a pantallas más pequeñas manteniendo proporciones
+**SCSS:** `@media (max-width: 768px) .faqs-header` (líneas 89-100) - `padding: 3rem 0 2rem`
+
+### Título Responsive (Tablets)
+**Aspecto:** Tamaño reducido a 35px aproximadamente
+**Ubicación:** Título principal en tablets
+**Propósito:** Mantener legibilidad sin ocupar demasiado espacio vertical
+**SCSS:** `@media (max-width: 768px) .faqs-title` (líneas 92-94) - `font-size: 2.2rem`
+
+### Subtítulo Responsive (Tablets)
+**Aspecto:** Tamaño reducido con padding horizontal añadido
+**Ubicación:** Subtítulo en tablets
+**Propósito:** Evitar texto pegado a bordes, mantener legibilidad
+**SCSS:** `@media (max-width: 768px) .faqs-subtitle` (líneas 96-99) - `font-size: 1.1rem; padding: 0 1rem`
+
+### Contenido Responsive (Tablets)
+**Aspecto:** Padding vertical reducido
+**Ubicación:** Área de contenido principal en tablets
+**Propósito:** Aprovechar mejor el espacio vertical disponible
+**SCSS:** `@media (max-width: 768px) .faqs-content` (líneas 102-104) - `padding: 3rem 0`
+
+### Item FAQ Responsive (Tablets)
+**Aspecto:** Separación reducida entre items
+**Ubicación:** Cada FAQ en dispositivos tablet
+**Propósito:** Mostrar más contenido en pantalla, mantener respiración visual
+**SCSS:** `@media (max-width: 768px) .faq-item` (líneas 106-108) - `margin-bottom: 2.5rem`
+
+### Pregunta FAQ Responsive (Tablets)
+**Aspecto:** Tamaño de fuente reducido a 20px
+**Ubicación:** Preguntas FAQ en tablets
+**Propósito:** Proporcionar mejor balance visual en pantallas medianas
+**SCSS:** `@media (max-width: 768px) .faq-question` (líneas 110-112) - `font-size: 1.25rem`
+
+### Respuesta FAQ Responsive (Tablets)
+**Aspecto:** Tamaño base de fuente (16px)
+**Ubicación:** Respuestas FAQ en tablets
+**Propósito:** Mantener legibilidad estándar en dispositivos medianos
+**SCSS:** `@media (max-width: 768px) .faq-answer p` (líneas 114-116) - `font-size: 1rem`
+
+## 📱 ELEMENTOS RESPONSIVE MÓVIL PEQUEÑO
+
+### Título Móvil Pequeño
+**Aspecto:** Tamaño muy reducido (29px aproximadamente)
+**Ubicación:** Título principal en móviles pequeños (576px o menos)
+**Propósito:** Ajustar a pantallas muy pequeñas sin perder legibilidad
+**SCSS:** `@media (max-width: 576px) .faqs-title` (líneas 121-123) - `font-size: 1.8rem`
+
+### Pregunta FAQ Móvil Pequeño
+**Aspecto:** Tamaño reducido a 18px aproximadamente
+**Ubicación:** Preguntas FAQ en móviles pequeños
+**Propósito:** Adaptar jerarquía visual a espacios muy limitados
+**SCSS:** `@media (max-width: 576px) .faq-question` (líneas 126-128) - `font-size: 1.1rem`
+
+### Respuesta FAQ Móvil Pequeño
+**Aspecto:** Tamaño ligeramente reducido (15px), cerca del límite de legibilidad
+**Ubicación:** Respuestas FAQ en móviles muy pequeños
+**Propósito:** Maximizar contenido visible, aunque puede afectar legibilidad
+**SCSS:** `@media (max-width: 576px) .faq-answer p` (líneas 130-132) - `font-size: 0.95rem`
+
+### Item FAQ Móvil Pequeño
+**Aspecto:** Separación mínima entre items (32px)
+**Ubicación:** Cada FAQ en móviles muy pequeños
+**Propósito:** Aprovechar al máximo el espacio vertical disponible
+**SCSS:** `@media (max-width: 576px) .faq-item` (líneas 134-136) - `margin-bottom: 2rem`
+
+## 🎯 ELEMENTOS DISTINTIVOS
+
+### Borde Decorativo Pregunta
+**Aspecto:** Línea roja sólida de 3px de grosor
+**Ubicación:** Debajo del texto de cada pregunta FAQ
+**Propósito:** Crear identidad visual brand, distinguir preguntas de respuestas
+**SCSS:** `.faq-question` (línea 72) - `border-bottom: 3px solid $dark-red`
+
+### Separación Visual Items
+**Aspecto:** Espacio en blanco generoso (48px en desktop)
+**Ubicación:** Entre cada pregunta-respuesta completa
+**Propósito:** Crear grupos visuales claros, facilitar scanning de contenido
+**SCSS:** `.faq-item` (línea 59) - `margin-bottom: 3rem`
+
+### Limitador de Ancho
+**Aspecto:** Invisible, pero limita contenido a 900px máximo
+**Ubicación:** Contenedor de toda la lista FAQs
+**Propósito:** Optimizar longitud de línea para lectura, seguir principios UX
+**SCSS:** `.faqs-list` (línea 52) - `max-width: 900px`
+
+### Degradado Header Sutil
+**Aspecto:** Transición suave de gris muy claro a gris claro
+**Ubicación:** Fondo completo del header FAQs
+**Propósito:** Añadir profundidad visual sin distracción, diferenciación del contenido
+**SCSS:** `.faqs-header` (línea 15) - `linear-gradient(135deg, $light-gray 0%, #F0F0F0 100%)`
+
+## 🔤 JERARQUÍA TIPOGRÁFICA
+
+### Nivel 1 - Título Principal
+**Aspecto:** 48px → 35px → 29px (desktop → tablet → móvil)
+**Ubicación:** Título de página FAQs
+**Propósito:** Establecer jerarquía máxima, identificación inmediata
+**SCSS:** `.faqs-title` - Progressive font-size scaling
+
+### Nivel 2 - Subtítulo
+**Aspecto:** 20px → 18px (desktop → móvil)
+**Ubicación:** Descripción bajo título principal
+**Propósito:** Proporcionar contexto sin competir con título
+**SCSS:** `.faqs-subtitle` - Conservative scaling
+
+### Nivel 3 - Preguntas FAQ
+**Aspecto:** 24px → 20px → 18px (desktop → tablet → móvil)
+**Ubicación:** Cada pregunta individual
+**Propósito:** Destacar preguntas, crear scanning pattern
+**SCSS:** `.faq-question` - Aggressive scaling for mobile
+
+### Nivel 4 - Respuestas FAQ
+**Aspecto:** 18px → 16px → 15px (desktop → tablet → móvil)
+**Ubicación:** Contenido de respuestas
+**Propósito:** Legibilidad óptima para texto largo
+**SCSS:** `.faq-answer p` - Conservative scaling, border legibility
+
+## 📐 SISTEMA DE ESPACIADO
+
+### Espaciado Macro
+**Aspecto:** 64px → 48px padding vertical secciones
+**Ubicación:** Entre header y contenido, contenido y final
+**Propósito:** Crear respiración visual entre bloques principales
+**SCSS:** `.faqs-content padding` - Responsive scaling
+
+### Espaciado Medio
+**Aspecto:** 48px → 40px → 32px separación entre FAQs
+**Ubicación:** Entre cada pregunta-respuesta completa
+**Propósito:** Agrupar cada FAQ como unidad, separar de otras
+**SCSS:** `.faq-item margin-bottom` - Progressive reduction
+
+### Espaciado Micro
+**Aspecto:** 16px separación pregunta-respuesta
+**Ubicación:** Entre pregunta y su respuesta correspondiente
+**Propósito:** Asociar visualmente pregunta con respuesta
+**SCSS:** `.faq-question margin-bottom` - Fixed across devices
+
+## 🎨 SISTEMA DE COLORES
+
+### Color Primario Brand
+**Aspecto:** Rojo oscuro #8B0000
+**Ubicación:** Bordes decorativos de preguntas
+**Propósito:** Mantener identidad visual brand, crear consistency
+**SCSS:** `$dark-red variable` - Used in border-bottom
+
+### Color Texto Principal
+**Aspecto:** Gris oscuro #2C2C2C
+**Ubicación:** Títulos principales y preguntas
+**Propósito:** Máximo contraste legible sin ser negro puro
+**SCSS:** `$dark-gray variable` - High contrast text
+
+### Color Texto Secundario
+**Aspecto:** Gris medio #666
+**Ubicación:** Subtítulos y texto descriptivo
+**Propósito:** Jerarquía visual, menos prominente que principal
+**SCSS:** Hard-coded #666 - Could be variable
+
+### Color Texto Contenido
+**Aspecto:** Gris medio #555
+**Ubicación:** Respuestas FAQ, contenido principal
+**Propósito:** Legible pero menos prominent que preguntas
+**SCSS:** Hard-coded #555 - Could be variable
+
+### Color Fondo Neutro
+**Aspecto:** Blanco puro y grises muy claros
+**Ubicación:** Fondos de página y header
+**Propósito:** Neutralidad para lectura, no interferir con contenido
+**SCSS:** `$white y $light-gray variables` - Clean backgrounds

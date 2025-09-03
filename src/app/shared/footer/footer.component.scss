@@ -1,55 +1,58 @@
-// Color scheme consistent with the website
-$dark-red: #8B0000;
-$medium-red: #B22222;
-$dark-gray: #2C2C2C;
-$footer-dark: #1a1d23;
-$footer-darker: #151820;
-$light-gray: #F8F9FA;
-$white: #FFFFFF;
+/* ==========================================
+   FOOTER COMPONENT - OPTIMIZED SCSS
+   Uses Global Variables & Real CSS Properties
+   ========================================== */
 
-.pointer{
+// Utility Classes
+.pointer { 
   cursor: pointer; 
 }
 
-::ng-deep .mat-checkbox-layout {
-  display: block !important;
+::ng-deep .mat-checkbox-layout { 
+  display: block !important; 
 }
 
 .mat-checkbox-label {
-  margin-top: 0.4em;
+  margin-top: 0.25rem;
   white-space: normal;
   text-transform: none;
-  letter-spacing: 0px;
+  letter-spacing: 0;
 }
 
-// Dark Professional Footer
+/* ==========================================
+   MAIN FOOTER STRUCTURE
+   ========================================== */
+
 .dark-footer {
-  background: linear-gradient(135deg, $footer-dark 0%, $footer-darker 100%);
+  background: linear-gradient(135deg, #1a1d23 0%, #151820 100%);
   color: #E5E7EB;
   margin-top: auto;
-  border-top: 3px solid $dark-red;
+  border-top: 3px solid var(--dx-dark-red);
 }
 
 .footer-content {
-  padding: 4rem 0 0;
+  padding-top: 3rem;
   
-  .container {
-    max-width: 1200px; // Same as content pages
+  .container { 
+    max-width: 1200px; 
   }
 }
 
 .footer-main {
-  padding-bottom: 2rem;
-  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-// Footer Columns
+/* ==========================================
+   FOOTER COLUMNS & NAVIGATION
+   ========================================== */
+
 .footer-column {
   .footer-title {
-    color: $white;
+    color: white;
     font-size: 1.25rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     position: relative;
     
     &:after {
@@ -59,7 +62,7 @@ $white: #FFFFFF;
       left: 0;
       width: 40px;
       height: 2px;
-      background: $dark-red;
+      background: var(--dx-dark-red);
     }
   }
   
@@ -75,85 +78,119 @@ $white: #FFFFFF;
         color: #B0B7C3;
         text-decoration: none;
         font-size: 0.95rem;
-        transition: all 0.3s ease;
+        transition: all var(--dx-duration-normal);
         display: flex;
         align-items: center;
         
         &:hover {
-          color: $white;
+          color: white;
           padding-left: 8px;
         }
         
-        i {
-          margin-right: 8px;
-          width: 16px;
+        i { 
+          margin-right: 0.5rem; 
+          width: 16px; 
+        }
+      }
+      
+      // Separator functionality
+      &.separator-after {
+        position: relative;
+        margin-bottom: 1.2rem;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -0.6rem;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, var(--dx-dark-red) 0%, rgba(139, 0, 0, 0.4) 50%, var(--dx-dark-red) 100%);
+          border-radius: 1px;
         }
       }
     }
   }
 }
 
-// Contact Section
-.contact-section {
-  .contact-btn {
-    background: $dark-red;
-    color: $white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    &:hover {
-      background: $medium-red;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3);
-    }
-    
-    i {
-      font-size: 0.9rem;
-    }
+/* ==========================================
+   BUTTONS & INTERACTIVE ELEMENTS
+   ========================================== */
+
+
+// Contact and subscribe buttons using unified system
+.contact-section .contact-btn {
+  border: none;
+  border-radius: var(--dx-btn-radius);
+  padding: var(--dx-btn-padding);
+  font-weight: var(--dx-btn-font-weight);
+  font-size: var(--dx-btn-font-size);
+  transition: var(--dx-form-transition);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  width: 100%;
+  
+  // Primary button styles
+  background: var(--dx-btn-primary-bg);
+  color: white;
+  box-shadow: var(--dx-btn-elevation) rgba(var(--bs-primary-rgb), 0.3);
+  
+  &:hover {
+    background: var(--dx-btn-primary-hover);
+    color: white;
+    box-shadow: var(--dx-btn-elevation-hover) rgba(var(--bs-primary-rgb), 0.3);
+    transform: translateY(-2px);
+    text-decoration: none;
   }
 }
 
-// Subscribe Section
-.subscribe-section {
-  .subscribe-btn {
-    background: #6B7280;
-    color: $white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    &:hover {
-      background: #4B5563;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(107, 114, 128, 0.3);
-    }
-    
-    i {
-      font-size: 0.9rem;
-    }
+.subscribe-section .subscribe-btn {
+  border: none;
+  border-radius: var(--dx-btn-radius);
+  padding: var(--dx-btn-padding);
+  font-weight: var(--dx-btn-font-weight);
+  font-size: var(--dx-btn-font-size);
+  transition: var(--dx-form-transition);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  width: 100%;
+  
+  // Secondary button styles
+  background: var(--dx-btn-secondary-bg);
+  color: white;
+  box-shadow: var(--dx-btn-elevation) rgba(107, 114, 128, 0.3);
+  
+  &:hover {
+    background: var(--dx-btn-secondary-hover);
+    color: white;
+    box-shadow: var(--dx-btn-elevation-hover) rgba(107, 114, 128, 0.3);
+    transform: translateY(-2px);
+    text-decoration: none;
   }
 }
 
-// Foundation Info in Contact Column
+/* CONTACT & SUBSCRIBE MODALS - Use unified system */
+.contact-modal,
+.subscribe-modal {
+  /* Modal styles applied directly via unified-modal class in HTML */
+}
+
+/* ==========================================
+   FOUNDATION & SOCIAL SECTIONS
+   ========================================== */
+
 .foundation-info {
-  .foundation-text {
+  .foundation-text { 
     color: #9CA3AF;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     margin: 0;
     text-align: center;
   }
@@ -161,10 +198,11 @@ $white: #FFFFFF;
   .foundation-link {
     display: block;
     text-align: center;
+    text-decoration: none;
     transition: opacity 0.3s ease;
     
-    &:hover {
-      opacity: 0.8;
+    &:hover { 
+      opacity: 0.8; 
     }
     
     .foundation-logo {
@@ -174,15 +212,16 @@ $white: #FFFFFF;
       transition: filter 0.3s ease;
     }
     
-    &:hover .foundation-logo {
-      filter: brightness(1);
+    &:hover .foundation-logo { 
+      filter: brightness(1); 
     }
   }
   
   .foundation-address {
     color: #9CA3AF;
     font-size: 0.85rem;
-    margin: 0.5rem 0 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
     text-align: center;
   }
 }
@@ -191,651 +230,113 @@ $white: #FFFFFF;
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
   margin-top: 1rem;
+  gap: 0.75rem;
   
   .social-link {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
     width: 40px;
     height: 40px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     color: #B0B7C3;
-    text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all var(--dx-duration-normal);
     
     &:hover {
-      background: $dark-red;
-      color: $white;
+      background: var(--dx-dark-red);
+      color: white;
       transform: translateY(-2px);
     }
     
-    i {
-      font-size: 1rem;
+    i { 
+      font-size: 1rem; 
     }
   }
 }
 
-// Footer Bottom
-.footer-bottom {
-  background: transparent; // Removed the dark background
-  padding: 1.5rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  
-  .copyright-text,
-  .powered-text {
-    color: #9CA3AF;
-    font-size: 0.85rem;
-    margin: 0;
-  }
-  
-  .powered-text {
-    font-style: italic;
+/* ==========================================
+   NEWSLETTER & EMAIL SECTION
+   ========================================== */
+
+.newsletter-section {
+  .newsletter-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: var(--dx-radius-md);
+    width: 100%;
+    margin-bottom: 1rem;
+    
+    &::placeholder {
+      color: #B0B7C3;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: var(--dx-dark-red);
+      background: rgba(255, 255, 255, 0.15);
+    }
   }
 }
 
-// Responsive Design
-@media (max-width: 992px) {
+/* Removed redundant badge colors - using global Bootstrap variables */
+
+/* ==========================================
+   COPYRIGHT & BOTTOM SECTION
+   ========================================== */
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+  
+  .copyright-text {
+    color: #9CA3AF;
+    font-size: 0.875rem;
+    margin: 0;
+    text-align: left;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 991.98px) {
+  .footer-content {
+    padding-top: 2rem;
+  }
+  
   .footer-column {
     margin-bottom: 2rem;
-    
-    .footer-title {
-      text-align: center;
-      
-      &:after {
-        left: 50%;
-        transform: translateX(-50%);
-      }
-    }
-    
-    .footer-links {
-      text-align: center;
-    }
   }
   
   .social-icons {
-    margin-bottom: 1rem;
+    margin-top: 1.5rem;
   }
 }
 
-// Separator line after specific footer links
-.footer-links {
-  li.separator-after {
-    position: relative;
-    margin-bottom: 1.2rem;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -0.6rem;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, $dark-red 0%, rgba(139, 0, 0, 0.4) 50%, $dark-red 100%);
-      border-radius: 1px;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .footer-content {
-    padding: 3rem 0 0;
+@media (max-width: 575.98px) {
+  .dark-footer {
+    padding: 0 1rem;
   }
   
-  .footer-main {
-    padding-bottom: 1.5rem;
-    margin-bottom: 1.5rem;
+  .contact-section .contact-btn,
+  .subscribe-section .subscribe-btn {
+    padding: 0.65rem 1.2rem;
+    font-size: 0.9rem;
   }
   
-  .footer-column {
-    .footer-title {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-    
-    .footer-links li {
-      margin-bottom: 0.5rem;
-    }
-  }
-  
-  .contact-section {
-    .contact-btn {
-      padding: 0.7rem 1.2rem;
-      font-size: 0.9rem;
-    }
-  }
-  
-  .subscribe-section {
-    .subscribe-btn {
-      padding: 0.7rem 1.2rem;
-      font-size: 0.9rem;
-    }
-  }
-  
-  .foundation-info {
-    .foundation-logo {
-      max-width: 80px;
-    }
-  }
-  
-  .footer-bottom {
-    padding: 1rem 0;
-    
-    .row > div {
-      text-align: center !important;
-      margin-bottom: 0.5rem;
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-  }
-}
-
-@media (max-width: 576px) {
-  .footer-column {
-    margin-bottom: 1.5rem;
-  }
-  
-  .social-icons .social-link {
-    width: 36px;
-    height: 36px;
+  .social-link {
+    width: 35px;
+    height: 35px;
     
     i {
       font-size: 0.9rem;
-    }
-  }
-}
-
-// Collaborate with us section
-.collaborate-section {
-  .collaborate-title {
-    color: #E5E7EB;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    position: relative;
-    
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 25px;
-      height: 1px;
-      background: rgba(139, 0, 0, 0.6);
-    }
-  }
-  
-  .collaborate-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1rem 0;
-    font-size: 0.8rem;
-    
-    li {
-      color: #9CA3AF;
-      margin-bottom: 0.25rem;
-      padding-left: 0.75rem;
-      position: relative;
-      
-      &:before {
-        content: '•';
-        color: $dark-red;
-        position: absolute;
-        left: 0;
-      }
-    }
-  }
-  
-  .collaborate-text {
-    font-size: 0.85rem;
-    color: #9CA3AF;
-    margin: 0;
-    
-    .contact-link-text {
-      color: $dark-red;
-      text-decoration: none;
-      transition: color 0.3s ease;
-      
-      &:hover {
-        color: $medium-red;
-        text-decoration: underline;
-      }
-    }
-  }
-}
-
-.bodyfooter{
-    display: flex;
-  }
-
-  @media ( max-width: 484px ){
-    .bodyfooter{
-        display: block;
-    }
-  }
-
-// Critical mobile spacing for cookie consent
-.mb-footer-mobile {
-  @media (max-width: 991.98px) {
-    margin-bottom: 56px !important; // Space for cookieconsent button
-  }
-}
-
-// Contact Modal - Professional Medical Theme
-::ng-deep .modal-dialog {
-  .modal-content {
-    background: $white;
-    border: none;
-    border-radius: 12px;
-    color: $dark-gray;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
-    
-    .modal-header {
-      background: linear-gradient(135deg, $dark-gray 0%, #1a1a1a 100%);
-      border-bottom: 4px solid $dark-red;
-      padding: 1rem 2rem;
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(44, 44, 44, 0.88);
-      }
-      
-      .modal-title {
-        color: $white;
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin: 0;
-        position: relative;
-        z-index: 1;
-      }
-      
-      .btn-close {
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 4px;
-        width: 32px;
-        height: 32px;
-        opacity: 1;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        z-index: 1;
-        
-        &::before {
-          content: '×';
-          color: $white;
-          font-size: 18px;
-          font-weight: normal;
-        }
-        
-        &:hover {
-          background: rgba(255, 255, 255, 0.25);
-          border-color: rgba(255, 255, 255, 0.4);
-        }
-      }
-    }
-  
-    .modal-body {
-      padding: 2.5rem;
-      background: $white;
-      position: relative;
-      
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(139, 0, 0, 0.01);
-        pointer-events: none;
-        z-index: 0;
-      }
-      
-      > * {
-        position: relative;
-        z-index: 1;
-      }
-      
-      .form-group {
-        margin-bottom: 1.8rem;
-        
-        &.checkbox-group {
-          margin-bottom: 1.2rem;
-          
-          .mat-checkbox {
-            display: block;
-            width: 100%;
-          }
-        }
-        
-        span {
-          color: $dark-gray;
-          font-weight: 500;
-          font-size: 0.95rem;
-          margin-bottom: 0.8rem;
-          display: block;
-          
-          &.mb-0 {
-            margin-bottom: 0.5rem !important;
-          }
-        }
-        
-        .form-control {
-          background: $white;
-          border: 2px solid #E5E7EB;
-          color: $dark-gray;
-          border-radius: 6px;
-          padding: 0.8rem 1.2rem;
-          transition: all 0.3s ease;
-          font-size: 0.95rem;
-          width: 100%;
-          
-          &:focus {
-            border-color: $dark-red;
-            box-shadow: 0 0 0 0.2rem rgba(139, 0, 0, 0.08);
-            outline: none;
-            transform: scale(1.01);
-          }
-          
-          &::placeholder {
-            color: #9CA3AF;
-          }
-        }
-        
-        .autoajustable {
-          min-height: 110px;
-          resize: vertical;
-          line-height: 1.6;
-          font-family: inherit;
-        }
-        
-        small.danger {
-          color: #DC2626;
-          font-size: 0.8rem;
-          margin-top: 0.4rem;
-          display: block;
-          font-weight: 500;
-        }
-      }
-      
-      // Character counter
-      p.float-end {
-        color: #6B7280;
-        font-size: 0.8rem;
-        margin-top: 0.4rem;
-        font-style: italic;
-      }
-      
-      // Checkboxes container - aligned to left
-      .checkboxes-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin: 1.5rem 0;
-        width: 100%;
-        
-        .checkbox-item {
-          margin-bottom: 1rem;
-          width: auto;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          
-          &:last-child {
-            margin-bottom: 0;
-          }
-          
-          small.danger {
-            color: #DC2626;
-            font-size: 0.8rem;
-            margin-top: 0.4rem;
-            margin-left: 30px; // Align with text, not checkbox
-            font-weight: 500;
-          }
-        }
-      }
-      
-      // Material checkbox styling
-      .mat-checkbox {
-        display: flex !important;
-        align-items: flex-start !important;
-        
-        .mat-checkbox-layout {
-          white-space: normal;
-          display: flex !important;
-          align-items: flex-start !important;
-        }
-        
-        .mat-checkbox-inner-container {
-          margin-right: 8px;
-          margin-top: 2px;
-          flex-shrink: 0;
-        }
-        
-        .mat-checkbox-frame {
-          border-color: #9CA3AF !important;
-          border-width: 2px !important;
-          border-radius: 3px !important;
-          width: 18px !important;
-          height: 18px !important;
-        }
-        
-        .mat-checkbox-background {
-          border-radius: 3px !important;
-          width: 18px !important;
-          height: 18px !important;
-        }
-        
-        .mat-checkbox-checkmark {
-          fill: $white !important;
-        }
-        
-        .mat-checkbox-checkmark-path {
-          stroke: $white !important;
-          stroke-width: 2.5px !important;
-        }
-        
-        .mat-checkbox-checked .mat-checkbox-background {
-          background-color: $dark-red !important;
-          border-color: $dark-red !important;
-        }
-        
-        &:hover:not(.mat-checkbox-disabled) .mat-checkbox-frame {
-          border-color: $dark-red !important;
-        }
-        
-        .mat-checkbox-label {
-          color: $dark-gray !important;
-          font-size: 0.9rem !important;
-          line-height: 1.4 !important;
-          cursor: pointer;
-          margin: 0 !important;
-          flex: 1;
-          
-          a {
-            color: $dark-red !important;
-            text-decoration: none !important;
-            font-weight: 600 !important;
-            
-            &:hover {
-              color: $medium-red !important;
-              text-decoration: underline !important;
-            }
-          }
-        }
-      }
-      
-      // Button group
-      .button-group {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2rem;
-        gap: 0.75rem;
-        
-        .btn {
-          padding: 0.75rem 1.5rem;
-          font-weight: 600;
-          border-radius: 6px;
-          transition: all 0.3s ease;
-          font-size: 0.9rem;
-          border: 2px solid;
-          cursor: pointer;
-          flex: 0 0 auto;
-          min-width: 120px;
-          
-          &.btn-cancel {
-            background: $white;
-            border-color: #D1D5DB;
-            color: $dark-gray;
-            
-            &:hover {
-              background: #F9FAFB;
-              border-color: #9CA3AF;
-              transform: translateY(-1px);
-            }
-          }
-          
-          &.btn-submit {
-            background: $dark-red;
-            border-color: $dark-red;
-            color: $white;
-            
-            &:hover:not(:disabled) {
-              background: $medium-red;
-              border-color: $medium-red;
-              transform: translateY(-2px);
-              box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
-            }
-            
-            &:disabled {
-              background: #D1D5DB;
-              border-color: #D1D5DB;
-              color: #9CA3AF;
-              cursor: not-allowed;
-              transform: none;
-              box-shadow: none;
-            }
-          }
-        }
-      }
-      
-      // Loading spinner
-      .form-actions {
-        text-align: center;
-        margin-top: 2rem;
-        
-        .fa-spinner {
-          color: $dark-red;
-          font-size: 2rem;
-        }
-      }
-    }
-  
-    .modal-footer {
-      display: none; // We're using buttons in the body now
-    }
-  }
-}
-
-// Terms modal close button
-::ng-deep .modal-dialog .modal-content {
-  .terms-wrapper {
-    position: relative;
-    
-    .close-terms-btn {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 36px;
-      height: 36px;
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      background: rgba(139, 0, 0, 0.8);
-      color: $white;
-      border-radius: 6px;
-      font-size: 22px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      
-      &:hover {
-        background: $dark-red;
-        border-color: rgba(255, 255, 255, 0.6);
-        transform: scale(1.1);
-        box-shadow: 0 4px 12px rgba(139, 0, 0, 0.4);
-      }
-    }
-  }
-}
-
-// Loading state in modal body
-::ng-deep .modal-body .form-actions {
-  text-align: center;
-  
-  .fa-spinner {
-    color: $dark-red;
-    font-size: 2rem;
-    animation: fa-spin 2s infinite linear;
-  }
-}
-
-// Enhanced modal backdrop
-::ng-deep .modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-// Center text elements
-::ng-deep .center-elements {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-// Responsive modal
-@media (max-width: 768px) {
-  ::ng-deep .modal-dialog {
-    margin: 1rem;
-    
-    .modal-content {
-      .modal-header {
-        padding: 1.5rem;
-      }
-      
-      .modal-body {
-        padding: 2rem;
-      }
-      
-      .modal-footer {
-        padding: 1.5rem 2rem;
-        
-        .btn {
-          padding: 0.65rem 1.25rem;
-          font-size: 0.85rem;
-        }
-      }
     }
   }
 }

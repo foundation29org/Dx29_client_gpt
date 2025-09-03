@@ -1,0 +1,403 @@
+# ELEMENTOS DE INTERFAZ - ABOUT US PAGE
+# Identificación completa de elementos visuales y su SCSS correspondiente
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 🎨 FONDOS Y CONTENEDORES
+
+### Fondo Superior Oscuro (Hero Background)
+**Aspecto:** Degradado diagonal de gris oscuro a negro muy oscuro
+**Ubicación:** Parte superior de la página, detrás del contenido hero
+**Propósito:** Crear contraste dramático para texto blanco del hero, establece atmósfera profesional
+**SCSS:** `.product-page-container::before` (líneas 12-21) - `linear-gradient(135deg, $dark-gray 0%, #1a1a1a 100%)`
+
+### Fondo Inferior Blanco (Main Content Background)
+**Aspecto:** Fondo blanco puro que ocupa resto de la página
+**Ubicación:** Desde donde termina el hero hasta el final de la página
+**Propósito:** Fondo neutro para lectura de contenido, contrasta with hero oscuro
+**SCSS:** `.product-page-container::after` (líneas 23-32) - `background: $white`
+
+### Contenedor Principal
+**Aspecto:** Invisible, controla overflow y posicionamiento
+**Ubicación:** Envuelve toda la página
+**Propósito:** Previene scroll horizontal, contexto para pseudo-elementos de fondo
+**SCSS:** `.product-page-container` (líneas 8-33) - `overflow-x: hidden; position: relative`
+
+## 🏆 HERO SECTION
+
+### Título Principal Hero
+**Aspecto:** Texto blanco muy grande (48px), peso bold, centrado
+**Ubicación:** Centro superior del hero, primera línea visible
+**Propósito:** Captar atención inmediata, comunicar propósito principal de la página
+**SCSS:** `.hero-title` (líneas 45-55) - `font-size: 3rem; font-weight: 700; color: $white`
+
+### Subtítulo Hero
+**Aspecto:** Texto gris claro (20px), centrado, interlineado generoso
+**Ubicación:** Debajo del título principal en el hero
+**Propósito:** Proporcionar contexto adicional al título, invitar a continuar leyendo
+**SCSS:** `.hero-subtitle` (líneas 57-63) - `font-size: 1.25rem; color: #E0E0E0; line-height: 1.6`
+
+### Botones de Acción Hero
+**Aspecto:** Botones redondeados con fondo rojo, texto blanco, padding generoso
+**Ubicación:** Centro del hero, debajo del subtítulo
+**Propósito:** Llamadas a acción principales, navegación rápida a secciones importantes
+**SCSS:** `.btn-primary` (líneas 69-82) - `background-color: $dark-red; padding: 0.75rem 2rem`
+
+### Botones Outline Hero
+**Aspecto:** Botones transparentes con borde rojo, texto rojo
+**Ubicación:** Junto a botones primarios en el hero
+**Propósito:** Acciones secundarias, menos prominentes que primarios
+**SCSS:** `.btn-outline-primary` (líneas 84-98) - `border-color: $dark-red; color: $dark-red`
+
+### Botones Outline Claro
+**Aspecto:** Botones transparentes con borde blanco, texto blanco
+**Ubicación:** En el hero, variante para fondo oscuro
+**Propósito:** Acciones terciarias que contrastan con fondo oscuro
+**SCSS:** `.btn-outline-light` (líneas 100-114) - `border-color: $white; color: $white`
+
+### Feature Pills
+**Aspecto:** Píldoras redondeadas con fondo rojo translúcido, icono + texto
+**Ubicación:** Parte inferior del hero, dispuestas horizontalmente
+**Propósito:** Destacar características clave de forma visual y compacta
+**SCSS:** `.feature-pill` (líneas 126-138) - `background: rgba(139, 0, 0, 0.2); border-radius: 25px`
+
+### Iconos Feature Pills
+**Aspecto:** Iconos FontAwesome rojos (24px) en círculo
+**Ubicación:** Lado izquierdo de cada feature pill
+**Propósito:** Identificación visual rápida de cada característica
+**SCSS:** `.feature-icon` (líneas 140-148) - `color: $dark-red; font-size: 1rem`
+
+### Texto Feature Pills
+**Aspecto:** Texto gris claro pequeño (14px), sin salto de línea
+**Ubicación:** Lado derecho de iconos en feature pills
+**Propósito:** Descripción textual concisa de cada característica
+**SCSS:** `.feature-text` (líneas 150-155) - `font-size: 0.9rem; color: #CCCCCC`
+
+## 📝 CONTENIDO PRINCIPAL
+
+### Headers Nivel 1
+**Aspecto:** Texto gris oscuro muy grande (40px), peso bold
+**Ubicación:** Inicio de secciones principales de contenido
+**Propósito:** Delimitar secciones principales, jerarquía visual máxima
+**SCSS:** `h1` (líneas 172-175) - `font-size: 2.5rem; font-weight: 700`
+
+### Headers Nivel 2 con Borde
+**Aspecto:** Texto gris oscuro grande (32px) con borde inferior rojo de 3px
+**Ubicación:** Subsecciones principales del contenido
+**Propósito:** Crear identidad visual distintiva, separar contenido temático
+**SCSS:** `h2` (líneas 177-183) - `border-bottom: 3px solid $dark-red; display: inline-block`
+
+### Headers Nivel 3
+**Aspecto:** Texto gris oscuro mediano (24px), peso semi-bold
+**Ubicación:** Subsecciones menores dentro del contenido
+**Propósito:** Organizar información en bloques temáticos menores
+**SCSS:** `h3` (líneas 185-189) - `font-size: 1.5rem; font-weight: 600`
+
+### Headers Nivel 4
+**Aspecto:** Texto gris oscuro pequeño (20px), peso semi-bold
+**Ubicación:** Subdivisiones detalladas del contenido
+**Propósito:** Última jerarquía de organización textual
+**SCSS:** `h4` (líneas 191-194) - `font-size: 1.25rem; font-weight: 600`
+
+### Párrafos Principales
+**Aspecto:** Texto gris medio (18px), interlineado generoso (1.7)
+**Ubicación:** Cuerpo principal del contenido
+**Propósito:** Contenido informativo principal, optimizado para lectura
+**SCSS:** `p` (líneas 196-201) - `line-height: 1.7; color: #444; font-size: 1.1rem`
+
+### Texto Introducción
+**Aspecto:** Texto gris oscuro aumentado (19px), peso normal
+**Ubicación:** Párrafos introductorios de secciones
+**Propósito:** Destacar texto introductorio, crear transición visual
+**SCSS:** `.intro-text` (líneas 203-207) - `font-size: 1.2rem; color: $dark-gray`
+
+### Texto Pequeño
+**Aspecto:** Texto gris suave reducido (14px)
+**Ubicación:** Notas, aclaraciones, texto secundario
+**Propósito:** Información complementaria menos prominente
+**SCSS:** `.small-text` (líneas 209-212) - `font-size: 0.9rem !important; color: #666 !important`
+
+## 🎴 CARDS Y ELEMENTOS INTERACTIVOS
+
+### Feature Cards Base
+**Aspecto:** Rectángulo blanco con bordes redondeados (12px), sombra sutil
+**Ubicación:** Secciones de características, dispuestas en grid
+**Propósito:** Contener información relacionada, crear bloques visuales cohesivos
+**SCSS:** `.feature-card` (líneas 216-223) - `border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1)`
+
+### Cards en Estado Hover
+**Aspecto:** Elevación pronunciada (-5px), sombra roja intensa, borde rojo
+**Ubicación:** Al pasar cursor sobre feature cards
+**Propósito:** Feedback visual interactivo, indica elemento clickeable/interactivo
+**SCSS:** `.feature-card:hover` (líneas 225-229) - `transform: translateY(-5px); box-shadow: 0 8px 25px rgba(139, 0, 0, 0.15)`
+
+### Iconos Circulares de Cards
+**Aspecto:** Círculo perfecto (60px) con degradado rojo, icono blanco centrado
+**Ubicación:** Parte superior de cada feature card
+**Propósito:** Identificación visual temática, crear punto focal atractivo
+**SCSS:** `.feature-icon` (líneas 231-245) - `background: linear-gradient(135deg, $dark-red, $medium-red); border-radius: 50%`
+
+### Títulos de Cards
+**Aspecto:** Texto gris oscuro mediano (19px), peso semi-bold
+**Ubicación:** Debajo de iconos en feature cards
+**Propósito:** Identificar temática específica de cada card
+**SCSS:** `h4` en cards (líneas 247-252) - `color: $dark-gray; font-size: 1.2rem; font-weight: 600`
+
+### Contenido de Cards
+**Aspecto:** Texto gris medio, interlineado legible (1.6)
+**Ubicación:** Cuerpo principal de cada feature card
+**Propósito:** Información detallada sobre cada característica
+**SCSS:** `p` en cards (líneas 254-258) - `color: #666; line-height: 1.6`
+
+## 📋 LISTAS Y ELEMENTOS ESPECIALES
+
+### Lista de Características
+**Aspecto:** Lista sin viñetas nativas, con separadores horizontales
+**Ubicación:** Secciones que requieren listado de puntos
+**Propósito:** Presentar información de forma organizada y escaneable
+**SCSS:** `.feature-list` (líneas 262-264) - `list-style: none; padding: 0`
+
+### Items de Lista con Viñeta Custom
+**Aspecto:** Flecha roja (▸) como viñeta, texto con padding izquierdo
+**Ubicación:** Cada elemento dentro de feature lists
+**Propósito:** Crear viñetas más atractivas que las estándar, mantener branding
+**SCSS:** `.feature-list li::before` (líneas 272-279) - `content: '▸'; color: $dark-red`
+
+### Separadores de Lista
+**Aspecto:** Línea horizontal gris clara (1px) entre items
+**Ubicación:** Entre cada elemento de las listas
+**Propósito:** Separar visualmente elementos, mejorar legibilidad
+**SCSS:** `.feature-list li` (líneas 267-268) - `border-bottom: 1px solid #E0E0E0`
+
+## ⚠️ ELEMENTOS REGULATORIOS
+
+### Notas Regulatorias Base
+**Aspecto:** Rectángulo gris claro con bordes redondeados, padding generoso
+**Ubicación:** Secciones con información legal/regulatoria
+**Propósito:** Destacar información importante de compliance
+**SCSS:** `.regulatory-note` (líneas 288-292) - `background: $light-gray; border-radius: 8px`
+
+### Iconos Regulatorios
+**Aspecto:** Círculo rojo (50px) con icono blanco centrado
+**Ubicación:** Lado izquierdo de notas regulatorias
+**Propósito:** Identificación visual inmediata de contenido regulatorio
+**SCSS:** `.regulatory-icon` (líneas 293-307) - `background: $dark-red; border-radius: 50%`
+
+### Texto Enfatizado Regulatorio
+**Aspecto:** Texto gris oscuro en negrita
+**Ubicación:** Dentro de notas regulatorias para palabras clave
+**Propósito:** Destacar términos importantes dentro del contexto regulatorio
+**SCSS:** `strong` en regulatory-note (líneas 317-319) - `color: $dark-gray`
+
+### Nota Final Estilizada
+**Aspecto:** Texto cursiva gris oscuro en fondo gris claro
+**Ubicación:** Final de secciones importantes
+**Propósito:** Comentario final o resumen en tono más personal
+**SCSS:** `.final-note` (líneas 322-329) - `font-style: italic; background: $light-gray`
+
+## 🏢 CARDS DE IMPLEMENTACIÓN
+
+### Implementation Cards Base
+**Aspecto:** Rectángulo blanco con sombra, bordes redondeados (12px)
+**Ubicación:** Secciones de implementaciones específicas
+**Propósito:** Mostrar información de implementaciones reales del sistema
+**SCSS:** `.implementation-card` (líneas 332-338) - `border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08)`
+
+### Implementation Cards Hover
+**Aspecto:** Sombra roja intensificada, borde rojo
+**Ubicación:** Al interactuar con implementation cards
+**Propósito:** Feedback visual de interactividad
+**SCSS:** `.implementation-card:hover` (líneas 340-343) - `box-shadow: 0 4px 20px rgba(139, 0, 0, 0.12)`
+
+### Logos de Implementación
+**Aspecto:** Imagen contenida en máximo 120x80px
+**Ubicación:** Parte superior de implementation cards
+**Propósito:** Identificar organización o sistema implementado
+**SCSS:** `.implementation-logo` (líneas 345-348) - `max-width: 120px; max-height: 80px`
+
+### Período de Implementación
+**Aspecto:** Texto gris oscuro ligeramente aumentado (18px)
+**Ubicación:** Debajo del logo en implementation cards
+**Propósito:** Mostrar temporalidad de la implementación
+**SCSS:** `.implementation-period` (líneas 350-354) - `color: $dark-gray; font-size: 1.1rem`
+
+### Detalles de Implementación
+**Aspecto:** Rectángulo gris claro con bordes redondeados internos
+**Ubicación:** Centro de implementation cards
+**Propósito:** Destacar datos específicos de cada implementación
+**SCSS:** `.implementation-details` (líneas 356-371) - `background: $light-gray; border-radius: 8px`
+
+### Items de Detalle Centrados
+**Aspecto:** Texto centrado con números/datos destacados en rojo
+**Ubicación:** Dentro de implementation-details
+**Propósito:** Mostrar métricas importantes de forma visualmente impactante
+**SCSS:** `.detail-item strong` (líneas 365-369) - `color: $dark-red; display: block`
+
+## 🔗 ENLACES Y ELEMENTOS EXTERNOS
+
+### Enlaces Externos
+**Aspecto:** Texto rojo con peso semi-bold, sin subrayado inicial
+**Ubicación:** Dentro del contenido, referencias a recursos externos
+**Propósito:** Navegación a recursos externos relacionados
+**SCSS:** `.external-link` (líneas 394-403) - `color: $dark-red; font-weight: 500`
+
+### Enlaces Externos Hover
+**Aspecto:** Color rojo más claro con subrayado visible
+**Ubicación:** Al pasar cursor sobre enlaces externos
+**Propósito:** Feedback visual de interactividad, clarificar que es clickeable
+**SCSS:** `.external-link:hover` (líneas 399-402) - `color: $medium-red; text-decoration: underline`
+
+## 📊 ELEMENTOS DE PROCESO Y METODOLOGÍA
+
+### Caja de Detalles de Proceso
+**Aspecto:** Rectángulo con fondo rojo muy suave, bordes redondeados grandes
+**Ubicación:** Secciones explicativas de procesos
+**Propósito:** Destacar información de proceso sin ser demasiado intrusivo
+**SCSS:** `.process-details-box` (líneas 406-411) - `background: #FFE6E6; border-radius: 12px`
+
+### Enlaces de Documentación Técnica
+**Aspecto:** Enlaces rojos normales sin negrita excesiva
+**Ubicación:** Dentro de cajas de proceso
+**Propósito:** Acceso a documentación técnica relacionada
+**SCSS:** `.tech-doc-link a` (líneas 417-424) - `color: $dark-red; font-weight: normal`
+
+### Listas de Fuentes
+**Aspecto:** Rectángulo gris claro con lista indentada
+**Ubicación:** Secciones de bibliografía o fuentes
+**Propósito:** Listar referencias y fuentes de información
+**SCSS:** `.sources-list` (líneas 428-447) - `background: $light-gray; border-radius: 8px`
+
+### Elementos Destacados en Fuentes
+**Aspecto:** Texto rojo bold dentro de listas
+**Ubicación:** Nombres o términos importantes en listas de fuentes
+**Propósito:** Destacar elementos clave dentro de las referencias
+**SCSS:** `.sources-list strong` (líneas 442-444) - `color: $dark-red`
+
+## 🎯 NIVELES DE METODOLOGÍA
+
+### Cards de Nivel
+**Aspecto:** Rectángulo blanco con sombra muy sutil, bordes redondeados
+**Ubicación:** Secciones de metodología por niveles
+**Propósito:** Organizar información metodológica en pasos secuenciales
+**SCSS:** `.level-card` (líneas 450-458) - `background: $white; box-shadow: 0 2px 8px rgba(0,0,0,0.05)`
+
+### Cards de Nivel Hover
+**Aspecto:** Sombra roja suave intensificada
+**Ubicación:** Al interactuar con level cards
+**Propósito:** Feedback sutil de interactividad
+**SCSS:** `.level-card:hover` (líneas 459-461) - `box-shadow: 0 4px 16px rgba(139, 0, 0, 0.1)`
+
+### Números de Nivel
+**Aspecto:** Círculo rojo (40px) con número blanco bold
+**Ubicación:** Lado izquierdo de títulos en level cards
+**Propósito:** Identificación numérica clara de cada nivel metodológico
+**SCSS:** `.level-number` (líneas 463-475) - `background: $dark-red; border-radius: 50%; font-weight: 700`
+
+### Títulos con Números de Nivel
+**Aspecto:** Flexbox horizontal con número circular + texto
+**Ubicación:** Cabecera de cada level card
+**Propósito:** Combinar identificación numérica con descripción textual
+**SCSS:** `.level-card h4` (líneas 477-482) - `display: flex; align-items: center`
+
+## 📈 ELEMENTOS DE GRÁFICOS Y VISUALIZACIÓN
+
+### Contenedor de Gráficos
+**Aspecto:** Espacio con márgenes verticales para gráficos
+**Ubicación:** Secciones con contenido visual/gráfico
+**Propósito:** Proporcionar espacio apropiado para elementos gráficos
+**SCSS:** `.chart-container` (líneas 486-487) - `margin: 2rem 0`
+
+### Gráficos de Benchmark
+**Aspecto:** Imagen responsive con bordes redondeados y sombra
+**Ubicación:** Dentro de chart containers
+**Propósito:** Mostrar datos de rendimiento de forma visual
+**SCSS:** `.benchmark-chart` (líneas 489-495) - `border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1)`
+
+### Descripción de Gráficos
+**Aspecto:** Texto pequeño cursiva gris, centrado, ancho limitado
+**Ubicación:** Debajo de gráficos como caption
+**Propósito:** Proporcionar contexto y explicación de los gráficos
+**SCSS:** `.chart-description` (líneas 497-506) - `font-style: italic; color: #666; max-width: 800px`
+
+### Cajas de Significado
+**Aspecto:** Rectángulo con degradado gris claro, bordes redondeados
+**Ubicación:** Junto a gráficos para explicar significado
+**Propósito:** Explicar interpretación o significado de datos mostrados
+**SCSS:** `.meaning-box` (líneas 509-524) - `background: linear-gradient(135deg, $light-gray, #F0F0F0)`
+
+### Títulos de Cajas de Significado
+**Aspecto:** Texto rojo con margen inferior
+**Ubicación:** Parte superior de meaning boxes
+**Propósito:** Titular la explicación del significado
+**SCSS:** `.meaning-box h4` (líneas 515-518) - `color: $dark-red`
+
+## ✅ TABLAS DE BENEFICIOS
+
+### Tabla de Beneficios Base
+**Aspecto:** Layout flexbox vertical con spacing generoso
+**Ubicación:** Secciones de beneficios del sistema
+**Propósito:** Listar ventajas de forma organizada y visual
+**SCSS:** `.benefits-table` (líneas 527-528) - `margin: 2rem 0`
+
+### Items de Beneficio
+**Aspecto:** Flexbox horizontal con icono check + contenido
+**Ubicación:** Cada beneficio dentro de benefits table
+**Propósito:** Mostrar cada beneficio con confirmación visual positiva
+**SCSS:** `.benefit-item` (líneas 530-533) - `display: flex; align-items: flex-start`
+
+### Checks de Beneficio
+**Aspecto:** Icono rojo grande (20px) que no se reduce en flex
+**Ubicación:** Lado izquierdo de cada benefit item
+**Propósito:** Confirmación visual positiva, crear scanning pattern
+**SCSS:** `.benefit-check` (líneas 535-541) - `color: $dark-red; font-size: 1.25rem; flex-shrink: 0`
+
+### Contenido de Beneficio
+**Aspecto:** Texto flexible que ocupa espacio restante
+**Ubicación:** Lado derecho de benefit checks
+**Propósito:** Descripción detallada de cada beneficio
+**SCSS:** `.benefit-content` (líneas 543-558) - `flex: 1`
+
+### Títulos de Beneficio
+**Aspecto:** Texto gris oscuro aumentado (18px) en display block
+**Ubicación:** Primera línea de cada benefit content
+**Propósito:** Identificar cada beneficio con título destacado
+**SCSS:** `.benefit-content strong` (líneas 546-551) - `color: $dark-gray; font-size: 1.1rem; display: block`
+
+### Descripciones de Beneficio
+**Aspecto:** Texto gris medio sin margen, interlineado legible
+**Ubicación:** Debajo de títulos en benefit content
+**Propósito:** Explicación detallada de cada beneficio
+**SCSS:** `.benefit-content p` (líneas 553-557) - `color: #555; line-height: 1.6`
+
+### Beneficio Final Destacado
+**Aspecto:** Sección separada con borde superior y sin margen inferior
+**Ubicación:** Final de benefits table
+**Propósito:** Destacar el beneficio más importante o resumen
+**SCSS:** `.final-benefit` (líneas 561-569) - `border-top: 1px solid #E0E0E0; margin-top: 2rem`
+
+## 🎬 ELEMENTOS DE CIERRE
+
+### Sección de Cierre
+**Aspecto:** Rectángulo con degradado gris claro, texto centrado
+**Ubicación:** Final de secciones importantes
+**Propósito:** Proporcionar cierre visual y conceptual a las secciones
+**SCSS:** `.section-closing` (líneas 572-585) - `background: linear-gradient(135deg, $light-gray, #F0F0F0); text-align: center`
+
+### Texto de Cierre
+**Aspecto:** Texto gris oscuro aumentado (18px) con interlineado generoso
+**Ubicación:** Dentro de section-closing
+**Propósito:** Mensaje final o resumen de la sección
+**SCSS:** `.section-closing p` (líneas 579-584) - `font-size: 1.1rem; color: $dark-gray; line-height: 1.7`
+
+## ➖ SEPARADORES DE CONTENIDO
+
+### Separador de Contenido Base
+**Aspecto:** Espacio vertical generoso (64px arriba y abajo)
+**Ubicación:** Entre secciones principales de contenido
+**Propósito:** Crear respiración visual entre bloques de contenido
+**SCSS:** `.content-separator` (líneas 588-589) - `margin: 4rem 0`
+
+### Línea Separadora con Degradado
+**Aspecto:** Línea horizontal (2px) con degradado rojo que se desvanece
+**Ubicación:** Centro de content separators
+**Propósito:** Separación visual elegante que mantiene branding
+**SCSS:** `.separator-line` (líneas 591-596) - `background: linear-gradient(90deg, transparent 0%, $dark-red 50%, transparent 100%)`

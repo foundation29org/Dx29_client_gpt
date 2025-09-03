@@ -33,9 +33,9 @@
               }
             ],
             "styles": [
+              "src/styles.css",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "src/styles.css",
               "src/assets/css/custom.css",
               "node_modules/cookieconsent/build/cookieconsent.min.css",
               "src/assets/css/branding-variables.css"

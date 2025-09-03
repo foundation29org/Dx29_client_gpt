@@ -1,0 +1,543 @@
+# ANÁLISIS EXHAUSTIVO SCSS - FUNDACION-29 PAGE COMPONENT
+# Archivo: src/app/pages/land/fundacion-29/fundacion-29-page.component.scss
+# Total de líneas: 313
+# Fecha: 2025-09-03
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## RESUMEN EJECUTIVO
+───────────────────
+- **Propósito**: Estilos para la página "Fundación 29" de DxGPT
+- **Arquitectura**: SCSS con variables locales, pseudo-elementos para fondos, múltiples secciones temáticas
+- **Características**: Hero con degradado rojo vibrante, grids adaptativos, cards interactivas
+- **Temas**: Esquema de colores rojo (#8B0000) con degradado distintivo en hero
+- **Complejidad**: ALTA (múltiples secciones especializadas, efectos hover avanzados, responsive completo)
+
+## ANÁLISIS LÍNEA POR LÍNEA
+─────────────────────────
+
+### SECCIÓN 1: VARIABLES SCSS (Líneas 1-6)
+```scss
+// Dark and red color scheme
+$dark-red: #8B0000;                             # L2: Color brand principal
+$medium-red: #B22222;                           # L3: Rojo intermedio para degradados
+$dark-gray: #2C2C2C;                            # L4: Gris oscuro para texto principal
+$light-gray: #F8F9FA;                           # L5: Gris muy claro para fondos
+$white: #FFFFFF;                                # L6: Blanco para contrastes
+```
+
+**ANÁLISIS**: Variables consistentes con el resto del proyecto, mantiene coherencia del brand.
+
+### SECCIÓN 2: CONTENEDOR CON PSEUDO-ELEMENTOS (Líneas 8-33)
+```scss
+.product-page-container {                        # L8: Contenedor página principal
+  overflow-x: hidden;                            # L9: Previene scroll horizontal
+  position: relative;                            # L10: Contexto para pseudo-elementos
+  
+  &::before {                                    # L12: Pseudo-elemento fondo superior
+    content: '';                                 # L13: Contenido vacío obligatorio
+    position: absolute;                          # L14: Posición absoluta
+    top: 0;                                      # L15: Desde arriba
+    left: 0;                                     # L16: Desde izquierda
+    right: 0;                                    # L17: Hasta derecha
+    height: 500px; // Altura fija para la zona del hero # L18: Altura específica
+    background: linear-gradient(135deg, #FFAAAA 0%, #FF6666 30%, $medium-red 70%, #A01010 100%); # L19: Degradado rojo vibrante
+    z-index: -1;                                 # L20: Detrás del contenido
+  }
+  
+  &::after {                                     # L23: Pseudo-elemento fondo inferior
+    content: '';                                 # L24: Contenido vacío
+    position: absolute;                          # L25: Posición absoluta
+    top: 500px;                                  # L26: Desde donde termina ::before
+    left: 0;                                     # L27: Desde izquierda
+    right: 0;                                    # L28: Hasta derecha
+    bottom: 0; // Se extiende hasta el final del contenido real # L29: Hasta abajo
+    background: $white;                          # L30: Fondo blanco
+    z-index: -1;                                 # L31: Detrás del contenido
+  }
+}
+```
+
+**ANÁLISIS**: 
+- **DEGRADADO DISTINTIVO**: 4 stops (#FFAAAA → #FF6666 → $medium-red → #A01010) crea efecto vibrante único
+- **TÉCNICA AVANZADA**: Pseudo-elementos para fondos duales sin JavaScript
+- **DIFERENCIACIÓN**: Contrasta con about-us que usa degradado gris-negro
+
+### SECCIÓN 3: HERO SECTION (Líneas 35-63)
+```scss
+// Hero Section
+.hero-section {                                  # L36: Sección hero principal
+  background: transparent;                       # L37: Transparente para mostrar pseudo-elemento
+  color: $white;                                 # L38: Texto blanco sobre fondo rojo
+  height: 380px; // Altura fija que coincide con el fondo oscuro # L39: Menor que about-us (500px)
+  display: flex;                                 # L40: Flexbox para centrado
+  align-items: center;                           # L41: Centrado vertical
+  margin-bottom: 0;                              # L42: Sin margen inferior
+  
+  .hero-title {                                  # L44: Título principal hero
+    font-size: 3rem;                             # L45: Tamaño grande (48px)
+    font-weight: 700;                            # L46: Peso bold
+    margin-bottom: 1.5rem;                       # L47: Margen inferior (24px)
+    color: $white;                               # L48: Blanco explícito
+    text-align: center;                          # L49: Centrado
+    
+    @media (max-width: 768px) {                  # L51: Breakpoint tablets
+      font-size: 2.2rem;                        # L52: Reducción tamaño móvil
+    }
+  }
+  
+  .hero-subtitle {                               # L56: Subtítulo hero
+    font-size: 1.25rem;                          # L57: Tamaño mediano (20px)
+    margin-bottom: 2.5rem;                       # L58: Margen generoso (40px)
+    text-align: center;                          # L59: Centrado
+    color: #E0E0E0;                              # L60: Gris claro para contraste
+    line-height: 1.6;                            # L61: Interlineado legible
+  }
+}
+```
+
+**ANÁLISIS**: 
+- **ALTURA DIFERENTE**: 380px vs 500px en about-us, más compacto
+- **CONSISTENCIA**: Mantiene tipografía y estructura base del hero pattern
+
+### SECCIÓN 4: LOGOS FUNDACIÓN (Líneas 65-80)
+```scss
+.logo-f29-main {                                 # L65: Logo principal F29
+  max-width: 400px;                              # L66: Ancho máximo generoso
+  max-height: 200px;                             # L67: Alto máximo (ratio 2:1)
+  width: auto;                                   # L68: Ancho automático
+  height: auto;                                  # L69: Alto automático
+}
+
+.logo-f29 {                                      # L72: Logo F29 secundario
+  max-width: 250px;                              # L73: Ancho máximo menor
+  max-height: 150px;                             # L74: Alto máximo (ratio ~1.67:1)
+  transition: transform 0.3s ease;              # L75: Transición suave escala
+}
+
+.logo-container a:hover .logo-f29 {              # L78: Hover efecto logo
+  transform: scale(1.05);                        # L79: Escalado sutil 5%
+}
+```
+
+**ANÁLISIS**: 
+- **LOGOS RESPONSIVE**: max-width/height mantienen proporciones
+- **MICROINTERACCIÓN**: scale(1.05) en hover añade vida al logo
+- **JERARQUÍA**: Diferenciación clara entre logo principal y secundario
+
+### SECCIÓN 5: CONTENIDO PRINCIPAL (Líneas 82-119)
+```scss
+// Main Content
+.main-content {                                  # L83: Contenido principal
+  background-color: $white;                      # L84: Fondo blanco
+  padding: 4rem 0;                               # L85: Padding vertical generoso
+}
+
+.content-section {                               # L88: Sección contenido
+  margin-bottom: 3rem;                           # L89: Separación secciones
+  
+  .intro-text {                                  # L91: Texto introducción
+    font-size: 1.2rem;                           # L92: Tamaño destacado
+    color: $dark-gray;                           # L93: Color principal
+    font-weight: 400;                            # L94: Peso normal
+  }
+}
+
+.content-section:nth-child(even) {               # L98: Secciones pares
+  background: #f8f9fa;                           # L99: Fondo alternado gris claro
+}
+
+.content-section h2 {                            # L102: Headers nivel 2
+  color: #1c202a;                                # L103: Color diferente al brand
+  font-weight: 700;                              # L104: Bold
+  margin-bottom: 2rem;                           # L105: Margen inferior
+  text-align: center;                            # L106: Centrado
+}
+
+.content-section h3 {                            # L109: Headers nivel 3
+  color: #1c202a;                                # L110: Color consistente con h2
+  font-weight: 600;                              # L111: Semi-bold
+  margin: 2rem 0 1rem 0;                        # L112: Margen asimétrico
+}
+
+.content-section h4 {                            # L115: Headers nivel 4
+  color: #2a3140;                                # L116: Color ligeramente diferente
+  font-weight: 600;                              # L117: Semi-bold
+  margin: 1.5rem 0 1rem 0;                      # L118: Margen asimétrico
+}
+```
+
+**ANÁLISIS**: 
+- **ZEBRA STRIPES**: nth-child(even) crea alternancia visual efectiva
+- **COLORES CUSTOM**: #1c202a, #2a3140 no siguen variables SCSS establecidas
+- **JERARQUÍA**: Progresión clara de colores y márgenes por niveles
+
+### SECCIÓN 6: MISSION GRID (Líneas 121-152)
+```scss
+.mission-grid {                                  # L121: Grid misión
+  display: grid;                                 # L122: CSS Grid layout
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); # L123: Responsive auto-fit
+  gap: 2rem;                                     # L124: Espacio entre cards
+  margin: 3rem 0;                                # L125: Margen vertical
+}
+
+.mission-card {                                  # L128: Card misión individual
+  background: white;                             # L129: Fondo blanco
+  border-radius: 10px;                           # L130: Bordes redondeados
+  padding: 2rem;                                 # L131: Padding generoso
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);      # L132: Sombra pronunciada
+  transition: transform 0.3s ease, box-shadow 0.3s ease; # L133: Transiciones múltiples
+}
+
+.mission-card:hover {                            # L136: Estado hover card
+  transform: translateY(-5px);                   # L137: Elevación significativa
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);     # L138: Sombra intensificada
+}
+
+.mission-icon {                                  # L141: Icono misión
+  width: 60px;                                   # L142: Tamaño grande
+  height: 60px;                                  # L143: Cuadrado perfecto
+  background: #2a3140;                           # L144: Fondo gris oscuro custom
+  border-radius: 50%;                            # L145: Círculo perfecto
+  display: flex;                                 # L146: Flexbox para centrado
+  align-items: center;                           # L147: Centrado vertical
+  justify-content: center;                       # L148: Centrado horizontal
+  margin-bottom: 1.5rem;                         # L149: Separación del contenido
+  color: white;                                  # L150: Color icono blanco
+  font-size: 1.5rem;                             # L151: Tamaño icono destacado
+}
+```
+
+**ANÁLISIS**: 
+- **MODERN GRID**: auto-fit con minmax() es patrón responsive avanzado
+- **HOVER PREMIUM**: Elevación -5px con sombra intensificada crea sensación calidad
+- **ICONOS DESTACADOS**: 60px circular con fondo oscuro muy profesional
+
+### SECCIÓN 7: GITHUB SECTION (Líneas 155-178)
+```scss
+.github-section {                                # L155: Sección GitHub
+  background: linear-gradient(135deg, #24292e, #404040); # L156: Degradado gris oscuro GitHub-style
+  color: white;                                  # L157: Texto blanco
+  padding: 4rem 0;                               # L158: Padding generoso
+}
+
+.github-section h3 {                             # L161: Headers GitHub
+  color: white;                                  # L162: Blanco explícito
+  margin-bottom: 2rem;                           # L163: Margen inferior
+}
+
+.github-card {                                   # L166: Card GitHub
+  background: rgba(255,255,255,0.1);            # L167: Fondo translúcido blanco
+  border: 1px solid rgba(255,255,255,0.2);      # L168: Borde translúcido
+  border-radius: 10px;                           # L169: Bordes redondeados
+  padding: 2rem;                                 # L170: Padding generoso
+  margin-bottom: 2rem;                           # L171: Margen inferior
+  transition: all 0.3s ease;                    # L172: Transición completa
+}
+
+.github-card:hover {                             # L175: Estado hover GitHub card
+  background: rgba(255,255,255,0.15);           # L176: Fondo más intenso
+  transform: translateY(-2px);                   # L177: Elevación sutil
+}
+```
+
+**ANÁLISIS**: 
+- **TEMATIZACIÓN**: Degradado #24292e reproduce colores oficiales GitHub
+- **GLASSMORPHISM**: rgba backgrounds con borders translúcidos es tendencia moderna
+- **HOVER SUTIL**: -2px elevation menos agresiva que mission cards
+
+### SECCIÓN 8: PATROCINADORES (Líneas 180-209)
+```scss
+.patrocinadores-section {                        # L180: Sección patrocinadores
+  background: #f8f9fa;                           # L181: Fondo gris claro
+  padding: 4rem 0;                               # L182: Padding consistente
+}
+
+.patrocinadores-grid {                           # L185: Grid patrocinadores
+  display: grid;                                 # L186: CSS Grid
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); # L187: Auto-fit responsive
+  gap: 2rem;                                     # L188: Gap consistente
+  margin: 3rem 0;                                # L189: Margen vertical
+}
+
+.patrocinador-card {                             # L192: Card patrocinador
+  background: white;                             # L193: Fondo blanco
+  border-radius: 10px;                           # L194: Bordes redondeados
+  padding: 2rem;                                 # L195: Padding generoso
+  text-align: center;                            # L196: Contenido centrado
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);      # L197: Sombra estándar
+  transition: transform 0.3s ease;              # L198: Transición transform
+}
+
+.patrocinador-card:hover {                       # L201: Estado hover patrocinador
+  transform: translateY(-5px);                   # L202: Elevación estándar
+}
+
+.patrocinador-card img {                         # L205: Imagen patrocinador
+  max-width: 100%;                               # L206: Responsive width
+  max-height: 80px;                              # L207: Alto máximo controlado
+  object-fit: contain;                           # L208: Mantiene proporciones
+}
+```
+
+**ANÁLISIS**: 
+- **GRID CONSISTENCY**: Mismo patrón auto-fit que mission grid
+- **LOGO CONTROL**: max-height 80px + object-fit:contain mantiene proporciones
+- **HOVER CONSISTENT**: -5px elevation alineado con mission cards
+
+### SECCIÓN 9: COLLABORATION SECTION (Líneas 211-268)
+```scss
+.collaboration-section {                         # L211: Sección colaboración
+  background: white;                             # L212: Fondo blanco
+  color: #1c202a;                                # L213: Color texto principal
+  padding: 4rem 0;                               # L214: Padding estándar
+  text-align: center;                            # L215: Contenido centrado
+}
+
+.collaboration-section h3 {                      # L218: Headers colaboración
+  color: #1c202a;                                # L219: Color consistente
+  margin-bottom: 2rem;                           # L220: Margen estándar
+}
+
+.collaboration-form {                            # L223: Formulario colaboración
+  background: rgba(255,255,255,0.1);            # L224: Fondo translúcido
+  border-radius: 15px;                           # L225: Bordes muy redondeados
+  padding: 3rem;                                 # L226: Padding extra generoso
+  max-width: 600px;                              # L227: Ancho máximo controlado
+  margin: 0 auto;                                # L228: Centrado horizontal
+  backdrop-filter: blur(10px);                  # L229: Filtro blur moderno
+}
+
+.collaboration-types {                           # L232: Tipos colaboración
+  display: grid;                                 # L233: CSS Grid
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); # L234: Auto-fit 250px min
+  gap: 2rem;                                     # L235: Gap estándar
+  margin: 3rem 0;                                # L236: Margen vertical
+}
+
+.collaboration-type {                            # L239: Tipo colaboración individual
+  background: #f8f9fa;                           # L240: Fondo gris claro
+  border-radius: 10px;                           # L241: Bordes redondeados
+  padding: 2rem;                                 # L242: Padding generoso
+  text-align: center;                            # L243: Centrado
+  transition: all 0.3s ease;                    # L244: Transición completa
+}
+
+.collaboration-type:hover {                      # L247: Estado hover tipo
+  background: #e9ecef;                           # L248: Gris más oscuro
+  transform: translateY(-5px);                   # L249: Elevación estándar
+}
+
+.collaboration-type i {                          # L252: Iconos colaboración
+  font-size: 2.5rem;                             # L253: Tamaño muy grande
+  margin-bottom: 1rem;                           # L254: Margen inferior
+  color: #2a3140;                                # L255: Color gris oscuro
+}
+
+.contact-link {                                  # L258: Enlaces contacto
+  color: #c53030;                                # L259: Rojo diferente al brand
+  text-decoration: underline;                    # L260: Subrayado visible
+  font-weight: 600;                              # L261: Semi-bold
+  transition: color 0.3s ease;                  # L262: Transición color
+}
+
+.contact-link:hover {                            # L265: Estado hover enlace
+  color: #b91c1c;                                # L266: Rojo más oscuro
+  text-decoration: underline;                    # L267: Mantiene subrayado
+}
+```
+
+**ANÁLISIS**: 
+- **BACKDROP-FILTER**: blur(10px) es efecto glassmorphism moderno
+- **GRID VARIATIONS**: minmax(250px, 1fr) diferente a otros grids (200px, 300px)
+- **COLOR INCONSISTENCY**: #c53030, #b91c1c no alineados con brand #8B0000
+
+### SECCIÓN 10: RESPONSIVE DESIGN (Líneas 270-313)
+```scss
+@media (max-width: 768px) {                     # L270: Breakpoint tablets
+  .product-page-container {                      # L271: Container responsive
+    &::before {                                  # L272: Pseudo-elemento responsive
+      height: 550px;                             # L273: Altura aumentada móvil
+    }
+    
+    &::after {                                   # L276: Pseudo-elemento inferior
+      top: 550px;                                # L277: Ajuste posición
+    }
+  }
+
+  .hero-section {                                # L281: Hero responsive
+    height: 550px;                               # L282: Altura coincidente
+  }
+
+  .hero-title {                                  # L285: Título responsive
+    font-size: 2.2rem;                          # L286: Reducción tamaño
+  }
+
+  .main-content {                                # L289: Contenido principal
+    padding: 3rem 0;                             # L290: Padding reducido
+  }
+  
+  .content-section {                             # L293: Sección contenido
+    margin-bottom: 2rem;                         # L294: Margen reducido
+  }
+
+  .logo-f29-main {                               # L297: Logo principal responsive
+    max-width: 280px;                            # L298: Ancho reducido
+    max-height: 140px;                           # L299: Alto reducido
+  }
+
+  .logo-f29 {                                    # L302: Logo secundario responsive
+    max-width: 200px;                            # L303: Ancho reducido
+    max-height: 120px;                           # L304: Alto reducido
+  }
+  
+  .mission-grid,                                 # L307: Grids responsive
+  .patrocinadores-grid,                          # L308: Grid patrocinadores
+  .collaboration-types {                         # L309: Grid colaboración
+    grid-template-columns: 1fr;                  # L310: Una sola columna móvil
+  }
+}
+```
+
+**ANÁLISIS**: 
+- **COORDINATED HEIGHTS**: Pseudo-elementos y hero mantienen coherencia (550px)
+- **LOGO SCALING**: Reducción proporcional de logos mantiene ratios
+- **GRID MOBILE**: Todos los grids colapsan a una columna en móvil
+
+## ANÁLISIS TÉCNICO DETALLADO
+═══════════════════════════════
+
+### 🎨 SISTEMA DE COLORES
+```scss
+Variables SCSS:
+- $dark-red: #8B0000       - Brand principal
+- $medium-red: #B22222     - Degradados
+- $dark-gray: #2C2C2C      - Texto principal
+- $light-gray: #F8F9FA     - Fondos suaves
+- $white: #FFFFFF          - Contrastes
+
+Colores adicionales (hard-coded):
+- #FFAAAA, #FF6666, #A01010  - Degradado hero vibrante
+- #1c202a, #2a3140           - Headers y elementos
+- #24292e, #404040           - GitHub theme
+- #c53030, #b91c1c           - Enlaces (inconsistente con brand)
+```
+
+### 📐 SISTEMA DE ESPACIADO
+```scss
+Padding secciones:
+- 4rem (64px)             - Padding estándar secciones
+- 3rem (48px)             - Padding móvil reducido
+- 2rem (32px)             - Padding cards
+
+Grid gaps:
+- 2rem (32px)             - Gap estándar todos los grids
+
+Margins:
+- 3rem (48px)             - Margen grids y secciones
+- 2rem (32px)             - Margen headers
+- 1.5rem (24px)           - Margen iconos
+```
+
+### 📱 SISTEMA RESPONSIVE
+```scss
+Breakpoints:
+- 768px                   - Tablet (Bootstrap md)
+
+Heights responsive:
+- 500px → 550px           - Pseudo-elementos
+- 380px → 550px           - Hero section
+
+Logo scaling:
+- 400px → 280px           - Logo principal
+- 250px → 200px           - Logo secundario
+```
+
+### 🔧 CSS GRID PATTERNS
+```scss
+Grid variations:
+- minmax(300px, 1fr)      - Mission grid
+- minmax(200px, 1fr)      - Patrocinadores grid  
+- minmax(250px, 1fr)      - Collaboration types
+
+Mobile collapse:
+- grid-template-columns: 1fr  - Todos los grids en móvil
+```
+
+## ISSUES Y RECOMENDACIONES
+═══════════════════════════
+
+### 🚨 ISSUES CRÍTICOS
+1. **COLORES INCONSISTENTES**: Múltiples rojos (#c53030, #b91c1c) no alineados con brand
+2. **HARD-CODED COLORS**: #1c202a, #2a3140 deberían ser variables SCSS
+
+### ⚠️ ISSUES MODERADOS
+1. **HEIGHTS FIJAS**: 500px/550px pueden ser problemáticas con contenido variable
+2. **GRID VARIATIONS**: Diferentes minmax values pueden confundir
+3. **COLOR OVERLOAD**: Demasiados colores custom dificultan mantenimiento
+
+### 💡 RECOMENDACIONES
+1. **UNIFICAR COLORES**: Usar variables SCSS para todos los colores
+2. **CONSISTENT GRID**: Estandarizar minmax values en grids
+3. **COLOR VARIABLES**: Crear variables para #1c202a, #2a3140
+4. **BRAND ALIGNMENT**: Unificar enlaces con color brand #8B0000
+5. **FLEXIBLE HEIGHTS**: Considerar min-height en lugar de height fijo
+
+### 🔧 REFACTORING SUGERIDO
+```scss
+// Variables ampliadas
+$dark-blue: #1c202a;       // Para headers
+$medium-blue: #2a3140;     // Para elementos secundarios
+$github-dark: #24292e;     // Para sección GitHub
+$contact-red: #8B0000;     // Alineado con brand
+
+// Grid mixin estandarizado
+@mixin responsive-grid($min-width: 250px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Uso
+.mission-grid {
+  @include responsive-grid(300px);
+}
+
+.patrocinadores-grid {
+  @include responsive-grid(200px);
+}
+```
+
+## CONCLUSIONES
+═════════════
+
+### FORTALEZAS
+✅ **DEGRADADO DISTINTIVO**: Hero con degradado rojo vibrante crea identidad única
+✅ **CSS GRID MODERNO**: Uso avanzado de auto-fit y minmax para responsive
+✅ **MICROINTERACCIONES**: Hover effects profesionales en todos los elementos
+✅ **SECCIONES TEMÁTICAS**: GitHub section con colores apropiados
+✅ **LOGO HANDLING**: Scaling responsive mantiene proporciones
+✅ **GLASSMORPHISM**: Efectos modernos con backdrop-filter
+✅ **CONSISTENT SPACING**: Padding y margins coherentes
+
+### ÁREAS DE MEJORA
+❌ **INCONSISTENCIA COLORES**: Múltiples rojos no alineados con brand
+❌ **HARD-CODED COLORS**: Faltan variables SCSS para colores custom
+❌ **HEIGHTS FIJAS**: Pueden crear problemas con contenido dinámico
+❌ **GRID VARIATIONS**: Diferentes minmax confunden el patrón
+❌ **COLOR OVERLOAD**: Demasiados colores diferentes
+
+### PUNTUACIÓN TÉCNICA
+- **Funcionalidad**: 9/10
+- **Mantenibilidad**: 6/10  
+- **Performance**: 8/10
+- **Accesibilidad**: 8/10
+- **Consistencia**: 6/10
+- **Innovación**: 9/10
+
+**PUNTUACIÓN GENERAL: 7.7/10**
+
+La página Fundación 29 muestra técnicas CSS avanzadas y efectos visuales impresionantes, especialmente el degradado hero vibrante y el uso de CSS Grid moderno. Sin embargo, la falta de consistencia en colores y la dependencia de valores hard-coded reducen la mantenibilidad. Con refactoring de colores y estandarización de grids, sería un componente ejemplar.

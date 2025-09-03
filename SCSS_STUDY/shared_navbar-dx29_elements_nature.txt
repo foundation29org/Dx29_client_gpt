@@ -1,0 +1,325 @@
+# ELEMENTOS DE INTERFAZ - NAVBAR-DX29 COMPONENT
+# Identificación completa de elementos visuales y su SCSS correspondiente
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 🧭 NAVEGACIÓN BASE
+
+### Enlaces de Navegación Base
+**Aspecto:** Enlaces con padding reducido a la derecha (8px)
+**Ubicación:** Enlaces principales del navbar en vista desktop
+**Propósito:** Controlar espaciado entre elementos de navegación
+**SCSS:** `.navbar-expand-lg .navbar-nav .nav-link` (líneas 1-3) - `padding-right: .5rem`
+
+### Elementos Deshabilitados
+**Aspecto:** Cursor default con pointer-events automático
+**Ubicación:** Elementos del navbar que están deshabilitados
+**Propósito:** Indicar que el elemento no es interactivo pero mantiene eventos
+**SCSS:** `.not-allowed` (líneas 5-8) - `pointer-events: auto !important; cursor: default !important`
+
+### Elementos Interactivos
+**Aspecto:** Cursor pointer para indicar clickeabilidad
+**Ubicación:** Elementos clickeables del navbar
+**Propósito:** Proporcionar feedback visual de interactividad
+**SCSS:** `.pointer` (líneas 10-12) - `cursor: pointer`
+
+### Navbar Personalizado
+**Aspecto:** Altura mínima específica (68.8px)
+**Ubicación:** Contenedor principal del navbar
+**Propósito:** Asegurar altura consistente del navbar
+**SCSS:** `.custom-navbar` (líneas 14-16) - `min-height: 4.3rem`
+
+## 🔤 ICONOGRAFÍA Y TIPOGRAFÍA
+
+### Iconos FontAwesome Consistentes
+**Aspecto:** Tamaño de fuente fijo (16px) con !important
+**Ubicación:** Todos los iconos FontAwesome en el navbar
+**Propósito:** Mantener tamaño uniforme de iconos independiente del contexto
+**SCSS:** `i` (líneas 18-20) - `font-size: 1rem !important`
+
+### Flecha Dropdown Ajustada
+**Aspecto:** Alineación vertical específica (0.055em) sin ocultar
+**Ubicación:** Flechas de dropdowns en el navbar
+**Propósito:** Alineación visual precisa de flechas dropdown
+**SCSS:** `.dropdown-toggle::after` (líneas 22-25) - `vertical-align: 0.055em`
+
+## 🖼️ SISTEMA DE LOGOS
+
+### Logo Texto Principal
+**Aspecto:** Posicionamiento absoluto (120px desde izquierda), fuente media
+**Ubicación:** Lado izquierdo del navbar junto al logo
+**Propósito:** Mostrar texto identificativo junto al logo principal
+**SCSS:** `.text-logo` (líneas 27-34) - `position: absolute; left: 120px; font-weight: 500`
+
+### Logo Texto Variante (Duplicado)
+**Aspecto:** Idéntico al text-logo principal
+**Ubicación:** Alternativa al text-logo (código duplicado)
+**Propósito:** Funcionalidad duplicada (posible vestigio de desarrollo)
+**SCSS:** `.text-logo2` (líneas 36-43) - Identical to .text-logo (duplicate code)
+
+### Texto Español Ampliado
+**Aspecto:** Ancho aumentado (160px) para acomodar texto español
+**Ubicación:** Textos en español que requieren más espacio
+**Propósito:** Adaptar espacio para idiomas con palabras más largas
+**SCSS:** `.text-es` (líneas 45-47) - `width: 160px`
+
+### Enlace Donación Compacto
+**Aspecto:** Ancho fijo compacto (120px)
+**Ubicación:** Botón/enlace de donación en el navbar
+**Propósito:** Mantener botón donación en tamaño controlado
+**SCSS:** `.donate-a` (líneas 49-51) - `width: 120px`
+
+### Logo Header Principal
+**Aspecto:** Dimensiones específicas (140x37px) ratio ~3.78:1
+**Ubicación:** Logo principal en el header del navbar
+**Propósito:** Controlar tamaño exacto del logo principal
+**SCSS:** `.logo-header` (líneas 53-56) - `width: 140px; height: 37px`
+
+## 📱 RESPONSIVE TABLETS (991.98px)
+
+### Navbar Container Flexible
+**Aspecto:** Ancho resetado a automático
+**Ubicación:** Contenedor principal navbar en tablets
+**Propósito:** Permitir flexibilidad de ancho en tablets
+**SCSS:** `@media (max-width: 991.98px) .navbar-container` (líneas 58-61) - `width: unset !important`
+
+### Navbar Header Flexible
+**Aspecto:** Ancho resetado a automático
+**Ubicación:** Header del navbar en tablets
+**Propósito:** Adaptar header a anchos variables
+**SCSS:** `@media (max-width: 991.98px) .navbar-header` (líneas 63-65) - `width: unset !important`
+
+### Text Logo Tablet Reducido
+**Aspecto:** Fuente más pequeña (12px) y reposicionado (85px)
+**Ubicación:** Texto logo en tablets
+**Propósito:** Adaptar tamaño y posición para tablets
+**SCSS:** `@media (max-width: 991.98px) .text-logo` (líneas 67-70) - `font-size: 12px; left: 85px`
+
+### Container Fluid Sin Padding
+**Aspecto:** Padding horizontal eliminado
+**Ubicación:** Container fluid del navbar en tablets
+**Propósito:** Aprovechar todo el ancho disponible en tablets
+**SCSS:** `@media (max-width: 991.98px) .navbar .container-fluid` (líneas 72-75) - `padding-left: 0; padding-right: 0`
+
+## 📱 MENÚ MÓVIL AVANZADO (991.98px)
+
+### Menú Móvil Expandido Premium
+**Aspecto:** Fondo blanco con sombra elegante, bordes redondeados inferiores
+**Ubicación:** Menú colapsado cuando está expandido en móvil
+**Propósito:** Crear experiencia premium de menú móvil con animación
+**SCSS:** `@media (max-width: 991.98px) .navbar-collapse.show` (líneas 78-90) - `background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12)`
+
+### Animación Entrada Menú
+**Aspecto:** Keyframes de opacity y translateY para entrada suave
+**Ubicación:** Menú móvil al expandirse
+**Propósito:** Transición elegante al mostrar/ocultar menú móvil
+**SCSS:** `@keyframes fadeInMenu` (líneas 92-95) - `from opacity: 0, translateY(-16px) to opacity: 1, translateY(0)`
+
+### Items Menú Móvil Centrados
+**Aspecto:** Flexbox columna con items centrados, gap generoso (18px)
+**Ubicación:** Items de navegación en menú móvil
+**Propósito:** Layout vertical elegante con espaciado generoso
+**SCSS:** `@media (max-width: 991.98px) .navbar-nav.menu-items` (líneas 97-101) - `flex-direction: column; gap: 18px`
+
+### Nav Items Móvil Ancho Completo
+**Aspecto:** Items ocupan ancho completo con texto centrado
+**Ubicación:** Cada item de navegación en móvil
+**Propósito:** Maximizar área táctil en móvil
+**SCSS:** `@media (max-width: 991.98px) .navbar-nav.menu-items .nav-item` (líneas 103-106) - `width: 100%; text-align: center`
+
+### Botón Donación Móvil Premium
+**Aspecto:** 80% de ancho, centrado, bordes muy redondeados, sombra sutil
+**Ubicación:** Botón donación en menú móvil
+**Propósito:** Destacar donación en móvil con diseño premium
+**SCSS:** `@media (max-width: 991.98px) .donate-link .donate-a` (líneas 108-115) - `width: 80%; border-radius: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08)`
+
+### Toggler Limpio
+**Aspecto:** Sin borde, outline ni sombra
+**Ubicación:** Botón hamburguesa del navbar
+**Propósito:** Apariencia limpia del botón hamburguesa
+**SCSS:** `@media (max-width: 991.98px) .navbar-toggler` (líneas 117-121) - `border: none; outline: none; box-shadow: none`
+
+### Botón Cerrar Menú
+**Aspecto:** Posición absoluta superior derecha, sin fondo, fuente grande
+**Ubicación:** Botón X para cerrar menú móvil
+**Propósito:** Cerrar menú de forma intuitiva con z-index superior
+**SCSS:** `@media (max-width: 991.98px) .close-menu-btn` (líneas 123-132) - `position: absolute; top: 12px; right: 18px; z-index: 1100`
+
+## 📱 RESPONSIVE INTERMEDIO (604px)
+
+### Text Logo Posición Heredada
+**Aspecto:** Cambia de position absolute a inherit, display block
+**Ubicación:** Text logos en breakpoint intermedio
+**Propósito:** Normalizar posicionamiento en pantallas medias
+**SCSS:** `@media (max-width: 604px) .text-logo, .text-logo2` (líneas 135-144) - `display: block; position: inherit`
+
+## 📱 RESPONSIVE MÓVIL PEQUEÑO (481px)
+
+### Logos Header Muy Compactos
+**Aspecto:** Ancho máximo muy reducido (50px)
+**Ubicación:** Logos del header en móviles pequeños
+**Propósito:** Adaptación extrema para pantallas muy pequeñas
+**SCSS:** `@media (max-width: 481px) .navbar-header-logos` (líneas 150-152) - `max-width: 50px`
+
+### Texto y Icons Muy Pequeños
+**Aspecto:** Fuente muy reducida (11.2px) para todos los elementos texto
+**Ubicación:** Spans, iconos y enlaces subrayados
+**Propósito:** Maximizar espacio en pantallas muy limitadas
+**SCSS:** `@media (max-width: 481px) span, i, li > a > u` (líneas 154-156) - `font-size: 0.7rem !important`
+
+### Text Logo2 Normalizado
+**Aspecto:** Display block con posición heredada
+**Ubicación:** Text logo variante en móviles pequeños
+**Propósito:** Consistencia con text-logo principal
+**SCSS:** `@media (max-width: 481px) .text-logo2` (líneas 158-161) - `display: block; position: inherit`
+
+## 📱 RESPONSIVE EXTREMO (300px)
+
+### Logo Header Mínimo
+**Aspecto:** Dimensiones muy reducidas (100x26px) ratio ~3.85:1
+**Ubicación:** Logo principal en pantallas extremadamente pequeñas
+**Propósito:** Mantener logo visible en condiciones extremas
+**SCSS:** `@media (max-width: 300px) .logo-header` (líneas 165-169) - `width: 100px; height: 26px`
+
+## 🎨 ESTADOS DE NAVEGACIÓN
+
+### Navegación Activa
+**Aspecto:** Texto rojo oscuro bold con borde inferior rojo de 2px
+**Ubicación:** Enlaces de navegación activos/actuales
+**Propósito:** Indicar página actual con elementos brand distintivos
+**SCSS:** `.nav-active` (líneas 173-177) - `color: #8B0000 !important; font-weight: 700; border-bottom: 2px solid #8B0000`
+
+### Navegación Inactiva
+**Aspecto:** Texto gris oscuro normal con hover rojo y transición
+**Ubicación:** Enlaces de navegación no activos
+**Propósito:** Estado default con feedback hover elegante
+**SCSS:** `.nav-inactive` (líneas 179-187) - `color: #2C2C2C !important; &:hover color: #8B0000 !important`
+
+## 🎁 DROPDOWN DONACIONES
+
+### Menú Dropdown Donaciones
+**Aspecto:** Borde gris claro, sombra profesional, bordes redondeados, ancho generoso
+**Ubicación:** Menú desplegable de opciones de donación
+**Propósito:** Presentar opciones de donación de forma profesional
+**SCSS:** `.donate-link .dropdown-menu` (líneas 191-195) - `border: 1px solid #E0E0E0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); min-width: 280px`
+
+### Items Dropdown Donación
+**Aspecto:** Padding generoso, iconos rojos, transición suave
+**Ubicación:** Cada opción dentro del dropdown de donación
+**Propósito:** Presentar cada opción de donación con iconografía clara
+**SCSS:** `.donate-link .dropdown-item` (líneas 197-212) - `padding: 0.75rem 1.5rem; color: #2C2C2C`
+
+### Iconos Dropdown Donación
+**Aspecto:** Color rojo brand con ancho fijo (20px)
+**Ubicación:** Iconos junto a cada opción de donación
+**Propósito:** Identificación visual de cada tipo de donación
+**SCSS:** `.donate-link .dropdown-item i` (líneas 202-205) - `color: #8B0000; width: 20px`
+
+### Dropdown Items Hover
+**Aspecto:** Fondo gris muy claro con texto rojo brand
+**Ubicación:** Items dropdown al hacer hover
+**Propósito:** Feedback visual de selección con colores brand
+**SCSS:** `.donate-link .dropdown-item:hover` (líneas 207-211) - `background-color: #F8F9FA; color: #8B0000`
+
+## 📁 ÁREA UPLOAD DE ARCHIVOS
+
+### Área Upload Base
+**Aspecto:** Borde punteado gris, bordes redondeados, padding generoso, centrado
+**Ubicación:** Zona de drag & drop para archivos
+**Propósito:** Crear zona clara para upload con feedback visual
+**SCSS:** `.file-upload-area` (líneas 216-223) - `border: 2px dashed #D0D0D0; border-radius: 8px; cursor: pointer`
+
+### Área Upload Estados Activos
+**Aspecto:** Borde rojo brand con fondo rojo muy sutil
+**Ubicación:** Zona upload en hover o con archivos arrastrando
+**Propósito:** Feedback visual claro de estado activo de upload
+**SCSS:** `.file-upload-area:hover, &.dragover` (líneas 224-227) - `border-color: #8B0000; background-color: rgba(139, 0, 0, 0.05)`
+
+### Contenido Upload Iconos
+**Aspecto:** Iconos grises que se vuelven rojos en hover
+**Ubicación:** Iconos dentro del área de upload
+**Propósito:** Identificación visual del tipo de upload esperado
+**SCSS:** `.upload-content .fa-cloud-upload-alt, .fa-database` (líneas 230-250) - `color: #999; transition: color 0.3s ease`
+
+### Texto Upload Principal
+**Aspecto:** Texto gris oscuro con margen inferior controlado
+**Ubicación:** Texto instructivo principal del área upload
+**Propósito:** Instruir al usuario sobre la funcionalidad de upload
+**SCSS:** `.upload-content p` (líneas 235-238) - `margin-bottom: 0.5rem; color: #2C2C2C`
+
+### Texto Upload Secundario
+**Aspecto:** Texto gris medio más pequeño (14.4px)
+**Ubicación:** Texto explicativo secundario del upload
+**Propósito:** Proporcionar detalles adicionales sobre el upload
+**SCSS:** `.upload-content .text-muted` (líneas 240-243) - `color: #666 !important; font-size: 0.9rem`
+
+## 📋 LISTA ARCHIVOS SELECCIONADOS
+
+### Lista Archivos Base
+**Aspecto:** Items de lista con borde gris claro
+**Ubicación:** Lista de archivos seleccionados para upload
+**Propósito:** Mostrar archivos seleccionados antes del upload
+**SCSS:** `.selected-files .list-group-item` (líneas 255-256) - `border: 1px solid #E0E0E0`
+
+### Iconos Archivo Seleccionado
+**Aspecto:** Iconos rojos brand para identificar tipos de archivo
+**Ubicación:** Junto a cada archivo en la lista de seleccionados
+**Propósito:** Identificación visual del tipo de archivo seleccionado
+**SCSS:** `.selected-files .fa-file, .fa-file-alt` (líneas 258-260) - `color: #8B0000`
+
+### Botón Eliminar Archivo
+**Aspecto:** Botón outline danger pequeño sin borde
+**Ubicación:** Junto a cada archivo seleccionado
+**Propósito:** Permitir eliminar archivos de la selección
+**SCSS:** `.selected-files .btn-outline-danger` (líneas 262-271) - `border: none; color: #DC3545; font-size: 0.8rem`
+
+### Botón Eliminar Hover
+**Aspecto:** Fondo rojo peligro con texto blanco
+**Ubicación:** Botón eliminar archivo al hacer hover
+**Propósito:** Feedback visual claro de acción destructiva
+**SCSS:** `.btn-outline-danger:hover` (líneas 267-270) - `background-color: #DC3545; color: white`
+
+## 🎨 SISTEMA DE COLORES NAVBAR
+
+### Color Brand Primario
+**Aspecto:** Rojo oscuro #8B0000 para elementos brand principales
+**Ubicación:** Estados activos, iconos importantes, bordes destacados
+**Propósito:** Mantener consistencia brand en navegación principal
+**SCSS:** `#8B0000` usado en nav-active, iconos, bordes
+
+### Color Texto Principal
+**Aspecto:** Gris oscuro #2C2C2C para texto principal
+**Ubicación:** Enlaces inactivos, texto descriptivo, labels
+**Propósito:** Contraste óptimo para legibilidad principal
+**SCSS:** `#2C2C2C` en nav-inactive, texto upload
+
+### Colores Funcionales
+**Aspecto:** Grises variados para elementos funcionales
+**Ubicación:** Bordes (#E0E0E0), texto secundario (#666), iconos neutros (#999)
+**Propósito:** Jerarquía visual y elementos de soporte
+**SCSS:** Múltiples grises para funcionalidad específica
+
+### Color Peligro Bootstrap
+**Aspecto:** Rojo Bootstrap #DC3545 para acciones destructivas
+**Ubicación:** Botones eliminar archivo
+**Propósito:** Indicación clara de acciones potencialmente destructivas
+**SCSS:** `#DC3545` en botones outline-danger
+
+## 📐 SISTEMA ESPACIADO NAVBAR
+
+### Espaciado Micro
+**Aspecto:** 0.5rem (8px) padding, 18px gap
+**Ubicación:** Elementos pequeños, separaciones mínimas
+**Propósito:** Espaciado fino entre elementos relacionados
+**SCSS:** Padding reducido, gaps flexbox
+
+### Espaciado Base
+**Aspecto:** 0.75rem (12px) padding, 1rem (16px) margins
+**Ubicación:** Elementos estándar del navbar
+**Propósito:** Espaciado estándar para elementos interactivos
+**SCSS:** Padding dropdown items, márgenes estándar
+
+### Espaciado Generoso
+**Aspecto:** 1.5rem (24px) padding, 2rem (32px) margins
+**Ubicación:** Elementos prominentes, separaciones importantes
+**Propósito:** Crear respiración visual en elementos importantes
+**SCSS:** Padding upload area, márgenes de sección

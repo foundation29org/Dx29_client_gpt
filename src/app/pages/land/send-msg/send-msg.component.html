@@ -35,7 +35,7 @@
                     <textarea maxlength="2000" name="description" id="textarea1" rows="4"
                       placeholder="{{'support.Message' | translate }}" class="form-control" ngModel
                       required #description="ngModel" description (input)="autoResize($event)"></textarea>
-                      <p class="float-end">{{ descriptionLength }} / 2000</p>
+                      <p class="float-end dx-text-responsive-lg">{{ descriptionLength }} / 2000</p>
                     <small class="form-text text-muted"
                       *ngIf="!description.valid && (description.dirty || description.touched)">{{'generics.required' |
                       translate }}</small>

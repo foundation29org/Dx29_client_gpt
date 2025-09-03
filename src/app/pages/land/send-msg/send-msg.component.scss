@@ -1,11 +1,4 @@
-p {
-  font-size: 1.1rem;
-}
-
-.ng-touched.ng-invalid {
-  border-color: #A6A9AE;
-}
-
+// Using unified form styles and responsive typography system
 
 ::ng-deep .mat-checkbox-layout {
   display: block !important;
@@ -16,33 +9,24 @@ p {
 }
 
 ::ng-deep .modal-body.content-wrapper .mat-checkbox-frame {
-  border-color: initial; // O el color que desees
+  border-color: initial;
 }
 
-.mat-checkbox-label {
-  margin-top: 0.4em;
-  white-space: normal;
-  text-transform: none;
-  letter-spacing: 0px;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
   .margin-left-0{
     margin-left: 0px !important;
   }
 }
 
 
-  @media ( max-width: 449px ){
+  @media (max-width: 575.98px) {
     .card-body{
       padding: 0rem;
     }
     .card-title{
       font-size: 1.2rem;
     }
-    p {
-      font-size: 0.9rem;
-    }
+    // Typography handled by global responsive classes
   }
 
   

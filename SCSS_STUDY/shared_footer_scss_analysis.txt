@@ -1,0 +1,1180 @@
+═══════════════════════════════════════════════════════════════════════════════════════════
+📊 ANÁLISIS EXHAUSTIVO DEL SCSS DEL FOOTER COMPARTIDO - DXGPT
+═══════════════════════════════════════════════════════════════════════════════════════════
+📍 Archivo: src/app/shared/footer/footer.component.scss
+🗓️ Fecha de análisis: 2025-09-03
+📏 Total de líneas: 841
+🎨 Paradigma: SCSS (Sass) con nesting y variables
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🔍 ESTRUCTURA GENERAL:
+El footer.component.scss es uno de los archivos SCSS más complejos del proyecto DxGPT.
+Implementa un sistema completo de footer profesional oscuro, modales de contacto con theme
+médico, y funcionalidad responsive avanzada. Usa metodología BEM implícita y variables SCSS.
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 1: PALETA DE COLORES Y VARIABLES (Líneas 1-8)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎨 VARIABLES SCSS DEFINIDAS:
+───────────────────────────────────────────────────────
+
+// Color scheme consistent with the website (Línea 1)
+$dark-red: #8B0000;      ← Rojo oscuro corporativo principal
+$medium-red: #B22222;    ← Rojo medio para estados hover
+$dark-gray: #2C2C2C;     ← Gris oscuro para texto y elementos
+$footer-dark: #1a1d23;   ← Fondo oscuro del footer (más claro)
+$footer-darker: #151820; ← Fondo más oscuro para gradientes
+$light-gray: #F8F9FA;    ← Gris claro para contrastes
+$white: #FFFFFF;         ← Blanco puro para texto y elementos
+
+📝 PROPÓSITO:
+- Sistema de colores coherente con la identidad visual de DxGPT
+- Variaciones tonales de rojo (#8B0000 → #B22222) para jerarquía visual
+- Gradiente de grises (#151820 → #1a1d23) para profundidad en el footer
+- Variables reutilizables que garantizan consistencia
+
+🔗 REFERENCIAS:
+- Estos colores se integran con el sistema de branding dinámico
+- Compatible con variables CSS definidas en branding-config.json
+- Usados a lo largo de todo el archivo mediante sintaxis $variable
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 2: UTILIDADES GLOBALES Y MATERIAL DESIGN (Líneas 10-23)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎯 BLOQUE: .pointer (Líneas 10-12)
+───────────────────────────────────────────────────────
+.pointer{
+  cursor: pointer; ← Cursor de mano para elementos interactivos
+}
+
+📝 PROPÓSITO: Utility class para elementos que necesitan cursor pointer
+
+🎯 BLOQUE: ::ng-deep .mat-checkbox-layout (Líneas 14-16)
+───────────────────────────────────────────────────────
+::ng-deep .mat-checkbox-layout {
+  display: block !important; ← Fuerza display block para checkboxes Angular Material
+}
+
+⚠️ NOTA CRÍTICA: 
+- ::ng-deep es DEPRECADO en Angular
+- Se usa para penetrar View Encapsulation
+- Podría romperse en futuras versiones de Angular
+
+🎯 BLOQUE: .mat-checkbox-label (Líneas 18-23)
+───────────────────────────────────────────────────────
+.mat-checkbox-label {
+  margin-top: 0.4em;     ← Espaciado superior para alineación
+  white-space: normal;   ← Permite wrap del texto
+  text-transform: none;  ← Sin transformación de texto
+  letter-spacing: 0px;   ← Espaciado normal entre letras
+}
+
+📝 PROPÓSITO:
+- Normalización de estilos Angular Material checkboxes
+- Mejora la legibilidad y alineación de etiquetas largas
+- Asegura comportamiento consistente cross-browser
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 3: FOOTER PRINCIPAL Y ESTRUCTURA (Líneas 25-44)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎯 BLOQUE: .dark-footer (Líneas 26-31)
+───────────────────────────────────────────────────────
+// Dark Professional Footer (Comentario línea 25)
+.dark-footer {
+  background: linear-gradient(135deg, $footer-dark 0%, $footer-darker 100%); ← Gradiente diagonal
+  color: #E5E7EB;        ← Gris claro para texto principal
+  margin-top: auto;      ← Empuja footer al final del contenedor flex
+  border-top: 3px solid $dark-red; ← Borde superior rojo como accent
+}
+
+📝 PROPÓSITO:
+- Footer profesional con diseño oscuro moderno
+- Gradiente diagonal (135°) crea profundidad visual
+- margin-top: auto compatible con flexbox layouts
+- Borde rojo superior como elemento de marca
+
+🔗 INTEGRACIÓN:
+- Requiere contenedor padre con display: flex y flex-direction: column
+- Color #E5E7EB es consistente con Tailwind CSS palette
+
+🎯 BLOQUE: .footer-content (Líneas 33-39)
+───────────────────────────────────────────────────────
+.footer-content {
+  padding: 4rem 0 0;     ← Padding superior generoso, sin inferior/lateral
+  
+  .container {            ← Nested selector SCSS
+    max-width: 1200px;   ← Máximo ancho contenedor
+  }                      // Same as content pages (Comentario línea 37)
+}
+
+📝 PROPÓSITO:
+- Contenedor principal del footer con espaciado superior amplio
+- max-width: 1200px mantiene consistencia con otras páginas
+- Sin padding lateral (delegado a sistema Bootstrap grid)
+
+🎯 BLOQUE: .footer-main (Líneas 41-44)
+───────────────────────────────────────────────────────
+.footer-main {
+  padding-bottom: 2rem;  ← Espaciado inferior
+  margin-bottom: 2rem;   ← Margen inferior para separación
+}
+
+📝 PROPÓSITO:
+- Separación visual entre contenido principal y footer-bottom
+- Doble espaciado (padding + margin) para amplitud visual
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 4: COLUMNAS DEL FOOTER Y NAVEGACIÓN (Líneas 46-94)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎯 GRUPO DE BLOQUES: .footer-column (Líneas 47-94)
+───────────────────────────────────────────────────────
+// Footer Columns (Comentario línea 46)
+
+🔹 .footer-column .footer-title (Líneas 48-64):
+.footer-column {
+  .footer-title {
+    color: $white;         ← Texto blanco para títulos
+    font-size: 1.25rem;    ← Tamaño grande (20px aprox)
+    font-weight: 600;      ← Semi-bold
+    margin-bottom: 1.5rem; ← Espaciado inferior generoso
+    position: relative;    ← Para pseudo-elemento
+    
+    &:after {              ← Pseudo-elemento decorativo
+      content: '';         ← Contenido vacío
+      position: absolute;  ← Posicionamiento absoluto
+      bottom: -8px;        ← 8px debajo del texto
+      left: 0;             ← Alineado a la izquierda
+      width: 40px;         ← Línea de 40px
+      height: 2px;         ← Grosor de 2px
+      background: $dark-red; ← Color rojo corporativo
+    }
+  }
+
+📝 PROPÓSITO:
+- Títulos de columna con línea decorativa roja debajo
+- Jerarquía visual clara con tamaño y peso tipográfico
+- Elemento decorativo (&:after) como indicador visual de sección
+
+🔹 .footer-column .footer-links (Líneas 66-94):
+  .footer-links {
+    list-style: none;     ← Remueve bullets de lista
+    padding: 0;          ← Sin padding
+    margin: 0;           ← Sin margin
+    
+    li {                 ← Items de lista
+      margin-bottom: 0.75rem; ← Espaciado entre items
+      
+      a {                ← Enlaces dentro de items
+        color: #B0B7C3;  ← Gris azulado claro
+        text-decoration: none; ← Sin subrayado
+        font-size: 0.95rem;    ← Ligeramente más pequeño que base
+        transition: all 0.3s ease; ← Transición suave para todos los cambios
+        display: flex;          ← Flexbox para alinear icon y texto
+        align-items: center;    ← Centrado vertical
+        
+        &:hover {          ← Estado hover
+          color: $white;   ← Cambia a blanco
+          padding-left: 8px; ← Desplazamiento visual hacia la derecha
+        }
+        
+        i {                ← Iconos dentro de enlaces
+          margin-right: 8px; ← Espaciado entre icon y texto
+          width: 16px;       ← Ancho fijo para alineación
+        }
+      }
+    }
+  }
+
+📝 PROPÓSITO:
+- Lista de navegación limpia sin estilos por defecto
+- Efectos hover sofisticados (color + desplazamiento)
+- Sistema de iconos con FontAwesome con espaciado consistente
+- Micro-interacciones que mejoran UX
+
+🔗 USADO EN:
+- footer.component.html: Listas de enlaces por columna
+- Iconos FontAwesome (fas fa-*) en cada enlace
+- Sistema de navegación interno del sitio
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 5: BOTONES DE ACCIÓN - CONTACTO Y SUSCRIPCIÓN (Líneas 96-150)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎯 GRUPO DE BLOQUES: .contact-section (Líneas 97-122)
+───────────────────────────────────────────────────────
+// Contact Section (Comentario línea 96)
+.contact-section {
+  .contact-btn {
+    background: $dark-red;      ← Fondo rojo corporativo
+    color: $white;              ← Texto blanco
+    border: none;               ← Sin borde
+    padding: 0.8rem 1.5rem;     ← Padding interno generoso
+    border-radius: 8px;         ← Bordes redondeados modernos
+    font-weight: 600;           ← Semi-bold
+    font-size: 0.95rem;         ← Tamaño ligeramente reducido
+    transition: all 0.3s ease;  ← Transición suave para todas las propiedades
+    width: 100%;                ← Ancho completo del contenedor
+    display: flex;              ← Flexbox layout
+    align-items: center;        ← Centrado vertical
+    justify-content: center;    ← Centrado horizontal
+    
+    &:hover {                   ← Estado hover con efectos avanzados
+      background: $medium-red;  ← Color más claro en hover
+      transform: translateY(-2px); ← Elevación visual
+      box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3); ← Sombra pronunciada con opacidad
+    }
+    
+    i {                         ← Iconos dentro del botón
+      font-size: 0.9rem;        ← Ligeramente más pequeños
+    }
+  }
+}
+
+🎯 GRUPO DE BLOQUES: .subscribe-section (Líneas 125-150)
+───────────────────────────────────────────────────────
+// Subscribe Section (Comentario línea 124)
+.subscribe-section {
+  .subscribe-btn {
+    background: #6B7280;       ← Gris medio (diferente del contact-btn)
+    color: $white;              ← Texto blanco
+    border: none;               ← Sin borde
+    padding: 0.8rem 1.5rem;     ← Mismo padding que contact-btn
+    border-radius: 8px;         ← Mismos bordes redondeados
+    font-weight: 600;           ← Mismo peso tipográfico
+    font-size: 0.95rem;         ← Mismo tamaño
+    transition: all 0.3s ease;  ← Misma transición
+    width: 100%;                ← Mismo ancho completo
+    display: flex;              ← Mismo layout flexbox
+    align-items: center;        ← Mismo centrado vertical
+    justify-content: center;    ← Mismo centrado horizontal
+    
+    &:hover {                   ← Estado hover consistente
+      background: #4B5563;     ← Gris más oscuro (vs medium-red)
+      transform: translateY(-2px); ← Misma elevación
+      box-shadow: 0 8px 20px rgba(107, 114, 128, 0.3); ← Sombra con color gris
+    }
+    
+    i {                         ← Iconos consistentes
+      font-size: 0.9rem;        ← Mismo tamaño de iconos
+    }
+  }
+}
+
+📝 PROPÓSITO CONJUNTO:
+- Dos tipos de botones CTA con estilos muy similares pero colores diferenciados
+- contact-btn usa paleta roja corporativa ($dark-red → $medium-red)  
+- subscribe-btn usa paleta gris (#6B7280 → #4B5563)
+- Efectos de elevación (translateY + box-shadow) para feedback táctil
+- Layout flexbox asegura centrado perfecto de contenido e iconos
+
+⚠️ OPORTUNIDAD DE MEJORA:
+Podría extraerse un @mixin para evitar duplicación de código
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 6: INFORMACIÓN DE FUNDACIÓN Y ICONOS SOCIALES (Líneas 152-219)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎯 GRUPO DE BLOQUES: .foundation-info (Líneas 153-188)
+───────────────────────────────────────────────────────
+// Foundation Info in Contact Column (Comentario línea 152)
+
+🔹 .foundation-text (Líneas 154-159):
+.foundation-info {
+  .foundation-text {
+    color: #9CA3AF;           ← Gris medio para texto secundario
+    font-size: 0.9rem;        ← Texto más pequeño
+    margin: 0;                ← Sin margin
+    text-align: center;       ← Centrado
+  }
+
+🔹 .foundation-link (Líneas 161-180):
+  .foundation-link {
+    display: block;           ← Display block para área clickeable completa
+    text-align: center;       ← Centrado
+    transition: opacity 0.3s ease; ← Transición de opacidad
+    
+    &:hover {                 ← Estado hover sutil
+      opacity: 0.8;           ← Reduce opacidad ligeramente
+    }
+    
+    .foundation-logo {
+      max-width: 100px;       ← Límite de ancho para logo
+      height: auto;           ← Altura automática (aspect ratio)
+      filter: brightness(0.9); ← Ligeramente más oscuro por defecto
+      transition: filter 0.3s ease; ← Transición del filtro
+    }
+    
+    &:hover .foundation-logo {  ← Nested hover para logo
+      filter: brightness(1);    ← Brillo completo en hover
+    }
+  }
+
+🔹 .foundation-address (Líneas 182-187):
+  .foundation-address {
+    color: #9CA3AF;           ← Mismo gris que foundation-text
+    font-size: 0.85rem;       ← Aún más pequeño para jerarquía
+    margin: 0.5rem 0 0;       ← Solo margin superior
+    text-align: center;       ← Centrado
+  }
+
+📝 PROPÓSITO:
+- Información corporativa de Foundation29 con jerarquía visual clara
+- Efectos hover sutiles (opacity, brightness) para interactividad elegante
+- Logo con tamaño controlado y efectos visuales
+- Texto secundario con colores y tamaños diferenciados
+
+🎯 GRUPO DE BLOQUES: .social-icons (Líneas 191-219)
+───────────────────────────────────────────────────────
+// Social Icons (Comentario línea 190)
+.social-icons {
+  display: flex;              ← Layout flexbox
+  justify-content: center;    ← Centrado horizontal
+  gap: 0.75rem;              ← Espaciado entre iconos
+  margin-top: 1rem;          ← Margen superior
+  
+  .social-link {
+    display: flex;            ← Flexbox para centrar contenido
+    align-items: center;      ← Centrado vertical
+    justify-content: center;  ← Centrado horizontal  
+    width: 40px;              ← Ancho fijo circular
+    height: 40px;             ← Alto fijo circular
+    background: rgba(255, 255, 255, 0.1); ← Fondo blanco semi-transparente
+    border-radius: 50%;       ← Círculo perfecto
+    color: #B0B7C3;           ← Color gris azulado
+    text-decoration: none;    ← Sin subrayado
+    transition: all 0.3s ease; ← Transición completa
+    
+    &:hover {                 ← Estado hover con transformación completa
+      background: $dark-red;  ← Fondo rojo corporativo
+      color: $white;          ← Texto blanco
+      transform: translateY(-2px); ← Elevación igual que botones
+    }
+    
+    i {                       ← Iconos sociales
+      font-size: 1rem;        ← Tamaño base
+    }
+  }
+}
+
+📝 PROPÓSITO:
+- Iconos sociales circulares con diseño moderno
+- Estado por defecto semi-transparente elegante
+- Hover state consistente con botones (elevación + cambio de color)
+- Layout flexbox asegura espaciado y alineación perfectos
+
+🔗 REFERENCIAS:
+- Iconos FontAwesome: fab fa-github, fab fa-linkedin, fab fa-twitter
+- Colores consistentes con el resto del footer
+- Efectos de elevación unidos con contact-btn y subscribe-btn
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 7: FOOTER BOTTOM Y SEPARADORES (Líneas 221-280)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎯 BLOQUE: .footer-bottom (Líneas 222-237)
+───────────────────────────────────────────────────────
+// Footer Bottom (Comentario línea 221)
+.footer-bottom {
+  background: transparent;    ← Sin fondo (comentario: Removed the dark background)
+  padding: 1.5rem 0;         ← Padding vertical únicamente
+  border-top: 1px solid rgba(255, 255, 255, 0.1); ← Borde superior semi-transparente
+  
+  .copyright-text,           ← Selector múltiple
+  .powered-text {
+    color: #9CA3AF;          ← Gris medio para texto legal
+    font-size: 0.85rem;      ← Tamaño pequeño
+    margin: 0;               ← Sin margin
+  }
+  
+  .powered-text {             ← Especificación adicional para powered-text
+    font-style: italic;      ← Cursiva para diferenciación
+  }
+}
+
+📝 PROPÓSITO:
+- Sección inferior del footer con información legal/corporativa
+- Borde superior sutil para separación visual
+- Texto pequeño y discreto apropiado para copyright
+- "Powered by" en cursiva para estilo editorial
+
+🎯 GRUPO DE BLOQUES: Separadores Decorativos (Líneas 263-280)
+───────────────────────────────────────────────────────
+// Separator line after specific footer links (Comentario línea 263)
+.footer-links {
+  li.separator-after {        ← Modifier class para items específicos
+    position: relative;       ← Para pseudo-elemento
+    margin-bottom: 1.2rem;    ← Mayor espaciado inferior
+    
+    &::after {                ← Pseudo-elemento decorativo
+      content: '';            ← Contenido vacío
+      position: absolute;     ← Posicionamiento absoluto
+      bottom: -0.6rem;        ← Centrado en el espacio inferior
+      left: 0;                ← Alineado a la izquierda
+      right: 0;               ← Se extiende hasta la derecha
+      height: 2px;            ← Grosor de línea
+      background: linear-gradient(90deg, $dark-red 0%, rgba(139, 0, 0, 0.4) 50%, $dark-red 100%); ← Gradiente horizontal con fade
+      border-radius: 1px;     ← Bordes ligeramente redondeados
+    }
+  }
+}
+
+📝 PROPÓSITO:
+- Líneas separadoras decorativas para agrupar enlaces relacionados
+- Gradiente horizontal que se desvanece al centro (efecto sofisticado)
+- Aplicable mediante modifier class .separator-after en HTML
+- Posicionamiento preciso para integración visual perfecta
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 8: RESPONSIVE DESIGN FRAMEWORK (Líneas 239-350)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎯 MEDIA QUERY PRINCIPAL: @media (max-width: 992px) (Líneas 240-261)
+───────────────────────────────────────────────────────
+// Responsive Design (Comentario línea 239)
+@media (max-width: 992px) {    ← Breakpoint Bootstrap lg
+  .footer-column {
+    margin-bottom: 2rem;       ← Mayor espaciado entre columnas en stack
+    
+    .footer-title {
+      text-align: center;      ← Centrado en móvil
+      
+      &:after {                ← Ajuste del pseudo-elemento decorativo
+        left: 50%;             ← Centrado horizontal
+        transform: translateX(-50%); ← Compensación de centrado
+      }
+    }
+    
+    .footer-links {
+      text-align: center;      ← Links centrados en móvil
+    }
+  }
+  
+  .social-icons {
+    margin-bottom: 1rem;       ← Espaciado adicional en móvil
+  }
+}
+
+📝 PROPÓSITO:
+- Responsive design para tablets y dispositivos medianos
+- Transición de layout horizontal a vertical centrado
+- Ajuste de pseudo-elementos para mantener decoración visual
+
+🎯 MEDIA QUERY SECUNDARIA: @media (max-width: 768px) (Líneas 282-335)
+───────────────────────────────────────────────────────
+@media (max-width: 768px) {    ← Breakpoint Bootstrap md
+  .footer-content {
+    padding: 3rem 0 0;         ← Reducción de padding superior
+  }
+  
+  .footer-main {
+    padding-bottom: 1.5rem;    ← Reducción de espaciados
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-column {
+    .footer-title {
+      font-size: 1.1rem;       ← Reducción de tamaño de títulos
+      margin-bottom: 1rem;     ← Menos espaciado
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.5rem;   ← Compactación de lista
+    }
+  }
+  
+  .contact-section {
+    .contact-btn {
+      padding: 0.7rem 1.2rem;  ← Botones más compactos
+      font-size: 0.9rem;
+    }
+  }
+  
+  .subscribe-section {
+    .subscribe-btn {
+      padding: 0.7rem 1.2rem;  ← Misma compactación
+      font-size: 0.9rem;
+    }
+  }
+  
+  .foundation-info {
+    .foundation-logo {
+      max-width: 80px;         ← Logo más pequeño
+    }
+  }
+  
+  .footer-bottom {
+    padding: 1rem 0;          ← Menos padding
+    
+    .row > div {               ← Elementos del grid Bootstrap
+      text-align: center !important; ← Fuerza centrado
+      margin-bottom: 0.5rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+🎯 MEDIA QUERY MÓVIL: @media (max-width: 576px) (Líneas 337-350)
+───────────────────────────────────────────────────────
+@media (max-width: 576px) {    ← Breakpoint Bootstrap sm
+  .footer-column {
+    margin-bottom: 1.5rem;     ← Mayor compactación
+  }
+  
+  .social-icons .social-link {
+    width: 36px;               ← Iconos sociales más pequeños
+    height: 36px;
+    
+    i {
+      font-size: 0.9rem;       ← Iconos reducidos
+    }
+  }
+}
+
+📝 PROPÓSITO RESPONSIVE CONJUNTO:
+- Sistema de 3 breakpoints (992px, 768px, 576px) compatible con Bootstrap
+- Reducción progresiva de espaciados, tamaños y paddings
+- Mantenimiento de proporciones y jerarquía visual
+- Optimización para touch interfaces (botones, iconos)
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 9: SECCIÓN DE COLABORACIÓN Y UTILIDADES (Líneas 352-426)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎯 GRUPO DE BLOQUES: .collaborate-section (Líneas 353-409)
+───────────────────────────────────────────────────────
+// Collaborate with us section (Comentario línea 352)
+
+🔹 .collaborate-title (Líneas 354-370):
+.collaborate-section {
+  .collaborate-title {
+    color: #E5E7EB;           ← Mismo color que texto principal footer
+    font-size: 1rem;          ← Tamaño base
+    font-weight: 600;         ← Semi-bold
+    margin-bottom: 0.75rem;   ← Espaciado inferior moderado
+    position: relative;       ← Para pseudo-elemento
+    
+    &:after {                 ← Línea decorativa más sutil que footer-title
+      content: '';
+      position: absolute;
+      bottom: -4px;           ← Más cerca del texto que footer-title (-8px)
+      left: 0;
+      width: 25px;            ← Más corta que footer-title (40px)
+      height: 1px;            ← Más delgada que footer-title (2px)
+      background: rgba(139, 0, 0, 0.6); ← Color rojo con transparencia
+    }
+  }
+
+🔹 .collaborate-list (Líneas 372-391):
+  .collaborate-list {
+    list-style: none;         ← Sin bullets
+    padding: 0;
+    margin: 0 0 1rem 0;       ← Margin inferior únicamente
+    font-size: 0.8rem;        ← Texto pequeño
+    
+    li {
+      color: #9CA3AF;         ← Color gris consistente
+      margin-bottom: 0.25rem; ← Espaciado compacto
+      padding-left: 0.75rem;  ← Espacio para pseudo-bullet
+      position: relative;     ← Para pseudo-elemento
+      
+      &:before {              ← Bullet personalizado
+        content: '•';         ← Bullet Unicode
+        color: $dark-red;     ← Color rojo corporativo
+        position: absolute;
+        left: 0;              ← Posicionado en el espacio de padding
+      }
+    }
+  }
+
+🔹 .collaborate-text (Líneas 393-408):
+  .collaborate-text {
+    font-size: 0.85rem;       ← Ligeramente más grande que list
+    color: #9CA3AF;           ← Color consistente
+    margin: 0;
+    
+    .contact-link-text {      ← Enlaces dentro del texto
+      color: $dark-red;       ← Color rojo corporativo
+      text-decoration: none;
+      transition: color 0.3s ease;
+      
+      &:hover {
+        color: $medium-red;   ← Color más claro en hover
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+📝 PROPÓSITO:
+- Sección específica para información de colaboración
+- Estilo más sutil que las columnas principales (líneas más finas, texto más pequeño)
+- Bullets personalizados con color corporativo
+- Enlaces integrados con estados hover consistentes
+
+🎯 GRUPO DE BLOQUES: Utilidades Legacy (Líneas 411-426)
+───────────────────────────────────────────────────────
+.bodyfooter{                  ← Clase utility legacy
+    display: flex;            ← Layout flexbox
+  }
+
+  @media ( max-width: 484px ){  ← Breakpoint custom específico
+    .bodyfooter{
+        display: block;       ← Stack en móviles muy pequeños
+    }
+  }
+
+// Critical mobile spacing for cookie consent (Comentario línea 421)
+.mb-footer-mobile {
+  @media (max-width: 991.98px) {
+    margin-bottom: 56px !important; ← Espaciado para banner de cookies
+  }                                  // Space for cookieconsent button (Comentario)
+}
+
+📝 PROPÓSITO:
+- .bodyfooter: Utility class para layout flexbox con responsive fallback
+- .mb-footer-mobile: Espaciado crítico para evitar solapamiento con cookie consent
+- 56px calculado para altura típica de banners de cookies
+- Breakpoint 484px muy específico (probablemente iPhone SE o similar)
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 10: SISTEMA COMPLETO DE MODALES (Líneas 428-841)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎯 INTRODUCCIÓN AL SISTEMA DE MODALES:
+Esta es la sección más compleja del archivo, implementando un sistema completo de theming
+para modales con estética médica profesional. Usa ::ng-deep extensivamente.
+
+🎯 CONTENEDOR PRINCIPAL: ::ng-deep .modal-dialog (Líneas 429-756)
+───────────────────────────────────────────────────────
+// Contact Modal - Professional Medical Theme (Comentario línea 428)
+::ng-deep .modal-dialog {
+  .modal-content {
+    background: $white;           ← Fondo blanco limpio
+    border: none;                 ← Sin borde por defecto
+    border-radius: 12px;          ← Bordes muy redondeados (moderno)
+    color: $dark-gray;            ← Texto gris oscuro
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); ← Sombra profunda y suave
+    overflow: hidden;             ← Clip del contenido en bordes redondeados
+
+⚠️ CRÍTICO: ::ng-deep es DEPRECADO pero necesario aquí para penetrar
+Angular Bootstrap (ng-bootstrap) view encapsulation.
+
+🔹 MODAL HEADER (Líneas 438-492):
+    .modal-header {
+      background: linear-gradient(135deg, $dark-gray 0%, #1a1a1a 100%); ← Gradiente oscuro
+      border-bottom: 4px solid $dark-red;    ← Borde inferior rojo prominente
+      padding: 1rem 2rem;                    ← Padding generoso
+      position: relative;                     ← Para pseudo-elementos
+      display: flex;                          ← Flexbox layout
+      justify-content: space-between;        ← Distribución título/botón
+      align-items: center;                   ← Centrado vertical
+      
+      &::before {                           ← Overlay semi-transparente
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0; ← Cobertura completa
+        background: rgba(44, 44, 44, 0.88);  ← Overlay oscuro
+      }
+      
+      .modal-title {
+        color: $white;                      ← Texto blanco sobre fondo oscuro
+        font-size: 1.3rem;                 ← Tamaño prominente
+        font-weight: 600;                  ← Semi-bold
+        margin: 0;                         ← Sin margin
+        position: relative; z-index: 1;    ← Sobre el overlay
+      }
+      
+      .btn-close {                         ← Botón de cierre personalizado
+        background: rgba(255, 255, 255, 0.15); ← Fondo blanco semi-transparente
+        border: 1px solid rgba(255, 255, 255, 0.3); ← Borde sutil
+        border-radius: 4px;                ← Bordes ligeramente redondeados
+        width: 32px; height: 32px;         ← Tamaño cuadrado fijo
+        opacity: 1;                        ← Sin transparencia por defecto
+        transition: all 0.2s ease;         ← Transición rápida
+        display: flex;                     ← Flexbox para centrar
+        align-items: center; justify-content: center;
+        position: relative; z-index: 1;    ← Sobre el overlay
+        
+        &::before {                        ← Icono X personalizado
+          content: '×';                    ← Símbolo Unicode
+          color: $white;
+          font-size: 18px;
+          font-weight: normal;
+        }
+        
+        &:hover {                          ← Estado hover
+          background: rgba(255, 255, 255, 0.25);
+          border-color: rgba(255, 255, 255, 0.4);
+        }
+      }
+    }
+
+📝 PROPÓSITO MODAL HEADER:
+- Header oscuro con gradiente profesional
+- Borde rojo prominente como elemento de marca
+- Overlay para intensificar el contraste
+- Botón de cierre custom con transparencias elegantes
+- z-index management para layering correcto
+
+🔹 MODAL BODY - ESTRUCTURA PRINCIPAL (Líneas 494-576):
+    .modal-body {
+      padding: 2.5rem;                     ← Padding generoso
+      background: $white;                  ← Fondo blanco limpio
+      position: relative;                  ← Para pseudo-elementos
+      
+      &::before {                         ← Pseudo-elemento de fondo sutil
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(139, 0, 0, 0.01); ← Tint rojo casi imperceptible
+        pointer-events: none;             ← No interfiere con interacciones
+        z-index: 0;                       ← Detrás del contenido
+      }
+      
+      > * {                               ← Todos los hijos directos
+        position: relative;               ← Sobre el pseudo-elemento
+        z-index: 1;
+      }
+
+🔹 FORM GROUPS (Líneas 516-576):
+      .form-group {
+        margin-bottom: 1.8rem;            ← Espaciado amplio entre campos
+        
+        &.checkbox-group {                ← Modifier para grupos de checkbox
+          margin-bottom: 1.2rem;         ← Espaciado reducido
+          
+          .mat-checkbox {
+            display: block;               ← Block layout
+            width: 100%;                  ← Ancho completo
+          }
+        }
+        
+        span {                            ← Labels de campos
+          color: $dark-gray;
+          font-weight: 500;               ← Peso medio
+          font-size: 0.95rem;
+          margin-bottom: 0.8rem;
+          display: block;
+          
+          &.mb-0 {                        ← Utility modifier
+            margin-bottom: 0.5rem !important;
+          }
+        }
+        
+        .form-control {                   ← Campos de input/textarea
+          background: $white;
+          border: 2px solid #E5E7EB;      ← Borde gris claro
+          color: $dark-gray;
+          border-radius: 6px;             ← Bordes redondeados
+          padding: 0.8rem 1.2rem;         ← Padding interno generoso
+          transition: all 0.3s ease;      ← Transición suave
+          font-size: 0.95rem;
+          width: 100%;
+          
+          &:focus {                       ← Estado focus prominente
+            border-color: $dark-red;      ← Borde rojo en focus
+            box-shadow: 0 0 0 0.2rem rgba(139, 0, 0, 0.08); ← Ring effect
+            outline: none;                ← Sin outline por defecto
+            transform: scale(1.01);       ← Ligera expansión
+          }
+          
+          &::placeholder {
+            color: #9CA3AF;               ← Placeholder gris medio
+          }
+        }
+        
+        .autoajustable {                  ← Textarea específico
+          min-height: 110px;              ← Altura mínima
+          resize: vertical;               ← Solo resize vertical
+          line-height: 1.6;               ← Espaciado de línea legible
+          font-family: inherit;
+        }
+        
+        small.danger {                    ← Mensajes de error
+          color: #DC2626;                 ← Rojo de error
+          font-size: 0.8rem;
+          margin-top: 0.4rem;
+          display: block;
+          font-weight: 500;
+        }
+      }
+
+📝 PROPÓSITO FORM GROUPS:
+- Sistema completo de formularios con estados avanzados
+- Focus states prominentes con ring effect y micro-animación
+- Manejo de errores con colores diferenciados
+- Textarea con constrains UX (solo resize vertical)
+- Typography hierarchy con weights y tamaños específicos
+
+🔹 CHECKBOXES MATERIAL DESIGN (Líneas 615-683):
+      // Material checkbox styling (Comentario línea 615)
+      .mat-checkbox {
+        display: flex !important;
+        align-items: flex-start !important;
+        
+        .mat-checkbox-layout {
+          white-space: normal;
+          display: flex !important;
+          align-items: flex-start !important;
+        }
+        
+        .mat-checkbox-inner-container {
+          margin-right: 8px;
+          margin-top: 2px;                ← Ajuste de alineación con texto
+          flex-shrink: 0;                 ← No se encoge
+        }
+        
+        .mat-checkbox-frame {             ← Frame del checkbox
+          border-color: #9CA3AF !important;
+          border-width: 2px !important;
+          border-radius: 3px !important;
+          width: 18px !important; height: 18px !important;
+        }
+        
+        .mat-checkbox-background {
+          border-radius: 3px !important;
+          width: 18px !important; height: 18px !important;
+        }
+        
+        .mat-checkbox-checkmark {         ← Icono de check
+          fill: $white !important;        ← Blanco sobre fondo rojo
+        }
+        
+        .mat-checkbox-checkmark-path {
+          stroke: $white !important;
+          stroke-width: 2.5px !important;
+        }
+        
+        .mat-checkbox-checked .mat-checkbox-background {
+          background-color: $dark-red !important;  ← Estado checked rojo
+          border-color: $dark-red !important;
+        }
+        
+        &:hover:not(.mat-checkbox-disabled) .mat-checkbox-frame {
+          border-color: $dark-red !important;      ← Hover effect
+        }
+        
+        .mat-checkbox-label {             ← Label del checkbox
+          color: $dark-gray !important;
+          font-size: 0.9rem !important;
+          line-height: 1.4 !important;
+          cursor: pointer;
+          margin: 0 !important;
+          flex: 1;                        ← Ocupa espacio disponible
+          
+          a {                             ← Enlaces dentro del label
+            color: $dark-red !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
+            
+            &:hover {
+              color: $medium-red !important;
+              text-decoration: underline !important;
+            }
+          }
+        }
+      }
+
+📝 PROPÓSITO CHECKBOXES:
+- Retheming completo de Angular Material checkboxes
+- Colores corporativos (rojo) en lugar de paleta Material por defecto
+- Tamaños específicos (18x18px) y alineación precisa
+- Enlaces integrados en labels con estados hover
+- !important necesario para sobrescribir especificidad Material
+
+🔹 SISTEMA DE BOTONES DE MODAL (Líneas 686-738):
+      // Button group (Comentario línea 685)
+      .button-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        gap: 0.75rem;                     ← Espaciado entre botones
+        
+        .btn {
+          padding: 0.75rem 1.5rem;
+          font-weight: 600;
+          border-radius: 6px;
+          transition: all 0.3s ease;
+          font-size: 0.9rem;
+          border: 2px solid;              ← Borde obligatorio
+          cursor: pointer;
+          flex: 0 0 auto;                 ← No flex grow/shrink
+          min-width: 120px;               ← Ancho mínimo uniforme
+          
+          &.btn-cancel {                  ← Botón cancelar
+            background: $white;
+            border-color: #D1D5DB;
+            color: $dark-gray;
+            
+            &:hover {
+              background: #F9FAFB;         ← Gris muy claro
+              border-color: #9CA3AF;
+              transform: translateY(-1px); ← Elevación menor que submit
+            }
+          }
+          
+          &.btn-submit {                  ← Botón principal
+            background: $dark-red;
+            border-color: $dark-red;
+            color: $white;
+            
+            &:hover:not(:disabled) {      ← Solo si no está disabled
+              background: $medium-red;
+              border-color: $medium-red;
+              transform: translateY(-2px); ← Mayor elevación
+              box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+            }
+            
+            &:disabled {                  ← Estado deshabilitado
+              background: #D1D5DB;
+              border-color: #D1D5DB;
+              color: #9CA3AF;
+              cursor: not-allowed;
+              transform: none;            ← Sin efectos
+              box-shadow: none;
+            }
+          }
+        }
+      }
+
+📝 PROPÓSITO BOTONES:
+- Sistema dual: cancel (neutral) vs submit (prominente)
+- Jerarquía visual clara con colores y elevaciones diferentes
+- Estados disabled manejados específicamente
+- Ancho mínimo para consistencia visual
+- Efectos hover diferenciados por importancia
+
+🔹 LOADING Y ESTADOS (Líneas 741-750):
+      // Loading spinner (Comentario línea 740)
+      .form-actions {
+        text-align: center;
+        margin-top: 2rem;
+        
+        .fa-spinner {
+          color: $dark-red;               ← Spinner rojo corporativo
+          font-size: 2rem;               ← Tamaño prominente
+        }
+      }
+
+🔹 MODAL FOOTER (Líneas 752-755):
+    .modal-footer {
+      display: none;                      ← Oculto: botones están en body
+    }                                     // We're using buttons in the body now
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📋 SECCIÓN 11: MODALES ESPECIALIZADOS Y UTILIDADES FINALES (Líneas 758-841)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🎯 TERMS MODAL (Líneas 759-791):
+───────────────────────────────────────────────────────
+// Terms modal close button (Comentario línea 758)
+::ng-deep .modal-dialog .modal-content {
+  .terms-wrapper {
+    position: relative;
+    
+    .close-terms-btn {                   ← Botón específico para modal de términos
+      position: absolute;
+      top: 12px; right: 12px;            ← Esquina superior derecha
+      width: 36px; height: 36px;         ← Tamaño cuadrado mayor
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      background: rgba(139, 0, 0, 0.8);  ← Fondo rojo semi-transparente
+      color: $white;
+      border-radius: 6px;
+      font-size: 22px;                   ← Texto grande
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center; justify-content: center;
+      z-index: 1000;                     ← Z-index alto para estar encima
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      
+      &:hover {
+        background: $dark-red;            ← Fondo sólido en hover
+        border-color: rgba(255, 255, 255, 0.6);
+        transform: scale(1.1);            ← Ligera expansión
+        box-shadow: 0 4px 12px rgba(139, 0, 0, 0.4); ← Sombra más intensa
+      }
+    }
+  }
+}
+
+📝 PROPÓSITO:
+- Botón de cierre especializado para modal de términos
+- Mayor que el botón de cierre estándar (36px vs 32px)
+- Efectos hover más prominentes (scale transformation)
+- Z-index alto para asegurar visibilidad
+
+🎯 LOADING STATES ADICIONALES (Líneas 794-802):
+───────────────────────────────────────────────────────
+// Loading state in modal body (Comentario línea 793)
+::ng-deep .modal-body .form-actions {
+  text-align: center;
+  
+  .fa-spinner {
+    color: $dark-red;
+    font-size: 2rem;
+    animation: fa-spin 2s infinite linear;  ← Animación específica FontAwesome
+  }
+}
+
+🎯 BACKDROP Y UTILIDADES (Líneas 805-815):
+───────────────────────────────────────────────────────
+// Enhanced modal backdrop (Comentario línea 804)
+::ng-deep .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);    ← Overlay más suave que defecto
+}
+
+// Center text elements (Comentario línea 809)
+::ng-deep .center-elements {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;                           ← Espaciado entre elementos centrados
+}
+
+🎯 RESPONSIVE MODAL (Líneas 818-841):
+───────────────────────────────────────────────────────
+// Responsive modal (Comentario línea 817)
+@media (max-width: 768px) {
+  ::ng-deep .modal-dialog {
+    margin: 1rem;                         ← Margen uniforme en móvil
+    
+    .modal-content {
+      .modal-header {
+        padding: 1.5rem;                  ← Padding reducido
+      }
+      
+      .modal-body {
+        padding: 2rem;                    ← Padding reducido de 2.5rem
+      }
+      
+      .modal-footer {
+        padding: 1.5rem 2rem;             ← Footer con menos padding
+        
+        .btn {
+          padding: 0.65rem 1.25rem;       ← Botones más compactos
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}
+
+📝 PROPÓSITO RESPONSIVE MODAL:
+- Adaptación específica para móviles
+- Reducción de paddings para aprovechar espacio limitado
+- Botones más compactos pero manteniendo usabilidad touch
+- Margen consistente para evitar que toque bordes de pantalla
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+🔍 ANÁLISIS DE ARQUITECTURA Y PATRONES
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🏗️ PATRONES DE DISEÑO IDENTIFICADOS:
+1. **BEM Methodology**: Implícito en nombres como .footer-column, .footer-title, .footer-links
+2. **Atomic Design**: Elementos → Componentes → Organismos
+3. **Mobile First**: Media queries progresivos (576px → 768px → 992px)
+4. **Component-Scoped Theming**: Variables SCSS para consistencia
+5. **State-Driven Styling**: Estados hover, focus, disabled bien definidos
+
+🎨 SISTEMA DE COLORES:
+- **Primarios**: $dark-red (#8B0000), $medium-red (#B22222)
+- **Neutrales**: $dark-gray (#2C2C2C), grises varios (#9CA3AF, #E5E7EB)
+- **Fondos**: $footer-dark (#1a1d23), $footer-darker (#151820)
+- **Funcionales**: #DC2626 (error), #40c057 (success - referenciado globalmente)
+
+🔧 TÉCNICAS AVANZADAS SCSS:
+- **Nesting**: Hasta 4 niveles de profundidad
+- **Parent Selectors**: Uso extensivo de &:hover, &:after, &:before
+- **Pseudo-elementos**: Para decoraciones (:after) y overlays (:before)
+- **Interpolación**: Variables integradas en valores complejos
+- **Media Queries**: Anidados dentro de selectores
+
+⚠️ PROBLEMAS TÉCNICOS DETECTADOS:
+1. **::ng-deep Deprecado**: Usado extensivamente, necesitará migración
+2. **Especificidad Alta**: Muchos !important, podría causar problemas futuros
+3. **z-index Management**: No hay sistema centralizado de z-index
+4. **Duplicación**: Patrones repetidos que podrían ser mixins
+5. **Magic Numbers**: Valores hardcoded sin explicación (56px, 484px)
+
+🔗 DEPENDENCIAS EXTERNAS:
+- **Angular Material**: Checkboxes, Form Controls
+- **Bootstrap**: Grid system, modal structure
+- **FontAwesome**: Iconos (fa-, fab-)
+- **NgBootstrap**: Modal system
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📊 ESTADÍSTICAS DETALLADAS
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+📏 **MÉTRICAS DE CÓDIGO**:
+- Total líneas: 841
+- Líneas de código efectivo: ~650 (excluyendo comentarios y espacios)
+- Selectores únicos: ~80
+- Media queries: 5
+- Variables SCSS: 8
+- Pseudo-elementos utilizados: ~15
+- Usos de !important: ~35
+
+🎨 **ANÁLISIS CROMÁTICO**:
+- Colores únicos utilizados: ~25
+- Valores rgba(): ~15
+- Gradientes: 4
+- Transparencias: ~20
+
+📐 **RESPONSIVE BREAKPOINTS**:
+- 484px: Custom móvil muy pequeño
+- 576px: Bootstrap sm
+- 768px: Bootstrap md  
+- 992px: Bootstrap lg
+- 991.98px: Específico para cookie consent
+
+🔧 **COMPLEJIDAD**:
+- Nesting máximo: 4 niveles
+- Selectores más específicos: ::ng-deep .modal-dialog .modal-content .modal-body .form-group .mat-checkbox
+- Archivo más complejo del proyecto footer
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+✅ CONCLUSIONES Y RECOMENDACIONES
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+🟢 **FORTALEZAS DESTACADAS**:
+- Sistema de theming coherente y profesional
+- Responsive design muy completo con múltiples breakpoints
+- Estados de interacción sofisticados (hover, focus, disabled)
+- Integración excelente con librerías de terceros
+- Accesibilidad considerada (focus states, contraste de colores)
+- Arquitectura escalable con variables y patterns consistentes
+
+🔴 **ÁREAS CRÍTICAS DE MEJORA**:
+1. **Migrar ::ng-deep**: Reemplazar con alternativas modernas (host-context, global styles)
+2. **Reducir !important**: Refactorizar para menor especificidad
+3. **Extraer Mixins**: DRY principles para botones, estados hover, etc.
+4. **z-index Scale**: Implementar sistema centralizado de z-index
+5. **Magic Numbers**: Documentar/sistematizar valores específicos
+
+🔧 **REFACTORING SUGERIDO**:
+- Separar en múltiples archivos parciales (_footer-base, _footer-modals, _footer-responsive)
+- Crear mixins para patrones repetidos (@mixin button-hover-effect)
+- Sistema de utilidades CSS custom properties para theming dinámico
+- Documentación inline para selectores complejos
+
+🎯 **IMPACTO EN EL PROYECTO**:
+Este archivo es el **corazón visual** del proyecto, controlando:
+- Footer principal (navegación, branding, social)
+- Sistema completo de modales (contacto, suscripción, términos)
+- Responsive behavior de componentes críticos
+- Integration layer con Angular Material y Bootstrap
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+📝 ANÁLISIS COMPLETADO - 841 LÍNEAS DOCUMENTADAS EXHAUSTIVAMENTE
+═══════════════════════════════════════════════════════════════════════════════════════════

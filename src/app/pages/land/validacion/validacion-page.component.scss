@@ -26,7 +26,7 @@
 }
 
 .nav-tabs {
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 2px solid var(--dx-gray-200);
 }
 
 .nav-tabs .nav-link {
@@ -34,8 +34,8 @@
   border-radius: 0;
   padding: 1rem 1.5rem;
   font-weight: 600;
-  color: #6c757d;
-  transition: all 0.3s ease;
+  color: var(--dx-gray-600);
+  transition: all var(--dx-duration-normal);
 }
 
 .nav-tabs .nav-link:hover {
@@ -52,7 +52,7 @@
 
 .content-section {
   padding: 4rem 0;
-  background: #f8f9fa;
+  background: var(--dx-gray-50);
 }
 
 .content-section:nth-child(even) {
@@ -125,11 +125,11 @@
 
   .data-source {
     background: white;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
+    border: 2px solid var(--dx-gray-100);
+    border-radius: var(--dx-radius-md);
     padding: 1rem;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all var(--dx-duration-normal);
   }
 
   .data-source:hover {
@@ -207,7 +207,7 @@
 .chart-container img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: var(--dx-radius-md);
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -218,7 +218,7 @@
 
 .chart-caption {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: var(--dx-gray-600);
   font-style: italic;
   margin-top: 1rem;
   text-align: center;
@@ -266,7 +266,7 @@
 .modal-image {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: var(--dx-radius-md);
 }
 
 .close {
@@ -285,7 +285,7 @@
   text-decoration: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
   .validation-hero h1 {
     font-size: 2rem;
   }

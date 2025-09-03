@@ -102,15 +102,15 @@
 
 <!-- Clinical Data Modal -->
 <ng-template #clinicalDataModal let-c="close" let-d="dismiss">    
+  <div class="unified-modal">
   <div class="modal-header">
     <h4 class="modal-title">Donar datos clínicos individuales</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="c('Close click')"></button>
   </div>
   <div class="modal-body">
     <p class="mb-3">Ayúdanos a mejorar el diagnóstico de enfermedades compartiendo datos clínicos anónimos.</p>
     <p class="text-muted mb-4">Para proceder con la donación de datos clínicos, completa el siguiente formulario y nuestro equipo se pondrá en contacto contigo para coordinar el proceso de manera segura.</p>
     
-    <form [formGroup]="clinicalDataForm" (ngSubmit)="submitClinicalDataForm()">
+    <form [formGroup]="clinicalDataForm" (ngSubmit)="submitClinicalDataForm()" class="unified-form">
       <div class="mb-3">
         <label for="clinicalName" class="form-label">Nombre completo *</label>
         <input type="text" 
@@ -146,6 +146,14 @@
           El mensaje es obligatorio
         </div>
       </div>
+      
+      <div class="checkboxes-container">
+        <div class="checkbox-item">
+          <mat-checkbox formControlName="subscribe">
+            Recibir actualizaciones por email
+          </mat-checkbox>
+        </div>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
@@ -157,19 +165,20 @@
       Enviar solicitud
     </button>
   </div>
+  </div>
 </ng-template>
 
 <!-- Datasets Modal -->
 <ng-template #datasetsModal let-c="close" let-d="dismiss">        
+  <div class="unified-modal">
   <div class="modal-header">
     <h4 class="modal-title">Donar datasets (instituciones/investigación)</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="c('Close click')"></button>
   </div>
   <div class="modal-body">
     <p class="mb-3">Comparte datasets institucionales para mejorar el diagnóstico de enfermedades.</p>
     <p class="text-muted mb-4">Para proceder con la donación de datasets, completa el siguiente formulario y nuestro equipo se pondrá en contacto contigo para coordinar el proceso de manera segura.</p>
     
-    <form [formGroup]="datasetsForm" (ngSubmit)="submitDatasetsForm()">
+    <form [formGroup]="datasetsForm" (ngSubmit)="submitDatasetsForm()" class="unified-form">
       <div class="mb-3">
         <label for="datasetsName" class="form-label">Nombre completo *</label>
         <input type="text" 
@@ -205,6 +214,14 @@
           El mensaje es obligatorio
         </div>
       </div>
+      
+      <div class="checkboxes-container">
+        <div class="checkbox-item">
+          <mat-checkbox formControlName="subscribe">
+            Recibir actualizaciones por email
+          </mat-checkbox>
+        </div>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
@@ -215,5 +232,6 @@
             (click)="submitDatasetsForm()">
       Enviar solicitud
     </button>
+  </div>
   </div>
 </ng-template>

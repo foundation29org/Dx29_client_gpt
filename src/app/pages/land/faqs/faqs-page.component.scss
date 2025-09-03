@@ -1,137 +1,113 @@
-// Color scheme - Negro y Rojo como el resto de la web
-$dark-red: #8B0000;
-$medium-red: #B22222;
-$dark-gray: #2C2C2C;
-$light-gray: #F8F9FA;
-$white: #FFFFFF;
+/* ==========================================
+   FAQS PAGE - OPTIMIZED SCSS
+   Uses Global Variables & Real CSS Properties
+   ========================================== */
 
-.faqs-page-container {
-  background-color: $white;
-  min-height: 100vh;
+/* ==========================================
+   HERO GRADIENT OVERRIDE
+   ========================================== */
+
+.dx-hero {
+  --hero-gradient: var(--hero-gradient-home);
 }
 
-// Header Section (not a hero, just a clean header)
-.faqs-header {
-  background: linear-gradient(135deg, $light-gray 0%, #F0F0F0 100%);
-  padding: 4rem 0 3rem;
-  border-bottom: 1px solid #E0E0E0;
-  
-  .faqs-title {
-    font-size: 3rem;
-    font-weight: 700;
-    color: $dark-gray;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    
-    @media (max-width: 768px) {
-      font-size: 2.2rem;
-    }
-  }
-  
-  .faqs-subtitle {
-    font-size: 1.25rem;
-    color: #666;
-    text-align: center;
-    line-height: 1.6;
-    max-width: 600px;
-    margin: 0 auto;
-    
-    @media (max-width: 768px) {
-      font-size: 1.1rem;
-    }
-  }
-}
+/* ==========================================
+   MAIN CONTENT LAYOUT
+   ========================================== */
 
-// Main Content
-.faqs-content {
+.main-content {
+  background-color: white;
   padding: 4rem 0;
 }
 
-// FAQ List Container
-.faqs-list {
-  max-width: 900px;
-  margin: 0 auto;
+/* ==========================================
+   FAQs CONTAINER & ITEMS
+   ========================================== */
+
+.faqs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 
-// FAQ Items - Simple styling without border or hover effects
 .faq-item {
-  background: $white;
-  margin-bottom: 3rem;
-  
-  &:last-child {
-    margin-bottom: 0;
+  .faq-question {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
   }
-}
-
-// FAQ Question
-.faq-question {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: $dark-gray;
-  margin-bottom: 1rem;
-  border-bottom: 3px solid $dark-red;
-  padding-bottom: 0.5rem;
-  display: inline-block;
-}
-
-// FAQ Answer
-.faq-answer {
-  p {
+  
+  .faq-answer {
+    color: var(--dx-text-secondary);
     font-size: 1.1rem;
     line-height: 1.7;
-    color: #555;
-    margin: 0;
+    
+    p {
+      margin: 0;
+      line-height: 1.7;
+    }
+    
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+      
+      li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+      }
+    }
+    
+    strong {
+      color: var(--dx-dark-gray);
+    }
+    
+    a {
+      color: var(--dx-dark-red);
+      text-decoration: none;
+      font-weight: 500;
+      
+      &:hover {
+        color: var(--dx-medium-red);
+        text-decoration: underline;
+      }
+    }
   }
 }
 
-// Responsive Design
-@media (max-width: 768px) {
-  .faqs-header {
-    padding: 3rem 0 2rem;
-    
-    .faqs-title {
-      font-size: 2.2rem;
-    }
-    
-    .faqs-subtitle {
-      font-size: 1.1rem;
-      padding: 0 1rem;
-    }
-  }
-  
-  .faqs-content {
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 991.98px) {
+  .main-content {
     padding: 3rem 0;
   }
   
+  .faqs-container {
+    gap: 2rem;
+  }
+  
   .faq-item {
-    margin-bottom: 2.5rem;
-  }
-  
-  .faq-question {
-    font-size: 1.25rem;
-  }
-  
-  .faq-answer p {
-    font-size: 1rem;
+    .faq-question {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .faq-answer {
+      font-size: 1rem;
+    }
   }
 }
 
-@media (max-width: 576px) {
-  .faqs-header {
-    .faqs-title {
-      font-size: 1.8rem;
-    }
-  }
-  
-  .faq-question {
-    font-size: 1.1rem;
-  }
-  
-  .faq-answer p {
-    font-size: 0.95rem;
-  }
-  
+@media (max-width: 575.98px) {
   .faq-item {
-    margin-bottom: 2rem;
+    .faq-question {
+      font-size: 1.2rem;
+    }
+    
+    .faq-answer {
+      font-size: 0.95rem;
+    }
   }
 }

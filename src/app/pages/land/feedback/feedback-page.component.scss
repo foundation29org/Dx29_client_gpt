@@ -1,18 +1,19 @@
-:host ::ng-deep ngb-rating span {
-  font-size: 2.5rem;
-}
+/* ==========================================
+   FEEDBACK PAGE - OPTIMIZED SCSS
+   Using Global Variables & Bootstrap Classes
+   ========================================== */
 
 .my-rating {
-  color: var(--primary-color, #B30000);
-}
-
-.my-rating:focus-visible {
-  outline: none;
+  color: var(--bs-primary);
+  
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 .checkbox-container {
-  display: flex;
-  align-items: center;
+  @extend .d-flex;
+  @extend .align-items-center;
   gap: 8px;
 }
 
@@ -20,23 +21,24 @@
   cursor: pointer;
 }
 
-::ng-deep .mat-radio-label{
+/* Modern form styling without deprecated ::ng-deep */
+.mat-radio-label {
   white-space: normal;
   text-transform: none;
-  letter-spacing: 0px;
   font-weight: 400;
   letter-spacing: 0.3px;
-  font-size: 1rem;
+  @extend .fs-6;
 }
 
-form label, .form-group label {
-  font-size: 1rem !important;
+form label, 
+.form-group label {
+  @extend .fs-6;
 }
 
-@media ( max-width: 380px ){
-
-  .centerdiv{
-    clear: both;
-    float: none !important;
+/* Use Bootstrap breakpoint instead of 380px */
+@media (max-width: 575.98px) {
+  .center-mobile {
+    @extend .d-flex;
+    @extend .justify-content-center;
   }
 }

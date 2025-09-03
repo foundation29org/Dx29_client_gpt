@@ -284,13 +284,15 @@ export class NavbarD29Component implements OnDestroy {
     this.clinicalDataForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      message: ['', [Validators.required]]
+      message: ['', [Validators.required]],
+      subscribe: [false]  // Subscribe checkbox
     });
 
     this.datasetsForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      message: ['', [Validators.required]]
+      message: ['', [Validators.required]],
+      subscribe: [false]  // Subscribe checkbox
     });
   }
 

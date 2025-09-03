@@ -1,30 +1,44 @@
+// CSS Custom Properties for consistent theming
+:root {
+  --dx-dark-red: #8B0000;
+  --dx-dark-gray: #2C2C2C;
+  --dx-light-gray: #666;
+  --dx-border-gray: var(--dx-gray-300);
+  --dx-shadow-light: rgba(0, 0, 0, 0.08);
+  --dx-shadow-medium: rgba(0, 0, 0, 0.12);
+  --dx-shadow-strong: rgba(0, 0, 0, 0.1);
+  --dx-bg-hover: var(--dx-gray-50);
+  --dx-transition-fast: 0.3s ease;
+}
+
+// Base navbar styles
 .navbar-expand-lg .navbar-nav .nav-link {
-  padding-right: .5rem;
+  padding-right: 0.5rem;
 }
 
 .not-allowed {
-     pointer-events: auto !important;
-     cursor: default !important;
+  pointer-events: auto !important;
+  cursor: default !important;
 }
 
-.pointer{
-  cursor: pointer; 
+.pointer {
+  cursor: pointer;
 }
 
-.custom-navbar{
+.custom-navbar {
   min-height: 4.3rem;
 }
 
-i{
+i {
   font-size: 1rem !important;
 }
 
-.dropdown-toggle::after{
-  //display: none;
+.dropdown-toggle::after {
   vertical-align: 0.055em;
 }
 
-.text-logo{
+// Unified text logo class (eliminates .text-logo2 duplication)
+.text-logo {
   position: absolute;
   top: 2em;
   font-weight: 500;
@@ -33,56 +47,44 @@ i{
   left: 120px;
 }
 
-.text-logo2{
-  position: absolute;
-  top: 2em;
-  font-weight: 500;
-  width: 100px;
-  line-height: 15px;
-  left: 120px;
-}
-
-.text-es{
+.text-es {
   width: 160px;
 }
 
-.donate-a{
+.donate-a {
   width: 120px;
 }
 
-.logo-header{
+.logo-header {
   width: 140px;
   height: 37px;
 }
 
-@media ( max-width: 991.98px ){
-.navbar-container {
+// Unified large tablet/desktop responsive breakpoint
+@media (max-width: 991.98px) {
+  .navbar-container,
+  .navbar-header {
     width: unset !important;
   }
 
-  .navbar-header {
-      width: unset !important;
-    }
+  .text-logo {
+    font-size: 12px;
+    left: 85px;
+  }
 
-    .text-logo{
-      font-size: 12px;
-      left: 85px;
-    }
+  .navbar .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-    .navbar .container-fluid{
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-    }
-}
-
-@media (max-width: 991.98px) {
+  // Mobile menu styles
   .navbar-collapse.show {
-    background: #fff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    background: var(--bs-white);
+    box-shadow: 0 8px 24px var(--dx-shadow-medium);
     border-radius: 0 0 16px 16px;
     margin-top: 12px;
     padding: 24px 0 16px 0;
-    animation: fadeInMenu 0.3s;
+    animation: fadeInMenu var(--dx-transition-fast);
     position: absolute;
     left: 0;
     right: 0;
@@ -90,32 +92,33 @@ i{
   }
 
   @keyframes fadeInMenu {
-    from { opacity: 0; transform: translateY(-16px);}
-    to { opacity: 1; transform: translateY(0);}
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .navbar-nav.menu-items {
     flex-direction: column;
     align-items: center;
     gap: 18px;
-  }
 
-  .navbar-nav.menu-items .nav-item {
-    width: 100%;
-    text-align: center;
+    .nav-item {
+      width: 100%;
+      text-align: center;
+    }
   }
 
   .donate-link .donate-a {
     width: 80%;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     display: block;
     font-size: 1.1rem;
     border-radius: 24px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px var(--dx-shadow-light);
   }
 
   .navbar-toggler {
-    border: none;
+    border: 0;
     outline: none;
     box-shadow: none;
   }
@@ -127,149 +130,88 @@ i{
     background: none;
     border: none;
     font-size: 2rem;
-    color: #888;
+    color: var(--dx-light-gray);
     z-index: 1100;
   }
 }
 
-@media (max-width: 604px) {
-  .text-logo{
+// Consolidated mobile breakpoints (Bootstrap sm and below)
+@media (max-width: 575.98px) {
+  .text-logo {
     display: block;
     position: inherit;
   }
 
-  .text-logo2{
-    display: block;
-    position: inherit;
-  }
-}
-
-@media (max-width: 481px) {
-
-
-  .navbar-header-logos{
+  .navbar-header-logos {
     max-width: 50px;
   }
 
   span, i, li > a > u {
     font-size: 0.7rem !important;
   }
-
-  .text-logo2{
-    display: block;
-    position: inherit;
-  }
-
 }
 
-@media (max-width: 300px){
-  .logo-header{
+// Extra small screens
+@media (max-width: 400px) {
+  .logo-header {
     width: 100px;
     height: 26px;
   }
 }
 
-// Navigation active/inactive states with dark/red theme
+// Navigation states with unified theming
 .nav-active {
-  color: #8B0000 !important; // Dark red
+  color: var(--dx-dark-red) !important;
   font-weight: 700 !important;
-  border-bottom: 2px solid #8B0000 !important;
+  border-bottom: 2px solid var(--dx-dark-red) !important;
 }
 
 .nav-inactive {
-  color: #2C2C2C !important; // Dark gray/black
+  color: var(--dx-dark-gray) !important;
   font-weight: 400 !important;
   
   &:hover {
-    color: #8B0000 !important; // Dark red on hover
-    transition: color 0.3s ease;
+    color: var(--dx-dark-red) !important;
+    transition: color var(--dx-transition-fast);
   }
 }
 
-// Donation dropdown styles
+// Donation dropdown using unified form system
 .donate-link {
   .dropdown-menu {
-    border: 1px solid #E0E0E0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border-radius: 8px;
+    border: var(--dx-form-border);
+    box-shadow: var(--dx-form-shadow);
+    border-radius: var(--dx-form-radius);
     min-width: 280px;
+    background: var(--dx-form-bg);
     
     .dropdown-item {
-      padding: 0.75rem 1.5rem;
-      color: #2C2C2C;
-      transition: all 0.3s ease;
+      padding: 1rem 1.5rem;
+      color: var(--dx-dark-gray);
+      transition: var(--dx-form-transition);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      
+      &:hover {
+        background: var(--dx-light-gray);
+        color: var(--dx-btn-primary-bg);
+        text-decoration: none;
+      }
       
       i {
-        color: #8B0000;
+        color: var(--dx-btn-primary-bg);
         width: 20px;
-      }
-      
-      &:hover {
-        background-color: #F8F9FA;
-        color: #8B0000;
+        flex-shrink: 0;
       }
     }
   }
 }
 
-// File Upload Modal Styles
-.file-upload-area {
-  border: 2px dashed #D0D0D0;
-  border-radius: 8px;
-  padding: 2rem;
-  text-align: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  
-  &:hover, &.dragover {
-    border-color: #8B0000;
-    background-color: rgba(139, 0, 0, 0.05);
-  }
-  
-  .upload-content {
-    .fa-cloud-upload-alt, .fa-database {
-      color: #999;
-      transition: color 0.3s ease;
-    }
-    
-    p {
-      margin-bottom: 0.5rem;
-      color: #2C2C2C;
-    }
-    
-    .text-muted {
-      color: #666 !important;
-      font-size: 0.9rem;
-    }
-  }
-  
-  &:hover .upload-content .fa-cloud-upload-alt,
-  &:hover .upload-content .fa-database,
-  &.dragover .upload-content .fa-cloud-upload-alt,
-  &.dragover .upload-content .fa-database {
-    color: #8B0000;
-  }
-}
-
-.selected-files {
-  .list-group-item {
-    border: 1px solid #E0E0E0;
-    
-    .fa-file, .fa-file-alt {
-      color: #8B0000;
-    }
-    
-    .btn-outline-danger {
-      border: none;
-      color: #DC3545;
-      font-size: 0.8rem;
-      
-      &:hover {
-        background-color: #DC3545;
-        color: white;
-      }
-    }
-  }
+/* DONATION MODALS - Use unified modal system */
+.donation-modal {
+  /* Modal styles applied directly via unified-modal class in HTML */
 }
 
 

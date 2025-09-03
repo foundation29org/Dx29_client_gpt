@@ -1,0 +1,315 @@
+# ELEMENTOS DE INTERFAZ - FUNDACION-29 PAGE
+# Identificación completa de elementos visuales y su SCSS correspondiente
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 🎨 FONDOS Y CONTENEDORES
+
+### Fondo Superior con Degradado Rojo Vibrante
+**Aspecto:** Degradado diagonal en 4 pasos: rosa claro → rojo medio → rojo intenso → rojo muy oscuro
+**Ubicación:** Parte superior de la página (primeros 500px), detrás del hero
+**Propósito:** Crear impacto visual distintivo para Fundación 29, diferente al gris de About Us
+**SCSS:** `.product-page-container::before` (líneas 12-21) - `linear-gradient(135deg, #FFAAAA 0%, #FF6666 30%, $medium-red 70%, #A01010 100%)`
+
+### Fondo Inferior Blanco
+**Aspecto:** Fondo blanco puro desde donde termina el degradado hasta el final
+**Ubicación:** Resto de la página después del hero
+**Propósito:** Proporcionar fondo neutro para lectura de contenido
+**SCSS:** `.product-page-container::after` (líneas 23-32) - `background: $white`
+
+### Contenedor Principal
+**Aspecto:** Invisible, controla overflow y contexto de posicionamiento
+**Ubicación:** Envuelve toda la página Fundación 29
+**Propósito:** Prevenir scroll horizontal, establecer contexto para pseudo-elementos
+**SCSS:** `.product-page-container` (líneas 8-33) - `overflow-x: hidden; position: relative`
+
+## 🏆 HERO SECTION COMPACTO
+
+### Título Principal Hero
+**Aspecto:** Texto blanco muy grande (48px), bold, centrado
+**Ubicación:** Centro del hero, sobre fondo rojo degradado
+**Propósito:** Comunicar "Fundación 29" como titular principal
+**SCSS:** `.hero-title` (líneas 44-54) - `font-size: 3rem; font-weight: 700; color: $white`
+
+### Subtítulo Hero
+**Aspecto:** Texto gris claro (20px), centrado, interlineado legible
+**Ubicación:** Debajo del título en el hero
+**Propósito:** Proporcionar contexto sobre la fundación
+**SCSS:** `.hero-subtitle` (líneas 56-62) - `font-size: 1.25rem; color: #E0E0E0; line-height: 1.6`
+
+### Hero Compacto
+**Aspecto:** Altura fija reducida de 380px (vs 500px de About Us)
+**Ubicación:** Sección hero completa
+**Propósito:** Dar más espacio al contenido, hero menos prominente
+**SCSS:** `.hero-section` (líneas 36-63) - `height: 380px; background: transparent`
+
+## 🖼️ LOGOS FUNDACIÓN
+
+### Logo Principal F29
+**Aspecto:** Logo responsive con máximo 400x200px, proporciones automáticas
+**Ubicación:** Hero o sección destacada de la página
+**Propósito:** Presentar logo principal de Fundación 29 de forma prominente
+**SCSS:** `.logo-f29-main` (líneas 65-70) - `max-width: 400px; max-height: 200px; width: auto; height: auto`
+
+### Logo Secundario F29
+**Aspecto:** Logo más pequeño (250x150px) con transición de escala
+**Ubicación:** Enlaces o secciones secundarias
+**Propósito:** Mostrar logo con efecto interactivo hover
+**SCSS:** `.logo-f29` (líneas 72-76) - `max-width: 250px; max-height: 150px; transition: transform 0.3s ease`
+
+### Logo Hover Interactivo
+**Aspecto:** Escala aumenta 5% con transición suave
+**Ubicación:** Logo F29 dentro de contenedor con enlace
+**Propósito:** Proporcionar feedback visual de interactividad
+**SCSS:** `.logo-container a:hover .logo-f29` (líneas 78-80) - `transform: scale(1.05)`
+
+## 📄 CONTENIDO PRINCIPAL
+
+### Contenido Principal Base
+**Aspecto:** Fondo blanco con padding vertical generoso (64px)
+**Ubicación:** Área principal después del hero
+**Propósito:** Proporcionar espacio para contenido informativo
+**SCSS:** `.main-content` (líneas 83-86) - `background-color: $white; padding: 4rem 0`
+
+### Secciones de Contenido
+**Aspecto:** Bloques de contenido con separación de 48px
+**Ubicación:** Divisiones temáticas del contenido
+**Propósito:** Organizar información en bloques digestibles
+**SCSS:** `.content-section` (líneas 88-96) - `margin-bottom: 3rem`
+
+### Texto Introducción
+**Aspecto:** Texto gris oscuro aumentado (19px), peso normal
+**Ubicación:** Párrafos introductorios de secciones
+**Propósito:** Destacar texto de introducción o resumen
+**SCSS:** `.intro-text` (líneas 91-95) - `font-size: 1.2rem; color: $dark-gray; font-weight: 400`
+
+### Secciones Alternas (Zebra Stripes)
+**Aspecto:** Fondo gris muy claro alternado
+**Ubicación:** Cada segunda sección de contenido
+**Propósito:** Crear alternancia visual para mejor escaneado
+**SCSS:** `.content-section:nth-child(even)` (líneas 98-100) - `background: #f8f9fa`
+
+## 📑 HEADERS Y TÍTULOS
+
+### Headers Nivel 2 Principales
+**Aspecto:** Texto gris azulado oscuro (no brand), bold, centrado
+**Ubicación:** Títulos principales de secciones
+**Propósito:** Crear jerarquía visual para secciones principales
+**SCSS:** `.content-section h2` (líneas 102-107) - `color: #1c202a; font-weight: 700; text-align: center`
+
+### Headers Nivel 3 Intermedios
+**Aspecto:** Texto gris azulado oscuro, semi-bold, margen asimétrico
+**Ubicación:** Subsecciones dentro del contenido
+**Propósito:** Organizar contenido en bloques temáticos menores
+**SCSS:** `.content-section h3` (líneas 109-113) - `color: #1c202a; font-weight: 600; margin: 2rem 0 1rem 0`
+
+### Headers Nivel 4 Menores
+**Aspecto:** Texto gris azulado medio, semi-bold
+**Ubicación:** Subdivisiones detalladas
+**Propósito:** Última jerarquía de organización textual
+**SCSS:** `.content-section h4` (líneas 115-119) - `color: #2a3140; font-weight: 600`
+
+## 🎯 GRID DE MISIÓN
+
+### Grid Misión Base
+**Aspecto:** CSS Grid responsive con auto-fit, mínimo 300px por columna
+**Ubicación:** Sección de misión de la fundación
+**Propósito:** Mostrar elementos de misión en layout adaptativo
+**SCSS:** `.mission-grid` (líneas 121-126) - `display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem`
+
+### Cards de Misión
+**Aspecto:** Rectángulo blanco con bordes redondeados, sombra pronunciada
+**Ubicación:** Elementos individuales dentro del mission grid
+**Propósito:** Contener información de misión de forma atractiva
+**SCSS:** `.mission-card` (líneas 128-134) - `background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1)`
+
+### Cards Misión Hover
+**Aspecto:** Elevación de 5px con sombra intensificada
+**Ubicación:** Mission cards al pasar cursor
+**Propósito:** Crear sensación premium con microinteracción
+**SCSS:** `.mission-card:hover` (líneas 136-139) - `transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15)`
+
+### Iconos de Misión
+**Aspecto:** Círculo gris oscuro (60px) con icono blanco centrado
+**Ubicación:** Parte superior de cada mission card
+**Propósito:** Identificación visual temática de cada aspecto de la misión
+**SCSS:** `.mission-icon` (líneas 141-152) - `background: #2a3140; border-radius: 50%; font-size: 1.5rem`
+
+## 🐙 SECCIÓN GITHUB
+
+### Fondo GitHub Temático
+**Aspecto:** Degradado diagonal gris oscuro simulando GitHub
+**Ubicación:** Sección completa dedicada a GitHub
+**Propósito:** Crear ambiente visual apropiado para contenido GitHub
+**SCSS:** `.github-section` (líneas 155-159) - `background: linear-gradient(135deg, #24292e, #404040); color: white`
+
+### Headers GitHub
+**Aspecto:** Texto blanco explícito con separación inferior
+**Ubicación:** Títulos dentro de la sección GitHub
+**Propósito:** Contrastar con fondo oscuro, mantener legibilidad
+**SCSS:** `.github-section h3` (líneas 161-164) - `color: white; margin-bottom: 2rem`
+
+### Cards GitHub Glassmorphism
+**Aspecto:** Fondo translúcido blanco (10%) con borde translúcido
+**Ubicación:** Elementos de contenido GitHub
+**Propósito:** Efecto glassmorphism moderno sobre fondo oscuro
+**SCSS:** `.github-card` (líneas 166-173) - `background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2)`
+
+### GitHub Cards Hover
+**Aspecto:** Fondo más intenso (15%) con elevación sutil (2px)
+**Ubicación:** GitHub cards al interactuar
+**Propósito:** Feedback de interactividad menos agresivo que mission cards
+**SCSS:** `.github-card:hover` (líneas 175-178) - `background: rgba(255,255,255,0.15); transform: translateY(-2px)`
+
+## 💰 SECCIÓN PATROCINADORES
+
+### Fondo Patrocinadores
+**Aspecto:** Fondo gris claro neutro
+**Ubicación:** Sección completa de patrocinadores
+**Propósito:** Ambiente neutro para mostrar logos de terceros
+**SCSS:** `.patrocinadores-section` (líneas 180-183) - `background: #f8f9fa; padding: 4rem 0`
+
+### Grid Patrocinadores
+**Aspecto:** CSS Grid responsive, mínimo 200px por columna (más compacto que misión)
+**Ubicación:** Contenedor de cards de patrocinadores
+**Propósito:** Layout adaptativo optimizado para logos
+**SCSS:** `.patrocinadores-grid` (líneas 185-190) - `grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))`
+
+### Cards Patrocinador
+**Aspecto:** Rectángulo blanco centrado con sombra, padding generoso
+**Ubicación:** Elementos individuales de patrocinadores
+**Propósito:** Mostrar logos de patrocinadores de forma uniforme
+**SCSS:** `.patrocinador-card` (líneas 192-199) - `background: white; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1)`
+
+### Patrocinador Hover Simple
+**Aspecto:** Solo elevación sin cambio de sombra
+**Ubicación:** Patrocinador cards al hacer hover
+**Propósito:** Efecto más sutil apropiado para logos de terceros
+**SCSS:** `.patrocinador-card:hover` (líneas 201-203) - `transform: translateY(-5px)`
+
+### Imágenes Patrocinador
+**Aspecto:** Imágenes responsive con altura máxima 80px, object-fit contain
+**Ubicación:** Dentro de patrocinador cards
+**Propósito:** Mostrar logos manteniendo proporciones originales
+**SCSS:** `.patrocinador-card img` (líneas 205-209) - `max-width: 100%; max-height: 80px; object-fit: contain`
+
+## 🤝 SECCIÓN COLABORACIÓN
+
+### Fondo Colaboración
+**Aspecto:** Fondo blanco con texto gris oscuro, centrado
+**Ubicación:** Sección de colaboración
+**Propósito:** Ambiente limpio para formularios y llamadas a acción
+**SCSS:** `.collaboration-section` (líneas 211-216) - `background: white; color: #1c202a; text-align: center`
+
+### Headers Colaboración
+**Aspecto:** Texto gris oscuro con separación inferior
+**Ubicación:** Títulos de sección de colaboración
+**Propósito:** Mantener consistencia con color scheme de headers
+**SCSS:** `.collaboration-section h3` (líneas 218-221) - `color: #1c202a; margin-bottom: 2rem`
+
+### Formulario Colaboración Glassmorphism
+**Aspecto:** Fondo translúcido con bordes muy redondeados y blur effect
+**Ubicación:** Formulario de contacto de colaboración
+**Propósito:** Efecto moderno glassmorphism con backdrop-filter
+**SCSS:** `.collaboration-form` (líneas 223-230) - `background: rgba(255,255,255,0.1); backdrop-filter: blur(10px)`
+
+### Grid Tipos Colaboración
+**Aspecto:** CSS Grid responsive, mínimo 250px (intermedio entre misión y patrocinadores)
+**Ubicación:** Tipos de colaboración disponibles
+**Propósito:** Layout para mostrar diferentes formas de colaborar
+**SCSS:** `.collaboration-types` (líneas 232-237) - `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))`
+
+### Cards Tipo Colaboración
+**Aspecto:** Fondo gris claro con transición completa
+**Ubicación:** Cada tipo de colaboración disponible
+**Propósito:** Mostrar opciones de colaboración de forma atractiva
+**SCSS:** `.collaboration-type` (líneas 239-245) - `background: #f8f9fa; transition: all 0.3s ease`
+
+### Colaboración Hover
+**Aspecto:** Fondo gris más oscuro con elevación
+**Ubicación:** Collaboration types al hacer hover
+**Propósito:** Feedback visual de interactividad
+**SCSS:** `.collaboration-type:hover` (líneas 247-250) - `background: #e9ecef; transform: translateY(-5px)`
+
+### Iconos Colaboración Grandes
+**Aspecto:** Iconos FontAwesome muy grandes (40px) en gris oscuro
+**Ubicación:** Parte superior de collaboration type cards
+**Propósito:** Identificación visual clara de cada tipo de colaboración
+**SCSS:** `.collaboration-type i` (líneas 252-256) - `font-size: 2.5rem; color: #2a3140`
+
+## 🔗 ENLACES DE CONTACTO
+
+### Enlaces Contacto Base
+**Aspecto:** Texto rojo (no brand) subrayado, peso semi-bold
+**Ubicación:** Enlaces de contacto dentro del contenido
+**Propósito:** Destacar información de contacto
+**SCSS:** `.contact-link` (líneas 258-263) - `color: #c53030; text-decoration: underline; font-weight: 600`
+
+### Enlaces Contacto Hover
+**Aspecto:** Rojo más oscuro manteniendo subrayado
+**Ubicación:** Contact links al hacer hover
+**Propósito:** Feedback de interactividad en enlaces
+**SCSS:** `.contact-link:hover` (líneas 265-268) - `color: #b91c1c; text-decoration: underline`
+
+## 📱 ELEMENTOS RESPONSIVE
+
+### Container Responsive
+**Aspecto:** Pseudo-elementos ajustados a 550px de altura
+**Ubicación:** Fondos de página en tablets/móvil
+**Propósito:** Coordinar fondos con hero más alto en móvil
+**SCSS:** `@media (max-width: 768px) .product-page-container::before/after` (líneas 271-278) - Heights 550px
+
+### Hero Responsive
+**Aspecto:** Altura coordinada 550px para coincidir con fondos
+**Ubicación:** Hero section en tablets/móvil
+**Propósito:** Mantener coherencia visual con pseudo-elementos
+**SCSS:** `@media (max-width: 768px) .hero-section` (líneas 281-283) - `height: 550px`
+
+### Título Hero Responsive
+**Aspecto:** Reducción a 35px aproximadamente
+**Ubicación:** Título principal en dispositivos pequeños
+**Propósito:** Mantener legibilidad sin ocupar demasiado espacio
+**SCSS:** `@media (max-width: 768px) .hero-title` (líneas 285-287) - `font-size: 2.2rem`
+
+### Logos Responsive
+**Aspecto:** Reducción proporcional manteniendo ratios
+**Ubicación:** Ambos logos F29 en dispositivos pequeños
+**Propósito:** Adaptar logos sin distorsionar proporciones
+**SCSS:** Logo main: 400px→280px, Logo secundario: 250px→200px (líneas 297-305)
+
+### Grids Mobile Collapse
+**Aspecto:** Todos los grids colapsan a una sola columna
+**Ubicación:** Mission, patrocinadores y collaboration grids
+**Propósito:** Layout vertical optimizado para móvil
+**SCSS:** `.mission-grid, .patrocinadores-grid, .collaboration-types` (líneas 307-311) - `grid-template-columns: 1fr`
+
+## 🎨 SISTEMA DE COLORES DIVERSO
+
+### Color Brand Principal
+**Aspecto:** Rojo oscuro #8B0000 de variables SCSS
+**Ubicación:** Usado en variables pero limitado en implementación
+**Propósito:** Mantener consistencia brand (parcialmente)
+**SCSS:** `$dark-red variable` - Limited usage
+
+### Colores Custom Headers
+**Aspecto:** Grises azulados (#1c202a, #2a3140) no en variables
+**Ubicación:** Headers y elementos de UI
+**Propósito:** Crear palette extendida (pero inconsistente)
+**SCSS:** Hard-coded colors - Should be variables
+
+### Degradado Hero Único
+**Aspecto:** 4-stop gradient con rojos vibrantes
+**Ubicación:** Fondo superior hero
+**Propósito:** Identidad visual distintiva Fundación 29
+**SCSS:** `#FFAAAA, #FF6666, $medium-red, #A01010` - Unique gradient
+
+### Colores GitHub Temáticos
+**Aspecto:** Grises oscuros (#24292e, #404040) simulando GitHub
+**Ubicación:** Sección GitHub específica
+**Propósito:** Crear ambiente apropiado para contenido técnico
+**SCSS:** GitHub-specific colors (línea 156) - Thematic coloring
+
+### Enlaces Rojos No Brand
+**Aspecto:** Rojos (#c53030, #b91c1c) diferentes al brand principal
+**Ubicación:** Enlaces de contacto
+**Propósito:** Destacar enlaces (pero inconsistente con brand)
+**SCSS:** Non-brand red colors - Consistency issue

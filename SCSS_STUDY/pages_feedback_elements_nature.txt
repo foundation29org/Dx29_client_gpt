@@ -1,0 +1,183 @@
+# ELEMENTOS DE INTERFAZ - FEEDBACK PAGE
+# Identificación completa de elementos visuales y su SCSS correspondiente
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## ⭐ COMPONENTES DE RATING
+
+### Estrellas de Valoración (ng-bootstrap)
+**Aspecto:** Estrellas FontAwesome muy grandes (40px) en color rojo brand
+**Ubicación:** Componente de rating dentro de formularios de feedback
+**Propósito:** Permitir valoración visual intuitiva mediante estrellas clickeables
+**SCSS:** `:host ::ng-deep ngb-rating span` (líneas 1-3) - `font-size: 2.5rem`
+
+### Rating Personalizado
+**Aspecto:** Elementos de rating en color rojo brand con CSS custom properties
+**Ubicación:** Componentes de rating específicos con clase .my-rating
+**Propósito:** Mantener consistencia visual con el brand, usar sistema de temas
+**SCSS:** `.my-rating` (líneas 5-7) - `color: var(--primary-color, #B30000)`
+
+### Focus Visible en Rating
+**Aspecto:** Sin outline visible al recibir focus por teclado
+**Ubicación:** Elementos de rating cuando se navega con teclado
+**Propósito:** Eliminar outline por defecto (posible problema de accesibilidad)
+**SCSS:** `.my-rating:focus-visible` (líneas 9-11) - `outline: none`
+
+## 📝 ELEMENTOS DE FORMULARIO
+
+### Contenedor de Checkbox
+**Aspecto:** Contenedor flexbox horizontal con espacio de 8px entre elementos
+**Ubicación:** Checkboxes dentro de formularios de feedback
+**Propósito:** Alinear checkboxes con sus labels, spacing consistente
+**SCSS:** `.checkbox-container` (líneas 13-17) - `display: flex; align-items: center; gap: 8px`
+
+### Elementos Clickeables
+**Aspecto:** Cursor pointer para indicar interactividad
+**Ubicación:** Elementos que requieren click (labels, botones, etc.)
+**Propósito:** Proporcionar feedback visual de que el elemento es interactivo
+**SCSS:** `.clickable` (líneas 19-21) - `cursor: pointer`
+
+## 🎛️ ANGULAR MATERIAL OVERRIDES
+
+### Labels de Radio Buttons (Material)
+**Aspecto:** Texto normal (sin transformaciones), peso regular, spacing mínimo
+**Ubicación:** Radio buttons de Angular Material en formularios
+**Propósito:** Resetear estilos por defecto de Material, permitir texto multilinea
+**SCSS:** `::ng-deep .mat-radio-label` (líneas 23-30) - `white-space: normal; text-transform: none; font-weight: 400`
+
+### Letter Spacing Conflictivo
+**Aspecto:** Espaciado entre letras definido dos veces con valores diferentes
+**Ubicación:** Labels de Angular Material radio buttons
+**Propósito:** Configurar spacing (tiene conflict: 0px y 0.3px)
+**SCSS:** `.mat-radio-label` (líneas 26 y 28) - `letter-spacing: 0px` luego `letter-spacing: 0.3px`
+
+### Tamaño de Fuente Material
+**Aspecto:** Fuente de tamaño base (16px) para consistencia
+**Ubicación:** Labels de componentes Angular Material
+**Propósito:** Mantener tamaño estándar de fuente en toda la aplicación
+**SCSS:** `.mat-radio-label` (línea 29) - `font-size: 1rem`
+
+## 🏷️ LABELS DE FORMULARIO
+
+### Labels Generales de Formulario
+**Aspecto:** Fuente de tamaño base (16px) con !important para override
+**Ubicación:** Todos los labels dentro de forms y .form-group
+**Propósito:** Asegurar tamaño consistente de labels en toda la aplicación
+**SCSS:** `form label, .form-group label` (líneas 32-34) - `font-size: 1rem !important`
+
+## 📱 ELEMENTOS RESPONSIVE EXTREMOS
+
+### Contenedor Centrado Móvil Ultra Pequeño
+**Aspecto:** Elemento que elimina float y se centra
+**Ubicación:** Dispositivos con ancho máximo de 380px (breakpoint muy específico)
+**Propósito:** Manejo legacy de layouts flotantes en pantallas muy pequeñas
+**SCSS:** `@media (max-width: 380px) .centerdiv` (líneas 36-42) - `clear: both; float: none !important`
+
+## 🔧 ELEMENTOS TÉCNICOS Y OVERRIDES
+
+### ViewEncapsulation Penetration
+**Aspecto:** Selectores que penetran encapsulación de Angular
+**Ubicación:** Componentes de terceros (ng-bootstrap, Angular Material)
+**Propósito:** Modificar estilos de componentes externos que Angular encapsula
+**SCSS:** `::ng-deep` (líneas 1, 23) - Deprecated Angular feature
+
+### Host Component Selector
+**Aspecto:** Selector que aplica al componente host
+**Ubicación:** Componente Feedback como elemento host
+**Propósito:** Aplicar estilos desde dentro del componente al elemento que lo contiene
+**SCSS:** `:host` (línea 1) - Angular host selector
+
+### CSS Custom Properties con Fallback
+**Aspecto:** Variables CSS dinámicas con valor por defecto
+**Ubicación:** Elementos que usan sistema de temas
+**Propósito:** Permitir temas dinámicos con fallback si variable no existe
+**SCSS:** `var(--primary-color, #B30000)` (línea 6) - CSS custom property
+
+## 🚨 ELEMENTOS PROBLEMÁTICOS
+
+### Color Brand Inconsistente
+**Aspecto:** Color rojo (#B30000) diferente al brand estándar del proyecto
+**Ubicación:** Rating components y CSS custom properties
+**Propósito:** Colorear elementos brand (pero inconsistente con #8B0000 usado elsewhere)
+**SCSS:** Fallback value `#B30000` (línea 6) - Inconsistent with project brand
+
+### Breakpoint No Estándar
+**Aspecto:** Media query con breakpoint de 380px muy específico
+**Ubicación:** Estilos para dispositivos ultra pequeños
+**Propósito:** Manejo de layouts legacy (no sigue convenciones Bootstrap)
+**SCSS:** `@media (max-width: 380px)` (línea 36) - Non-standard breakpoint
+
+### Float Legacy
+**Aspecto:** Manejo de elementos flotantes (técnica pre-flexbox)
+**Ubicación:** Elementos .centerdiv en dispositivos muy pequeños
+**Propósito:** Resetear layouts flotantes legacy
+**SCSS:** `clear: both; float: none` (líneas 39-40) - Legacy CSS technique
+
+### Multiple !important
+**Aspecto:** Múltiples declaraciones con !important para forzar estilos
+**Ubicación:** Labels de formulario y centerdiv responsive
+**Propósito:** Override de estilos de frameworks externos
+**SCSS:** `!important` (líneas 33, 40) - Override mechanism
+
+## 🎯 ELEMENTOS DE ACCESIBILIDAD
+
+### Focus Visible Moderno
+**Aspecto:** Pseudo-clase moderna para indicar focus por teclado
+**Ubicación:** Elementos de rating cuando reciben focus
+**Propósito:** Distinguir focus por teclado vs mouse (pero elimina outline)
+**SCSS:** `:focus-visible` (línea 9) - Modern CSS pseudo-class
+
+### White Space Normal
+**Aspecto:** Permite que el texto haga wrap naturalmente
+**Ubicación:** Labels de radio buttons de Angular Material
+**Propósito:** Mejorar legibilidad permitiendo texto multilínea
+**SCSS:** `white-space: normal` (línea 24) - Text wrapping control
+
+## 📐 SISTEMA DE ESPACIADO MINIMALISTA
+
+### Gap Moderno
+**Aspecto:** Espaciado de 8px usando propiedad gap de flexbox
+**Ubicación:** Contenedores de checkbox
+**Propósito:** Espaciado consistente entre checkbox y label
+**SCSS:** `gap: 8px` (línea 16) - Modern CSS spacing
+
+### Letter Spacing Micro
+**Aspecto:** Espaciado muy sutil (0.3px) entre caracteres
+**Ubicación:** Labels de Angular Material
+**Propósito:** Mejorar legibilidad con spacing micro
+**SCSS:** `letter-spacing: 0.3px` (línea 28) - Micro-typography
+
+## 🎨 SISTEMA DE COLORES LIMITADO
+
+### Color Primario Dinámico
+**Aspecto:** Rojo brand usando CSS custom properties
+**Ubicación:** Elementos de rating
+**Propósito:** Permitir temas dinámicos, fallback para compatibilidad
+**SCSS:** `var(--primary-color, #B30000)` (línea 6) - Dynamic theming
+
+### Sin Colores Hardcoded Adicionales
+**Aspecto:** El componente usa principalmente colores del sistema
+**Ubicación:** Elementos heredan colores de contexto
+**Propósito:** Mantener simplicidad, delegar colores a sistema global
+**SCSS:** No additional colors defined - Minimal approach
+
+## 🔄 ELEMENTOS DE TRANSICIÓN
+
+### Sin Transiciones Definidas
+**Aspecto:** El componente no define transiciones CSS
+**Ubicación:** No aplicable
+**Propósito:** Simplicidad funcional, transiciones manejadas por frameworks
+**SCSS:** No transitions defined - Functional minimalism
+
+## 📱 SISTEMA RESPONSIVE LIMITADO
+
+### Single Breakpoint
+**Aspecto:** Solo un breakpoint responsive muy específico
+**Ubicación:** 380px para dispositivos ultra pequeños
+**Propósito:** Manejo edge case de pantallas muy pequeñas
+**SCSS:** Single `@media` query (línea 36) - Limited responsive design
+
+### Desktop-First Approach
+**Aspecto:** Estilos base para desktop, overrides para móvil
+**Ubicación:** Estructura general del componente
+**Propósito:** Enfoque tradicional desktop-first
+**SCSS:** Base styles + mobile overrides - Traditional approach

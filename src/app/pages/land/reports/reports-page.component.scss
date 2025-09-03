@@ -34,7 +34,7 @@ p {
   filter: brightness( 100% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
   .margin-left-0{
     margin-left: 0px !important;
   }
@@ -54,7 +54,7 @@ p {
   }
 
 .card {
-    transition: all 0.3s ease;
+    transition: all var(--dx-duration-normal);
     border: none;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
@@ -84,7 +84,7 @@ p {
 }
 
 .bg-light {
-    background-color: #f8f9fa;
+    background-color: var(--dx-gray-50);
 }
 
 .bg-success {
@@ -103,7 +103,7 @@ p {
 }
 
 .bg-secondary {
-    background-color: #6c757d !important;
+    background-color: var(--dx-gray-600) !important;
     color: white;
 }
 
@@ -120,7 +120,7 @@ p {
 }
 
 .progress {
-    background-color: #e9ecef;
+    background-color: var(--dx-gray-100);
     border-radius: 0.25rem;
     overflow: hidden;
 }
@@ -132,7 +132,7 @@ p {
 .table {
     th {
         font-weight: 500;
-        background-color: #f8f9fa;
+        background-color: var(--dx-gray-50);
     }
 
     td {
