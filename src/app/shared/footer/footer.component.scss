@@ -436,9 +436,7 @@ $white: #FFFFFF;
     overflow: hidden;
     
     .modal-header {
-      background: url('../../../assets/backgrounds/medical_theme.png') center/cover, 
-                  linear-gradient(135deg, $dark-gray 0%, #1a1a1a 100%);
-      background-blend-mode: overlay;
+      background: linear-gradient(135deg, $dark-gray 0%, #1a1a1a 100%);
       border-bottom: 4px solid $dark-red;
       padding: 1rem 2rem;
       position: relative;
@@ -505,11 +503,7 @@ $white: #FFFFFF;
         left: 0;
         right: 0;
         bottom: 0;
-        background-image: url('../../../assets/backgrounds/medical_theme.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        opacity: 0.015;
+        background: rgba(139, 0, 0, 0.01);
         pointer-events: none;
         z-index: 0;
       }

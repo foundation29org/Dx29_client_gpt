@@ -224,7 +224,7 @@ export class BrandingService {
    * Obtiene el logo del footer
    */
   getFooterLogo(): string {
-    return this.getConfigValue<string>('logos.footer') || 'assets/img/Foundation29logo.webp';
+    return this.getConfigValue<string>('logos.footer') || 'assets/img/logo-f29-white.webp';
   }
 
   /**

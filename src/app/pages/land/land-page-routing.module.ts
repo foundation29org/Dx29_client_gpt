@@ -25,7 +25,7 @@ const routes: Routes = [
       },
       {
         path: 'transparencia',
-        loadChildren: () => import('./transparencia/transparencia.module').then(m => m.TransparenciaModule)
+        loadChildren: () => import('../../transparencia/transparencia.module').then(m => m.TransparenciaModule)
       },
       {
         path: 'quienes-somos',

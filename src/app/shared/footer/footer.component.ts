@@ -38,7 +38,7 @@ export class FooterComponent{
   @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
   email: string = '';
   myuuid: string;
-  footerLogo: string = 'assets/img/Foundation29logo.webp';
+  footerLogo: string = 'assets/img/logo-f29-white.webp';
   foundationLink: string = 'https://foundation29.org';
   currentYear: number;
 
