@@ -1,0 +1,130 @@
+HERO_TITLE : DxGPT: Inteligencia Aumentada para la Confianza Diagnóstica
+HERO_SUBTITLE : Transforme la incertidumbre clínica en claridad. DxGPT es su copiloto diagnóstico: estructure el razonamiento, reduzca la carga cognitiva y minimice sesgos en segundos, incluso en casos complejos o raros.
+HERO_BTN_PRIMARY : Probar DxGPT
+HERO_BTN_SECONDARY : Explorar nuestra evidencia científica
+
+HERO_PILL_1 : Diagnóstico diferencial estructurado
+HERO_PILL_2 : Seguridad y validación clínica
+HERO_PILL_3 : Integración en sistemas de salud
+
+INTRO_TEXT : DxGPT es una herramienta de inteligencia aumentada diseñada por y para el entorno clínico. A diferencia de las IAs de propósito general, no genera texto narrativo abierto, sino un análisis estructurado de cinco hipótesis diagnósticas, clasificadas y razonadas con síntomas a favor y en contra. Utilizamos modelos de lenguaje avanzados, como GPT-5 de OpenAI, dentro de un marco de control médico que garantiza relevancia, consistencia y seguridad en cada resultado. No sustituimos el juicio clínico: lo potenciamos. Le ofrecemos un análisis diferencial instantáneo que ahorra tiempo, neutraliza sesgos cognitivos y eleva la calidad del razonamiento clínico desde el primer momento.
+
+CHALLENGE_TITLE : El desafío del diagnóstico clínico
+CHALLENGE_TEXT : El diagnóstico, especialmente en enfermedades raras, es un laberinto de datos y síntomas que consume tiempo y genera incertidumbre. Con más de 10.000 enfermedades raras, la mayoría desconocidas para el profesional medio debido a su baja prevalencia, la familiaridad es un lujo imposible. DxGPT actúa como una potente herramienta de descarga cognitiva, agilizando el análisis y ampliando el espectro de posibilidades para llegar antes a un diagnóstico acertado. En este contexto, la tecnología de apoyo ya no es una opción, sino una necesidad para la seguridad del paciente y la calidad asistencial.
+
+WHY_TITLE : ¿Por qué DxGPT y no una IA de propósito general?
+WHY_TEXT : Las herramientas conversacionales como ChatGPT, Claude o Gemini son modelos de lenguaje de amplio espectro. En el contexto médico, esta flexibilidad es una debilidad fundamental. Su naturaleza no estructurada puede generar respuestas variables, incompletas o clínicamente irrelevantes, careciendo de los controles de seguridad indispensables en la toma de decisiones de alto riesgo.
+
+DIFF_SECTION_TITLE : Diferenciales clave de DxGPT
+
+DIFF_1_TITLE : Análisis estructurado y consistente
+DIFF_1_TEXT : Mientras una IA generalista produce texto libre, DxGPT ofrece un análisis riguroso y reproducible de cinco hipótesis diagnósticas. Cada hipótesis incluye síntomas compatibles e incompatibles, un formato diseñado para desafiar sesgos como el de confirmación y disponibilidad. Nuestro control sobre la instrucción que recibe el modelo (el prompt) garantiza resultados consistentes, fiables y explicables.
+
+DIFF_2_TITLE : Marco de control clínico
+DIFF_2_TEXT : DxGPT opera dentro de un entorno de control diseñado para mitigar los riesgos inherentes a los grandes modelos de lenguaje (LLMs). Su arquitectura y sus resultados están supervisados por profesionales sanitarios para asegurar que las respuestas no solo sean técnicamente correctas, sino también clínicamente relevantes y seguras.
+
+DIFF_3_TITLE : Especialización en enfermedades raras
+DIFF_3_TEXT : DxGPT está concebido para incluir sistemáticamente las enfermedades raras en el diagnóstico diferencial, un área donde los sistemas generalistas y, a menudo, el razonamiento humano, pueden fallar. El sistema integra conocimiento especializado para detectar patrones atípicos y explorar hipótesis que de otro modo serían ignoradas, expandiendo el radar diagnóstico del clínico y mejorando las oportunidades de un diagnóstico temprano y preciso.
+
+IMPL_TITLE : Implementación en proveedores sanitarios
+IMPL_TEXT : Cuando DxGPT se despliega en proveedores sanitarioshospitales, incluye capacidades ampliadas:
+IMPL_ITEM_1 : Gestión del dato clínico (integración con sistemas de información hospitalaria).
+IMPL_ITEM_2 : Recogida estructurada de datos (formatos estandarizados para análisis posteriores).
+IMPL_ITEM_3 : Feedback clínico (profesionales aportan correcciones y observaciones).
+IMPL_ITEM_4 : Exploración y mejora (ajuste continuo en práctica clínica real).
+IMPL_ITEM_5 : Seguridad reforzada (protección de datos y control de uso alineados con la normativa sanitaria).
+
+BENEFITS_TITLE : Beneficios clínicos de DxGPT
+
+BENEFITS_1_TITLE : Recupere tiempo para lo que más importa: el paciente
+BENEFITS_1_TEXT : DxGPT automatiza la generación del diagnóstico diferencial, transformando minutos de búsqueda e incertidumbre en segundos de análisis estructurado. Esta eficiencia libera al profesional sanitario para centrarse en el juicio clínico, la comunicación con el paciente y la toma de decisiones.
+
+BENEFITS_2_TITLE : Del caos de datos a la claridad diagnóstica
+BENEFITS_2_TEXT : Presentamos la información en un formato limpio y estructurado, diseñado para el pensamiento clínico. Las hipótesis se muestran con síntomas a favor y en contra, permitiendo una evaluación rápida y una toma de decisiones más segura e informada.
+
+BENEFITS_3_TITLE : Una herramienta, no una aplicación
+BENEFITS_3_TEXT : A diferencia de las IAs conversacionales, la interfaz de DxGPT está optimizada para una única función: apoyar el diagnóstico. Cada elemento está diseñado para guiar el razonamiento clínico de forma eficiente y segura, eliminando distracciones y centrándose en la utilidad práctica.
+
+BENEFITS_4_TITLE : Un sistema de seguridad contra los atajos mentales
+BENEFITS_4_TEXT : El diagnóstico clínico es vulnerable a sesgos cognitivos como el de disponibilidad o el de confirmación. DxGPT actúa como un contrapeso objetivo, presentando sistemáticamente un abanico de posibilidades basadas en la evidencia del caso, incluidas las enfermedades raras. Esto promueve una evaluación más exhaustiva y reduce el riesgo de errores diagnósticos, mejorando la seguridad del paciente.
+
+BENEFITS_5_TITLE : Estandarice la excelencia diagnóstica
+BENEFITS_5_TEXT : DxGPT garantiza que cada caso se analiza con el mismo rigor metodológico, independientemente del profesional o del momento. Esta consistencia reduce la variabilidad en la calidad asistencial y establece un estándar de análisis elevado para todo el equipo. Nuestro rendimiento se valida continuamente frente a un exigente banco de casos clínicos para asegurar una fiabilidad constante.
+
+BENEFITS_6_TITLE : Creado en la práctica clínica, para la práctica clínica
+BENEFITS_6_TEXT : DxGPT no es un producto de laboratorio. Ha sido desarrollado en un ciclo continuo de colaboración con médicos de primera línea, hospitales y sociedades científicas. Su diseño y funcionalidades responden a los desafíos reales del diagnóstico, garantizando que no solo es tecnológicamente avanzado, sino también clínicamente útil, relevante y fácil de integrar en el flujo de trabajo mental del profesional.
+
+COMMIT_TITLE : Compromiso y marco regulatorio
+COMMIT_EXPERIMENTAL : DxGPT es una plataforma experimental en mejora continua.
+COMMIT_EXPERIMENTAL_TEXT : Su objetivo es explorar las capacidades de la IA en el diagnóstico, entender sus limitaciones y mejorarla con la retroalimentación de los usuarios y la validación clínica rigurosa. Los nuevos hallazgos se comparten en abierto a través de GitHub y MedRxiv.
+COMMIT_PRIVACY : DxGPT protege los datos clínicos con estándares europeos.
+COMMIT_PRIVACY_TEXT : DxGPT garantiza la protección de los datos clínicos mediante anonimización estricta, sin almacenar información personal ni usarla para otros fines. Todo el procesamiento se realiza en centros de datos europeos bajo RGPD, asegurando seguridad, privacidad y transparencia en cada interacción.
+
+EVAL_TITLE : Evaluación
+EVAL_SUBTITLE_1 : Nuestro compromiso con la evidencia: El marco de validación clínica
+EVAL_TEXT_1 : La confianza en una herramienta clínica no se otorga, se gana con evidencia rigurosa. En DxGPT, la validación no es un evento, sino un proceso continuo. Nuestro rendimiento fue evaluado inicialmente en una validación clínica independiente realizada por el Hospital Sant Joan de Déu, cuyos resultados, publicados en medRxiv, demostraron una precisión diagnóstica comparable a la de expertos clínicos.
+EVAL_TEXT_2 : Sobre esa base, hemos construido un Marco de validación constante, un ecosistema de evaluación diseñado para someter a DxGPT a los desafíos de la práctica médica real y garantizar que su fiabilidad evoluciona constantemente.
+
+EVAL_SUBTITLE_2 : Un banco de pruebas diseñado para desafiar al sistema
+EVAL_TEXT_3 : No validamos DxGPT con casos de libro de texto. Nuestro banco de pruebas contiene más de 1.000 casos clínicos reales, seleccionados por su complejidad: descripciones extensas, síntomas superpuestos y diagnósticos diferenciales no triviales. Estos casos provienen de fuentes de élite para garantizar la diversidad y el realismo:
+EVAL_SOURCE_1 : Bancos de preguntas clínicas de alto nivel: MedBullets y MedQA USMLE.
+EVAL_SOURCE_2 : Publicaciones científicas de enfermedades raras: RAMEDIS y Ramebench.
+EVAL_SOURCE_3 : Casos reales de urgencias hospitalarias: HM Hospitales y Hospital de Torrejón.
+EVAL_SOURCE_4 : Colaboraciones especializadas: Casos supervisados de enfermedades raras.
+EVAL_TEXT_4 : Este exigente banco de pruebas asegura que evaluamos a DxGPT en el entorno más desafiante posible, reflejando la complejidad a la que se enfrentan los profesionales sanitarios cada día.
+
+EVAL_SUBTITLE_3 : La ciencia de preguntar: El secreto de la consistencia
+EVAL_TEXT_5 : Nuestra investigación ha revelado un factor crítico: la calidad de la respuesta de un LLM depende decisivamente de la calidad de la pregunta. Por ello, hemos desarrollado y validado más de 30 formulaciones de prompts (instrucciones) para encontrar la estructura óptima que activa un razonamiento clínico efectivo y consistente.
+EVAL_TEXT_6 : Este control experto sobre la formulación es lo que diferencia a DxGPT de una IA generalista. No dejamos la calidad del resultado al azar; hemos diseñado un proceso que garantiza que, ante el mismo caso, el sistema siempre aplique el mismo rigor analítico, produciendo resultados fiables y reproducibles.
+EVAL_CHART_DESCRIPTION : El gráfico ilustra cómo nuestra optimización de la formulación (el salto de la familia 4o → o3) no solo incrementa la precisión (eje X), sino que también permite resolver casos de mayor complejidad (eje Y), demostrando un avance significativo en la capacidad de razonamiento clínico del sistema.
+
+EVAL_SUBTITLE_4 : Una metodología de evaluación que piensa como un clínico
+EVAL_TEXT_7 : Medir la precisión va más allá de un simple "correcto" o "incorrecto". Nuestro proceso de evaluación en cascada de 3 niveles mide lo que realmente importa en la práctica clínica:
+EVAL_METHOD_1 : Verificación Objetiva: Comparamos la hipótesis principal con códigos médicos estandarizados (SNOMED CT, CIE-10). Es nuestra línea de validación más estricta.
+EVAL_METHOD_2 : Análisis de Contexto Clínico: Si no hay una coincidencia exacta, una IA experta evalúa si la respuesta es un sinónimo clínico válido (p. ej., "fallo renal agudo" vs. "insuficiencia renal aguda"), reconociendo aciertos que un análisis de texto simple ignoraría.
+EVAL_METHOD_3 : Calidad de la Priorización: Esta es nuestra métrica más innovadora. No nos basta con que el diagnóstico correcto esté en la lista; medimos su posición promedio. Un diagnóstico correcto en la primera posición es infinitamente más útil que en la quinta. Esta métrica evalúa la capacidad de DxGPT para priorizar como un especialista, ofreciendo la máxima relevancia clínica en el menor tiempo posible.
+
+EVAL_SUBTITLE_5 : ¿Qué significa esto para el usuario?
+EVAL_TEXT_8 : Este riguroso proceso se traduce en beneficios tangibles para su práctica:
+EVAL_BENEFIT_1 : Confianza en cada resultado: Sabe que la herramienta ha sido probada en escenarios complejos y realistas.
+EVAL_BENEFIT_2 : Consistencia garantizada: La misma información clínica produce el mismo análisis estructurado, siempre.
+EVAL_BENEFIT_3 : Relevancia clínica: Las hipótesis no solo son precisas, sino que están priorizadas para reflejar la urgencia y probabilidad clínica.
+EVAL_CONCLUSION : En definitiva, DxGPT no es solo un modelo avanzado; es una herramienta de apoyo clínico con un compromiso demostrable con la evidencia, la fiabilidad y la seguridad.
+
+SECURITY_TITLE : Nuestro pacto de confianza y seguridad
+SECURITY_INTRO : La confianza es la base de la medicina. En DxGPT, la protección de los datos clínicos y el cumplimiento normativo no son una ocurrencia tardía, sino el núcleo de nuestro diseño. Operamos con una transparencia radical para que profesionales y sistemas de salud puedan utilizar nuestra herramienta con total tranquilidad.
+
+SECURITY_SUBTITLE_1 : Cómo protegemos cada consulta: Un proceso de cero retención de información personal
+SECURITY_TEXT_1 : Nuestro flujo de trabajo está diseñado para maximizar la utilidad clínica y minimizar a cero el riesgo de exposición de datos.
+SECURITY_STEP_1 : Entrada de datos y anonimización automática: Antes de que cualquier información clínica sea procesada por el modelo de IA, nuestro sistema detecta y elimina automáticamente cualquier Información de Identificación Personal (PII). Nombres, direcciones o números de identificación son eliminados para garantizar que solo se procesan datos clínicos anónimos.
+SECURITY_STEP_2 : Procesamiento en memoria: El análisis diagnóstico se realiza en tiempo real y en memoria. No almacenamos ningún dato clínico o personal del paciente en nuestros servidores.
+SECURITY_STEP_3 : Prohibición de reentrenamiento: Los datos clínicos anónimos utilizados para una consulta nunca se utilizan para reentrenar o mejorar nuestros modelos de IA. Esto elimina el riesgo de aprendizaje inadvertido a partir de datos sensibles y garantiza la integridad de nuestro sistema.
+SECURITY_STEP_4 : Cero huella: Una vez que se genera la respuesta, la información que permitiría identificar al paciente se elimina por completo. No queda ningún registro del caso clínico personal en nuestra plataforma.
+
+SECURITY_SUBTITLE_2 : Gobernanza de datos
+SECURITY_TEXT_2 : La siguiente tabla resume nuestro compromiso con las mejores prácticas de seguridad y privacidad, diseñada para facilitar la evaluación por parte de los equipos de TI y cumplimiento normativo.
+
+SECURITY_TABLE_HEADER_1 : Característica / Política
+SECURITY_TABLE_HEADER_2 : Compromiso de DxGPT
+SECURITY_TABLE_ROW_1_1 : Ubicación del Procesamiento de Datos
+SECURITY_TABLE_ROW_1_2 : Exclusivamente en centros de datos de la Unión Europea (Microsoft Azure).
+SECURITY_TABLE_ROW_2_1 : Almacenamiento de Datos de Pacientes
+SECURITY_TABLE_ROW_2_2 : Política de cero retención. No se almacena ninguna Información de Salud Protegida (PHI).
+SECURITY_TABLE_ROW_3_1 : Anonimización de Datos
+SECURITY_TABLE_ROW_3_2 : Automática y proactiva. La PII se identifica y elimina antes del procesamiento.
+SECURITY_TABLE_ROW_4_1 : Uso de datos para Entrenamiento
+SECURITY_TABLE_ROW_4_2 : Estrictamente prohibido. Los datos enviados por el usuario nunca se utilizan para entrenar modelos de IA.
+SECURITY_TABLE_ROW_5_1 : Cifrado de datos
+SECURITY_TABLE_ROW_5_2 : De extremo a extremo. Todos los datos se cifran en tránsito (TLS 1.2+) y en reposo.
+SECURITY_TABLE_ROW_6_1 : Cumplimiento principal
+SECURITY_TABLE_ROW_6_2 : RGPD (UE), HIPAA (EE. UU.), Ley de IA de la UE (Alineación en curso).
+SECURITY_TABLE_ROW_7_1 : Acuerdos con socios
+SECURITY_TABLE_ROW_7_2 : Acuerdos de Asociación Comercial (BAA) disponibles para socios institucionales.
+SECURITY_TABLE_ROW_8_1 : Registros de Auditoría
+SECURITY_TABLE_ROW_8_2 : La actividad del sistema se registra para monitorizar la seguridad e integridad (sin almacenar PHI).
+
+SECURITY_SUBTITLE_3 : Nuestro Marco Regulatorio
+SECURITY_TEXT_3 : Contamos con una amplia experiencia en el complejo entorno regulatorio de la salud digital. DxGPT está diseñado para alinearse con los estándares más exigentes a nivel mundial:
+SECURITY_REGULATION_1 : RGPD (Reglamento General de Protección de Datos): Cumplimos plenamente con los principios de legalidad, transparencia, minimización de datos y limitación de la finalidad. El procesamiento exclusivo en la UE garantiza el cumplimiento de las normativas de soberanía de datos.
+SECURITY_REGULATION_2 : HIPAA (Ley de Portabilidad y Responsabilidad de Seguros Médicos): Nuestra arquitectura cumple con las salvaguardas técnicas, físicas y administrativas exigidas por la Regla de Seguridad de HIPAA, lo que nos permite firmar BAAs con entidades cubiertas en los Estados Unidos.
+SECURITY_REGULATION_3 : Ley de IA de la UE: Estamos trabajando activamente para una alineación total con la Ley de IA de la Unión Europea. Colaboramos con expertos y autoridades reguladoras para garantizar que DxGPT cumpla con los más altos estándares de gestión de riesgos, gobernanza de datos, transparencia y robustez, posicionándonos a la vanguardia de la IA responsable en salud.

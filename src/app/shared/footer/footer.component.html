@@ -10,13 +10,13 @@
           <!-- Column 1: DxGPT -->
           <div class="col-lg-3 col-md-6 mb-4">
             <div class="footer-column">
-              <h4 class="footer-title">DxGPT</h4>
+              <h4 class="footer-title">{{ 'footer.C1_TITLE' | translate }}</h4>
               <ul class="footer-links">
-                <li><a href="javascript:void(0)" (click)="navigateToTop('/aboutus')">Qué es DxGPT</a></li>
-                <li><a href="javascript:void(0)" (click)="goToPrecision()">Precisión</a></li>
-                <li><a href="https://github.com/foundation29org/dxgpt-bench-lab/blob/main/bench/__conceptual-model-and-research-notes/evaluacion_modelos_llm_diagnostico_pediatrico_pipeline_pv4.pdf" target="_blank">Evaluación</a></li>
-                <li><a href="javascript:void(0)" (click)="navigateToTop('/reports')">Estadísticas de uso</a></li>
-                <li><a href="javascript:void(0)" (click)="navigateToTop('/faq')">FAQs</a></li>
+                <li><a href="javascript:void(0)" (click)="navigateToTop('/aboutus')">{{ 'footer.C1_LINK1' | translate }}</a></li>
+                <li><a href="javascript:void(0)" (click)="goToPrecision()">{{ 'footer.C1_LINK2' | translate }}</a></li>
+                <li><a href="https://github.com/foundation29org/dxgpt-bench-lab/blob/main/bench/__conceptual-model-and-research-notes/evaluacion_modelos_llm_diagnostico_pediatrico_pipeline_pv4.pdf" target="_blank">{{ 'footer.C1_LINK3' | translate }}</a></li>
+                <li><a href="javascript:void(0)" (click)="navigateToTop('/reports')">{{ 'footer.C1_LINK4' | translate }}</a></li>
+                <li><a href="javascript:void(0)" (click)="navigateToTop('/faq')">{{ 'footer.C1_LINK5' | translate }}</a></li>
               </ul>
             </div>
           </div>
@@ -24,14 +24,14 @@
           <!-- Column 2: Colaboración -->
           <div class="col-lg-3 col-md-6 mb-4">
             <div class="footer-column">
-              <h4 class="footer-title">Colaboración</h4>
+              <h4 class="footer-title">{{ 'footer.C2_TITLE' | translate }}</h4>
               <ul class="footer-links">
-                <li><a href="javascript:void(0)" (click)="goToSociosTecnologicos()">Socios tecnológicos</a></li>
-                <li><a href="javascript:void(0)" (click)="goToPatrocinadores()">Nuestros patrocinadores</a></li>
-                <li><a href="javascript:void(0)" (click)="goToImplementaciones()">Implementaciones</a></li>
-                <li><a href="javascript:void(0)" (click)="goToSistemasSalud()">Uso en sistemas de salud</a></li>
-                <li><a href="javascript:void(0)" (click)="goToColaborar()">Quiero colaborar</a></li>
-                <li><a [href]="brandingService.getDonateLink()" target="_blank" *ngIf="brandingService.shouldShowDonateLink()">Dona</a></li>
+                <li><a href="javascript:void(0)" (click)="goToSociosTecnologicos()">{{ 'footer.C2_LINK1' | translate }}</a></li>
+                <li><a href="javascript:void(0)" (click)="goToPatrocinadores()">{{ 'footer.C2_LINK2' | translate }}</a></li>
+                <li><a href="javascript:void(0)" (click)="goToImplementaciones()">{{ 'footer.C2_LINK3' | translate }}</a></li>
+                <li><a href="javascript:void(0)" (click)="goToSistemasSalud()">{{ 'footer.C2_LINK4' | translate }}</a></li>
+                <li><a href="javascript:void(0)" (click)="goToColaborar()">{{ 'footer.C2_LINK5' | translate }}</a></li>
+                <li><a [href]="brandingService.getDonateLink()" target="_blank" *ngIf="brandingService.shouldShowDonateLink()">{{ 'footer.C2_LINK6' | translate }}</a></li>
               </ul>
 
             </div>
@@ -40,10 +40,10 @@
           <!-- Column 3: Cumplimiento -->
           <div class="col-lg-3 col-md-6 mb-4">
             <div class="footer-column">
-              <h4 class="footer-title">Cumplimiento</h4>
+              <h4 class="footer-title">{{ 'footer.C3_TITLE' | translate }}</h4>
               <ul class="footer-links">
-                <li><a href="javascript:void(0)" (click)="navigateToTop('/privacy-policy')">Privacidad (RGPD/HIPAA/AI Act)</a></li>  
-                <li><a href="javascript:;" (click)="openModalCookies()" *ngIf="!isCookiesPage">Cookies</a></li>
+                <li><a href="javascript:void(0)" (click)="navigateToTop('/privacy-policy')">{{ 'footer.C3_LINK1' | translate }}</a></li>  
+                <li><a href="javascript:;" (click)="openModalCookies()" *ngIf="!isCookiesPage">{{ 'footer.C3_LINK2' | translate }}</a></li>
               </ul>
             </div>
           </div>
@@ -56,7 +56,7 @@
               <div class="contact-section mb-3">
                 <button class="contact-btn" (click)="openSupport(contentSubs)">
                   <i class="fas fa-envelope me-2"></i>
-                  <span>{{'menu.Contact us' | translate }}</span> 
+                  <span>{{'footer.C4_CONTACT_BTN' | translate }}</span> 
                 </button>
               </div>
 
@@ -64,7 +64,7 @@
               <div class="subscribe-section mb-4">
                 <button class="subscribe-btn" (click)="openSubscribe(subscribeModal)">
                   <i class="fas fa-bell me-2"></i>
-                  <span>Actualizaciones</span>
+                  <span>{{ 'footer.C4_SUBSCRIBE_BTN' | translate }}</span>
                 </button>
               </div>
 
@@ -103,12 +103,12 @@
         <div class="row align-items-center">
           <div class="col-md-6">
             <p class="copyright-text">
-              &copy; {{ currentYear }} Foundation 29. All rights reserved.
+              {{ 'footer.BTM_COPYRIGHT' | translate: {currentYear: currentYear} }}
             </p>
           </div>
           <div class="col-md-6 text-end">
             <p class="powered-text">
-              Powered by AI for Good
+              {{ 'footer.BTM_POWERED' | translate }}
             </p>
           </div>
         </div>
@@ -126,24 +126,24 @@
   <div class="modal-body">
     <form class="unified-form" #f="ngForm">
       <div class="form-group">
-        <span class="mb-0">{{'generics.Name' | translate }} *</span>
+        <span class="mb-0">{{ 'forms.NAME_LABEL' | translate }} *</span>
         <div>
-          <input class="form-control" type="text" id="userName" name="userName" placeholder="{{'generics.Name' | translate }}" ngModel required #userNameModel="ngModel" autocomplete="name" [(ngModel)]="userName">
-          <small class="danger" *ngIf="!userNameModel.valid && showErrorForm">{{'generics.required' | translate }}</small>
+          <input class="form-control" type="text" id="userName" name="userName" placeholder="{{ 'forms.NAME_PLACEHOLDER' | translate }}" ngModel required #userNameModel="ngModel" autocomplete="name" [(ngModel)]="userName">
+          <small class="danger" *ngIf="!userNameModel.valid && showErrorForm">{{ 'forms.FIELD_REQUIRED' | translate }}</small>
         </div>
       </div>
       <div class="form-group">
-        <span class="mb-0">{{'generics.Email' | translate }} *</span>
+        <span class="mb-0">{{ 'forms.EMAIL_LABEL' | translate }} *</span>
         <div>
-          <input class="form-control" type="email" id="Email" name="email" placeholder="{{'generics.Email' | translate }}" ngModel required #Email="ngModel" autocomplete="email" email [(ngModel)]="email">
-          <small class="danger" *ngIf="!Email.valid && showErrorForm">{{'generics.entervalidemail' | translate }}</small>
+          <input class="form-control" type="email" id="Email" name="email" placeholder="{{ 'forms.EMAIL_PLACEHOLDER' | translate }}" ngModel required #Email="ngModel" autocomplete="email" email [(ngModel)]="email">
+          <small class="danger" *ngIf="!Email.valid && showErrorForm">{{ 'forms.FIELD_REQUIRED' | translate }}</small>
         </div>
       </div>
       <div class="form-group">
-        <span>{{'support.Message' | translate }} *</span>
+        <span>{{ 'forms.MESSAGE_LABEL' | translate }} *</span>
         <div>
           <textarea maxlength="2000" #autoajustable id="textarea1" type="text" name="msgfeedBack" class="autoajustable data-hj-allow form-control" style="width: 100%;" ngModel required #messageModel="ngModel" [(ngModel)]="msgfeedBack" (input)="autoResize($event)"></textarea>
-          <small class="danger" *ngIf="!messageModel.valid && showErrorForm">El mensaje es requerido</small>
+          <small class="danger" *ngIf="!messageModel.valid && showErrorForm">{{ 'forms.FIELD_REQUIRED' | translate }}</small>
           <p class="float-end">{{ msgfeedBack.length }} / 2000</p>
         </div>
       </div>
@@ -151,26 +151,26 @@
         <div class="checkbox-item">
           <mat-checkbox
               name="terms3" ngModel #terms3="ngModel" id="terms3" [(ngModel)]="checkSubscribe">
-              {{'land.Email me' | translate }}
+              {{ 'forms.SUBSCRIBE_CHECK' | translate }}
           </mat-checkbox>
         </div>
         
         <div class="checkbox-item">
           <mat-checkbox
               name="termscontrol" ngModel #terms="ngModel" id="termscontrol" required [(ngModel)]="acceptTerms">
-              {{'termsform.accept' | translate }} <a href="javascript:;" class="terms-link" (click)="openModal(termsModal)">{{'termsform.terms' | translate }}</a>
+              {{ 'forms.TERMS_CHECK' | translate }} <a href="javascript:;" class="terms-link" (click)="openModal(termsModal)">{{ 'forms.TERMS_LINK' | translate }}</a>
           </mat-checkbox>
-          <small class="danger d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>       
+          <small class="danger d-block" *ngIf="!terms.valid && showErrorForm">{{ 'forms.TERMS_ERROR' | translate }}</small>       
         </div>
       </div>
       <div *ngIf="!sending" class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeSupport()">
-          {{'generics.Cancel' | translate }}
+          {{ 'generics.Cancel' | translate }}
         </button>
         <button type="button" class="btn btn-primary" 
                 [disabled]="!f.valid" 
                 (click)="f.valid ? onSubmitRevolution() : submitInvalidForm()">
-          <strong>{{'generics.Send' | translate }}</strong>       
+          <strong>{{ 'generics.Send' | translate }}</strong>       
         </button>
       </div>
       <div class="form-actions col-md-12 center-elements" *ngIf="sending">
@@ -194,27 +194,27 @@
 <ng-template #subscribeModal let-c="close" let-d="dismiss">       
   <div class="unified-modal">
   <div class="modal-header">
-    <h4 class="modal-title">Recibir actualizaciones</h4>
+    <h4 class="modal-title">{{ 'forms.F_SUBSCRIBE_TITLE' | translate }}</h4>
   </div>
   <div class="modal-body">
     <p class="subscribe-description">
-      Suscríbete para recibir actualizaciones sobre nuevas funcionalidades, casos de éxito y avances en diagnóstico médico asistido por IA.
+      {{ 'forms.F_SUBSCRIBE_DESCRIPTION' | translate }}
     </p>
     
     <form class="unified-form" #subscribeForm="ngForm">
       <div class="form-group">
-        <span class="mb-0">Nombre *</span>
+        <span class="mb-0">{{ 'forms.NAME_LABEL' | translate }} *</span>
         <div>
-          <input class="form-control" type="text" id="subscribeName" name="subscribeName" placeholder="Tu nombre" ngModel required #subscribeNameModel="ngModel" [(ngModel)]="subscribeUserName">       
-          <small class="danger" *ngIf="!subscribeNameModel.valid && showSubscribeErrorForm">Campo requerido</small>
+          <input class="form-control" type="text" id="subscribeName" name="subscribeName" placeholder="{{ 'forms.NAME_PLACEHOLDER' | translate }}" ngModel required #subscribeNameModel="ngModel" [(ngModel)]="subscribeUserName">       
+          <small class="danger" *ngIf="!subscribeNameModel.valid && showSubscribeErrorForm">{{ 'forms.FIELD_REQUIRED' | translate }}</small>
         </div>
       </div>
       
       <div class="form-group">
-        <span class="mb-0">Correo electrónico *</span>
+        <span class="mb-0">{{ 'forms.EMAIL_LABEL' | translate }} *</span>
         <div>
-          <input class="form-control" type="email" id="subscribeEmail" name="subscribeEmail" placeholder="Tu correo electrónico" ngModel required #subscribeEmailModel="ngModel" email [(ngModel)]="subscribeEmail">
-          <small class="danger" *ngIf="!subscribeEmailModel.valid && showSubscribeErrorForm">Correo electrónico válido requerido</small>
+          <input class="form-control" type="email" id="subscribeEmail" name="subscribeEmail" placeholder="{{ 'forms.EMAIL_PLACEHOLDER' | translate }}" ngModel required #subscribeEmailModel="ngModel" email [(ngModel)]="subscribeEmail">
+          <small class="danger" *ngIf="!subscribeEmailModel.valid && showSubscribeErrorForm">{{ 'forms.FIELD_REQUIRED' | translate }}</small>
         </div>
       </div>
       
@@ -222,20 +222,20 @@
         <div class="checkbox-item">
           <mat-checkbox
               name="subscribeTermsControl" ngModel #subscribeTerms="ngModel" id="subscribeTermsControl" required [(ngModel)]="subscribeAcceptTerms">
-              Acepto los <a href="javascript:;" class="terms-link" (click)="openModal(termsModal)">términos de uso</a>
+              {{ 'forms.TERMS_CHECK' | translate }} <a href="javascript:;" class="terms-link" (click)="openModal(termsModal)">{{ 'forms.TERMS_LINK' | translate }}</a>
           </mat-checkbox>
-          <small class="danger d-block" *ngIf="!subscribeTerms.valid && showSubscribeErrorForm">Debes aceptar los términos</small>   
+          <small class="danger d-block" *ngIf="!subscribeTerms.valid && showSubscribeErrorForm">{{ 'forms.TERMS_ERROR' | translate }}</small>   
         </div>
       </div>
       
       <div *ngIf="!subscribeSending" class="modal-footer">        
         <button type="button" class="btn btn-secondary" (click)="closeSubscribe()">
-          Cancelar
+          {{ 'generics.Cancel' | translate }}
         </button>
         <button type="button" class="btn btn-primary" 
                 [disabled]="!subscribeForm.valid" 
                 (click)="subscribeForm.valid ? onSubmitSubscription() : submitInvalidSubscribeForm()">
-          <strong>Suscribirme</strong>
+          <strong>{{ 'forms.F_SUBSCRIBE_SUBMIT_BTN' | translate }}</strong>
         </button>
       </div>
       

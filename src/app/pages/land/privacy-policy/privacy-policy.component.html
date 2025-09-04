@@ -1,13 +1,13 @@
 <a id="initpopup" class="anchorSteps"></a>
 <div *ngIf="!isDirectRoute()" class="modal-header">
-  <h4 class="modal-title">{{'menu.Privacy Policy' | translate }}</h4>
+  <h4 class="modal-title">{{'navbar.TAB_6' | translate }}</h4>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close('Close click')">
   </button>
 </div>
 <div class="row" [ngClass]="(!isDirectRoute())?'':'card mt-0'">
   <section [ngClass]="(!isDirectRoute())?'col-md-12':'offset-md-2 col-md-8'">
     <div *ngIf="isDirectRoute()" class="modal-header mt-4">
-      <h4 class="modal-title">{{'menu.Privacy Policy' | translate }}</h4>
+      <h4 class="modal-title">{{'navbar.TAB_6' | translate }}</h4>
       <button class="btn btn-sm btn-info ms-auto" (click)="toggleShortVersion()">
         {{ isShortVersion ? ('policyShort.fullVersion' | translate) : ('policyShort.shortVersion' | translate) }}
       </button>
@@ -16,14 +16,14 @@
       <p class="dx-text-responsive-lg"><strong>{{ 'policy.p1' | translate }}</strong></p>
       <p class="dx-text-responsive-lg">{{ 'policy.lastUpdated' | translate }}</p>
     
-      <p class="mt-4 dx-text-responsive-lg"><strong>{{ 'policy.p2.1' | translate }}</strong></p>
+      <p class="dx-text-responsive-lg"><strong>{{ 'policy.p2.1' | translate }}</strong></p>
       <p class="dx-text-responsive-lg">{{ 'policy.p2.2' | translate }}</p>
       <p class="dx-text-responsive-lg">{{ 'policy.p2.3' | translate }}</p>
       <p class="dx-text-responsive-lg">{{ 'policy.p2.4' | translate }}</p>
       <p class="dx-text-responsive-lg"><strong>{{ 'policy.p2.5' | translate }}</strong></p>
       <p class="dx-text-responsive-lg">{{ 'policy.p2.6' | translate }}</p>
     
-      <p class="mt-4 dx-text-responsive-lg"><strong>{{ 'policy.p3.1' | translate }}</strong></p>
+      <p class="dx-text-responsive-lg"><strong>{{ 'policy.p3.1' | translate }}</strong></p>
       <p class="dx-text-responsive-lg"><strong>{{ 'policy.p3.2' | translate }}</strong></p>
       <ul>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p3.3' | translate }}</p></li>
@@ -38,8 +38,8 @@
         <li><p class="dx-text-responsive-lg">{{ 'policy.p3.8' | translate }}</p></li>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p3.9' | translate }}</p></li>
       </ul>
-      <p class="dx-text-responsive-lg" class="mt-4"><strong>{{ 'policy.p4.1' | translate }}</strong></p>
-      <table class="table table-bordered">
+      <p class="dx-text-responsive-lg"><strong>{{ 'policy.p4.1' | translate }}</strong></p>
+      <table class="table table-bordered dx-text-responsive-lg">
         <tr>
           <th>{{ 'policy.p4.2' | translate }}</th>
           <th>{{ 'policy.p4.3' | translate }}</th>
@@ -62,7 +62,7 @@
         </tr>
       </table>
     
-      <p class="dx-text-responsive-lg" class="mt-4"><strong>{{ 'policy.p5.1' | translate }}</strong></p>
+      <p class="dx-text-responsive-lg"><strong>{{ 'policy.p5.1' | translate }}</strong></p>
       <ul>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p5.2' | translate }}</p></li>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p5.3' | translate }}</p></li>
@@ -72,7 +72,7 @@
       <p class="dx-text-responsive-lg">{{ 'policy.p5.6' | translate }}</p>
       <p class="dx-text-responsive-lg">{{ 'policy.p5.7' | translate }}</p>
     
-      <p class="dx-text-responsive-lg" class="mt-4"><strong>{{ 'policy.p6.1' | translate }}</strong></p>
+      <p class="dx-text-responsive-lg"><strong>{{ 'policy.p6.1' | translate }}</strong></p>
       <ul>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p6.2' | translate }}</p></li>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p6.3' | translate }}</p></li>
@@ -82,21 +82,21 @@
         <li><p class="dx-text-responsive-lg">{{ 'policy.p6.7' | translate }}</p></li>
       </ul>
     
-      <p class="dx-text-responsive-lg" class="mt-4"><strong>{{ 'policy.p7.1' | translate }}</strong></p>
+      <p class="dx-text-responsive-lg"><strong>{{ 'policy.p7.1' | translate }}</strong></p>
       <ul>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p7.2' | translate }}</p></li>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p7.3' | translate }}</p></li>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p7.4' | translate }}</p></li>
       </ul>
     
-      <p class="dx-text-responsive-lg" class="mt-4"><strong>{{ 'policy.p8.1' | translate }}</strong></p>
+      <p class="dx-text-responsive-lg"><strong>{{ 'policy.p8.1' | translate }}</strong></p>
       <ul>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p8.2' | translate }}</p></li>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p8.3' | translate }}</p></li>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p8.4' | translate }}</p></li>
       </ul>
     
-      <p class="dx-text-responsive-lg" class="mt-4"><strong>{{ 'policy.p9.1' | translate }}</strong></p>
+      <p class="dx-text-responsive-lg"><strong>{{ 'policy.p9.1' | translate }}</strong></p>
       <p class="dx-text-responsive-lg">{{ 'policy.p9.2' | translate }}</p>
       <ul>
         <li><p class="dx-text-responsive-lg">{{ 'policy.p9.3' | translate }}</p></li>

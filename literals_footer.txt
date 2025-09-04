@@ -1,0 +1,56 @@
+C1_TITLE : DxGPT
+C1_LINK1 : Qué es DxGPT
+C1_LINK2 : Precisión
+C1_LINK3 : Evaluación
+C1_LINK4 : Estadísticas de uso
+C1_LINK5 : FAQs
+
+C2_TITLE : Colaboración
+C2_LINK1 : Socios tecnológicos
+C2_LINK2 : Nuestros patrocinadores
+C2_LINK3 : Implementaciones
+C2_LINK4 : Uso en sistemas de salud
+C2_LINK5 : Quiero colaborar
+C2_LINK6 : Dona
+
+C3_TITLE : Cumplimiento
+C3_LINK1 : Privacidad (RGPD/HIPAA/AI Act)
+C3_LINK2 : Cookies
+
+C4_CONTACT_BTN : Contáctanos
+C4_SUBSCRIBE_BTN : Actualizaciones
+C4_FOUNDATION_TEXT : Made with love by
+
+BTM_COPYRIGHT : © {{ currentYear }} Foundation 29. All rights reserved.
+BTM_POWERED : Powered by AI for Good
+
+F_FORM_CONTACT_TITLE : Soporte de DxGPT
+F_FORM_CONTACT_NAME_LABEL : Nombre
+F_FORM_CONTACT_NAME_PLACEHOLDER : Nombre
+F_FORM_CONTACT_FIELD_REQUIRED : Campo requerido
+F_FORM_CONTACT_EMAIL_LABEL : Correo electrónico
+F_FORM_CONTACT_EMAIL_PLACEHOLDER : Correo electrónico
+F_FORM_CONTACT_FIELD_REQUIRED : Ingresa un correo electrónico válido
+F_FORM_CONTACT_MESSAGE_LABEL : Mensaje
+F_FORM_CONTACT_FIELD_REQUIRED : El mensaje es requerido
+F_FORM_CONTACT_MESSAGE_COUNTER : {{ msgfeedBack.length }} / 2000
+F_FORM_CONTACT_SUBSCRIBE_CHECK : Enviarme correos
+F_FORM_CONTACT_TERMS_CHECK : acepto
+F_FORM_CONTACT_TERMS_LINK : términos
+F_FORM_CONTACT_TERMS_ERROR : Debes aceptar los términos
+F_FORM_CONTACT_CANCEL_BTN : Cancelar
+F_FORM_CONTACT_SEND_BTN : Enviar
+
+F_FORM_SUBSCRIBE_TITLE : Recibir actualizaciones
+F_FORM_SUBSCRIBE_DESCRIPTION : Suscríbete para recibir actualizaciones sobre nuevas funcionalidades, casos de éxito y avances en diagnóstico médico asistido por IA.
+F_FORM_SUBSCRIBE_NAME_LABEL : Nombre
+F_FORM_SUBSCRIBE_NAME_PLACEHOLDER : Tu nombre
+F_FORM_SUBSCRIBE_FIELD_REQUIRED : Campo requerido
+F_FORM_SUBSCRIBE_EMAIL_LABEL : Correo electrónico
+F_FORM_SUBSCRIBE_EMAIL_PLACEHOLDER : Tu correo electrónico
+F_FORM_SUBSCRIBE_FIELD_REQUIRED : Correo electrónico válido requerido
+F_FORM_SUBSCRIBE_TERMS_CHECK : Acepto los
+F_FORM_SUBSCRIBE_TERMS_LINK : términos de uso
+F_FORM_SUBSCRIBE_TERMS_ERROR : Debes aceptar los términos
+F_FORM_SUBSCRIBE_CANCEL_BTN : Cancelar
+F_FORM_SUBSCRIBE_SUBMIT_BTN : Suscribirme

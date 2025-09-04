@@ -1,0 +1,85 @@
+HERO_TITLE : Colaboración
+HERO_SUBTITLE : Comprometidos con la apertura, colaboración y responsabilidad en el desarrollo de tecnología médica.
+
+TECH_TITLE : Socios tecnológicos
+TECH_TEXT : Agradecemos a Microsoft, que a través de su programa AI for Good nos proporciona la infraestructura en Azure y el apoyo de empleados voluntarios. También a Google, cuyo programa para ONGs nos ayuda a aumentar la visibilidad de DxGPT en su buscador para llegar a más profesionales y pacientes.
+TECH_MICROSOFT_TITLE : Microsoft AI for Good
+TECH_MICROSOFT_DESC : Infraestructura en Azure y apoyo de empleados voluntarios
+TECH_GOOGLE_TITLE : Google para ONGs
+TECH_GOOGLE_DESC : Ayuda a aumentar la visibilidad de DxGPT para llegar a más profesionales y pacientes
+
+SPONSORS_TITLE : Nuestros patrocinadores
+SPONSORS_TEXT : Extendemos nuestro más profundo agradecimiento a nuestros generosos patrocinadores. Su apoyo es puramente filantrópico, sin intereses comerciales ni intercambio de datos, y es vital para poder desarrollar herramientas como DxGPT y ofrecerlas gratuitamente.
+
+IMPL_TITLE : Implementaciones
+IMPL_TEXT : DxGPT está siendo implementado en servicios de salud reales, mejorando el diagnóstico de enfermedades raras y casos complejos.
+
+IMPL_ARAGON_TITLE : Servicio Aragonés de Salud
+IMPL_ARAGON_PERIOD : Desde Julio 2025
+IMPL_ARAGON_DESC : DxGPT ya está disponible para los profesionales sanitarios del Servicio Aragonés de Salud, permitiendo mejorar la precisión y rapidez en el diagnóstico de enfermedades raras y mayoritarias en la región de Aragón.
+IMPL_ARAGON_USERS : +5.000 médicos
+IMPL_ARAGON_SCOPE : Región de Aragón
+IMPL_ARAGON_FOCUS : Enfermedades raras y mayoritarias
+
+IMPL_SERMAS_TITLE : Servicio Madrileño de Salud (SERMAS)
+IMPL_SERMAS_PERIOD : Desde Septiembre 2023
+IMPL_SERMAS_DESC : Implementación pionera de DxGPT en el sistema de salud de la Comunidad de Madrid, proporcionando acceso a más de 6.000 médicos de atención primaria.
+IMPL_SERMAS_COVERAGE : Toda la red de atención primaria
+IMPL_SERMAS_USERS : +6.000 médicos
+IMPL_SERMAS_FOCUS : Enfermedades raras y casos complejos
+IMPL_SERMAS_NEWS : Noticias relacionadas:
+IMPL_SERMAS_LINK_1 : Microsoft News - SERMAS pionero en IA generativa
+IMPL_SERMAS_LINK_2 : Comunidad de Madrid - Acceso a 6.000 médicos
+
+IMPL_CATSALUT_TITLE : Servei Català de la Salut (CatSalut)
+IMPL_CATSALUT_PERIOD : En desarrollo
+IMPL_CATSALUT_DESC : Próxima implementación en el sistema de salud catalán, extendiendo los beneficios de DxGPT a una mayor población de profesionales sanitarios.
+IMPL_CATSALUT_STATUS : Fase de implementación
+IMPL_CATSALUT_SCOPE : Sistema sanitario catalán
+IMPL_CATSALUT_GOAL : Mejora diagnóstica integral
+
+COLLAB_TITLE : Colabora con nosotros
+COLLAB_INTRO : Independientemente de tu perfil profesional o del tipo de colaboración que te interese, estamos dispuestos a escucharte y explorar formas de trabajar juntos.
+COLLAB_CONTACT : Contacta
+COLLAB_INTRO_2 : con nosotros para iniciar una conversación sobre cómo tu experiencia y conocimientos pueden contribuir a democratizar el acceso al diagnóstico médico asistido por inteligencia artificial.
+
+COLLAB_HEALTH_TITLE : Implementaciones en sistemas de salud
+COLLAB_HEALTH_P1 : Los servicios de salud y sistemas sanitarios que busquen integrar DxGPT en sus flujos de trabajo clínico pueden contar con nuestro apoyo especializado. Ofrecemos servicios completos de implementación técnica, que incluyen la integración con sistemas hospitalarios existentes, así como la configuración personalizada según las necesidades específicas de cada institución.
+COLLAB_HEALTH_P2 : Nuestro programa de implementación abarca también la formación de equipos médicos, el establecimiento de protocolos de uso clínico y el soporte técnico continuo durante el proceso de adopción. Para instituciones públicas de salud, estas implementaciones se realizan sin coste alguno, como parte de nuestro compromiso con la democratización del acceso a tecnologías médicas avanzadas.
+
+COLLAB_PROFESSIONALS_TITLE : Colaboración de profesionales sanitarios
+COLLAB_PROFESSIONALS_P1 : La experiencia clínica de médicos y profesionales sanitarios es irreemplazable para el desarrollo y mejora continua de DxGPT. Buscamos colaboradores que puedan aportar su conocimiento mediante la revisión de casos complejos, la validación de diagnósticos asistidos por IA y la orientación sobre la aplicación práctica de nuestras herramientas en entornos clínicos reales.
+COLLAB_PROFESSIONALS_P2 : Especialmente valoramos la participación en estudios clínicos y ensayos controlados para validar la eficacia diagnóstica en diferentes especialidades médicas. Asimismo, el feedback basado en experiencia práctica nos ayuda a identificar áreas de mejora y a desarrollar nuevas funcionalidades que respondan a necesidades clínicas reales.
+
+COLLAB_RESEARCH_TITLE : Estudios de investigación clínica
+COLLAB_RESEARCH_P1 : Invitamos a centros médicos, hospitales universitarios y grupos de investigación a colaborar en estudios formales sobre la eficacia y el impacto de DxGPT en el diagnóstico clínico. Estos estudios son fundamentales para generar evidencia científica rigurosa sobre la utilidad de la inteligencia artificial en la práctica médica y para validar nuestros algoritmos en diferentes contextos clínicos y poblaciones de pacientes.
+COLLAB_RESEARCH_P2 : Nuestro objetivo es facilitar la generación de evidencia científica de alta calidad que contribuya al conocimiento médico global y demuestre el valor clínico de las herramientas de diagnóstico asistido por IA.
+
+COLLAB_TECH_TITLE : Contribución técnica y desarrollo
+COLLAB_TECH_TEXT : Los profesionales del ámbito tecnológico pueden contribuir significativamente al avance de DxGPT a través de voluntariado técnico especializado. Nuestras necesidades abarcan desde el desarrollo de interfaces de usuario más intuitivas y accesibles, hasta la consultoría técnica.
+
+COLLAB_PUBLICITY_TITLE : Difusión y convenios de colaboración estratégicos
+COLLAB_PUBLICITY_P1 : La visibilidad y el reconocimiento en la comunidad médica internacional son cruciales para el impacto de DxGPT. Colaboramos con medios especializados, organizaciones del sector salud y profesionales de la comunicación científica para difundir casos de éxito, resultados de investigación y avances tecnológicos.
+COLLAB_PUBLICITY_P2 : Estamos interesados en establecer convenios de colaboración estratégicos con congresos médicos, sociedades científicas y organizaciones sanitarias que compartan nuestra visión de democratizar el acceso a herramientas diagnósticas avanzadas. Estas colaboraciones pueden incluir presentaciones en eventos científicos, publicaciones conjuntas y programas de formación médica continuada.
+
+COLLAB_FINANCIAL_TITLE : Apoyo financiero y donaciones
+COLLAB_FINANCIAL_P1 : La sostenibilidad de DxGPT depende del apoyo de personas y organizaciones comprometidas con la mejora del diagnóstico médico. Ofrecemos múltiples formas de contribuir económicamente a esta causa. Las donaciones monetarias nos permiten mantener la infraestructura tecnológica, desarrollar nuevas funcionalidades y garantizar que el acceso a la plataforma permanezca completamente gratuito para todos los profesionales médicos. Además, valoramos enormemente las contribuciones de datos médicos anonimizados, que son esenciales para entrenar y mejorar continuamente nuestros algoritmos diagnósticos.
+COLLAB_FINANCIAL_P2 : Si deseas realizar una donación económica, puedes hacerlo directamente a través de los enlaces disponibles en esta misma página. Para donaciones de datos médicos, nuestro equipo técnico te orientará sobre los protocolos de anonimización y los formatos compatibles con nuestros sistemas.
+
+COLLAB_CONCLUSION : DxGPT es una iniciativa colaborativa que busca democratizar el acceso a herramientas de diagnóstico médico asistido por inteligencia artificial. Nuestro objetivo es hacer esta tecnología accesible, gratuita y efectiva para profesionales de la salud en todo el mundo. Tu participación, independientemente de tu perfil profesional, es fundamental para lograr este propósito.
+
+TRANS_FORM_CONTACT_TITLE : Soporte de DxGPT
+TRANS_FORM_CONTACT_NAME_LABEL : Nombre
+TRANS_FORM_CONTACT_NAME_PLACEHOLDER : Nombre
+TRANS_FORM_CONTACT_FIELD_REQUIRED : Campo requerido
+TRANS_FORM_CONTACT_EMAIL_LABEL : Correo electrónico
+TRANS_FORM_CONTACT_EMAIL_PLACEHOLDER : Correo electrónico
+TRANS_FORM_CONTACT_FIELD_REQUIRED : Ingresa un correo electrónico válido
+TRANS_FORM_CONTACT_MESSAGE_LABEL : Mensaje (Opcional):
+TRANS_FORM_CONTACT_MESSAGE_COUNTER : {{ msgfeedBack.length }} / 2000
+TRANS_FORM_CONTACT_SUBSCRIBE_CHECK : Enviarme correos
+TRANS_FORM_CONTACT_TERMS_CHECK : acepto
+TRANS_FORM_CONTACT_TERMS_LINK : términos
+TRANS_FORM_CONTACT_TERMS_ERROR : Debes aceptar los términos
+TRANS_FORM_CONTACT_CANCEL_BTN : Cancelar
+TRANS_FORM_CONTACT_SEND_BTN : Enviar

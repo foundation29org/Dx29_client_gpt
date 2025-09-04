@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 
 const routes: Routes = [
-  { path: '', component: TransparenciaPageComponent, data: { title: 'menu.Transparency' } }
+  { path: '', component: TransparenciaPageComponent, data: { title: 'navbar.TAB_4' } }
 ];
 
 @NgModule({

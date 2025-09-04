@@ -1,0 +1,46 @@
+TAB_1 : Panel de control
+TAB_2 : Sobre nosotros
+TAB_3 : Quiénes somos
+TAB_4 : Colaboración
+TAB_5 : FAQs
+TAB_6 : Política de privacidad
+TAB_7 : Estadísticas de uso
+
+DONATE_BTN : Donar
+DONATE_DROPDOWN_1 : Donar fondos
+DONATE_DROPDOWN_2 : Donar datos clínicos individuales  
+DONATE_DROPDOWN_3 : Donar datasets (instituciones/investigación)
+
+NAV_LANG_CURRENT : {{currentLang}}
+
+NAV_FORM_CLINICAL_TITLE : Donar datos clínicos individuales
+NAV_FORM_CLINICAL_DESCRIPTION : Ayúdanos a mejorar el diagnóstico de enfermedades compartiendo datos clínicos anónimos.
+NAV_FORM_CLINICAL_SUBTITLE : Para proceder con la donación de datos clínicos, completa el siguiente formulario y nuestro equipo se pondrá en contacto contigo para coordinar el proceso de manera segura.
+NAV_FORM_CLINICAL_NAME_LABEL : Nombre completo
+NAV_FORM_CLINICAL_NAME_PLACEHOLDER : Ingresa tu nombre completo
+NAV_FORM_CLINICAL_FIELD_REQUIRED : El nombre es obligatorio
+NAV_FORM_CLINICAL_EMAIL_LABEL : Correo electrónico
+NAV_FORM_CLINICAL_EMAIL_PLACEHOLDER : tu@email.com
+NAV_FORM_CLINICAL_FIELD_REQUIRED : Ingresa un correo electrónico válido
+NAV_FORM_CLINICAL_MESSAGE_LABEL : Mensaje
+NAV_FORM_CLINICAL_MESSAGE_PLACEHOLDER : Describe los datos clínicos que deseas donar (tipo de datos, cantidad aproximada, formato, etc.)
+NAV_FORM_CLINICAL_FIELD_REQUIRED : El mensaje es obligatorio
+NAV_FORM_CLINICAL_SUBSCRIBE_CHECK : Recibir actualizaciones por email
+NAV_FORM_CLINICAL_CANCEL_BTN : Cancelar
+NAV_FORM_CLINICAL_SUBMIT_BTN : Enviar solicitud
+
+NAV_FORM_DATASETS_TITLE : Donar datasets (instituciones/investigación)
+NAV_FORM_DATASETS_DESCRIPTION : Comparte datasets institucionales para mejorar el diagnóstico de enfermedades.
+NAV_FORM_DATASETS_SUBTITLE : Para proceder con la donación de datasets, completa el siguiente formulario y nuestro equipo se pondrá en contacto contigo para coordinar el proceso de manera segura.
+NAV_FORM_DATASETS_NAME_LABEL : Nombre completo
+NAV_FORM_DATASETS_NAME_PLACEHOLDER : Ingresa tu nombre completo
+NAV_FORM_DATASETS_FIELD_REQUIRED : El nombre es obligatorio
+NAV_FORM_DATASETS_EMAIL_LABEL : Correo electrónico
+NAV_FORM_DATASETS_EMAIL_PLACEHOLDER : tu@email.com
+NAV_FORM_DATASETS_FIELD_REQUIRED : Ingresa un correo electrónico válido
+NAV_FORM_DATASETS_MESSAGE_LABEL : Mensaje
+NAV_FORM_DATASETS_MESSAGE_PLACEHOLDER : Describe los datasets que deseas donar (tipo de datos, tamaño, formato, institución, etc.)
+NAV_FORM_DATASETS_FIELD_REQUIRED : El mensaje es obligatorio
+NAV_FORM_DATASETS_SUBSCRIBE_CHECK : Recibir actualizaciones por email
+NAV_FORM_DATASETS_CANCEL_BTN : Cancelar
+NAV_FORM_DATASETS_SUBMIT_BTN : Enviar solicitud

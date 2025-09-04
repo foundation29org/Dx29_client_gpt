@@ -16,7 +16,7 @@ const routes: Routes = [
         path: '.',
         component: UndiagnosedPageComponent,
         data: {
-          title: 'menu.Home'
+          title: 'navbar.TAB_1'
         },
       },
       {
@@ -39,7 +39,7 @@ const routes: Routes = [
         path: 'reports',
         component: ReportsPageComponent,
         data: {
-          title: 'menu.Usage statistics'
+          title: 'navbar.TAB_7'
         }
       },
       {
@@ -53,7 +53,7 @@ const routes: Routes = [
         path: 'privacy-policy',
         component: PrivacyPolicyPageComponent,
         data: {
-          title: 'menu.Privacy Policy'
+          title: 'navbar.TAB_6'
         }
       },
       {

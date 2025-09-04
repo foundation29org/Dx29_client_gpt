@@ -7,9 +7,8 @@
    BOOTSTRAP VARIABLE OVERRIDES
    ========================================== */
 :root {
-  /* Brand Colors - original dark red like Probar DxGPT */
-  --bs-primary: #8B0000;
-  --bs-primary-rgb: 139, 0, 0;
+  --bs-primary: #b30000;      /* Color rojo más fuerte de Bootstrap */
+  --bs-primary-rgb: 179,0,0;  /* El mismo color en formato RGB */
   --bs-secondary: #2C2C2C;
   --bs-secondary-rgb: 44, 44, 44;
   
@@ -948,7 +947,7 @@ a:not([href]) {
 }
 
 .navbar {
-  z-index: 1;
+  z-index: 1000;
   position: fixed;
   display: flex;
   flex-wrap: wrap;
@@ -1345,6 +1344,36 @@ textarea:focus {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+/* Table Styles */
+.table.dx-text-responsive-lg {
+  color: #000;  /* Color negro para la tabla */
+  line-height: 1.6;
+}
+
+.table.dx-text-responsive-lg td {
+  font-size: inherit;
+  color: inherit;  /* Heredará el color negro de la tabla */
+  line-height: inherit;
+  padding: 1rem;
+  vertical-align: top;
+  font-weight: normal;  /* Para asegurar que el texto no esté en negrita */
+}
+
+.table.dx-text-responsive-lg th {
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit;
+  padding: 1rem;
+  vertical-align: top;
+  font-weight: 600;  /* Negrita para los encabezados */
+}
+
+/* Placeholder visibility improvement */
+.searchTerm::placeholder {
+  color: #666 !important;
+  opacity: 1;
 }
 
 /* Utility Classes for Common Patterns */

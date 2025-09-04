@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 
 const routes: Routes = [
-  { path: '', component: AboutUsPageComponent, data: { title: 'menu.About us' } }
+  { path: '', component: AboutUsPageComponent, data: { title: 'navbar.TAB_2' } }
 ];
 
 @NgModule({

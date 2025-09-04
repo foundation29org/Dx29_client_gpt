@@ -1,0 +1,21 @@
+HERO_TITLE : Foundation 29
+HERO_SUBTITLE : Revolucionando el sistema sanitario con tecnología, rompiendo barreras para no dejar a nadie atrás.
+
+INTRO_TEXT : Fundación 29 es una organización sin ánimo de lucro. Nuestro nombre se inspira en el 29 de febrero, el día Internacional de las Enfermedades Raras. Investigamos con el uso de la tecnología puede ayudar a mejorar la vida de los pacientes.
+
+VISION_TEXT : Soñamos con un mundo donde diagnosticar una enfermedad rara no tarde años, sino días. Donde la inteligencia artificial sea un aliado para médicos, investigadores y pacientes, ayudando a tomar decisiones más rápidas, más precisas y, sobre todo, más humanas.
+
+CARD_1_TITLE : Innovación Tecnológica
+CARD_1_TEXT : Usamos la inteligencia artificial para desarrollar herramientas de vanguardia para resolver problemas reales en el campo de las enfermedades raras y comunes.
+
+CARD_2_TITLE : Comunidad Global
+CARD_2_TEXT : Conectamos a pacientes, familias, médicos e investigadores de todo el mundo para crear una red de apoyo y conocimiento compartido.
+
+CARD_3_TITLE : Impacto Humano
+CARD_3_TEXT : Cada línea de código que escribimos tiene un propósito: mejorar vidas reales y dar esperanza a quienes más lo necesitan.
+
+CARD_4_TITLE : Investigación Colaborativa
+CARD_4_TEXT : Facilitamos la investigación médica proporcionando plataformas que aceleran el descubrimiento y desarrollo de tratamientos.
+
+FOOTER_TEXT : Descubre más sobre nuestros proyectos e iniciativas visitando
+FOOTER_LINK : nuestra página oficial

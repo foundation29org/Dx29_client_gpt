@@ -21,39 +21,39 @@
           <ul class="navbar-nav m-r-0 menu-items">
               <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isHomePage)?'nav-inactive':'nav-active'" href="javascript:void(0)" (click)="navigateWithScroll('/.',  'Page - Home')">
-                      <span>{{'menu.Dashboard' | translate }}</span>
+                      <span>{{ 'navbar.TAB_1' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isAboutPage)?'nav-inactive':'nav-active'" href="javascript:void(0)" (click)="navigateWithScroll('/aboutus', 'Page - About us')">
-                      <span>{{'menu.About us' | translate }}</span>
+                      <span>{{ 'navbar.TAB_2' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isQuienesSomosPage)?'nav-inactive':'nav-active'" href="javascript:void(0)" (click)="navigateWithScroll('/quienes-somos', 'Page - Quienes somos')">   
-                      <span>Quiénes somos</span>
+                      <span>{{ 'navbar.TAB_3' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isTransparenciaPage)?'nav-inactive':'nav-active'" href="javascript:void(0)" (click)="navigateWithScroll('/transparencia', 'Page - Transparencia')">  
-                      <span>{{'menu.Transparency' | translate }}</span>
+                      <span>{{ 'navbar.TAB_4' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isFaqPage)?'nav-inactive':'nav-active'" href="javascript:void(0)" (click)="navigateWithScroll('/faq', 'Page - FAQ')">
-                      <span>FAQs</span>
+                      <span>{{ 'navbar.TAB_5' | translate }}</span>
                   </a>
               </li>
               <!--privacy-policy-->
               <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isPrivacyPolicyPage)?'nav-inactive':'nav-active'" href="javascript:void(0)" (click)="navigateWithScroll('/privacy-policy', 'Page - Privacy policy')">
-                      <span>{{'menu.Privacy Policy' | translate }}</span>
+                      <span>{{ 'navbar.TAB_6' | translate }}</span>
                   </a>
               </li>
               <!--privacy-policy-->
               <li class="nav-item me-2">
                   <a class="nav-link" [ngClass]="(!isReportsPage)?'nav-inactive':'nav-active'" href="javascript:void(0)" (click)="navigateWithScroll('/reports', 'Page - Usage statistics')">
-                      <span>{{'menu.Usage statistics' | translate }}</span>
+                      <span>{{ 'navbar.TAB_7' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2 donate-link" ngbDropdown display="dynamic" placement="bottom-left">
@@ -62,17 +62,17 @@
                      ngbDropdownToggle 
                      role="button"
                      (click)="lauchEvent('Page - Donate')">       
-                      <span>{{'land.Donate' | translate }} <em class="ms-1 fa fa-heart"></em></span>
+                      <span>{{ 'navbar.DONATE_BTN' | translate }} <em class="ms-1 fa fa-heart"></em></span>
                   </a>
                   <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="donationNavDropdown">
                       <a class="dropdown-item" href="https://foundation29.org/donate" target="_blank">
-                          <i class="fas fa-euro-sign me-2"></i>Donar fondos
+                          <i class="fas fa-euro-sign me-2"></i>{{ 'navbar.DONATE_DROPDOWN_1' | translate }}
                       </a>
                       <a class="dropdown-item" href="javascript:void(0)" (click)="openClinicalDataModal()">
-                          <i class="fas fa-file-medical me-2"></i>Donar datos clínicos individuales
+                          <i class="fas fa-file-medical me-2"></i>{{ 'navbar.DONATE_DROPDOWN_2' | translate }}
                       </a>
                       <a class="dropdown-item" href="javascript:void(0)" (click)="openDatasetsModal()">
-                          <i class="fas fa-database me-2"></i>Donar datasets (instituciones/investigación)
+                          <i class="fas fa-database me-2"></i>{{ 'navbar.DONATE_DROPDOWN_3' | translate }}
                       </a>
                   </div>
               </li>
@@ -104,65 +104,65 @@
 <ng-template #clinicalDataModal let-c="close" let-d="dismiss">    
   <div class="unified-modal">
   <div class="modal-header">
-    <h4 class="modal-title">Donar datos clínicos individuales</h4>
+    <h4 class="modal-title">{{ 'forms.NAV_CLINICAL_TITLE' | translate }}</h4>
   </div>
   <div class="modal-body">
-    <p class="mb-3">Ayúdanos a mejorar el diagnóstico de enfermedades compartiendo datos clínicos anónimos.</p>
-    <p class="text-muted mb-4">Para proceder con la donación de datos clínicos, completa el siguiente formulario y nuestro equipo se pondrá en contacto contigo para coordinar el proceso de manera segura.</p>
+    <p class="mb-3">{{ 'forms.NAV_CLINICAL_DESCRIPTION' | translate }}</p>
+    <p class="text-muted mb-4">{{ 'forms.NAV_CLINICAL_SUBTITLE' | translate }}</p>
     
     <form [formGroup]="clinicalDataForm" (ngSubmit)="submitClinicalDataForm()" class="unified-form">
       <div class="mb-3">
-        <label for="clinicalName" class="form-label">Nombre completo *</label>
+        <label for="clinicalName" class="form-label">{{ 'forms.NAME_LABEL' | translate }} *</label>
         <input type="text" 
                class="form-control" 
                id="clinicalName" 
                formControlName="name"
-               placeholder="Ingresa tu nombre completo">
+               placeholder="{{ 'forms.NAME_PLACEHOLDER' | translate }}">
         <div class="text-danger small mt-1" *ngIf="clinicalDataForm.get('name')?.invalid && clinicalDataForm.get('name')?.touched">  
-          El nombre es obligatorio
+          {{ 'forms.FIELD_REQUIRED' | translate }}
         </div>
       </div>
       
       <div class="mb-3">
-        <label for="clinicalEmail" class="form-label">Correo electrónico *</label>
+        <label for="clinicalEmail" class="form-label">{{ 'forms.EMAIL_LABEL' | translate }} *</label>
         <input type="email" 
                class="form-control" 
                id="clinicalEmail" 
                formControlName="email"
-               placeholder="tu@email.com">
+               placeholder="{{ 'forms.EMAIL_PLACEHOLDER' | translate }}">
         <div class="text-danger small mt-1" *ngIf="clinicalDataForm.get('email')?.invalid && clinicalDataForm.get('email')?.touched">
-          Ingresa un correo electrónico válido
+          {{ 'forms.FIELD_REQUIRED' | translate }}
         </div>
       </div>
       
       <div class="mb-3">
-        <label for="clinicalMessage" class="form-label">Mensaje *</label>
+        <label for="clinicalMessage" class="form-label">{{ 'forms.MESSAGE_LABEL' | translate }} *</label>
         <textarea class="form-control" 
                   id="clinicalMessage" 
                   rows="4" 
                   formControlName="message"
-                  placeholder="Describe los datos clínicos que deseas donar (tipo de datos, cantidad aproximada, formato, etc.)"></textarea>
+                  placeholder="{{ 'forms.NAV_CLINICAL_MESSAGE_PLACEHOLDER' | translate }}"></textarea>
         <div class="text-danger small mt-1" *ngIf="clinicalDataForm.get('message')?.invalid && clinicalDataForm.get('message')?.touched">
-          El mensaje es obligatorio
+          {{ 'forms.FIELD_REQUIRED' | translate }}
         </div>
       </div>
       
       <div class="checkboxes-container">
         <div class="checkbox-item">
           <mat-checkbox formControlName="subscribe">
-            Recibir actualizaciones por email
+            {{ 'forms.NAV_CLINICAL_SUBSCRIBE_CHECK' | translate }}
           </mat-checkbox>
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancelar</button>
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{ 'generics.Cancel' | translate }}</button>
     <button type="button" 
             class="btn btn-primary" 
             [disabled]="clinicalDataForm.invalid"
             (click)="submitClinicalDataForm()">
-      Enviar solicitud
+      {{ 'forms.SUBMIT_BTN' | translate }}
     </button>
   </div>
   </div>
@@ -172,65 +172,65 @@
 <ng-template #datasetsModal let-c="close" let-d="dismiss">        
   <div class="unified-modal">
   <div class="modal-header">
-    <h4 class="modal-title">Donar datasets (instituciones/investigación)</h4>
+    <h4 class="modal-title">{{ 'forms.NAV_DATASETS_TITLE' | translate }}</h4>
   </div>
   <div class="modal-body">
-    <p class="mb-3">Comparte datasets institucionales para mejorar el diagnóstico de enfermedades.</p>
-    <p class="text-muted mb-4">Para proceder con la donación de datasets, completa el siguiente formulario y nuestro equipo se pondrá en contacto contigo para coordinar el proceso de manera segura.</p>
+    <p class="mb-3">{{ 'forms.NAV_DATASETS_DESCRIPTION' | translate }}</p>
+    <p class="text-muted mb-4">{{ 'forms.NAV_DATASETS_SUBTITLE' | translate }}</p>
     
     <form [formGroup]="datasetsForm" (ngSubmit)="submitDatasetsForm()" class="unified-form">
       <div class="mb-3">
-        <label for="datasetsName" class="form-label">Nombre completo *</label>
+        <label for="datasetsName" class="form-label">{{ 'forms.NAME_LABEL' | translate }} *</label>
         <input type="text" 
                class="form-control" 
                id="datasetsName" 
                formControlName="name"
-               placeholder="Ingresa tu nombre completo">
+               placeholder="{{ 'forms.NAME_PLACEHOLDER' | translate }}">
         <div class="text-danger small mt-1" *ngIf="datasetsForm.get('name')?.invalid && datasetsForm.get('name')?.touched">
-          El nombre es obligatorio
+          {{ 'forms.FIELD_REQUIRED' | translate }}
         </div>
       </div>
       
       <div class="mb-3">
-        <label for="datasetsEmail" class="form-label">Correo electrónico *</label>
+        <label for="datasetsEmail" class="form-label">{{ 'forms.EMAIL_LABEL' | translate }} *</label>
         <input type="email" 
                class="form-control" 
                id="datasetsEmail" 
                formControlName="email"
-               placeholder="tu@email.com">
+               placeholder="{{ 'forms.EMAIL_PLACEHOLDER' | translate }}">
         <div class="text-danger small mt-1" *ngIf="datasetsForm.get('email')?.invalid && datasetsForm.get('email')?.touched">        
-          Ingresa un correo electrónico válido
+          {{ 'forms.FIELD_REQUIRED' | translate }}
         </div>
       </div>
       
       <div class="mb-3">
-        <label for="datasetsMessage" class="form-label">Mensaje *</label>
+        <label for="datasetsMessage" class="form-label">{{ 'forms.MESSAGE_LABEL' | translate }} *</label>
         <textarea class="form-control" 
                   id="datasetsMessage" 
                   rows="4" 
                   formControlName="message"
-                  placeholder="Describe los datasets que deseas donar (tipo de datos, tamaño, formato, institución, etc.)"></textarea>
+                  placeholder="{{ 'forms.NAV_DATASETS_MESSAGE_PLACEHOLDER' | translate }}"></textarea>
         <div class="text-danger small mt-1" *ngIf="datasetsForm.get('message')?.invalid && datasetsForm.get('message')?.touched">    
-          El mensaje es obligatorio
+          {{ 'forms.FIELD_REQUIRED' | translate }}
         </div>
       </div>
       
       <div class="checkboxes-container">
         <div class="checkbox-item">
           <mat-checkbox formControlName="subscribe">
-            Recibir actualizaciones por email
+            {{ 'forms.NAV_DATASETS_SUBSCRIBE_CHECK' | translate }}
           </mat-checkbox>
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancelar</button>
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{ 'generics.Cancel' | translate }}</button>
     <button type="button" 
             class="btn btn-primary" 
             [disabled]="datasetsForm.invalid"
             (click)="submitDatasetsForm()">
-      Enviar solicitud
+      {{ 'forms.SUBMIT_BTN' | translate }}
     </button>
   </div>
   </div>
