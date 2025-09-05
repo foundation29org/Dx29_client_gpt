@@ -130,8 +130,8 @@
       },
       "science": {
         "title": "Nauka zadawania pytań: Sekret spójności",
-        "description": "Jakość odpowiedzi LLM zależy od jakości pytania. DxGPT rozwija i waliduje ponad 30 formułacji promptów (instrukcji) w celu osiągnięcia skutecznego i spójnego myślenia klinicznego.",
-        "differentiator": "Ten ekspercki kontrolę nad formułacją jest kluczowym różnicowaniem frente do ogólnych SI, zapewniając spójny i powtarzalny rygor analityczny dla tego samego przypadku."
+        "description": "Nasze badania ujawniły krytyczny czynnik: jakość odpowiedzi LLM zależy decydująco od jakości pytania. Dlatego opracowaliśmy i walidowaliśmy ponad 30 formułowań prompt (instrukcji), aby znaleźć optymalną strukturę, która aktywuje efektywne i spójne rozumowanie kliniczne.",
+        "differentiator": "Ta ekspercka kontrola nad formułowaniem to co różni DxGPT od generalistycznego AI. Nie pozostawiamy jakości wyniku przypadkowi; zaprojektowaliśmy proces, który zapewnia, że dla tego samego przypadku system zawsze stosuje tę samą analityczną rygorystyczność, produkując niezawodne i powtarzalne wyniki."
       },
       "chart": {
         "caption": "Wykres ilustruje, jak nasza optymizacja formułacji (skok z rodziny 4o → o3) nie tylko zwiększa precyzję (osi X), ale także umożliwia rozwiązywanie przypadków większej złożoności (osi Y), demonstrując znaczący postęp w zdolności myślenia klinicznego systemu."
@@ -149,7 +149,7 @@
         },
         "prioritization": {
           "title": "Jakość priorytetyzacji",
-          "description": "Nie wystarczy, że poprawny diagnoza jest na liście; jego średnia pozycja jest mierzona. Poprawny diagnoza w pierwszej pozycji jest 'nieskończenie bardziej przydatny niż w piątej,' i ta metryka ocenia zdolność DxGPT do 'priorytetyzacji jak specjalista, oferując maksymalną kliniczną relevancję w najkrótszym możliwym czasie'."
+          "description": "To nasza najinnowacyjniejsza metryka. Nie wystarczy, że poprawny diagnoza jest na liście; jego średnia pozycja jest mierzona. Poprawny diagnoza w pierwszej pozycji jest 'nieskończenie bardziej przydatny niż w piątej,' i ta metryka ocenia zdolność DxGPT do 'priorytetyzacji jak specjalista, oferując maksymalną kliniczną relevancję w najkrótszym możliwym czasie'."
         }
       },
       "user": {
@@ -172,10 +172,10 @@
     },
     "trust": {
       "title": "Nasze zobowiązanie do zaufania i bezpieczeństwa",
-      "intro": "Zaufanie, ochrona danych klinicznych i regulacyjna zgodność są kluczowe dla projektu DxGPT. Nasze zobowiązanie do radykalnej przejrzystości daje Ci pełne poczucie bezpieczeństwa.",
+      "intro": "Zaufanie jest fundamentem medycyny. W DxGPT ochrona danych klinicznych i zgodność regulacyjna nie są przemyśleniem wtórnym, ale sercem naszego projektu. Działamy z radykalną transparentnością, aby profesjonaliści i systemy zdrowia mogły używać naszego narzędzia z całkowitym spokojem ducha.",
       "protection": {
         "title": "Jak chronimy każde pytanie: Proces bez przechowywania danych osobowych",
-        "intro": "Nasz proces pracy maksymalizuje użyteczność kliniczną i minimalizuje ekspozycję danych.",
+        "intro": "Nasz przepływ pracy jest zaprojektowany do maksymalizacji użyteczności klinicznej i minimalizacji ryzyka ekspozycji danych do zera.",
         "anonymization": {
           "title": "Wprowadzanie danych i automatyczna anonimizacja",
           "description": "Informacje osobowe (PII) takie jak imiona, adresy lub identyfikatory są automatycznie wykrywane i usuwane przed przetwarzaniem przez model AI, zapewniając, że używane są tylko anonimowe dane kliniczne."
@@ -224,18 +224,18 @@
         },
         "hipaa": {
           "title": "HIPAA (Health Insurance Portability and Accountability Act)",
-          "description": "Zgodność z technicznymi, fizycznymi i administracyjnymi środkami ochronnymi, co pozwala na podpisanie BAAs z zakwalifikowanymi podmiotami w Stanach Zjednoczonych."
+          "description": "Nasza architektura przestrzega zabezpieczeń technicznych, fizycznych i administracyjnych wymaganych przez Regułę Bezpieczeństwa HIPAA, pozwalając nam podpisywać BAA z jednostkami objętymi ochroną w Stanach Zjednoczonych."
         },
         "aiact": {
           "title": "EU AI Act",
-          "description": "Aktywna praca w kierunku pełnej zgodności z EU AI Act, współpraca z ekspertami i nadzorczymi organami, aby zapewnić najwyższe standardy zarządzania ryzykiem, zarządzania danymi, przejrzystości i odporności."
+          "description": "Aktywnie pracujemy nad pełną zgodnością z Aktem AI Unii Europejskiej. Współpracujemy z ekspertami i organami regulacyjnymi, aby zapewnić, że DxGPT spełnia najwyższe standardy zarządzania ryzykiem, zarządzania danymi, transparentności i solidności, pozycjonując nas na czele odpowiedzialnej AI w zdrowiu."
         }
       }
     }
   },
   "foundation29": {
     "hero": {
-      "title": "Foundation 29",
+      "title": "O nas",
       "subtitle": "Rewolucjonizujemy system opieki zdrowotnej za pomocą technologii, łamiąc bariery, aby nikogo nie zostawić w tyle."
     },
     "introduction": {
@@ -272,15 +272,52 @@
     "description": "Zaangażowani w otwartość, współpracę i odpowiedzialność w rozwoju technologii medycznych.",
     "technologyPartners": {
       "title": "Partnerzy technologiczni",
-      "description": "Dziękujemy Microsoft, który poprzez swój program AI for Good zapewnia nam infrastrukturę na Azure oraz wsparcie wolontariuszy-pracowników. Również Google, którego program dla organizacji pozarządowych pomaga nam zwiększyć widoczność DxGPT w swojej wyszukiwarce, aby dotrzeć do większej liczby profesjonalistów i pacjentów."
+      "description": "Dziękujemy Microsoft, który poprzez swój program AI for Good zapewnia nam infrastrukturę na Azure oraz wsparcie wolontariuszy-pracowników. Również Google, którego program dla organizacji pozarządowych pomaga nam zwiększyć widoczność DxGPT w swojej wyszukiwarce, aby dotrzeć do większej liczby profesjonalistów i pacjentów.",
+      "microsoftDescription": "Infrastruktura na Azure i wsparcie wolontariuszy-pracowników",
+      "googleDescription": "Pomaga zwiększyć widoczność DxGPT, aby dotrzeć do większej liczby profesjonalistów i pacjentów"
     },
     "ourSponsors": {
       "title": "Nasi sponsorzy",
-      "description": "Doceniamy cenne wsparcie naszych sponsorów, którzy umożliwiają rozwój i utrzymanie DxGPT."
+      "description": "Wyrażamy najgłębszą wdzięczność naszym hojnym sponsorom. Ich wsparcie jest czysto filantropijne, bez interesów komercyjnych czy wymiany danych, i jest istotne dla rozwijania narzędzi takich jak DxGPT i oferowania ich za darmo."
     },
     "implementations": {
       "title": "Implementacje",
-      "description": "DxGPT został wdrożony w różnych systemach opieki zdrowotnej i organizacjach medycznych w celu poprawy diagnozy i opieki nad pacjentami."
+      "description": "DxGPT został wdrożony w różnych systemach opieki zdrowotnej i organizacjach medycznych w celu poprawy diagnozy i opieki nad pacjentami.",
+      "aragon": {
+        "title": "Aragońska Służba Zdrowia",
+        "status": "Od lipca 2025",
+        "description": "DxGPT jest teraz dostępny dla pracowników służby zdrowia w Aragonii, pozwalając na poprawę dokładności i szybkości diagnozowania rzadkich i powszechnych chorób w regionie Aragonii.",
+        "users": "Użytkownicy:",
+        "usersValue": "+5,000 lekarzy",
+        "scope": "Zakres:",
+        "scopeValue": "Region Aragonii",
+        "focus": "Fokus:",
+        "focusValue": "Rzadkie i powszechne choroby"
+      },
+      "sermas": {
+        "title": "Madrycka Służba Zdrowia (SERMAS)",
+        "status": "Od września 2023",
+        "description": "Pionierska implementacja DxGPT w systemie opieki zdrowotnej Wspólnoty Madrytu, zapewniająca dostęp ponad 6,000 lekarzy podstawowej opieki zdrowotnej w celu poprawy możliwości diagnostycznych.",
+        "coverage": "Pokrycie:",
+        "coverageValue": "Cała sieć podstawowej opieki zdrowotnej",
+        "users": "Użytkownicy:",
+        "usersValue": "+6,000 lekarzy",
+        "focus": "Fokus:",
+        "focusValue": "Rzadkie choroby i przypadki złożone",
+        "news1": "Microsoft News - SERMAS pionierem w generatywnej AI",
+        "news2": "Wspólnota Madrytu - Dostęp dla 6,000 lekarzy"
+      },
+      "catsalut": {
+        "title": "Katalońska Służba Zdrowia (CatSalut)",
+        "status": "W rozwoju",
+        "description": "Nadchodząca implementacja w katalońskim systemie opieki zdrowotnej w celu rozszerzenia korzyści DxGPT na większą populację pracowników służby zdrowia w Katalonii.",
+        "statusLabel": "Status:",
+        "statusValue": "Faza implementacji",
+        "scope": "Zakres:",
+        "scopeValue": "Kataloński system opieki zdrowotnej",
+        "objective": "Cel:",
+        "objectiveValue": "Kompleksowa poprawa diagnostyki"
+      }
     },
     "healthSystems": {
       "title": "Wykorzystanie w systemach opieki zdrowotnej",

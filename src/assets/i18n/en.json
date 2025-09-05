@@ -130,8 +130,8 @@
       },
       "science": {
         "title": "The science of asking: The secret to consistency",
-        "description": "The quality of an LLM's response depends on the quality of the question. DxGPT has developed and validated over 30 prompt formulations (instructions) to achieve effective and consistent clinical reasoning.",
-        "differentiator": "This expert control over formulation is a key differentiator from generalist AI, ensuring consistent analytical rigor and reproducible results for the same case."
+        "description": "Our research has revealed a critical factor: the quality of an LLM's response depends decisively on the quality of the question. Therefore, we have developed and validated over 30 prompt formulations (instructions) to find the optimal structure that activates effective and consistent clinical reasoning.",
+        "differentiator": "This expert control over formulation is what differentiates DxGPT from a generalist AI. We do not leave the quality of the result to chance; we have designed a process that ensures that, for the same case, the system always applies the same analytical rigor, producing reliable and reproducible results."
       },
       "chart": {
         "caption": "The chart illustrates how our optimization of the formulation (the jump from the 4o → o3 family) not only increases accuracy (X-axis), but also allows solving cases of greater complexity (Y-axis), demonstrating a significant advance in the system's clinical reasoning ability."
@@ -149,7 +149,7 @@
         },
         "prioritization": {
           "title": "Quality of Prioritization",
-          "description": "It's not enough for the correct diagnosis to be on the list; its average position is measured. A correct diagnosis in the first position is 'infinitely more useful than in the fifth,' and this metric evaluates DxGPT's ability to 'prioritize like a specialist, offering maximum clinical relevance in the shortest possible time'."
+          "description": "This is our most innovative metric. It's not enough for the correct diagnosis to be on the list; its average position is measured. A correct diagnosis in the first position is 'infinitely more useful than in the fifth,' and this metric evaluates DxGPT's ability to 'prioritize like a specialist, offering maximum clinical relevance in the shortest possible time'."
         }
       },
       "user": {
@@ -172,10 +172,10 @@
     },
     "trust": {
       "title": "Our pact of trust and security",
-      "intro": "Trust, clinical data protection, and regulatory compliance are core to DxGPT's design. Our commitment to radical transparency gives you complete peace of mind.",
+      "intro": "Trust is the foundation of medicine. At DxGPT, the protection of clinical data and regulatory compliance are not an afterthought, but the core of our design. We operate with radical transparency so that professionals and health systems can use our tool with complete peace of mind.",
       "protection": {
         "title": "How we protect every query: A zero-retention process for personal information",
-        "intro": "Our workflow maximizes clinical utility and minimizes data exposure.",
+        "intro": "Our workflow is designed to maximize clinical utility and minimize the risk of data exposure to zero.",
         "anonymization": {
           "title": "Data entry and automatic anonymization",
           "description": "Personally Identifiable Information (PII) like names, addresses, or IDs are automatically detected and removed before processing by the AI model, ensuring only anonymous clinical data is used."
@@ -224,18 +224,18 @@
         },
         "hipaa": {
           "title": "HIPAA (Health Insurance Portability and Accountability Act)",
-          "description": "Compliance with technical, physical, and administrative safeguards, allowing BAAs with US covered entities."
+          "description": "Our architecture complies with the technical, physical, and administrative safeguards required by the HIPAA Security Rule, allowing us to sign BAAs with covered entities in the United States."
         },
         "aiact": {
           "title": "EU AI Act",
-          "description": "Active work towards full alignment with the EU AI Act, collaborating with experts to ensure high standards of risk management, data governance, transparency, and robustness."
+          "description": "We are actively working towards full alignment with the European Union's AI Act. We collaborate with experts and regulatory authorities to ensure that DxGPT meets the highest standards of risk management, data governance, transparency, and robustness, positioning us at the forefront of responsible AI in health."
         }
       }
     }
   },
   "foundation29": {
     "hero": {
-      "title": "Foundation 29",
+      "title": "About us",
       "subtitle": "Revolutionizing the healthcare system with technology, breaking down barriers to leave no one behind."
     },
     "introduction": {
@@ -270,17 +270,19 @@
   "collaboration":{
     "title": "Collaboration",
     "description": "Committed to openness, collaboration, and responsibility in the development of medical technology.",
-    "technologyPartners": {
-      "title": "Technology partners",
-      "description": "We thank Microsoft, which through its AI for Good program provides us with the infrastructure on Azure and the support of employee volunteers. Also to Google, whose program for NGOs helps us increase the visibility of DxGPT in its search engine to reach more professionals and patients."
-    },
+          "technologyPartners": {
+        "title": "Technology partners",
+        "description": "We thank Microsoft, which through its AI for Good program provides us with the infrastructure on Azure and the support of employee volunteers. Also to Google, whose program for NGOs helps us increase the visibility of DxGPT in its search engine to reach more professionals and patients.",
+        "microsoftDescription": "Infrastructure on Azure and support from employee volunteers",
+        "googleDescription": "Helps increase DxGPT's visibility to reach more professionals and patients"
+      },
     "ourSponsors": {
       "title": "Our sponsors",
-      "description": "We recognize the valuable support of our sponsors who make the development and maintenance of DxGPT possible."
+      "description": "We extend our deepest gratitude to our generous sponsors. Their support is purely philanthropic, with no commercial interests or data exchange, and is vital for developing tools like DxGPT and offering them for free."
     },
     "implementations": {
       "title": "Implementations",
-      "description": "DxGPT has been implemented in various health systems and medical organizations to improve diagnosis and patient care.",
+      "description": "DxGPT is being implemented in real health services, improving the diagnosis of rare diseases and complex cases.",
       "aragon": {
         "title": "Aragonese Health Service",
         "status": "Since July 2025",
