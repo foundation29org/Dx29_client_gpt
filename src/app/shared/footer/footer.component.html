@@ -1,96 +1,93 @@
 <!--Footer Starts-->
 <footer class="footer-main">
-    <div class="container-fluid pt-2">
-      <div class="text-center">
-        <div class="d-flex flex-column align-items-center justify-content-center py-4">
-          <p class="mb-2">{{'land.Made with love by' | translate}}  <a [href]="foundationLink" target="_blank" class="pointer underline">{{'generics.Foundation 29' | translate}}</a></p>
-          <a [href]="foundationLink" target="_blank">
-            <img [src]="footerLogo" alt="Foundation logo" class="img-fluid footer-logo">
-          </a>
+  <div class="container-fluid">
+    <div class="footer-content">
+      <div class="footer-columns">
+        <!-- DxGPT Column -->
+        <div class="footer-column">
+          <h3 class="footer-title">{{ brandingService.getAppName() }}</h3>
+          <ul class="footer-links">
+            <li><a routerLink="/aboutus">{{'menu.About us' | translate }}</a></li>
+            <li><a routerLink="/aboutus" fragment="evaluation">{{'footer.Accuracy' | translate }}</a></li>
+            <li><a href="https://github.com/foundation29org/dxgpt-bench-lab/blob/main/bench/__conceptual-model-and-research-notes/evaluacion_modelos_llm_diagnostico_pediatrico_pipeline_pv4.pdf" target="_blank">{{'footer.Evaluation' | translate }}</a></li>
+            <li><a routerLink="/reports">{{'menu.Usage statistics' | translate }}</a></li>
+            <li><a routerLink="/faq">FAQs</a></li>
+          </ul>
         </div>
-      </div>
-      <div class="footer-links-wrapper row margin-0 center-elements mb-footer-mobile">
-        <div class="col-lg-12">
-          <div class="row footer-links-row">
-            <div [ngClass]="(!isHomePage && !isResultPage)?'col-md-6':'col-md-4'" *ngIf="!isPolicyPage">
-              <p>
-                <a href="javascript:;" class="underline" (click)="openModalPolicy()">
-                  <span>{{'menu.Privacy Policy' | translate }}</span>
-                </a>
-              </p>
-            </div>
-            <div  class="col-md-4" *ngIf="isHomePage || isResultPage">
-              <p>
-                <a href="javascript:;" class="underline" (click)="openSupport(contentSubs)">
-                  <span>{{'land.Subscribe or send us a message' | translate }}</span>
-                </a>
-              </p>
-            </div>
-            <div [ngClass]="(!isHomePage && !isResultPage)?'col-md-6':'col-md-4'" *ngIf="!isCookiesPage">
-              <p>
-                <a href="javascript:;" class="underline" (click)="openModalCookies()">
-                  <span>{{'cookies.title' | translate }}</span>
-                </a>
-              </p>
-            </div>
+
+        <!-- Colaboración Column -->
+        <div class="footer-column">
+          <h3 class="footer-title">{{'footer.Collaboration' | translate }}</h3>
+          <ul class="footer-links">
+            <li><a routerLink="/collaboration" fragment="partners">{{'footer.Technology partners' | translate }}</a></li>
+            <li><a routerLink="/collaboration" fragment="sponsors">{{'footer.Our sponsors' | translate }}</a></li>
+            <li><a routerLink="/collaboration" fragment="implementations">{{'footer.Implementations' | translate }}</a></li>
+            <li><a routerLink="/collaboration" fragment="implementations-opportunity">{{'footer.Use in health systems' | translate }}</a></li>
+            <li><a routerLink="/collaboration" fragment="collaborate">{{'footer.I want to collaborate' | translate }}</a></li>
+            <li><a [href]="brandingService.getDonateLink()" target="_blank" *ngIf="shouldShowDonate">{{'land.Donate' | translate }}</a></li>
+          </ul>
+        </div>
+
+        <!-- Cumplimiento Column -->
+        <div class="footer-column">
+          <h3 class="footer-title">{{'footer.Compliance' | translate }}</h3>
+          <ul class="footer-links">
+            <li><a href="javascript:;" (click)="openModalPolicy()">{{'footer.Privacy GDPR HIPAA AI Act' | translate }}</a></li>
+            <li><a href="javascript:;" (click)="openModalCookies()">{{'cookies.title' | translate }}</a></li>
+          </ul>
+        </div>
+
+        <!-- Right Column - Buttons and Branding -->
+        <div class="footer-right-column">
+          <div class="footer-buttons">
+            <button class="btn-contact" (click)="openContactModal()">
+              <i class="fas fa-envelope"></i>
+              {{'footer.Contact us' | translate }}
+            </button>
+            <button class="btn-updates" (click)="openSubscribeModal()">
+              <i class="fas fa-bell"></i>
+              {{'footer.Updates' | translate }}
+            </button>
+          </div>
+          
+          <div class="footer-attribution">
+            <p class="made-with-love">{{'land.Made with love by' | translate }}</p>
+            <a [href]="foundationLink" target="_blank">
+              <img [src]="footerLogo" alt="Foundation logo" class="img-fluid footer-logo">
+            </a>
+          </div>
+
+          <div class="social-media">
+            <a href="https://github.com/foundation29" target="_blank" class="social-link">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/company/foundation29" target="_blank" class="social-link">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
           </div>
         </div>
       </div>
     </div>
-</footer>
-<ng-template #contentSubs let-c="close" let-d="dismiss">
-  <a id="initpopup" class="anchorSteps"></a>
-  <div class="modal-header">
-    <h4 class="modal-title">{{brandingService.getSupportText()}}</h4>
-    <span type="button" class="btn-close" aria-label="Close" (click)="closeSupport()">
-    </span>
+
+    <!-- Bottom Section -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <p class="copyright">© 2025 Foundation 29. All rights reserved.</p>
+        <p class="powered-by">Powered by AI for Good</p>
+      </div>
+    </div>
   </div>
-  <div class="modal-body">
-    <form class="form" #f="ngForm">
-      <div class="form-group">
-        <span class="mb-0">{{'generics.Name' | translate }} *</span>
-        <div>
-                     <input class="form-control" type="text" id="userName" name="userName" placeholder="{{'generics.Name' | translate }}" ngModel required #userNameModel="ngModel" autocomplete="name" [(ngModel)]="userName">
-          <small class="danger" *ngIf="!userNameModel.valid && showErrorForm">{{'generics.required' | translate }}</small>
-        </div>
-      </div>
-      <div class="form-group">
-        <span class="mb-0">{{'generics.Email' | translate }} *</span>
-        <div>
-                     <input class="form-control" type="email" id="Email" name="email" placeholder="{{'generics.Email' | translate }}" ngModel required #Email="ngModel" autocomplete="email" email [(ngModel)]="email">
-          <small class="danger" *ngIf="!Email.valid && showErrorForm">{{'generics.entervalidemail' | translate }}</small>
-        </div>
-      </div>
-      <div class="form-group">
-        <span>{{'support.Message' | translate }} ({{'generics.Optional' | translate }}):</span>
-        <div>
-          <textarea maxlength="2000" #autoajustable id="textarea1" type="text" name="msgfeedBack" class="autoajustable data-hj-allow form-control" style="width: 100%;" [(ngModel)]="msgfeedBack" (input)="autoResize($event)"></textarea>
-          <p class="float-end">{{ msgfeedBack.length }} / 2000</p>
-        </div>
-      </div>
-      <div class="">
-        <mat-checkbox
-            class="example-margin" name="terms3" ngModel #terms3="ngModel" id="terms3"  [(ngModel)]="checkSubscribe">
-            <span class="mat-checkbox-label" >{{'land.Email me' | translate }}</span>
-        </mat-checkbox>
-      </div>
-      <div class="form-group">
-        <mat-checkbox
-            class="example-margin" name="termscontrol" ngModel #terms="ngModel" id="termscontrol" required [(ngModel)]="acceptTerms">
-            <span class="mat-checkbox-label">{{'termsform.accept' | translate }} <a href="javascript:;" (click)="openModal(termsModal)">{{'termsform.terms' | translate }}</a></span>
-        </mat-checkbox>
-        <small class="danger d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
-      </div>
-      <div *ngIf="!sending" class="mt-2 col-md-12 center-elements">
-        <div *ngIf="f.valid;then formValid else formError"></div>
-        <button class="btn btn-secondary ms-1" type="button" (click)="closeSupport()">{{'generics.Cancel' | translate }}</button>
-        <ng-template #formValid><button class="btn btn-info me-1" (click)="onSubmitRevolution();"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
-        <ng-template #formError><button class="btn btn-info me-1" type="button" (click)="submitInvalidForm()"><strong>{{'generics.Send' | translate }}</strong></button></ng-template>
-      </div>
-      <div class="form-actions col-md-12 center-elements" *ngIf="sending">
-          <span class=""><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
-      </div>
-    </form>
+</footer>
+<!-- Template para el modal de send-msg -->
+<ng-template #sendMsgModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ getModalTitle() }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-0">
+    <app-send-msg [mode]="modalMode" (closeModalEvent)="closeModal()"></app-send-msg>
   </div>
 </ng-template>
 

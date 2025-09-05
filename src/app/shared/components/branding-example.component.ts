@@ -98,6 +98,7 @@ export class BrandingExampleComponent implements OnInit {
   currentTenant: string = '';
   headerLogo: string = '';
   footerLogo: string = '';
+  f29DarkLogo: string = '';
   foundationLink: string = '';
   shouldShowDonate: boolean = false;
   donateLink: string | null = null;
@@ -122,6 +123,7 @@ export class BrandingExampleComponent implements OnInit {
         this.appDescription = config.description;
         this.headerLogo = config.logos.header;
         this.footerLogo = config.logos.footer;
+        this.f29DarkLogo = config.logos.f29Dark;
         this.foundationLink = config.links.foundation;
         this.shouldShowDonate = config.links.donate !== null;
         this.donateLink = config.links.donate;

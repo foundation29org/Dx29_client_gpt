@@ -124,6 +124,7 @@ a:focus
     left: 0;
     background-color: #fff;
     box-shadow: 0 6px 0 0 rgba(0,0,0,.01),0 15px 32px 0 rgba(0,0,0,.06);
+    z-index: 5;
   }
   
   .swal2-styled.swal2-confirm{

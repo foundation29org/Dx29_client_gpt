@@ -1,7 +1,8 @@
-import { Component, Optional  } from '@angular/core';
+import { Component, Optional, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BrandingService } from 'app/shared/services/branding.service';
 
 @Component({
     selector: 'app-privacy-policy',
@@ -9,17 +10,23 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     styleUrls: ['./privacy-policy.component.scss']
 })
 
-export class PrivacyPolicyPageComponent {
+export class PrivacyPolicyPageComponent implements OnInit {
   isShortVersion: boolean = false;
-  constructor(public translate: TranslateService, private router: Router, @Optional() public activeModal: NgbActiveModal) {
+  
+  constructor(
+    public translate: TranslateService, 
+    private router: Router, 
+    @Optional() public activeModal: NgbActiveModal,
+    public brandingService: BrandingService
+  ) {
+  }
+
+  ngOnInit(): void {
+    // Inicialización del componente
   }
 
   goTo(url){
     document.getElementById(url).scrollIntoView({behavior: "smooth"});
-  }
-  
-  isDirectRoute(): boolean {
-    return this.router.url === '/privacy-policy';
   }
 
   goHome() {
