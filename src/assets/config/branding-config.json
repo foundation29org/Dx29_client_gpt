@@ -38,7 +38,7 @@
     "colors": {
       "primary": "#e1a84c",
       "secondary": "#388E3C",
-      "accent": "#4CAF50",
+      "accent": "#e1a84c",
       "rating": "#e1a84c",
       "background": "#ffffff",
       "text": "#333333",
