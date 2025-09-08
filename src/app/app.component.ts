@@ -11,6 +11,7 @@ import { DOCUMENT } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UuidService } from './shared/services/uuid.service';
 import { BrandingService } from './shared/services/branding.service';
+import { StorageService } from './shared/services/storage.service';
 
 import {
   NgcCookieConsentService,
@@ -43,7 +44,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     private ngZone: NgZone, 
     private iconsService: IconsService,
     private uuidService: UuidService,
-    private brandingService: BrandingService
+    private brandingService: BrandingService,
+    private storageService: StorageService
   ) {
     // Inicializar el UUID al inicio de la aplicación
     this.uuidService.getUuid();
@@ -90,6 +92,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngOnInit() {
     this.iconsService.loadIcons();
+    
+    // Inicializar storage persistence moderno
+    this.storageService.requestStoragePersistence().then(granted => {
+      if (granted) {
+        console.log('Storage persistence granted using modern API');
+      }
+    });
     
     // Inicializar el servicio de branding
     this.brandingService.brandingConfig$.subscribe(config => {
