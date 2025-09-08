@@ -138,14 +138,34 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     .subscribe((event) => {
       (async () => {
         
-        // Asegurar que el scroll se ejecute después de renderizado
-        setTimeout(() => {
-          window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'auto'
-          });
-        }, 500);
+        // Verificar si hay un fragmento en la URL
+        const fragment = this.router.url.split('#')[1];
+        
+        if (fragment) {
+          // Si hay fragmento, esperar a que se renderice y hacer scroll al elemento
+          setTimeout(() => {
+            const element = document.getElementById(fragment);
+            if (element) {
+              // Calcular la posición considerando la altura del navbar (4.3rem = 68.8px)
+              const navbarHeight = 70; // Un poco más que 4.3rem para dar margen
+              const elementPosition = element.offsetTop - navbarHeight;
+              
+              window.scrollTo({
+                top: elementPosition,
+                behavior: 'smooth'
+              });
+            }
+          }, 600);
+        } else {
+          // Si no hay fragmento, hacer scroll al top
+          setTimeout(() => {
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'auto'
+            });
+          }, 500);
+        }
         
         await this.delay(500);
         this.tituloEvent = event['title'];

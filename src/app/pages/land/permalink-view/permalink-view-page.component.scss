@@ -57,12 +57,12 @@
 
 // Header Section
 .header-section {
-  background: var(--permalink-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+  background: var(--accent-color) !important;
   color: white;
   padding: 2rem;
   
   @media print {
-    background: var(--permalink-primary, #667eea) !important;
+    background: var(--accent-color) !important;
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
@@ -253,7 +253,7 @@
   margin-bottom: 1rem;
   
   .diagnosis-number {
-    background: var(--permalink-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+    background: var(--accent-color) !important;
     color: white;
     width: 40px;
     height: 40px;
@@ -267,7 +267,7 @@
     flex-shrink: 0;
     
     @media print {
-      background: var(--permalink-primary, #667eea) !important;
+      background: var(--accent-color) !important;
       -webkit-print-color-adjust: exact;
     }
   }

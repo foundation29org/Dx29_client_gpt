@@ -1,55 +1,82 @@
 <!-- Navbar (Header) Starts -->
-<nav class="navbar navbar-expand-lg navbar-light bg-faded damemarger custom-navbar">
+<nav class="navbar navbar-expand-xl navbar-light bg-faded damemarger custom-navbar">
   <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMenu()">
           <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="d-none d-lg-block">
+      <div class="d-none d-xl-block">
           <span class="navbar-header-logos">
               <img *ngIf="isHomePage" class="logo-header pointer" [src]="headerLogo" alt="logo" (click)="lauchEvent('Logo');goBackEvent();"/>
               <img *ngIf="!isHomePage" class="logo-header pointer" [src]="headerLogo" alt="logo" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
           </span>
       </div>
       <div class="d-block">
-        <div class="d-sm-block d-lg-none pointer">
+        <div class="d-sm-block d-xl-none pointer">
           <img *ngIf="isHomePage" class="mt-1 logo-header pointer" [src]="headerLogo" alt="logo" (click)="lauchEvent('Logo');goBackEvent();"/>
           <img *ngIf="!isHomePage" class="mt-1 logo-header pointer" [src]="headerLogo" alt="logo" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
       </div>
         <div [class.collapse]="!isMenuExpanded" [class.show]="isMenuExpanded" class="navbar-collapse" id="navbarSupportedContent">
-          <button *ngIf="isMenuExpanded" class="close-menu-btn d-lg-none" (click)="toggleMenu()">×</button>
+          <button *ngIf="isMenuExpanded" class="close-menu-btn d-xl-none" (click)="toggleMenu()">×</button>
           <ul class="navbar-nav m-r-0 menu-items">
               <li class="nav-item me-2">
-                  <a class="nav-link" [ngClass]="(!isHomePage)?'black':'black text-bold-700'" routerLink="/." (click)="lauchEvent('Page - Home'); goBackEvent();">
+                  <a class="nav-link" [ngClass]="(!isHomePage)?'black':'nav-active'" routerLink="/." (click)="lauchEvent('Page - Home'); goBackEvent();">
                       <span>{{'menu.Dashboard' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2">
-                  <a class="nav-link" [ngClass]="(!isAboutPage)?'black':'black text-bold-700'" routerLink="/aboutus" (click)="lauchEvent('Page - About us')">
+                  <a class="nav-link" [ngClass]="(!isAboutPage)?'black':'nav-active'" routerLink="/aboutus" (click)="lauchEvent('Page - About us')">
                       <span>{{'menu.About us' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2">
-                  <a class="nav-link" [ngClass]="(!isFaqPage)?'black':'black text-bold-700'" routerLink="/faq" (click)="lauchEvent('Page - FAQ')">
+                <a class="nav-link" [ngClass]="(!isFoundation29Page)?'black':'nav-active'" routerLink="/foundation29" (click)="lauchEvent('Page - Foundation 29')">
+                    <span>{{'foundation29.hero.title' | translate }}</span>
+                </a>
+              </li>
+              <li class="nav-item me-2">
+                  <a class="nav-link" [ngClass]="(!isCollaborationPage)?'black':'nav-active'" routerLink="/collaboration" (click)="lauchEvent('Page - Collaboration')">
+                      <span>{{'menu.Collaboration' | translate }}</span>
+                  </a>
+              </li>
+              <li class="nav-item me-2">
+                  <a class="nav-link" [ngClass]="(!isFaqPage)?'black':'nav-active'" routerLink="/faq" (click)="lauchEvent('Page - FAQ')">
                       <span>FAQs</span>
                   </a>
               </li>
               <!--privacy-policy-->
               <li class="nav-item me-2">
-                  <a class="nav-link" [ngClass]="(!isPrivacyPolicyPage)?'black':'black text-bold-700'" routerLink="/privacy-policy" (click)="lauchEvent('Page - Privacy policy')">
+                  <a class="nav-link" [ngClass]="(!isPrivacyPolicyPage)?'black':'nav-active'" routerLink="/privacy-policy" (click)="lauchEvent('Page - Privacy policy')">
                       <span>{{'menu.Privacy Policy' | translate }}</span>
                   </a>
               </li>
               <!--privacy-policy-->
               <li class="nav-item me-2">
-                  <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'black text-bold-700'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')">
+                  <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'nav-active'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')">
                       <span>{{'menu.Usage statistics' | translate }}</span>
                   </a>
               </li>
-              <li class="nav-item me-2 donate-link" *ngIf="shouldShowDonate">
-                  <a class="nav-link btn btn-info round white mb-0 btn-sm donate-a" [href]="brandingService.getDonateLink()" target="_blank" (click)="lauchEvent('Page - Donate')">
-                      <span>{{'land.Donate' | translate }} <em class="ms-1 fa fa-heart"></em></span>
+              <li class="nav-item me-2 donate-link" ngbDropdown display="dynamic" placement="auto" *ngIf="shouldShowDonate">
+                  <a class="nav-link btn btn-info round white mb-0 btn-sm donate-a dropdown-toggle" 
+                     id="donationNavDropdown" 
+                     ngbDropdownToggle 
+                     role="button"
+                     aria-haspopup="true"
+                     aria-expanded="false"
+                     (click)="lauchEvent('Page - Donate')">       
+                      <span>{{ 'land.Donate' | translate }} <em class="ms-1 fa fa-heart" aria-hidden="true"></em></span>
                   </a>
+                  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="donationNavDropdown">
+                      <a class="dropdown-item" href="https://foundation29.org/donate" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'menu.DONATE_DROPDOWN_1' | translate">
+                          <i class="fas fa-euro-sign me-2" aria-hidden="true"></i>{{ 'menu.DONATE_DROPDOWN_1' | translate }}
+                      </a>
+                      <a class="dropdown-item" href="#" (click)="openClinicalDataModal(); $event.preventDefault()" [attr.aria-label]="'menu.DONATE_DROPDOWN_2' | translate">
+                          <i class="fas fa-file-medical me-2" aria-hidden="true"></i>{{ 'menu.DONATE_DROPDOWN_2' | translate }}
+                      </a>
+                      <a class="dropdown-item" href="#" (click)="openDatasetsModal(); $event.preventDefault()" [attr.aria-label]="'menu.DONATE_DROPDOWN_3' | translate">
+                          <i class="fas fa-database me-2" aria-hidden="true"></i>{{ 'menu.DONATE_DROPDOWN_3' | translate }}
+                      </a>
+                  </div>
               </li>
           </ul>
         </div>
@@ -74,3 +101,16 @@
   </div>
 </nav>
 <!-- Navbar (Header) Ends -->
+
+<!-- Template para el modal dinámico -->
+<ng-template #sendMsgModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ getModalTitle() }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-0">
+    <app-send-msg [mode]="modalMode" (closeModalEvent)="closeModal()"></app-send-msg>
+  </div>
+</ng-template>

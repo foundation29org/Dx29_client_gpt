@@ -12,6 +12,8 @@ import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.comp
 import { CookiesPageComponent } from "./cookies/cookies.component";
 import { TestimonialsComponent } from "./testimonials/testimonials.component";
 import { PermalinkViewPageComponent } from "./permalink-view/permalink-view-page.component";
+import { CollaborationComponent } from "./collaboration/collaboration.component";
+import { Foundation29Component } from "./foundation29/foundation29.component";
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -48,7 +50,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         PrivacyPolicyPageComponent,
         CookiesPageComponent,
         TestimonialsComponent,
-        PermalinkViewPageComponent
+        PermalinkViewPageComponent,
+        CollaborationComponent,
+        Foundation29Component
     ]
 })
 export class LandPageModule { }

@@ -7,6 +7,8 @@ import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 import { CookiesPageComponent } from "./cookies/cookies.component";
 import { PermalinkViewPageComponent } from "./permalink-view/permalink-view-page.component";
+import { CollaborationComponent } from "./collaboration/collaboration.component";
+import { Foundation29Component } from "./foundation29/foundation29.component";
 
 const routes: Routes = [
   {
@@ -23,6 +25,16 @@ const routes: Routes = [
         path: 'aboutus',
         loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule),
         data: { title: 'menu.About us' }
+      },
+      {
+        path: 'collaboration',
+        component: CollaborationComponent,
+        data: { title: 'menu.Collaboration' }
+      },
+      {
+        path: 'foundation29',
+        component: Foundation29Component,
+        data: { title: 'foundation29.hero.title' }
       },
       {
         path: 'faq',

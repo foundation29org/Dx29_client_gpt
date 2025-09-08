@@ -21,6 +21,7 @@ export interface BrandingConfig {
   logos: {
     header: string;
     footer: string;
+    f29Dark: string;
     favicon: string;
   };
   links: {

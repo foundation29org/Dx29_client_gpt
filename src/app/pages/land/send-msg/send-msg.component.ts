@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { UuidService } from 'app/shared/services/uuid.service';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
+import { BrandingService } from 'app/shared/services/branding.service';
 import Swal from 'sweetalert2';
 
 declare let gtag: any;
@@ -17,8 +19,11 @@ declare let gtag: any;
     styleUrls: ['./send-msg.component.scss']
 })
 
-export class SendMsgComponent implements OnDestroy {
+export class SendMsgComponent implements OnDestroy, OnInit {
 
+  @Input() mode: 'clinicalData' | 'datasets' | 'subscribe' | 'contact' = 'contact';
+  @Output() closeModalEvent = new EventEmitter<void>();
+  
   private subscription: Subscription = new Subscription();
   _startTime: any;
   role: string = '';
@@ -31,10 +36,74 @@ export class SendMsgComponent implements OnDestroy {
   acceptTerms: boolean = false;
   modalReference: NgbModalRef;
   descriptionLength: number = 0;
+  
+  // Propiedades dinámicas basadas en el modo
+  title: string = '';
+  subtitle: string = '';
+  formDescription: string = '';
+  showSubscribeCheckbox: boolean = true;
+  currentTenant: string = 'dxgpt';
 
-  constructor(public translate: TranslateService, private http: HttpClient, public insightsService: InsightsService, private modalService: NgbModal, private uuidService: UuidService) {
+  constructor(
+    public translate: TranslateService, 
+    private http: HttpClient, 
+    public insightsService: InsightsService, 
+    private modalService: NgbModal, 
+    private uuidService: UuidService,
+    private route: ActivatedRoute,
+    private brandingService: BrandingService
+  ) {
     this._startTime = Date.now();
     this.myuuid = this.uuidService.getUuid();
+  }
+
+  ngOnInit() {
+    // Leer el parámetro mode de la URL si no se proporciona como Input
+    if (!this.mode || this.mode === 'contact') {
+      this.route.queryParams.subscribe(params => {
+        if (params['mode']) {
+          this.mode = params['mode'] as 'clinicalData' | 'datasets' | 'subscribe' | 'contact';
+        }
+        this.configureMode();
+      });
+    } else {
+      this.configureMode();
+    }
+    
+    // Obtener el tenant actual
+    this.currentTenant = this.brandingService.getCurrentTenant();
+  }
+
+  /**
+   * Configura el componente según el modo seleccionado
+   */
+  private configureMode(): void {
+    switch (this.mode) {
+      case 'clinicalData':
+        this.title = this.translate.instant('menu.DONATE_DROPDOWN_2');
+        this.formDescription = this.translate.instant('support.NAV_CLINICAL_DESCRIPTION');
+        this.subtitle = this.translate.instant('support.NAV_CLINICAL_SUBTITLE');
+        this.showSubscribeCheckbox = true;
+        break;
+      case 'datasets':
+        this.title = this.translate.instant('menu.DONATE_DROPDOWN_3');
+        this.subtitle = this.translate.instant('support.NAV_DATASETS_SUBTITLE');
+        this.formDescription = this.translate.instant('support.NAV_DATASETS_DESCRIPTION');
+        this.showSubscribeCheckbox = true;
+        break;
+      case 'subscribe':
+        this.title = this.translate.instant('support.NAV_SUBSCRIBE_TITLE');
+        this.formDescription = this.translate.instant('support.NAV_SUBSCRIBE_DESCRIPTION');
+        this.showSubscribeCheckbox = false;
+        this.checkSubscribe = true; // Auto-marcar como suscripción
+        break;
+      case 'contact':
+      default:
+        this.title = this.translate.instant('menu.Contact us');
+        this.formDescription = this.translate.instant('support.NAV_CONTACT_DESCRIPTION');
+        this.showSubscribeCheckbox = true;
+        break;
+    }
   }
 
 getElapsedSeconds() {
@@ -91,6 +160,7 @@ lauchEvent(category) {
           this.mainForm.reset();
           this.descriptionLength = 0;
           this.lauchEvent('Send email');
+          this.closeModal();
          }, (err) => {
           this.insightsService.trackException(err);
            console.log(err);
@@ -125,12 +195,19 @@ lauchEvent(category) {
       this.modalReference.close();
     }
 
-    autoResize(event: Event) {
-      const inputElement = event.target as HTMLTextAreaElement;
-      this.descriptionLength = inputElement.value.length;
-      const textarea = event.target as HTMLTextAreaElement;
-      textarea.style.height = 'auto';
-      textarea.style.height = textarea.scrollHeight + 'px';
-    }
+      autoResize(event: Event) {
+    const inputElement = event.target as HTMLTextAreaElement;
+    this.descriptionLength = inputElement.value.length;
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
+  /**
+   * Cierra el modal
+   */
+  closeModal(): void {
+    this.closeModalEvent.emit();
+  }
 
 }

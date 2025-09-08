@@ -1,7 +1,215 @@
-.modal-title{
-  text-transform: uppercase;
+// Hero Section
+.hero-section {
+  background: var(--background-dark);
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
 }
 
-.card, p, h6 {
-  font-size: 1.2rem !important;
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+  
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  color: #E5E7EB;
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+}
+
+.hero-actions {
+  margin-top: 2rem;
+}
+
+.btn-version-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+}
+
+// Main Content
+.main-content {
+  background: white;
+  padding: 4rem 0;
+  min-height: 60vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+}
+
+// Policy Content
+.policy-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.policy-body {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+  
+  p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    
+    @media (max-width: 768px) {
+      font-size: 0.95rem;
+    }
+    
+    strong {
+      color: #2c3e50;
+      font-weight: 600;
+    }
+  }
+  
+  ul {
+    margin-bottom: 1.5rem;
+    
+    li {
+      margin-bottom: 0.5rem;
+      
+      p {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    td {
+      color: #555;
+    }
+    
+    tr:last-child {
+      th, td {
+        border-bottom: none;
+      }
+    }
+  }
+  
+  .mt-4 {
+    margin-top: 2rem;
+  }
+  
+  .mb-4 {
+    margin-bottom: 2rem;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 3rem 0;
+  }
+  
+  .main-content {
+    padding: 3rem 0;
+  }
+  
+  .policy-body {
+    padding: 1.5rem;
+    
+    table {
+      font-size: 0.9rem;
+      
+      th, td {
+        padding: 0.75rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .policy-body {
+    padding: 1.25rem;
+    
+    p {
+      font-size: 0.9rem;
+    }
+    
+    table {
+      font-size: 0.85rem;
+      
+      th, td {
+        padding: 0.5rem;
+      }
+    }
+  }
 }
