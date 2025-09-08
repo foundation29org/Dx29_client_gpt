@@ -51,7 +51,7 @@
                   </a>
               </li>
               <!--privacy-policy-->
-              <li class="nav-item me-2">
+              <li class="nav-item me-2" *ngIf="shouldShowDonate">
                   <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'nav-active'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')" [attr.aria-label]="'menu.Usage statistics' | translate">
                       <span>{{'menu.Usage statistics' | translate }}</span>
                   </a>
