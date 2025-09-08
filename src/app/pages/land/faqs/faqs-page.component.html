@@ -1,88 +1,144 @@
-<section class="p-2 white background-dark" style="padding-bottom: 3rem !important;padding-top: 3rem !important;">
-  <div class="col-sm-12 offset-lg-2 col-lg-8">
-    <div class="card-body" style="max-width: 1200px;">
-      <div class="row m-0">
-          <h2 class="white card-title text-bold-500 mb-0">
-            {{'land.faqs.q1' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">{{'land.faqs.title' | translate }}</h1>
+      <p class="hero-description">{{'land.faqs.subtitle' | translate }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="main-content">
+  <div class="container">
+    
+    <!-- FAQs Section -->
+    <div class="content-section">
+      <div class="faqs-container">
+        
+        <!-- FAQ Item 1 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(1)">
+            <h3 class="faq-title">{{'land.faqs.q1' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[1]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[1]">
             <p>{{'land.faqs.a1' | translate }}</p>
-          </span>
-          <h2 class="white card-title text-bold-500 pt-4 mb-0">
-            {{'land.faqs.q2' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(2)">
+            <h3 class="faq-title">{{'land.faqs.q2' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[2]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[2]">
             <p>{{'land.faqs.a2' | translate }}</p>
-          </span>
-          <h2 class="white card-title text-bold-500 pt-4 mb-0">
-            {{'land.faqs.q3' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(3)">
+            <h3 class="faq-title">{{'land.faqs.q3' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[3]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[3]">
             <p>{{'land.faqs.a3' | translate }}</p>
-          </span>
-          <h2 class="white card-title text-bold-500 pt-4 mb-0">
-            {{'land.faqs.q4' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(4)">
+            <h3 class="faq-title">{{'land.faqs.q4' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[4]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[4]">
             <p>{{'land.faqs.a4' | translate }}</p>
-          </span>
-          <h2 class="white card-title text-bold-500 pt-4 mb-0">
-            {{'land.faqs.q5' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(5)">
+            <h3 class="faq-title">{{'land.faqs.q5' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[5]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[5]">
             <p>{{'land.faqs.a5' | translate }}</p>
-          </span>
-          <h2 class="white card-title text-bold-500 pt-4 mb-0">
-            {{'land.faqs.q6' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+          </div>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(6)">
+            <h3 class="faq-title">{{'land.faqs.q6' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[6]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[6]">
             <p>{{'land.faqs.a6' | translate }}</p>
-          </span>
-          <h2 class="white card-title text-bold-500 pt-4 mb-0">
-            {{'land.faqs.q7' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+          </div>
+        </div>
+
+        <!-- FAQ Item 7 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(7)">
+            <h3 class="faq-title">{{'land.faqs.q7' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[7]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[7]">
             <p>{{'land.faqs.a7' | translate }}</p>
-          </span>
-          <h2 class="white card-title text-bold-500 pt-4 mb-0">
-            {{'land.faqs.q8' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+          </div>
+        </div>
+
+        <!-- FAQ Item 8 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(8)">
+            <h3 class="faq-title">{{'land.faqs.q8' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[8]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[8]">
             <p>{{'land.faqs.a8' | translate }}</p>
-          </span>
-          <h2 class="white card-title text-bold-500 pt-4 mb-0">
-            {{'land.faqs.q9' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+          </div>
+        </div>
+
+        <!-- FAQ Item 9 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(9)">
+            <h3 class="faq-title">{{'land.faqs.q9' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[9]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[9]">
             <p>{{'land.faqs.a9' | translate }}</p>
-          </span>
-          <h2 class="white card-title text-bold-500 pt-4 mb-0">
-            {{'land.faqs.q10' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+          </div>
+        </div>
+
+        <!-- FAQ Item 10 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(10)">
+            <h3 class="faq-title">{{'land.faqs.q10' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[10]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[10]">
             <p>{{'land.faqs.a10' | translate }}</p>
-          </span>
-          <h2 class="white card-title text-bold-500 pt-4 mb-0">
-            {{'land.faqs.q11' | translate }}
-            <hr class="hr-custom mb-0">
-          </h2>
-          <span class="text-start row margin-left-0 p-2">
+          </div>
+        </div>
+
+        <!-- FAQ Item 11 -->
+        <div class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(11)">
+            <h3 class="faq-title">{{'land.faqs.q11' | translate }}</h3>
+            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[11]"></i>
+          </div>
+          <div class="faq-answer" [class.expanded]="expandedFaqs[11]">
             <p>{{'land.faqs.a11' | translate }}</p>
-          </span>
+          </div>
+        </div>
+
       </div>
     </div>
-</div>
+
+  </div>
 </section>
-<div class="white-checkbox">
-  <app-send-msg></app-send-msg>
-</div>

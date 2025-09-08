@@ -1,77 +1,70 @@
-<section class="white background-dark" style="padding-bottom: 70px !important;padding-top: 70px !important;">
-  <div class="col-sm-12 offset-md-3 col-md-6 offset-xl-4 col-xl-4">
-    <div class="card-body" style="max-width: 1200px;">
-      <div class="row m-0">
-        <div class="col-md-12">
-          <h2 class="white card-title text-bold-500 mb-0">
-            {{'menu.Contact us' | translate }}
-            <hr class="hr-custom">
-          </h2>
+<div class="modal-content-container">
+  <div class="modal-body-custom">
+    <div class="description-section" *ngIf="formDescription || subtitle">
+      <p class="description-text" *ngIf="formDescription">{{ formDescription }}</p>
+      <p class="text-muted mb-4" *ngIf="subtitle">{{ subtitle }}</p>
+    </div>
+    <form class="modal-form" (ngSubmit)="sendMsg()" #f="ngForm">
+      <div class="form-fields">
+        <div class="form-group-custom">
+          <label class="form-label">{{'generics.Name' | translate }} *</label>
+          <input type="text" class="form-input" name="userName" id="userName"
+            placeholder="{{'generics.Name' | translate }}" ngModel required #userName="ngModel" autocomplete="name">
+          <small class="form-error"
+            *ngIf="!userName.valid && (userName.dirty || userName.touched)">{{'generics.required' | translate }}</small>
         </div>
-        <div class="col-lg-12 col-md-12 py-2">
-          <form class="form" (ngSubmit)="sendMsg()" #f="ngForm">
-            <div class="form-body">
-              <div class="">
-                <div class="">
-                  <div class="form-group">
-                    <input type="text" class="form-control" name="userName" id="userName"
-                      placeholder="{{'generics.Name' | translate }}" ngModel required #userName="ngModel">
-                    <small class="form-text text-muted"
-                      *ngIf="!userName.valid && (userName.dirty || userName.touched)">{{'generics.required' | translate
-                      }}</small>
-                  </div>
-                </div>
-                <div class="">
-                  <div class="form-group">
-                    <input type="email" class="form-control" name="email" id="email"
-                      placeholder="{{'generics.Email' | translate }}" ngModel required email #email="ngModel">
-                    <small class="form-text text-muted"
-                      *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate
-                      }}</small>
-                  </div>
-                </div>
-                <div class="">
-                  <div class="form-group">
-                    <textarea maxlength="2000" name="description" id="textarea1" rows="4"
-                      placeholder="{{'support.Message' | translate }}" class="form-control" ngModel
-                      required #description="ngModel" description (input)="autoResize($event)"></textarea>
-                      <p class="float-end">{{ descriptionLength }} / 2000</p>
-                    <small class="form-text text-muted"
-                      *ngIf="!description.valid && (description.dirty || description.touched)">{{'generics.required' |
-                      translate }}</small>
-                  </div>
-                </div>
-                <div class="">
-                  <mat-checkbox
-                      class="example-margin" name="terms2" ngModel #terms2="ngModel" id="terms2"  [(ngModel)]="checkSubscribe">
-                      <span class="mat-checkbox-label" >{{'land.Email me' | translate }}</span>
-                  </mat-checkbox>
-                </div>
-                <div class="form-group">
-                  <mat-checkbox
-                      class="example-margin" name="terms" ngModel #terms="ngModel" id="terms" required [(ngModel)]="acceptTerms">
-                      <span class="mat-checkbox-label">{{'termsform.accept' | translate }} <a class="white" style="text-decoration: underline !important;" href="javascript:;" (click)="openModal2(termsModal)">{{'termsform.terms' | translate }}</a></span>
-                  </mat-checkbox>
-                  <small class="text-muted d-block" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="!sending" class="">
-              <div *ngIf="f.valid;then formValid else formError"></div>
-              <ng-template #formValid><button class="btn btn-info round" type="submit"> {{'support.Send' |
-                  translate }}</button></ng-template>
-              <ng-template #formError><button class="btn btn-info round" type="button"
-                  (click)="submitInvalidForm()"> {{'support.Send' | translate }}</button></ng-template>
-            </div>
-            <div class="form-actions" *ngIf="sending" class="">
-              <span><i class="fa fa-spinner fa-spin fa-3x fa-fw pink"></i></span>
-            </div>
-          </form>
+        
+        <div class="form-group-custom">
+          <label class="form-label">{{'generics.Email' | translate }} *</label>
+          <input type="email" class="form-input" name="email" id="email"
+            placeholder="tu@email.com" ngModel required email #email="ngModel" autocomplete="email">
+          <small class="form-error"
+            *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate }}</small>
+        </div>
+        
+        <div class="form-group-custom">
+          <label class="form-label">{{'support.Message' | translate }} *</label>
+          <textarea maxlength="2000" name="description" id="textarea1" rows="4"
+            placeholder="{{'support.Message' | translate }}" class="form-textarea" ngModel
+            required #description="ngModel" (input)="autoResize($event)"></textarea>
+          <div class="char-counter">{{ descriptionLength }} / 2000</div>
+          <small class="form-error"
+            *ngIf="!description.valid && (description.dirty || description.touched)">{{'generics.required' | translate }}</small>
+        </div>
+
+
+        <div class="checkboxes-container" [attr.data-tenant]="currentTenant">
+          <div class="checkbox-section" *ngIf="showSubscribeCheckbox">
+            <label class="checkbox-label">
+              <input type="checkbox" name="terms2" ngModel #terms2="ngModel" id="terms2" [(ngModel)]="checkSubscribe" class="checkbox-input">
+              <span class="checkbox-text">{{'land.Email me' | translate }}</span>
+            </label>
+          </div>
+          
+          <div class="terms-section">
+            <label class="checkbox-label">
+              <input type="checkbox" name="terms" ngModel #terms="ngModel" id="terms" required [(ngModel)]="acceptTerms" class="checkbox-input">
+              <span class="checkbox-text">{{'termsform.accept' | translate }} <a href="javascript:;" (click)="openModal2(termsModal)" class="terms-link">{{'termsform.terms' | translate }}</a></span>
+            </label>
+            <small class="form-error" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="form-actions">
+        <div *ngIf="!sending" class="button-group">
+          <button type="button" class="btn-cancel" (click)="closeModal()">{{'generics.Cancel' | translate }}</button>
+          <button *ngIf="f.valid" class="btn-submit" type="submit">{{'support.Send' | translate }}</button>
+          <button *ngIf="!f.valid" class="btn-submit" type="button" (click)="submitInvalidForm()">{{'support.Send' | translate }}</button>
+        </div>
+        <div *ngIf="sending" class="loading-section">
+          <i class="fa fa-spinner fa-spin fa-2x"></i>
         </div>
       </div>
-    </div>
+    </form>
   </div>
-</section>
+</div>
 
 <ng-template #termsModal let-c="close" let-d="dismiss">
   <app-termsform (termsAccepted)="onTermsAccepted()"></app-termsform>

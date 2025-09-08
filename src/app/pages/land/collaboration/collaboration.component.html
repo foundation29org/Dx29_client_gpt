@@ -1,0 +1,337 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">{{'collaboration.title' | translate }}</h1>
+      <p class="hero-description">{{'collaboration.description' | translate }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Template para el modal send-msg -->
+<ng-template #sendMsgModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ getModalTitle() }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-0">
+    <app-send-msg [mode]="modalMode" (closeModalEvent)="closeModal()"></app-send-msg>
+  </div>
+</ng-template>
+
+<!-- Main Content -->
+<section class="main-content">
+  <div class="container">
+    
+    <!-- Technology Partners Section -->
+    <div id="partners" class="content-section">
+      <h2 class="section-title">{{'collaboration.technologyPartners.title' | translate }}</h2>
+      <div class="section-content">
+        <p class="section-text">{{'collaboration.technologyPartners.description' | translate }}</p>
+        
+        <div class="partners-grid">
+          <div class="partner-card">
+            <div class="partner-logo">
+              <img src="assets/img/home/microsoft.webp" alt="Microsoft" class="logo-img">
+            </div>
+            <div class="partner-info">
+              <h3 class="partner-name">Microsoft</h3>
+              <p class="partner-program">Microsoft AI for Good</p>
+              <p class="partner-description mt-2 text-muted">{{'collaboration.technologyPartners.microsoftDescription' | translate }}</p>
+            </div>
+          </div>
+          
+          <div class="partner-card">
+            <div class="partner-logo">
+              <img src="assets/img/home/google.webp" alt="Google" class="logo-img">
+            </div>
+            <div class="partner-info">
+              <h3 class="partner-name">Google</h3>
+              <p class="partner-program">Google for Nonprofits</p>
+              <p class="partner-description mt-2 text-muted">{{'collaboration.technologyPartners.googleDescription' | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Sponsors Section -->
+    <div id="sponsors" class="content-section">
+      <h2 class="section-title">{{'collaboration.ourSponsors.title' | translate }}</h2>
+      <div class="section-content">
+        <p class="section-text">{{'collaboration.ourSponsors.description' | translate }}</p>
+        
+        <div class="sponsors-grid">
+          <div class="sponsor-card">
+            <div class="sponsor-logo">
+              <img class="sponsor-img" alt="logo global commission" src="assets/img/home/header-logo.webp">
+            </div>
+          </div>
+          <div class="sponsor-card">
+            <div class="sponsor-logo">
+              <img class="sponsor-img" alt="logo takeda" src="assets/img/home/takeda.webp">
+            </div>
+          </div>
+          <div class="sponsor-card">
+            <div class="sponsor-logo">
+              <img class="sponsor-img" alt="logo sanofi" src="assets/img/home/sanofi.webp">
+            </div>
+          </div>
+          <div class="sponsor-card">
+            <div class="sponsor-logo">
+              <img class="sponsor-img" alt="logo ucb" src="assets/img/home/ucb.webp">
+            </div>
+          </div>
+          <div class="sponsor-card">
+            <div class="sponsor-logo">
+              <img class="sponsor-img" alt="logo KyowaKirin" src="assets/img/home/KyowaKirin.webp">
+            </div>
+          </div>
+          <div class="sponsor-card">
+            <div class="sponsor-logo">
+              <img class="sponsor-img" alt="logo italfarmaco" src="assets/img/home/italfarmaco.webp">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Implementations Section -->
+    <div id="implementations" class="content-section">
+      <h2 class="section-title">{{'collaboration.implementations.title' | translate }}</h2>
+      <div class="section-content">
+        <p class="section-text">{{'collaboration.implementations.description' | translate }}</p>
+        
+        <div class="implementations-grid">
+          <!-- Aragonese Health Service -->
+          <div class="implementation-card">
+            <div class="implementation-header">
+              <div class="implementation-logo">
+                <img src="assets/img/tenants/aragon/logo.webp" alt="Servicio Aragonés de Salud logo" class="implementation-img">
+              </div>
+              <div class="implementation-title">
+                <h3>{{'collaboration.implementations.aragon.title' | translate }}</h3>
+              </div>
+            </div>
+            <div class="implementation-details">
+              <p class="implementation-status">{{'collaboration.implementations.aragon.status' | translate }}</p>
+              <p class="implementation-description">{{'collaboration.implementations.aragon.description' | translate }}</p>
+              <div class="implementation-metrics">
+                <div class="metric-item">
+                  <span class="metric-label">{{'collaboration.implementations.aragon.users' | translate }}</span>
+                  <span class="metric-value">{{'collaboration.implementations.aragon.usersValue' | translate }}</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">{{'collaboration.implementations.aragon.scope' | translate }}</span>
+                  <span class="metric-value">{{'collaboration.implementations.aragon.scopeValue' | translate }}</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">{{'collaboration.implementations.aragon.focus' | translate }}</span>
+                  <span class="metric-value">{{'collaboration.implementations.aragon.focusValue' | translate }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Madrid Health Service (SERMAS) -->
+          <div class="implementation-card">
+            <div class="implementation-header">
+              <div class="implementation-logo">
+                <img src="assets/img/home/sermas.webp" alt="SERMAS logo" class="implementation-img">
+              </div>
+              <div class="implementation-title">
+                <h3>{{'collaboration.implementations.sermas.title' | translate }}</h3>
+              </div>
+            </div>
+            <div class="implementation-details">
+              <p class="implementation-status">{{'collaboration.implementations.sermas.status' | translate }}</p>
+              <p class="implementation-description">{{'collaboration.implementations.sermas.description' | translate }}</p>
+              <div class="implementation-metrics">
+                <div class="metric-item">
+                  <span class="metric-label">{{'collaboration.implementations.sermas.coverage' | translate }}</span>
+                  <span class="metric-value">{{'collaboration.implementations.sermas.coverageValue' | translate }}</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">{{'collaboration.implementations.sermas.users' | translate }}</span>
+                  <span class="metric-value">{{'collaboration.implementations.sermas.usersValue' | translate }}</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">{{'collaboration.implementations.sermas.focus' | translate }}</span>
+                  <span class="metric-value">{{'collaboration.implementations.sermas.focusValue' | translate }}</span>
+                </div>
+              </div>
+              <div class="implementation-news">
+                <p class="news-item">
+                  • <a href="https://news.microsoft.com/es-es/2023/09/15/el-servicio-madrileno-de-salud-pionero-en-la-aplicacion-de-inteligencia-artificial-generativa-para-la-mejora-del-diagnostico-en-pacientes-con-enfermedades-raras/" target="_blank" class="news-link">{{'collaboration.implementations.sermas.news1' | translate }}</a>
+                </p>
+                <p class="news-item">
+                  • <a href="https://www.comunidad.madrid/noticias/2025/01/12/comunidad-madrid-posibilita-acceso-6000-medicos-atencion-primaria-ia-diagnostico-enfermedades-raras" target="_blank" class="news-link">{{'collaboration.implementations.sermas.news2' | translate }}</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Catalan Health Service (CatSalut) -->
+          <div class="implementation-card">
+            <div class="implementation-header">
+              <div class="implementation-logo">
+                <img src="assets/img/home/logo-catsalut.webp" alt="CatSalut logo" class="implementation-img">
+              </div>
+              <div class="implementation-title">
+                <h3>{{'collaboration.implementations.catsalut.title' | translate }}</h3>
+              </div>
+            </div>
+            <div class="implementation-details">
+              <p class="implementation-status">{{'collaboration.implementations.catsalut.status' | translate }}</p>
+              <p class="implementation-description">{{'collaboration.implementations.catsalut.description' | translate }}</p>
+              <div class="implementation-metrics">
+                <div class="metric-item">
+                  <span class="metric-label">{{'collaboration.implementations.catsalut.statusLabel' | translate }}</span>
+                  <span class="metric-value">{{'collaboration.implementations.catsalut.statusValue' | translate }}</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">{{'collaboration.implementations.catsalut.scope' | translate }}</span>
+                  <span class="metric-value">{{'collaboration.implementations.catsalut.scopeValue' | translate }}</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">{{'collaboration.implementations.catsalut.objective' | translate }}</span>
+                  <span class="metric-value">{{'collaboration.implementations.catsalut.objectiveValue' | translate }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collaborate with us Section -->
+    <div id="collaborate" class="content-section">
+      <h2 class="section-title">{{'collaboration.wantToCollaborate.title' | translate }}</h2>
+      <div class="section-content">
+        <p class="section-text">{{'collaboration.wantToCollaborate.description' | translate }}</p>
+        
+        <div class="collaboration-opportunities">
+          <div class="opportunity-item">
+            <div class="opportunity-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div id="implementations-opportunity" class="opportunity-content">
+              <h3 class="opportunity-title">{{'collaboration.opportunities.implementations.title' | translate }}</h3>
+              <p class="opportunity-description">{{'collaboration.opportunities.implementations.description' | translate }}</p>
+              <div class="opportunity-details">
+                <p>{{'collaboration.opportunities.implementations.details1' | translate }}</p>
+                <p>{{'collaboration.opportunities.implementations.details2' | translate }}</p>
+                <button class="btn-contact-opportunity" (click)="openContactModal()">
+                  <i class="fas fa-envelope"></i>
+                  {{'collaboration.opportunities.implementations.button' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="opportunity-item">
+            <div class="opportunity-icon">
+              <i class="fas fa-user-md"></i>
+            </div>
+            <div class="opportunity-content">
+              <h3 class="opportunity-title">{{'collaboration.opportunities.professionals.title' | translate }}</h3>
+              <p class="opportunity-description">{{'collaboration.opportunities.professionals.description' | translate }}</p>
+              <div class="opportunity-details">
+                <p>{{'collaboration.opportunities.professionals.details1' | translate }}</p>
+                <p>{{'collaboration.opportunities.professionals.details2' | translate }}</p>
+                <button class="btn-contact-opportunity" (click)="openContactModal()">
+                  <i class="fas fa-user-md"></i>
+                  {{'collaboration.opportunities.professionals.button' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="opportunity-item">
+            <div class="opportunity-icon">
+              <i class="fas fa-microscope"></i>
+            </div>
+            <div class="opportunity-content">
+              <h3 class="opportunity-title">{{'collaboration.opportunities.research.title' | translate }}</h3>
+              <p class="opportunity-description">{{'collaboration.opportunities.research.description' | translate }}</p>
+              <div class="opportunity-details">
+                <p>{{'collaboration.opportunities.research.details1' | translate }}</p>
+                <p>{{'collaboration.opportunities.research.details2' | translate }}</p>
+                <button class="btn-contact-opportunity" (click)="openContactModal()">
+                  <i class="fas fa-microscope"></i>
+                  {{'collaboration.opportunities.research.button' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="opportunity-item">
+            <div class="opportunity-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <div class="opportunity-content">
+              <h3 class="opportunity-title">{{'collaboration.opportunities.technical.title' | translate }}</h3>
+              <p class="opportunity-description">{{'collaboration.opportunities.technical.description' | translate }}</p>
+              <div class="opportunity-details">
+                <p>{{'collaboration.opportunities.technical.details1' | translate }}</p>
+                <button class="btn-contact-opportunity" (click)="openContactModal()">
+                  <i class="fas fa-code"></i>
+                  {{'collaboration.opportunities.technical.button' | translate }}
+          </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="opportunity-item">
+            <div class="opportunity-icon">
+              <i class="fas fa-handshake"></i>
+            </div>
+            <div class="opportunity-content">
+              <h3 class="opportunity-title">{{'collaboration.opportunities.partnerships.title' | translate }}</h3>
+              <p class="opportunity-description">{{'collaboration.opportunities.partnerships.description' | translate }}</p>
+              <div class="opportunity-details">
+                <p>{{'collaboration.opportunities.partnerships.details1' | translate }}</p>
+                <p>{{'collaboration.opportunities.partnerships.details2' | translate }}</p>
+                <button class="btn-contact-opportunity" (click)="openContactModal()">
+                  <i class="fas fa-handshake"></i>
+                  {{'collaboration.opportunities.partnerships.button' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="opportunity-item">
+            <div class="opportunity-icon">
+              <i class="fas fa-piggy-bank"></i>
+            </div>
+            <div class="opportunity-content">
+              <h3 class="opportunity-title">{{'collaboration.opportunities.donations.title' | translate }}</h3>
+              <p class="opportunity-description">{{'collaboration.opportunities.donations.description' | translate }}</p>
+              <div class="opportunity-details">
+                <p>{{'collaboration.opportunities.donations.details1' | translate }}</p>
+                <p>{{'collaboration.opportunities.donations.details2' | translate }}</p>
+                <div class="donation-buttons">
+                  <a href="https://foundation29.org/donate" target="_blank" class="btn-donate-direct">
+                    <i class="fas fa-heart"></i>
+                    {{'collaboration.opportunities.donations.donateButton' | translate }}
+                  </a>
+                  <button class="btn-contact-opportunity" (click)="openContactModal()">
+                    <i class="fas fa-piggy-bank"></i>
+                    {{'collaboration.opportunities.donations.contactButton' | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="collaboration-footer">
+          <p>{{'collaboration.footer.text' | translate }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

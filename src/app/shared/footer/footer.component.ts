@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewChildren, ElementRef, QueryList, Renderer2 } from '@angular/core';
+import { Component, ViewChild, ViewChildren, ElementRef, QueryList, Renderer2, TemplateRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -39,6 +39,12 @@ export class FooterComponent{
   myuuid: string;
   footerLogo: string = 'assets/img/Foundation29logo.webp';
   foundationLink: string = 'https://foundation29.org';
+  shouldShowDonate: boolean = true;
+  
+  // Propiedades para el modal send-msg
+  @ViewChild('sendMsgModal') sendMsgModal!: TemplateRef<any>;
+  modalMode: 'clinicalData' | 'datasets' | 'subscribe' | 'contact' = 'contact';
+  private modalRef: NgbModalRef;
 
   constructor(
     private modalService: NgbModal, 
@@ -163,12 +169,8 @@ closeSupport(){
 }
 
 openModalPolicy() {
-  let ngbModalOptions: NgbModalOptions = {
-      keyboard: true,
-      windowClass: 'ModalClass-sm'// xl, lg, sm
-  };
-  this.modalService.open(PrivacyPolicyPageComponent, ngbModalOptions);
-  this.scrollTo();
+  // Navegar directamente a la página de política de privacidad
+  this.router.navigate(['/privacy-policy']);
 }
 
 openModalCookies() {
@@ -217,6 +219,77 @@ private loadBrandingConfig(): void {
       this.foundationLink = config.links.foundation;
     }
   });
+}
+
+/**
+ * Abre el modal de contacto
+ */
+openContactModal(): void {
+  this.openSendMsgModal('contact');
+}
+
+/**
+ * Abre el modal de suscripción
+ */
+openSubscribeModal(): void {
+  this.openSendMsgModal('subscribe');
+}
+
+/**
+ * Abre el modal de datos clínicos
+ */
+openClinicalDataModal(): void {
+  this.openSendMsgModal('clinicalData');
+}
+
+/**
+ * Abre el modal de datasets
+ */
+openDatasetsModal(): void {
+  this.openSendMsgModal('datasets');
+}
+
+/**
+ * Abre el modal de send-msg con el modo especificado
+ */
+private openSendMsgModal(mode: 'clinicalData' | 'datasets' | 'subscribe' | 'contact'): void {
+  // Establecer el modo del modal
+  this.modalMode = mode;
+  
+  // Abrir el modal usando el template
+  this.modalRef = this.modalService.open(this.sendMsgModal, { 
+    size: 'lg',
+    centered: true,
+    backdrop: 'static',
+    keyboard: false
+  });
+}
+
+/**
+ * Cierra el modal actual
+ */
+closeModal(): void {
+  if (this.modalRef) {
+    this.modalRef.close();
+  }
+}
+
+/**
+ * Obtiene el título del modal según el modo
+ */
+getModalTitle(): string {
+  switch (this.modalMode) {
+    case 'contact':
+      return this.translate.instant('menu.Contact us');
+    case 'subscribe':
+      return this.translate.instant('support.NAV_SUBSCRIBE_TITLE');
+    case 'clinicalData':
+      return this.translate.instant('menu.DONATE_DROPDOWN_2');
+    case 'datasets':
+      return this.translate.instant('menu.DONATE_DROPDOWN_3');
+    default:
+      return this.translate.instant('menu.Contact us');
+  }
 }
 
 }

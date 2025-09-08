@@ -1,17 +1,23 @@
 <a id="initpopup" class="anchorSteps"></a>
-<div *ngIf="!isDirectRoute()" class="modal-header">
-  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close('Close click')">
-  </button>
-</div>
-<div class="row" [ngClass]="(!isDirectRoute())?'':'card mt-0'">
-  <section [ngClass]="(!isDirectRoute())?'col-md-12':'offset-md-2 col-md-8'">
-    <div class="modal-header mt-4">
-      <h4 class="modal-title">{{'menu.Privacy Policy' | translate }}</h4>
-      <button class="btn btn-sm btn-info ms-auto" (click)="toggleShortVersion()">
-        {{ isShortVersion ? ('policyShort.fullVersion' | translate) : ('policyShort.shortVersion' | translate) }}
-      </button>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">{{'menu.Privacy Policy' | translate }}</h1>
+      <div class="hero-actions">
+        <button class="btn-version-toggle" (click)="toggleShortVersion()">
+          {{ isShortVersion ? ('policyShort.fullVersion' | translate) : ('policyShort.shortVersion' | translate) }}
+        </button>
+      </div>
     </div>
-    <div class="modal-body" *ngIf="!isShortVersion">
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="main-content">
+  <div class="container">
+    <div class="policy-content">
+      <div class="policy-body" *ngIf="!isShortVersion">
       <p><strong>{{ 'policy.p1' | translate }}</strong></p>
       <p>{{ 'policy.lastUpdated' | translate }}</p>
     
@@ -125,7 +131,7 @@
     
       <p class="mt-4 mb-4">{{ 'policy.Foundation 29' | translate }}</p>
     </div>
-    <div class="modal-body" *ngIf="isShortVersion">
+      <div class="policy-body" *ngIf="isShortVersion">
       <p><strong>{{ 'policyShort.p1' | translate }}</strong></p>
       <p>{{ 'policyShort.p1.1' | translate }}</p>
       <p>{{ 'policyShort.p1.2' | translate }}</p>
@@ -188,9 +194,7 @@
 
       <p class="mt-4"><strong>{{ 'policyShort.p10' | translate }}</strong></p>
       <p>{{ 'policyShort.p10.1' | translate }}</p>
+      </div>
     </div>
-  </section>
-</div>
-<div *ngIf="!isDirectRoute()" class="modal-footer">
-  <button class="btn btn-info" (click)="activeModal.close('Close click')">{{'generics.Close' | translate }}</button>
-</div>
+  </div>
+</section>

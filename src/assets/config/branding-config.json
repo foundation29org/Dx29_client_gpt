@@ -15,7 +15,8 @@
     },
     "logos": {
       "header": "assets/img/logo-Dx29.webp",
-      "footer": "assets/img/Foundation29logo.webp",
+      "footer": "assets/img/logo-f29-white.webp",
+      "f29Dark": "assets/img/logo-f29.webp",
       "favicon": "favicon.ico"
     },
     "links": {
@@ -46,7 +47,8 @@
     },
     "logos": {
       "header": "assets/img/tenants/aragon/logo.webp",
-      "footer": "assets/img/tenants/aragon/logo.webp",
+      "footer": "assets/img/logo-f29-white.webp",
+      "f29Dark": "assets/img/logo-f29.webp",
       "favicon": "favicon-salud.ico"
     },
     "links": {

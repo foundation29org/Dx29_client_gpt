@@ -3,9 +3,331 @@
     "Home": "DxGPT",
     "Dashboard": "Accueil",
     "About us": "À propos de DxGPT",
+    "Collaboration": "Collaboration",
+    "Foundation 29": "Foundation 29",
     "Usage statistics": "Statistiques d'utilisation",
     "Privacy Policy": "Politique de confidentialité",
-    "Contact us": "Contactez-nous"
+    "Contact us": "Contactez-nous",
+    "DONATE_DROPDOWN_1": "Faire un don",
+    "DONATE_DROPDOWN_2": "Faire un don de données cliniques individuelles",
+    "DONATE_DROPDOWN_3": "Faire un don de datasets (institutions/recherche)"
+  },
+  "footer":{
+    "Collaboration": "Collaboration",
+    "Compliance": "Compliance",
+    "Accuracy": "Accuracy",
+    "Evaluation": "Evaluation",
+    "Technology partners": "Technology partners",
+    "Our sponsors": "Our sponsors",
+    "Implementations": "Implementations",
+    "Use in health systems": "Use in health systems",
+    "I want to collaborate": "I want to collaborate",
+    "Contact us": "Contact us",
+    "Updates": "Updates",
+    "Privacy GDPR HIPAA AI Act": "Privacy (GDPR/HIPAA/AI Act)",
+    "Dx29info": "DxGPT est un outil de recherche et de référence fourni à titre informatif et ne vise pas à remplacer le jugement ou l'expérience du médecin. Il ne doit pas être utilisé pour diagnostiquer ou traiter des affections médicales."
+  },
+  "aboutUs": {
+    "hero": {
+      "title": "DxGPT: Intelligence Augmentée pour la Confiance Diagnostique",
+      "subtitle": "Transforme l'incertitude clinique en clarté. DxGPT est votre co-pilote diagnostique : structure le raisonnement, réduit la charge cognitive et minimise les biais en quelques secondes, même dans les cas complexes ou rares.",
+      "tryButton": "Essayer DxGPT",
+      "evidenceButton": "Explorer notre évidence scientifique",
+      "highlight1": "Diagnostic différentiel structuré",
+      "highlight2": "Sécurité et validation clinique",
+      "highlight3": "Intégration dans les systèmes de santé"
+    },
+    "main": {
+      "description": "DxGPT est une intelligence augmentée conçue par et pour l'environnement clinique. Contrairement aux IA généralistes, il ne génère pas de texte narratif ouvert, mais un analyse structurée de cinq hypothèses diagnostiques, classées et raisonnées avec des symptômes pour et contre. Nous utilisons des modèles de langage avancés, comme GPT-5 d'OpenAI, dans un cadre médical contrôlé qui garantit la pertinence, la cohérence et la sécurité dans chaque résultat. Nous ne remplaçons pas le jugement clinique : nous l'amplifions. Nous vous offrons un analyse différentielle instantanée qui économise du temps, neutralise les biais cognitifs et élève la qualité du raisonnement clinique dès le premier moment."
+    },
+    "challenge": {
+      "title": "Le défi du diagnostic clinique",
+      "description": "Le diagnostic, particulièrement dans les maladies rares, est un labyrinthe de données et de symptômes qui consomme du temps et génère de l'incertitude. Avec plus de 10 000 maladies rares, la plupart étant inconnues des professionnels en raison de leur faible fréquence, la familiarité est un luxe impossible. DxGPT agit comme un outil puissant d'écoute cognitive, accélérant ce processus pour atteindre plus rapidement un diagnostic précis. Dans ce contexte, la technologie de soutien n'est plus une option, mais une nécessité pour la sécurité des patients et la qualité des soins."
+    },
+    "why": {
+      "title": "Pourquoi DxGPT et non une IA généraliste",
+      "description": "Les outils de conversation comme ChatGPT, Claude ou Gemini sont des modèles de langage à large spectre. Dans le contexte médical, cette flexibilité est un fondamental faiblesses. Leur nature non structurée peut générer des réponses variables, incomplètes ou cliniquement inadaptées, manquant les contrôles essentiels de sécurité pour les décisions de haut risque."
+    },
+    "differentiators": {
+      "title": "Les différenciateurs clés de DxGPT",
+      "structured": {
+        "title": "Analyse structurée",
+        "description": "DxGPT génère une analyse structurée de cinq hypothèses diagnostiques, classées et raisonnées avec des symptômes pour et contre."
+      },
+      "control": {
+        "title": "Contrôle clinique",
+        "description": "DxGPT utilise des modèles de langage comme GPT-5 d'OpenAI dans un cadre médical contrôlé qui garantit la pertinence, la cohérence et la sécurité dans chaque résultat."
+      },
+      "specialization": {
+        "title": "Spécialisation",
+        "description": "DxGPT est spécialisé sur la diagnostic de maladies rares et complexes."
+      }
+    },
+    "implementation": {
+      "title": "Implémentation dans les systèmes de santé",
+      "intro": "Lorsque DxGPT est déployé dans les systèmes de santé comme les hôpitaux, il inclut des fonctionnalités étendues :",
+      "capability1": "Gestion des données cliniques (intégration avec les systèmes d'information hospitaliers).",
+      "capability2": "Collecte de données structurées (formats standardisés pour analyse ultérieure).",
+      "capability3": "Retour clinique (professionnels fournissent corrections et observations).",
+      "capability4": "Exploration et amélioration (ajustement continu dans la pratique clinique réelle).",
+      "capability5": "Sécurité renforcée (protection des données et contrôle d'utilisation conforme aux réglementations de santé)."
+    },
+    "benefits": {
+      "title": "Avantages cliniques de DxGPT",
+      "time": {
+        "title": "Récupérer du temps pour ce qui compte le plus : le patient",
+        "description": "DxGPT automatise la génération du diagnostic différentiel, transforme des minutes de recherche et d'incertitude en secondes d'analyse structurée. Cette efficacité libère le professionnel de la santé pour se concentrer sur le jugement clinique, la communication avec le patient et la prise de décision."
+      },
+      "clarity": {
+        "title": "Du chaos des données à la clarté diagnostique",
+        "description": "Nous présentons les informations dans un format propre et structuré, conçu pour le raisonnement clinique. Les hypothèses sont affichées avec les symptômes pour et contre, permettant une évaluation rapide et une décision plus sûre et informée."
+      },
+      "tool": {
+        "title": "Un outil, pas une application",
+        "description": "Contrairement aux AIs conversationnels, l'interface de DxGPT est optimisée pour une seule fonctionnalité : le soutien au diagnostic. Chaque élément est conçu pour guider efficacement le raisonnement clinique tout en éliminant les distractions et en mettant en avant l'utilité pratique."
+      },
+      "safety": {
+        "title": "Un système de sécurité contre les biais mentaux",
+        "description": "Le diagnostic clinique est vulnérable aux biais cognitifs comme l'utilisation ou la confirmation. DxGPT agit comme un contre-poids objectif, présentant systématiquement une gamme de possibilités basées sur l'évidence du cas, y compris les maladies rares. Cela favorise une évaluation plus approfondie et réduit le risque d'erreurs diagnostiques, améliorant la sécurité des patients."
+      },
+      "standardize": {
+        "title": "Standardiser la qualité diagnostique",
+        "description": "DxGPT garantit que chaque cas est analysé avec la même rigueur méthodologique, quelle que soit la profession ou le moment. Cette cohérence réduit la variabilité dans la qualité des soins et établit un haut standard d'analyse pour l'ensemble de l'équipe. Notre performance est continuellement validée contre un échantillon rigoureux de cas cliniques pour garantir une fiabilité constante."
+      },
+      "practice": {
+        "title": "Créé dans la pratique clinique, pour la pratique clinique",
+        "description": "DxGPT n'est pas un produit de laboratoire. Il a été développé dans un cycle de collaboration continu avec des médecins du front, des hôpitaux et des sociétés scientifiques. Son design et ses fonctionnalités répondent aux vrais défis du diagnostic, en s'assurant qu'il n'est pas seulement technologiquement avancé, mais également cliniquement utile, pertinent et facile à intégrer dans le travail mental du professionnel."
+      }
+    },
+    "commitment": {
+      "title": "Engagement et cadre réglementaire",
+      "experimental": {
+        "title": "DxGPT est une plateforme expérimentale en constante amélioration",
+        "description": "Son objectif est d'explorer les capacités de l'IA dans le diagnostic, de comprendre ses limites et de l'améliorer avec le feedback des utilisateurs et une validation clinique rigoureuse. Les nouveaux résultats sont partagés ouverts via GitHub et MedRxiv."
+      },
+      "protection": {
+        "title": "DxGPT protège les données cliniques avec les normes européennes",
+        "description": "DxGPT garantit la protection des données cliniques par une anonymisation stricte, sans stocker d'informations personnelles ou les utiliser à d'autres fins. Tout le traitement est effectué dans des centres de données européens sous le RGPD, garantissant la sécurité, la confidentialité et la transparence dans chaque interaction."
+      }
+    },
+    "evaluation": {
+      "title": "Evaluation",
+      "commitment": {
+        "title": "Notre engagement envers l'évidence : Le cadre de validation clinique",
+        "description": "La confiance dans un outil clinique s'acquiert par une évidence rigoureuse. La validation de DxGPT est un processus continu qui combine une recherche indépendante avec une amélioration itérative basée sur des données réelles.",
+        "validation": "Nous avons réalisé une validation clinique indépendante initiale en collaboration avec l'hôpital Sant Joan de Déu, avec des résultats publiés dans medRxiv montrant une précision diagnostique comparable à celle des experts cliniques.",
+        "framework": "Nous avons construit un 'Cadre de Validation Constante' qui évolue continuellement la fiabilité de DxGPT en intégrant de nouveaux cas, des retours cliniques et des métriques de performance en temps réel."
+      },
+      "testbed": {
+        "title": "Un testbed conçu pour relever le défi",
+        "description": "Notre testbed utilise plus de 1.000 cas cliniques réels complexes au lieu de cas de livre de texte. Ces cas présentent des descriptions extensives, des symptômes superposés et des diagnostics différentiels non triviaux, obtenus de:",
+        "sources": "Sources de cas:",
+        "source1": "Banques de questions cliniques de haut niveau: MedBullets et MedQA USMLE.",
+        "source2": "Publications scientifiques sur les maladies rares: RAMEDIS et Ramebench.",
+        "source3": "Cas réels de services d'urgences hospitaliers: HM Hospitals et Hospital de Torrejón.",
+        "source4": "Collaborations spécialisées: Cas supervisés de maladies rares.",
+        "conclusion": "Ce testbed évalue DxGPT dans l'environnement le plus défiant, reflétant la complexité réelle de l'attention sanitaire."
+      },
+      "science": {
+        "title": "La science de la question: Le secret de la cohérence",
+        "description": "Notre recherche a révélé un facteur critique : la qualité de la réponse d'un LLM dépend de manière décisive de la qualité de la question. Par conséquent, nous avons développé et validé plus de 30 formulations de prompt (instructions) pour trouver la structure optimale qui active un raisonnement clinique efficace et cohérent.",
+        "differentiator": "Ce contrôle expert sur la formulation est ce qui différencie DxGPT d'une IA généraliste. Nous ne laissons pas la qualité du résultat au hasard ; nous avons conçu un processus qui s'assure que, pour le même cas, le système applique toujours la même rigueur analytique, produisant des résultats fiables et reproductibles."
+      },
+      "chart": {
+        "caption": "Le graphique illustre comment notre optimisation de la formulation (le saut de la famille 4o → o3) ne pas seulement augmente la précision (axe X), mais permet également de résoudre des cas de plus grande complexité (axe Y), démontrant un avance significatif dans la capacité de raisonnement clinique du système."
+      },
+      "methodology": {
+        "title": "Une méthodologie d'évaluation qui pense comme un clinicien",
+        "intro": "Mesurer la précision va au-delà d'un simple 'correct' ou 'incorrect'. Notre processus d'évaluation en cascade de 3 niveaux mesure ce qui compte vraiment dans la pratique clinique:",
+        "verification": {
+          "title": "Vérification objective",
+          "description": "Compare la principale hypothèse avec des codes médicaux standardisés (SNOMED CT, ICD-10) comme la 'ligne de validation la plus stricte'."
+        },
+        "context": {
+          "title": "Analyse du contexte clinique",
+          "description": "Si il n'y a pas de correspondance exacte, un 'expert AI' évalue si la réponse est un synonyme clinique valide (ex: 'insuffisance rénale aiguë' vs 'lésion rénale aiguë'), reconnaissant les succès que l'analyse de texte simple ignorerait."
+        },
+        "prioritization": {
+          "title": "Qualité de la prioritisation",
+          "description": "C'est notre métrique la plus innovante. Il n'est pas suffisant que le diagnostic correct soit sur la liste; sa position moyenne est mesurée. Un diagnostic correct en première position est 'infiniment plus utile que en cinquième,' et cette métrique évalue la capacité de DxGPT à 'prioriser comme un spécialiste, offrant la plus grande pertinence clinique dans le plus court temps possible'."
+        }
+      },
+      "user": {
+        "title": "Que signifie cela pour l'utilisateur ?",
+        "intro": "Ce processus rigoureux se traduit en bénéfices concrets pour votre pratique:",
+        "confidence": {
+          "title": "Confiance dans chaque résultat",
+          "description": "Vous savez que l'outil a été testé dans des scénarios complexes et réalistes."
+        },
+        "consistency": {
+          "title": "Consistence garantie",
+          "description": "La même information clinique produit la même analyse structurée, à chaque fois."
+        },
+        "relevance": {
+          "title": "Pertinence clinique",
+          "description": "Les hypothèses ne sont pas seulement précises, mais sont prioritaires pour refléter l'urgence et la probabilité clinique."
+        },
+        "conclusion": "En bref, DxGPT n'est pas simplement un modèle avancé; c'est un outil de soutien clinique avec un engagement démontrable envers l'évidence, la fiabilité et la sécurité."
+      }
+    },
+    "trust": {
+      "title": "Notre pacte de confiance et de sécurité",
+      "intro": "La confiance est le fondement de la médecine. Chez DxGPT, la protection des données cliniques et la conformité réglementaire ne sont pas une réflexion après coup, mais le cœur de notre design. Nous opérons avec une transparence radicale pour que les professionnels et les systèmes de santé puissent utiliser notre outil en toute tranquillité d'esprit.",
+      "protection": {
+        "title": "Comment nous protégeons chaque requête : Un processus sans conservation des données pour les informations personnelles",
+        "intro": "Notre flux de travail est conçu pour maximiser l'utilité clinique et minimiser le risque d'exposition des données à zéro.",
+        "anonymization": {
+          "title": "Entrée de données et anonymisation automatique",
+          "description": "Les informations personnelles identifiables (PII) comme les noms, adresses ou identifiants sont automatiquement détectées et supprimées avant le traitement par le modèle d'IA, garantissant l'utilisation uniquement de données cliniques anonymes."
+        },
+        "memory": {
+          "title": "Traitement en mémoire",
+          "description": "L'analyse diagnostique est effectuée en temps réel et en mémoire, sans stockage de données cliniques ou personnelles des patients sur les serveurs."
+        },
+        "retraining": {
+          "title": "Interdiction de la reconnaissance",
+          "description": "Les données cliniques anonymes des requêtes ne sont jamais utilisées pour reconnaître ou améliorer les modèles d'IA, évitant ainsi l'apprentissage involontaire de données sensibles."
+        },
+        "footprint": {
+          "title": "Pas de trace",
+          "description": "Une fois une réponse générée, toutes les informations personnelles identifiables sont complètement supprimées, laissant aucun enregistrement du cas clinique personnel sur la plateforme."
+        }
+      },
+      "governance": {
+        "title": "Gestion des données",
+        "intro": "Le tableau ci-dessous résume le engagement de DxGPT pour la sécurité et les bonnes pratiques de confidentialité pour les équipes d'intégration technique et de conformité réglementaire.",
+        "feature": "Fonctionnalité / Politique",
+        "commitment": "Engagement de DxGPT",
+        "processing": "Emplacement du traitement des données",
+        "processingValue": "Exclusif dans les centres de données de l'Union européenne (Microsoft Azure)",
+        "storage": "Stockage des données patient",
+        "storageValue": "Politique de zéro conservation (aucune PHI stockée)",
+        "anonymization": "Anonymisation des données",
+        "anonymizationValue": "Automatique et proactive (PII identifiés et supprimés)",
+        "training": "Utilisation des données pour le formation",
+        "trainingValue": "Strictement interdit (les données soumises par l'utilisateur ne sont jamais utilisées pour former les modèles d'IA)",
+        "encryption": "Chiffrement des données",
+        "encryptionValue": "De bout en bout (toutes les données chiffrées en transit et au repos)",
+        "compliance": "Principale conformité",
+        "complianceValue": "RGPD (UE), HIPAA (USA), EU AI Act (Alignement en cours)",
+        "agreements": "Accords avec les partenaires",
+        "agreementsValue": "Accords sur les partenaires commerciaux (BAA) disponibles",
+        "audit": "Journaux d'audit",
+        "auditValue": "Activité système enregistrée pour surveiller la sécurité et l'intégrité (sans stockage de PHI)"
+      },
+      "regulatory": {
+        "title": "Notre cadre réglementaire",
+        "intro": "DxGPT a une expérience extensive dans les environnements réglementaires de la santé numérique et s'aligne sur des normes mondiales exigeantes.",
+        "gdpr": {
+          "title": "RGPD (Règlement général sur la protection des données)",
+          "description": "Compliance parfaite avec les principes de droit, de transparence, de minimisation des données et de limitation des buts, avec un traitement exclusif pour la souveraineté des données."
+        },
+        "hipaa": {
+          "title": "HIPAA (Health Insurance Portability and Accountability Act)",
+          "description": "Notre architecture respecte les garanties techniques, physiques et administratives requises par la Règle de Sécurité HIPAA, nous permettant de signer des BAA avec des entités couvertes aux États-Unis."
+        },
+        "aiact": {
+          "title": "EU AI Act",
+          "description": "Nous travaillons activement vers un alignement complet avec l'Acte IA de l'Union Européenne. Nous collaborons avec des experts et des autorités réglementaires pour s'assurer que DxGPT réponde aux plus hauts standards de gestion des risques, gouvernance des données, transparence et robustesse, nous positionnant à l'avant-garde de l'IA responsable en santé."
+        }
+      }
+    }
+  },
+  "foundation29": {
+    "hero": {
+      "title": "À propos de nous",
+      "subtitle": "Révolutionner le système de santé avec la technologie, briser les barrières pour ne laisser personne de côté."
+    },
+    "introduction": {
+      "text": "Foundation 29 est une organisation à but non lucratif. Notre nom s'inspire du 29 février, la Journée internationale des maladies rares. Nous recherchons comment l'utilisation de la technologie peut aider à améliorer la vie des patients."
+    },
+    "vision": {
+      "text": "Nous rêvons d'un monde où diagnostiquer une maladie rare ne prend pas des années, mais des jours. Où l'intelligence artificielle est un allié pour les médecins, les chercheurs et les patients, aidant à prendre des décisions plus rapides, plus précises et, surtout, plus humaines."
+    },
+    "features": {
+      "innovation": {
+        "title": "Innovation technologique",
+        "description": "Nous utilisons l'intelligence artificielle pour développer des outils de pointe qui résolvent de vrais problèmes dans le domaine des maladies rares et communes."
+      },
+      "community": {
+        "title": "Communauté mondiale",
+        "description": "Nous connectons les patients, les familles, les médecins et les chercheurs du monde entier pour créer un réseau de soutien et de connaissances partagées."
+      },
+      "impact": {
+        "title": "Impact humain",
+        "description": "Chaque ligne de code que nous écrivons a un but : améliorer de vraies vies et donner de l'espoir à ceux qui en ont le plus besoin."
+      },
+      "research": {
+        "title": "Recherche collaborative",
+        "description": "Nous facilitons la recherche médicale en fournissant des plateformes qui accélèrent la découverte et le développement de traitements."
+      }
+    },
+    "cta": {
+      "text": "Découvrez-en plus sur nos projets et initiatives en visitant ",
+      "link": "notre page officielle."
+    }
+  },
+  "collaboration":{
+    "title": "Collaboration",
+    "description": "Engagés en faveur de l'ouverture, de la collaboration et de la responsabilité dans le développement de la technologie médicale.",
+    "technologyPartners": {
+      "title": "Partenaires technologiques",
+      "description": "Nous remercions Microsoft, qui grâce à son programme AI for Good nous fournit l'infrastructure sur Azure et le soutien de bénévoles employés. Également Google, dont le programme pour les ONG nous aide à augmenter la visibilité de DxGPT dans son moteur de recherche pour atteindre plus de professionnels et de patients.",
+      "microsoftDescription": "Infrastructure sur Azure et soutien de bénévoles employés",
+      "googleDescription": "Aide à augmenter la visibilité de DxGPT pour atteindre plus de professionnels et de patients"
+    },
+    "ourSponsors": {
+      "title": "Nos sponsors",
+      "description": "Nous exprimons notre plus profonde gratitude à nos généreux sponsors. Leur soutien est purement philanthropique, sans intérêts commerciaux ni échange de données, et est vital pour développer des outils comme DxGPT et les offrir gratuitement."
+    },
+    "implementations": {
+      "title": "Implémentations",
+      "description": "DxGPT a été implémenté dans divers systèmes de santé et organisations médicales pour améliorer le diagnostic et les soins aux patients.",
+      "aragon": {
+        "title": "Service de Santé d'Aragon",
+        "status": "Depuis juillet 2025",
+        "description": "DxGPT est maintenant disponible pour les professionnels de santé du Service de Santé d'Aragon, permettant d'améliorer la précision et la rapidité dans le diagnostic des maladies rares et communes dans la région d'Aragon.",
+        "users": "Utilisateurs :",
+        "usersValue": "+5 000 médecins",
+        "scope": "Portée :",
+        "scopeValue": "Région d'Aragon",
+        "focus": "Focus :",
+        "focusValue": "Maladies rares et communes"
+      },
+      "sermas": {
+        "title": "Service de Santé de Madrid (SERMAS)",
+        "status": "Depuis septembre 2023",
+        "description": "Implémentation pionnière de DxGPT dans le système de santé de la Communauté de Madrid, offrant un accès à plus de 6 000 médecins de soins primaires pour améliorer les capacités diagnostiques.",
+        "coverage": "Couverture :",
+        "coverageValue": "Réseau entier de soins primaires",
+        "users": "Utilisateurs :",
+        "usersValue": "+6 000 médecins",
+        "focus": "Focus :",
+        "focusValue": "Maladies rares et cas complexes",
+        "news1": "Microsoft News - SERMAS pionnier en IA générative",
+        "news2": "Communauté de Madrid - Accès pour 6 000 médecins"
+      },
+      "catsalut": {
+        "title": "Service de Santé Catalan (CatSalut)",
+        "status": "En développement",
+        "description": "Implémentation à venir dans le système de santé catalan pour étendre les avantages de DxGPT à une plus grande population de professionnels de santé en Catalogne.",
+        "statusLabel": "Statut :",
+        "statusValue": "Phase d'implémentation",
+        "scope": "Portée :",
+        "scopeValue": "Système de santé catalan",
+        "objective": "Objectif :",
+        "objectiveValue": "Amélioration diagnostique complète"
+      }
+    },
+    "healthSystems": {
+      "title": "Utilisation dans les systèmes de santé",
+      "description": "Notre outil est conçu pour s'intégrer de manière sûre et efficace dans les systèmes de santé existants, en respectant les plus hauts standards de confidentialité et de sécurité."
+    },
+    "wantToCollaborate": {
+      "title": "Je veux collaborer",
+      "description": "Êtes-vous intéressé par une collaboration avec nous ? Nous aimerions en savoir plus sur votre projet et explorer les opportunités de collaboration.",
+      "contactButton": "Contactez-nous"
+    }
   },
   "generics":{
     "Email": "E-mail",
@@ -121,6 +443,7 @@
     "Files modified - re-analyze needed": "Fichiers modifiés - réanalyse nécessaire"
   },
   "policy": {
+    "subtitle": "Découvrez comment nous protégeons votre confidentialité et vos données personnelles dans DxGPT.",
     "lastUpdated": "Dernière mise à jour : 21 avril 2025",
     "p1": "Politique de confidentialité de DxGPT (conforme au RGPD)",
     "p2.1": "1. Qui nous sommes et comment nous contacter",
@@ -243,11 +566,13 @@
     "Message": "Message",
     "New File": "Nouveau fichier",
     "Send": "Envoyer",
-    "Old messages": "Anciens messages",
-    "Uploading a capture can help us a lot": "Télécharger une capture d'écran peut beaucoup nous aider"
-  },
-  "footer":{
-    "Dx29info": "DxGPT est un outil de recherche et de référence fourni à titre informatif et ne vise pas à remplacer le jugement ou l'expérience du médecin. Il ne doit pas être utilisé pour diagnostiquer ou traiter des affections médicales."
+    "NAV_CLINICAL_DESCRIPTION": "Aidez-nous à améliorer le diagnostic des maladies en partageant des données cliniques anonymes.",
+    "NAV_CLINICAL_SUBTITLE": "Pour procéder au don de données cliniques, complétez le formulaire ci-dessous et notre équipe vous contactera pour coordonner le processus de manière sécurisée.",
+    "NAV_DATASETS_DESCRIPTION": "Partagez des datasets institutionnels pour améliorer le diagnostic des maladies.",
+    "NAV_DATASETS_SUBTITLE": "Pour procéder au don de datasets, complétez le formulaire ci-dessous et notre équipe vous contactera pour coordonner le processus de manière sécurisée.",
+    "NAV_SUBSCRIBE_TITLE": "Inscrivez-vous à notre newsletter",
+    "NAV_SUBSCRIBE_DESCRIPTION": "Inscrivez-vous à notre newsletter pour recevoir les dernières actualités et projets.",
+    "NAV_CONTACT_DESCRIPTION": "Contactez-nous pour toute question ou feedback."
   },
   "land":{
     "disclaimer": "<p><strong>DxGPT</strong> est une expérience de recherche utilisant une intelligence artificielle à usage général. Plus précisément, il utilise le modèle linguistique GPT-4 d'OpenAI comme modèle prédictif pour un outil fournissant des informations sur les maladies rares associées. Il est conçu pour fournir des informations générales et des suggestions basées sur les symptômes fournis. L'outil n'est pas destiné à remplacer les conseils médicaux professionnels, ni à soutenir le diagnostic, la prévention, la surveillance, la prédiction ou le traitement et ne doit jamais être utilisé pour porter des jugements diagnostiques sur de vrais patients.</p><p>Parce que l'IA peut donner des résultats variables, la précision du diagnostic et les suggestions de l'outil peuvent varier, il est donc important de consulter un professionnel de la santé qualifié pour s'assurer d'un diagnostic précis et approprié. L'utilisation de cet outil est au risque de l'utilisateur et la Fondation 29 n'est pas responsable des conséquences ou dommages pouvant résulter de son utilisation.</p><p>En utilisant cet outil, l'utilisateur reconnaît qu'il a lu et compris cette clause de non-responsabilité, et accepte les risques potentiels associés à l'utilisation de l'outil basé sur l'intelligence artificielle.</p>",
@@ -475,6 +800,7 @@
   },
   "faqs": {
     "title": "Foire aux questions",
+    "subtitle": "Réponses aux questions sur DxGPT et comment il peut vous aider dans le diagnostic médical.",
     "q1": "Mes informations médicales sont-elles confidentielles ?",
     "a1": "Oui, votre confidentialité est notre priorité absolue. DxGPT est une initiative de la Fundación 29, une organisation à but non lucratif engagée à protéger rigoureusement vos données personnelles et de santé. Nous ne vendons, ne louons ni ne partageons jamais vos informations personnelles avec des tiers à des fins commerciales ou marketing. Toutes les données que vous fournissez sont cryptées de manière sécurisée, tant lors de leur transmission que lorsqu’elles sont stockées. De plus, les informations sensibles sont automatiquement anonymisées avant d’être enregistrées, garantissant que l’identité des utilisateurs ne peut pas être révélée. L’accès à vos données est strictement contrôlé et limité au personnel autorisé, soumis à des obligations strictes de confidentialité, en totale conformité avec le RGPD et la HIPAA.",
     "q2": "Puis-je utiliser DxGPT en cas d’urgence ?",

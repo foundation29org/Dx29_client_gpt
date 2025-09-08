@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { EventsService } from 'app/shared/services/events.service';
 import { Injectable, Injector } from '@angular/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { BrandingService } from 'app/shared/services/branding.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { filter } from 'rxjs/operators';
 declare let gtag: any;
 
@@ -25,6 +26,8 @@ export class NavbarD29Component implements OnDestroy {
   langs: any;
   isHomePage: boolean = false;
   isAboutPage: boolean = false;
+  isCollaborationPage: boolean = false;
+  isFoundation29Page: boolean = false;
   isFaqPage: boolean = false;
   isPrivacyPolicyPage: boolean = false;
   isReportsPage: boolean = false;
@@ -33,6 +36,15 @@ export class NavbarD29Component implements OnDestroy {
   isMenuExpanded = false;
   headerLogo: string = 'assets/img/logo-Dx29.webp';
   shouldShowDonate: boolean = true;
+  
+  // Referencia al modal
+  private modalRef: NgbModalRef;
+  
+  // Referencia al template del modal
+  @ViewChild('sendMsgModal') sendMsgModal!: TemplateRef<any>;
+  
+  // Modo del modal
+  modalMode: 'clinicalData' | 'datasets' | 'subscribe' | 'contact' = 'contact';
 
   constructor(
     public translate: TranslateService, 
@@ -40,7 +52,8 @@ export class NavbarD29Component implements OnDestroy {
     private router: Router, 
     private inj: Injector, 
     public insightsService: InsightsService,
-    private brandingService: BrandingService
+    private brandingService: BrandingService,
+    private modalService: NgbModal
   ) {
     this.loadLanguages();
     this.router.events.pipe(
@@ -51,36 +64,64 @@ export class NavbarD29Component implements OnDestroy {
         if (tempUrl.indexOf('/.') != -1 || tempUrl == '/') {
           this.isHomePage = true;
           this.isAboutPage = false;
+          this.isCollaborationPage = false;
+          this.isFoundation29Page = false;
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
         } else if (tempUrl.indexOf('/aboutus') != -1) {
           this.isHomePage = false;
           this.isAboutPage = true;
+          this.isCollaborationPage = false;
+          this.isFoundation29Page = false;
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
-        }else if (tempUrl.indexOf('/faq') != -1) {
+        } else if (tempUrl.indexOf('/collaboration') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
+          this.isCollaborationPage = true;
+          this.isFoundation29Page = false;
+          this.isFaqPage = false;
+          this.isPrivacyPolicyPage = false;
+          this.isReportsPage = false;
+        } else if (tempUrl.indexOf('/foundation29') != -1) {
+          this.isHomePage = false;
+          this.isAboutPage = false;
+          this.isCollaborationPage = false;
+          this.isFoundation29Page = true;
+          this.isFaqPage = false;
+          this.isPrivacyPolicyPage = false;
+          this.isReportsPage = false;
+        } else if (tempUrl.indexOf('/faq') != -1) {
+          this.isHomePage = false;
+          this.isAboutPage = false;
+          this.isCollaborationPage = false;
+          this.isFoundation29Page = false;
           this.isFaqPage = true;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
         } else if (tempUrl.indexOf('/reports') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
+          this.isCollaborationPage = false;
+          this.isFoundation29Page = false;
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = true;
-         }else if (tempUrl.indexOf('/privacy-policy') != -1) {
+         } else if (tempUrl.indexOf('/privacy-policy') != -1) {
             this.isHomePage = false;
             this.isAboutPage = false;
+            this.isCollaborationPage = false;
+            this.isFoundation29Page = false;
             this.isFaqPage = false;
             this.isPrivacyPolicyPage = true;
             this.isReportsPage = false;
         } else {
           this.isHomePage = false;
           this.isAboutPage = false;
+          this.isCollaborationPage = false;
+          this.isFoundation29Page = false;
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
@@ -240,11 +281,71 @@ export class NavbarD29Component implements OnDestroy {
     const target = event.target as HTMLElement;
     const clickedInsideMenu = target.closest('.navbar-collapse');
     const clickedToggleButton = target.closest('.navbar-toggler');
+    const clickedInsideDropdown = target.closest('.dropdown-menu') || target.closest('[ngbDropdown]');
 
+    // Solo cerrar el menú si:
+    // 1. No se hizo clic dentro del menú Y no se hizo clic en el botón toggle
+    // 2. O se hizo clic dentro del menú pero NO en el dropdown
     if (!clickedInsideMenu && !clickedToggleButton) {
       this.closeMenu();
-    } else if (clickedInsideMenu && !clickedToggleButton) {
+    } else if (clickedInsideMenu && !clickedToggleButton && !clickedInsideDropdown) {
       this.closeMenu();
+    }
+  }
+
+  /**
+   * Abre el modal de datos clínicos
+   */
+  openClinicalDataModal(): void {
+    this.openSendMsgModal('clinicalData');
+  }
+
+  /**
+   * Abre el modal de datasets
+   */
+  openDatasetsModal(): void {
+    this.openSendMsgModal('datasets');
+  }
+
+  /**
+   * Abre el modal de send-msg con el modo especificado
+   */
+  private openSendMsgModal(mode: 'clinicalData' | 'datasets' | 'subscribe' | 'contact'): void {
+    // Establecer el modo del modal
+    this.modalMode = mode;
+    
+    // Abrir el modal usando el template
+    this.modalRef = this.modalService.open(this.sendMsgModal, { 
+      size: 'lg',
+      centered: true,
+      backdrop: 'static',
+      keyboard: false
+    });
+  }
+
+  /**
+   * Cierra el modal actual
+   */
+  closeModal(): void {
+    if (this.modalRef) {
+      this.modalRef.close();
+    }
+  }
+
+  /**
+   * Obtiene el título del modal según el modo
+   */
+  getModalTitle(): string {
+    switch (this.modalMode) {
+      case 'clinicalData':
+        return this.translate.instant('menu.DONATE_DROPDOWN_2');
+      case 'datasets':
+        return this.translate.instant('menu.DONATE_DROPDOWN_3');
+      case 'subscribe':
+        return this.translate.instant('support.NAV_SUBSCRIBE_TITLE');
+      case 'contact':
+      default:
+        return this.translate.instant('menu.Contact us');
     }
   }
 

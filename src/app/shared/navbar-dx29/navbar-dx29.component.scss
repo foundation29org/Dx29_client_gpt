@@ -22,6 +22,72 @@ i{
 .dropdown-toggle::after{
   //display: none;
   vertical-align: 0.055em;
+  transition: transform 0.2s ease;
+}
+
+.donate-link.show .dropdown-toggle::after {
+  transform: rotate(180deg);
+}
+
+/* Animación de rotación para el dropdown de idiomas */
+.nav-item[ngbDropdown] .dropdown-toggle::after {
+  transition: transform 0.2s ease;
+}
+
+.nav-item[ngbDropdown].show .dropdown-toggle::after {
+  transform: rotate(180deg);
+}
+
+/* Estilos para el dropdown en pantallas anchas */
+.donate-link .dropdown-menu {
+  background: white;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 0.5rem 0;
+  min-width: 200px;
+  max-width: 320px;
+  margin-top: 8px;
+  z-index: 1050;
+  
+  .dropdown-item {
+    color: #333;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: #f8f9fa;
+      color: var(--accent-color);
+    }
+    
+    i {
+      width: 16px;
+      text-align: center;
+      color: var(--accent-color);
+    }
+  }
+}
+
+/* Asegurar que el dropdown no se salga del viewport en pantallas anchas */
+@media (min-width: 1200px) {
+  .donate-link .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+}
+
+/* Para pantallas medianas (tablets) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .donate-link .dropdown-menu {
+    right: 0;
+    left: auto;
+    min-width: 180px;
+    max-width: 300px;
+  }
 }
 
 .text-logo{
@@ -75,7 +141,7 @@ i{
     }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 1199.98px) {
   .navbar-collapse.show {
     background: #fff;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
@@ -106,12 +172,21 @@ i{
   }
 
   .donate-link .donate-a {
-    width: 80%;
+    //width: 80%;
     margin: 0 auto;
     display: block;
     font-size: 1.1rem;
     border-radius: 24px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  /* Estilos para el dropdown en pantallas estrechas */
+  .donate-link .dropdown-menu {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    min-width: 180px;
+    max-width: calc(100vw - 32px);
   }
 
   .navbar-toggler {
@@ -160,12 +235,108 @@ i{
     position: inherit;
   }
 
+  /* Ajustes adicionales para el dropdown en pantallas muy estrechas */
+  .donate-link .dropdown-menu {
+    min-width: 180px;
+    max-width: calc(100vw - 24px);
+    font-size: 0.9rem;
+    
+    .dropdown-item {
+      padding: 0.6rem 0.8rem;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+  }
+
 }
 
 @media (max-width: 300px){
   .logo-header{
     width: 100px;
     height: 26px;
+  }
+
+  /* Para pantallas extremadamente estrechas */
+  .donate-link .dropdown-menu {
+    min-width: 160px;
+    max-width: calc(100vw - 16px);
+    font-size: 0.8rem;
+    
+    .dropdown-item {
+      padding: 0.5rem 0.6rem;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+/* Estilos para el modal */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+  background: white;
+  border-radius: 12px 12px 0 0;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #f8f9fa;
+    color: #495057;
+  }
+  
+  &:focus {
+    outline: 2px solid var(--backgroundDark);
+    outline-offset: 2px;
+  }
+}
+
+/* Clase para el estado activo del navbar usando el color accent del tenant */
+.nav-active {
+  color: var(--accent-color) !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid var(--accent-color) !important;
+}
+
+/* En pantallas estrechas, ajustar el estilo del enlace activo */
+@media (max-width: 1199.98px) {
+  .navbar-nav.menu-items .nav-item .nav-active {
+    border-bottom: none !important;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 2px;
+      background-color: var(--accent-color);
+      border-radius: 1px;
+    }
   }
 }
 
