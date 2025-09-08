@@ -1,0 +1,16 @@
+/* Optimización de fuentes para mejor performance */
+@font-face {
+  font-family: "Font Awesome 6 Free";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("../webfonts/free-fa-solid-900.woff2") format("woff2");
+}
+
+/* Optimización para fuentes de Google */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Preload crítico para fuentes */
+.font-preload {
+  font-family: "Font Awesome 6 Free", "Inter", sans-serif;
+}
