@@ -21,6 +21,11 @@
   padding: 0 2rem;
 }
 
+// Cuando se oculta la columna de donación, ajustar a 3 columnas
+.footer-columns.no-donate {
+  grid-template-columns: 1fr 1fr 1.5fr;
+}
+
 .footer-column {
   display: flex;
   flex-direction: column;

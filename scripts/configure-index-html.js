@@ -154,11 +154,31 @@ function replaceInHtml(content, config) {
     `<meta name="twitter:image" content="${config.ogImage}">`
   );
   
-  // Reemplazar el ID de Google Analytics en el src del script
+  // Reemplazar el ID de Google Analytics en el src del script (estático)
   modifiedContent = modifiedContent.replace(
     /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+"><\/script>/g,
     `<script async src="https://www.googletagmanager.com/gtag/js?id=${config.analytics.googleAnalytics}"></script>`
   );
+
+  // Reemplazar el ID de Google Analytics en el script dinámico
+  modifiedContent = modifiedContent.replace(
+    /script\.src = 'https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+';/g,
+    `script.src = 'https://www.googletagmanager.com/gtag/js?id=${config.analytics.googleAnalytics}';`
+  );
+
+  // Reemplazar Google Ads script (solo si no es null)
+  if (config.analytics.googleAds) {
+    modifiedContent = modifiedContent.replace(
+      /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=AW-[A-Z0-9]+"><\/script>/g,
+      `<script async src="https://www.googletagmanager.com/gtag/js?id=${config.analytics.googleAds}"></script>`
+    );
+  } else {
+    // Comentar Google Ads script si es null
+    modifiedContent = modifiedContent.replace(
+      /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=AW-[A-Z0-9]+"><\/script>/g,
+      `<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=AW-335378785"></script> --> <!-- Comentado para ${config.name} -->`
+    );
+  }
 
   // Reemplazar Google Analytics
   modifiedContent = modifiedContent.replace(
