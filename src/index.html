@@ -21,10 +21,9 @@
   <meta name="twitter:description" content="DxGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients." />
   <meta name="twitter:image" content="https://dxgpt.app/assets/img/logo-Dx29.png" />
 
-  <!-- Preconnect -->
-  <!-- Solo los más críticos -->
+  <!-- Preconnect optimizado -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="assets/webfonts/free-fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://script.hotjar.com" crossorigin>
 
   <!-- DNS Prefetch -->
   <link rel="dns-prefetch" href="//www.googleadservices.com">
@@ -45,13 +44,24 @@
     }
     </script>
 
-    <!-- Scripts que pueden cargarse asíncronamente -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FZQ49SRWY"></script>
+    <!-- Scripts optimizados para carga diferida -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-2FZQ49SRWY');     
+      // Cargar Google Analytics después de que la página esté lista
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-2FZQ49SRWY';
+          document.head.appendChild(script);
+          
+          script.onload = function() {
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-2FZQ49SRWY');
+          };
+        }, 1000);
+      });
     </script>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-335378785"></script>

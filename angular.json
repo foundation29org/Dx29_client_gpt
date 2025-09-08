@@ -28,7 +28,6 @@
               "src/robots.txt"
             ],
             "styles": [
-              "src/assets/css/font-optimization.css",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.css",
               "src/assets/css/custom.css",
