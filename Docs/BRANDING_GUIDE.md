@@ -68,7 +68,7 @@ El branding se configura en `src/assets/config/branding-config.json`:
     },
     "links": {
       "donate": null,
-      "foundation": "https://www.aragon.es/organismos/departamento-de-sanidad",
+      "foundation": "https://foundation29.org",
       "support": "SALUD-GPT support"
     },
     "tenantId": "salud-gpt-prod",

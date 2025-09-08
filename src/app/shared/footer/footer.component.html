@@ -2,7 +2,7 @@
 <footer class="footer-main">
   <div class="container-fluid">
     <div class="footer-content">
-      <div class="footer-columns">
+      <div class="footer-columns" [class.no-donate]="!shouldShowDonate">
         <!-- DxGPT Column -->
         <div class="footer-column">
           <h3 class="footer-title">{{ brandingService.getAppName() }}</h3>
@@ -16,7 +16,7 @@
         </div>
 
         <!-- Colaboración Column -->
-        <div class="footer-column">
+        <div class="footer-column" *ngIf="shouldShowDonate">
           <h3 class="footer-title">{{'footer.Collaboration' | translate }}</h3>
           <ul class="footer-links">
             <li><a routerLink="/collaboration" fragment="partners">{{'footer.Technology partners' | translate }}</a></li>
@@ -24,7 +24,7 @@
             <li><a routerLink="/collaboration" fragment="implementations">{{'footer.Implementations' | translate }}</a></li>
             <li><a routerLink="/collaboration" fragment="implementations-opportunity">{{'footer.Use in health systems' | translate }}</a></li>
             <li><a routerLink="/collaboration" fragment="collaborate">{{'footer.I want to collaborate' | translate }}</a></li>
-            <li class="footer-donate-dropdown" ngbDropdown display="dynamic" placement="auto" *ngIf="shouldShowDonate">
+            <li class="footer-donate-dropdown" ngbDropdown display="dynamic" placement="auto">
               <a class="footer-donate-link dropdown-toggle" 
                  id="footerDonationDropdown" 
                  ngbDropdownToggle 

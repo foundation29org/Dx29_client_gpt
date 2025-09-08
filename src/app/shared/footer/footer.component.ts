@@ -217,6 +217,7 @@ private loadBrandingConfig(): void {
     if (config) {
       this.footerLogo = config.logos.footer;
       this.foundationLink = config.links.foundation;
+      this.shouldShowDonate = config.links.donate !== null;
     }
   });
 }

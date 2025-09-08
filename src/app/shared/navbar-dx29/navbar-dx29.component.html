@@ -34,7 +34,7 @@
                     <span>{{'foundation29.hero.title' | translate }}</span>
                 </a>
               </li>
-              <li class="nav-item me-2">
+              <li class="nav-item me-2" *ngIf="shouldShowDonate">
                   <a class="nav-link" [ngClass]="(!isCollaborationPage)?'black':'nav-active'" routerLink="/collaboration" (click)="lauchEvent('Page - Collaboration')" [attr.aria-label]="'menu.Collaboration' | translate">
                       <span>{{'menu.Collaboration' | translate }}</span>
                   </a>
