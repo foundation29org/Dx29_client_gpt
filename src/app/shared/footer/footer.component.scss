@@ -358,3 +358,81 @@
   text-transform: none;
   letter-spacing: 0px;
 }
+
+// Estilos para el dropdown de donación en el footer
+.footer-donate-dropdown {
+  position: relative;
+  
+  .footer-donate-link {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    &:hover {
+      color: var(--accent-color);
+    }
+    
+    &::after {
+      content: '';
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 4px solid currentColor;
+      margin-left: 0.5rem;
+      transition: transform 0.2s ease;
+    }
+  }
+  
+  &.show .footer-donate-link::after {
+    transform: rotate(180deg);
+  }
+  
+  .dropdown-menu {
+    background: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 0.5rem 0;
+    min-width: 200px;
+    z-index: 1050;
+    
+    .dropdown-item {
+      color: #333;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: #f8f9fa;
+        color: var(--accent-color);
+      }
+      
+      i {
+        width: 16px;
+        text-align: center;
+        color: var(--accent-color);
+      }
+    }
+  }
+}
+
+// Responsive para el dropdown del footer
+@media (max-width: 768px) {
+  .footer-donate-dropdown {
+    .dropdown-menu {
+      min-width: 180px;
+      font-size: 0.9rem;
+      
+      .dropdown-item {
+        padding: 0.6rem 0.8rem;
+      }
+    }
+  }
+}

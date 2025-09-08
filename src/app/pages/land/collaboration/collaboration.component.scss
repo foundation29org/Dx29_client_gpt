@@ -564,6 +564,10 @@
     flex-direction: column;
     text-align: center;
     gap: 1rem;
+    
+    .opportunity-icon {
+      align-self: center;
+    }
   }
 }
 

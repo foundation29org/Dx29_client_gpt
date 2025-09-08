@@ -236,6 +236,20 @@ openSubscribeModal(): void {
 }
 
 /**
+ * Abre el modal de datos clínicos
+ */
+openClinicalDataModal(): void {
+  this.openSendMsgModal('clinicalData');
+}
+
+/**
+ * Abre el modal de datasets
+ */
+openDatasetsModal(): void {
+  this.openSendMsgModal('datasets');
+}
+
+/**
  * Abre el modal de send-msg con el modo especificado
  */
 private openSendMsgModal(mode: 'clinicalData' | 'datasets' | 'subscribe' | 'contact'): void {

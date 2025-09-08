@@ -99,7 +99,7 @@ export class SendMsgComponent implements OnDestroy, OnInit {
         break;
       case 'contact':
       default:
-        this.title = this.translate.instant('menu.Contact us"');
+        this.title = this.translate.instant('menu.Contact us');
         this.formDescription = this.translate.instant('support.NAV_CONTACT_DESCRIPTION');
         this.showSubscribeCheckbox = true;
         break;
