@@ -11,7 +11,7 @@
             <li><a routerLink="/aboutus" fragment="evaluation">{{'footer.Accuracy' | translate }}</a></li>
             <li><a href="https://github.com/foundation29org/dxgpt-bench-lab/blob/main/bench/__conceptual-model-and-research-notes/evaluacion_modelos_llm_diagnostico_pediatrico_pipeline_pv4.pdf" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'footer.Evaluation' | translate">{{'footer.Evaluation' | translate }}</a></li>
             <li><a routerLink="/faq">FAQs</a></li>
-            <li><a routerLink="/reports">{{'menu.Usage statistics' | translate }}</a></li>
+            <li *ngIf="shouldShowDonate"><a routerLink="/reports">{{'menu.Usage statistics' | translate }}</a></li>
           </ul>
         </div>
 
