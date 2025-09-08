@@ -78,8 +78,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
         a = o.getElementsByTagName('head')[0];
         r = o.createElement('script');
         r.async = 1;
+        r.defer = true;
         r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a?.appendChild(r);
+        // Cargar Hotjar después de que la página esté lista
+        setTimeout(() => {
+          a?.appendChild(r);
+        }, 2000);
       })(window as any, this.document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     }
   }
