@@ -29,7 +29,7 @@
   },
   "aboutUs": {
     "hero": {
-      "title": "DxGPT: Augmentierte Intelligenz für diagnostische Vertrauen",
+      "title": "DxGPT: Augmentierte intelligenz für diagnostische vertrauen",
       "subtitle": "Transforme die klinische Unsicherheit in Klarheit. DxGPT ist Ihr diagnostischer Co-Pilot: Strukturieren Sie das Denken, reduzieren Sie die kognitive Belastung und minimieren Sie Bias in Sekunden, selbst in komplexen oder seltenen Fällen.",
       "tryButton": "DxGPT ausprobieren",
       "evidenceButton": "Unsere wissenschaftliche Evidenz erkunden",
@@ -198,21 +198,21 @@
         "intro": "Die folgende Tabelle fasst unser Engagement für Best Practices in Sicherheit und Datenschutz zusammen, das darauf ausgelegt ist, die Bewertung durch IT- und regulatorische Compliance-Teams zu erleichtern.",
         "feature": "Funktion / Richtlinie",
         "commitment": "DxGPTs Engagement",
-        "processing": "Standort der Datenverarbeitung",
+        "processing": "Standort der datenverarbeitung",
         "processingValue": "Ausschließlich in Rechenzentren der Europäischen Union (Microsoft Azure)",
-        "storage": "Speicherung von Patientendaten",
+        "storage": "Speicherung von patientendaten",
         "storageValue": "Null-Retention-Richtlinie. Keine geschützten Gesundheitsinformationen (PHI) werden gespeichert.",
         "anonymization": "Datenanonymisierung",
         "anonymizationValue": "Automatisch und proaktiv. PII wird identifiziert und vor der Verarbeitung entfernt.",
-        "training": "Verwendung von Daten für Training",
+        "training": "Verwendung von daten für training",
         "trainingValue": "Streng verboten. Von Benutzern übermittelte Daten werden niemals verwendet, um KI-Modelle zu trainieren.",
         "encryption": "Datenverschlüsselung",
         "encryptionValue": "End-to-End. Alle Daten werden im Transit (TLS 1.2+) und im Ruhezustand verschlüsselt.",
-        "compliance": "Haupt-Compliance",
+        "compliance": "Haupt-compliance",
         "complianceValue": "DSGVO (EU), HIPAA (USA), EU-KI-Gesetz (Ausrichtung in Bearbeitung)",
-        "agreements": "Vereinbarungen mit Partnern",
+        "agreements": "Vereinbarungen mit partnern",
         "agreementsValue": "Business Associate Agreements (BAA) für institutionelle Partner verfügbar",
-        "audit": "Audit-Protokolle",
+        "audit": "Audit-protokolle",
         "auditValue": "Systemaktivität wird protokolliert, um Sicherheit und Integrität zu überwachen (ohne Speicherung von PHI)"
       },
       "regulatory": {
@@ -246,19 +246,19 @@
     },
     "features": {
       "innovation": {
-        "title": "Technologische Innovation",
+        "title": "Technologische innovation",
         "description": "Wir nutzen künstliche Intelligenz, um modernste Tools zu entwickeln, die reale Probleme im Bereich seltener und häufiger Krankheiten lösen."
       },
       "community": {
-        "title": "Globale Gemeinschaft",
+        "title": "Globale gemeinschaft",
         "description": "Wir verbinden Patienten, Familien, Ärzte und Forscher aus aller Welt, um ein Netzwerk der Unterstützung und des geteilten Wissens zu schaffen."
       },
       "impact": {
-        "title": "Menschliche Wirkung",
+        "title": "Menschliche wirkung",
         "description": "Jede Zeile Code, die wir schreiben, hat einen Zweck: echte Leben zu verbessern und Hoffnung denen zu geben, die sie am meisten brauchen."
       },
       "research": {
-        "title": "Kollaborative Forschung",
+        "title": "Kollaborative forschung",
         "description": "Wir erleichtern medizinische Forschung, indem wir Plattformen bereitstellen, die die Entdeckung und Entwicklung von Behandlungen beschleunigen."
       }
     },

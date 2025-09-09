@@ -29,7 +29,7 @@
   },
   "aboutUs": {
     "hero": {
-      "title": "DxGPT: Augmented Intelligence for Diagnostic Confidence",
+      "title": "DxGPT: Augmented intelligence for diagnostic confidence",
       "subtitle": "Transform clinical uncertainty into clarity. DxGPT is your diagnostic co-pilot: structure reasoning, reduce cognitive load, and minimize biases in seconds, even in complex or rare cases.",
       "tryButton": "Try DxGPT",
       "evidenceButton": "Explore our scientific evidence",
@@ -198,25 +198,25 @@
         "intro": "The following table summarizes DxGPT's commitment to security and privacy best practices for IT and regulatory compliance teams.",
         "feature": "Feature / Policy",
         "commitment": "DxGPT's Commitment",
-        "processing": "Data Processing Location",
+        "processing": "Data processing location",
         "processingValue": "Exclusively in European Union data centers (Microsoft Azure)",
-        "storage": "Patient Data Storage",
+        "storage": "Patient data storage",
         "storageValue": "Zero-retention policy (No PHI stored)",
-        "anonymization": "Data Anonymization",
+        "anonymization": "Data anonymization",
         "anonymizationValue": "Automatic and proactive (PII identified and removed)",
-        "training": "Use of data for Training",
+        "training": "Use of data for training",
         "trainingValue": "Strictly prohibited (User-submitted data never used to train AI models)",
-        "encryption": "Data Encryption",
+        "encryption": "Data encryption",
         "encryptionValue": "End-to-end (All data encrypted in transit and at rest)",
-        "compliance": "Main Compliance",
+        "compliance": "Main compliance",
         "complianceValue": "GDPR (EU), HIPAA (USA), EU AI Act (Alignment in progress)",
         "agreements": "Agreements with partners",
         "agreementsValue": "Business Associate Agreements (BAA) available",
-        "audit": "Audit Logs",
+        "audit": "Audit logs",
         "auditValue": "System activity logged to monitor security and integrity (without storing PHI)"
       },
       "regulatory": {
-        "title": "Our Regulatory Framework",
+        "title": "Our regulatory framework",
         "intro": "DxGPT has extensive experience in digital health regulatory environments and aligns with demanding global standards.",
         "gdpr": {
           "title": "GDPR (General Data Protection Regulation)",
@@ -246,19 +246,19 @@
     },
     "features": {
       "innovation": {
-        "title": "Technological Innovation",
+        "title": "Technological innovation",
         "description": "We use artificial intelligence to develop cutting-edge tools to solve real problems in the field of rare and common diseases."
       },
       "community": {
-        "title": "Global Community",
+        "title": "Global community",
         "description": "We connect patients, families, doctors, and researchers from all over the world to create a network of support and shared knowledge."
       },
       "impact": {
-        "title": "Human Impact",
+        "title": "Human impact",
         "description": "Every line of code we write has a purpose: to improve real lives and give hope to those who need it most."
       },
       "research": {
-        "title": "Collaborative Research",
+        "title": "Collaborative research",
         "description": "We facilitate medical research by providing platforms that accelerate the discovery and development of treatments."
       }
     },
