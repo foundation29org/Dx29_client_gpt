@@ -14,6 +14,7 @@ import { TestimonialsComponent } from "./testimonials/testimonials.component";
 import { PermalinkViewPageComponent } from "./permalink-view/permalink-view-page.component";
 import { CollaborationComponent } from "./collaboration/collaboration.component";
 import { Foundation29Component } from "./foundation29/foundation29.component";
+import { IntegrationComponent } from "./integration/integration.component";
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -52,7 +53,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         TestimonialsComponent,
         PermalinkViewPageComponent,
         CollaborationComponent,
-        Foundation29Component
+        Foundation29Component,
+        IntegrationComponent
     ]
 })
 export class LandPageModule { }

@@ -1,0 +1,395 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">{{ 'integration.title' | translate }}</h1>
+      <p class="hero-description">{{ 'integration.subtitle' | translate }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="main-content">
+  <div class="container">
+        <!-- Deployment Models Section -->
+    <div class="deployment-models-section">
+      <h2 class="section-title">{{ 'integration.deployment_models.title' | translate }}</h2>
+      <div class="deployment-grid">
+        <!-- SaaS Multi-tenant -->
+        <div class="deployment-card recommended">
+          <div class="deployment-badge">{{ 'integration.deployment_models.recommended' | translate }}</div>
+          <div class="card-icon">
+            <i class="fas fa-cloud" aria-hidden="true"></i>
+          </div>
+          <h3 class="card-title">{{ 'integration.deployment_models.saas_multi_tenant.title' | translate }}</h3>
+          <p class="card-description">{{ 'integration.deployment_models.saas_multi_tenant.description' | translate }}</p>
+          <ul class="card-features">
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.saas_multi_tenant.shared_infrastructure' | translate }}
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.saas_multi_tenant.tenant_segmentation' | translate }}
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.saas_multi_tenant.customization' | translate }}
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.saas_multi_tenant.analytics' | translate }}
+            </li>
+          </ul>
+          
+          <!-- Advanced Analytics Section -->
+          <div class="advanced-analytics">
+            <h4 class="analytics-title">
+              <i class="fas fa-brain" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.saas_multi_tenant.intelligence' | translate }}
+            </h4>
+            <div class="analytics-features">
+              <div class="analytics-item">
+                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                <span>{{ 'integration.deployment_models.saas_multi_tenant.training_insights' | translate }}</span>
+              </div>
+              <div class="analytics-item">
+                <i class="fas fa-cogs" aria-hidden="true"></i>
+                <span>{{ 'integration.deployment_models.saas_multi_tenant.protocol_optimization' | translate }}</span>
+              </div>
+              <div class="analytics-item">
+                <i class="fas fa-search-plus" aria-hidden="true"></i>
+                <span>{{ 'integration.deployment_models.saas_multi_tenant.clinical_radar' | translate }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="deployment-examples">
+            <h4>{{ 'integration.deployment_models.saas_multi_tenant.used_by' | translate }}</h4>
+            <button class="btn-contact" (click)="openContactModal()" [attr.aria-label]="'footer.Contact us' | translate">
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+              {{'footer.Contact us' | translate }}
+            </button>
+          </div>
+        </div>
+
+        <!-- API Access -->
+        <div class="deployment-card">
+          <div class="card-icon">
+            <i class="fas fa-code" aria-hidden="true"></i>
+          </div>
+          <h3 class="card-title">{{ 'integration.deployment_models.api_access.title' | translate }}</h3>
+          <p class="card-description">{{ 'integration.deployment_models.api_access.description' | translate }}</p>
+          <ul class="card-features">
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.api_access.rest_api' | translate }}
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.api_access.all_models' | translate }}
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.api_access.websocket' | translate }}
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.api_access.documentation' | translate }}
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.api_access.pricing' | translate }}
+            </li>
+          </ul>
+          <div class="deployment-options">
+            <h4>{{ 'integration.deployment_models.api_access.title' | translate }}</h4>
+            <div class="api-options">
+              <div class="api-option">
+                <i class="fas fa-plug" aria-hidden="true"></i>
+                <span>{{ 'integration.deployment_models.direct_api' | translate }}</span>
+                <a href="https://pricing.dxgpt.app/" target="_blank" rel="noopener noreferrer" class="api-link">
+                  {{ 'integration.deployment_models.view_plans' | translate }}
+                </a>
+              </div>
+              <div class="api-option">
+                <svg class="microsoft-icon" aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="#00BCF2" d="M0 0h11.377v11.372H0V0zm12.623 0H24v11.372H12.623V0zM0 12.628h11.377V24H0V12.628zm12.623 0H24V24H12.623V12.628z"/>
+                </svg>
+                <span>{{ 'integration.deployment_models.azure_marketplace' | translate }}</span>
+                <span class="api-status">{{ 'integration.deployment_models.coming_soon' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Self-Hosted for Hospitals -->
+        <div class="deployment-card">
+          <div class="card-icon">
+            <i class="fas fa-server" aria-hidden="true"></i>
+          </div>
+          <h3 class="card-title">{{ 'integration.deployment_models.self_hosted.title' | translate }}</h3>
+          <p class="card-description">{{ 'integration.deployment_models.self_hosted.description' | translate }}</p>
+          <ul class="card-features">
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.self_hosted.dedicated_infrastructure' | translate }}
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.self_hosted.hipaa_compliance' | translate }}
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.self_hosted.azure_ad_integration' | translate }}
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              {{ 'integration.deployment_models.self_hosted.iac_deployment' | translate }}
+            </li>
+          </ul>
+          <div class="deployment-note">
+            <i class="fas fa-info-circle" aria-hidden="true"></i>
+            <span>{{ 'integration.deployment_models.self_hosted.note' | translate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integration Options Grid -->
+    <div class="integration-grid">
+      <!-- For Healthcare Professionals -->
+      <div class="integration-card">
+        <div class="card-icon">
+          <i class="fas fa-user-md" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">{{ 'integration.healthcare_professionals.title' | translate }}</h3>
+        <ul class="card-features">
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.healthcare_professionals.differential_diagnosis' | translate }}
+          </li>
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.healthcare_professionals.followup_questions' | translate }}
+          </li>
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.healthcare_professionals.emergency_detection' | translate }}
+          </li>
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.healthcare_professionals.disease_info' | translate }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- For Hospitals and Clinics -->
+      <div class="integration-card">
+        <div class="card-icon">
+          <i class="fas fa-hospital" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">{{ 'integration.hospitals_clinics.title' | translate }}</h3>
+        <ul class="card-features">
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.hospitals_clinics.portal_integration' | translate }}
+          </li>
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.hospitals_clinics.multilingual_support' | translate }}
+          </li>
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.hospitals_clinics.regulatory_compliance' | translate }}
+          </li>
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.hospitals_clinics.azure_ad_integration' | translate }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- For Developers -->
+      <div class="integration-card">
+        <div class="card-icon">
+          <i class="fas fa-code" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">{{ 'integration.developers.title' | translate }}</h3>
+        <ul class="card-features">
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.developers.rest_api' | translate }}
+          </li>
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.developers.advanced_ai_models' | translate }}
+          </li>
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.developers.websocket_realtime' | translate }}
+          </li>
+          <li>
+            <i class="fas fa-check" aria-hidden="true"></i>
+            {{ 'integration.developers.complete_documentation' | translate }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Multilingual Support Section -->
+    <div class="multilingual-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <i class="fas fa-globe" aria-hidden="true"></i>
+        </div>
+        <h2 class="section-title">{{ 'integration.multilingual_support.title' | translate }}</h2>
+      </div>
+      <div class="multilingual-features">
+        <div class="feature-item">
+          <i class="fas fa-language" aria-hidden="true"></i>
+          <span>{{ 'integration.multilingual_support.automatic_translation' | translate }}</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <span>{{ 'integration.multilingual_support.language_detection' | translate }}</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+          <span>{{ 'integration.multilingual_support.localized_responses' | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Privacy and Security Section -->
+    <div class="privacy-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <i class="fas fa-shield-alt" aria-hidden="true"></i>
+        </div>
+        <h2 class="section-title">{{ 'integration.privacy_security.title' | translate }}</h2>
+      </div>
+      <div class="privacy-features">
+        <div class="feature-item">
+          <i class="fas fa-gavel" aria-hidden="true"></i>
+          <span>{{ 'integration.privacy_security.gdpr_hipaa_compliance' | translate }}</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-user-secret" aria-hidden="true"></i>
+          <span>{{ 'integration.privacy_security.no_identifiers' | translate }}</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-lock" aria-hidden="true"></i>
+          <span>{{ 'integration.privacy_security.end_to_end_encryption' | translate }}</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-memory" aria-hidden="true"></i>
+          <span>{{ 'integration.privacy_security.in_memory_processing' | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Use Cases Section -->
+    <div class="use-cases-section">
+      <h2 class="section-title">{{ 'integration.use_cases.title' | translate }}</h2>
+      <div class="use-cases-grid">
+        <div class="use-case-item">
+          <div class="use-case-icon">
+            <i class="fas fa-stethoscope" aria-hidden="true"></i>
+          </div>
+          <h4>{{ 'integration.use_cases.primary_care' | translate }}</h4>
+          <p>{{ 'integration.use_cases.primary_care_description' | translate }}</p>
+        </div>
+        <div class="use-case-item">
+          <div class="use-case-icon">
+            <i class="fas fa-ambulance" aria-hidden="true"></i>
+          </div>
+          <h4>{{ 'integration.use_cases.emergency' | translate }}</h4>
+          <p>{{ 'integration.use_cases.emergency_description' | translate }}</p>
+        </div>
+        <div class="use-case-item">
+          <div class="use-case-icon">
+            <i class="fas fa-heartbeat" aria-hidden="true"></i>
+          </div>
+          <h4>{{ 'integration.use_cases.specialties' | translate }}</h4>
+          <p>{{ 'integration.use_cases.specialties_description' | translate }}</p>
+        </div>
+        <div class="use-case-item">
+          <div class="use-case-icon">
+            <i class="fas fa-microscope" aria-hidden="true"></i>
+          </div>
+          <h4>{{ 'integration.use_cases.research' | translate }}</h4>
+          <p>{{ 'integration.use_cases.research_description' | translate }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust Statistics Section -->
+    <div class="trust-section">
+      <h2 class="section-title">{{ 'integration.trust.title' | translate }}</h2>
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-number">800,000+</div>
+          <div class="trust-label">{{ 'integration.trust.users_worldwide' | translate }}</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-number">82%</div>
+          <div class="trust-label">{{ 'integration.trust.satisfaction_rate' | translate }}</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-number">50,000</div>
+          <div class="trust-label">{{ 'integration.trust.monthly_users' | translate }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Public Health Systems Section -->
+    <div class="public-health-section">
+      <h2 class="section-title">{{ 'integration.public_health.title' | translate }}</h2>
+      <div class="public-health-grid">
+        <div class="health-item">
+          <div class="health-icon">
+            <i class="fas fa-user-md" aria-hidden="true"></i>
+          </div>
+          <div class="health-text">{{ 'integration.public_health.sermas_doctors' | translate }}</div>
+        </div>
+        <div class="health-item">
+          <div class="health-icon">
+            <i class="fas fa-hospital" aria-hidden="true"></i>
+          </div>
+          <div class="health-text">{{ 'integration.public_health.aragon_health' | translate }}</div>
+        </div>
+        <div class="health-item">
+          <div class="health-icon">
+            <i class="fas fa-shield-alt" aria-hidden="true"></i>
+          </div>
+          <div class="health-text">{{ 'integration.public_health.regulatory_compliance' | translate }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta-section">
+      <h2 class="cta-title">{{ 'integration.cta.title' | translate }}</h2>
+      <p class="cta-description">{{ 'integration.cta.description' | translate }}</p>
+      <div class="cta-buttons">
+        <button (click)="openContactModal()" class="btn btn-outline">{{ 'integration.cta.contact_us' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Send Message Modal -->
+<ng-template #sendMsgModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">{{ getModalTitle() }}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body p-0">
+      <app-send-msg [mode]="modalMode" (closeModalEvent)="closeModal()"></app-send-msg>
+    </div>
+  </ng-template>
+
+<!-- Integration Page Ends -->

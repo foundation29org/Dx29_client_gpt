@@ -6,7 +6,8 @@
     "Collaboration": "Współpraca",
     "Foundation 29": "Fundacja 29",
     "Usage statistics": "Statystyki użytkowania",
-    "Privacy Policy": "Polityka prywatności",
+    "Statistics": "Statystyki",
+    "Privacy": "Prywatność",
     "Contact us": "Kontakt",
     "DONATE_DROPDOWN_1": "Przekaż darowiznę",
     "DONATE_DROPDOWN_2": "Przekaż dane kliniczne indywidualne",
@@ -327,6 +328,53 @@
       "title": "Chcę współpracować",
       "description": "Czy jesteś zainteresowany współpracą z nami? Chcielibyśmy dowiedzieć się więcej o Twoim projekcie i zbadać możliwości współpracy.",
       "contactButton": "Skontaktuj się z nami"
+    },
+    "opportunities": {
+      "implementations": {
+        "title": "Implementacje w systemach opieki zdrowotnej",
+        "description": "Partner z nami, aby wdrożyć DxGPT w Twojej organizacji opieki zdrowotnej i poprawić możliwości diagnostyczne.",
+        "details1": "Służby zdrowia i systemy opieki zdrowotnej, które chcą zintegrować DxGPT ze swoimi przepływami pracy klinicznej, mogą liczyć na nasze specjalistyczne wsparcie. Oferujemy kompletne usługi implementacji technicznej, w tym integrację z istniejącymi systemami szpitalnymi oraz dostosowaną konfigurację zgodnie ze specyficznymi potrzebami każdej instytucji.",
+        "details2": "Nasz program implementacji obejmuje również szkolenie zespołów medycznych, ustanowienie protokołów użytkowania klinicznego oraz ciągłe wsparcie techniczne podczas procesu adopcji. Dla instytucji zdrowia publicznego te implementacje są realizowane bezpłatnie, jako część naszego zaangażowania w demokratyzację dostępu do zaawansowanych technologii medycznych.",
+        "button": "Skontaktuj się z nami w sprawie implementacji"
+      },
+      "professionals": {
+        "title": "Współpraca z profesjonalistami opieki zdrowotnej",
+        "description": "Dołącz do naszej sieci profesjonalistów medycznych, aby przyczynić się do rozwoju i walidacji DxGPT.",
+        "details1": "Doświadczenie kliniczne lekarzy i profesjonalistów opieki zdrowotnej jest niezastąpione dla ciągłego rozwoju i ulepszania DxGPT. Poszukujemy współpracowników, którzy mogą przyczynić się swoją wiedzą, przeglądając złożone przypadki, walidując diagnozy wspomagane przez AI oraz dostarczając wskazówek dotyczących praktycznego zastosowania naszych narzędzi w rzeczywistych ustawieniach klinicznych.",
+        "details2": "Szczególnie cenimy udział w badaniach klinicznych i kontrolowanych próbach w celu walidacji skuteczności diagnostycznej w różnych specjalnościach medycznych. Podobnie, opinie oparte na praktycznym doświadczeniu pomagają nam identyfikować obszary do poprawy i rozwijać nowe funkcjonalności, które odpowiadają rzeczywistym potrzebom klinicznym.",
+        "button": "Skontaktuj się z nami w sprawie współpracy"
+      },
+      "research": {
+        "title": "Badania kliniczne",
+        "description": "Weź udział w badaniach naukowych, aby ocenić skuteczność i bezpieczeństwo diagnozy wspomaganej przez AI.",
+        "details1": "Zapraszamy centra medyczne, szpitale uniwersyteckie i grupy badawcze do współpracy nad formalnymi badaniami dotyczącymi skuteczności i wpływu DxGPT w diagnozie klinicznej. Te badania są fundamentalne dla generowania rygorystycznych dowodów naukowych na temat użyteczności sztucznej inteligencji w praktyce medycznej i walidacji naszych algorytmów w różnych kontekstach klinicznych i populacjach pacjentów.",
+        "details2": "Naszym celem jest ułatwienie generowania wysokiej jakości dowodów naukowych, które przyczyniają się do globalnej wiedzy medycznej i demonstrują wartość kliniczną narzędzi diagnostycznych wspomaganych przez AI.",
+        "button": "Skontaktuj się z nami w sprawie badań"
+      },
+      "technical": {
+        "title": "Wkład techniczny i rozwój",
+        "description": "Przyczynij się do rozwoju technicznego DxGPT poprzez kod, algorytmy lub ulepszenia systemu.",
+        "details1": "Profesjonaliści w dziedzinie technologii mogą znacząco przyczynić się do postępu DxGPT poprzez specjalistyczne wolontariat techniczny. Nasze potrzeby obejmują od rozwoju bardziej intuicyjnych i dostępnych interfejsów użytkownika po konsultacje techniczne.",
+        "button": "Skontaktuj się z nami w sprawie wkładu technicznego"
+      },
+      "partnerships": {
+        "title": "Dyseminacja i strategiczne umowy o współpracy",
+        "description": "Pomóż nam rozpowszechniać świadomość i nawiązywać strategiczne partnerstwa, aby rozszerzyć zasięg DxGPT.",
+        "details1": "Widoczność i uznanie w międzynarodowej społeczności medycznej są kluczowe dla wpływu DxGPT. Współpracujemy ze specjalistycznymi mediami, organizacjami sektora zdrowia i profesjonalistami komunikacji naukowej, aby rozpowszechniać historie sukcesu, wyniki badań i postępy technologiczne.",
+        "details2": "Jesteśmy zainteresowani nawiązywaniem strategicznych umów o współpracy z kongresami medycznymi, towarzystwami naukowymi i organizacjami opieki zdrowotnej, które podzielają naszą wizję demokratyzacji dostępu do zaawansowanych narzędzi diagnostycznych. Te współprace mogą obejmować prezentacje na wydarzeniach naukowych, wspólne publikacje i programy ciągłego kształcenia medycznego.",
+        "button": "Skontaktuj się z nami w sprawie partnerstw"
+      },
+      "donations": {
+        "title": "Wsparcie finansowe i darowizny",
+        "description": "Wesprzyj naszą misję poprzez wkłady finansowe, aby pomóc nam kontynuować rozwój i ulepszanie DxGPT.",
+        "details1": "Zrównoważony rozwój DxGPT zależy od wsparcia osób i organizacji zaangażowanych w poprawę diagnozy medycznej. Oferujemy wiele sposobów finansowego wsparcia tej sprawy. Darowizny pieniężne pozwalają nam utrzymać infrastrukturę technologiczną, rozwijać nowe funkcjonalności i zapewnić, że dostęp do platformy pozostaje całkowicie bezpłatny dla wszystkich profesjonalistów medycznych. Ponadto bardzo cenimy wkłady zanonimizowanych danych medycznych, które są niezbędne do ciągłego trenowania i ulepszania naszych algorytmów diagnostycznych.",
+        "details2": "Jeśli chcesz dokonać darowizny finansowej, możesz to zrobić bezpośrednio przez linki dostępne na tej stronie. W przypadku darowizn danych medycznych nasz zespół techniczny poprowadzi Cię przez protokoły anonimizacji i formaty kompatybilne z naszymi systemami.",
+        "donateButton": "Przekaż darowiznę teraz",
+        "contactButton": "Skontaktuj się z nami w sprawie darowizn"
+      }
+    },
+    "footer": {
+      "text": "DxGPT to inicjatywa współpracy, która dąży do demokratyzacji dostępu do narzędzi diagnostycznych wspomaganych przez AI. Naszym celem jest uczynienie tej technologii dostępną, bezpłatną i skuteczną dla profesjonalistów opieki zdrowotnej na całym świecie. Twoje uczestnictwo, niezależnie od Twojego pochodzenia zawodowego, jest fundamentalne dla osiągnięcia tego celu."
     }
   },
   "generics":{
@@ -443,6 +491,7 @@
     "Files modified - re-analyze needed": "Pliki zmodyfikowane - ponowne analizowanie wymagane"
   },
   "policy": {
+    "title": "Polityka prywatności",
     "subtitle": "Dowiedz się, jak chronimy Twoją prywatność i dane osobowe w DxGPT.",
     "lastUpdated": "Ostatnia aktualizacja: 21 kwietnia 2025",
     "p1": "Polityka prywatności DxGPT (zgodna z RODO)",
@@ -1016,5 +1065,110 @@
   "medicalInfoModal": {
     "disclaimerText": "To narzędzie jest zaprojektowane głównie w celu <strong>wspomagania diagnostyki</strong>. Odpowiedzi na ogólne pytania medyczne są dostarczane wyłącznie w celach edukacyjnych i powinny być dokładnie oceniane. Nie mogą one zastępować profesjonalnego poradnictwa medycznego.",
     "aiGeneratedWarning": "<strong>Uwaga:</strong> Ten tekst został wygenerowany przez sztuczną inteligencję i może zawierać błędy."
+  },
+  "integration": {
+    "title": "Integracja",
+    "subtitle": "Odkryj, jak DxGPT może zintegrować się z Twoim medycznym przepływem pracy",
+    "deployment_models": {
+      "title": "Modele wdrożenia",
+      "recommended": "Zalecane",
+      "direct_api": "Bezpośredni dostęp do API",
+      "view_plans": "Zobacz plany",
+      "azure_marketplace": "Azure Marketplace",
+      "coming_soon": "Wkrótce dostępne",
+      "saas_multi_tenant": {
+        "title": "Rozwiązanie spersonalizowane",
+        "description": "Obejmuje pełną personalizację, spersonalizowany branding i szczegółowe analizy.",
+        "shared_infrastructure": "Współdzielona i skalowalna infrastruktura",
+        "tenant_segmentation": "Logiczna segmentacja według tenant_id",
+        "customization": "Pełna personalizacja i spersonalizowany branding",
+        "analytics": "Szczegółowe analizy i wglądy w użycie",
+        "used_by": "Używane przez SERMAS (Madryt) i Służbę Zdrowia Aragonii",
+        "intelligence": "Inteligencja szkoleniowa i poprawa opieki",
+        "training_insights": "Automatycznie wykrywa potrzeby szkoleniowe",
+        "protocol_optimization": "Optymalizacja protokołów wewnętrznych",
+        "clinical_radar": "Radar do wykrywania luk szkoleniowych"
+      },
+      "api_access": {
+        "title": "Dostęp do API",
+        "description": "Bezpośrednia integracja przez API REST dla deweloperów i aplikacji. Dostęp do wszystkich modeli AI i pełnych funkcjonalności.",
+        "rest_api": "Kompletne API REST z dokumentacją Swagger",
+        "all_models": "Dostęp do wszystkich modeli (GPT-4o, O3)",
+        "websocket": "Komunikacja w czasie rzeczywistym przez WebSocket",
+        "documentation": "Kompletna dokumentacja i przykłady kodu",
+        "pricing": "Płatność za użycie z elastycznymi planami"
+      },
+      "self_hosted": {
+        "title": "Self-Hosted dla szpitali",
+        "description": "Kompletna infrastruktura sklonowana w subskrypcji Azure klienta. Pozwala na zgodność z regulacjami takimi jak HIPAA/HIS i integruje się z korporacyjnym Azure AD.",
+        "dedicated_infrastructure": "Dedykowana infrastruktura w Twoim Azure",
+        "hipaa_compliance": "Pełna zgodność HIPAA/HIS",
+        "azure_ad_integration": "Integracja korporacyjnego Azure AD",
+        "iac_deployment": "Wdrożenie IaC ze skryptami (Bicep/Terraform)",
+        "note": "Ta opcja nie jest jeszcze dostępna, pracujemy nad nią"
+      }
+    },
+    "healthcare_professionals": {
+      "title": "Dla profesjonalistów opieki zdrowotnej",
+      "differential_diagnosis": "Diagnoza różnicowa - Uzyskaj listę możliwych diagnoz",
+      "followup_questions": "Pytania uzupełniające - Doprecyzuj diagnozę konkretnymi pytaniami",
+      "emergency_detection": "Wykrywanie nagłych przypadków - Zidentyfikuj sytuacje wymagające natychmiastowej uwagi",
+      "disease_info": "Informacje o chorobach - Uzyskaj dostęp do kompletnych danych o patologiach"
+    },
+    "hospitals_clinics": {
+      "title": "Dla dostawców opieki zdrowotnej",
+      "portal_integration": "Integracja portalu - Osadź DxGPT w swoim istniejącym systemie",
+      "multilingual_support": "Wsparcie wielojęzyczne - Działa w wielu językach",
+      "regulatory_compliance": "Zgodność regulacyjna - Wersja self-hosted dla HIPAA/HIS",
+      "azure_ad_integration": "Integracja Azure AD - Uwierzytelnianie korporacyjne"
+    },
+    "developers": {
+      "title": "Dla deweloperów",
+      "rest_api": "API REST - Zintegruj DxGPT w swoich aplikacjach",
+      "advanced_ai_models": "Zaawansowane modele AI - GPT-4o i O3 dla precyzyjnych diagnoz",
+      "websocket_realtime": "WebSocket - Komunikacja w czasie rzeczywistym",
+      "complete_documentation": "Kompletna dokumentacja - Interfejs Swagger i przykłady kodu"
+    },
+    "multilingual_support": {
+      "title": "Wsparcie wielojęzyczne",
+      "automatic_translation": "Tłumaczenie automatyczne - Działa w wielu językach",
+      "language_detection": "Wykrywanie języka - Automatycznie identyfikuje język wejściowy",
+      "localized_responses": "Zlokalizowane odpowiedzi - Otrzymuj odpowiedzi w preferowanym języku"
+    },
+    "privacy_security": {
+      "title": "Prywatność i bezpieczeństwo",
+      "gdpr_hipaa_compliance": "Zgodność GDPR/HIPAA - Dane chronione zgodnie z regulacjami",
+      "no_identifiers": "Brak identyfikatorów - Żadne dane osobowe nie są przechowywane",
+      "end_to_end_encryption": "Szyfrowanie end-to-end - Bezpieczna komunikacja",
+      "in_memory_processing": "Przetwarzanie w pamięci - Tylko dane tymczasowe"
+    },
+    "use_cases": {
+      "title": "Główne przypadki użycia",
+      "primary_care": "Opieka podstawowa",
+      "primary_care_description": "Diagnoza wstępna i skierowanie",
+      "emergency": "Nagłe przypadki",
+      "emergency_description": "Szybka identyfikacja nagłych przypadków",
+      "specialties": "Specjalności",
+      "specialties_description": "Kardiologia, pediatria, neurologia itp.",
+      "research": "Badania",
+      "research_description": "Analiza przypadków klinicznych i badania"
+    },
+    "trust": {
+      "title": "Statystyki użycia i wydajności",
+      "users_worldwide": "użytkowników w 100 krajach",
+      "satisfaction_rate": "zadowolenia z diagnoz",
+      "monthly_users": "użytkowników miesięcznie"
+    },
+    "public_health": {
+      "title": "Używane przez służby zdrowia publicznego",
+      "sermas_doctors": "6,000+ lekarzy w Madrycie przez SERMAS",
+      "aragon_health": "5,000+ profesjonalistów w Służbie Zdrowia Aragonii",
+      "regulatory_compliance": "Zgodność z GDPR, HIPAA i EU AI Act"
+    },
+    "cta": {
+      "title": "Gotowy do rozpoczęcia?",
+      "description": "Skontaktuj się z nami, aby wdrożyć DxGPT w swojej organizacji",
+      "contact_us": "Skontaktuj się z nami"
+    }
   }
 } 

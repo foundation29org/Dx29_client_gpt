@@ -9,6 +9,7 @@ import { CookiesPageComponent } from "./cookies/cookies.component";
 import { PermalinkViewPageComponent } from "./permalink-view/permalink-view-page.component";
 import { CollaborationComponent } from "./collaboration/collaboration.component";
 import { Foundation29Component } from "./foundation29/foundation29.component";
+import { IntegrationComponent } from "./integration/integration.component";
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
         path: 'collaboration',
         component: CollaborationComponent,
         data: { title: 'menu.Collaboration' }
+      },
+      {
+        path: 'integration',
+        component: IntegrationComponent,
+        data: { title: 'integration.title' }
       },
       {
         path: 'foundation29',
@@ -59,7 +65,7 @@ const routes: Routes = [
         path: 'privacy-policy',
         component: PrivacyPolicyPageComponent,
         data: {
-          title: 'menu.Privacy Policy'
+          title: 'menu.Privacy'
         }
       },
       {
