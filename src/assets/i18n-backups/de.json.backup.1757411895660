@@ -1,8 +1,8 @@
 {
   "menu":{
-    "Home": "SALUD-GPT",
+    "Home": "DxGPT",
     "Dashboard": "Startseite",
-    "About us": "Über SALUD-GPT",
+    "About us": "Über DxGPT",
     "Collaboration": "Zusammenarbeit",
     "Foundation 29": "Foundation 29",
     "Usage statistics": "Nutzungsstatistik",
@@ -25,47 +25,47 @@
     "Contact us": "Kontakt",
     "Updates": "Updates",
     "Privacy GDPR HIPAA AI Act": "Datenschutz (GDPR/HIPAA/AI Act)",
-    "Dx29info": "SALUD-GPT ist ein Such- und Referenzwerkzeug, das zu Informationszwecken bereitgestellt wird und nicht dazu bestimmt ist, das Urteil oder die Erfahrung des Klinikers zu ersetzen. Es sollte nicht zur Diagnose oder Behandlung von medizinischen Zuständen verwendet werden."
+    "Dx29info": "DxGPT ist ein Such- und Referenzwerkzeug, das zu Informationszwecken bereitgestellt wird und nicht dazu bestimmt ist, das Urteil oder die Erfahrung des Klinikers zu ersetzen. Es sollte nicht zur Diagnose oder Behandlung von medizinischen Zuständen verwendet werden."
   },
   "aboutUs": {
     "hero": {
-      "title": "SALUD-GPT: Augmentierte intelligenz für diagnostische vertrauen",
-      "subtitle": "Transforme die klinische Unsicherheit in Klarheit. SALUD-GPT ist Ihr diagnostischer Co-Pilot: Strukturieren Sie das Denken, reduzieren Sie die kognitive Belastung und minimieren Sie Bias in Sekunden, selbst in komplexen oder seltenen Fällen.",
-      "tryButton": "SALUD-GPT ausprobieren",
+      "title": "DxGPT: Augmentierte intelligenz für diagnostische vertrauen",
+      "subtitle": "Transforme die klinische Unsicherheit in Klarheit. DxGPT ist Ihr diagnostischer Co-Pilot: Strukturieren Sie das Denken, reduzieren Sie die kognitive Belastung und minimieren Sie Bias in Sekunden, selbst in komplexen oder seltenen Fällen.",
+      "tryButton": "DxGPT ausprobieren",
       "evidenceButton": "Unsere wissenschaftliche Evidenz erkunden",
       "highlight1": "Strukturierte Differentialdiagnose",
       "highlight2": "Sicherheit und klinische Validierung",
       "highlight3": "Integration in Gesundheitssysteme"
     },
     "main": {
-      "description": "SALUD-GPT ist eine augmentierte Intelligenz, die von und für den klinischen Umfeld entwickelt wurde. Im Gegensatz zu allgemeinen AIs generiert sie keinen offenen narrativen Text, sondern eine strukturierte Analyse von fünf diagnostischen Hypothesen, klassifiziert und begründet mit Symptomen für und gegen. Wir verwenden fortschrittliche Sprachmodelle wie GPT-5 von OpenAI in einem medizinischen Kontrollrahmen, der Relevanz, Konsistenz und Sicherheit in jedem Ergebnis garantiert. Wir ersetzen nicht das klinische Urteil: wir stärken es. Wir bieten Ihnen eine sofortige Differentialanalyse, die Zeit spart, kognitive Bias neutralisiert und die Qualität des klinischen Denkens von Anfang an erhöht."
+      "description": "DxGPT ist eine augmentierte Intelligenz, die von und für den klinischen Umfeld entwickelt wurde. Im Gegensatz zu allgemeinen AIs generiert sie keinen offenen narrativen Text, sondern eine strukturierte Analyse von fünf diagnostischen Hypothesen, klassifiziert und begründet mit Symptomen für und gegen. Wir verwenden fortschrittliche Sprachmodelle wie GPT-5 von OpenAI in einem medizinischen Kontrollrahmen, der Relevanz, Konsistenz und Sicherheit in jedem Ergebnis garantiert. Wir ersetzen nicht das klinische Urteil: wir stärken es. Wir bieten Ihnen eine sofortige Differentialanalyse, die Zeit spart, kognitive Bias neutralisiert und die Qualität des klinischen Denkens von Anfang an erhöht."
     },
     "challenge": {
       "title": "Die Herausforderung der klinischen Diagnose",
-      "description": "Die Diagnose, besonders bei seltenen Krankheiten, ist ein Labyrinth von Daten und Symptomen, das Zeit kostet und Unsicherheit erzeugt. Mit über 10.000 seltenen Krankheiten, die die meisten Ärzte aufgrund ihrer geringen Häufigkeit nicht kennen, ist die Familiarität eine unmögliche Luxusgüte. SALUD-GPT wirkt als leistungsstarke Werkzeug zur Entlastung des kognitiven Denkens, beschleunigt die Analyse und erweitert den Spektrum der Möglichkeiten, um früher zu einer präzisen Diagnose zu gelangen. In diesem Kontext ist Unterstützungstechnologie keine Option mehr, sondern eine Notwendigkeit für die Sicherheit des Patienten und die Qualität der Versorgung."
+      "description": "Die Diagnose, besonders bei seltenen Krankheiten, ist ein Labyrinth von Daten und Symptomen, das Zeit kostet und Unsicherheit erzeugt. Mit über 10.000 seltenen Krankheiten, die die meisten Ärzte aufgrund ihrer geringen Häufigkeit nicht kennen, ist die Familiarität eine unmögliche Luxusgüte. DxGPT wirkt als leistungsstarke Werkzeug zur Entlastung des kognitiven Denkens, beschleunigt die Analyse und erweitert den Spektrum der Möglichkeiten, um früher zu einer präzisen Diagnose zu gelangen. In diesem Kontext ist Unterstützungstechnologie keine Option mehr, sondern eine Notwendigkeit für die Sicherheit des Patienten und die Qualität der Versorgung."
     },
     "why": {
-      "title": "Warum SALUD-GPT und nicht eine allgemeine AI?",
+      "title": "Warum DxGPT und nicht eine allgemeine AI?",
       "description": "Konversationswerkzeuge wie ChatGPT, Claude oder Gemini sind breit spektrale Sprachmodelle. In der medizinischen Umgebung ist diese Flexibilität eine fundamentale Schwäche. Ihre unstrukturierte Natur kann variable, unvollständige oder klinisch irrelevante Antworten generieren, die die essentiellen Sicherheitskontrollen für hoch riskante Entscheidungen fehlen."
     },
     "differentiators": {
-      "title": "Key Differentiators of SALUD-GPT",
+      "title": "Key Differentiators of DxGPT",
       "structured": {
         "title": "Strukturierte Analyse",
-        "description": "SALUD-GPT generiert eine strukturierte Analyse von fünf diagnostischen Hypothesen, klassifiziert und begründet mit Symptomen für und gegen."
+        "description": "DxGPT generiert eine strukturierte Analyse von fünf diagnostischen Hypothesen, klassifiziert und begründet mit Symptomen für und gegen."
       },
       "control": {
         "title": "Klinische Kontrolle",
-        "description": "SALUD-GPT verwendet Sprachmodelle wie GPT-5 von OpenAI in einem medizinischen Kontrollrahmen, der Relevanz, Konsistenz und Sicherheit in jedem Ergebnis garantiert."
+        "description": "DxGPT verwendet Sprachmodelle wie GPT-5 von OpenAI in einem medizinischen Kontrollrahmen, der Relevanz, Konsistenz und Sicherheit in jedem Ergebnis garantiert."
       },
       "specialization": {
         "title": "Spezialisierung",
-        "description": "SALUD-GPT ist spezialisiert auf die Diagnose von seltenen und komplexen Krankheiten."
+        "description": "DxGPT ist spezialisiert auf die Diagnose von seltenen und komplexen Krankheiten."
       }
     },
     "implementation": {
       "title": "Implementierung in Gesundheitssystemen",
-      "intro": "Wenn SALUD-GPT in Gesundheitssystemen wie Krankenhäusern eingesetzt wird, umfasst es erweiterte Funktionen:",
+      "intro": "Wenn DxGPT in Gesundheitssystemen wie Krankenhäusern eingesetzt wird, umfasst es erweiterte Funktionen:",
       "capability1": "Klinische Datenverwaltung (Integration mit Krankenhausinformationssystemen).",
       "capability2": "Strukturierte Datensammlung (standardisierte Formate für nachfolgende Analyse).",
       "capability3": "Klinische Rückmeldung (Professionelle korrigieren und beobachten).",
@@ -73,10 +73,10 @@
       "capability5": "Stärkere Sicherheit (Datenschutz und Nutzungssteuerung in Einklang mit Gesundheitssystemen)."
     },
     "benefits": {
-      "title": "Klinische Vorteile von SALUD-GPT",
+      "title": "Klinische Vorteile von DxGPT",
       "time": {
         "title": "Rekonstruieren Sie Zeit für das, was am wichtigsten ist: den Patienten",
-        "description": "SALUD-GPT automatisierte die Generierung der Differentialdiagnose, transformiert Minuten von Suche und Unsicherheit in Sekunden von strukturierten Analysen. Diese Effizienz gibt dem Kliniker die Möglichkeit, sich auf klinisches Urteil, Patientenkommunikation und Entscheidungsfindung zu konzentrieren."
+        "description": "DxGPT automatisierte die Generierung der Differentialdiagnose, transformiert Minuten von Suche und Unsicherheit in Sekunden von strukturierten Analysen. Diese Effizienz gibt dem Kliniker die Möglichkeit, sich auf klinisches Urteil, Patientenkommunikation und Entscheidungsfindung zu konzentrieren."
       },
       "clarity": {
         "title": "Von Datenchaos zur diagnostischen Klarheit",
@@ -84,54 +84,54 @@
       },
       "tool": {
         "title": "Ein Werkzeug, keine Anwendung",
-        "description": "Im Gegensatz zu konversationsbezogenen AIs ist die SALUD-GPT-Oberfläche für eine einzige Funktion optimiert: die Unterstützung der Diagnose. Jedes Element ist so konzipiert, dass klinisches Denken effizient und sicher unterstützt, während unerwünschte Ablenkungen und die praktische Nutzung in den Vordergrund gestellt werden."
+        "description": "Im Gegensatz zu konversationsbezogenen AIs ist die DxGPT-Oberfläche für eine einzige Funktion optimiert: die Unterstützung der Diagnose. Jedes Element ist so konzipiert, dass klinisches Denken effizient und sicher unterstützt, während unerwünschte Ablenkungen und die praktische Nutzung in den Vordergrund gestellt werden."
       },
       "safety": {
         "title": "Ein systematischer Ansatz zur Sicherheit",
-        "description": "Das klinische Urteil ist anfällig für kognitive Verzerrungen wie die Verfügbarkeit oder Bestätigung. SALUD-GPT wirkt als Gegenpol, systematisch ein Bereich von Möglichkeiten auf Basis der Fallevidenz, einschließlich seltener Krankheiten, darstellt. Dies fördert eine detailliertere Bewertung und reduziert das Risiko von Fehlern in der Diagnose, wodurch die Sicherheit des Patienten verbessert wird."
+        "description": "Das klinische Urteil ist anfällig für kognitive Verzerrungen wie die Verfügbarkeit oder Bestätigung. DxGPT wirkt als Gegenpol, systematisch ein Bereich von Möglichkeiten auf Basis der Fallevidenz, einschließlich seltener Krankheiten, darstellt. Dies fördert eine detailliertere Bewertung und reduziert das Risiko von Fehlern in der Diagnose, wodurch die Sicherheit des Patienten verbessert wird."
       },
       "standardize": {
         "title": "Standardisieren Sie die diagnostische Excellence",
-        "description": "SALUD-GPT garantiert, dass jedes Fall mit demselben methodologischen Rigor analysiert wird, unabhängig vom Experten oder der Zeit. Diese Konsistenz reduziert die Variabilität in der Qualität der Versorgung und legt einen hohen Standard für die Analyse für das gesamte Team fest. Unser Leistung wird kontinuierlich gegen ein strenges Fallbank für klinische Fälle validiert, um eine konstante Zuverlässigkeit zu gewährleisten."
+        "description": "DxGPT garantiert, dass jedes Fall mit demselben methodologischen Rigor analysiert wird, unabhängig vom Experten oder der Zeit. Diese Konsistenz reduziert die Variabilität in der Qualität der Versorgung und legt einen hohen Standard für die Analyse für das gesamte Team fest. Unser Leistung wird kontinuierlich gegen ein strenges Fallbank für klinische Fälle validiert, um eine konstante Zuverlässigkeit zu gewährleisten."
       },
       "practice": {
         "title": "Erstellt in der klinischen Praxis, für die klinische Praxis",
-        "description": "SALUD-GPT ist kein Laborprodukt. Es wurde in einem kontinuierlichen Zusammenarbeitszyklus mit ersten Line-Medizinern, Krankenhäusern und wissenschaftlichen Gesellschaften entwickelt. Seine Design- und Funktionalität reagieren auf die realen Herausforderungen des Diagnostik, sicherzustellen, dass es nicht nur technologisch fortschrittlich, sondern auch klinisch nützlich, relevant und leicht in das klinische Denken des Experten integrierbar ist."
+        "description": "DxGPT ist kein Laborprodukt. Es wurde in einem kontinuierlichen Zusammenarbeitszyklus mit ersten Line-Medizinern, Krankenhäusern und wissenschaftlichen Gesellschaften entwickelt. Seine Design- und Funktionalität reagieren auf die realen Herausforderungen des Diagnostik, sicherzustellen, dass es nicht nur technologisch fortschrittlich, sondern auch klinisch nützlich, relevant und leicht in das klinische Denken des Experten integrierbar ist."
       }
     },
     "commitment": {
       "title": "Kommitment und regulatorische Rahmenwerk",
       "experimental": {
-        "title": "SALUD-GPT ist eine experimentelle Plattform in stetiger Verbesserung",
+        "title": "DxGPT ist eine experimentelle Plattform in stetiger Verbesserung",
         "description": "Ihr Ziel ist es, die Fähigkeiten der KI in der Diagnose zu erkunden, ihre Einschränkungen zu verstehen und sie mit Nutzerfeedback und strenger klinischer Validierung zu verbessern. Neue Ergebnisse werden offen durch GitHub und MedRxiv geteilt."
       },
       "protection": {
-        "title": "SALUD-GPT schützt klinische Daten mit europäischen Standards",
-        "description": "SALUD-GPT sichert die Schutz von klinischen Daten durch strenge Anonymisierung, ohne persönliche Informationen zu speichern oder für andere Zwecke zu verwenden. Alle Verarbeitungen erfolgen in europäischen Datenzentren unter GDPR, wodurch Sicherheit, Privatsphäre und Transparenz in jeder Interaktion gewährleistet werden."
+        "title": "DxGPT schützt klinische Daten mit europäischen Standards",
+        "description": "DxGPT sichert die Schutz von klinischen Daten durch strenge Anonymisierung, ohne persönliche Informationen zu speichern oder für andere Zwecke zu verwenden. Alle Verarbeitungen erfolgen in europäischen Datenzentren unter GDPR, wodurch Sicherheit, Privatsphäre und Transparenz in jeder Interaktion gewährleistet werden."
       }
     },
     "evaluation": {
       "title": "Evaluierung",
       "commitment": {
         "title": "Unser Kommitment mit der Evidenz: Der klinische Validierungsrahmen",
-        "description": "Die Vertrauenswürdigkeit einer klinischen Werkzeug wird durch strenges Evidenzmaterial gewonnen. Die Validierung von SALUD-GPT ist ein kontinuierlicher Prozess, der eine unabhängige Forschung mit iterativer Verbesserung auf der Grundlage realer Daten kombiniert.",
+        "description": "Die Vertrauenswürdigkeit einer klinischen Werkzeug wird durch strenges Evidenzmaterial gewonnen. Die Validierung von DxGPT ist ein kontinuierlicher Prozess, der eine unabhängige Forschung mit iterativer Verbesserung auf der Grundlage realer Daten kombiniert.",
         "validation": "Wir haben eine unabhängige klinische Validierung mit dem Hospital Sant Joan de Déu durchgeführt, mit Ergebnissen, die in medRxiv veröffentlicht wurden, die eine diagnostische Genauigkeit vergleichbar mit Experten zeigen.",
-        "framework": "Wir haben ein 'Konstantes Validierungsframework' entwickelt, das die Zuverlässigkeit von SALUD-GPT kontinuierlich verbessert, indem neue Fälle, klinische Rückmeldung und reale Leistungsmetriken integriert werden."
+        "framework": "Wir haben ein 'Konstantes Validierungsframework' entwickelt, das die Zuverlässigkeit von DxGPT kontinuierlich verbessert, indem neue Fälle, klinische Rückmeldung und reale Leistungsmetriken integriert werden."
       },
       "testbed": {
         "title": "Ein Testfeld, das das System herausfordert",
-        "description": "Das Testfeld von SALUD-GPT verwendet mehr als 1.000 komplexe klinische Fälle anstelle von Textbüchern. Diese Fälle weisen umfassende Beschreibungen, überlappende Symptome und nicht triviale Differentialdiagnosen auf, die aus:",
+        "description": "Das Testfeld von DxGPT verwendet mehr als 1.000 komplexe klinische Fälle anstelle von Textbüchern. Diese Fälle weisen umfassende Beschreibungen, überlappende Symptome und nicht triviale Differentialdiagnosen auf, die aus:",
         "sources": "Fallquellen:",
         "source1": "Hochschulfragenclinischen von hoher Qualität: MedBullets und MedQA USMLE.",
         "source2": "Wissenschaftliche Veröffentlichungen über seltene Krankheiten: RAMEDIS und Ramebench.",
         "source3": "Echte Fälle aus Krankenhaus-Notfallsystemen: HM Hospitals und Hospital de Torrejón.",
         "source4": "Spezialisierten Zusammenarbeiten: Supervisierte Fälle von seltenen Krankheiten.",
-        "conclusion": "Dieses Testfeld evaluiert SALUD-GPT im schwierigsten Umgebung, reflektiert die wahre Komplexität der medizinischen Versorgung."
+        "conclusion": "Dieses Testfeld evaluiert DxGPT im schwierigsten Umgebung, reflektiert die wahre Komplexität der medizinischen Versorgung."
       },
       "science": {
         "title": "Die Wissenschaft der Frage: Der Geheimnis der Konsistenz",
         "description": "Unsere Forschung hat einen kritischen Faktor aufgedeckt: Die Qualität der Antwort eines LLM hängt entscheidend von der Qualität der Frage ab. Daher haben wir über 30 Prompt-Formulierungen (Anweisungen) entwickelt und validiert, um die optimale Struktur zu finden, die effektives und konsistentes klinisches Denken aktiviert.",
-        "differentiator": "Diese Expertenkontrolle über die Formulierung ist es, was SALUD-GPT von einer generalistischen KI unterscheidet. Wir überlassen die Qualität des Ergebnisses nicht dem Zufall; wir haben einen Prozess entworfen, der sicherstellt, dass für denselben Fall das System immer dieselbe analytische Strenge anwendet und zuverlässige und reproduzierbare Ergebnisse produziert."
+        "differentiator": "Diese Expertenkontrolle über die Formulierung ist es, was DxGPT von einer generalistischen KI unterscheidet. Wir überlassen die Qualität des Ergebnisses nicht dem Zufall; wir haben einen Prozess entworfen, der sicherstellt, dass für denselben Fall das System immer dieselbe analytische Strenge anwendet und zuverlässige und reproduzierbare Ergebnisse produziert."
       },
       "chart": {
         "caption": "Das Diagramm zeigt, wie unsere Optimierung der Formulierung (Sprung von Familie 4o → o3) nicht nur die Genauigkeit (X-Achse) erhöht, sondern auch die Lösung komplexer Fälle (Y-Achse) ermöglicht, was einen bedeutenden Fortschritt in der klinischen Denkvermögen des Systems zeigt."
@@ -149,7 +149,7 @@
         },
         "prioritization": {
           "title": "Qualität der Priorisierung",
-          "description": "Dies ist unsere innovativste Metrik. Es reicht nicht aus, dass der richtige Diagnose auf der Liste ist; seine durchschnittliche Position wird gemessen. Ein richtiger Diagnose in der ersten Position ist 'unendlich mehr nützlich als in der fünften,' und diese Metrik bewertet SALUD-GPT's Fähigkeit, 'wie ein Spezialist priorisieren, die maximale klinische Relevanz in der kürzesten möglichen Zeit anzubieten'."
+          "description": "Dies ist unsere innovativste Metrik. Es reicht nicht aus, dass der richtige Diagnose auf der Liste ist; seine durchschnittliche Position wird gemessen. Ein richtiger Diagnose in der ersten Position ist 'unendlich mehr nützlich als in der fünften,' und diese Metrik bewertet DxGPT's Fähigkeit, 'wie ein Spezialist priorisieren, die maximale klinische Relevanz in der kürzesten möglichen Zeit anzubieten'."
         }
       },
       "user": {
@@ -167,12 +167,12 @@
           "title": "Klinische Relevanz",
           "description": "Die Hypothesen sind nicht nur genau, sondern werden priorisiert, um klinische Notwendigkeit und Wahrscheinlichkeit zu reflektieren."
         },
-        "conclusion": "Im Grunde genommen ist SALUD-GPT nicht nur ein fortschrittliches Modell; es ist ein klinisches Unterstützungswerkzeug mit einem nachweisbaren Kommitment für Evidenz, Zuverlässigkeit und Sicherheit."
+        "conclusion": "Im Grunde genommen ist DxGPT nicht nur ein fortschrittliches Modell; es ist ein klinisches Unterstützungswerkzeug mit einem nachweisbaren Kommitment für Evidenz, Zuverlässigkeit und Sicherheit."
       }
     },
     "trust": {
       "title": "Unser Pakt von Vertrauen und Sicherheit",
-      "intro": "Vertrauen ist das Fundament der Medizin. Bei SALUD-GPT sind der Schutz klinischer Daten und die regulatorische Compliance nicht nachträglich, sondern der Kern unseres Designs. Wir arbeiten mit radikaler Transparenz, damit Fachkräfte und Gesundheitssysteme unser Tool mit vollständiger Ruhe verwenden können.",
+      "intro": "Vertrauen ist das Fundament der Medizin. Bei DxGPT sind der Schutz klinischer Daten und die regulatorische Compliance nicht nachträglich, sondern der Kern unseres Designs. Wir arbeiten mit radikaler Transparenz, damit Fachkräfte und Gesundheitssysteme unser Tool mit vollständiger Ruhe verwenden können.",
       "protection": {
         "title": "Wie wir jede Abfrage schützen: Ein Null-Retention-Prozess für persönliche Informationen",
         "intro": "Unser Arbeitsablauf ist darauf ausgelegt, klinischen Nutzen zu maximieren und das Risiko der Datenexposition auf null zu minimieren.",
@@ -197,7 +197,7 @@
         "title": "Daten-Governance",
         "intro": "Die folgende Tabelle fasst unser Engagement für Best Practices in Sicherheit und Datenschutz zusammen, das darauf ausgelegt ist, die Bewertung durch IT- und regulatorische Compliance-Teams zu erleichtern.",
         "feature": "Funktion / Richtlinie",
-        "commitment": "SALUD-GPTs Engagement",
+        "commitment": "DxGPTs Engagement",
         "processing": "Standort der datenverarbeitung",
         "processingValue": "Ausschließlich in Rechenzentren der Europäischen Union (Microsoft Azure)",
         "storage": "Speicherung von patientendaten",
@@ -217,7 +217,7 @@
       },
       "regulatory": {
         "title": "Unser regulatorischer Rahmen",
-        "intro": "Wir haben umfangreiche Erfahrung in der komplexen regulatorischen Umgebung der digitalen Gesundheit. SALUD-GPT ist darauf ausgelegt, sich an die weltweit anspruchsvollsten Standards anzupassen:",
+        "intro": "Wir haben umfangreiche Erfahrung in der komplexen regulatorischen Umgebung der digitalen Gesundheit. DxGPT ist darauf ausgelegt, sich an die weltweit anspruchsvollsten Standards anzupassen:",
         "gdpr": {
           "title": "DSGVO (Datenschutz-Grundverordnung)",
           "description": "Wir erfüllen vollständig die Grundsätze der Rechtmäßigkeit, Transparenz, Datenminimierung und Zweckbindung. Die ausschließliche Verarbeitung in der EU gewährleistet die Einhaltung der Datensouveränitätsvorschriften."
@@ -228,7 +228,7 @@
         },
         "aiact": {
           "title": "EU-KI-Gesetz",
-          "description": "Wir arbeiten aktiv an der vollständigen Ausrichtung mit dem AI Act der Europäischen Union. Wir arbeiten mit Experten und Regulierungsbehörden zusammen, um sicherzustellen, dass SALUD-GPT die höchsten Standards für Risikomanagement, Daten-Governance, Transparenz und Robustheit erfüllt, wodurch wir uns an der Spitze verantwortlicher KI im Gesundheitswesen positionieren."
+          "description": "Wir arbeiten aktiv an der vollständigen Ausrichtung mit dem AI Act der Europäischen Union. Wir arbeiten mit Experten und Regulierungsbehörden zusammen, um sicherzustellen, dass DxGPT die höchsten Standards für Risikomanagement, Daten-Governance, Transparenz und Robustheit erfüllt, wodurch wir uns an der Spitze verantwortlicher KI im Gesundheitswesen positionieren."
         }
       }
     }
@@ -272,21 +272,21 @@
     "description": "Verpflichtet zu Offenheit, Zusammenarbeit und Verantwortung in der Entwicklung medizinischer Technologie.",
     "technologyPartners": {
       "title": "Technologiepartner",
-      "description": "Wir danken Microsoft, das uns durch sein AI for Good-Programm die Infrastruktur auf Azure und die Unterstützung von Mitarbeiter-Freiwilligen zur Verfügung stellt. Auch Google, dessen Programm für NGOs uns hilft, die Sichtbarkeit von SALUD-GPT in seiner Suchmaschine zu erhöhen, um mehr Fachkräfte und Patienten zu erreichen.",
+      "description": "Wir danken Microsoft, das uns durch sein AI for Good-Programm die Infrastruktur auf Azure und die Unterstützung von Mitarbeiter-Freiwilligen zur Verfügung stellt. Auch Google, dessen Programm für NGOs uns hilft, die Sichtbarkeit von DxGPT in seiner Suchmaschine zu erhöhen, um mehr Fachkräfte und Patienten zu erreichen.",
       "microsoftDescription": "Infrastruktur auf Azure und Unterstützung von Mitarbeiter-Freiwilligen",
-      "googleDescription": "Hilft, die Sichtbarkeit von SALUD-GPT zu erhöhen, um mehr Fachkräfte und Patienten zu erreichen"
+      "googleDescription": "Hilft, die Sichtbarkeit von DxGPT zu erhöhen, um mehr Fachkräfte und Patienten zu erreichen"
     },
     "ourSponsors": {
       "title": "Unsere Sponsoren",
-      "description": "Wir sprechen unseren großzügigen Sponsoren unseren tiefsten Dank aus. Ihre Unterstützung ist rein philanthropisch, ohne kommerzielle Interessen oder Datenaustausch, und ist vital für die Entwicklung von Tools wie SALUD-GPT und deren kostenlose Bereitstellung."
+      "description": "Wir sprechen unseren großzügigen Sponsoren unseren tiefsten Dank aus. Ihre Unterstützung ist rein philanthropisch, ohne kommerzielle Interessen oder Datenaustausch, und ist vital für die Entwicklung von Tools wie DxGPT und deren kostenlose Bereitstellung."
     },
     "implementations": {
       "title": "Implementierungen",
-      "description": "SALUD-GPT wurde in verschiedenen Gesundheitssystemen und medizinischen Organisationen implementiert, um die Diagnose und Patientenversorgung zu verbessern.",
+      "description": "DxGPT wurde in verschiedenen Gesundheitssystemen und medizinischen Organisationen implementiert, um die Diagnose und Patientenversorgung zu verbessern.",
       "aragon": {
         "title": "Aragonesischer Gesundheitsdienst",
         "status": "Seit Juli 2025",
-        "description": "SALUD-GPT ist jetzt für Gesundheitsfachkräfte des aragonesischen Gesundheitsdienstes verfügbar und ermöglicht es, die Genauigkeit und Geschwindigkeit bei der Diagnose seltener und häufiger Krankheiten in der Region Aragonien zu verbessern.",
+        "description": "DxGPT ist jetzt für Gesundheitsfachkräfte des aragonesischen Gesundheitsdienstes verfügbar und ermöglicht es, die Genauigkeit und Geschwindigkeit bei der Diagnose seltener und häufiger Krankheiten in der Region Aragonien zu verbessern.",
         "users": "Benutzer:",
         "usersValue": "+5.000 Ärzte",
         "scope": "Bereich:",
@@ -297,7 +297,7 @@
       "sermas": {
         "title": "Madrider Gesundheitsdienst (SERMAS)",
         "status": "Seit September 2023",
-        "description": "Pionierhafte Implementierung von SALUD-GPT im Gesundheitssystem der Gemeinschaft Madrid, die über 6.000 Hausärzten Zugang bietet, um die diagnostischen Fähigkeiten zu verbessern.",
+        "description": "Pionierhafte Implementierung von DxGPT im Gesundheitssystem der Gemeinschaft Madrid, die über 6.000 Hausärzten Zugang bietet, um die diagnostischen Fähigkeiten zu verbessern.",
         "coverage": "Abdeckung:",
         "coverageValue": "Gesamtes Netzwerk der Primärversorgung",
         "users": "Benutzer:",
@@ -310,7 +310,7 @@
       "catsalut": {
         "title": "Katalanischer Gesundheitsdienst (CatSalut)",
         "status": "In Entwicklung",
-        "description": "Bevorstehende Implementierung im katalanischen Gesundheitssystem, um die Vorteile von SALUD-GPT auf eine größere Bevölkerung von Gesundheitsfachkräften in Katalonien auszuweiten.",
+        "description": "Bevorstehende Implementierung im katalanischen Gesundheitssystem, um die Vorteile von DxGPT auf eine größere Bevölkerung von Gesundheitsfachkräften in Katalonien auszuweiten.",
         "statusLabel": "Status:",
         "statusValue": "Implementierungsphase",
         "scope": "Bereich:",
@@ -443,15 +443,15 @@
     "Files modified - re-analyze needed": "Dateien modifiziert - erneut analysieren erforderlich"
   },
   "policy": {
-    "subtitle": "Erfahren Sie, wie wir Ihre Privatsphäre und persönlichen Daten in SALUD-GPT schützen.",
+    "subtitle": "Erfahren Sie, wie wir Ihre Privatsphäre und persönlichen Daten in DxGPT schützen.",
     "lastUpdated": "Zuletzt aktualisiert: 21. April 2025",
-    "p1": "SALUD-GPT Datenschutzrichtlinie (DSGVO-konform)",
+    "p1": "DxGPT Datenschutzrichtlinie (DSGVO-konform)",
     "p2.1": "1. Wer wir sind und wie Sie uns kontaktieren können",
     "p2.2": "Fundación 29 de Febrero (\"DxGPT\", \"wir\", \"unser\", \"uns\") ist der Datenverantwortliche für die persönlichen Daten, die über die DxGPT-Plattform verarbeitet werden, und als gemeinnützige Organisation priorisieren wir den Datenschutz und setzen uns aktiv für den verantwortungsvollen Umgang mit Patientendaten ein.",
     "p2.3": "Datenschutzbeauftragter (DSB): privacy@foundation29.org",
     "p2.4": "Allgemeine Anfragen: support@foundation29.org",
     "p2.5": "Regulatorischer Status — kein Medizinprodukt",
-    "p2.6": "SALUD-GPT ist kein Medizinprodukt gemäß EU MDR, U.S. FDA oder anderen geltenden Vorschriften. Es wird ausschließlich als klinisches Entscheidungsunterstützungstool zur Unterstützung qualifizierter medizinischer Fachkräfte bereitgestellt. Es darf nicht als Ersatz für professionelles medizinisches Urteil, Diagnose oder Behandlung verwendet werden.",
+    "p2.6": "DxGPT ist kein Medizinprodukt gemäß EU MDR, U.S. FDA oder anderen geltenden Vorschriften. Es wird ausschließlich als klinisches Entscheidungsunterstützungstool zur Unterstützung qualifizierter medizinischer Fachkräfte bereitgestellt. Es darf nicht als Ersatz für professionelles medizinisches Urteil, Diagnose oder Behandlung verwendet werden.",
     "p3.1": "2. Informationen, die wir sammeln",
     "p3.2": "2.1 Daten, die Sie freiwillig bereitstellen",
     "p3.3": "Alter, Geschlecht, Symptome und andere Details, die Sie bei der Anfrage nach Diagnosevorschlägen eingeben.",
@@ -477,7 +477,7 @@
     "p5.3": "Beantwortung von Feedback und Support-Anfragen.",
     "p5.4": "Analyse aggregierter Nutzung zur Verfeinerung von Algorithmen und Benutzererfahrung.",
     "p5.5": "Durchsetzung unserer Nutzungsbedingungen und Schutz der Sicherheit der Plattform.",
-    "p5.6": "SALUD-GPT wird Ihre persönlichen Daten — oder überhaupt irgendwelche Daten — niemals an Dritte für Marketing oder andere Zwecke verkaufen, vermieten oder weitergeben. Diese Verpflichtung ist dauerhaft und unumkehrbar, und da wir individuelle Identifikatoren an der Quelle entfernen und nur maskierte Daten speichern, ist eine solche Weitergabe technisch nicht möglich.",
+    "p5.6": "DxGPT wird Ihre persönlichen Daten — oder überhaupt irgendwelche Daten — niemals an Dritte für Marketing oder andere Zwecke verkaufen, vermieten oder weitergeben. Diese Verpflichtung ist dauerhaft und unumkehrbar, und da wir individuelle Identifikatoren an der Quelle entfernen und nur maskierte Daten speichern, ist eine solche Weitergabe technisch nicht möglich.",
     "p5.7": "Wir können jedoch aggregierte, vollständig anonymisierte Nutzungsstatistiken offenlegen, die nicht auf einzelne Benutzer zurückgeführt werden können.",
     "p6.1": "5. Datensicherheit und -speicherung",
     "p6.2": "Verschlüsselung während der Übertragung und im Ruhezustand schützt alle Datenkanäle.",
@@ -485,7 +485,7 @@
     "p6.4": "Unmaskierte Gesundheitsdaten werden niemals auf Festplatte geschrieben; die Verarbeitung erfolgt nur im flüchtigen Speicher.",
     "p6.5": "Technische und organisatorische Maßnahmen folgen den Standards ISO 27001 und NIST SP 800-88.",
     "p6.6": "Der Zugriff ist auf autorisiertes Personal unter strenger Vertraulichkeit beschränkt.",
-    "p6.7": "HIPAA-Compliance — SALUD-GPT entspricht HIPAA (Datenschutz-, Sicherheits- und Benachrichtigungsregeln bei Datenpannen) und schließt Business Associate Agreements (BAAs) ab. Siehe Anhang A für detaillierte Schutzmaßnahmen.",
+    "p6.7": "HIPAA-Compliance — DxGPT entspricht HIPAA (Datenschutz-, Sicherheits- und Benachrichtigungsregeln bei Datenpannen) und schließt Business Associate Agreements (BAAs) ab. Siehe Anhang A für detaillierte Schutzmaßnahmen.",
     "p7.1": "6. Datenspeicherung",
     "p7.2": "Aggregierte, anonyme Nutzungsdaten werden nicht länger als 5 Jahre aufbewahrt, bevor sie unwiderruflich gelöscht werden.",
     "p7.3": "Support-Tickets und vertragliche Aufzeichnungen werden bis zu 5 Jahre aufbewahrt, um Buchhaltungs- und gesetzlichen Anforderungen zu entsprechen.",
@@ -508,7 +508,7 @@
     "p10.2": "Um eines der oben genannten Rechte auszuüben oder ein Datenschutzanliegen zu äußern, kontaktieren Sie unseren DSB unter privacy@foundation29.org oder schreiben Sie an die Adresse in Abschnitt 1.",
     "p10.3": "Wir bemühen uns, auf alle berechtigten Anfragen innerhalb eines Kalendermonats zu antworten. Komplexe Anfragen können bis zu zwei weitere Monate in Anspruch nehmen, in diesem Fall werden wir Sie informieren.",
     "p11.1": "10. Änderungen dieser Richtlinie",
-    "p11.2": "Wir können diese Datenschutzrichtlinie regelmäßig aktualisieren. Wesentliche Änderungen werden innerhalb der SALUD-GPT-Oberfläche oder per E-Mail bekannt gegeben. Das Datum \"Zuletzt aktualisiert\" oben auf dieser Seite gibt an, wann Revisionen vorgenommen wurden.",
+    "p11.2": "Wir können diese Datenschutzrichtlinie regelmäßig aktualisieren. Wesentliche Änderungen werden innerhalb der DxGPT-Oberfläche oder per E-Mail bekannt gegeben. Das Datum \"Zuletzt aktualisiert\" oben auf dieser Seite gibt an, wann Revisionen vorgenommen wurden.",
     "p12.1": "Anhang A. HIPAA-Compliance-Details",
     "p12.2": "Datenschutzregel — geschützte Gesundheitsinformationen (PHI) werden nur wie erlaubt oder mit ausdrücklicher Genehmigung des Patienten verwendet oder offengelegt und halten sich an den Grundsatz des minimal Notwendigen.",
     "p12.3": "Sicherheitsregel — administrative, physische und technische Schutzmaßnahmen wie Verschlüsselung im Ruhezustand, rollenbasierte Zugangskontrollen, Auditprotokolle und regelmäßige Risikobewertungen schützen elektronische PHI.",
@@ -518,10 +518,10 @@
   },
   "policyShort": {
     "p1": "1. Wer wir sind",
-    "p1.1": "SALUD-GPT wird von der Fundación 29 de Febrero betrieben.",
+    "p1.1": "DxGPT wird von der Fundación 29 de Febrero betrieben.",
     "p1.2": "Kontaktieren Sie unseren Datenschutzbeauftragten unter privacy@foundation29.org.",
     "p1.3": "Benötigen Sie Hilfe? Schreiben Sie an support@foundation29.org.",
-    "p1.4": "Kein Medizinprodukt — SALUD-GPT hilft Ärzten nur, über mögliche Diagnosen nachzudenken. Es ersetzt keinen echten Arzt.",
+    "p1.4": "Kein Medizinprodukt — DxGPT hilft Ärzten nur, über mögliche Diagnosen nachzudenken. Es ersetzt keinen echten Arzt.",
     "p2": "2. Informationen, die wir sammeln",
     "p2.1": "Sie geben uns: Alter, Geschlecht, Symptome, Feedback und Ihre E-Mail, wenn Sie uns schreiben.",
     "p2.2": "Sensible Informationen: Gesundheitsdetails, die Sie eingeben.",
@@ -575,7 +575,7 @@
     "NAV_CONTACT_DESCRIPTION": "Kontaktieren Sie uns für Fragen oder Feedback."
   },
   "land":{
-    "disclaimer": "<p><strong>SALUD-GPT</strong> ist ein Forschungsexperiment, das eine allgemeine künstliche Intelligenz verwendet. Insbesondere nutzt es OpenAIs GPT-4-Sprachmodell als prädiktives Modell für ein Tool, das Informationen zu verwandten seltenen Krankheiten liefert. Es ist darauf ausgelegt, allgemeine Informationen und Vorschläge basierend auf den angegebenen Symptomen zu liefern. Das Tool ist nicht dazu bestimmt, professionellen medizinischen Rat zu ersetzen oder Diagnose, Prävention, Überwachung, Vorhersage oder Behandlung zu unterstützen und sollte niemals für diagnostische Beurteilungen bei echten Patienten verwendet werden.</p><p>Da KI variable Ergebnisse liefern kann, können die diagnostische Genauigkeit und Vorschläge des Tools variieren, daher ist es wichtig, einen qualifizierten Gesundheitsexperten zu konsultieren, um eine genaue und angemessene Diagnose sicherzustellen. Die Nutzung dieses Tools erfolgt auf eigenes Risiko, und die Stiftung 29 ist nicht verantwortlich für Konsequenzen oder Schäden, die aus seiner Nutzung resultieren könnten.</p><p>Durch die Nutzung dieses Tools bestätigt der Benutzer, dass er diesen Haftungsausschluss gelesen und verstanden hat und alle potenziellen Risiken akzeptiert, die mit der Nutzung des auf künstlicher Intelligenz basierenden Tools verbunden sind.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> ist ein Forschungsexperiment, das eine allgemeine künstliche Intelligenz verwendet. Insbesondere nutzt es OpenAIs GPT-4-Sprachmodell als prädiktives Modell für ein Tool, das Informationen zu verwandten seltenen Krankheiten liefert. Es ist darauf ausgelegt, allgemeine Informationen und Vorschläge basierend auf den angegebenen Symptomen zu liefern. Das Tool ist nicht dazu bestimmt, professionellen medizinischen Rat zu ersetzen oder Diagnose, Prävention, Überwachung, Vorhersage oder Behandlung zu unterstützen und sollte niemals für diagnostische Beurteilungen bei echten Patienten verwendet werden.</p><p>Da KI variable Ergebnisse liefern kann, können die diagnostische Genauigkeit und Vorschläge des Tools variieren, daher ist es wichtig, einen qualifizierten Gesundheitsexperten zu konsultieren, um eine genaue und angemessene Diagnose sicherzustellen. Die Nutzung dieses Tools erfolgt auf eigenes Risiko, und die Stiftung 29 ist nicht verantwortlich für Konsequenzen oder Schäden, die aus seiner Nutzung resultieren könnten.</p><p>Durch die Nutzung dieses Tools bestätigt der Benutzer, dass er diesen Haftungsausschluss gelesen und verstanden hat und alle potenziellen Risiken akzeptiert, die mit der Nutzung des auf künstlicher Intelligenz basierenden Tools verbunden sind.</p>",
     "check": "Diese Nachricht nicht mehr anzeigen",
     "Recommendations": "Für beste Ergebnisse geben Sie an, wann und warum die Symptome aufgetreten sind",
     "Search": "Suchen",
@@ -585,15 +585,15 @@
     "required": "Bitte geben Sie die Patientendaten (Alter, Geschlecht, Symptome) und deren Beginn an. Beispiel: Frau, 42 Jahre alt, seit 3 Monaten starke Kopfschmerzen, Schwindel, Migräne in der Familie.",
     "charactersleft": "Mindest. 15 Zeichen erforderlich. {{value}} fehlt.",
     "recommended": "Empfehlung: 200-2000 Zeichen für beste Ergebnisse.",
-    "searchFile": "Sie können auch einen vollständigen Bericht hochladen. Diese Funktionalität wird getestet und kann unerwartete Ergebnisse liefern. SALUD-GPT schlägt die Diagnose vor, die das Modell für diesen Patienten als am besten geeignet erachtet. Um den Datenschutzbestimmungen zu entsprechen, speichern wir keine persönlichen Patientendaten und löschen die Daten am Ende dieser Sitzung. Wir würden uns über Ihr Feedback für zukünftige Entwicklungen freuen.",
+    "searchFile": "Sie können auch einen vollständigen Bericht hochladen. Diese Funktionalität wird getestet und kann unerwartete Ergebnisse liefern. DxGPT schlägt die Diagnose vor, die das Modell für diesen Patienten als am besten geeignet erachtet. Um den Datenschutzbestimmungen zu entsprechen, speichern wir keine persönlichen Patientendaten und löschen die Daten am Ende dieser Sitzung. Wir würden uns über Ihr Feedback für zukünftige Entwicklungen freuen.",
     "Browse for file": "Nach Datei suchen",
     "Accepted files": "Akzeptierte Dateien: pdf, docx, Bilder",
     "error extension": "Die hochgeladene Datei muss eine .pdf, .docx-Erweiterung oder Bilddateien haben",
     "Extracting the text from the document": "Text aus dem Dokument extrahieren",
-    "swal": "SALUD-GPT berechnet. Bitte warten Sie einige Sekunden, bis es fertig ist",
+    "swal": "DxGPT berechnet. Bitte warten Sie einige Sekunden, bis es fertig ist",
     "swal2": "Wir haben eine hohe Nachfrage. Wenn es länger als 2 Minuten dauert, brechen Sie ab und versuchen Sie es erneut.",
     "swal3": "Helfen Sie uns, die Qualität des Ergebnisses zu verbessern, indem Sie den Daumen nach oben oder unten bewerten.",
-    "swalMultimodal": "SALUD-GPT verarbeitet Ihre Dateien. Bitte warten Sie einige Sekunden, bis es fertig ist",
+    "swalMultimodal": "DxGPT verarbeitet Ihre Dateien. Bitte warten Sie einige Sekunden, bis es fertig ist",
     "swal2Multimodal": "Wir extrahieren und analysieren den Inhalt Ihrer Dokumente und Bilder.",
     "swal3Multimodal": "Sobald dies abgeschlossen ist, überprüfen Sie den generierten Text und klicken Sie auf Suchen, um fortzufahren.",
     "multimodalInfo": {
@@ -639,19 +639,19 @@
     "descriptionopt3": "Hier können Sie Leitsymptome oder wichtige Elemente eingeben, die Sie in jeder Art von analytischem oder diagnostischem Test beobachtet haben. Es kann jede Art von Information wie Symptome, Ergebnisse oder jede andere Art von Biomarker enthalten.",
     "Type here": "Hier eingeben!",
     "Placeholder help": "Geben Sie hier Patientendetails ein (Alter, Geschlecht, Symptome) und wann sie begannen.\nBeispiel: Weiblich, 42, schwere Kopfschmerzen seit 3 Monaten, Schwindel, familiäre Vorgeschichte von Migräne.",
-    "title": "Geben Sie eine kurze Beschreibung des Patienten ein und SALUD-GPT liefert eine Liste möglicher Krankheitsdiagnosen",
+    "title": "Geben Sie eine kurze Beschreibung des Patienten ein und DxGPT liefert eine Liste möglicher Krankheitsdiagnosen",
     "p1.title": "Beispiele",
     "p1.subtitle": "Klicken Sie auf den Text, um ihn als Beispiel zu verwenden",
     "p1.1": "Der Patient ist dreizehn Monate alt. Erster fokaler Anfall mit drei Monaten. Mehrere tonisch-klonische Anfälle. Fieberkrämpfe. Ein Status epilepticus mit acht Monaten.",
     "p1.2": "Mädchen. 11 Jahre. Unilaterale Hemisphärenatrophie, assoziiert mit arzneimittelresistenter fokaler Epilepsie, progressiver Hemiplegie und kognitivem Abbau",
     "p2.title": "Fähigkeiten",
-    "p2.subtitle": "Hauptmerkmale von SALUD-GPT",
+    "p2.subtitle": "Hauptmerkmale von DxGPT",
     "p2.1": "Zeigt detaillierte Beschreibungen mit übereinstimmenden und nicht übereinstimmenden Symptomen",
     "p2.2": "Bietet eine Differentialdiagnose durch Klicken auf jede Krankheit",
     "p2.3": "Ermöglicht die Verbesserung der Patientenbeschreibung durch KI-Fragen",
     "p2.4": "Hat erweiterten Modus für genauere Analyse",
     "p3.title": "Einschränkungen",
-    "p3.subtitle": "Dinge, die bei der Verwendung von SALUD-GPT zu beachten sind",
+    "p3.subtitle": "Dinge, die bei der Verwendung von DxGPT zu beachten sind",
     "p3.1": "Kann gelegentlich falsche Informationen generieren",
     "p3.2": "Kann nicht ohne menschliche Aufsicht zur Diagnose verwendet werden",
     "errorLocation": "Wir haben festgestellt, dass Sie ein VPN oder ein Netzwerk verwenden, das die Erkennung Ihres Standorts verhindert. Dies kann die ordnungsgemäße Funktionsweise unserer Anwendung und die Sicherheit unserer Dienste beeinträchtigen. Bitte deaktivieren Sie das VPN oder verwenden Sie ein Netzwerk, das die Erkennung Ihres Standorts ermöglicht, um fortzufahren.",
@@ -675,7 +675,7 @@
     "Do you want to start over": "Möchten Sie von vorne beginnen?",
     "Results copied to the clipboard": "Ergebnisse in die Zwischenablage kopiert",
     "Do not show this message again": "Diese Nachricht nicht mehr anzeigen",
-    "titleOptions": "SALUD-GPT sucht in <strong>seltenen Krankheiten</strong>, um die Suche auf häufige Krankheiten zu erweitern, aktivieren Sie diese Schaltfläche:",
+    "titleOptions": "DxGPT sucht in <strong>seltenen Krankheiten</strong>, um die Suche auf häufige Krankheiten zu erweitern, aktivieren Sie diese Schaltfläche:",
     "opt1": "Seltene Krankheiten",
     "opt2": "Häufige Krankheiten anzeigen",
     "rare": "seltene Krankheiten",
@@ -702,43 +702,43 @@
     },
     "Please answer at least one question": "Bitte beantworten Sie mindestens eine Frage",
     "aboutUs": {
-      "P1_Title": "SALUD-GPT",
-      "P1_Summary_P1": "SALUD-GPT ist ein Diagnostik-Assistenzwerkzeug, das von und für die klinische Umgebung entwickelt wurde. Im Gegensatz zu allgemeinen KI-Systemen liefert es keine offenen Antworten, sondern eine strukturierte Analyse von fünf diagnostischen Hypothesen – begründet und geordnet. Wir verwenden modernste Technologie, wie o3 von OpenAI, eingebettet in einen medizinischen Kontrollrahmen, der die Relevanz und Sicherheit jedes Ergebnisses gewährleistet. Wir ersetzen nicht den Arzt – wir bieten eine sofortige Zweitmeinung, die Zeit spart, Verzerrungen reduziert und die Qualität des klinischen Denkens von Anfang an erhöht.",
+      "P1_Title": "DxGPT",
+      "P1_Summary_P1": "DxGPT ist ein Diagnostik-Assistenzwerkzeug, das von und für die klinische Umgebung entwickelt wurde. Im Gegensatz zu allgemeinen KI-Systemen liefert es keine offenen Antworten, sondern eine strukturierte Analyse von fünf diagnostischen Hypothesen – begründet und geordnet. Wir verwenden modernste Technologie, wie o3 von OpenAI, eingebettet in einen medizinischen Kontrollrahmen, der die Relevanz und Sicherheit jedes Ergebnisses gewährleistet. Wir ersetzen nicht den Arzt – wir bieten eine sofortige Zweitmeinung, die Zeit spart, Verzerrungen reduziert und die Qualität des klinischen Denkens von Anfang an erhöht.",
 
       "P1.S1.T": "Die Herausforderung der klinischen Diagnose",
-      "P1.S1.B1.Q": "Welches grundlegende Problem löst SALUD-GPT?",
-      "P1.S1.B1.A_P1": "Die medizinische Diagnose – insbesondere bei seltenen Erkrankungen – ist ein langsamer und komplexer Prozess. Fachkräfte müssen unzählige Symptome und Daten analysieren, was zu Verzögerungen bei der Behandlung und zu Unsicherheiten führen kann. SALUD-GPT wirkt als kognitive Unterstützung, die diesen Prozess beschleunigt, um schneller zu einer präzisen Diagnose zu gelangen.",
+      "P1.S1.B1.Q": "Welches grundlegende Problem löst DxGPT?",
+      "P1.S1.B1.A_P1": "Die medizinische Diagnose – insbesondere bei seltenen Erkrankungen – ist ein langsamer und komplexer Prozess. Fachkräfte müssen unzählige Symptome und Daten analysieren, was zu Verzögerungen bei der Behandlung und zu Unsicherheiten führen kann. DxGPT wirkt als kognitive Unterstützung, die diesen Prozess beschleunigt, um schneller zu einer präzisen Diagnose zu gelangen.",
       "P1.S1.B2.Q": "Warum sind seltene Krankheiten eine so große Herausforderung?",
       "P1.S1.B2.A_P1": "Es gibt über 10.000 seltene Erkrankungen, von denen die meisten aufgrund ihrer geringen Häufigkeit dem durchschnittlichen Arzt unbekannt sind. Dieses Unwissen macht die Diagnose extrem schwierig. Unterstützende Technologien sind heute keine Luxuslösung mehr, sondern eine Notwendigkeit zur Verbesserung der Genauigkeit und Versorgungsqualität.",
 
-      "P1.S2.T": "Warum SALUD-GPT statt einer generellen KI",
-      "P1.S2.B1.Q": "Worin unterscheidet sich SALUD-GPT von einem Chatbot wie ChatGPT?",
-      "P1.S2.B1.A_P1": "SALUD-GPT revolutioniert die Differenzialdiagnose, weil es für einen spezifischen klinischen Zweck entwickelt wurde. Statt einer offenen Konversation erhält man fünf strukturierte, begründete und nach ICD-10 klassifizierte Hypothesen. Es ist eine kontrollierte Umgebung, in der fortschrittliche KI sicher und gezielt auf echte Diagnosen angewendet wird.",
+      "P1.S2.T": "Warum DxGPT statt einer generellen KI",
+      "P1.S2.B1.Q": "Worin unterscheidet sich DxGPT von einem Chatbot wie ChatGPT?",
+      "P1.S2.B1.A_P1": "DxGPT revolutioniert die Differenzialdiagnose, weil es für einen spezifischen klinischen Zweck entwickelt wurde. Statt einer offenen Konversation erhält man fünf strukturierte, begründete und nach ICD-10 klassifizierte Hypothesen. Es ist eine kontrollierte Umgebung, in der fortschrittliche KI sicher und gezielt auf echte Diagnosen angewendet wird.",
       "P1.S2.B2.Q": "Welche konkreten Vorteile bietet dieser spezialisierte Ansatz?",
-      "P1.S2.B2.A_P1": "Das klinische Design von SALUD-GPT bietet direkte Vorteile:",
+      "P1.S2.B2.A_P1": "Das klinische Design von DxGPT bietet direkte Vorteile:",
       "P1.S2.B2.A_L1.I1": "Zeitersparnis: Die Diagnose erfolgt nahezu sofort.",
       "P1.S2.B2.A_L1.I2": "Klinische Klarheit: Jede Hypothese enthält explizite kompatible und inkompatible Symptome.",
       "P1.S2.B2.A_L1.I3": "Optimierte Benutzeroberfläche: Speziell für medizinische Entscheidungsfindung entworfen – nicht für freie Exploration.",
       "P1.S2.B2.A_L1.I4": "Bias-Reduktion: Verringert den Verfügbarkeitsbias und stellt sicher, dass seltene Diagnosen berücksichtigt werden.",
       "P1.S2.B2.A_L1.I5": "Konsistenz und Validierung: Jeder Fall wird immer mit der gleichen Strenge analysiert und kontinuierlich mit unserem eigenen Benchmark geprüft.",
       "P1.S2.B3.Q": "Was ist also die Zukunft von KI in der Medizin?",
-      "P1.S2.B3.A_P1": "Die Zukunft besteht nicht aus einem einzigen System für alles, sondern aus einem Ökosystem spezialisierter und medizinisch validierter Lösungen wie SALUD-GPT. Wer es heute nutzt, gestaltet aktiv mit, wie künstliche Intelligenz in der Medizin auf Basis realer klinischer Praxis entwickelt und validiert wird.",
+      "P1.S2.B3.A_P1": "Die Zukunft besteht nicht aus einem einzigen System für alles, sondern aus einem Ökosystem spezialisierter und medizinisch validierter Lösungen wie DxGPT. Wer es heute nutzt, gestaltet aktiv mit, wie künstliche Intelligenz in der Medizin auf Basis realer klinischer Praxis entwickelt und validiert wird.",
 
       "P1.S3.T": "Reale Wirkung: Integration in Gesundheitssysteme",
-      "P1.S3.Intro_P1": "SALUD-GPT wird bereits in öffentliche Gesundheitssysteme integriert, um Ärzten bei der Diagnose seltener Krankheiten im klinischen Alltag zu helfen. Hier sind unsere aktuellen und geplanten Implementierungen:",
+      "P1.S3.Intro_P1": "DxGPT wird bereits in öffentliche Gesundheitssysteme integriert, um Ärzten bei der Diagnose seltener Krankheiten im klinischen Alltag zu helfen. Hier sind unsere aktuellen und geplanten Implementierungen:",
       "P1.S3.B1.T": "Pionierprojekt: Gesundheitsdienst Madrid (SERMAS)",
-      "P1.S3.B1.Content_P1": "Seit September 2023 setzt der Gesundheitsdienst der Autonomen Gemeinschaft Madrid (SERMAS) SALUD-GPT als erster ein – für über 6.000 Hausärzte. Diese Initiative hat die Präzision und Geschwindigkeit bei der Diagnose seltener Krankheiten verbessert und die Überweisungszeiten zu geeigneten Spezialisten deutlich reduziert.",
+      "P1.S3.B1.Content_P1": "Seit September 2023 setzt der Gesundheitsdienst der Autonomen Gemeinschaft Madrid (SERMAS) DxGPT als erster ein – für über 6.000 Hausärzte. Diese Initiative hat die Präzision und Geschwindigkeit bei der Diagnose seltener Krankheiten verbessert und die Überweisungszeiten zu geeigneten Spezialisten deutlich reduziert.",
       "P1.S3.B1.RelatedLink1": "Der Gesundheitsdienst Madrid, Vorreiter beim Einsatz generativer KI zur Verbesserung von Diagnosen bei seltenen Krankheiten",
       "P1.S3.B1.RelatedLink2": "Die Region Madrid ermöglicht über 6.000 Hausärzten den Einsatz von KI zur Diagnose seltener Krankheiten",
       "P1.S3.B2.T": "In Entwicklung: CatSalut (Katalonien)",
-      "P1.S3.B2.Content_P1": "Wir arbeiten derzeit an der Implementierung von SALUD-GPT im katalanischen Gesundheitssystem (CatSalut), um diese innovative Lösung auch den Fachkräften in Katalonien bereitzustellen und so die Diagnose seltener Krankheiten in der Region zu verbessern.",
+      "P1.S3.B2.Content_P1": "Wir arbeiten derzeit an der Implementierung von DxGPT im katalanischen Gesundheitssystem (CatSalut), um diese innovative Lösung auch den Fachkräften in Katalonien bereitzustellen und so die Diagnose seltener Krankheiten in der Region zu verbessern.",
       "P1.S3.B3.T": "Aragoner Gesundheitsdienst",
-      "P1.S3.B3.Content_P1": "SALUD-GPT ist bereits für die Fachkräfte des Aragoner Gesundheitsdienstes verfügbar, um die Präzision und Geschwindigkeit bei der Diagnose seltener Krankheiten und häufiger Krankheiten in der Region Aragón zu verbessern.",
+      "P1.S3.B3.Content_P1": "DxGPT ist bereits für die Fachkräfte des Aragoner Gesundheitsdienstes verfügbar, um die Präzision und Geschwindigkeit bei der Diagnose seltener Krankheiten und häufiger Krankheiten in der Region Aragón zu verbessern.",
 
       "P2_Title": "Benchmarking",
       "P2_Summary_P1": "Damit ein KI-Tool klinisch nützlich ist, muss es mit höchster Strenge bewertet werden. Wir verlassen uns nicht auf allgemeine Metriken – wir haben unseren eigenen Testdatensatz gebaut, verarbeitet und validiert: DxGPT-bench. Dieser umfasst 997 klinische Fälle, die statistisch repräsentativ und vielfältig sind, um die Genauigkeit von Sprachmodellen in realitätsnahen Szenarien zu messen und sicherzustellen, dass DxGPT auf soliden und transparenten Daten basiert.",
 
-      "P2.S1.T": "Die Entstehung von SALUD-GPT-bench: unsere Daten",
+      "P2.S1.T": "Die Entstehung von DxGPT-bench: unsere Daten",
       "P2.S1.B1.Q": "Woher stammen die Daten für den Benchmark?",
       "P2.S1.B1.A_P1": "Unsere Datenbank kombiniert fünf komplementäre Quellen, um ein breites Spektrum der medizinischen Praxis abzudecken:",
       "P2.S1.B1.A_L1.I1": "Reale Notfallfälle aus dem HM-Krankenhaussystem in Madrid.",
@@ -759,84 +759,84 @@
       "P2.S2.B3.A_P1": "Aufgrund hoher Rechenkosten haben wir auf Optimierung gesetzt. Eine Ausweitung zur Abdeckung von 100 % der ICD-10-Codes würde hauptsächlich sehr seltene Varianten hinzufügen, mit nur geringem Mehrwert bei massiv erhöhtem Aufwand. Unser Ansatz bietet eine umfassende Bewertung mit vertretbarem Ressourcenaufwand.",
 
       "P2.S3.T": "Evaluierungsprozess und Ergebnisse",
-      "P2.S3.B1.Q": "Wie wird ein Sprachmodell mit SALUD-GPT-bench bewertet?",
+      "P2.S3.B1.Q": "Wie wird ein Sprachmodell mit DxGPT-bench bewertet?",
       "P2.S3.B1.A_P1": "Der Prozess ist automatisiert:",
       "P2.S3.B1.A_L1.I1": "Das Modell generiert Diagnosen für jeden Benchmark-Fall.",
       "P2.S3.B1.A_L1.I2": "Diese werden mithilfe semantischer Ähnlichkeit mit der richtigen Diagnose verglichen – entweder mit einem klinisch spezialisierten BERT-Modell oder einem logikbasierten Sprachmodell.",
       "P2.S3.B1.A_L1.I3": "Jeder Diagnose wird ein Schweregrad zugewiesen.",
       "P2.S3.B1.A_L1.I4": "Die Abweichung zwischen generierter und korrekter Schwere wird berechnet.",
       "P2.S3.B1.A_P2": "Diese genau klassifizierten Metriken erlauben nicht nur die Berechnung globaler Genauigkeit, sondern auch die Analyse diagnostischen Optimismus und die Visualisierung verschiedener Korrelationen.",
-      "P2.S3.B2.Q": "Wurde SALUD-GPT klinisch gegen Ärzte validiert?",
-      "P2.S3.B2.A_P1": "Ja. Das Hospital Sant Joan de Déu führte eine umfassende klinische Studie durch. Die Ergebnisse zeigen, dass SALUD-GPT eine diagnostische Genauigkeit erreicht, die mit klinischen Experten vergleichbar ist. Die Studie wurde als Preprint veröffentlicht und befindet sich in der Peer-Review.",
-      "P2.S3.B2.A_P2": "Bewertung der klinischen Nützlichkeit von SALUD-GPT | medRxiv.",
+      "P2.S3.B2.Q": "Wurde DxGPT klinisch gegen Ärzte validiert?",
+      "P2.S3.B2.A_P1": "Ja. Das Hospital Sant Joan de Déu führte eine umfassende klinische Studie durch. Die Ergebnisse zeigen, dass DxGPT eine diagnostische Genauigkeit erreicht, die mit klinischen Experten vergleichbar ist. Die Studie wurde als Preprint veröffentlicht und befindet sich in der Peer-Review.",
+      "P2.S3.B2.A_P2": "Bewertung der klinischen Nützlichkeit von DxGPT | medRxiv.",
 
       "P3_Title": "Wer wir sind",
       "P3_Summary_P1": "Fundación 29 ist eine gemeinnützige Organisation, die sich der Verbesserung des Lebens von Menschen mit seltenen und chronischen Erkrankungen widmet. Inspiriert vom Tag der Seltenen Erkrankungen (29. Februar) nutzen wir Daten und digitale Werkzeuge, um frühere Diagnosen zu fördern, Patienten zu stärken und Fachkräfte im Gesundheitswesen zu unterstützen.",
-      "P3_Summary_P2": "Durch Zusammenarbeit mit Krankenhäusern, Forschern und der medizinischen Gemeinschaft streben wir eine individuellere, inklusivere und effektivere Gesundheitsversorgung an. Unsere Initiativen basieren auf offener Wissenschaft, Transparenz und dem festen Glauben, dass Daten positive Veränderungen im Gesundheitssystem bewirken können. SALUD-GPT spiegelt unsere Mission wider: ein Werkzeug, entwickelt auf Grundlage offener Wissenschaft, Transparenz und Zusammenarbeit – kostenlos bereitgestellt, um der Gesellschaft etwas zurückzugeben.",
+      "P3_Summary_P2": "Durch Zusammenarbeit mit Krankenhäusern, Forschern und der medizinischen Gemeinschaft streben wir eine individuellere, inklusivere und effektivere Gesundheitsversorgung an. Unsere Initiativen basieren auf offener Wissenschaft, Transparenz und dem festen Glauben, dass Daten positive Veränderungen im Gesundheitssystem bewirken können. DxGPT spiegelt unsere Mission wider: ein Werkzeug, entwickelt auf Grundlage offener Wissenschaft, Transparenz und Zusammenarbeit – kostenlos bereitgestellt, um der Gesellschaft etwas zurückzugeben.",
 
       "P3.S1.T": "Unsere Mission und unser Engagement",
       "P3.S1.B1.Q": "Was ist Fundación 29?",
       "P3.S1.B1.A_P1": "Wir sind eine gemeinnützige Organisation, inspiriert vom Tag der Seltenen Erkrankungen (29. Februar). Wir arbeiten an einer individuelleren, inklusiveren und effektiveren Gesundheitsversorgung in Zusammenarbeit mit Krankenhäusern, Forschern und der medizinischen Gemeinschaft. Wir glauben, dass Daten das Gesundheitssystem positiv verändern können.",
       "P3.S1.B2.Q": "Wie steht ihr zur Transparenz und offenen Wissenschaft?",
-      "P3.S1.B2.A_P1": "Wir sind voll und ganz dafür. Im Sinne der Transparenz haben wir den Quellcode von SALUD-GPT veröffentlicht. Du kannst unsere <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>Client</a> und <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>Server</a> Repositories auf GitHub einsehen und mitentwickeln.",
-      "P3.S1.B3.Q": "Ist SALUD-GPT ein fertiges Produkt?",
-      "P3.S1.B3.A_P1": "Nein, SALUD-GPT ist eine experimentelle Plattform in kontinuierlicher Entwicklung. Ziel ist es, die Möglichkeiten der KI im Bereich Diagnose zu erforschen, ihre Grenzen zu verstehen und sie durch Nutzerfeedback und klinische Validierung zu verbessern. Neue Erkenntnisse werden auf GitHub und MedRxiv veröffentlicht.",
+      "P3.S1.B2.A_P1": "Wir sind voll und ganz dafür. Im Sinne der Transparenz haben wir den Quellcode von DxGPT veröffentlicht. Du kannst unsere <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>Client</a> und <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>Server</a> Repositories auf GitHub einsehen und mitentwickeln.",
+      "P3.S1.B3.Q": "Ist DxGPT ein fertiges Produkt?",
+      "P3.S1.B3.A_P1": "Nein, DxGPT ist eine experimentelle Plattform in kontinuierlicher Entwicklung. Ziel ist es, die Möglichkeiten der KI im Bereich Diagnose zu erforschen, ihre Grenzen zu verstehen und sie durch Nutzerfeedback und klinische Validierung zu verbessern. Neue Erkenntnisse werden auf GitHub und MedRxiv veröffentlicht.",
       "P3.S1.B4.Q": "Welche rechtlichen Garantien und Datenschutzmaßnahmen bietet ihr?",
-      "P3.S1.B4.A_P1": "Wir verfügen über umfassende Erfahrung in der Einhaltung gesetzlicher Vorschriften. SALUD-GPT entspricht Datenschutzrahmen wie DSGVO und HIPAA. Wir arbeiten daran, die vollständige Konformität mit dem EU-AI-Gesetz zu erreichen, in Zusammenarbeit mit Aufsichtsbehörden, um höchste ethische und rechtliche Standards zu gewährleisten.",
+      "P3.S1.B4.A_P1": "Wir verfügen über umfassende Erfahrung in der Einhaltung gesetzlicher Vorschriften. DxGPT entspricht Datenschutzrahmen wie DSGVO und HIPAA. Wir arbeiten daran, die vollständige Konformität mit dem EU-AI-Gesetz zu erreichen, in Zusammenarbeit mit Aufsichtsbehörden, um höchste ethische und rechtliche Standards zu gewährleisten.",
 
       "P3.S2.T": "Partner und Unterstützer",
       "P3.S2.B1.Q": "Wer sind eure Technologiepartner?",
-      "P3.S2.B1.A_P1": "Wir danken Microsoft, das uns über das Programm AI for Good mit Azure-Infrastruktur und freiwilliger Mitarbeit unterstützt. Auch Google hilft uns mit seinem NGO-Programm, SALUD-GPT bekannter zu machen und mehr Fachleute und Patienten zu erreichen.",
+      "P3.S2.B1.A_P1": "Wir danken Microsoft, das uns über das Programm AI for Good mit Azure-Infrastruktur und freiwilliger Mitarbeit unterstützt. Auch Google hilft uns mit seinem NGO-Programm, DxGPT bekannter zu machen und mehr Fachleute und Patienten zu erreichen.",
       "P3.S2.B2.Q": "Und eure Sponsoren?",
-      "P3.S2.B2.A_P1": "Unser aufrichtiger Dank gilt unseren großzügigen Sponsoren. Ihre Unterstützung ist rein philanthropisch – ohne kommerzielle Interessen oder Datenaustausch – und ist entscheidend dafür, dass wir Werkzeuge wie SALUD-GPT kostenlos entwickeln und anbieten können.",
+      "P3.S2.B2.A_P1": "Unser aufrichtiger Dank gilt unseren großzügigen Sponsoren. Ihre Unterstützung ist rein philanthropisch – ohne kommerzielle Interessen oder Datenaustausch – und ist entscheidend dafür, dass wir Werkzeuge wie DxGPT kostenlos entwickeln und anbieten können.",
 
       "P3.S3.T": "Werde Teil unserer Mission",
       "P3.S3.B1.Q": "Wie kann ich mitwirken oder Sponsor werden?",
       "P3.S3.B1.A_P1": "Wenn du unsere Mission unterstützen möchtest – ob als Sponsor oder Mitwirkender –, kontaktiere uns gerne. Gemeinsam können wir eine gesündere Zukunft gestalten.",
       "t8": "Unsere Sponsoren",
-      "p8": "Wir danken unseren großzügigen Sponsoren, deren unselbstständige Unterstützung unsere Mission unterstützt. Ihre Beiträge sind rein philanthropisch – ohne kommerzielle Interessen oder Datenaustausch – und sind entscheidend dafür, dass wir Werkzeuge wie SALUD-GPT kostenlos entwickeln und anbieten können.",
+      "p8": "Wir danken unseren großzügigen Sponsoren, deren unselbstständige Unterstützung unsere Mission unterstützt. Ihre Beiträge sind rein philanthropisch – ohne kommerzielle Interessen oder Datenaustausch – und sind entscheidend dafür, dass wir Werkzeuge wie DxGPT kostenlos entwickeln und anbieten können.",
       "t9": "Werde Teil unserer Mission",
       "p9.1": "Wenn du unsere Mission unterstützen möchtest – ob als Sponsor oder Mitwirkender –, kontaktiere uns gerne. Gemeinsam können wir eine gesündere Zukunft gestalten."
     },
     "faqs": {
       "title": "Häufig gestellte Fragen",
-      "subtitle": "Fragen und Antworten zu SALUD-GPT",
+      "subtitle": "Fragen und Antworten zu DxGPT",
       "q1": "Werden meine medizinischen Informationen vertraulich behandelt?",
-      "a1": "Ja, Ihre Privatsphäre hat für uns höchste Priorität. SALUD-GPT ist eine Initiative der Stiftung 29, einer gemeinnützigen Organisation, die sich dem strengen Schutz Ihrer persönlichen und gesundheitlichen Daten verschrieben hat. Wir verkaufen, vermieten oder teilen Ihre persönlichen Informationen niemals mit Dritten für kommerzielle oder Marketingzwecke. Alle von Ihnen bereitgestellten Daten werden sowohl während der Übertragung als auch bei der Speicherung sicher verschlüsselt. Darüber hinaus werden sensible Details automatisch anonymisiert, bevor sie gespeichert werden, wodurch sichergestellt wird, dass individuelle Identitäten nicht offengelegt werden können. Der Zugriff auf Ihre Daten wird streng kontrolliert und ist auf autorisiertes Personal beschränkt, das strengen Vertraulichkeitsverpflichtungen unterliegt und vollständig die DSGVO- und HIPAA-Vorschriften einhält.",
-      "q2": "Kann ich SALUD-GPT in Notfallsituationen verwenden?",
-      "a2": "Nein, SALUD-GPT ist nicht für die Bewältigung medizinischer Notfälle oder dringender medizinischer Zustände vorgesehen oder konzipiert. Im Falle eines Notfalls kontaktieren Sie bitte umgehend Ihren lokalen Rettungsdienst oder besuchen Sie die nächstgelegene Notfalleinrichtung. SALUD-GPT wird als unterstützende Ressource für medizinisches Fachpersonal entwickelt, mit dem Ziel, diagnostische Prozesse und Entscheidungsfindung zu verbessern. Es darf jedoch niemals als Ersatz für das professionelle Urteil und die sofortige Intervention durch ausgebildetes medizinisches Personal betrachtet werden.",
-      "q3": "Wie schlägt SALUD-GPT mögliche Diagnosen vor?",
-      "a3": "SALUD-GPT nutzt fortschrittliche künstliche Intelligenz und maschinelle Lernmodelle, um die von Gesundheitsexperten bereitgestellten Symptome und klinischen Informationen zu analysieren. Es vergleicht diese Eingabe mit einer umfangreichen Datenbank vorhandenen medizinischen Wissens, um potenzielle Zustände vorzuschlagen. SALUD-GPT ist ausdrücklich kein Medizinprodukt; vielmehr fungiert es als Entscheidungsunterstützungssystem. Das bedeutet, es unterstützt medizinische Fachkräfte, indem es Orientierung bei potenziellen Diagnosen bietet, aber nicht deren fachliches klinisches Urteil oder professionelle Beurteilungen ersetzt. Die Vorschläge, die SALUD-GPT liefert, sollen Klinikern helfen, mögliche Diagnosen zu identifizieren und weitere Untersuchungen zu leiten, aber es ist immer wesentlich, einen qualifizierten Gesundheitsexperten für eine definitive Diagnose und einen Behandlungsplan zu konsultieren.",
-      "q4": "Kann ich über SALUD-GPT mit einem menschlichen Arzt sprechen?",
-      "a4": "Gegenwärtig ist SALUD-GPT vollständig automatisiert und ermöglicht keine direkte Kommunikation mit menschlichen Ärzten oder medizinischem Personal. Bei spezifischen gesundheitsbezogenen Anliegen oder detaillierten medizinischen Konsultationen wenden Sie sich bitte direkt an Ihren regulären Gesundheitsdienstleister oder suchen Sie direkt professionellen medizinischen Rat.",
-      "q5": "Ist SALUD-GPT weltweit verfügbar?",
-      "a5": "Ja, SALUD-GPT ist für Benutzer weltweit zugänglich. Es ist jedoch wichtig zu beachten, dass medizinische Praktiken, Terminologie und Gesundheitsstandards zwischen Ländern und Regionen erheblich variieren können. SALUD-GPT zielt darauf ab, universell anwendbare Informationen bereitzustellen, aber Benutzer sollten seine Vorschläge immer im Kontext ihrer lokalen medizinischen Standards und Praktiken interpretieren.",
-      "q6": "Welche Sprachen kann ich mit SALUD-GPT verwenden?",
-      "a6": "SALUD-GPT kann Eingaben verarbeiten und Antworten in praktisch jeder Sprache liefern. Da seine Trainingsdaten jedoch überwiegend auf Englisch waren, bieten Antworten auf Englisch typischerweise die höchste Genauigkeit und Zuverlässigkeit. Für Sprachen mit weniger Benutzern oder weniger verfügbaren medizinischen Trainingsdaten könnten SALUD-GPTs Vorschläge gelegentlich weniger genau oder unvollständig sein. Wir ermutigen Sie nachdrücklich, SALUD-GPT in Ihrer bevorzugten oder Muttersprache zu verwenden und Feedback zu Ihrer Erfahrung zu geben. Dies wird uns helfen, seine Fähigkeiten und Genauigkeit über verschiedene Sprachen hinweg kontinuierlich zu verbessern.",
-      "q7": "Wie oft werden die medizinischen Informationen von SALUD-GPT aktualisiert?",
-      "a7": "SALUD-GPT selbst aktualisiert nicht direkt seine interne Datenbank oder sein Wissen. Stattdessen testet und evaluiert unser engagiertes Team kontinuierlich die neuesten und fortschrittlichsten künstlichen Intelligenzmodelle und Algorithmen. Wir führen regelmäßig klinische Studien in Partnerschaft mit Krankenhäusern und medizinischen Institutionen durch, um die Leistung von SALUD-GPT zu verifizieren und zu verbessern, wobei wir uns besonders auf die genaue Diagnose seltener Krankheiten und komplexer Fälle konzentrieren. Dieser fortlaufende Prozess stellt sicher, dass SALUD-GPT aktuell und effektiv bleibt.",
-      "q8": "Wie kann ich Feedback zu SALUD-GPT geben?",
-      "a8": "Ihr Feedback ist für die kontinuierliche Verbesserung von SALUD-GPT von entscheidender Bedeutung. Sie können bequem Feedback direkt über die Anwendung über den roten Tab auf der rechten Seite der SALUD-GPT-Schnittstelle einreichen. Alternativ können Sie uns per E-Mail unter support@foundation29.org erreichen. Wir überprüfen sorgfältig alle Feedbacks und Vorschläge, um unseren Service zu verbessern.",
-      "q9": "Kann ich Statistiken darüber sehen, wie SALUD-GPT verwendet wird?",
-      "a9": "Ja, Sie können umfassende Statistiken über den Abschnitt 'Nutzungsstatistik' im oberen Menü der SALUD-GPT-Schnittstelle abrufen. Hier finden Sie detaillierte Einblicke wie die Gesamtzahl der Benutzer, am häufigsten eingegebene Symptome, am häufigsten vorgeschlagene Diagnosen, geografische Verteilung der Benutzer und eine Zusammenfassung des Benutzerfeedbacks. Diese Statistiken werden anonym präsentiert und enthalten keine personenidentifizierbaren Informationen.",
-      "q10": "Wer kann an der Entwicklung von SALUD-GPT mitarbeiten?",
-      "a10": "Wir suchen aktiv und begrüßen herzlich Zusammenarbeit von Forschern, medizinischen Fachkräften, Gesundheitseinrichtungen und Organisationen, die an der Förderung von KI-unterstützten diagnostischen Technologien interessiert sind. Wenn Sie daran interessiert sind, zu unserem Projekt beizutragen oder gemeinsame Forschungsmöglichkeiten zu erkunden, kontaktieren Sie uns bitte per E-Mail unter support@foundation29.org oder füllen Sie das Kontaktformular auf unserer offiziellen Website aus. Zusammenarbeit hilft uns, die Fähigkeiten und praktische Nützlichkeit von SALUD-GPT kontinuierlich zu verbessern.",
-      "q11": "Ich vertrete eine Patientengruppe. Wie können wir mit SALUD-GPT zusammenarbeiten?",
-      "a11": "Wenn Sie eine Patientengruppe oder Interessenvertretungsorganisation vertreten, ermutigen wir Sie zur Zusammenarbeit, indem Sie SALUD-GPT in Ihren Netzwerken und Gemeinschaften fördern. Wir sind besonders an den Erfahrungen Ihrer Gruppe mit spezifischen medizinischen Zuständen oder Krankheiten interessiert, da diese Informationen uns helfen, Ihre einzigartigen Bedürfnisse besser zu verstehen und SALUD-GPT entsprechend zu verfeinern. Bitte kontaktieren Sie uns, um über potenzielle Zusammenarbeit zu diskutieren und wie SALUD-GPT Ihre Patientengruppe am besten unterstützen könnte.",
-      "q12": "Wird SALUD-GPT als Medizinprodukt betrachtet?",
-      "a12": "Nein. SALUD-GPT wird nicht als Medizinprodukt gemäß internationalen Vorschriften wie der Medizinprodukteverordnung der Europäischen Union (EU MDR) oder der US-amerikanischen Food and Drug Administration (FDA) klassifiziert oder reguliert. SALUD-GPT dient rein als experimentelles klinisches Entscheidungsunterstützungstool, das ausschließlich dazu konzipiert ist, qualifizierte Gesundheitsexperten zu unterstützen, indem es Orientierung und Vorschläge für die Diagnose bietet. Es sollte immer zusammen mit, und nicht als Ersatz für, professionelle medizinische Beurteilung verwendet werden.",
-      "q13": "Ist SALUD-GPT kostenlos nutzbar?",
-      "a13": "Ja, SALUD-GPT ist vollständig kostenlos nutzbar. Es wird als gemeinnütziges Projekt von der Stiftung 29 entwickelt und unterhalten, finanziert durch philanthropische Spenden, Zuschüsse und kooperative Partnerschaften. Wir streben danach, fortschrittliche KI-Diagnoseunterstützungstools für Gesundheitsexperten und Patienten weltweit frei verfügbar zu machen und damit Gerechtigkeit und Zugang in der medizinischen Diagnostik zu fördern.",
+      "a1": "Ja, Ihre Privatsphäre hat für uns höchste Priorität. DxGPT ist eine Initiative der Stiftung 29, einer gemeinnützigen Organisation, die sich dem strengen Schutz Ihrer persönlichen und gesundheitlichen Daten verschrieben hat. Wir verkaufen, vermieten oder teilen Ihre persönlichen Informationen niemals mit Dritten für kommerzielle oder Marketingzwecke. Alle von Ihnen bereitgestellten Daten werden sowohl während der Übertragung als auch bei der Speicherung sicher verschlüsselt. Darüber hinaus werden sensible Details automatisch anonymisiert, bevor sie gespeichert werden, wodurch sichergestellt wird, dass individuelle Identitäten nicht offengelegt werden können. Der Zugriff auf Ihre Daten wird streng kontrolliert und ist auf autorisiertes Personal beschränkt, das strengen Vertraulichkeitsverpflichtungen unterliegt und vollständig die DSGVO- und HIPAA-Vorschriften einhält.",
+      "q2": "Kann ich DxGPT in Notfallsituationen verwenden?",
+      "a2": "Nein, DxGPT ist nicht für die Bewältigung medizinischer Notfälle oder dringender medizinischer Zustände vorgesehen oder konzipiert. Im Falle eines Notfalls kontaktieren Sie bitte umgehend Ihren lokalen Rettungsdienst oder besuchen Sie die nächstgelegene Notfalleinrichtung. DxGPT wird als unterstützende Ressource für medizinisches Fachpersonal entwickelt, mit dem Ziel, diagnostische Prozesse und Entscheidungsfindung zu verbessern. Es darf jedoch niemals als Ersatz für das professionelle Urteil und die sofortige Intervention durch ausgebildetes medizinisches Personal betrachtet werden.",
+      "q3": "Wie schlägt DxGPT mögliche Diagnosen vor?",
+      "a3": "DxGPT nutzt fortschrittliche künstliche Intelligenz und maschinelle Lernmodelle, um die von Gesundheitsexperten bereitgestellten Symptome und klinischen Informationen zu analysieren. Es vergleicht diese Eingabe mit einer umfangreichen Datenbank vorhandenen medizinischen Wissens, um potenzielle Zustände vorzuschlagen. DxGPT ist ausdrücklich kein Medizinprodukt; vielmehr fungiert es als Entscheidungsunterstützungssystem. Das bedeutet, es unterstützt medizinische Fachkräfte, indem es Orientierung bei potenziellen Diagnosen bietet, aber nicht deren fachliches klinisches Urteil oder professionelle Beurteilungen ersetzt. Die Vorschläge, die DxGPT liefert, sollen Klinikern helfen, mögliche Diagnosen zu identifizieren und weitere Untersuchungen zu leiten, aber es ist immer wesentlich, einen qualifizierten Gesundheitsexperten für eine definitive Diagnose und einen Behandlungsplan zu konsultieren.",
+      "q4": "Kann ich über DxGPT mit einem menschlichen Arzt sprechen?",
+      "a4": "Gegenwärtig ist DxGPT vollständig automatisiert und ermöglicht keine direkte Kommunikation mit menschlichen Ärzten oder medizinischem Personal. Bei spezifischen gesundheitsbezogenen Anliegen oder detaillierten medizinischen Konsultationen wenden Sie sich bitte direkt an Ihren regulären Gesundheitsdienstleister oder suchen Sie direkt professionellen medizinischen Rat.",
+      "q5": "Ist DxGPT weltweit verfügbar?",
+      "a5": "Ja, DxGPT ist für Benutzer weltweit zugänglich. Es ist jedoch wichtig zu beachten, dass medizinische Praktiken, Terminologie und Gesundheitsstandards zwischen Ländern und Regionen erheblich variieren können. DxGPT zielt darauf ab, universell anwendbare Informationen bereitzustellen, aber Benutzer sollten seine Vorschläge immer im Kontext ihrer lokalen medizinischen Standards und Praktiken interpretieren.",
+      "q6": "Welche Sprachen kann ich mit DxGPT verwenden?",
+      "a6": "DxGPT kann Eingaben verarbeiten und Antworten in praktisch jeder Sprache liefern. Da seine Trainingsdaten jedoch überwiegend auf Englisch waren, bieten Antworten auf Englisch typischerweise die höchste Genauigkeit und Zuverlässigkeit. Für Sprachen mit weniger Benutzern oder weniger verfügbaren medizinischen Trainingsdaten könnten DxGPTs Vorschläge gelegentlich weniger genau oder unvollständig sein. Wir ermutigen Sie nachdrücklich, DxGPT in Ihrer bevorzugten oder Muttersprache zu verwenden und Feedback zu Ihrer Erfahrung zu geben. Dies wird uns helfen, seine Fähigkeiten und Genauigkeit über verschiedene Sprachen hinweg kontinuierlich zu verbessern.",
+      "q7": "Wie oft werden die medizinischen Informationen von DxGPT aktualisiert?",
+      "a7": "DxGPT selbst aktualisiert nicht direkt seine interne Datenbank oder sein Wissen. Stattdessen testet und evaluiert unser engagiertes Team kontinuierlich die neuesten und fortschrittlichsten künstlichen Intelligenzmodelle und Algorithmen. Wir führen regelmäßig klinische Studien in Partnerschaft mit Krankenhäusern und medizinischen Institutionen durch, um die Leistung von DxGPT zu verifizieren und zu verbessern, wobei wir uns besonders auf die genaue Diagnose seltener Krankheiten und komplexer Fälle konzentrieren. Dieser fortlaufende Prozess stellt sicher, dass DxGPT aktuell und effektiv bleibt.",
+      "q8": "Wie kann ich Feedback zu DxGPT geben?",
+      "a8": "Ihr Feedback ist für die kontinuierliche Verbesserung von DxGPT von entscheidender Bedeutung. Sie können bequem Feedback direkt über die Anwendung über den roten Tab auf der rechten Seite der DxGPT-Schnittstelle einreichen. Alternativ können Sie uns per E-Mail unter support@foundation29.org erreichen. Wir überprüfen sorgfältig alle Feedbacks und Vorschläge, um unseren Service zu verbessern.",
+      "q9": "Kann ich Statistiken darüber sehen, wie DxGPT verwendet wird?",
+      "a9": "Ja, Sie können umfassende Statistiken über den Abschnitt 'Nutzungsstatistik' im oberen Menü der DxGPT-Schnittstelle abrufen. Hier finden Sie detaillierte Einblicke wie die Gesamtzahl der Benutzer, am häufigsten eingegebene Symptome, am häufigsten vorgeschlagene Diagnosen, geografische Verteilung der Benutzer und eine Zusammenfassung des Benutzerfeedbacks. Diese Statistiken werden anonym präsentiert und enthalten keine personenidentifizierbaren Informationen.",
+      "q10": "Wer kann an der Entwicklung von DxGPT mitarbeiten?",
+      "a10": "Wir suchen aktiv und begrüßen herzlich Zusammenarbeit von Forschern, medizinischen Fachkräften, Gesundheitseinrichtungen und Organisationen, die an der Förderung von KI-unterstützten diagnostischen Technologien interessiert sind. Wenn Sie daran interessiert sind, zu unserem Projekt beizutragen oder gemeinsame Forschungsmöglichkeiten zu erkunden, kontaktieren Sie uns bitte per E-Mail unter support@foundation29.org oder füllen Sie das Kontaktformular auf unserer offiziellen Website aus. Zusammenarbeit hilft uns, die Fähigkeiten und praktische Nützlichkeit von DxGPT kontinuierlich zu verbessern.",
+      "q11": "Ich vertrete eine Patientengruppe. Wie können wir mit DxGPT zusammenarbeiten?",
+      "a11": "Wenn Sie eine Patientengruppe oder Interessenvertretungsorganisation vertreten, ermutigen wir Sie zur Zusammenarbeit, indem Sie DxGPT in Ihren Netzwerken und Gemeinschaften fördern. Wir sind besonders an den Erfahrungen Ihrer Gruppe mit spezifischen medizinischen Zuständen oder Krankheiten interessiert, da diese Informationen uns helfen, Ihre einzigartigen Bedürfnisse besser zu verstehen und DxGPT entsprechend zu verfeinern. Bitte kontaktieren Sie uns, um über potenzielle Zusammenarbeit zu diskutieren und wie DxGPT Ihre Patientengruppe am besten unterstützen könnte.",
+      "q12": "Wird DxGPT als Medizinprodukt betrachtet?",
+      "a12": "Nein. DxGPT wird nicht als Medizinprodukt gemäß internationalen Vorschriften wie der Medizinprodukteverordnung der Europäischen Union (EU MDR) oder der US-amerikanischen Food and Drug Administration (FDA) klassifiziert oder reguliert. DxGPT dient rein als experimentelles klinisches Entscheidungsunterstützungstool, das ausschließlich dazu konzipiert ist, qualifizierte Gesundheitsexperten zu unterstützen, indem es Orientierung und Vorschläge für die Diagnose bietet. Es sollte immer zusammen mit, und nicht als Ersatz für, professionelle medizinische Beurteilung verwendet werden.",
+      "q13": "Ist DxGPT kostenlos nutzbar?",
+      "a13": "Ja, DxGPT ist vollständig kostenlos nutzbar. Es wird als gemeinnütziges Projekt von der Stiftung 29 entwickelt und unterhalten, finanziert durch philanthropische Spenden, Zuschüsse und kooperative Partnerschaften. Wir streben danach, fortschrittliche KI-Diagnoseunterstützungstools für Gesundheitsexperten und Patienten weltweit frei verfügbar zu machen und damit Gerechtigkeit und Zugang in der medizinischen Diagnostik zu fördern.",
       "q14": "Werden meine Daten für sekundäre Zwecke verwendet?",
-      "a14": "SALUD-GPT verwendet Ihre persönlichen Daten niemals für sekundäre Zwecke wie Marketing oder kommerzielle Aktivitäten. Wir verwenden streng aggregierte, anonyme Daten – einschließlich allgemeiner Nutzungsmuster, häufig gemeldeter Symptome, häufiger Diagnosevorschläge und allgemeiner Trends – um die Genauigkeit, Zuverlässigkeit und Funktionalität unserer Algorithmen zu verbessern. Diese aggregierten Daten sind vollständig anonymisiert und stellen sicher, dass kein einzelner Benutzer aus diesen Informationen identifiziert werden kann."
+      "a14": "DxGPT verwendet Ihre persönlichen Daten niemals für sekundäre Zwecke wie Marketing oder kommerzielle Aktivitäten. Wir verwenden streng aggregierte, anonyme Daten – einschließlich allgemeiner Nutzungsmuster, häufig gemeldeter Symptome, häufiger Diagnosevorschläge und allgemeiner Trends – um die Genauigkeit, Zuverlässigkeit und Funktionalität unserer Algorithmen zu verbessern. Diese aggregierten Daten sind vollständig anonymisiert und stellen sicher, dass kein einzelner Benutzer aus diesen Informationen identifiziert werden kann."
     },
     "diagnosed":{
       "timeline":{
         "title":"Wir werden Ihnen helfen, eine Zeitachse Ihrer Symptome zu erstellen. Diese Daten können Ihr Krankheitsmanagement verbessern und anderen Patienten wie Ihnen auf ihrer diagnostischen Odyssee helfen. Es gibt 2 einfache Schritte:",
-        "subtitlea": "In diesem Bericht beschreibt der SALUD-GPT-Benutzer die Symptome des Patienten mit dem Ziel, die Patient-Arzt-Kommunikation zu verbessern.",
+        "subtitlea": "In diesem Bericht beschreibt der DxGPT-Benutzer die Symptome des Patienten mit dem Ziel, die Patient-Arzt-Kommunikation zu verbessern.",
         "subtitleb": "Es wird empfohlen, den Bericht zum nächsten Arztbesuch mitzubringen, damit sowohl der Patient als auch der Arzt helfen können,",
         "subtitlec": "den Inhalt weiter zu verfeinern.",
-        "subtitle1": "Dieser Bericht wurde mit SALUD-GPT erstellt, einem diagnostischen Hilfsmittel durch präzise Symptombeschreibung,",
+        "subtitle1": "Dieser Bericht wurde mit DxGPT erstellt, einem diagnostischen Hilfsmittel durch präzise Symptombeschreibung,",
         "subtitle2": "entwickelt von der Stiftung 29. Februar (www.foundation29.org). Gemeinsam beschleunigen wir den Prozess der Diagnose",
         "subtitle3": "von seltenen Krankheiten und deren Behandlung auf einfache und unkomplizierte Weise.",
         "footer1": "Wir sind eine gemeinnützige Organisation, die Tools für Patienten entwickelt und erstellt, um ihre eigenen Daten zu verwalten und so",
@@ -851,8 +851,8 @@
     }
   },
   "permalink":{
-    "title": "SALUD-GPT Ergebnisse",
-    "subtitle": "Vorgeschlagene Diagnosen generiert von SALUD-GPT",
+    "title": "DxGPT Ergebnisse",
+    "subtitle": "Vorgeschlagene Diagnosen generiert von DxGPT",
     "print": "Drucken",
     "share": "Teilen",
     "newAnalysis": "Neue Analyse",
@@ -875,7 +875,7 @@
     "moreInfoDisease": "Mehr Informationen über diese Krankheit",
     "medicalDisclaimerTitle": "Wichtig - Medizinischer Hinweis",
     "medicalDisclaimer": "Dieser Bericht ist ausschließlich für informative und klinische Unterstützungszwecke bestimmt.",
-    "disclaimer1": "SALUD-GPT ist ein diagnostisches Entscheidungsunterstützungstool basierend auf KI",
+    "disclaimer1": "DxGPT ist ein diagnostisches Entscheidungsunterstützungstool basierend auf KI",
     "disclaimer2": "Die Ergebnisse stellen keine definitive medizinische Diagnose dar",
     "disclaimer3": "Sie sollten immer einen qualifizierten Gesundheitsexperten konsultieren",
     "disclaimer4": "Verwenden Sie diese Informationen nicht für Selbstdiagnose oder Selbstbehandlung",
@@ -883,8 +883,8 @@
     "developedBy": "Entwickelt von",
     "footer": "Diagnostisches Entscheidungsunterstützungstool basierend auf KI für Gesundheitsexperten. Kompatibel mit GDPR und HIPAA.",
     "oops": "Hoppla...",
-    "shareTitle": "SALUD-GPT Ergebnisse",
-    "shareText": "SALUD-GPT Ergebnisse teilen",
+    "shareTitle": "DxGPT Ergebnisse",
+    "shareText": "DxGPT Ergebnisse teilen",
     "copied": "Permalink in die Zwischenablage kopiert"
   },
   "feedback":{
@@ -908,8 +908,8 @@
   "seo":{
     "home":{
       "keywords": "Diagnose, diagnostizieren, seltene Krankheit, GPT, Syndrom, Krankheit, Prognose, Symptome, HPO, Epilepsie, Anfälle, Status epilepticus, Entwicklungsverzögerung, Pädiatrie, Genetik, Neurologie, genetische Erkrankung",
-      "description": "SALUD-GPT ist eine diagnostische Entscheidungsunterstützungssoftware basierend auf GPT-4. KI, die bei der Diagnose von Krankheiten hilft. Völlig kostenlos für Ärzte und Patienten.",
-      "title": "SALUD-GPT: diagnostische Entscheidungsunterstützungssoftware basierend auf GPT-4"
+      "description": "DxGPT ist eine diagnostische Entscheidungsunterstützungssoftware basierend auf GPT-4. KI, die bei der Diagnose von Krankheiten hilft. Völlig kostenlos für Ärzte und Patienten.",
+      "title": "DxGPT: diagnostische Entscheidungsunterstützungssoftware basierend auf GPT-4"
     }
   },
   "cookie": {
@@ -957,11 +957,11 @@
     "terms": "Nutzungsbedingungen der Formulardaten",
     "acceptterms": "Sie müssen die Bedingungen akzeptieren, um fortzufahren.",
     "modalTitle": "Nutzungsbedingungen für Formulardaten",
-    "modalBody2": "Durch das Absenden des Formulars erklären Sie sich damit einverstanden, dass SALUD-GPT Ihre Kontaktinformationen (E-Mail) für folgende Zwecke verwenden darf:",
+    "modalBody2": "Durch das Absenden des Formulars erklären Sie sich damit einverstanden, dass DxGPT Ihre Kontaktinformationen (E-Mail) für folgende Zwecke verwenden darf:",
     "modalBody3": "Support und Hilfe:",
     "modalBody4": "Beantwortung Ihrer Anfragen und Support-Anfragen.",
     "modalBody5": "Kommunikation und Updates:",
-    "modalBody6": "Informationen über neue Versionen, Updates und Verbesserungen der SALUD-GPT-Software.",
+    "modalBody6": "Informationen über neue Versionen, Updates und Verbesserungen der DxGPT-Software.",
     "modalBody7": "Feedback und Serviceoptimierung:",
     "modalBody8": "Anfragen nach Ihrem Feedback zur Verbesserung der Qualität und Funktionalität der Software.",
     "modalBody9": "Schutz Ihrer Daten",
