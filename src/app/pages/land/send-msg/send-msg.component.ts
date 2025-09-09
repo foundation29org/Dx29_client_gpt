@@ -72,6 +72,9 @@ export class SendMsgComponent implements OnDestroy, OnInit {
     
     // Obtener el tenant actual
     this.currentTenant = this.brandingService.getCurrentTenant();
+    
+    // Posicionar al inicio de la página cuando se abre el componente
+    this.scrollToTop();
   }
 
   /**
@@ -208,6 +211,13 @@ lauchEvent(category) {
    */
   closeModal(): void {
     this.closeModalEvent.emit();
+  }
+
+  /**
+   * Posiciona la página al inicio
+   */
+  private scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
 }

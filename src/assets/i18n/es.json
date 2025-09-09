@@ -6,7 +6,8 @@
     "Collaboration": "Colaboración",
     "Foundation 29": "Foundation 29",
     "Usage statistics": "Estadísticas de uso",
-    "Privacy Policy": "Política de privacidad",
+    "Statistics": "Estadísticas",
+    "Privacy": "Privacidad",
     "Contact us": "Contáctanos",
     "DONATE_DROPDOWN_1": "Donar fondos",
     "DONATE_DROPDOWN_2": "Donar datos clínicos individuales",
@@ -490,6 +491,7 @@
     "Files modified - re-analyze needed": "Archivos modificados - re-análisis necesario"
   },
   "policy": {
+    "title": "Política de privacidad",
     "subtitle": "Conoce cómo protegemos tu privacidad y datos personales en DxGPT.",
     "lastUpdated": "Última actualización: 21 de abril de 2025",
     "p1": "Política de privacidad de DxGPT (cumple con el RGPD)",
@@ -1063,5 +1065,110 @@
   "medicalInfoModal": {
     "disclaimerText": "Esta herramienta está diseñada principalmente para <strong>ayudar en el diagnóstico</strong>. Las respuestas a consultas médicas generales son solo con fines educativos y deben ser evaluadas críticamente. No sustituyen el consejo médico profesional.",
     "aiGeneratedWarning": "<strong>Nota:</strong> Este texto ha sido generado por inteligencia artificial y puede contener errores."
+  },
+  "integration": {
+    "title": "Integración",
+    "subtitle": "Descubre cómo DxGPT puede integrarse en tu flujo de trabajo médico",
+    "deployment_models": {
+      "title": "Modelos de despliegue",
+      "recommended": "Recomendado",
+      "direct_api": "Acceso directo a la API",
+      "view_plans": "Ver planes",
+      "azure_marketplace": "Azure Marketplace",
+      "coming_soon": "Próximamente",
+      "saas_multi_tenant": {
+        "title": "Solución personalizada",
+        "description": "Incluye customización completa, branding personalizado y analytics detallados.",
+        "shared_infrastructure": "Infraestructura compartida y escalable",
+        "tenant_segmentation": "Segmentación lógica por tenant_id",
+        "customization": "Customización completa y branding personalizado",
+        "analytics": "Analytics detallados y insights de uso",
+        "used_by": "Usado por SERMAS (Madrid) y Servicio Aragonés de Salud",
+        "intelligence": "Inteligencia formativa y mejora asistencial",
+        "training_insights": "Detecta necesidades formativas automáticamente",
+        "protocol_optimization": "Optimización de protocolos internos",
+        "clinical_radar": "Radar para detectar brechas en formación"
+      },
+      "api_access": {
+        "title": "Acceso a la API",
+        "description": "Integración directa a través de API REST para desarrolladores y aplicaciones. Acceso a todos los modelos de IA y funcionalidades completas.",
+        "rest_api": "API REST completa con documentación Swagger",
+        "all_models": "Acceso a todos los modelos (GPT-4o, O3)",
+        "websocket": "Comunicación en tiempo real vía WebSocket",
+        "documentation": "Documentación completa y ejemplos de código",
+        "pricing": "Pago por uso con planes flexibles"
+      },
+      "self_hosted": {
+        "title": "Self-Hosted para hospitales",
+        "description": "Infraestructura completa clonada en la suscripción de Azure del cliente. Permite cumplir normativas como HIPAA/HIS y se integra con el Azure AD corporativo.",
+        "dedicated_infrastructure": "Infraestructura dedicada en tu Azure",
+        "hipaa_compliance": "Cumplimiento HIPAA/HIS completo",
+        "azure_ad_integration": "Integración con Azure AD corporativo",
+        "iac_deployment": "Despliegue con scripts IaC (Bicep/Terraform)",
+        "note": "Esta opción aún no está disponible, estamos trabajando en ella"
+      }
+    },
+    "healthcare_professionals": {
+      "title": "Para profesionales sanitarios",
+      "differential_diagnosis": "Diagnóstico diferencial - Obtén una lista de posibles diagnósticos",
+      "followup_questions": "Preguntas de seguimiento - Refina el diagnóstico con preguntas específicas",
+      "emergency_detection": "Identificación de emergencias - Detecta situaciones que requieren atención inmediata",
+      "disease_info": "Información de enfermedades - Accede a datos completos sobre patologías"
+    },
+    "hospitals_clinics": {
+      "title": "Para proveedores sanitarios",
+      "portal_integration": "Integración en portales - Embebe DxGPT en tu sistema existente",
+      "multilingual_support": "Soporte multilingüe - Funciona en múltiples idiomas",
+      "regulatory_compliance": "Cumplimiento normativo - Versión self-hosted para HIPAA/HIS",
+      "azure_ad_integration": "Integración con Azure AD - Autenticación corporativa"
+    },
+    "developers": {
+      "title": "Para desarrolladores",
+      "rest_api": "API REST - Integra DxGPT en tus aplicaciones",
+      "advanced_ai_models": "Modelos de IA avanzados - GPT-4o y O3 para diagnósticos precisos",
+      "websocket_realtime": "WebSocket - Comunicación en tiempo real",
+      "complete_documentation": "Documentación completa - Swagger UI y ejemplos de código"
+    },
+    "multilingual_support": {
+      "title": "Soporte multilingüe",
+      "automatic_translation": "Traducción automática - Funciona en múltiples idiomas",
+      "language_detection": "Detección de idioma - Identifica automáticamente el idioma de entrada",
+      "localized_responses": "Respuestas localizadas - Recibe respuestas en tu idioma preferido"
+    },
+    "privacy_security": {
+      "title": "Privacidad y seguridad",
+      "gdpr_hipaa_compliance": "Cumplimiento GDPR/HIPAA - Datos protegidos según normativas",
+      "no_identifiers": "Sin identificadores - No se almacenan datos personales",
+      "end_to_end_encryption": "Encriptación end-to-end - Comunicación segura",
+      "in_memory_processing": "Procesamiento en memoria - Datos temporales únicamente"
+    },
+    "use_cases": {
+      "title": "Casos de uso principales",
+      "primary_care": "Atención primaria",
+      "primary_care_description": "Diagnóstico inicial y derivación",
+      "emergency": "Urgencias",
+      "emergency_description": "Identificación rápida de emergencias",
+      "specialties": "Especialidades",
+      "specialties_description": "Cardiología, pediatría, neurología, etc.",
+      "research": "Investigación",
+      "research_description": "Análisis de casos clínicos y estudios"
+    },
+    "trust": {
+      "title": "Estadísticas de uso y rendimiento",
+      "users_worldwide": "usuarios en 100 países",
+      "satisfaction_rate": "satisfacción con diagnósticos",
+      "monthly_users": "usuarios mensuales"
+    },
+    "public_health": {
+      "title": "Usado por servicios de salud públicos",
+      "sermas_doctors": "6,000+ doctores en Madrid vía SERMAS",
+      "aragon_health": "5,000+ profesionales en Servicio Aragonés de Salud",
+      "regulatory_compliance": "Cumplimiento GDPR, HIPAA y EU AI Act"
+    },
+    "cta": {
+      "title": "¿Listo para empezar?",
+      "description": "Contacta con nosotros para implementar DxGPT en tu organización",
+      "contact_us": "Contáctanos"
+    }
   }
 }

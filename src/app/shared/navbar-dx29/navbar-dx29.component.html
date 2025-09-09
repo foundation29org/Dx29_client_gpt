@@ -35,6 +35,11 @@
                 </a>
               </li>
               <li class="nav-item me-2" *ngIf="shouldShowDonate">
+                  <a class="nav-link" [ngClass]="(!isIntegrationPage)?'black':'nav-active'" routerLink="/integration" (click)="lauchEvent('Page - Integration')" [attr.aria-label]="'integration.title' | translate">
+                      <span>{{'integration.title' | translate }}</span>
+                  </a>
+              </li>
+              <li class="nav-item me-2" *ngIf="shouldShowDonate">
                   <a class="nav-link" [ngClass]="(!isCollaborationPage)?'black':'nav-active'" routerLink="/collaboration" (click)="lauchEvent('Page - Collaboration')" [attr.aria-label]="'menu.Collaboration' | translate">
                       <span>{{'menu.Collaboration' | translate }}</span>
                   </a>
@@ -46,14 +51,14 @@
               </li>
               <!--privacy-policy-->
               <li class="nav-item me-2">
-                  <a class="nav-link" [ngClass]="(!isPrivacyPolicyPage)?'black':'nav-active'" routerLink="/privacy-policy" (click)="lauchEvent('Page - Privacy policy')" [attr.aria-label]="'menu.Privacy Policy' | translate">
-                      <span>{{'menu.Privacy Policy' | translate }}</span>
+                  <a class="nav-link" [ngClass]="(!isPrivacyPolicyPage)?'black':'nav-active'" routerLink="/privacy-policy" (click)="lauchEvent('Page - Privacy policy')" [attr.aria-label]="'menu.Privacy' | translate">
+                      <span>{{'menu.Privacy' | translate }}</span>
                   </a>
               </li>
-              <!--privacy-policy-->
-              <li class="nav-item me-2" *ngIf="shouldShowDonate">
-                  <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'nav-active'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')" [attr.aria-label]="'menu.Usage statistics' | translate">
-                      <span>{{'menu.Usage statistics' | translate }}</span>
+              <!--statistics-->
+              <li class="nav-item me-2 d-xl-none d-block" *ngIf="shouldShowDonate">
+                  <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'nav-active'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')" [attr.aria-label]="'menu.Statistics' | translate">
+                      <span>{{'menu.Statistics' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2 donate-link" ngbDropdown display="dynamic" placement="auto" *ngIf="shouldShowDonate">

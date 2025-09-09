@@ -28,6 +28,7 @@ export class NavbarD29Component implements OnDestroy {
   isAboutPage: boolean = false;
   isCollaborationPage: boolean = false;
   isFoundation29Page: boolean = false;
+  isIntegrationPage: boolean = false;
   isFaqPage: boolean = false;
   isPrivacyPolicyPage: boolean = false;
   isReportsPage: boolean = false;
@@ -66,6 +67,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isAboutPage = false;
           this.isCollaborationPage = false;
           this.isFoundation29Page = false;
+          this.isIntegrationPage = false;
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
@@ -74,6 +76,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isAboutPage = true;
           this.isCollaborationPage = false;
           this.isFoundation29Page = false;
+          this.isIntegrationPage = false;
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
@@ -82,6 +85,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isAboutPage = false;
           this.isCollaborationPage = true;
           this.isFoundation29Page = false;
+          this.isIntegrationPage = false;
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
@@ -90,6 +94,16 @@ export class NavbarD29Component implements OnDestroy {
           this.isAboutPage = false;
           this.isCollaborationPage = false;
           this.isFoundation29Page = true;
+          this.isIntegrationPage = false;
+          this.isFaqPage = false;
+          this.isPrivacyPolicyPage = false;
+          this.isReportsPage = false;
+        } else if (tempUrl.indexOf('/integration') != -1) {
+          this.isHomePage = false;
+          this.isAboutPage = false;
+          this.isCollaborationPage = false;
+          this.isFoundation29Page = false;
+          this.isIntegrationPage = true;
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
@@ -98,6 +112,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isAboutPage = false;
           this.isCollaborationPage = false;
           this.isFoundation29Page = false;
+          this.isIntegrationPage = false;
           this.isFaqPage = true;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
@@ -106,6 +121,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isAboutPage = false;
           this.isCollaborationPage = false;
           this.isFoundation29Page = false;
+          this.isIntegrationPage = false;
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = true;
@@ -114,6 +130,7 @@ export class NavbarD29Component implements OnDestroy {
             this.isAboutPage = false;
             this.isCollaborationPage = false;
             this.isFoundation29Page = false;
+            this.isIntegrationPage = false;
             this.isFaqPage = false;
             this.isPrivacyPolicyPage = true;
             this.isReportsPage = false;
@@ -122,6 +139,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isAboutPage = false;
           this.isCollaborationPage = false;
           this.isFoundation29Page = false;
+          this.isIntegrationPage = false;
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
