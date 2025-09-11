@@ -32,8 +32,8 @@
     "hero": {
       "title": "DxGPT: Augmentierte intelligenz für diagnostische vertrauen",
       "subtitle": "Transforme die klinische Unsicherheit in Klarheit. DxGPT ist Ihr diagnostischer Co-Pilot: Strukturieren Sie das Denken, reduzieren Sie die kognitive Belastung und minimieren Sie Bias in Sekunden, selbst in komplexen oder seltenen Fällen.",
-      "tryButton": "DxGPT ausprobieren",
-      "evidenceButton": "Unsere wissenschaftliche Evidenz erkunden",
+      "evidenceButton": "Wissenschaftliche Beweise",
+      "clinicalEvidenceButton": "Klinische Beweise",
       "highlight1": "Strukturierte Differentialdiagnose",
       "highlight2": "Sicherheit und klinische Validierung",
       "highlight3": "Integration in Gesundheitssysteme"
@@ -170,6 +170,15 @@
         },
         "conclusion": "Im Grunde genommen ist DxGPT nicht nur ein fortschrittliches Modell; es ist ein klinisches Unterstützungswerkzeug mit einem nachweisbaren Kommitment für Evidenz, Zuverlässigkeit und Sicherheit."
       }
+    },
+    "clinicalValidation": {
+      "title": "Klinische Validierungsstudie",
+      "description": "DxGPT wurde gegen Ärzte in einer umfassenden klinischen Studie des Sant Joan de Déu Krankenhauses validiert. Die Ergebnisse zeigen, dass DxGPT eine diagnostische Genauigkeit erreicht, die mit der von Expertenklinikern vergleichbar ist. Diese Forschung wurde als Preprint veröffentlicht und befindet sich derzeit in der Peer-Review.",
+      "validated": "Klinisch validiert",
+      "hospital": "Sant Joan de Déu Krankenhaus",
+      "accuracy": "Expertenniveau-Genauigkeit",
+      "research": "Peer-Review-Forschung",
+      "studyLink": "Vollständige Studie lesen"
     },
     "trust": {
       "title": "Unser Pakt von Vertrauen und Sicherheit",

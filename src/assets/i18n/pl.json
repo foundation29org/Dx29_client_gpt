@@ -32,8 +32,8 @@
     "hero": {
       "title": "DxGPT: Wspomagana sztuczna inteligencja dla pewności diagnozy",
       "subtitle": "Przekształć niepewność kliniczną w jasność. DxGPT to Twój wspomagający diagnozę pilot: strukturyzuj myślenie, zmniejsz obciążenie kognitywne i minimalizuj błędy w ciągu kilku sekund, nawet w przypadkach złożonych lub rzadkich.",
-      "tryButton": "Wypróbuj DxGPT",
-      "evidenceButton": "Odkryj naszą wiedzę naukową",
+      "evidenceButton": "Dowody naukowe",
+      "clinicalEvidenceButton": "Dowody kliniczne",
       "highlight1": "Strukturalna diagnoza różnicowa",
       "highlight2": "Bezpieczeństwo i weryfikacja kliniczna",
       "highlight3": "Integracja w systemy zdrowia"
@@ -170,6 +170,15 @@
         },
         "conclusion": "W skrócie, DxGPT nie jest po prostu zaawansowanym modelem; to narzędzie wsparcia klinicznego z wymienionym zobowiązaniem do dowodów, wiarygodności i bezpieczeństwa."
       }
+    },
+    "clinicalValidation": {
+      "title": "Badanie walidacji klinicznej",
+      "description": "DxGPT został zwalidowany przeciwko lekarzom w kompleksowym badaniu klinicznym przeprowadzonym przez Szpital Sant Joan de Déu. Wyniki pokazują, że DxGPT osiąga dokładność diagnostyczną porównywalną z ekspertami klinicznymi. To badanie zostało opublikowane jako preprint i jest obecnie w trakcie recenzji.",
+      "validated": "Klinicznie zwalidowany",
+      "hospital": "Szpital Sant Joan de Déu",
+      "accuracy": "Dokładność na poziomie eksperta",
+      "research": "Badania recenzowane",
+      "studyLink": "Przeczytaj pełne badanie"
     },
     "trust": {
       "title": "Nasze zobowiązanie do zaufania i bezpieczeństwa",

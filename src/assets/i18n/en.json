@@ -32,8 +32,8 @@
     "hero": {
       "title": "DxGPT: Augmented intelligence for diagnostic confidence",
       "subtitle": "Transform clinical uncertainty into clarity. DxGPT is your diagnostic co-pilot: structure reasoning, reduce cognitive load, and minimize biases in seconds, even in complex or rare cases.",
-      "tryButton": "Try DxGPT",
-      "evidenceButton": "Explore our scientific evidence",
+      "evidenceButton": "Scientific evidence",
+      "clinicalEvidenceButton": "Clinical evidence",
       "highlight1": "Structured differential diagnosis",
       "highlight2": "Safety and clinical validation",
       "highlight3": "Integration into health systems"
@@ -170,6 +170,15 @@
         },
         "conclusion": "In short, DxGPT is not just an advanced model; it is a clinical support tool with a demonstrable commitment to evidence, reliability, and safety."
       }
+    },
+    "clinicalValidation": {
+      "title": "Clinical validation study",
+      "description": "DxGPT has been validated against doctors in a comprehensive clinical study conducted by Sant Joan de Déu Hospital. Results demonstrate that DxGPT achieves diagnostic accuracy comparable to expert clinicians. This research has been published as a preprint and is currently under peer review.",
+      "validated": "Clinically validated",
+      "hospital": "Sant Joan de Déu Hospital",
+      "accuracy": "Expert-level accuracy",
+      "research": "Peer-reviewed research",
+      "studyLink": "Read the full study"
     },
     "trust": {
       "title": "Our pact of trust and security",

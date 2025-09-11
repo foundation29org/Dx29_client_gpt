@@ -777,6 +777,270 @@
   }
 }
 
+// Clinical Validation Section
+.clinical-validation-section {
+  max-width: 1000px;
+  margin: 0 auto 5rem auto;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid var(--accent-color);
+  border-radius: 20px;
+  padding: 0;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent-color);
+  }
+  
+  @media (max-width: 768px) {
+    margin-bottom: 4rem;
+    border-radius: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 3rem;
+    border-radius: 12px;
+  }
+}
+
+.validation-header {
+  background: var(--accent-color);
+  color: white;
+  padding: 3rem 2.5rem 2rem 2.5rem;
+  position: relative;
+  
+  @media (max-width: 768px) {
+    padding: 2.5rem 2rem 1.5rem 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 2rem 1.5rem 1rem 1.5rem;
+  }
+}
+
+.validation-icon {
+  margin-bottom: 1.5rem;
+  
+  i {
+    font-size: 4rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: pulse 2s infinite;
+  }
+  
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+    
+    i {
+      font-size: 3rem;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.validation-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  line-height: 1.2;
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.7rem;
+  }
+}
+
+.validation-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+  
+  i {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+.validation-content {
+  padding: 3rem 2.5rem;
+  
+  @media (max-width: 768px) {
+    padding: 2.5rem 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.validation-description {
+  font-size: 1.2rem;
+  color: #333;
+  line-height: 1.7;
+  margin: 0 0 2.5rem 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.validation-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.validation-highlights .highlight-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-color);
+  }
+  
+  i {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  &:hover i {
+    background: var(--accent-color);
+    color: white;
+    transform: scale(1.1);
+  }
+  
+  span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+    line-height: 1.4;
+    
+    @media (max-width: 768px) {
+      font-size: 0.95rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+    
+    i {
+      font-size: 2rem;
+      width: 60px;
+      height: 60px;
+    }
+  }
+}
+
+.validation-cta {
+  text-align: center;
+}
+
+.study-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--accent-color);
+  color: white;
+  text-decoration: none;
+  padding: 1.25rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    background: var(--accent-hover);
+  }
+  
+  &:focus {
+    outline: 3px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+  }
+  
+  i {
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
 // Trust and Security Section
 .trust-section {
   max-width: 1200px;

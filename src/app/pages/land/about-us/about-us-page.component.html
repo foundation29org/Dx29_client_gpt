@@ -7,13 +7,13 @@
       
       <!-- Call to Action Buttons -->
       <div class="hero-actions">
-        <button class="btn-primary" routerLink="/">
-          <i class="fas fa-play"></i>
-          {{'aboutUs.hero.tryButton' | translate }}
-        </button>
         <a class="btn-secondary" href="/aboutus#evaluation">
           <i class="fas fa-chart-line"></i>
           {{'aboutUs.hero.evidenceButton' | translate }}
+        </a>
+        <a class="btn-primary" href="/aboutus#clinical-validation">
+          <i class="fas fa-shield-heart"></i>
+          {{'aboutUs.hero.clinicalEvidenceButton' | translate }}
         </a>
       </div>
       
@@ -279,6 +279,48 @@
           </li>
         </ul>
         <p class="subsection-text">{{'aboutUs.evaluation.user.conclusion' | translate }}</p>
+      </div>
+    </div>
+    
+    <!-- Clinical Validation Section -->
+    <div id="clinical-validation" class="clinical-validation-section">
+      <div class="validation-header">
+        <div class="validation-icon">
+          <i class="fas fa-shield-heart"></i>
+        </div>
+        <h2 class="validation-title">{{'aboutUs.clinicalValidation.title' | translate }}</h2>
+        <div class="validation-badge">
+          <i class="fas fa-check-circle"></i>
+          <span>{{'aboutUs.clinicalValidation.validated' | translate }}</span>
+        </div>
+      </div>
+      
+      <div class="validation-content">
+        <p class="validation-description">
+          {{'aboutUs.clinicalValidation.description' | translate }}
+        </p>
+        
+        <div class="validation-highlights">
+          <div class="highlight-item">
+            <i class="fas fa-hospital"></i>
+            <span>{{'aboutUs.clinicalValidation.hospital' | translate }}</span>
+          </div>
+          <div class="highlight-item">
+            <i class="fas fa-chart-line"></i>
+            <span>{{'aboutUs.clinicalValidation.accuracy' | translate }}</span>
+          </div>
+          <div class="highlight-item">
+            <i class="fas fa-microscope"></i>
+            <span>{{'aboutUs.clinicalValidation.research' | translate }}</span>
+          </div>
+        </div>
+        
+        <div class="validation-cta">
+          <a href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1" target="_blank" class="study-link">
+            <i class="fas fa-external-link-alt"></i>
+            {{'aboutUs.clinicalValidation.studyLink' | translate }}
+          </a>
+        </div>
       </div>
     </div>
     
