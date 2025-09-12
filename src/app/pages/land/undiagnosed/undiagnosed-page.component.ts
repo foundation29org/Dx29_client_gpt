@@ -1225,11 +1225,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.loadingAnswerAI = true;
         this.selectedQuestion = question.question;
         var selectedDiseaseEn = this.diseaseListEn[this.selectedInfoDiseaseIndex];
-        let index2 = selectedDiseaseEn.indexOf('.');
+        /*let index2 = selectedDiseaseEn.indexOf('.');
         if (index2 != -1) {
             var temp = selectedDiseaseEn.split(".");
             selectedDiseaseEn = temp[1];
-        }
+        }*/
 
         let infoOptionEvent = this.getInfoOptionEvent(index);
         if(this.iframeParams){
