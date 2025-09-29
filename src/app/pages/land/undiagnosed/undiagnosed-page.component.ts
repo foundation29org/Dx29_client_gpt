@@ -2415,7 +2415,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.startTypingAnimation();
         }
     }
-/*
+
     onFilesSelected(event: any) {
         console.log(event);
         if (event.target.files && event.target.files.length > 0) {
@@ -2608,7 +2608,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.analyzeMultimodal();
     }
         
-    */
+    
 
     getButtonTitle(): string {
         if (this.callingAI) {

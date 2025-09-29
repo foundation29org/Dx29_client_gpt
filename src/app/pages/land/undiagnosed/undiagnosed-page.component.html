@@ -12,9 +12,9 @@
     <!-- Banner azul solo si no está analizado -->
     <div
       class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-      <!--<div class="search" [class.drag-over]="isDragOver"
-           (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">-->
-      <div class="search">
+      <div class="search" [class.drag-over]="isDragOver"
+           (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+      <!--<div class="search">-->
         <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
           [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" [attr.placeholder]="textareaPlaceholder"
           (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
@@ -26,7 +26,7 @@
             </div>
           </div>
       </div>
-      <div class="chips-and-counter-row mt-2 mb-2" *ngIf="false">
+      <div class="chips-and-counter-row mt-2 mb-2">
         <div class="file-chips-row">
           <button type="button" class="chip-btn-add" [disabled]="callingAI" (click)="triggerFileInput(fileInput)"
             title="{{'diagnosis.Upload document or image' | translate}}" aria-label="{{'diagnosis.Upload document or image' | translate}}">
