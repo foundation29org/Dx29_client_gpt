@@ -11,6 +11,7 @@ import { HttpClient } from "@angular/common/http";
 import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
 import { Clipboard } from "@angular/cdk/clipboard"
 import { InsightsService } from 'app/shared/services/azureInsights.service';
+import { AnalyticsService } from 'app/shared/services/analytics.service';
 import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.component';
 import { UuidService } from 'app/shared/services/uuid.service';
 import { BrandingService } from 'app/shared/services/branding.service';
@@ -125,7 +126,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     iframeParams: IframeParams = {};
     isInIframe: boolean = false;
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService) {
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService) {
         this.initialize();
     }
 
@@ -195,20 +196,32 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
+        const eventProperties = { 
+            'myuuid': this.myuuid, 
+            'event_label': secs,
+            'elapsed_seconds': secs
+        };
+
+        // Usar el nuevo servicio de analytics unificado
+        this.analyticsService.trackEvent(category, eventProperties);
+
+        // Mantener compatibilidad con el código existente para eventos específicos
         if (category == "Info Disease") {
             var subcate = 'Info Disease - ' + this.selectedDisease;
-            gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
-            subcate = 'Info quest - ' + this.selectedDisease + ' - ' + this.selectedQuestion
-            gtag('event', subcate, { 'myuuid': this.myuuid, 'event_label': secs });
-
-        }else{
-            gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
-
+            this.analyticsService.trackEvent(subcate, eventProperties);
+            subcate = 'Info quest - ' + this.selectedDisease + ' - ' + this.selectedQuestion;
+            this.analyticsService.trackEvent(subcate, eventProperties);
         }
     }
 
     ngOnInit() {
         this.loadTranslations();
+        
+        // Track page view para la página principal
+        this.analyticsService.trackPageView('Undiagnosed Page', {
+          isInIframe: this.isInIframe,
+          hasIframeParams: Object.keys(this.iframeParams).length > 0
+        });
         
         // Detectar si estamos en iframe
         this.isInIframe = this.iframeParamsService.getIsInIframe();
@@ -1159,7 +1172,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             });
          }
         this.lauchEvent("Search Disease");
-        if(this.iframeParams){
+        if(this.hasIframeParams()){
+            console.log('iframeParams con datos:', this.iframeParams);
             if(this.iframeParams.centro){
                 this.lauchEvent("Search centro: " + this.iframeParams.centro);
             }
@@ -1169,7 +1183,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             if(this.iframeParams.especialidad){
                 this.lauchEvent("Search especialidad: " + this.iframeParams.especialidad);
             }
-            this.lauchEvent("Search medicalText: " + this.iframeParams.medicalText);
+            if(this.iframeParams.medicalText){
+                this.lauchEvent("Search medicalText: " + this.iframeParams.medicalText);
+            }
+        } else {
+            console.log('iframeParams vacío o sin propiedades');
         }
         if(this.selectedFiles.length > 0){
             this.lauchEvent("Multimodal" + this.selectedFiles.length);
@@ -1232,7 +1250,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }*/
 
         let infoOptionEvent = this.getInfoOptionEvent(index);
-        if(this.iframeParams){
+        if(this.hasIframeParams()){
             if(this.iframeParams.centro){
                 infoOptionEvent += " centro: " + this.iframeParams.centro;
             }
@@ -1259,7 +1277,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     }
                     this.loadingAnswerAI = false;
                     this.lauchEvent("Info Disease");
-                    if(this.iframeParams){
+                    if(this.hasIframeParams()){
                         if(this.iframeParams.centro){
                             this.lauchEvent("Info centro: " + this.iframeParams.centro);
                         }
@@ -1452,7 +1470,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
      */
     private trackParametersReceived(params: IframeParams): void {
         try {
-            // Logs internos (opcional)
+            // Usar el nuevo servicio de analytics unificado
+            this.analyticsService.trackIframeParameters({
+                ...params,
+                isInIframe: this.isInIframe
+            });
+
+            // Mantener logs internos para compatibilidad
             this.lauchEvent("Parameters received");
             if (params.centro) this.lauchEvent("Center: " + params.centro);
             if (params.ambito) this.lauchEvent("Ambito: " + params.ambito);
@@ -1466,26 +1490,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.lauchEvent("All par: " + JSON.stringify(medicalData));
             }
     
-            // Evento para Google Analytics 4
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'iframe_parameters_received', {
-                    'event_category': 'Iframe',
-                    'event_label': 'Parámetros recibidos',
-                    'centro': params.centro || '',
-                    'ambito': params.ambito || '',
-                    'especialidad': params.especialidad || ''
-                });
-            }
-    
             if (this.isInIframe) this.lauchEvent("Iframe execution");
         } catch (error) {
             console.error('Error tracking parameters:', error);
+            this.analyticsService.trackException(error);
         }
     }
 
     getPlainInfoDiseases2() {
         return this.topRelatedConditions.map(condition => condition.name).join("\n");
-      }
+    }
+
+    /**
+     * Verifica si iframeParams tiene datos reales (no solo un objeto vacío)
+     */
+    private hasIframeParams(): boolean {
+        return this.iframeParams && Object.keys(this.iframeParams).length > 0;
+    }
 
       async downloadResults() {
         if (!this.callingAnonymize) {
@@ -1531,7 +1552,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, isNewModel: this.model }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
-                this.lauchEvent("Vote: " + valueVote);
+                this.analyticsService.trackEvent("user_vote", { vote: valueVote, model: this.model });
+               
                 this.sendingVote = false;
                 // Abrir el modal de FeedbackPageComponent
                 if (localStorage.getItem('showFeedbackDxGPT') == null || localStorage.getItem('showFeedbackDxGPT') != 'true') {
