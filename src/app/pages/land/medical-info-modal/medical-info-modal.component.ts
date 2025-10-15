@@ -87,6 +87,9 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
         // Procesar referencias en el texto para convertirlas en enlaces
         parsedContent = this.processReferenceLinks(parsedContent);
         
+        // Convertir URLs sueltas en enlaces clicables
+        parsedContent = this.processUrlLinks(parsedContent);
+        console.log(parsedContent);
         this.htmlContent = parsedContent;
       } else {
         this.htmlContent = '';
@@ -99,6 +102,44 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Convierte URLs sueltas en enlaces clicables y agrega target="_blank" a enlaces existentes
+   */
+  private processUrlLinks(htmlContent: string): string {
+    // Primero, agregar target="_blank" a enlaces existentes que no lo tengan
+    let processedContent = htmlContent.replace(
+      /<a\s+([^>]*?)href\s*=\s*["']([^"']+)["']([^>]*?)>/gi,
+      (match, beforeHref, href, afterHref) => {
+        // Si ya tiene target="_blank", no modificar
+        if (match.includes('target="_blank"') || match.includes("target='_blank'")) {
+          return match;
+        }
+        
+        // Agregar target="_blank" y rel="noopener noreferrer"
+        return `<a ${beforeHref}href="${href}"${afterHref} target="_blank" rel="noopener noreferrer">`;
+      }
+    );
+    
+    // Luego, convertir URLs sueltas que no estén ya dentro de tags <a>
+    const urlPattern = /(https?:\/\/[^\s<>"{}|\\^`\[\]]+)/g;
+    
+    processedContent = processedContent.replace(urlPattern, (url) => {
+      // Verificar si la URL ya está dentro de un tag <a>
+      const beforeUrl = processedContent.substring(0, processedContent.indexOf(url));
+      const afterUrl = processedContent.substring(processedContent.indexOf(url) + url.length);
+      
+      // Si hay un <a> antes y un </a> después, no procesar
+      if (beforeUrl.includes('<a') && afterUrl.includes('</a>')) {
+        return url;
+      }
+      
+      // Crear enlace con target="_blank"
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="external-link">${url}</a>`;
+    });
+    
+    return processedContent;
+  }
+
+  /**
    * Procesa las referencias en el texto para convertirlas en enlaces clicables
    */
   private processReferenceLinks(htmlContent: string): string {
@@ -106,8 +147,8 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
       return htmlContent;
     }
 
-    // Buscar patrones como [1], [2], [1][2], [1][2][3], etc.
-    const referencePattern = /\[(\d+)\]/g;
+    // Buscar patrones como [1], [2], [^1], [^2], [1][2], [^1][^2], etc.
+    const referencePattern = /\[\^?(\d+)\]/g;
     
     return htmlContent.replace(referencePattern, (match, number) => {
       const refNumber = parseInt(number);
