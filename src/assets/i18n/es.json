@@ -1073,7 +1073,8 @@
   },
   "medicalInfoModal": {
     "disclaimerText": "Esta herramienta está diseñada principalmente para <strong>ayudar en el diagnóstico</strong>. Las respuestas a consultas médicas generales son solo con fines educativos y deben ser evaluadas críticamente. No sustituyen el consejo médico profesional.",
-    "aiGeneratedWarning": "<strong>Nota:</strong> Este texto ha sido generado por inteligencia artificial y puede contener errores."
+    "aiGeneratedWarning": "<strong>Nota:</strong> Este texto ha sido generado por inteligencia artificial y puede contener errores.",
+    "references": "Referencias"
   },
   "integration": {
     "title": "Integración",

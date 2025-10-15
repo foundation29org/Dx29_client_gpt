@@ -1073,7 +1073,8 @@
   },
   "medicalInfoModal": {
     "disclaimerText": "Diese Anwendung ist für die Unterstützung bei der Diagnose von Patienten gedacht. Um Ihnen eine hilfreiche Antwort zu geben, haben wir Ihre Frage verarbeitet. Denken Sie daran, dass diese Informationen nicht als Ersatz für professionelle medizinische Beratung dienen.",
-    "aiGeneratedWarning": "<strong>Hinweis:</strong> Dieser Text wurde von künstlicher Intelligenz generiert und kann Fehler enthalten."
+    "aiGeneratedWarning": "<strong>Hinweis:</strong> Dieser Text wurde von künstlicher Intelligenz generiert und kann Fehler enthalten.",
+    "references": "Referenzen"
   },
   "integration": {
     "title": "Integration",

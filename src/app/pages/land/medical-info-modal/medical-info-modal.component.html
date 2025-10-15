@@ -16,7 +16,38 @@
   </div>
   
   <!-- Medical Content -->
-  <div class="medical-content" [innerHTML]="content"></div>
+  <div class="medical-content" [innerHTML]="htmlContent" (click)="onContentClick($event)"></div>
+
+  <!-- References Section -->
+  <div class="references-section" *ngIf="hasReferences()">
+    <h4 class="references-title">
+      <i class="fas fa-book text-primary me-2"></i>
+      {{ 'medicalInfoModal.references' | translate }}
+    </h4>
+    <div class="references-list">
+      <div class="reference-item" *ngFor="let ref of getFormattedReferences(); trackBy: trackByReference">
+        <div class="reference-header">
+          <span class="reference-number">[{{ ref.number }}]</span>
+          <a [href]="ref.url" target="_blank" class="reference-title" [title]="ref.title">
+            {{ ref.title }}
+          </a>
+        </div>
+        <div class="reference-meta" *ngIf="ref.date">
+          <span class="reference-date">
+            <i class="fas fa-calendar-alt me-1"></i>
+            {{ ref.date }}
+          </span>
+          <span class="reference-source" *ngIf="ref.source">
+            <i class="fas fa-globe me-1"></i>
+            {{ ref.source }}
+          </span>
+        </div>
+        <div class="reference-snippet" *ngIf="ref.snippet">
+          {{ ref.snippet }}
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="ai-warning" [innerHTML]="'medicalInfoModal.aiGeneratedWarning' | translate"></div>
 </div>
