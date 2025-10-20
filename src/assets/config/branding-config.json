@@ -24,6 +24,10 @@
       "foundation": "https://foundation29.org",
       "support": "DxGPT support"
     },
+    "footer": {
+      "organizationName": "Fundación 29",
+      "copyright": "Fundación 29 de Febrero"
+    },
     "backgrounds": {
       "aboutUs": {
         "gradient": "linear-gradient(135deg, #041d44 0%, #12243a 25%, #2a3a4a 50%, #3c4e5c 75%, #3e4b57 100%)",
@@ -56,10 +60,50 @@
       "foundation": "https://foundation29.org",
       "support": "SALUD-GPT support"
     },
+    "footer": {
+      "organizationName": "Departamento de Sanidad de Aragón",
+      "copyright": "Gobierno de Aragón"
+    },
     "backgrounds": {
       "aboutUs": {
         "gradient": "linear-gradient(135deg, #599da2 0%, #7bbdc7 25%, #599da2 50%, #417b8a 75%, #305c66 100%)",
         "overlay": "linear-gradient(45deg, rgba(56, 142, 60, 0.1) 0%, transparent 50%, rgba(76, 175, 80, 0.08) 100%)"
+      }
+    }
+  },
+  "sermas-gpt": {
+    "name": "SermasGPT",
+    "displayName": "SermasGPT",
+    "description": "Servicio de IA para Madrid de Salud",
+    "colors": {
+      "primary": "#1e3a8a",
+      "secondary": "#dc2626",
+      "accent": "#1e3a8a",
+      "rating": "#dc2626",
+      "background": "#ffffff",
+      "text": "#333333",
+      "backgroundDark": "#1e40af",
+      "sidebar": "blue"
+    },
+    "logos": {
+      "header": "assets/img/tenants/madrid/logo.webp",
+      "footer": "assets/img/logo-f29-white.webp",
+      "f29Dark": "assets/img/logo-f29.webp",
+      "favicon": "favicon-sermas.ico"
+    },
+    "links": {
+      "donate": null,
+      "foundation": "https://foundation29.org",
+      "support": "SermasGPT support"
+    },
+    "footer": {
+      "organizationName": "Servicio Madrileño de Salud",
+      "copyright": "Comunidad de Madrid"
+    },
+    "backgrounds": {
+      "aboutUs": {
+        "gradient": "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 25%, #1e40af 50%, #1d4ed8 75%, #1e3a8a 100%)",
+        "overlay": "linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0%, transparent 50%, rgba(29, 78, 216, 0.08) 100%)"
       }
     }
   }

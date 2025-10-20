@@ -131,11 +131,9 @@
   border: 1px solid var(--accent-color);
   margin-top: 16px;
   
-  // Para SALUD-GPT (verde)
-  &[data-tenant="salud-gpt"] {
-    background: rgba(76, 175, 80, 0.05);
-    border-color: #4CAF50;
-  }
+  // Usar variables CSS dinámicas para todos los tenants
+  background: var(--bs-alert-info-bg, rgba(179, 0, 0, 0.05));
+  border-color: var(--bs-alert-info-border-color, var(--accent-color));
 }
 
 .checkbox-input {

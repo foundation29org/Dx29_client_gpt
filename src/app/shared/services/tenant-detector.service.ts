@@ -40,6 +40,9 @@ export class TenantDetectorService {
       if (environment.tenantId.includes('dxgpt')) {
         return 'dxgpt';
       }
+      if (environment.tenantId.includes('sermas-gpt')) {
+        return 'sermas-gpt';
+      }
     }
     
     return null;
@@ -65,7 +68,10 @@ export class TenantDetectorService {
     if (subdomain === 'dxgpt' || hostname.includes('dxgpt')) {
       return 'dxgpt';
     }
-    
+
+    if (subdomain === 'sermas-gpt' || hostname.includes('sermas-gpt')) {
+      return 'sermas-gpt';
+    }
     return null;
   }
 
@@ -76,6 +82,8 @@ export class TenantDetectorService {
     switch (tenant) {
       case 'salud-gpt':
         return 'SALUD-GPT';
+      case 'sermas-gpt':
+        return 'SermasGPT';
       case 'dxgpt':
       default:
         return 'DxGPT';
@@ -89,6 +97,8 @@ export class TenantDetectorService {
     switch (tenant) {
       case 'salud-gpt':
         return 'Servicio de IA para Aragón de Salud';
+      case 'sermas-gpt':
+        return 'Servicio de IA para Madrid de Salud';
       case 'dxgpt':
       default:
         return 'AI-powered diagnostic assistance';
@@ -107,6 +117,13 @@ export class TenantDetectorService {
    */
   isDxgpt(tenant: string): boolean {
     return tenant === 'dxgpt';
+  }
+
+  /**
+   * Verifica si el tenant actual es SermasGPT
+   */
+  isSermasGpt(tenant: string): boolean {
+    return tenant === 'sermas-gpt';
   }
 
   /**

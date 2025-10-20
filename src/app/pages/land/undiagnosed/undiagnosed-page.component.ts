@@ -757,7 +757,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         Swal.close();
         
         // Determinar el modelo a usar
-        let modelToUse = 'gpt4o'; //'gpt5mini'; //'gpt5nano'; //gpt4o';
+        let modelToUse = 'gpt5mini'; //'gpt5mini'; //'gpt5nano'; //gpt4o';
         if (newModel) {
             modelToUse = 'o3';
         }
