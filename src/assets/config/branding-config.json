@@ -76,13 +76,13 @@
     "displayName": "SermasGPT",
     "description": "Servicio de IA para Madrid de Salud",
     "colors": {
-      "primary": "#1e3a8a",
+      "primary": "#4f70c4",
       "secondary": "#dc2626",
-      "accent": "#1e3a8a",
+      "accent": "#4f70c4",
       "rating": "#dc2626",
       "background": "#ffffff",
       "text": "#333333",
-      "backgroundDark": "#1e40af",
+      "backgroundDark": "#4f70c4",
       "sidebar": "blue"
     },
     "logos": {
