@@ -80,7 +80,7 @@ const TENANT_CONFIGS = {
     },
     favicon: 'favicon-salud.ico'
   },
-  'sermas-gpt': {
+  'SermasGPT': {
     name: 'SermasGPT',
     // Usar los textos de DxGPT (en inglés)
     title: 'DxGPT: Diagnostic decision support software based on GPT-4',
