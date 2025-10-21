@@ -9,6 +9,9 @@ $radius-md: 16px;        // radio coherente con botones
 $duration: 180ms;        // animaciones breves, snappy
 
 //@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+.notsatisfied{
+  color: var(--text-color) !important;
+}
 
 .autoajustable {
   padding-top: 12px;

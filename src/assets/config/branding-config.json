@@ -9,7 +9,7 @@
       "accent": "#B30000",
       "rating": "#B30000",
       "background": "#ffffff",
-      "text": "#333333",
+      "text": "#000000",
       "backgroundDark": "#1c202a",
       "sidebar": "man-of-steel"
     },
@@ -45,7 +45,7 @@
       "accent": "#e1a84c",
       "rating": "#e1a84c",
       "background": "#ffffff",
-      "text": "#333333",
+      "text": "#000000",
       "backgroundDark": "#599da2",
       "sidebar": "green"
     },
@@ -81,8 +81,8 @@
       "accent": "#4f70c4",
       "rating": "#dc2626",
       "background": "#ffffff",
-      "text": "#333333",
-      "backgroundDark": "#4f70c4",
+      "text": "#4f70c4",
+      "backgroundDark": "#f5f7fa",
       "sidebar": "blue"
     },
     "logos": {

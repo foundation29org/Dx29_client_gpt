@@ -15,7 +15,7 @@
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: white;
+  color: var(--text-color);
   
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -24,7 +24,7 @@
 
 .hero-description {
   font-size: 1.2rem;
-  color: #E5E7EB;
+  color: var(--text-color);
   line-height: 1.6;
   margin: 0;
   
