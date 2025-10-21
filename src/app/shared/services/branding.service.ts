@@ -29,6 +29,10 @@ export interface BrandingConfig {
     foundation: string;
     support: string;
   };
+  footer: {
+    organizationName: string;
+    copyright: string;
+  };
   backgrounds: {
     aboutUs: {
       gradient: string;
@@ -277,5 +281,19 @@ export class BrandingService {
   getAboutUsOverlay(): string {
     return this.getConfigValue<string>('backgrounds.aboutUs.overlay') || 
            'linear-gradient(45deg, rgba(52, 152, 219, 0.1) 0%, transparent 50%, rgba(41, 128, 185, 0.08) 100%)';
+  }
+
+  /**
+   * Obtiene el nombre de la organización para el footer
+   */
+  getFooterOrganizationName(): string {
+    return this.getConfigValue<string>('footer.organizationName') || 'Fundación 29';
+  }
+
+  /**
+   * Obtiene el texto de copyright para el footer
+   */
+  getFooterCopyright(): string {
+    return this.getConfigValue<string>('footer.copyright') || 'Fundación 29 de Febrero';
   }
 } 

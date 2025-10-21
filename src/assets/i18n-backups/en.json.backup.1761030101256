@@ -1,8 +1,8 @@
 {
   "menu":{
-    "Home": "SermasGPT",
+    "Home": "DxGPT",
     "Dashboard": "Home",
-    "About us": "About SermasGPT",
+    "About us": "About DxGPT",
     "Collaboration": "Collaboration",
     "Foundation 29": "Foundation 29",
     "Usage statistics": "Usage statistics",
@@ -26,12 +26,12 @@
     "Contact us": "Contact us",
     "Updates": "Updates",
     "Privacy GDPR HIPAA AI Act": "Privacy (GDPR/HIPAA/AI Act)",
-    "Dx29info": "SermasGPT is a search and reference tool provided for informational purposes and not intended to replace the clinician's judgement or experience. It should not be used to diagnose or treat medical conditions."
+    "Dx29info": "DxGPT is a search and reference tool provided for informational purposes and not intended to replace the clinician's judgement or experience. It should not be used to diagnose or treat medical conditions."
   },
   "aboutUs": {
     "hero": {
-      "title": "SermasGPT: Augmented intelligence for diagnostic confidence",
-      "subtitle": "Transform clinical uncertainty into clarity. SermasGPT is your diagnostic co-pilot: structure reasoning, reduce cognitive load, and minimize biases in seconds, even in complex or rare cases.",
+      "title": "DxGPT: Augmented intelligence for diagnostic confidence",
+      "subtitle": "Transform clinical uncertainty into clarity. DxGPT is your diagnostic co-pilot: structure reasoning, reduce cognitive load, and minimize biases in seconds, even in complex or rare cases.",
       "evidenceButton": "Scientific evidence",
       "clinicalEvidenceButton": "Clinical evidence",
       "highlight1": "Structured differential diagnosis",
@@ -39,34 +39,34 @@
       "highlight3": "Integration into health systems"
     },
     "main": {
-      "description": "SermasGPT is an augmented intelligence tool designed by and for the clinical environment. Unlike general-purpose AIs, it does not generate open narrative text, but a structured analysis of five diagnostic hypotheses, classified and reasoned with symptoms for and against. We use advanced language models, such as OpenAI's GPT-5, within a medical control framework that ensures relevance, consistency, and safety in every result. We do not replace clinical judgment: we enhance it. We offer you an instant differential analysis that saves time, neutralizes cognitive biases, and raises the quality of clinical reasoning from the very first moment."
+      "description": "DxGPT is an augmented intelligence tool designed by and for the clinical environment. Unlike general-purpose AIs, it does not generate open narrative text, but a structured analysis of five diagnostic hypotheses, classified and reasoned with symptoms for and against. We use advanced language models, such as OpenAI's GPT-5, within a medical control framework that ensures relevance, consistency, and safety in every result. We do not replace clinical judgment: we enhance it. We offer you an instant differential analysis that saves time, neutralizes cognitive biases, and raises the quality of clinical reasoning from the very first moment."
     },
     "challenge": {
       "title": "The challenge of clinical diagnosis",
-      "description": "Diagnosis, especially in rare diseases, is a labyrinth of data and symptoms that consumes time and generates uncertainty. With over 10,000 rare diseases, most unknown to the average professional due to their low prevalence, familiarity is an impossible luxury. SermasGPT acts as a powerful cognitive offloading tool, speeding up analysis and broadening the spectrum of possibilities to arrive at an accurate diagnosis sooner. In this context, support technology is no longer an option, but a necessity for patient safety and quality of care."
+      "description": "Diagnosis, especially in rare diseases, is a labyrinth of data and symptoms that consumes time and generates uncertainty. With over 10,000 rare diseases, most unknown to the average professional due to their low prevalence, familiarity is an impossible luxury. DxGPT acts as a powerful cognitive offloading tool, speeding up analysis and broadening the spectrum of possibilities to arrive at an accurate diagnosis sooner. In this context, support technology is no longer an option, but a necessity for patient safety and quality of care."
     },
     "why": {
-      "title": "Why SermasGPT and not a general-purpose AI?",
+      "title": "Why DxGPT and not a general-purpose AI?",
       "description": "Conversational tools like ChatGPT, Claude, or Gemini are broad-spectrum language models. In the medical context, this flexibility is a fundamental weakness. Their unstructured nature can generate variable, incomplete, or clinically irrelevant responses, lacking the essential safety controls for high-risk decision-making."
     },
     "differentiators": {
-      "title": "Key Differentiators of SermasGPT",
+      "title": "Key Differentiators of DxGPT",
       "structured": {
         "title": "Structured and consistent analysis",
-        "description": "While a generalist AI produces free text, SermasGPT offers a rigorous and reproducible analysis of five diagnostic hypotheses. Each hypothesis includes compatible and incompatible symptoms, a format designed to challenge biases such as confirmation and availability bias. Our control over the instruction the model receives (the prompt) ensures consistent, reliable, and explainable results."
+        "description": "While a generalist AI produces free text, DxGPT offers a rigorous and reproducible analysis of five diagnostic hypotheses. Each hypothesis includes compatible and incompatible symptoms, a format designed to challenge biases such as confirmation and availability bias. Our control over the instruction the model receives (the prompt) ensures consistent, reliable, and explainable results."
       },
       "control": {
         "title": "Clinical control framework",
-        "description": "SermasGPT operates within a control environment designed to mitigate the risks inherent in large language models (LLMs). Its architecture and results are supervised by healthcare professionals to ensure that the responses are not only technically correct, but also clinically relevant and safe."
+        "description": "DxGPT operates within a control environment designed to mitigate the risks inherent in large language models (LLMs). Its architecture and results are supervised by healthcare professionals to ensure that the responses are not only technically correct, but also clinically relevant and safe."
       },
       "specialization": {
         "title": "Specialization in rare diseases",
-        "description": "SermasGPT is designed to systematically include rare diseases in the differential diagnosis, an area where generalist systems, and often human reasoning, can fail. The system integrates specialized knowledge to detect atypical patterns and explore hypotheses that would otherwise be ignored, expanding the clinician's diagnostic radar and improving the chances of an early and accurate diagnosis."
+        "description": "DxGPT is designed to systematically include rare diseases in the differential diagnosis, an area where generalist systems, and often human reasoning, can fail. The system integrates specialized knowledge to detect atypical patterns and explore hypotheses that would otherwise be ignored, expanding the clinician's diagnostic radar and improving the chances of an early and accurate diagnosis."
       }
     },
     "implementation": {
       "title": "Implementation in healthcare providers",
-      "intro": "When SermasGPT is deployed in healthcare providers such as hospitals, it includes expanded capabilities:",
+      "intro": "When DxGPT is deployed in healthcare providers such as hospitals, it includes expanded capabilities:",
       "capability1": "Clinical data management (integration with hospital information systems).",
       "capability2": "Structured data collection (standardized formats for subsequent analysis).",
       "capability3": "Clinical feedback (professionals provide corrections and observations).",
@@ -74,10 +74,10 @@
       "capability5": "Reinforced security (data protection and usage control aligned with healthcare regulations)."
     },
     "benefits": {
-      "title": "Clinical Benefits of SermasGPT",
+      "title": "Clinical Benefits of DxGPT",
       "time": {
         "title": "Reclaim time for what matters most: the patient",
-        "description": "SermasGPT automates the generation of the differential diagnosis, transforming minutes of search and uncertainty into seconds of structured analysis. This efficiency frees up the healthcare professional to focus on clinical judgment, patient communication, and decision-making."
+        "description": "DxGPT automates the generation of the differential diagnosis, transforming minutes of search and uncertainty into seconds of structured analysis. This efficiency frees up the healthcare professional to focus on clinical judgment, patient communication, and decision-making."
       },
       "clarity": {
         "title": "From data chaos to diagnostic clarity",
@@ -85,54 +85,54 @@
       },
       "tool": {
         "title": "A tool, not an application",
-        "description": "Unlike conversational AIs, SermasGPT's interface is optimized for a single function: supporting diagnosis. Every element is designed to guide clinical reasoning efficiently and safely, eliminating distractions and focusing on practical utility."
+        "description": "Unlike conversational AIs, DxGPT's interface is optimized for a single function: supporting diagnosis. Every element is designed to guide clinical reasoning efficiently and safely, eliminating distractions and focusing on practical utility."
       },
       "safety": {
         "title": "A safety system against mental shortcuts",
-        "description": "Clinical diagnosis is vulnerable to cognitive biases such as availability or confirmation bias. SermasGPT acts as an objective counterweight, systematically presenting a range of possibilities based on the case evidence, including rare diseases. This promotes a more thorough evaluation and reduces the risk of diagnostic errors, improving patient safety."
+        "description": "Clinical diagnosis is vulnerable to cognitive biases such as availability or confirmation bias. DxGPT acts as an objective counterweight, systematically presenting a range of possibilities based on the case evidence, including rare diseases. This promotes a more thorough evaluation and reduces the risk of diagnostic errors, improving patient safety."
       },
       "standardize": {
         "title": "Standardize diagnostic excellence",
-        "description": "SermasGPT ensures that each case is analyzed with the same methodological rigor, regardless of the professional or the moment. This consistency reduces variability in the quality of care and establishes a high standard of analysis for the entire team. Our performance is continuously validated against a demanding bank of clinical cases to ensure constant reliability."
+        "description": "DxGPT ensures that each case is analyzed with the same methodological rigor, regardless of the professional or the moment. This consistency reduces variability in the quality of care and establishes a high standard of analysis for the entire team. Our performance is continuously validated against a demanding bank of clinical cases to ensure constant reliability."
       },
       "practice": {
         "title": "Created in clinical practice, for clinical practice",
-        "description": "SermasGPT is not a laboratory product. It has been developed in a continuous cycle of collaboration with frontline doctors, hospitals, and scientific societies. Its design and functionalities respond to the real challenges of diagnosis, ensuring that it is not only technologically advanced, but also clinically useful, relevant, and easy to integrate into the professional's mental workflow."
+        "description": "DxGPT is not a laboratory product. It has been developed in a continuous cycle of collaboration with frontline doctors, hospitals, and scientific societies. Its design and functionalities respond to the real challenges of diagnosis, ensuring that it is not only technologically advanced, but also clinically useful, relevant, and easy to integrate into the professional's mental workflow."
       }
     },
     "commitment": {
       "title": "Commitment and Regulatory Framework",
       "experimental": {
-        "title": "SermasGPT is an experimental platform in continuous improvement",
+        "title": "DxGPT is an experimental platform in continuous improvement",
         "description": "Its goal is to explore the capabilities of AI in diagnosis, understand its limitations, and improve it with user feedback and rigorous clinical validation. New findings are shared openly through GitHub and MedRxiv."
       },
       "protection": {
-        "title": "SermasGPT protects clinical data with European standards",
-        "description": "SermasGPT ensures the protection of clinical data through strict anonymization, without storing personal information or using it for other purposes. All processing is carried out in European data centers under GDPR, ensuring security, privacy, and transparency in every interaction."
+        "title": "DxGPT protects clinical data with European standards",
+        "description": "DxGPT ensures the protection of clinical data through strict anonymization, without storing personal information or using it for other purposes. All processing is carried out in European data centers under GDPR, ensuring security, privacy, and transparency in every interaction."
       }
     },
     "evaluation": {
       "title": "Evaluation",
       "commitment": {
         "title": "Our commitment to evidence: The clinical validation framework",
-        "description": "Confidence in a clinical tool is earned through rigorous evidence. SermasGPT's validation is a continuous process that combines independent research with iterative improvement based on real data.",
+        "description": "Confidence in a clinical tool is earned through rigorous evidence. DxGPT's validation is a continuous process that combines independent research with iterative improvement based on real data.",
         "validation": "We have conducted an initial independent clinical validation in collaboration with Sant Joan de Déu Hospital, with results published in medRxiv showing diagnostic accuracy comparable to clinical experts.",
-        "framework": "We have built a 'Constant Validation Framework' that continuously evolves SermasGPT's reliability through the integration of new cases, clinical feedback, and real-time performance metrics."
+        "framework": "We have built a 'Constant Validation Framework' that continuously evolves DxGPT's reliability through the integration of new cases, clinical feedback, and real-time performance metrics."
       },
       "testbed": {
         "title": "A testbed designed to challenge the system",
-        "description": "SermasGPT's testbed uses over 1,000 complex real clinical cases instead of textbook cases. These cases feature extensive descriptions, overlapping symptoms, and non-trivial differential diagnoses, sourced from:",
+        "description": "DxGPT's testbed uses over 1,000 complex real clinical cases instead of textbook cases. These cases feature extensive descriptions, overlapping symptoms, and non-trivial differential diagnoses, sourced from:",
         "sources": "Case sources:",
         "source1": "High-level clinical question banks: MedBullets and MedQA USMLE.",
         "source2": "Scientific publications on rare diseases: RAMEDIS and Ramebench.",
         "source3": "Real cases from hospital emergency rooms: HM Hospitals and Hospital de Torrejón.",
         "source4": "Specialized collaborations: Supervised cases of rare diseases.",
-        "conclusion": "This testbed evaluates SermasGPT in the most challenging environment, reflecting real-world healthcare complexity."
+        "conclusion": "This testbed evaluates DxGPT in the most challenging environment, reflecting real-world healthcare complexity."
       },
       "science": {
         "title": "The science of asking: The secret to consistency",
         "description": "Our research has revealed a critical factor: the quality of an LLM's response depends decisively on the quality of the question. Therefore, we have developed and validated over 30 prompt formulations (instructions) to find the optimal structure that activates effective and consistent clinical reasoning.",
-        "differentiator": "This expert control over formulation is what differentiates SermasGPT from a generalist AI. We do not leave the quality of the result to chance; we have designed a process that ensures that, for the same case, the system always applies the same analytical rigor, producing reliable and reproducible results."
+        "differentiator": "This expert control over formulation is what differentiates DxGPT from a generalist AI. We do not leave the quality of the result to chance; we have designed a process that ensures that, for the same case, the system always applies the same analytical rigor, producing reliable and reproducible results."
       },
       "chart": {
         "caption": "The chart illustrates how our optimization of the formulation (the jump from the 4o → o3 family) not only increases accuracy (X-axis), but also allows solving cases of greater complexity (Y-axis), demonstrating a significant advance in the system's clinical reasoning ability."
@@ -150,7 +150,7 @@
         },
         "prioritization": {
           "title": "Quality of Prioritization",
-          "description": "This is our most innovative metric. It's not enough for the correct diagnosis to be on the list; its average position is measured. A correct diagnosis in the first position is 'infinitely more useful than in the fifth,' and this metric evaluates SermasGPT's ability to 'prioritize like a specialist, offering maximum clinical relevance in the shortest possible time'."
+          "description": "This is our most innovative metric. It's not enough for the correct diagnosis to be on the list; its average position is measured. A correct diagnosis in the first position is 'infinitely more useful than in the fifth,' and this metric evaluates DxGPT's ability to 'prioritize like a specialist, offering maximum clinical relevance in the shortest possible time'."
         }
       },
       "user": {
@@ -168,12 +168,12 @@
           "title": "Clinical relevance",
           "description": "The hypotheses are not only accurate, but are prioritized to reflect clinical urgency and probability."
         },
-        "conclusion": "In short, SermasGPT is not just an advanced model; it is a clinical support tool with a demonstrable commitment to evidence, reliability, and safety."
+        "conclusion": "In short, DxGPT is not just an advanced model; it is a clinical support tool with a demonstrable commitment to evidence, reliability, and safety."
       }
     },
     "clinicalValidation": {
       "title": "Clinical validation study",
-      "description": "SermasGPT has been validated against doctors in a comprehensive clinical study conducted by Sant Joan de Déu Hospital. Results demonstrate that SermasGPT achieves diagnostic accuracy comparable to expert clinicians. This research has been published as a preprint and is currently under peer review.",
+      "description": "DxGPT has been validated against doctors in a comprehensive clinical study conducted by Sant Joan de Déu Hospital. Results demonstrate that DxGPT achieves diagnostic accuracy comparable to expert clinicians. This research has been published as a preprint and is currently under peer review.",
       "validated": "Clinically validated",
       "hospital": "Sant Joan de Déu Hospital",
       "accuracy": "Expert-level accuracy",
@@ -182,7 +182,7 @@
     },
     "trust": {
       "title": "Our pact of trust and security",
-      "intro": "Trust is the foundation of medicine. At SermasGPT, the protection of clinical data and regulatory compliance are not an afterthought, but the core of our design. We operate with radical transparency so that professionals and health systems can use our tool with complete peace of mind.",
+      "intro": "Trust is the foundation of medicine. At DxGPT, the protection of clinical data and regulatory compliance are not an afterthought, but the core of our design. We operate with radical transparency so that professionals and health systems can use our tool with complete peace of mind.",
       "protection": {
         "title": "How we protect every query: A zero-retention process for personal information",
         "intro": "Our workflow is designed to maximize clinical utility and minimize the risk of data exposure to zero.",
@@ -205,9 +205,9 @@
       },
       "governance": {
         "title": "Data Governance",
-        "intro": "The following table summarizes SermasGPT's commitment to security and privacy best practices for IT and regulatory compliance teams.",
+        "intro": "The following table summarizes DxGPT's commitment to security and privacy best practices for IT and regulatory compliance teams.",
         "feature": "Feature / Policy",
-        "commitment": "SermasGPT's Commitment",
+        "commitment": "DxGPT's Commitment",
         "processing": "Data processing location",
         "processingValue": "Exclusively in European Union data centers (Microsoft Azure)",
         "storage": "Patient data storage",
@@ -227,7 +227,7 @@
       },
       "regulatory": {
         "title": "Our regulatory framework",
-        "intro": "SermasGPT has extensive experience in digital health regulatory environments and aligns with demanding global standards.",
+        "intro": "DxGPT has extensive experience in digital health regulatory environments and aligns with demanding global standards.",
         "gdpr": {
           "title": "GDPR (General Data Protection Regulation)",
           "description": "Full compliance with principles of lawfulness, transparency, data minimization, and purpose limitation, with exclusive EU processing for data sovereignty."
@@ -238,7 +238,7 @@
         },
         "aiact": {
           "title": "EU AI Act",
-          "description": "We are actively working towards full alignment with the European Union's AI Act. We collaborate with experts and regulatory authorities to ensure that SermasGPT meets the highest standards of risk management, data governance, transparency, and robustness, positioning us at the forefront of responsible AI in health."
+          "description": "We are actively working towards full alignment with the European Union's AI Act. We collaborate with experts and regulatory authorities to ensure that DxGPT meets the highest standards of risk management, data governance, transparency, and robustness, positioning us at the forefront of responsible AI in health."
         }
       }
     }
@@ -282,21 +282,21 @@
     "description": "Committed to openness, collaboration, and responsibility in the development of medical technology.",
       "technologyPartners": {
         "title": "Technology partners",
-        "description": "We thank Microsoft, which through its AI for Good program provides us with the infrastructure on Azure and the support of employee volunteers. Also to Google, whose program for NGOs helps us increase the visibility of SermasGPT in its search engine to reach more professionals and patients.",
+        "description": "We thank Microsoft, which through its AI for Good program provides us with the infrastructure on Azure and the support of employee volunteers. Also to Google, whose program for NGOs helps us increase the visibility of DxGPT in its search engine to reach more professionals and patients.",
         "microsoftDescription": "Infrastructure on Azure and support from employee volunteers",
-        "googleDescription": "Helps increase SermasGPT's visibility to reach more professionals and patients"
+        "googleDescription": "Helps increase DxGPT's visibility to reach more professionals and patients"
       },
     "ourSponsors": {
       "title": "Our sponsors",
-      "description": "We extend our deepest gratitude to our generous sponsors. Their support is purely philanthropic, with no commercial interests or data exchange, and is vital for developing tools like SermasGPT and offering them for free."
+      "description": "We extend our deepest gratitude to our generous sponsors. Their support is purely philanthropic, with no commercial interests or data exchange, and is vital for developing tools like DxGPT and offering them for free."
     },
     "implementations": {
       "title": "Implementations",
-      "description": "SermasGPT is being implemented in real health services, improving the diagnosis of rare diseases and complex cases.",
+      "description": "DxGPT is being implemented in real health services, improving the diagnosis of rare diseases and complex cases.",
       "aragon": {
         "title": "Aragonese Health Service",
         "status": "Since July 2025",
-        "description": "SermasGPT is now available to healthcare professionals of the Aragonese Health Service, allowing to improve the accuracy and speed in the diagnosis of rare and common diseases in the Aragon region.",
+        "description": "DxGPT is now available to healthcare professionals of the Aragonese Health Service, allowing to improve the accuracy and speed in the diagnosis of rare and common diseases in the Aragon region.",
         "users": "Users:",
         "usersValue": "+5,000 doctors",
         "scope": "Scope:",
@@ -307,7 +307,7 @@
       "sermas": {
         "title": "Madrid Health Service (SERMAS)",
         "status": "Since September 2023",
-        "description": "Pioneering implementation of SermasGPT in the Community of Madrid's health system, providing access to over 6,000 primary care physicians to improve diagnostic capabilities.",
+        "description": "Pioneering implementation of DxGPT in the Community of Madrid's health system, providing access to over 6,000 primary care physicians to improve diagnostic capabilities.",
         "coverage": "Coverage:",
         "coverageValue": "Entire primary care network",
         "users": "Users:",
@@ -320,7 +320,7 @@
       "catsalut": {
         "title": "Catalan Health Service (CatSalut)",
         "status": "In development",
-        "description": "Upcoming implementation in the Catalan health system to extend SermasGPT benefits to a larger population of healthcare professionals in Catalonia.",
+        "description": "Upcoming implementation in the Catalan health system to extend DxGPT benefits to a larger population of healthcare professionals in Catalonia.",
         "statusLabel": "Status:",
         "statusValue": "Implementation phase",
         "scope": "Scope:",
@@ -341,49 +341,49 @@
     "opportunities": {
       "implementations": {
         "title": "Implementations in health systems",
-        "description": "Partner with us to implement SermasGPT in your healthcare organization and improve diagnostic capabilities.",
-        "details1": "Health services and healthcare systems looking to integrate SermasGPT into their clinical workflows can count on our specialized support. We offer complete technical implementation services, including integration with existing hospital systems, as well as customized configuration according to the specific needs of each institution.",
+        "description": "Partner with us to implement DxGPT in your healthcare organization and improve diagnostic capabilities.",
+        "details1": "Health services and healthcare systems looking to integrate DxGPT into their clinical workflows can count on our specialized support. We offer complete technical implementation services, including integration with existing hospital systems, as well as customized configuration according to the specific needs of each institution.",
         "details2": "Our implementation program also covers the training of medical teams, the establishment of clinical use protocols, and continuous technical support during the adoption process. For public health institutions, these implementations are carried out at no cost, as part of our commitment to democratizing access to advanced medical technologies.",
         "button": "Contact us about implementations"
       },
       "professionals": {
         "title": "Collaboration of healthcare professionals",
-        "description": "Join our network of medical professionals to contribute to the development and validation of SermasGPT.",
-        "details1": "The clinical experience of doctors and healthcare professionals is irreplaceable for the continuous development and improvement of SermasGPT. We are looking for collaborators who can contribute their knowledge by reviewing complex cases, validating AI-assisted diagnoses, and providing guidance on the practical application of our tools in real clinical settings.",
+        "description": "Join our network of medical professionals to contribute to the development and validation of DxGPT.",
+        "details1": "The clinical experience of doctors and healthcare professionals is irreplaceable for the continuous development and improvement of DxGPT. We are looking for collaborators who can contribute their knowledge by reviewing complex cases, validating AI-assisted diagnoses, and providing guidance on the practical application of our tools in real clinical settings.",
         "details2": "We especially value participation in clinical studies and controlled trials to validate diagnostic efficacy in different medical specialties. Likewise, feedback based on practical experience helps us identify areas for improvement and develop new functionalities that respond to real clinical needs.",
         "button": "Contact us about collaboration"
       },
       "research": {
         "title": "Clinical research studies",
         "description": "Participate in research studies to evaluate the effectiveness and safety of AI-assisted diagnosis.",
-        "details1": "We invite medical centers, university hospitals, and research groups to collaborate on formal studies on the efficacy and impact of SermasGPT in clinical diagnosis. These studies are fundamental to generate rigorous scientific evidence on the usefulness of artificial intelligence in medical practice and to validate our algorithms in different clinical contexts and patient populations.",
+        "details1": "We invite medical centers, university hospitals, and research groups to collaborate on formal studies on the efficacy and impact of DxGPT in clinical diagnosis. These studies are fundamental to generate rigorous scientific evidence on the usefulness of artificial intelligence in medical practice and to validate our algorithms in different clinical contexts and patient populations.",
         "details2": "Our goal is to facilitate the generation of high-quality scientific evidence that contributes to global medical knowledge and demonstrates the clinical value of AI-assisted diagnostic tools.",
         "button": "Contact us about research"
       },
       "technical": {
         "title": "Technical contribution and development",
-        "description": "Contribute to the technical development of SermasGPT through code, algorithms, or system improvements.",
-        "details1": "Professionals in the technology field can contribute significantly to the advancement of SermasGPT through specialized technical volunteering. Our needs range from the development of more intuitive and accessible user interfaces to technical consulting.",
+        "description": "Contribute to the technical development of DxGPT through code, algorithms, or system improvements.",
+        "details1": "Professionals in the technology field can contribute significantly to the advancement of DxGPT through specialized technical volunteering. Our needs range from the development of more intuitive and accessible user interfaces to technical consulting.",
         "button": "Contact us about technical contribution"
       },
       "partnerships": {
         "title": "Dissemination and strategic collaboration agreements",
-        "description": "Help us spread awareness and establish strategic partnerships to expand SermasGPT's reach.",
-        "details1": "Visibility and recognition in the international medical community are crucial for the impact of SermasGPT. We collaborate with specialized media, health sector organizations, and science communication professionals to disseminate success stories, research results, and technological advances.",
+        "description": "Help us spread awareness and establish strategic partnerships to expand DxGPT's reach.",
+        "details1": "Visibility and recognition in the international medical community are crucial for the impact of DxGPT. We collaborate with specialized media, health sector organizations, and science communication professionals to disseminate success stories, research results, and technological advances.",
         "details2": "We are interested in establishing strategic collaboration agreements with medical congresses, scientific societies, and healthcare organizations that share our vision of democratizing access to advanced diagnostic tools. These collaborations may include presentations at scientific events, joint publications, and continuing medical education programs.",
         "button": "Contact us about partnerships"
       },
       "donations": {
         "title": "Financial support and donations",
-        "description": "Support our mission through financial contributions to help us continue developing and improving SermasGPT.",
-        "details1": "The sustainability of SermasGPT depends on the support of individuals and organizations committed to improving medical diagnosis. We offer multiple ways to contribute financially to this cause. Monetary donations allow us to maintain the technological infrastructure, develop new functionalities, and ensure that access to the platform remains completely free for all medical professionals. In addition, we greatly value contributions of anonymized medical data, which are essential for continuously training and improving our diagnostic algorithms.",
+        "description": "Support our mission through financial contributions to help us continue developing and improving DxGPT.",
+        "details1": "The sustainability of DxGPT depends on the support of individuals and organizations committed to improving medical diagnosis. We offer multiple ways to contribute financially to this cause. Monetary donations allow us to maintain the technological infrastructure, develop new functionalities, and ensure that access to the platform remains completely free for all medical professionals. In addition, we greatly value contributions of anonymized medical data, which are essential for continuously training and improving our diagnostic algorithms.",
         "details2": "If you wish to make a financial donation, you can do so directly through the links available on this page. For donations of medical data, our technical team will guide you on the anonymization protocols and formats compatible with our systems.",
         "donateButton": "Donate now",
         "contactButton": "Contact us about donations"
       }
     },
     "footer": {
-      "text": "SermasGPT is a collaborative initiative that seeks to democratize access to AI-assisted medical diagnostic tools. Our goal is to make this technology accessible, free, and effective for healthcare professionals worldwide. Your participation, regardless of your professional background, is fundamental to achieving this purpose."
+      "text": "DxGPT is a collaborative initiative that seeks to democratize access to AI-assisted medical diagnostic tools. Our goal is to make this technology accessible, free, and effective for healthcare professionals worldwide. Your participation, regardless of your professional background, is fundamental to achieving this purpose."
     }
   },
   "generics":{
@@ -501,15 +501,15 @@
   },
   "policy": {
     "title": "Privacy policy",
-    "subtitle": "Learn how we protect your privacy and personal data in SermasGPT.",
+    "subtitle": "Learn how we protect your privacy and personal data in DxGPT.",
     "lastUpdated": "Last updated: 21 April 2025",
-    "p1": "SermasGPT privacy policy (GDPR compliant)",
+    "p1": "DxGPT privacy policy (GDPR compliant)",
     "p2.1": "1. Who we are and how to contact us",
     "p2.2": "Fundación 29 de Febrero (\"DxGPT\", \"we\", \"our\", \"us\") is the data controller for the personal data processed through the DxGPT platform, and, as a non-profit organisation, we prioritise privacy and actively advocate for the responsible handling of patient data.",
     "p2.3": "Data Protection Officer (DPO): privacy@foundation29.org",
     "p2.4": "General enquiries: support@foundation29.org",
     "p2.5": "Regulatory status — not a medical device",
-    "p2.6": "SermasGPT is not a medical device under EU MDR, U.S. FDA, or other applicable regulations. It is provided solely as a clinical decision support tool to assist qualified healthcare professionals. It must not be relied upon as a substitute for professional medical judgment, diagnosis, or treatment.",
+    "p2.6": "DxGPT is not a medical device under EU MDR, U.S. FDA, or other applicable regulations. It is provided solely as a clinical decision support tool to assist qualified healthcare professionals. It must not be relied upon as a substitute for professional medical judgment, diagnosis, or treatment.",
     "p3.1": "2. Information we collect",
     "p3.2": "2.1 Data you provide voluntarily",
     "p3.3": "Age, gender, symptoms, and other details you enter when requesting diagnostic suggestions.",
@@ -535,7 +535,7 @@
     "p5.3": "Respond to feedback and support enquiries.",
     "p5.4": "Analyse aggregated usage to refine algorithms and user experience.",
     "p5.5": "Enforce our terms of service and protect the security of the platform.",
-    "p5.6": "SermasGPT will never sell, rent, or share your personal data—or any data whatsoever—with third parties for marketing or any other purpose. This commitment is permanent and irreversible, and, because we strip individual identifiers at the source and store only masked data, such sharing is technically infeasible.",
+    "p5.6": "DxGPT will never sell, rent, or share your personal data—or any data whatsoever—with third parties for marketing or any other purpose. This commitment is permanent and irreversible, and, because we strip individual identifiers at the source and store only masked data, such sharing is technically infeasible.",
     "p5.7": "We may, however, disclose aggregated, fully anonymised usage statistics that cannot be traced back to any individual user.",
     "p6.1": "5. Data security and storage",
     "p6.2": "Encryption in transit and at rest protects all data channels.",
@@ -543,7 +543,7 @@
     "p6.4": "No unmasked health data is ever written to disk; processing occurs only in volatile memory.",
     "p6.5": "Technical and organisational measures follow ISO 27001 and NIST SP 800-88 standards.",
     "p6.6": "Access is limited to authorised personnel under strict confidentiality.",
-    "p6.7": "HIPAA compliance — SermasGPT complies with HIPAA (Privacy, Security, and Breach Notification Rules) and executes Business Associate Agreements (BAAs). See Appendix A for detailed safeguards.",
+    "p6.7": "HIPAA compliance — DxGPT complies with HIPAA (Privacy, Security, and Breach Notification Rules) and executes Business Associate Agreements (BAAs). See Appendix A for detailed safeguards.",
     "p7.1": "6. Data retention",
     "p7.2": "Aggregated, anonymous usage data is retained for no longer than 5 years before irreversible deletion.",
     "p7.3": "Support tickets and contractual records are stored for up to 5 years to comply with accounting and legal requirements.",
@@ -566,7 +566,7 @@
     "p10.2": "To exercise any of the rights above or raise a privacy concern, contact our DPO at privacy@foundation29.org or write to the address in section 1.",
     "p10.3": "We aim to respond to all legitimate requests within one calendar month. Complex requests may take up to two additional months, in which case we will let you know.",
     "p11.1": "10. Changes to this policy",
-    "p11.2": "We may update this privacy policy periodically. Significant changes will be announced within the SermasGPT interface or via email. The \"Last updated\" date at the top of this page indicates when revisions were made.",
+    "p11.2": "We may update this privacy policy periodically. Significant changes will be announced within the DxGPT interface or via email. The \"Last updated\" date at the top of this page indicates when revisions were made.",
     "p12.1": "Appendix A. HIPAA compliance details",
     "p12.2": "Privacy Rule — protected health information (PHI) is used or disclosed only as permitted or with explicit patient authorization and adheres to the minimum necessary principle.",
     "p12.3": "Security Rule — administrative, physical, and technical safeguards such as encryption at rest, role-based access controls, audit logs, and regular risk assessments protect electronic PHI.",
@@ -576,10 +576,10 @@
   },
   "policyShort": {
     "p1": "1. Who we are",
-    "p1.1": "SermasGPT is run by Fundación 29 de Febrero.",
+    "p1.1": "DxGPT is run by Fundación 29 de Febrero.",
     "p1.2": "Email our Data Protection Officer (DPO) at privacy@foundation29.org.",
     "p1.3": "Need help? Write to support@foundation29.org.",
-    "p1.4": "Not a medical device — SermasGPT only helps doctors think about possible diagnoses. It does not replace a real doctor.",
+    "p1.4": "Not a medical device — DxGPT only helps doctors think about possible diagnoses. It does not replace a real doctor.",
     "p2": "2. Information we collect",
     "p2.1": "You give us: age, gender, symptoms, feedback, and your email if you write to us.",
     "p2.2": "Sensitive info: health details you type in.",
@@ -633,7 +633,7 @@
     "NAV_CONTACT_DESCRIPTION": "Contact us for any questions or feedback."
   },
   "land":{
-    "disclaimer": "<p><strong>SermasGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-4 linguistic model as a predictive model for a tool to provide information on related rare diseases. It is designed to provide general information and suggestions based on the symptoms provided. The tool is not intended to replace professional medical advice, or support diagnosis, prevention, monitoring, prediction or treatment and should never be used to make diagnostic judgments for real patients.</p><p>Because AI can give variable results, diagnostic accuracy and suggestions from the tool may vary, so it is important to consult a qualified healthcare professional to ensure an accurate and appropriate diagnosis. Use of this tool is at the user's own risk and Foundation 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts any potential risks associated with the use of the artificial intelligence-based tool.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-4 linguistic model as a predictive model for a tool to provide information on related rare diseases. It is designed to provide general information and suggestions based on the symptoms provided. The tool is not intended to replace professional medical advice, or support diagnosis, prevention, monitoring, prediction or treatment and should never be used to make diagnostic judgments for real patients.</p><p>Because AI can give variable results, diagnostic accuracy and suggestions from the tool may vary, so it is important to consult a qualified healthcare professional to ensure an accurate and appropriate diagnosis. Use of this tool is at the user's own risk and Foundation 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts any potential risks associated with the use of the artificial intelligence-based tool.</p>",
     "check": "Dont show this message again",
     "Recommendations": "For best results, indicate when and why you think the symptoms appeared",
     "Search": "Search",
@@ -643,15 +643,15 @@
     "required": "Please provide patient details (age, gender, symptoms) and when they began. Example: Female, 42 years old, severe headaches for 3 months, dizziness, family history of migraines.",
     "charactersleft": "Minimum 15 characters required. {{value}} missing",
     "recommended": "Recommended: 200-2000 characters for best results.",
-    "searchFile": "You can also upload a complete report. This functionality is in testing and may give unexpected results. SermasGPT will suggest the diagnosis that the model considers most appropriate for that patient. In order to be respectful of the data protection law we do not store personal patient data and the data is deleted at the end of this session. We would be interested in your feedback for future developments.",
+    "searchFile": "You can also upload a complete report. This functionality is in testing and may give unexpected results. DxGPT will suggest the diagnosis that the model considers most appropriate for that patient. In order to be respectful of the data protection law we do not store personal patient data and the data is deleted at the end of this session. We would be interested in your feedback for future developments.",
     "Browse for file": "Browse for file",
     "Accepted files": "Accepted files: pdf, docx, images",
     "error extension": "The uploaded file must have a .pdf, .docx extension, or image files",
     "Extracting the text from the document": "Extracting the text from the document",
-    "swal": "SermasGPT is calculating. Please wait a few seconds for it to finish",
+    "swal": "DxGPT is calculating. Please wait a few seconds for it to finish",
     "swal2": "We are having high demand, if it takes more than 2 minutes, cancel and try again.",
     "swal3": "Help us improve by rating the quality of the result using the thumbs up or down.",
-    "swalMultimodal": "SermasGPT is processing your files. Please wait a few seconds for it to finish",
+    "swalMultimodal": "DxGPT is processing your files. Please wait a few seconds for it to finish",
     "swal2Multimodal": "We are extracting and analyzing the content of your documents and images.",
     "swal3Multimodal": "Once completed, review the generated text and click search to continue.",
     "multimodalInfo": {
@@ -697,19 +697,19 @@
     "descriptionopt3": "Here you can write guiding symptoms or important elements that you have observed in any type of analytical or diagnostic test. It can include any type of information such as symptoms, results, or any other type of biomarker.",
     "Type here": "Type here!",
     "Placeholder help": "Type here patient details (age, gender, symptoms) and when they started.\nExample: Female, 42, severe headaches for 3 months, dizziness, family history of migraines.",
-    "title": "Enter a brief patient's description and SermasGPT will provide a list of possible disease diagnoses",
+    "title": "Enter a brief patient's description and DxGPT will provide a list of possible disease diagnoses",
     "p1.title": "Examples",
     "p1.subtitle": "Click on the text to use it as an example",
     "p1.1": "The patient is thirteen months old. First focal seizure at three months. Multiple tonic-clonic seizures. Febrile seizures. One status epilepticus at eight months.",
     "p1.2": "Girl. 11 years. unilateral hemispheric atrophy, associated with drug-resistant focal epilepsy, progressive hemiplegia, and cognitive decline",
     "p2.title": "Capabilities",
-    "p2.subtitle": "Main features of SermasGPT",
+    "p2.subtitle": "Main features of DxGPT",
     "p2.1": "Displays detailed descriptions with matching and non-matching symptoms",
     "p2.2": "Provides a differential diagnosis by clicking on each disease",
     "p2.3": "Allows to improve patient description by AI questions",
     "p2.4": "Has advanced mode for more accurate analysis",
     "p3.title": "Limitations",
-    "p3.subtitle": "Things to keep in mind when using SermasGPT",
+    "p3.subtitle": "Things to keep in mind when using DxGPT",
     "p3.1": "May occasionally generate incorrect information",
     "p3.2": "Cannot be used for diagnosis without human supervision",
     "errorLocation": "We have detected that you are using a VPN or a network that prevents the detection of your location. This can affect the proper functioning of our application and the security of our services. Please disable the VPN or use a network that allows the detection of your location to continue.",
@@ -733,7 +733,7 @@
     "Do you want to start over": "Do you want to start over?",
     "Results copied to the clipboard": "Results copied to the clipboard",
     "Do not show this message again": "Do not show this message again",
-    "titleOptions": "SermasGPT searches in <strong>rare diseases</strong>, to expand the search to common diseases, activate this button:",
+    "titleOptions": "DxGPT searches in <strong>rare diseases</strong>, to expand the search to common diseases, activate this button:",
     "opt1": "Rare diseases",
     "opt2": "See common diseases",
     "rare": "rare diseases",
@@ -760,43 +760,43 @@
     },
     "Please answer at least one question": "Please answer at least one question",
     "aboutUs": {
-      "P1_Title": "SermasGPT",
-      "P1_Summary_P1": "SermasGPT is a diagnostic support tool designed by and for the clinical environment. Unlike general-purpose AIs, it does not provide open-ended answers, but rather a structured analysis of five diagnostic hypotheses, reasoned and ranked. We use the most advanced technology, like OpenAI’s o3, within a medical oversight framework that ensures the relevance and safety of every result. We do not replace the doctor; we offer an instant second opinion, designed to save time, reduce bias, and elevate the quality of clinical reasoning from the start.",
+      "P1_Title": "DxGPT",
+      "P1_Summary_P1": "DxGPT is a diagnostic support tool designed by and for the clinical environment. Unlike general-purpose AIs, it does not provide open-ended answers, but rather a structured analysis of five diagnostic hypotheses, reasoned and ranked. We use the most advanced technology, like OpenAI’s o3, within a medical oversight framework that ensures the relevance and safety of every result. We do not replace the doctor; we offer an instant second opinion, designed to save time, reduce bias, and elevate the quality of clinical reasoning from the start.",
 
       "P1.S1.T": "The challenge of clinical diagnosis",
-      "P1.S1.B1.Q": "What core problem does SermasGPT solve?",
-      "P1.S1.B1.A_P1": "Medical diagnosis, especially for rare diseases, is a slow and complex process. Professionals must analyze countless symptoms and data, which can delay treatment and create uncertainty. SermasGPT acts as a powerful cognitive aid, streamlining this process to reach an accurate diagnosis sooner.",
+      "P1.S1.B1.Q": "What core problem does DxGPT solve?",
+      "P1.S1.B1.A_P1": "Medical diagnosis, especially for rare diseases, is a slow and complex process. Professionals must analyze countless symptoms and data, which can delay treatment and create uncertainty. DxGPT acts as a powerful cognitive aid, streamlining this process to reach an accurate diagnosis sooner.",
       "P1.S1.B2.Q": "Why are rare diseases such a big challenge?",
       "P1.S1.B2.A_P1": "There are over 10,000 rare diseases, most of which are unfamiliar to the average clinician due to their low frequency. This lack of familiarity makes diagnosis a major challenge. Supportive technology is no longer a luxury but a necessity to improve accuracy and care quality in these cases.",
 
-      "P1.S2.T": "Why SermasGPT instead of a general-purpose AI",
-      "P1.S2.B1.Q": "How is SermasGPT different from using a chatbot like ChatGPT?",
-      "P1.S2.B1.A_P1": "SermasGPT transforms differential diagnosis because it is designed with a specific clinical purpose. Instead of an open consultation, you get five structured, reasoned, and ranked diagnostic hypotheses using standards like ICD-10. It’s a supervised environment applying advanced AI within a safe, diagnosis-oriented framework.",
+      "P1.S2.T": "Why DxGPT instead of a general-purpose AI",
+      "P1.S2.B1.Q": "How is DxGPT different from using a chatbot like ChatGPT?",
+      "P1.S2.B1.A_P1": "DxGPT transforms differential diagnosis because it is designed with a specific clinical purpose. Instead of an open consultation, you get five structured, reasoned, and ranked diagnostic hypotheses using standards like ICD-10. It’s a supervised environment applying advanced AI within a safe, diagnosis-oriented framework.",
       "P1.S2.B2.Q": "What specific advantages does this specialized approach offer?",
-      "P1.S2.B2.A_P1": "SermasGPT’s clinical design offers direct benefits:",
+      "P1.S2.B2.A_P1": "DxGPT’s clinical design offers direct benefits:",
       "P1.S2.B2.A_L1.I1": "Time saving: Diagnosis is practically immediate.",
       "P1.S2.B2.A_L1.I2": "Clinical clarity: Each hypothesis includes explicit compatible and incompatible symptoms.",
       "P1.S2.B2.A_L1.I3": "Optimized interface: Designed for medical decision-making, not freeform exploration.",
       "P1.S2.B2.A_L1.I4": "Bias reduction: Reduces availability bias, ensuring rare diagnoses are not overlooked.",
       "P1.S2.B2.A_L1.I5": "Consistency and validation: The same case always receives an equally rigorous analysis, continuously validated with our proprietary clinical benchmark.",
       "P1.S2.B3.Q": "So, what is the future of AI in medicine?",
-      "P1.S2.B3.A_P1": "The future won’t be a single system for everything, but an ecosystem of specialized, medically validated solutions like SermasGPT. Using it today means actively shaping how AI is built and validated in medicine from real clinical practice.",
+      "P1.S2.B3.A_P1": "The future won’t be a single system for everything, but an ecosystem of specialized, medically validated solutions like DxGPT. Using it today means actively shaping how AI is built and validated in medicine from real clinical practice.",
 
       "P1.S3.T": "Real impact: integration in healthcare systems",
-      "P1.S3.Intro_P1": "SermasGPT is already being integrated into public healthcare systems to help doctors improve the diagnosis of rare diseases in daily clinical practice. Here are our current and upcoming deployments:",
+      "P1.S3.Intro_P1": "DxGPT is already being integrated into public healthcare systems to help doctors improve the diagnosis of rare diseases in daily clinical practice. Here are our current and upcoming deployments:",
       "P1.S3.B1.T": "Pioneering Implementation: Madrid Health Service (SERMAS)",
-      "P1.S3.B1.Content_P1": "Since September 2023, the Madrid Health Service (SERMAS) has pioneered the implementation of SermasGPT for over 6,000 Primary Care doctors in the Community of Madrid. This initiative has improved both the speed and accuracy of diagnosing rare diseases, significantly reducing the time needed to refer patients to appropriate specialists.",
+      "P1.S3.B1.Content_P1": "Since September 2023, the Madrid Health Service (SERMAS) has pioneered the implementation of DxGPT for over 6,000 Primary Care doctors in the Community of Madrid. This initiative has improved both the speed and accuracy of diagnosing rare diseases, significantly reducing the time needed to refer patients to appropriate specialists.",
       "P1.S3.B1.RelatedLink1": "Madrid Health Service pioneers Generative AI for improving diagnosis in rare disease patients",
       "P1.S3.B1.RelatedLink2": "Madrid enables over 6,000 Primary Care doctors to access AI for rare disease diagnosis",
       "P1.S3.B2.T": "In Progress: CatSalut (Catalonia)",
-      "P1.S3.B2.Content_P1": "We are currently working to implement SermasGPT in the Catalan healthcare system (CatSalut), aiming to bring this innovative tool to healthcare professionals in Catalonia to improve rare disease diagnosis in the region.",
+      "P1.S3.B2.Content_P1": "We are currently working to implement DxGPT in the Catalan healthcare system (CatSalut), aiming to bring this innovative tool to healthcare professionals in Catalonia to improve rare disease diagnosis in the region.",
       "P1.S3.B3.T": "Aragonese Health Service",
-      "P1.S3.B3.Content_P1": "SermasGPT is already available for healthcare professionals in the Aragonese Health Service, allowing them to improve the accuracy and speed of diagnosing rare and common diseases in the region of Aragón.",
+      "P1.S3.B3.Content_P1": "DxGPT is already available for healthcare professionals in the Aragonese Health Service, allowing them to improve the accuracy and speed of diagnosing rare and common diseases in the region of Aragón.",
 
       "P2_Title": "Benchmarking",
       "P2_Summary_P1": "For an AI tool to be clinically useful, it must be rigorously evaluated. We do not settle for generic metrics; we have built, processed, and validated our own test bank: DxGPT-bench. This set of 997 statistically representative and diverse clinical cases allows us to measure language model accuracy in realistic scenarios, ensuring DxGPT is built on solid and transparent evidence.",
 
-      "P2.S1.T": "Creating SermasGPT-bench: our data",
+      "P2.S1.T": "Creating DxGPT-bench: our data",
       "P2.S1.B1.Q": "Where does the benchmark data come from?",
       "P2.S1.B1.A_P1": "Our database integrates five complementary sources to cover a broad spectrum of medical practice:",
       "P2.S1.B1.A_L1.I1": "Real emergency cases from HM Hospitales in Madrid.",
@@ -817,36 +817,36 @@
       "P2.S2.B3.A_P1": "Given the significant computational cost, we prioritized dataset optimization. Expanding it to cover 100% of ICD-10 codes would mostly add very rare variants with marginal impact on model benchmarking, at prohibitive cost. Our approach provides a comprehensive evaluation with reasonable resources.",
 
       "P2.S3.T": "Evaluation process and results",
-      "P2.S3.B1.Q": "How is a language model evaluated with SermasGPT-bench?",
+      "P2.S3.B1.Q": "How is a language model evaluated with DxGPT-bench?",
       "P2.S3.B1.A_P1": "The process is automated:",
       "P2.S3.B1.A_L1.I1": "The model generates diagnoses for each benchmark case.",
       "P2.S3.B1.A_L1.I2": "These are compared to the correct diagnosis using semantic similarity, either with a BERT model specialized in the clinical domain or a reasoning language model.",
       "P2.S3.B1.A_L1.I3": "Each diagnosis is assigned a severity level.",
       "P2.S3.B1.A_L1.I4": "A distance is calculated between the severity of generated diagnoses and the correct one.",
       "P2.S3.B1.A_P2": "These well-classified metrics allow extraction of not only global accuracy scores but also diagnostic optimism metrics and stratification of the original points to visualize various correlations.",
-      "P2.S3.B2.Q": "Has SermasGPT been validated against doctors in a clinical study?",
-      "P2.S3.B2.A_P1": "Yes. Sant Joan de Déu Hospital has conducted a thorough clinical study. Results show SermasGPT achieves diagnostic accuracy comparable to expert clinicians. This work has been published as a preprint and is under peer review. You can read the full study here:",
-      "P2.S3.B2.A_P2": "Clinical utility evaluation of SermasGPT | medRxiv.",
+      "P2.S3.B2.Q": "Has DxGPT been validated against doctors in a clinical study?",
+      "P2.S3.B2.A_P1": "Yes. Sant Joan de Déu Hospital has conducted a thorough clinical study. Results show DxGPT achieves diagnostic accuracy comparable to expert clinicians. This work has been published as a preprint and is under peer review. You can read the full study here:",
+      "P2.S3.B2.A_P2": "Clinical utility evaluation of DxGPT | medRxiv.",
 
       "P3_Title": "Who we are",
       "P3_Summary_P1": "Fundación 29 is a nonprofit organization committed to improving the lives of people with rare and chronic diseases. Inspired by Rare Disease Day, celebrated on February 29, we use data and digital tools to promote earlier diagnoses, empower patients, and support healthcare professionals.",
-      "P3_Summary_P2": "Through collaboration with hospitals, researchers, and the medical community, we strive for more personalized, inclusive, and effective healthcare. Our initiatives are based on open science, transparency, and the belief that data can drive positive change in health systems. SermasGPT reflects our mission: a tool developed under the principles of open science, transparency, and collaboration, offered for free to give back to society.",
+      "P3_Summary_P2": "Through collaboration with hospitals, researchers, and the medical community, we strive for more personalized, inclusive, and effective healthcare. Our initiatives are based on open science, transparency, and the belief that data can drive positive change in health systems. DxGPT reflects our mission: a tool developed under the principles of open science, transparency, and collaboration, offered for free to give back to society.",
 
       "P3.S1.T": "Our mission and commitment",
       "P3.S1.B1.Q": "What is Fundación 29?",
       "P3.S1.B1.A_P1": "We are a nonprofit organization inspired by Rare Disease Day (February 29). We seek more personalized, inclusive, and effective healthcare by collaborating with hospitals, researchers, and the medical community. We believe data can drive positive change in health systems.",
       "P3.S1.B2.Q": "What is your commitment to transparency and open science?",
-      "P3.S1.B2.A_P1": "It is total. In our commitment to transparency, we have made the SermasGPT source code public. You can explore and contribute to our <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>client</a> and <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>server</a> repositories on GitHub.",
-      "P3.S1.B3.Q": "Is SermasGPT a finished product?",
-      "P3.S1.B3.A_P1": "No, SermasGPT is an experimental platform under continuous development. Its goal is to explore AI’s capabilities in diagnosis, understand its limitations, and improve it with user feedback and rigorous clinical validation. New findings will be shared on our GitHub and on MedRxiv.",
+      "P3.S1.B2.A_P1": "It is total. In our commitment to transparency, we have made the DxGPT source code public. You can explore and contribute to our <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>client</a> and <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>server</a> repositories on GitHub.",
+      "P3.S1.B3.Q": "Is DxGPT a finished product?",
+      "P3.S1.B3.A_P1": "No, DxGPT is an experimental platform under continuous development. Its goal is to explore AI’s capabilities in diagnosis, understand its limitations, and improve it with user feedback and rigorous clinical validation. New findings will be shared on our GitHub and on MedRxiv.",
       "P3.S1.B4.Q": "What legal and data protection guarantees do you offer?",
-      "P3.S1.B4.A_P1": "We have extensive experience in regulatory compliance. SermasGPT aligns with data protection frameworks like GDPR and HIPAA, and we are working toward full alignment with the EU AI Act, collaborating with regulatory authorities to ensure the highest ethical and legal standards.",
+      "P3.S1.B4.A_P1": "We have extensive experience in regulatory compliance. DxGPT aligns with data protection frameworks like GDPR and HIPAA, and we are working toward full alignment with the EU AI Act, collaborating with regulatory authorities to ensure the highest ethical and legal standards.",
 
       "P3.S2.T": "Partners and supporters",
       "P3.S2.B1.Q": "Who are your technology partners?",
-      "P3.S2.B1.A_P1": "We thank Microsoft, which through its AI for Good program provides Azure infrastructure and volunteer employee support. We also thank Google, whose NGO program helps increase SermasGPT’s visibility to reach more professionals and patients.",
+      "P3.S2.B1.A_P1": "We thank Microsoft, which through its AI for Good program provides Azure infrastructure and volunteer employee support. We also thank Google, whose NGO program helps increase DxGPT’s visibility to reach more professionals and patients.",
       "P3.S2.B2.Q": "And your sponsors?",
-      "P3.S2.B2.A_P1": "We extend our deepest thanks to our generous sponsors. Their support is purely philanthropic, with no commercial interest or data exchange, and is vital to developing tools like SermasGPT and offering them for free.",
+      "P3.S2.B2.A_P1": "We extend our deepest thanks to our generous sponsors. Their support is purely philanthropic, with no commercial interest or data exchange, and is vital to developing tools like DxGPT and offering them for free.",
 
       "P3.S3.T": "Join our mission",
       "P3.S3.B1.Q": "How can I collaborate or become a sponsor?",
@@ -858,43 +858,43 @@
     },
     "faqs": {
       "title": "Frequently Asked Questions",
-      "subtitle": "Resolve all your doubts about SermasGPT and how it can help you in medical diagnosis.",
+      "subtitle": "Resolve all your doubts about DxGPT and how it can help you in medical diagnosis.",
       "q1": "Is my medical information kept confidential?",
-      "a1": "Yes, your privacy is our highest priority. SermasGPT is an initiative by Foundation 29, a non-profit organization committed to rigorously protecting your personal and health data. We never sell, rent, or share your personal information with third parties for commercial or marketing purposes. All data you provide is securely encrypted both during transmission and when stored. Additionally, sensitive details are anonymized automatically before being saved, ensuring individual identities cannot be revealed. Access to your data is strictly controlled and limited to authorized personnel who adhere to strict confidentiality obligations, fully complying with GDPR and HIPAA regulations.",
-      "q2": "Can I use SermasGPT in emergency situations?",
-      "a2": "No, SermasGPT is not intended or designed to handle medical emergencies or urgent medical conditions. In the event of an emergency, please immediately contact your local emergency services or visit the nearest emergency facility. SermasGPT is developed as a supportive resource for medical professionals, aiming to enhance diagnostic processes and decision-making. However, it must never be considered a substitute for the professional judgment and immediate intervention provided by trained medical personnel.",
-      "q3": "How does SermasGPT suggest possible diagnoses?",
-      "a3": "SermasGPT utilizes advanced artificial intelligence and machine learning models to analyze the symptoms and clinical information provided by healthcare professionals. It compares this input against an extensive database of existing medical knowledge to suggest potential conditions. SermasGPT is explicitly not a medical device; rather, it operates as a decision-support system. This means it aids medical professionals by providing guidance on potential diagnoses but does not replace their expert clinical judgment or professional assessments. The suggestions SermasGPT provides are intended to assist clinicians in identifying possible diagnoses and directing further investigation, but it is essential always to consult a qualified healthcare professional for a definitive diagnosis and treatment plan.",
-      "q4": "Can I speak with a human doctor through SermasGPT?",
-      "a4": "At present, SermasGPT is entirely automated and does not facilitate direct communication with human doctors or medical personnel. For any specific health-related concerns or detailed medical consultations, please contact your regular healthcare provider or seek professional medical advice directly.",
-      "q5": "Is SermasGPT available worldwide?",
-      "a5": "Yes, SermasGPT is accessible to users worldwide. However, it's important to note that medical practices, terminology, and healthcare standards can significantly vary between countries and regions. SermasGPT aims to provide universally applicable information, but users should always interpret its suggestions within the context of their local medical standards and practices.",
-      "q6": "What languages can I use with SermasGPT?",
-      "a6": "SermasGPT can process inputs and provide responses in virtually any language. However, because its training data was predominantly in English, responses in English typically offer the highest accuracy and reliability. For languages with fewer users or less available medical training data, SermasGPT's suggestions might occasionally be less accurate or incomplete. We strongly encourage you to use SermasGPT in your preferred or native language and provide feedback about your experience. This will help us continuously improve its capabilities and accuracy across different languages.",
-      "q7": "How often is SermasGPT's medical information updated?",
-      "a7": "SermasGPT itself does not directly update its internal database or knowledge. Instead, our dedicated team continually tests and evaluates the latest and most advanced artificial intelligence models and algorithms. We regularly conduct clinical studies in partnership with hospitals and medical institutions to verify and enhance SermasGPT's performance, particularly focusing on accurately diagnosing rare diseases and complex cases. This ongoing process ensures SermasGPT remains current and effective.",
-      "q8": "How can I provide feedback on SermasGPT?",
-      "a8": "Your feedback is critically important for the continuous improvement of SermasGPT. You can conveniently submit feedback directly through the application using the red tab located on the right side of the SermasGPT interface. Alternatively, you can reach us via email at support@foundation29.org. We carefully review all feedback and suggestions to enhance our service.",
-      "q9": "Can I see statistics on how SermasGPT is used?",
-      "a9": "Yes, you can access comprehensive statistics through the 'Usage Statistics' section located in the top menu of the SermasGPT interface. Here, you can find detailed insights such as the total number of users, most frequently entered symptoms, top suggested diagnoses, geographic distribution of users, and a summary of user feedback. These statistics are presented anonymously and do not contain any personally identifiable information.",
-      "q10": "Who can collaborate on SermasGPT's development? ",
-      "a10": "We actively seek and warmly welcome collaborations from researchers, medical professionals, healthcare institutions, and organizations interested in the advancement of AI-assisted diagnostic technologies. If you are interested in contributing to our project or exploring joint research opportunities, please reach out to us via email at support@foundation29.org, or complete the contact form available on our official website. Collaboration helps us continually enhance SermasGPT's capabilities and practical utility.",
-      "q11": "I represent a patient group. How can we collaborate with SermasGPT?",
-      "a11": "If you represent a patient group or advocacy organization, we encourage you to collaborate by promoting SermasGPT within your networks and communities. We are particularly interested in your group's experiences with specific medical conditions or diseases, as this information helps us better understand your unique needs and refine SermasGPT accordingly. Please contact us to discuss potential collaboration and how SermasGPT might best support your patient group.",
-      "q12": "Is SermasGPT considered a medical device?",
-      "a12": "No. SermasGPT is not classified or regulated as a medical device under international regulations such as the European Union's Medical Device Regulation (EU MDR) or the U.S. Food and Drug Administration (FDA). SermasGPT serves purely as an experimental clinical decision-support tool, designed exclusively to assist qualified healthcare professionals by providing guidance and suggestions for diagnosis. It should always be used alongside, and not in replacement of, professional medical evaluation.",
-      "q13": "Is SermasGPT free to use?",
-      "a13": "Yes, SermasGPT is entirely free to use. It is developed and maintained as a non-profit project by Foundation 29, funded through philanthropic donations, grants, and collaborative partnerships. We aim to make advanced AI diagnostic support tools freely available to healthcare professionals and patients globally, promoting equity and access in medical diagnostics.",
+      "a1": "Yes, your privacy is our highest priority. DxGPT is an initiative by Foundation 29, a non-profit organization committed to rigorously protecting your personal and health data. We never sell, rent, or share your personal information with third parties for commercial or marketing purposes. All data you provide is securely encrypted both during transmission and when stored. Additionally, sensitive details are anonymized automatically before being saved, ensuring individual identities cannot be revealed. Access to your data is strictly controlled and limited to authorized personnel who adhere to strict confidentiality obligations, fully complying with GDPR and HIPAA regulations.",
+      "q2": "Can I use DxGPT in emergency situations?",
+      "a2": "No, DxGPT is not intended or designed to handle medical emergencies or urgent medical conditions. In the event of an emergency, please immediately contact your local emergency services or visit the nearest emergency facility. DxGPT is developed as a supportive resource for medical professionals, aiming to enhance diagnostic processes and decision-making. However, it must never be considered a substitute for the professional judgment and immediate intervention provided by trained medical personnel.",
+      "q3": "How does DxGPT suggest possible diagnoses?",
+      "a3": "DxGPT utilizes advanced artificial intelligence and machine learning models to analyze the symptoms and clinical information provided by healthcare professionals. It compares this input against an extensive database of existing medical knowledge to suggest potential conditions. DxGPT is explicitly not a medical device; rather, it operates as a decision-support system. This means it aids medical professionals by providing guidance on potential diagnoses but does not replace their expert clinical judgment or professional assessments. The suggestions DxGPT provides are intended to assist clinicians in identifying possible diagnoses and directing further investigation, but it is essential always to consult a qualified healthcare professional for a definitive diagnosis and treatment plan.",
+      "q4": "Can I speak with a human doctor through DxGPT?",
+      "a4": "At present, DxGPT is entirely automated and does not facilitate direct communication with human doctors or medical personnel. For any specific health-related concerns or detailed medical consultations, please contact your regular healthcare provider or seek professional medical advice directly.",
+      "q5": "Is DxGPT available worldwide?",
+      "a5": "Yes, DxGPT is accessible to users worldwide. However, it's important to note that medical practices, terminology, and healthcare standards can significantly vary between countries and regions. DxGPT aims to provide universally applicable information, but users should always interpret its suggestions within the context of their local medical standards and practices.",
+      "q6": "What languages can I use with DxGPT?",
+      "a6": "DxGPT can process inputs and provide responses in virtually any language. However, because its training data was predominantly in English, responses in English typically offer the highest accuracy and reliability. For languages with fewer users or less available medical training data, DxGPT's suggestions might occasionally be less accurate or incomplete. We strongly encourage you to use DxGPT in your preferred or native language and provide feedback about your experience. This will help us continuously improve its capabilities and accuracy across different languages.",
+      "q7": "How often is DxGPT's medical information updated?",
+      "a7": "DxGPT itself does not directly update its internal database or knowledge. Instead, our dedicated team continually tests and evaluates the latest and most advanced artificial intelligence models and algorithms. We regularly conduct clinical studies in partnership with hospitals and medical institutions to verify and enhance DxGPT's performance, particularly focusing on accurately diagnosing rare diseases and complex cases. This ongoing process ensures DxGPT remains current and effective.",
+      "q8": "How can I provide feedback on DxGPT?",
+      "a8": "Your feedback is critically important for the continuous improvement of DxGPT. You can conveniently submit feedback directly through the application using the red tab located on the right side of the DxGPT interface. Alternatively, you can reach us via email at support@foundation29.org. We carefully review all feedback and suggestions to enhance our service.",
+      "q9": "Can I see statistics on how DxGPT is used?",
+      "a9": "Yes, you can access comprehensive statistics through the 'Usage Statistics' section located in the top menu of the DxGPT interface. Here, you can find detailed insights such as the total number of users, most frequently entered symptoms, top suggested diagnoses, geographic distribution of users, and a summary of user feedback. These statistics are presented anonymously and do not contain any personally identifiable information.",
+      "q10": "Who can collaborate on DxGPT's development? ",
+      "a10": "We actively seek and warmly welcome collaborations from researchers, medical professionals, healthcare institutions, and organizations interested in the advancement of AI-assisted diagnostic technologies. If you are interested in contributing to our project or exploring joint research opportunities, please reach out to us via email at support@foundation29.org, or complete the contact form available on our official website. Collaboration helps us continually enhance DxGPT's capabilities and practical utility.",
+      "q11": "I represent a patient group. How can we collaborate with DxGPT?",
+      "a11": "If you represent a patient group or advocacy organization, we encourage you to collaborate by promoting DxGPT within your networks and communities. We are particularly interested in your group's experiences with specific medical conditions or diseases, as this information helps us better understand your unique needs and refine DxGPT accordingly. Please contact us to discuss potential collaboration and how DxGPT might best support your patient group.",
+      "q12": "Is DxGPT considered a medical device?",
+      "a12": "No. DxGPT is not classified or regulated as a medical device under international regulations such as the European Union's Medical Device Regulation (EU MDR) or the U.S. Food and Drug Administration (FDA). DxGPT serves purely as an experimental clinical decision-support tool, designed exclusively to assist qualified healthcare professionals by providing guidance and suggestions for diagnosis. It should always be used alongside, and not in replacement of, professional medical evaluation.",
+      "q13": "Is DxGPT free to use?",
+      "a13": "Yes, DxGPT is entirely free to use. It is developed and maintained as a non-profit project by Foundation 29, funded through philanthropic donations, grants, and collaborative partnerships. We aim to make advanced AI diagnostic support tools freely available to healthcare professionals and patients globally, promoting equity and access in medical diagnostics.",
       "q14": "Is my data used for secondary use?",
-      "a14": "SermasGPT never uses your personal data for secondary purposes such as marketing or commercial activities. We strictly use aggregated, anonymous data—including general usage patterns, frequently reported symptoms, common diagnostic suggestions, and overall trends—to enhance our algorithms' accuracy, reliability, and functionality. This aggregated data is completely anonymized and ensures that no individual user can be identified from this information."
+      "a14": "DxGPT never uses your personal data for secondary purposes such as marketing or commercial activities. We strictly use aggregated, anonymous data—including general usage patterns, frequently reported symptoms, common diagnostic suggestions, and overall trends—to enhance our algorithms' accuracy, reliability, and functionality. This aggregated data is completely anonymized and ensures that no individual user can be identified from this information."
     },
     "diagnosed":{
       "timeline":{
         "title":"We are going to help you build a timeline of your symptoms. This data can improve your disease management and help other patients like you on their diagnostic odyssey. There are 2 easy steps:",
-        "subtitlea": "In this report, the SermasGPT user describes the patient's symptoms with the aim of improving patient-physician communication.",
+        "subtitlea": "In this report, the DxGPT user describes the patient's symptoms with the aim of improving patient-physician communication.",
         "subtitleb": "It is recommended to take the report to the next medical visit so that both the patient and the physician can help to further",
         "subtitlec": "refine the contents.",
-        "subtitle1": "This report has been generated with SermasGPT, a diagnostic assistance tool through precision symptom description",
+        "subtitle1": "This report has been generated with DxGPT, a diagnostic assistance tool through precision symptom description",
         "subtitle2": "developed by Foundation 29 of February (www.foundation29.org). Together we accelerate the process of diagnosis",
         "subtitle3": "of rare diseases and their treatment in an easy and simple way.",
         "footer1": "We are a non-profit organisation that designs and creates tools for patients to manage their own data, revolutionising the",
@@ -909,8 +909,8 @@
     }
   },
   "permalink":{
-    "title": "SermasGPT Results",
-    "subtitle": "Suggested diagnoses generated by SermasGPT",
+    "title": "DxGPT Results",
+    "subtitle": "Suggested diagnoses generated by DxGPT",
     "print": "Print",
     "share": "Share",
     "newAnalysis": "New Analysis",
@@ -933,7 +933,7 @@
     "moreInfoDisease": "More information about this disease",
     "medicalDisclaimerTitle": "Important - Medical Disclaimer",
     "medicalDisclaimer": "This report is for informational and clinical support purposes only.",
-    "disclaimer1": "SermasGPT is an AI-based diagnostic support tool",
+    "disclaimer1": "DxGPT is an AI-based diagnostic support tool",
     "disclaimer2": "The results do not constitute a definitive medical diagnosis",
     "disclaimer3": "Always consult a qualified healthcare professional",
     "disclaimer4": "Do not use this information for self-diagnosis or self-treatment",
@@ -941,8 +941,8 @@
     "developedBy": "Developed by",
     "footer": "AI-based diagnostic support tool for healthcare professionals. Complies with GDPR and HIPAA regulations.",
     "oops": "Oops...",
-    "shareTitle": "SermasGPT Results",
-    "shareText": "Share SermasGPT results",
+    "shareTitle": "DxGPT Results",
+    "shareText": "Share DxGPT results",
     "copied": "Permalink copied to clipboard"
   },
   "feedback":{
@@ -966,8 +966,8 @@
   "seo":{
     "home":{
       "keywords": "diagnosis, diagnose, rare disease, GPT, syndrome, disease, prognosis, symptoms, HPO, epilepsy, seizures, status epilepticus, developmental delay, pediatrics, genetics, neurology, genetic disease",
-      "description": "SermasGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.",
-      "title": "SermasGPT: diagnostic decision support software based on GPT-4"
+      "description": "DxGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.",
+      "title": "DxGPT: diagnostic decision support software based on GPT-4"
     }
   },
   "cookie": {
@@ -1015,11 +1015,11 @@
     "terms": "terms of use of the form data",
     "acceptterms": "You must accept the terms to continue.",
     "modalTitle": "Terms of use of form data",
-    "modalBody2": "By submitting the form, you agree that SermasGPT may use your contact information (email) for the following purposes:",
+    "modalBody2": "By submitting the form, you agree that DxGPT may use your contact information (email) for the following purposes:",
     "modalBody3": "Support and assistance:",
     "modalBody4": "Respond to your inquiries and support requests.",
     "modalBody5": "Communications and updates:",
-    "modalBody6": "Inform you about new versions, updates, and improvements of the SermasGPT software.",
+    "modalBody6": "Inform you about new versions, updates, and improvements of the DxGPT software.",
     "modalBody7": "Feedback and service improvement:",
     "modalBody8": "Request your feedback to improve the quality and functionality of the software.",
     "modalBody9": "Protection of your data",
@@ -1078,7 +1078,7 @@
   },
   "integration": {
     "title": "Integration",
-    "subtitle": "Discover how SermasGPT can integrate into your medical workflow",
+    "subtitle": "Discover how DxGPT can integrate into your medical workflow",
     "deployment_models": {
       "title": "Deployment Models",
       "recommended": "Recommended",
@@ -1127,14 +1127,14 @@
     },
     "hospitals_clinics": {
       "title": "For healthcare providers",
-      "portal_integration": "Portal integration - Embed SermasGPT in your existing system",
+      "portal_integration": "Portal integration - Embed DxGPT in your existing system",
       "multilingual_support": "Multilingual support - Works in multiple languages",
       "regulatory_compliance": "Regulatory compliance - Self-hosted version for HIPAA/HIS",
       "azure_ad_integration": "Azure AD integration - Corporate authentication"
     },
     "developers": {
       "title": "For developers",
-      "rest_api": "REST API - Integrate SermasGPT into your applications",
+      "rest_api": "REST API - Integrate DxGPT into your applications",
       "advanced_ai_models": "Advanced AI models - GPT-4o and O3 for precise diagnoses",
       "websocket_realtime": "WebSocket - Real-time communication",
       "complete_documentation": "Complete documentation - Swagger UI and code examples"
@@ -1177,7 +1177,7 @@
     },
     "cta": {
       "title": "Ready to get started?",
-      "description": "Contact us to implement SermasGPT in your organization",
+      "description": "Contact us to implement DxGPT in your organization",
       "contact_us": "Contact us"
     }
   }

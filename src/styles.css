@@ -62,7 +62,7 @@
 }
 
 .danger {
-  color: var(--accent-color, #b30000) !important;
+  color: #b30000 !important;
 }
 
 .info {
@@ -86,7 +86,7 @@ a:not([href]) {
 }
 
 .white {
-  color: #fff !important;
+  color: var(--text-color, #fff) !important;
 }
 
 .underline{

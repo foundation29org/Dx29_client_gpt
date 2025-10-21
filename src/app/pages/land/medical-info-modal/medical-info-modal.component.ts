@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { BrandingService, BrandingConfig } from 'app/shared/services/branding.service';
 import { Subscription } from 'rxjs';
+import { marked } from 'marked';
 
 @Component({
   selector: 'app-medical-info-modal',
@@ -12,10 +13,17 @@ import { Subscription } from 'rxjs';
 export class MedicalInfoModalComponent implements OnInit, OnDestroy {
   @Input() content: string = '';
   @Input() title: string = 'Información Médica';
+  @Input() sonarData: string = '';
   closeButtonText: string = 'Cerrar';
   
   private subscription: Subscription = new Subscription();
   brandingConfig: BrandingConfig | null = null;
+  
+  // Contenido HTML procesado desde Markdown
+  htmlContent: string = '';
+  
+  // Datos de Sonar para referencias
+  sonarDataParsed: any = null;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -26,9 +34,15 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
     this.closeButtonText = 'Cerrar';
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     // Inicializar la traducción de forma segura
     this.initializeTranslation();
+    
+    // Procesar datos de Sonar para referencias PRIMERO
+    this.processSonarData();
+    
+    // Procesar el contenido Markdown a HTML DESPUÉS
+    await this.processMarkdownContent();
     
     // Cargar configuración de branding
     this.loadBrandingConfig();
@@ -52,6 +66,210 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
       console.error('Error initializing translation in medical info modal:', error);
       // Mantener el valor por defecto en caso de error
       this.closeButtonText = 'Cerrar';
+    }
+  }
+
+  /**
+   * Procesa el contenido Markdown y lo convierte a HTML
+   */
+  private async processMarkdownContent(): Promise<void> {
+    try {
+      if (this.content) {
+        // Configurar opciones de marked para mejor renderizado
+        marked.setOptions({
+          breaks: true, // Convertir saltos de línea a <br>
+          gfm: true   // GitHub Flavored Markdown
+        });
+
+        // Convertir Markdown a HTML
+        let parsedContent = await marked.parse(this.content);
+        
+        // Procesar referencias en el texto para convertirlas en enlaces
+        parsedContent = this.processReferenceLinks(parsedContent);
+        
+        // Convertir URLs sueltas en enlaces clicables
+        parsedContent = this.processUrlLinks(parsedContent);
+        console.log(parsedContent);
+        this.htmlContent = parsedContent;
+      } else {
+        this.htmlContent = '';
+      }
+    } catch (error) {
+      console.error('Error processing markdown content:', error);
+      // En caso de error, mostrar el contenido original
+      this.htmlContent = this.content;
+    }
+  }
+
+  /**
+   * Convierte URLs sueltas en enlaces clicables y agrega target="_blank" a enlaces existentes
+   */
+  private processUrlLinks(htmlContent: string): string {
+    // Primero, agregar target="_blank" a enlaces existentes que no lo tengan
+    let processedContent = htmlContent.replace(
+      /<a\s+([^>]*?)href\s*=\s*["']([^"']+)["']([^>]*?)>/gi,
+      (match, beforeHref, href, afterHref) => {
+        // Si ya tiene target="_blank", no modificar
+        if (match.includes('target="_blank"') || match.includes("target='_blank'")) {
+          return match;
+        }
+        
+        // Agregar target="_blank" y rel="noopener noreferrer"
+        return `<a ${beforeHref}href="${href}"${afterHref} target="_blank" rel="noopener noreferrer">`;
+      }
+    );
+    
+    // Luego, convertir URLs sueltas que no estén ya dentro de tags <a>
+    const urlPattern = /(https?:\/\/[^\s<>"{}|\\^`\[\]]+)/g;
+    
+    processedContent = processedContent.replace(urlPattern, (url) => {
+      // Verificar si la URL ya está dentro de un tag <a>
+      const beforeUrl = processedContent.substring(0, processedContent.indexOf(url));
+      const afterUrl = processedContent.substring(processedContent.indexOf(url) + url.length);
+      
+      // Si hay un <a> antes y un </a> después, no procesar
+      if (beforeUrl.includes('<a') && afterUrl.includes('</a>')) {
+        return url;
+      }
+      
+      // Crear enlace con target="_blank"
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="external-link">${url}</a>`;
+    });
+    
+    return processedContent;
+  }
+
+  /**
+   * Procesa las referencias en el texto para convertirlas en enlaces clicables
+   */
+  private processReferenceLinks(htmlContent: string): string {
+    if (!this.sonarDataParsed || !this.sonarDataParsed.searchResults) {
+      return htmlContent;
+    }
+
+    // Buscar patrones como [1], [2], [^1], [^2], [1][2], [^1][^2], etc.
+    const referencePattern = /\[\^?(\d+)\]/g;
+    
+    return htmlContent.replace(referencePattern, (match, number) => {
+      const refNumber = parseInt(number);
+      const reference = this.sonarDataParsed.searchResults[refNumber - 1];
+      
+      if (reference && reference.url) {
+        return `<a href="${reference.url}" target="_blank" class="reference-link" data-ref="${refNumber}" title="${reference.title}">[${number}]</a>`;
+      }
+      
+      // Si no se encuentra la referencia, mantener el número original
+      return match;
+    });
+  }
+
+  /**
+   * Procesa los datos de Sonar para mostrar referencias
+   */
+  private processSonarData(): void {
+    try {
+      if (this.sonarData) {
+        // Parsear JSON si viene como string
+        if (typeof this.sonarData === 'string') {
+          this.sonarDataParsed = JSON.parse(this.sonarData);
+        } else {
+          this.sonarDataParsed = this.sonarData;
+        }
+        
+        // Limpiar cache de referencias cuando cambien los datos
+        this._formattedReferences = [];
+      } else {
+        this.sonarDataParsed = null;
+        this._formattedReferences = [];
+      }
+    } catch (error) {
+      console.error('Error processing sonar data:', error);
+      this.sonarDataParsed = null;
+      this._formattedReferences = [];
+    }
+  }
+
+  // Cache para las referencias formateadas
+  private _formattedReferences: any[] = [];
+
+  /**
+   * Obtiene las referencias formateadas para mostrar
+   */
+  getFormattedReferences(): any[] {
+    if (!this.sonarDataParsed || !this.sonarDataParsed.searchResults) {
+      return [];
+    }
+
+    // Si ya tenemos las referencias cacheadas, las devolvemos
+    if (this._formattedReferences.length > 0) {
+      return this._formattedReferences;
+    }
+
+    // Procesar y cachear las referencias
+    this._formattedReferences = this.sonarDataParsed.searchResults.map((result: any, index: number) => ({
+      number: index + 1,
+      title: result.title,
+      url: result.url,
+      date: result.date,
+      snippet: result.snippet,
+      source: result.source
+    }));
+
+    return this._formattedReferences;
+  }
+
+  /**
+   * Verifica si hay referencias disponibles
+   */
+  hasReferences(): boolean {
+    return this.sonarDataParsed && 
+           this.sonarDataParsed.searchResults && 
+           this.sonarDataParsed.searchResults.length > 0;
+  }
+
+  /**
+   * TrackBy function para optimizar el rendimiento de las referencias
+   */
+  trackByReference(index: number, item: any): any {
+    return item.number || index;
+  }
+
+  /**
+   * Maneja el clic en el contenido del modal
+   */
+  onContentClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    
+    // Verificar si se hizo clic en un enlace de referencia
+    if (target.classList.contains('reference-link')) {
+      // NO prevenir el comportamiento por defecto para permitir que el enlace se abra
+      // Solo hacer scroll a la referencia si es necesario
+      const refNumber = parseInt(target.getAttribute('data-ref') || '0');
+      
+      // Hacer scroll a la referencia después de un pequeño delay para permitir que el enlace se abra
+      setTimeout(() => {
+        this.onReferenceClick(refNumber);
+      }, 100);
+    }
+  }
+
+  /**
+   * Maneja el clic en un enlace de referencia
+   */
+  onReferenceClick(refNumber: number): void {
+    // Scroll a la referencia correspondiente en la lista
+    const referenceElement = document.querySelector(`.reference-item:nth-child(${refNumber})`);
+    if (referenceElement) {
+      referenceElement.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+      
+      // Resaltar temporalmente la referencia
+      referenceElement.classList.add('highlighted');
+      setTimeout(() => {
+        referenceElement.classList.remove('highlighted');
+      }, 2000);
     }
   }
 
@@ -97,7 +315,7 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
         // Aplicar color de texto del contenido
         const contentElement = modalElement.querySelector('.medical-content') as HTMLElement;
         if (contentElement) {
-          contentElement.style.color = this.brandingConfig.colors.text;
+          //contentElement.style.color = this.brandingConfig.colors.text;
         }
 
         // Aplicar colores de elementos destacados

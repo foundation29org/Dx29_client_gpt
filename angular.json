@@ -164,6 +164,79 @@
                   "with": "src/environments/environment.salud-gpt.dev.ts"
                 }
               ]
+            },
+            "sermas-gpt": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sermas-gpt.ts"
+                }
+              ]
+            },
+            "sermas-gpt-prod": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sermas-gpt.prod.ts"
+                }
+              ]
+            },
+            "sermas-gpt-dev": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": false,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sermas-gpt.dev.ts"
+                }
+              ]
             }
           }
         },
@@ -184,6 +257,15 @@
             },
             "salud-gpt-prod": {
               "browserTarget": "matngular:build:salud-gpt-prod"
+            },
+            "sermas-gpt": {
+              "browserTarget": "matngular:build:sermas-gpt"
+            },
+            "sermas-gpt-prod": {
+              "browserTarget": "matngular:build:sermas-gpt-prod"
+            },
+            "sermas-gpt-dev": {
+              "browserTarget": "matngular:build:sermas-gpt-dev"
             }
           }
         },

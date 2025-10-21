@@ -154,7 +154,7 @@
             <a class="pointer underline" 
                [href]="brandingConfig?.links?.foundation || 'https://www.foundation29.org'" 
                target="_blank">
-              {{ brandingConfig?.name === 'salud-gpt' ? 'Departamento de Sanidad de Aragón' : 'Fundación 29' }}
+              {{ brandingService.getFooterOrganizationName() }}
             </a>
           </p>
           <small class="text-muted">
@@ -168,7 +168,7 @@
                class="footer-logo" 
                style="height: 30px; width: auto;">
           <small class="text-muted d-block mt-2">
-            © {{ currentYear }} {{ brandingConfig?.name === 'salud-gpt' ? 'Gobierno de Aragón' : 'Fundación 29 de Febrero' }}
+            © {{ currentYear }} {{ brandingService.getFooterCopyright() }}
           </small>
         </div>
       </div>
