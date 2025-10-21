@@ -315,7 +315,7 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
         // Aplicar color de texto del contenido
         const contentElement = modalElement.querySelector('.medical-content') as HTMLElement;
         if (contentElement) {
-          contentElement.style.color = this.brandingConfig.colors.text;
+          //contentElement.style.color = this.brandingConfig.colors.text;
         }
 
         // Aplicar colores de elementos destacados
