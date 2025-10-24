@@ -1093,7 +1093,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     processAiSuccess(data: any, value: any) {
-        if(data.model && data.model != this.defaultModel){//gpt4o
+        if(data.model && data.model == this.advancedModel){
             this.model = this.advancedModel;
         }else{
             this.model = this.defaultModel;
