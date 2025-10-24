@@ -13,6 +13,12 @@
     "DONATE_DROPDOWN_2": "Spenden Sie individuelle klinische Daten",
     "DONATE_DROPDOWN_3": "Spenden Sie Datensätze (Institutionen/Forschung)"
   },
+  "beta": {
+    "warning_title": "Testversion",
+    "warning_message": "Dies ist eine experimentelle Version.",
+    "warning_medical": "Sollte nicht für echte medizinische Zwecke verwendet werden.",
+    "warning_feedback": "Ihr Feedback ist grundlegend für die Verbesserung des Tools."
+  },
   "footer":{
     "Collaboration": "Zusammenarbeit",
     "Compliance": "Einhaltung",

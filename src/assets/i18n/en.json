@@ -13,6 +13,12 @@
     "DONATE_DROPDOWN_2": "Donate individual clinical data",
     "DONATE_DROPDOWN_3": "Donate datasets (institutions/research)"
   },
+  "beta": {
+    "warning_title": "Testing Version",
+    "warning_message": "This is an experimental version.",
+    "warning_medical": "Should not be used for real medical use.",
+    "warning_feedback": "Your feedback is fundamental to improve the tool."
+  },
   "footer":{
     "Collaboration": "Collaboration",
     "Compliance": "Compliance",

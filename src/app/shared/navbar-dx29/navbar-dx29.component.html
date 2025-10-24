@@ -61,28 +61,17 @@
                       <span>{{'menu.Statistics' | translate }}</span>
                   </a>
               </li>
-              <li class="nav-item me-2 donate-link" ngbDropdown display="dynamic" placement="auto" *ngIf="shouldShowDonate">
-                  <a class="nav-link btn btn-info round white mb-0 btn-sm donate-a dropdown-toggle" 
-                     id="donationNavDropdown" 
-                     ngbDropdownToggle 
-                     role="button"
-                     aria-haspopup="true"
-                     aria-expanded="false"
-                     (click)="lauchEvent('Page - Donate')">       
-                      <span>{{ 'land.Donate' | translate }} <em class="ms-1 fa fa-heart" aria-hidden="true"></em></span>
+              <!-- Botón Beta destacado -->
+              <li class="nav-item me-2 beta-link" *ngIf="shouldShowDonate">
+                  <a class="nav-link btn btn-warning round white mb-0 btn-sm beta-a" 
+                     [ngClass]="{'beta-active': isBetaPage}"
+                     routerLink="/beta" 
+                     (click)="lauchEvent('Page - Beta')"
+                     [attr.aria-label]="'Beta' | translate">
+                      <span>BETA <em class="ms-1 fa fa-flask" aria-hidden="true"></em></span>
                   </a>
-                  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="donationNavDropdown">
-                      <a class="dropdown-item" href="https://foundation29.org/donate" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'menu.DONATE_DROPDOWN_1' | translate">
-                          <i class="fas fa-euro-sign me-2" aria-hidden="true"></i>{{ 'menu.DONATE_DROPDOWN_1' | translate }}
-                      </a>
-                      <a class="dropdown-item" href="#" (click)="openClinicalDataModal(); $event.preventDefault()" [attr.aria-label]="'menu.DONATE_DROPDOWN_2' | translate">
-                          <i class="fas fa-file-medical me-2" aria-hidden="true"></i>{{ 'menu.DONATE_DROPDOWN_2' | translate }}
-                      </a>
-                      <a class="dropdown-item" href="#" (click)="openDatasetsModal(); $event.preventDefault()" [attr.aria-label]="'menu.DONATE_DROPDOWN_3' | translate">
-                          <i class="fas fa-database me-2" aria-hidden="true"></i>{{ 'menu.DONATE_DROPDOWN_3' | translate }}
-                      </a>
-                  </div>
               </li>
+ 
           </ul>
         </div>
       </div>

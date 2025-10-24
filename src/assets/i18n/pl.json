@@ -13,6 +13,12 @@
     "DONATE_DROPDOWN_2": "Przekaż dane kliniczne indywidualne",
     "DONATE_DROPDOWN_3": "Przekaż dane (instytucje/badania)"
   },
+  "beta": {
+    "warning_title": "Wersja Testowa",
+    "warning_message": "To jest wersja eksperymentalna.",
+    "warning_medical": "Nie powinna być używana do rzeczywistych celów medycznych.",
+    "warning_feedback": "Twoja opinia jest fundamentalna dla ulepszenia narzędzia."
+  },
   "footer":{
     "Collaboration": "Współpraca",
     "Compliance": "Zgodność",

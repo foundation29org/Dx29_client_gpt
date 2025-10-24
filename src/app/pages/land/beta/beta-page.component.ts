@@ -21,13 +21,13 @@ import { environment } from 'environments/environment';
 declare let gtag: any;
 
 @Component({
-    selector: 'app-undiagnosed-page',
-    templateUrl: './undiagnosed-page.component.html',
-    styleUrls: ['./undiagnosed-page.component.scss'],
+    selector: 'app-beta-page',
+    templateUrl: './beta-page.component.html',
+    styleUrls: ['./beta-page.component.scss'],
     providers: [ApiDx29ServerService],
 })
 
-export class UndiagnosedPageComponent implements OnInit, OnDestroy {
+export class BetaPageComponent implements OnInit, OnDestroy {
 
     private subscription: Subscription = new Subscription();
     medicalTextOriginal: string = '';
@@ -74,8 +74,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     copyResultAnonymized: string = '';
     timezone: string = '';
     terms2: boolean = false;
-    model: string = 'gpt4o';
-    defaultModel: string = 'gpt4o';
+    model: string = 'gpt5mini';
+    defaultModel: string = 'gpt5mini';
     advancedModel: string = 'o3';
     imageModel: string = 'gpt5';
     
