@@ -14,6 +14,7 @@ export interface BrandingConfig {
     accent: string;
     background: string;
     text: string;
+    contrastText: string;
     sidebar: string;
     backgroundDark: string;
     rating: string; // Added rating color
@@ -28,10 +29,6 @@ export interface BrandingConfig {
     donate: string | null;
     foundation: string;
     support: string;
-  };
-  footer: {
-    organizationName: string;
-    copyright: string;
   };
   backgrounds: {
     aboutUs: {
@@ -123,6 +120,7 @@ export class BrandingService {
     root.style.setProperty('--primary-color', config.colors.primary);
     root.style.setProperty('--secondary-color', config.colors.secondary);
     root.style.setProperty('--accent-color', config.colors.accent);
+    root.style.setProperty('--contrast-text-color', config.colors.contrastText);
     if (config.colors.rating) {
       root.style.setProperty('--rating-color', config.colors.rating);
     }
@@ -247,13 +245,6 @@ export class BrandingService {
   }
 
   /**
-   * Obtiene el enlace de la fundación
-   */
-  getFoundationLink(): string {
-    return this.getConfigValue<string>('links.foundation') || 'https://foundation29.org';
-  }
-
-  /**
    * Obtiene el texto de soporte
    */
   getSupportText(): string {
@@ -281,19 +272,5 @@ export class BrandingService {
   getAboutUsOverlay(): string {
     return this.getConfigValue<string>('backgrounds.aboutUs.overlay') || 
            'linear-gradient(45deg, rgba(52, 152, 219, 0.1) 0%, transparent 50%, rgba(41, 128, 185, 0.08) 100%)';
-  }
-
-  /**
-   * Obtiene el nombre de la organización para el footer
-   */
-  getFooterOrganizationName(): string {
-    return this.getConfigValue<string>('footer.organizationName') || 'Fundación 29';
-  }
-
-  /**
-   * Obtiene el texto de copyright para el footer
-   */
-  getFooterCopyright(): string {
-    return this.getConfigValue<string>('footer.copyright') || 'Fundación 29 de Febrero';
   }
 } 

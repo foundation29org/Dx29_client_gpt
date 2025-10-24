@@ -9,7 +9,8 @@
       "accent": "#B30000",
       "rating": "#B30000",
       "background": "#ffffff",
-      "text": "#000000",
+      "text": "#fff",
+      "contrastText": "#000000",
       "backgroundDark": "#1c202a",
       "sidebar": "man-of-steel"
     },
@@ -21,12 +22,7 @@
     },
     "links": {
       "donate": "https://www.foundation29.org/donate/",
-      "foundation": "https://foundation29.org",
       "support": "DxGPT support"
-    },
-    "footer": {
-      "organizationName": "Fundación 29",
-      "copyright": "Fundación 29 de Febrero"
     },
     "backgrounds": {
       "aboutUs": {
@@ -45,7 +41,8 @@
       "accent": "#e1a84c",
       "rating": "#e1a84c",
       "background": "#ffffff",
-      "text": "#000000",
+      "text": "#fff",
+      "contrastText": "#000000",
       "backgroundDark": "#599da2",
       "sidebar": "green"
     },
@@ -57,12 +54,7 @@
     },
     "links": {
       "donate": null,
-      "foundation": "https://foundation29.org",
       "support": "SALUD-GPT support"
-    },
-    "footer": {
-      "organizationName": "Departamento de Sanidad de Aragón",
-      "copyright": "Gobierno de Aragón"
     },
     "backgrounds": {
       "aboutUs": {
@@ -82,6 +74,7 @@
       "rating": "#dc2626",
       "background": "#ffffff",
       "text": "#4f70c4",
+      "contrastText": "#000000",
       "backgroundDark": "#f5f7fa",
       "sidebar": "blue"
     },
@@ -93,12 +86,7 @@
     },
     "links": {
       "donate": null,
-      "foundation": "https://foundation29.org",
       "support": "SermasGPT support"
-    },
-    "footer": {
-      "organizationName": "Servicio Madrileño de Salud",
-      "copyright": "Comunidad de Madrid"
     },
     "backgrounds": {
       "aboutUs": {

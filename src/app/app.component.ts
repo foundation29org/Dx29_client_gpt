@@ -65,7 +65,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   ngAfterContentInit() {
     if (!this.document) return;
     
-    if(environment.production) {
+    if(environment.production && environment.tenantId == 'dxgpt-prod') {
       ((h: any, o: Document, t: string, j: string, a?: any, r?: any) => {
         h.hj = h.hj || function() {
           (h.hj.q = h.hj.q || []).push(arguments);

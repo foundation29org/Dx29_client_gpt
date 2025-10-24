@@ -74,7 +74,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     copyResultAnonymized: string = '';
     timezone: string = '';
     terms2: boolean = false;
-    model: boolean = false;
+    model: string = 'gpt5mini';
+    defaultModel: string = 'gpt5mini';
+    advancedModel: string = 'o3';
+    imageModel: string = 'gpt5';
     
     // Propiedad para manejar el placeholder
     textareaPlaceholder: string = '';
@@ -117,6 +120,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     filesAnalyzed = false;
     filesModifiedAfterAnalysis = false; // Nueva propiedad para rastrear modificaciones
+    
+    // Propiedad para almacenar las URLs de las imágenes de la respuesta del API
+    currentImageUrls: any[] = [];
 
     // Propiedades para WebSocket/PubSub
     private webSocket: WebSocket | null = null;
@@ -140,6 +146,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         // Inicializar el placeholder con el idioma correcto
         this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+        //get the language from the session
+        this.lang = localStorage.getItem('lang') || 'en';
     }
 
     private setLangFromSession(lang: string) {
@@ -172,7 +180,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async goPrevious() {
-        this.model = false;
+        this.model = this.defaultModel;
         this.topRelatedConditions = [];
         this.currentStep = 1;
         await this.delay(200);
@@ -185,6 +193,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async newPatient() {
         this.medicalTextOriginal = '';
+        this.currentImageUrls = []; // Limpiar las URLs de las imágenes
         this.goPrevious();
     }
 
@@ -586,6 +595,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.differentialTextTranslated = '';
         this.copyMedicalText = '';
         this.showErrorCall1 = false;
+        this.currentImageUrls = []; // Limpiar las URLs de las imágenes
         document.getElementById("textarea1").setAttribute("style", "height:50px;overflow-y:hidden; width: 100%;");
         this.resizeTextArea();
     }
@@ -718,7 +728,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     continuePreparingcallAI(step) {
         if (step == 'step4') {
-            this.callAI(false);
+            this.callAI(this.defaultModel);
         } else {
             Swal.fire({
                 title: this.translate.instant("generics.Please wait"),
@@ -729,7 +739,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }).then((result) => {
 
             });
-            this.callAI(false);
+            this.callAI(this.defaultModel);
         }
 
     }
@@ -753,15 +763,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return filteredParams;
     }
 
-    async callAI(newModel: boolean) {
+    async callAI(stringModel: string) {
         Swal.close();
         
         // Determinar el modelo a usar
-        let modelToUse = 'gpt4o'; //'gpt5mini'; //'gpt5nano'; //gpt4o';
-        if (newModel) {
-            modelToUse = 'o3';
-        }
-        
+        let modelToUse = stringModel;
+        this.model = modelToUse;
         // Siempre usar WebSocket para mejor UX y prepararse para detección de intención
         // Esto evita problemas cuando el backend detecta automáticamente que debe usar o3
         const shouldUseWebSocket = true;
@@ -827,8 +834,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             timezone: this.timezone, 
             model: modelToUse,
             // Filtrar parámetros - solo permite campos válidos
-            iframeParams: this.filterIframeParams(this.iframeParams)
+            iframeParams: this.filterIframeParams(this.iframeParams),
+            imageUrls: []
         };
+        if(this.currentImageUrls.length > 0){
+            value.imageUrls = this.currentImageUrls;
+            value.model = this.imageModel;
+        }
         
         if (this.loadMoreDiseases) {
             value.diseases_list = this.diseaseListText;
@@ -846,7 +858,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
         this.differentialTextTranslated = '';
-        this.callAI(true);
+        this.callAI(this.advancedModel);
     }
 
     callFastModel(){
@@ -855,7 +867,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
         this.differentialTextTranslated = '';
-        this.callAI(false);
+        this.callAI(this.defaultModel);
     }
 
     handledDiagnoseResponse(res: any, value: any) {
@@ -1071,10 +1083,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     processAiSuccess(data: any, value: any) {
-        if(data.model && data.model != 'gpt4o'){
-            this.model = true;
+        if(data.model && data.model != this.defaultModel){//gpt4o
+            this.model = this.advancedModel;
         }else{
-            this.model = false;
+            this.model = this.defaultModel;
         }
         this.cancelQueueStatusCheck();
         if (this.countdownInterval) {
@@ -1550,7 +1562,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     vote(valueVote) {
         this.sendingVote = true;
 
-        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, isNewModel: this.model }
+        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, versionModel: this.model }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 this.analyticsService.trackEvent("user_vote", { vote: valueVote, model: this.model });
@@ -2467,8 +2479,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.lauchEvent('File removed: ' + (removedFile ? removedFile.name : 'unknown'));
     }
 
-    analyzeMultimodal() {
-        // Mostrar spinner con Swal
+    async analyzeMultimodal() {
+        // Mostrar spinner con Swals
         Swal.close();
         Swal.fire({
             html: '<p>' + this.translate.instant("land.swalMultimodal") + '</p>' +
@@ -2516,63 +2528,82 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             if (docAdded && imgAdded) break;
         }
         formData.append('lang', this.lang || 'es');
+
         formData.append('myuuid', this.myuuid || '');
         formData.append('timezone', this.timezone || '');
 
-        this.apiDx29ServerService.analyzeMultimodal(formData).pipe(first()).subscribe({
-            next: (res: any) => {
-                this.summary = res.summary;
-                this.details = res.details;
-                this.detectedLang = res.detectedLang;
-                // Concatenar el resumen al texto principal
-                if (res.summary) {
-                    if (this.medicalTextOriginal && !this.medicalTextOriginal.endsWith('\n')) {
-                        this.medicalTextOriginal += '\n';
-                    }
-                    this.medicalTextOriginal += res.summary;
-                }
-                this.callingAI = false;
-                Swal.close();
-                setTimeout(async () => {
-                    if (this.textAreas) {
-                        this.textAreas.forEach(textArea => {
-                            const element = textArea.nativeElement;
-                            element.style.height = 'auto';
-                            element.style.height = element.scrollHeight + 'px';
-                            // Asegurar un tamaño mínimo
-                            if (element.scrollHeight < 100) {
-                                element.style.height = '100px';
-                            }
-                        });
-                    }
-                    // Mostrar Swal informativo
-                    Swal.fire({
-                        icon: 'info',
-                        title: this.translate.instant('diagnosis.Text generated'),
-                        html: `
-                          <p>${this.translate.instant('diagnosis.We have processed your inputs')}</p>
-                          <p>${this.translate.instant('diagnosis.Please review the text')}</p>
-                        `,
-                        confirmButtonText: 'Ok',
-                        showCancelButton: false
-                    });
-                    this.filesAnalyzed = true;
-                    this.filesModifiedAfterAnalysis = false; // Resetear el estado de modificaciones
-                }, 0);
-                this.lauchEvent('Analyze multimodal success');
-            },
-            error: (err) => {
-                this.callingAI = false;
-                Swal.close();
-                Swal.fire({
-                    icon: 'error',
-                    title: this.translate.instant('generics.error'),
-                    text: this.translate.instant('land.errorAnalyze') || 'Error al analizar la información',
-                    confirmButtonText: this.translate.instant('generics.Close')
-                });
-                this.lauchEvent('Analyze multimodal error: ' + (err?.message || 'unknown error'));
+        Swal.close();
+        
+ 
+        
+
+        try {
+            await this.connectWebSocket();
+        } catch (error) {
+            console.error('Error connecting WebSocket:', error);
+            this.showError(this.translate.instant("generics.error try again"), error);
+            return;
+        }
+        
+
+        const htmlContent = '<p>' + this.translate.instant("land.swal") + '</p>' + 
+          '<p>' + this.translate.instant("land.swal2") + '</p>' + 
+          '<p>' + this.translate.instant("land.swal3") + '</p>' + 
+          `<div id="websocket-progress" style="margin: 18px 0 10px 0; padding: 12px 18px; background: rgba(30,34,40,0.95); border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); border: 1px solid #23272f;">
+            <div id="progress-message" style="margin-bottom: 8px; font-weight: 500; color: #e0e0e0; font-size: 15px; letter-spacing: 0.01em; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">${this.getProgressMessage('ai_processing')}</div>
+            <div style="width: 100%; height: 18px; background: #23272f; border-radius: 9px; overflow: hidden; border: 1px solid #353b45;">
+              <div id="progress-bar" style="width: 5%; height: 100%; background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%); transition: width 0.5s cubic-bezier(.4,2.3,.3,1); border-radius: 9px; min-width: 10px; box-shadow: 0 1px 6px #43e97b44;"></div>
+            </div>
+            <div style="margin-top: 6px; font-size: 12px; color: #b0b6bb; text-align: right; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
+              <span id="progress-percentage">5%</span>
+            </div>
+          </div>`;
+
+        Swal.fire({
+            html: htmlContent,
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonText: this.translate.instant("generics.Cancel"),
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            customClass: {
+                popup: 'dxgpt-modal-loading'
             }
-        });
+        }).then(function (event) {
+            if (event.dismiss == Swal.DismissReason.cancel) {
+                this.callingAI = false;
+                this.subscription.unsubscribe();
+                this.subscription = new Subscription();
+                if (this.webSocket) {
+                    this.webSocket.close();
+                    this.webSocket = null;
+                }
+            }
+        }.bind(this));
+
+        // Inicializar progreso para WebSocket
+        setTimeout(() => {
+            this.updateWebSocketProgress(10, 'Conectando...', 'connection');
+        }, 100);
+
+        this.callingAI = true;
+        this.apiDx29ServerService.analyzeMultimodal(formData).subscribe(
+            (res: any) => {
+                console.log(res);
+                this.handledDiagnoseResponse(res, formData);
+                if(res.description){
+                    this.resultAnonymized = res.description;
+                    this.copyResultAnonymized = res.description;
+                    this.medicalTextOriginal = this.copyResultAnonymized;
+                    this.medicalTextEng = this.copyResultAnonymized;
+                }
+                // Capturar las URLs de las imágenes de la respuesta
+                if(res.imageUrls && Array.isArray(res.imageUrls)){
+                    this.currentImageUrls = res.imageUrls;
+                }
+            },
+            (err: any) => this.handleAiError(err)
+        );
     }
 
     onDragOver(event: DragEvent) {

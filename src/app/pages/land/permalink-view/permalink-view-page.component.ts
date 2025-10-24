@@ -161,7 +161,7 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     root.style.setProperty('--permalink-accent', this.brandingConfig.colors.accent);
     root.style.setProperty('--permalink-rating', this.brandingConfig.colors.rating);
     root.style.setProperty('--permalink-background', this.brandingConfig.colors.background);
-    root.style.setProperty('--permalink-text', this.brandingConfig.colors.text);
+    root.style.setProperty('--permalink-text', this.brandingConfig.colors.contrastText);
     root.style.setProperty('--permalink-background-dark', this.brandingConfig.colors.backgroundDark);
     
     // Generar gradientes dinámicos
