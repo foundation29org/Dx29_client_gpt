@@ -1586,11 +1586,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     vote(valueVote) {
         this.sendingVote = true;
+        let fileNames = '';
+        if(this.selectedFiles.length > 0){
+            fileNames = this.selectedFiles.map(file => file.name).join(', ');
+        }
 
-        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, versionModel: this.model }
+        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, versionModel: this.model, fileNames: fileNames }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 this.analyticsService.trackEvent("user_vote", { vote: valueVote, model: this.model });
+                if(this.selectedFiles.length > 0){
+                    this.analyticsService.trackEvent("fileNames", { fileNames: fileNames });
+                }
                
                 this.sendingVote = false;
                 // Abrir el modal de FeedbackPageComponent
@@ -1601,6 +1608,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         windowClass: 'ModalClass-lg'// xl, lg, sm
                     };
                     this.modalReference = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
+                    
+                    // Pasar parámetros al componente del modal
+                    this.modalReference.componentInstance.setModel(this.model);
+                    this.modalReference.componentInstance.setSelectedFiles(fileNames);
                 }else{
                     let msgSuccess = this.translate.instant("land.thanks");
                     this.showSuccess(msgSuccess);
