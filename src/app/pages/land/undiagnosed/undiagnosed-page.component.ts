@@ -123,6 +123,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     
     // Propiedad para almacenar las URLs de las imágenes de la respuesta del API
     currentImageUrls: any[] = [];
+    descriptionImageOnly: string = '';
 
     // Propiedades para WebSocket/PubSub
     private webSocket: WebSocket | null = null;
@@ -194,6 +195,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     async newPatient() {
         this.medicalTextOriginal = '';
         this.currentImageUrls = []; // Limpiar las URLs de las imágenes
+        this.descriptionImageOnly = '';
         this.goPrevious();
     }
 
@@ -596,6 +598,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.copyMedicalText = '';
         this.showErrorCall1 = false;
         this.currentImageUrls = []; // Limpiar las URLs de las imágenes
+        this.descriptionImageOnly = '';
         document.getElementById("textarea1").setAttribute("style", "height:50px;overflow-y:hidden; width: 100%;");
         this.resizeTextArea();
     }
@@ -840,6 +843,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if(this.currentImageUrls.length > 0){
             value.imageUrls = this.currentImageUrls;
             value.model = this.imageModel;
+            if(this.descriptionImageOnly != '' && value.description == ''){
+                value.description = this.descriptionImageOnly;
+            }else if (this.descriptionImageOnly != '' && value.description != ''){
+                if(!value.description.includes(this.descriptionImageOnly)){
+                    value.description = value.description + ' ' + this.descriptionImageOnly;
+                }
+            }            
         }
         
         if (this.loadMoreDiseases) {
@@ -1279,7 +1289,22 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         this.lauchEvent(infoOptionEvent);
 
-        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, timezone: this.timezone, detectedLang: this.detectedLang }
+        if(this.currentImageUrls.length > 0 && this.descriptionImageOnly != '' && this.medicalTextOriginal == ''){
+            this.medicalTextOriginal = this.descriptionImageOnly;
+        }
+
+        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, timezone: this.timezone, detectedLang: this.detectedLang, imageUrls: [] }
+
+        if(this.currentImageUrls.length > 0){
+            value.imageUrls = this.currentImageUrls;
+            if(this.descriptionImageOnly != '' && value.medicalDescription == ''){
+                value.medicalDescription = this.descriptionImageOnly;
+            }else if (this.descriptionImageOnly != '' && value.medicalDescription != ''){
+                if(!value.medicalDescription.includes(this.descriptionImageOnly)){
+                    value.medicalDescription = value.medicalDescription + ' ' + this.descriptionImageOnly;
+                }
+            }            
+        }
         this.subscription.add(this.apiDx29ServerService.callInfoDisease(value)
             .subscribe((res: any) => {
                 if (res.result === 'success') {
@@ -1860,7 +1885,36 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     // Nuevos métodos para la funcionalidad de preguntas de seguimiento
     
-    async handleFollowUpResponse(contentFollowUp?) {
+    async handleFollowUpResponse(contentFollowUp?, contentEditDescription?) {
+        if(this.medicalTextOriginal == ''){
+            // Mostrar Swal invitando a editar la descripción
+            Swal.fire({
+                title: this.translate.instant('diagnosis.Improve patient description'),
+                html: `
+                    <div style="text-align: left;">
+                        <p><strong>${this.translate.instant('diagnosis.Please add clinical information')}</strong></p>
+                        <p>${this.translate.instant('diagnosis.Include only age group, sex (if typical), main symptom, and reason for imaging')}</p>
+                        <p><em>${this.translate.instant('diagnosis.Examples')}:</em></p>
+                        <ul>
+                            <li>"${this.translate.instant('diagnosis.young male with sudden chest pain')}"</li>
+                            <li>"${this.translate.instant('diagnosis.adult woman with cough and fever')}"</li>
+                        </ul>
+                        <p><strong>${this.translate.instant('diagnosis.Keep it ≤ 3 sentences')}</strong></p>
+                    </div>
+                `,
+                icon: 'info',
+                confirmButtonText: this.translate.instant('diagnosis.Edit description'),
+                showCancelButton: true,
+                cancelButtonText: this.translate.instant('generics.Cancel'),
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Abrir el modal de edición de descripción
+                    this.openDescripModal(contentEditDescription);
+                }
+            });
+            return;
+        }
         this.showFollowUpQuestions = false;
         
         // Si el usuario no encuentra relevantes los diagnósticos, generamos preguntas de seguimiento
@@ -2591,11 +2645,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             (res: any) => {
                 console.log(res);
                 this.handledDiagnoseResponse(res, formData);
-                if(res.description){
+                if(res.description && res.isImageOnly == false){
                     this.resultAnonymized = res.description;
                     this.copyResultAnonymized = res.description;
                     this.medicalTextOriginal = this.copyResultAnonymized;
                     this.medicalTextEng = this.copyResultAnonymized;
+                }
+                if(res.description && res.isImageOnly == true){
+                    this.descriptionImageOnly = res.description;
                 }
                 // Capturar las URLs de las imágenes de la respuesta
                 if(res.imageUrls && Array.isArray(res.imageUrls)){
