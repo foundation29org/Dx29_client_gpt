@@ -29,6 +29,24 @@ declare let gtag: any;
 
 export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
+    // Constantes para formatos soportados por Azure Document Intelligence
+    private static readonly SUPPORTED_DOC_TYPES = [
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // XLSX
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation', // PPTX
+        'text/html',
+        'text/plain' // TXT
+    ];
+    
+    private static readonly SUPPORTED_IMAGE_TYPES = [
+        'image/jpeg',
+        'image/png', 
+        'image/bmp',
+        'image/tiff',
+        'image/heif'
+    ];
+
     private subscription: Subscription = new Subscription();
     medicalTextOriginal: string = '';
     editmedicalText: string = '';
@@ -2519,16 +2537,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     onFilesSelected(event: any) {
         console.log(event);
         if (event.target.files && event.target.files.length > 0) {
-            // Añadir los archivos seleccionados al array, evitando duplicados por nombre y tamaño
             const newFiles = Array.from(event.target.files) as File[];
-            newFiles.forEach(file => {
-                if (!this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
-                    this.selectedFiles.push(file);
-                }
-            });
-            this.filesAnalyzed = false;
-            this.filesModifiedAfterAnalysis = true; // Marcar como modificado
-            this.lauchEvent('Files selected: ' + newFiles.map(f => f.name).join(', '));
+            this.validateAndAddFiles(newFiles);
         }
     }
 
@@ -2571,21 +2581,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const formData = new FormData();
         formData.append('text', this.medicalTextOriginal || '');
         // Solo un documento y una imagen según backend, priorizar el primero de cada tipo
+        // Usar las constantes de la clase para consistencia
         let docAdded = false;
         let imgAdded = false;
         for (const file of this.selectedFiles) {
-            if (!docAdded && [
-                'application/pdf',
-                'application/msword',
-                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                'application/vnd.ms-excel',
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                'text/plain'
-            ].includes(file.type)) {
+            if (!docAdded && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(file.type)) {
                 formData.append('document', file);
                 docAdded = true;
                 this.lauchEvent('Document file added: ' + file.name);
-            } else if (!imgAdded && file.type.startsWith('image/')) {
+            } else if (!imgAdded && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)) {
                 formData.append('image', file);
                 imgAdded = true;
                 this.lauchEvent('Image file added: ' + file.name);
@@ -2694,14 +2698,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const files = event.dataTransfer?.files;
         if (files && files.length > 0) {
             const newFiles = Array.from(files) as File[];
-            newFiles.forEach(file => {
-                if (!this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
-                    this.selectedFiles.push(file);
-                }
-            });
-            this.filesAnalyzed = false;
-            this.filesModifiedAfterAnalysis = true; // Marcar como modificado
-            this.lauchEvent('Files dropped: ' + newFiles.map(f => f.name).join(', '));
+            this.validateAndAddFiles(newFiles);
         }
     }
 
@@ -2710,6 +2707,113 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             fileInput.click();
         }
     }
+
+     /**
+     * Valida y añade archivos respetando límites de backend y formatos soportados por Azure Document Intelligence:
+     * - Tamaño total máximo: 20 MB (documentos + imágenes)
+     * - Máximo 5 imágenes y 5 documentos
+     * - Formatos soportados: PDF, DOCX, XLSX, PPTX, HTML, JPEG, PNG, BMP, TIFF, HEIF
+     * Evita duplicados por nombre y tamaño. Muestra avisos si hay descartes.
+     */
+     private validateAndAddFiles(newFiles: File[]): void {
+        const MAX_TOTAL_BYTES = 20 * 1024 * 1024;
+        const MAX_DOCS = 5;
+        const MAX_IMAGES = 5;
+
+        // Estado actual usando las constantes de la clase
+        const isSupportedImage = (f: File) => f.type && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(f.type);
+        const isSupportedDoc = (f: File) => f.type && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(f.type);
+        const currentImages = this.selectedFiles.filter(isSupportedImage).length;
+        const currentDocs = this.selectedFiles.filter(isSupportedDoc).length;
+        const currentTotalBytes = this.selectedFiles.reduce((acc, f) => acc + f.size, 0);
+
+        let addedImages = 0;
+        let addedDocs = 0;
+        let addedBytes = 0;
+
+        const rejected: { file: File; reason: 'limit_images' | 'limit_docs' | 'limit_total' | 'duplicate' | 'unsupported_format' }[] = [];
+        const accepted: File[] = [];
+
+        for (const file of newFiles) {
+            // Evitar duplicados
+            if (this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                rejected.push({ file, reason: 'duplicate' });
+                continue;
+            }
+
+            // Verificar formato soportado
+            const isImage = isSupportedImage(file);
+            const isDoc = isSupportedDoc(file);
+            
+            if (!isImage && !isDoc) {
+                rejected.push({ file, reason: 'unsupported_format' });
+                continue;
+            }
+
+            const nextImages = currentImages + addedImages + (isImage ? 1 : 0);
+            const nextDocs = currentDocs + addedDocs + (isDoc ? 1 : 0);
+            const nextTotal = currentTotalBytes + addedBytes + file.size;
+
+            if (isImage && nextImages > MAX_IMAGES) {
+                rejected.push({ file, reason: 'limit_images' });
+                continue;
+            }
+            if (isDoc && nextDocs > MAX_DOCS) {
+                rejected.push({ file, reason: 'limit_docs' });
+                continue;
+            }
+            if (nextTotal > MAX_TOTAL_BYTES) {
+                rejected.push({ file, reason: 'limit_total' });
+                continue;
+            }
+
+            accepted.push(file);
+            if (isImage) { addedImages++; } else { addedDocs++; }
+            addedBytes += file.size;
+        }
+
+        if (accepted.length > 0) {
+            this.selectedFiles.push(...accepted);
+            this.filesAnalyzed = false;
+            this.filesModifiedAfterAnalysis = true;
+            this.lauchEvent('Files added: ' + accepted.map(f => f.name).join(', '));
+        }
+
+        if (rejected.length > 0) {
+            // Construir mensaje breve para el usuario
+            const overImages = rejected.filter(r => r.reason === 'limit_images').length;
+            const overDocs = rejected.filter(r => r.reason === 'limit_docs').length;
+            const overTotal = rejected.filter(r => r.reason === 'limit_total').length;
+            const duplicates = rejected.filter(r => r.reason === 'duplicate').length;
+            const unsupported = rejected.filter(r => r.reason === 'unsupported_format').length;
+
+            let html = '';
+            if (overImages) {
+                html += `• ${overImages} ${this.translate.instant('beta.files_limit_images')}<br/>`;
+            }
+            if (overDocs) {
+                html += `• ${overDocs} ${this.translate.instant('beta.files_limit_docs')}<br/>`;
+            }
+            if (overTotal) {
+                html += `• ${this.translate.instant('beta.files_limit_total')}<br/>`;
+            }
+            if (duplicates) {
+                html += `• ${duplicates} ${this.translate.instant('beta.files_duplicates')}<br/>`;
+            }
+            if (unsupported) {
+                html += `• ${unsupported} ${this.translate.instant('beta.files_unsupported_format')}<br/>`;
+            }
+
+            Swal.fire({
+                icon: 'warning',
+                title: this.translate.instant('generics.Warning') || 'Aviso',
+                html: html || this.translate.instant('generics.error try again'),
+                showConfirmButton: true,
+                allowOutsideClick: false
+            });
+        }
+    }
+
 
     // Métodos para la nueva interfaz de botones
     getButtonText(): string {

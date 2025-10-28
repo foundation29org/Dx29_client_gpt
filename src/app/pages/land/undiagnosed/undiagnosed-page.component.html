@@ -30,7 +30,7 @@
         <div class="file-chips-row">
           <button type="button" class="chip-btn-add" [disabled]="callingAI" (click)="triggerFileInput(fileInput)"
             title="{{'diagnosis.Upload document or image' | translate}}" aria-label="{{'diagnosis.Upload document or image' | translate}}">
-            <input #fileInput type="file" multiple (change)="onFilesSelected($event)" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,image/*"/>
+            <input #fileInput type="file" multiple (change)="onFilesSelected($event)" accept=".pdf,.docx,.xlsx,.pptx,.html,.txt,image/jpeg,image/png,image/bmp,image/tiff,image/heif"/>
             <i class="fa fa-plus"></i>
           </button>
           <span *ngIf="!selectedFiles.length" class="chip-add-text d-none d-md-inline ms-1">{{'diagnosis.Upload document or image' | translate}}</span>

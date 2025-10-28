@@ -17,7 +17,12 @@
     "warning_title": "Testing Version",
     "warning_message": "This is an experimental version that generates descriptions from medical reports or images.",
     "warning_medical": "The result must be verified by a healthcare professional.",
-    "warning_feedback": "We need user feedback to know if the result is reliable; your feedback is fundamental to improve the tool."
+    "warning_feedback": "We need user feedback to know if the result is reliable; your feedback is fundamental to improve the tool.",
+    "files_limit_images": "image(s) not added: maximum 5.",
+    "files_limit_docs": "document(s) not added: maximum 5.",
+    "files_limit_total": "Total size exceeded (20MB). Reduce or remove files.",
+    "files_duplicates": "duplicate file(s) ignored.",
+    "files_unsupported_format": "file(s) with unsupported format. Valid formats: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF."
   },
   "footer":{
     "Collaboration": "Collaboration",
@@ -400,6 +405,7 @@
     "Data saved successfully": "Data saved successfully.",
     "Yes": "Yes",
     "No": "No",
+    "Warning": "Warning",
     "error try again": "An error has occurred, please try again",
     "error edit patient description": "If the problem persists, edit the patient description",
     "entervalidemail": "Please enter a valid email!",

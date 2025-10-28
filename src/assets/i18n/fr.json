@@ -17,7 +17,12 @@
     "warning_title": "Version de Test",
     "warning_message": "Ceci est une version expérimentale qui génère des descriptions à partir de rapports médicaux ou d'images.",
     "warning_medical": "Le résultat doit être vérifié par un professionnel de santé.",
-    "warning_feedback": "Nous avons besoin de retours utilisateurs pour savoir si le résultat est fiable ; vos commentaires sont fondamentaux pour améliorer l'outil."
+    "warning_feedback": "Nous avons besoin de retours utilisateurs pour savoir si le résultat est fiable ; vos commentaires sont fondamentaux pour améliorer l'outil.",
+    "files_limit_images": "image(s) non ajoutée(s) : maximum 5.",
+    "files_limit_docs": "document(s) non ajouté(s) : maximum 5.",
+    "files_limit_total": "Taille totale dépassée (20MB). Réduisez ou supprimez des fichiers.",
+    "files_duplicates": "fichier(s) dupliqué(s) ignoré(s).",
+    "files_unsupported_format": "fichier(s) avec format non supporté. Formats valides : PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF."
   },
   "footer":{
     "Collaboration": "Collaboration",
@@ -400,6 +405,7 @@
     "Data saved successfully": "Données enregistrées avec succès.",
     "Yes": "Oui",
     "No": "Non",
+    "Warning": "Avertissement",
     "error try again": "Une erreur s'est produite, veuillez réessayer",
     "error edit patient description": "Si le problème persiste, editez la description du patient",
     "entervalidemail": "Veuillez saisir une adresse e-mail valide!",
