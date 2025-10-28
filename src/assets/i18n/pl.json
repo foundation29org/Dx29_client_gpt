@@ -15,9 +15,9 @@
   },
   "beta": {
     "warning_title": "Wersja Testowa",
-    "warning_message": "To jest wersja eksperymentalna.",
-    "warning_medical": "Nie powinna być używana do rzeczywistych celów medycznych.",
-    "warning_feedback": "Twoja opinia jest fundamentalna dla ulepszenia narzędzia."
+    "warning_message": "To jest wersja eksperymentalna, która generuje opisy na podstawie raportów medycznych lub obrazów.",
+    "warning_medical": "Wynik musi być zweryfikowany przez profesjonalistę medycznego.",
+    "warning_feedback": "Potrzebujemy opinii użytkowników, aby wiedzieć, czy wynik jest wiarygodny; Twoja opinia jest fundamentalna dla ulepszenia narzędzia."
   },
   "footer":{
     "Collaboration": "Współpraca",

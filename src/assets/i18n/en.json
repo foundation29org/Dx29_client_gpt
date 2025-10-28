@@ -15,9 +15,9 @@
   },
   "beta": {
     "warning_title": "Testing Version",
-    "warning_message": "This is an experimental version.",
-    "warning_medical": "Should not be used for real medical use.",
-    "warning_feedback": "Your feedback is fundamental to improve the tool."
+    "warning_message": "This is an experimental version that generates descriptions from medical reports or images.",
+    "warning_medical": "The result must be verified by a healthcare professional.",
+    "warning_feedback": "We need user feedback to know if the result is reliable; your feedback is fundamental to improve the tool."
   },
   "footer":{
     "Collaboration": "Collaboration",

@@ -14,10 +14,10 @@
     "DONATE_DROPDOWN_3": "Donar datasets (instituciones/investigación)"
   },
   "beta": {
-    "warning_title": "Versión en Pruebas",
-    "warning_message": "Esta es una versión experimental.",
-    "warning_medical": "No debe utilizarse para uso médico real.",
-    "warning_feedback": "Tu feedback es fundamental para mejorar la herramienta."
+    "warning_title": "Versión en pruebas",
+    "warning_message": "Esta es una versión experimental, que genera una descripción a partir de informes médicos o imágenes.",
+    "warning_medical": "El resultado debe ser comprobado por un profesional sanitario.",
+    "warning_feedback": "Necesitamos feedback de usuarios para saber si el resultado es confiable; tu feedback es fundamental para mejorar la herramienta."
   },
   "footer":{
     "Collaboration": "Colaboración",
