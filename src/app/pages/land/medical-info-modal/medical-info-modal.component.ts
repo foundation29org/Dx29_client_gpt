@@ -24,6 +24,9 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
   
   // Datos de Sonar para referencias
   sonarDataParsed: any = null;
+  
+  // Mapeo de citas originales -> nuevas [1..n]
+  private citationOldToNew: Map<number, number> = new Map();
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -34,6 +37,79 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
     this.closeButtonText = 'Cerrar';
   }
 
+  
+  /**
+   * Extrae citas únicas en orden de aparición.
+   */
+  private extractUniqueCitationNumbers(markdown: string): number[] {
+    const re = /\[(\d+)\]/g;
+    const seen: number[] = [];
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(markdown))) {
+      const n = Number(m[1]);
+      if (!seen.includes(n)) seen.push(n);
+    }
+    return seen;
+  }
+
+  /**
+   * Dado el markdown, renumera las citas a [1..n], construye referencias y guarda mapping.
+   */
+  private renumberInlineCitationsAndBuildReferences(markdown: string): string {
+    const usedOriginal = this.extractUniqueCitationNumbers(markdown);
+
+    // Reset mapeos y referencias
+    this.citationOldToNew = new Map<number, number>();
+    this._formattedReferences = [];
+
+    // Construir mapeo old->new en orden
+    usedOriginal.forEach((oldNum, idx) => this.citationOldToNew.set(oldNum, idx + 1));
+
+    // Construir referencias solo para las usadas
+    const refs = this.buildReferencesFromSonar(usedOriginal);
+    this._formattedReferences = refs.map((r, i) => ({
+      number: i + 1,
+      title: r.title,
+      url: r.url,
+      date: r.date,
+      snippet: r.snippet,
+      source: r.source
+    }));
+
+    // Reemplazar en el texto los números antiguos por los nuevos; eliminar huérfanas
+    const renumbered = markdown.replace(/\[(\d+)\]/g, (_m, g1) => {
+      const oldNum = Number(g1);
+      const newNum = this.citationOldToNew.get(oldNum);
+      return newNum ? `[${newNum}]` : '';
+    });
+
+    return renumbered;
+  }
+
+  /**
+   * Selecciona fuentes a partir de sonarData según los índices originales usados.
+   * Intenta mapear [k] -> searchResults[k-1]; si no está, intenta por URL en citations.
+   */
+  private buildReferencesFromSonar(usedOriginal: number[]): any[] {
+    const results = Array.isArray(this.sonarDataParsed?.searchResults) ? this.sonarDataParsed.searchResults : [];
+    const citations = Array.isArray(this.sonarDataParsed?.citations) ? this.sonarDataParsed.citations : [];
+
+    const pickByIndex = (k: number) => {
+      const sr = results[k - 1];
+      if (sr && sr.url) return sr;
+      const url = citations[k - 1];
+      if (!url) return null;
+      const found = results.find((r: any) => r?.url === url);
+      return found || { title: 'Source', url };
+    };
+
+    const picked: any[] = [];
+    usedOriginal.forEach(k => {
+      const ref = pickByIndex(k);
+      if (ref && ref.url && !picked.find(p => p.url === ref.url)) picked.push(ref);
+    });
+    return picked;
+  }
   async ngOnInit() {
     // Inicializar la traducción de forma segura
     this.initializeTranslation();
@@ -75,6 +151,8 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
   private async processMarkdownContent(): Promise<void> {
     try {
       if (this.content) {
+        let normalized = this.renumberInlineCitationsAndBuildReferences(this.content);
+
         // Configurar opciones de marked para mejor renderizado
         marked.setOptions({
           breaks: true, // Convertir saltos de línea a <br>
@@ -82,7 +160,7 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
         });
 
         // Convertir Markdown a HTML
-        let parsedContent = await marked.parse(this.content);
+        let parsedContent = await marked.parse(normalized);
         
         // Procesar referencias en el texto para convertirlas en enlaces
         parsedContent = this.processReferenceLinks(parsedContent);
@@ -143,7 +221,7 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
    * Procesa las referencias en el texto para convertirlas en enlaces clicables
    */
   private processReferenceLinks(htmlContent: string): string {
-    if (!this.sonarDataParsed || !this.sonarDataParsed.searchResults) {
+    if (!this._formattedReferences || this._formattedReferences.length === 0) {
       return htmlContent;
     }
 
@@ -152,7 +230,7 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
     
     return htmlContent.replace(referencePattern, (match, number) => {
       const refNumber = parseInt(number);
-      const reference = this.sonarDataParsed.searchResults[refNumber - 1];
+      const reference = this._formattedReferences.find(r => r.number === refNumber);
       
       if (reference && reference.url) {
         return `<a href="${reference.url}" target="_blank" class="reference-link" data-ref="${refNumber}" title="${reference.title}">[${number}]</a>`;
@@ -196,35 +274,14 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
    * Obtiene las referencias formateadas para mostrar
    */
   getFormattedReferences(): any[] {
-    if (!this.sonarDataParsed || !this.sonarDataParsed.searchResults) {
-      return [];
-    }
-
-    // Si ya tenemos las referencias cacheadas, las devolvemos
-    if (this._formattedReferences.length > 0) {
-      return this._formattedReferences;
-    }
-
-    // Procesar y cachear las referencias
-    this._formattedReferences = this.sonarDataParsed.searchResults.map((result: any, index: number) => ({
-      number: index + 1,
-      title: result.title,
-      url: result.url,
-      date: result.date,
-      snippet: result.snippet,
-      source: result.source
-    }));
-
-    return this._formattedReferences;
+    return this._formattedReferences || [];
   }
 
   /**
    * Verifica si hay referencias disponibles
    */
   hasReferences(): boolean {
-    return this.sonarDataParsed && 
-           this.sonarDataParsed.searchResults && 
-           this.sonarDataParsed.searchResults.length > 0;
+    return Array.isArray(this._formattedReferences) && this._formattedReferences.length > 0;
   }
 
   /**

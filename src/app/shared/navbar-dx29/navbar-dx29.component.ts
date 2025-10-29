@@ -207,6 +207,10 @@ export class NavbarD29Component implements OnDestroy {
       {
         "name": "Українська",
         "code": "uk"
+      },
+      {
+        "name": "Català",
+        "code": "ca"        
       }
     ];
     if (sessionStorage.getItem('lang')) {
