@@ -1164,6 +1164,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.title = content.question;
         modalRef.componentInstance.model = content.model;
         modalRef.componentInstance.selectedFiles = this.selectedFiles;
+        modalRef.componentInstance.detectedLang = content.detectedLang;
     }
 
     includesElement(array, string) {
