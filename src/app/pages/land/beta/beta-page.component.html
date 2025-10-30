@@ -13,6 +13,13 @@
             <strong>{{ 'beta.warning_medical' | translate }}</strong> 
             {{ 'beta.warning_feedback' | translate }}
           </div>
+          <div class="text-muted small mt-2">
+            {{ 'beta.dual_mode_hint' | translate }}
+            <ul class="mb-0" style="list-style-position: inside; padding-left: 0; margin-left: 0;">
+              <li>{{ 'beta.example_patient' | translate }}</li>
+              <li>{{ 'beta.example_question' | translate }}</li>
+            </ul>
+          </div>
         </div>
         
         <div *ngIf="modeFunctionality" class="badge bg-danger pulse-animation mb-3">

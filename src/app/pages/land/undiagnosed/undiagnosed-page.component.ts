@@ -2583,21 +2583,21 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callingAI = true;
         const formData = new FormData();
         formData.append('text', this.medicalTextOriginal || '');
-        // Solo un documento y una imagen según backend, priorizar el primero de cada tipo
+        // Permitir hasta 5 documentos y 5 imágenes según backend
         // Usar las constantes de la clase para consistencia
-        let docAdded = false;
-        let imgAdded = false;
+        let docCount = 0;
+        let imgCount = 0;
         for (const file of this.selectedFiles) {
-            if (!docAdded && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(file.type)) {
+            if (docCount < 5 && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(file.type)) {
                 formData.append('document', file);
-                docAdded = true;
+                docCount++;
                 this.lauchEvent('Document file added: ' + file.name);
-            } else if (!imgAdded && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)) {
+            } else if (imgCount < 5 && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)) {
                 formData.append('image', file);
-                imgAdded = true;
+                imgCount++;
                 this.lauchEvent('Image file added: ' + file.name);
             }
-            if (docAdded && imgAdded) break;
+            if (docCount >= 5 && imgCount >= 5) break;
         }
         formData.append('lang', this.lang || 'es');
 
