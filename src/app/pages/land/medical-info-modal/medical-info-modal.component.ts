@@ -1,9 +1,11 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { BrandingService, BrandingConfig } from 'app/shared/services/branding.service';
 import { Subscription } from 'rxjs';
 import { marked } from 'marked';
+import { MedicalAnswerFeedbackComponent } from '../medical-answer-feedback/medical-answer-feedback.component';
+import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 @Component({
   selector: 'app-medical-info-modal',
@@ -14,6 +16,9 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
   @Input() content: string = '';
   @Input() title: string = 'Información Médica';
   @Input() sonarData: string = '';
+  @Input() model: string = '';
+  @Input() selectedFiles: any[] = [];
+  @Input() detectedLang: string = '';
   closeButtonText: string = 'Cerrar';
   
   private subscription: Subscription = new Subscription();
@@ -31,10 +36,44 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
   constructor(
     public activeModal: NgbActiveModal,
     private translate: TranslateService,
-    private brandingService: BrandingService
+    private brandingService: BrandingService,
+    private modalService: NgbModal,
+    private insightsService: InsightsService
   ) {
     // Inicializar con valor por defecto
     this.closeButtonText = 'Cerrar';
+  }
+
+  openMedicalFeedback(vote: 'up' | 'down') {
+    // Track click on thumbs
+    try {
+      this.insightsService.trackEvent('medical_answer_thumb_click', {
+        vote,
+        model: this.model || 'unknown',
+        detectedLang: this.detectedLang || 'unknown',
+        hasSelectedFiles: Array.isArray(this.selectedFiles) && this.selectedFiles.length > 0,
+        fileCount: Array.isArray(this.selectedFiles) ? this.selectedFiles.length : 0
+      });
+    } catch {}
+
+    const modalRef = this.modalService.open(MedicalAnswerFeedbackComponent, {
+      size: 'md',
+      backdrop: 'static',
+      keyboard: false,
+      centered: true
+    });
+    modalRef.componentInstance.question = this.title;
+    modalRef.componentInstance.initialVote = vote;
+    modalRef.componentInstance.model = this.model;
+    modalRef.componentInstance.detectedLang = this.detectedLang;
+    const fileNames = (this.selectedFiles && this.selectedFiles.length > 0)
+      ? this.selectedFiles.map((f: any) => f?.name).filter(Boolean).join(', ')
+      : '';
+    modalRef.componentInstance.fileNames = fileNames;
+    modalRef.componentInstance.answerHtml = this.htmlContent;
+    try {
+      modalRef.componentInstance.references = this.getFormattedReferences();
+    } catch { modalRef.componentInstance.references = []; }
   }
 
   

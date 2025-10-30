@@ -856,7 +856,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             model: modelToUse,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
-            imageUrls: []
+            imageUrls: [],
+            betaPage: true
         };
         if(this.currentImageUrls.length > 0){
             value.imageUrls = this.currentImageUrls;
@@ -1161,6 +1162,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.content = content.medicalAnswer;
         modalRef.componentInstance.sonarData = content.sonarData;
         modalRef.componentInstance.title = content.question;
+        modalRef.componentInstance.model = content.model;
+        modalRef.componentInstance.selectedFiles = this.selectedFiles;
     }
 
     includesElement(array, string) {

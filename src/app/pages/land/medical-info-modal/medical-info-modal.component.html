@@ -18,6 +18,17 @@
   <!-- Medical Content -->
   <div class="medical-content" [innerHTML]="htmlContent" (click)="onContentClick($event)"></div>
 
+  <!-- Feedback CTA -->
+  <div class="mt-3 d-flex align-items-center gap-2">
+    <span class="me-2">{{ 'medicalInfoModal.wasHelpful' | translate }}</span>
+    <button class="btn btn-outline-success" title="{{ 'medicalInfoModal.voteup' | translate }}" (click)="openMedicalFeedback('up')">
+      <i class="fa fa-thumbs-up"></i>
+    </button>
+    <button class="btn btn-outline-danger" title="{{ 'medicalInfoModal.votedown' | translate }}" (click)="openMedicalFeedback('down')">
+      <i class="fa fa-thumbs-down"></i>
+    </button>
+  </div>
+
   <!-- References Section -->
   <div class="references-section" *ngIf="hasReferences()">
     <h4 class="references-title">

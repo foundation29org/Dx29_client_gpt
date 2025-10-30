@@ -1094,7 +1094,14 @@
   "medicalInfoModal": {
     "disclaimerText": "Cet outil est conçu principalement pour <strong>aider au diagnostic</strong>. Les réponses aux questions médicales générales sont fournies à des fins éducatives et doivent être évaluées avec prudence. Elles ne remplacent pas un conseil médical professionnel.",
     "aiGeneratedWarning": "<strong>Note :</strong> Ce texte a été généré par intelligence artificielle et peut contenir des erreurs.",
-    "references": "Références"
+    "references": "Références",
+    "feedbackTitle": "Retour sur la réponse médicale",
+    "question": "Question",
+    "wasHelpful": "Cette réponse vous a-t‑elle été utile ?",
+    "comments": "Commentaires (facultatif)",
+    "commentsPlaceholder": "Que pourriez‑vous améliorer ou qu’avez‑vous trouvé utile ?",
+    "voteup": "Pouce levé",
+    "votedown": "Pouce baissé"
   },
   "integration": {
     "title": "Intégration",

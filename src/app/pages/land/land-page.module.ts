@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReportsPageComponent } from "./reports/reports-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
 import { MedicalInfoModalComponent } from "./medical-info-modal/medical-info-modal.component";
+import { MedicalAnswerFeedbackComponent } from "./medical-answer-feedback/medical-answer-feedback.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 import { CookiesPageComponent } from "./cookies/cookies.component";
@@ -48,6 +49,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         ReportsPageComponent,
         UndiagnosedPageComponent,
         MedicalInfoModalComponent,
+        MedicalAnswerFeedbackComponent,
         FeedbackPageComponent,
         PrivacyPolicyPageComponent,
         CookiesPageComponent,

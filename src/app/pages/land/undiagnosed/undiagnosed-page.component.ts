@@ -1161,6 +1161,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.content = content.medicalAnswer;
         modalRef.componentInstance.sonarData = content.sonarData;
         modalRef.componentInstance.title = content.question;
+        modalRef.componentInstance.model = content.model;
+        modalRef.componentInstance.selectedFiles = this.selectedFiles;
+        modalRef.componentInstance.detectedLang = content.detectedLang;
     }
 
     includesElement(array, string) {

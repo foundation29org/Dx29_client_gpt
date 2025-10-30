@@ -1094,7 +1094,14 @@
   "medicalInfoModal": {
     "disclaimerText": "Aquesta eina està dissenyada principalment per a <strong>ajudar en el diagnòstic</strong>. Les respostes a consultes mèdiques generals són només amb finalitats educatives i s'han d'avaluar críticament. No substitueixen el consell mèdic professional.",
     "aiGeneratedWarning": "<strong>Nota:</strong> Aquest text ha estat generat per intel·ligència artificial i pot contenir errors.",
-    "references": "Referències"
+    "references": "Referències",
+    "feedbackTitle": "Comentaris sobre la resposta mèdica",
+    "question": "Pregunta",
+    "wasHelpful": "Aquesta resposta t'ha estat útil?",
+    "comments": "Comentaris (opcional)",
+    "commentsPlaceholder": "Què milloraries o què t’ha estat útil?",
+    "voteup": "Polze amunt",
+    "votedown": "Polze avall"
   },
   "integration": {
     "title": "Integració",
