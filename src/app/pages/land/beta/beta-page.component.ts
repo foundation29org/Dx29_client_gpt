@@ -77,6 +77,18 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     selectorOption: string = '';
     symtpmsLabel: string = '';
     sending: boolean = false;
+
+    // Getters para límites de subida (visibles en UI)
+    get selectedImagesCount(): number {
+        return (this.selectedFiles || []).filter(f => f.type && BetaPageComponent.SUPPORTED_IMAGE_TYPES.includes(f.type)).length;
+    }
+    get selectedDocsCount(): number {
+        return (this.selectedFiles || []).filter(f => f.type && BetaPageComponent.SUPPORTED_DOC_TYPES.includes(f.type)).length;
+    }
+    get selectedTotalMB(): number {
+        const bytes = (this.selectedFiles || []).reduce((acc: number, f: File) => acc + (f.size || 0), 0);
+        return Math.round((bytes / (1024 * 1024)) * 10) / 10; // 1 decimal
+    }
     symptomsDifferencial: any = [];
     selectedQuestion: string = '';
     email: string = '';
@@ -550,6 +562,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     private getProgressMessage(phase: string): string {
         const messages = {
             'connection': this.translate.instant('progress.connecting') || 'Connecting...',
+            'extract_documents': this.translate.instant('progress.extract_documents') || 'Extracting documents...',
+            'summarize_input': this.translate.instant('progress.summarize_input') || 'Generating medical summary...',
             'translation': this.translate.instant('progress.translating') || 'Translating description...',
             'medical_question': this.translate.instant('progress.medical_question') || 'Asking medical questions...',
             'ai_processing': this.translate.instant('progress.analyzing') || 'Analyzing symptoms with AI...',
@@ -843,7 +857,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
 
         // Inicializar progreso para WebSocket
         setTimeout(() => {
-            this.updateWebSocketProgress(10, 'Conectando...', 'connection');
+            this.updateWebSocketProgress(0, 'Conectando...', 'connection');
         }, 100);
 
         this.callingAI = true;
@@ -2656,7 +2670,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
 
         // Inicializar progreso para WebSocket
         setTimeout(() => {
-            this.updateWebSocketProgress(10, 'Conectando...', 'connection');
+            this.updateWebSocketProgress(0, 'Conectando...', 'connection');
         }, 100);
 
         this.callingAI = true;

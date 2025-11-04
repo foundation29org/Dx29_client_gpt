@@ -3,23 +3,24 @@
   <section *ngIf="currentStep == 1" class="col-12 d-flex flex-column">
     <div class="">
       <div class="mb-5 col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
-        <h2 class="white" (click)="changeModeFunctionality()">{{'land.title' | translate }}</h2>
+        <h2 class="white" (click)="changeModeFunctionality()">{{'land.titleBeta' | translate }}</h2>
         
         <!-- Subtítulo para versión beta -->
-        <div class="beta-warning mb-4">
+        <div class="beta-warning mb-4 mt-4">
           <div class="alert alert-warning d-inline-block" role="alert">
             <i class="fas fa-flask me-2"></i>
             <strong>{{ 'beta.warning_title' | translate }}</strong> - {{ 'beta.warning_message' | translate }} 
             <strong>{{ 'beta.warning_medical' | translate }}</strong> 
             {{ 'beta.warning_feedback' | translate }}
           </div>
-          <div class="text-muted small mt-2">
-            {{ 'beta.dual_mode_hint' | translate }}
-            <ul class="mb-0" style="list-style-position: inside; padding-left: 0; margin-left: 0;">
-              <li>{{ 'beta.example_patient' | translate }}</li>
-              <li>{{ 'beta.example_question' | translate }}</li>
-            </ul>
-          </div>
+          
+        </div>
+        <div class="text-muted small mt-2">
+          {{ 'beta.dual_mode_hint' | translate }}
+          <ul class="mb-0" style="list-style-position: inside; padding-left: 0; margin-left: 0;">
+            <li>{{ 'beta.example_patient' | translate }}</li>
+            <li>{{ 'beta.example_question' | translate }}</li>
+          </ul>
         </div>
         
         <div *ngIf="modeFunctionality" class="badge bg-danger pulse-animation mb-3">
@@ -69,6 +70,13 @@
             </span>
           </span>
         </div>
+      </div>
+      <!-- Límites y uso de subida -->
+      <div class="text-muted small" style="margin-top: -6px;">
+        {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
+        <span class="ms-2">
+          {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
+        </span>
       </div>
       <!-- Mensaje informativo sobre funcionalidad multimodal -->
       <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary mt-3 mb-3" role="alert" style="text-align: left;">
@@ -162,7 +170,7 @@
     <div
       class="mt-3 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
       <span class="white pointer help-link" (click)="showContentInfoAPP(contentInfoAPP)"
-      [attr.title]="getLiteral('land.Need help')" [attr.aria-label]="getLiteral('land.Need help')">{{'land.Need help' |
+     [attr.title]="getLiteral('land.Getting started')" [attr.aria-label]="getLiteral('land.Getting started')">{{'land.Getting started' |
         translate }}</span>
     </div>
   </section>
@@ -311,7 +319,7 @@
     </div>
   </section>
 </div>
-<div class="background-dark">
+<div *ngIf="currentStep == 1" class="background-dark">
   <app-testimonials></app-testimonials>
 </div>
 
@@ -455,14 +463,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="white-checkbox mb-5">
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <h4 class="primary">{{'menu.Contact us' | translate }}</h4>
-      </div>
-    </div>
-    <app-send-msg (closeModalEvent)="closeModal()"></app-send-msg>
   </div>
 </ng-template>
 <ng-template #contentviewDoc id="contentviewDoc" let-c="close" let-d="dismiss" appendTo="body">

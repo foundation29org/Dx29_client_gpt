@@ -18,14 +18,16 @@
     "warning_message": "Aquesta és una versió experimental, que genera una descripció a partir d'informes mèdics o imatges.",
     "warning_medical": "El resultat ha de ser comprovat per un professional sanitari.",
     "warning_feedback": "Necessitem feedback d'usuaris per saber si el resultat és fiable; el teu feedback és fonamental per millorar l'eina.",
-    "dual_mode_hint": "Aquest quadre admet dues entrades: descriu un pacient o formula una pregunta mèdica. Si no detectem cap de les dues, et demanarem que introdueixis la descripció del pacient.",
+    "dual_mode_hint": "Aquest camp admet dos tipus d'entrada: descripció del pacient per a diagnòstic o preguntes mèdiques.",
     "example_patient": "Exemple (pacient): Home de 45 anys amb febre de 38,5 ºC, tos seca des de fa 3 dies i dispnea lleu.",
     "example_question": "Exemple (pregunta): Quina és la dosi d'amoxicil·lina per a la sinusitis bacteriana en adults?",
     "files_limit_images": "imatge(s) no afegida(s): màxim 5.",
     "files_limit_docs": "document(s) no afegit(s): màxim 5.",
     "files_limit_total": "Mida total excedida (20MB). Redueix o elimina fitxers.",
     "files_duplicates": "fitxer(s) duplicat(s) ignorat(s).",
-    "files_unsupported_format": "fitxer(s) amb format no suportat. Formats vàlids: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF."
+    "files_unsupported_format": "fitxer(s) amb format no suportat. Formats vàlids: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
+    "upload_limits": "Límit: {{maxMB}} MB totals, màx. {{maxDocs}} documents i {{maxImages}} imatges.",
+    "upload_usage": "Usat: {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} imatges, {{usedMB}}/{{maxMB}} MB."
   },
   "footer":{
     "Collaboration": "Col·laboració",
@@ -462,6 +464,8 @@
   "progress":{
     "connecting": "Connectant...",
     "translating": "Traduint descripció...",
+    "extract_documents": "Extraient documents...",
+    "summarize_input": "Generant resum mèdic...",
     "medical_question": "Processant pregunta mèdica...",
     "analyzing": "Analitzant símptomes amb IA...",
     "getting_details": "Obtenint detalls del diagnòstic...",
@@ -661,6 +665,7 @@
     "Recommendations": "Per obtenir millors resultats, indica quan i per què creus que van aparèixer els símptomes",
     "Search": "Cercar",
     "Need help": "Necessites ajuda?",
+    "Getting started": "Guia ràpida",
     "dropzone": "Deixa anar els fitxers per pujar-los",
     "Made with love by": "Fet amb ❤️ per",
     "required": "Si us plau proporciona detalls del pacient (edat, gènere, símptomes) i quan van començar. Exemple: Dona, 42 anys, dolors de cap severs durant 3 mesos, marejos, antecedents familiars de migranyes.",
@@ -721,6 +726,7 @@
     "Type here": "Escriu aquí!",
     "Placeholder help": "Escriu aquí detalls del pacient (edat, gènere, símptomes) i quan van començar.\nExemple: Dona, 42 anys, dolors de cap severs durant 3 mesos, marejos, antecedents familiars de migranyes.",
     "title": "Introdueix una breu descripció del pacient i DxGPT et proporcionarà una llista de possibles diagnòstics de malalties",
+    "titleBeta": "Obté diagnòstics i informació mèdica en segons",
     "p1.title": "Exemples",
     "p1.subtitle": "Prem en el text per usar-lo com a exemple",
     "p1.1": "El pacient té tretze mesos. Primera convulsió focal als tres mesos. Convulsions múltiples tònico-clòniques. Convulsions febrils. Un estat epilèptic als vuit mesos.",

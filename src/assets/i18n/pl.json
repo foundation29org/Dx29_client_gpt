@@ -18,14 +18,16 @@
     "warning_message": "To jest wersja eksperymentalna, która generuje opisy na podstawie raportów medycznych lub obrazów.",
     "warning_medical": "Wynik musi być zweryfikowany przez profesjonalistę medycznego.",
     "warning_feedback": "Potrzebujemy opinii użytkowników, aby wiedzieć, czy wynik jest wiarygodny; Twoja opinia jest fundamentalna dla ulepszenia narzędzia.",
-    "dual_mode_hint": "To pole akceptuje dwa typy wejścia: opisz pacjenta lub zadaj pytanie medyczne. Jeśli nie wykryjemy żadnego z nich, poprosimy o opis pacjenta.",
+    "dual_mode_hint": "To pole akceptuje dwa typy danych: opis pacjenta do diagnozy lub pytania medyczne.",
     "example_patient": "Przykład (pacjent): Mężczyzna, 45 lat, gorączka 38,5 °C, suchy kaszel od 3 dni, łagodna duszność.",
     "example_question": "Przykład (pytanie): Jaka jest dawka amoksycyliny u dorosłych w bakteryjnym zapaleniu zatok?",
     "files_limit_images": "obraz(ów) nie dodano: maksymalnie 5.",
     "files_limit_docs": "dokument(ów) nie dodano: maksymalnie 5.",
     "files_limit_total": "Przekroczono całkowity rozmiar (20MB). Zmniejsz lub usuń pliki.",
     "files_duplicates": "zduplikowane pliki zignorowane.",
-    "files_unsupported_format": "pliki z nieobsługiwanym formatem. Prawidłowe formaty: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF."
+    "files_unsupported_format": "pliki z nieobsługiwanym formatem. Prawidłowe formaty: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
+    "upload_limits": "Limit: {{maxMB}} MB łącznie, maks. {{maxDocs}} dokumentów i {{maxImages}} obrazów.",
+    "upload_usage": "Użyto: {{docs}}/{{maxDocs}} dok., {{images}}/{{maxImages}} obrazy, {{usedMB}}/{{maxMB}} MB."
   },
   "footer":{
     "Collaboration": "Współpraca",
@@ -462,6 +464,8 @@
   "progress":{
     "connecting": "Łączenie...",
     "translating": "Tłumaczenie...",
+    "extract_documents": "Wyodrębnianie dokumentów...",
+    "summarize_input": "Tworzenie podsumowania medycznego...",
     "medical_question": "Przetwarzanie pytania medycznego...",
     "analyzing": "Analiza...",
     "getting_details": "Pobieranie szczegółów...",
@@ -661,6 +665,7 @@
     "Recommendations": "Dla najlepszych wyników wskaż, kiedy i dlaczego Twoim zdaniem pojawiły się objawy",
     "Search": "Szukaj",
     "Need help": "Potrzebujesz pomocy?",
+    "Getting started": "Szybki start",
     "dropzone": "Upuść pliki, aby je przesłać",
     "Made with love by": "Stworzone z ❤️ przez",
     "required": "Proszę podać dane pacjenta (wiek, płeć, objawy) i datę rozpoczęcia leczenia. Przykład: Kobieta, 42 lata, silne bóle głowy od 3 miesięcy, zawroty głowy, rodzinne występowanie migren.",
@@ -721,6 +726,7 @@
     "Type here": "Pisz tutaj!",
     "Placeholder help": "Wpisz tutaj dane pacjenta (wiek, płeć, objawy) i kiedy się rozpoczęły.\nPrzykład: Kobieta, 42 lata, silne bóle głowy od 3 miesięcy, zawroty głowy, rodzinna historia migren.",
     "title": "Wprowadź krótki opis pacjenta, a DxGPT dostarczy listę możliwych diagnoz chorób",
+    "titleBeta": "Uzyskaj diagnozy i informacje medyczne w ciągu kilku sekund",
     "p1.title": "Przykłady",
     "p1.subtitle": "Kliknij na tekst, aby użyć go jako przykładu",
     "p1.1": "Pacjent ma trzynaście miesięcy. Pierwszy napad ogniskowy w wieku trzech miesięcy. Liczne napady toniczno-kloniczne. Drgawki gorączkowe. Jeden stan padaczkowy w wieku ośmiu miesięcy.",

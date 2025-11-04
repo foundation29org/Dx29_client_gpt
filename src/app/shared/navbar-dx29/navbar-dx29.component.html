@@ -61,15 +61,17 @@
                       <span>{{'menu.Statistics' | translate }}</span>
                   </a>
               </li>
-              <!-- Botón Beta destacado -->
+              <!-- Toggle Beta ON/OFF -->
               <li class="nav-item me-2 beta-link" *ngIf="shouldShowDonate">
-                  <a class="nav-link btn btn-warning round white mb-0 btn-sm beta-a" 
-                     [ngClass]="{'beta-active': isBetaPage}"
-                     routerLink="/beta" 
-                     (click)="lauchEvent('Page - Beta')"
-                     [attr.aria-label]="'Beta' | translate">
-                      <span>BETA <em class="ms-1 fa fa-flask" aria-hidden="true"></em></span>
-                  </a>
+                  <button type="button"
+                          class="nav-link btn round white mb-0 btn-sm beta-a"
+                          [ngClass]="isBetaPage ? 'btn-warning' : 'btn-outline-warning'"
+                          (click)="toggleBeta()"
+                          [attr.aria-pressed]="isBetaPage"
+                          [attr.aria-label]="isBetaPage ? 'Beta ON' : 'Beta OFF'">
+                      <span>BETA</span>
+                      <span class="ms-1 badge" [ngClass]="isBetaPage ? 'bg-dark text-white' : 'bg-secondary'">{{ isBetaPage ? 'ON' : 'OFF' }}</span>
+                  </button>
               </li>
  
           </ul>

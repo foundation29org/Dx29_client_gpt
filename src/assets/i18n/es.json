@@ -18,14 +18,16 @@
     "warning_message": "Esta es una versión experimental, que genera una descripción a partir de informes médicos o imágenes.",
     "warning_medical": "El resultado debe ser comprobado por un profesional sanitario.",
     "warning_feedback": "Necesitamos feedback de usuarios para saber si el resultado es confiable; tu feedback es fundamental para mejorar la herramienta.",
-    "dual_mode_hint": "Esta caja admite dos entradas: describe un paciente o formula una pregunta médica. Si no detectamos ninguna de las dos, te pediremos que introduzcas la descripción del paciente.",
+    "dual_mode_hint": "Este campo admite dos tipos de entrada: descripción del paciente para diagnóstico o preguntas médicas.",
     "example_patient": "Ejemplo (paciente): Varón de 45 años con fiebre de 38,5 ºC, tos seca desde hace 3 días y disnea leve.",
     "example_question": "Ejemplo (pregunta): ¿Cuál es la dosis de amoxicilina en sinusitis bacteriana en adultos?",
     "files_limit_images": "imagen(es) no añadidas: máximo 5.",
     "files_limit_docs": "documento(s) no añadidos: máximo 5.",
     "files_limit_total": "Tamaño total excedido (20MB). Reduce o elimina archivos.",
     "files_duplicates": "archivo(s) duplicado(s) ignorados.",
-    "files_unsupported_format": "archivo(s) con formato no soportado. Formatos válidos: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF."
+    "files_unsupported_format": "archivo(s) con formato no soportado. Formatos válidos: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
+    "upload_limits": "Límite: {{maxMB}} MB totales, máx. {{maxDocs}} documentos y {{maxImages}} imágenes.",
+    "upload_usage": "Usado: {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} imágenes, {{usedMB}}/{{maxMB}} MB."
   },
   "footer":{
     "Collaboration": "Colaboración",
@@ -462,6 +464,8 @@
   "progress":{
     "connecting": "Conectando...",
     "translating": "Traduciendo descripción...",
+    "extract_documents": "Extrayendo documentos...",
+    "summarize_input": "Generando resumen médico...",
     "medical_question": "Procesando pregunta médica...",
     "analyzing": "Analizando síntomas con IA...",
     "getting_details": "Obteniendo detalles del diagnóstico...",
@@ -661,6 +665,7 @@
     "Recommendations": "Para obtener mejores resultados, indica cuándo y por qué cree que aparecieron los síntomas",
     "Search": "Buscar",
     "Need help": "¿Necesitas ayuda?",
+    "Getting started": "Guía rápida",
     "dropzone": "Suelta los archivos para subirlos",
     "Made with love by": "Hecho con ❤️ por",
     "required": "Por favor proporciona detalles del paciente (edad, género, síntomas) y cuándo comenzaron. Ejemplo: Mujer, 42 años, dolores de cabeza severos durante 3 meses, mareos, antecedentes familiares de migrañas.",
@@ -721,6 +726,7 @@
     "Type here": "¡Escribe aquí!",
     "Placeholder help": "Escribe aquí detalles del paciente (edad, género, síntomas) y cuándo comenzaron.\nEjemplo: Mujer, 42 años, dolores de cabeza severos durante 3 meses, mareos, antecedentes familiares de migrañas.",
     "title": "Introduce una breve descripción del paciente y DxGPT te proporcionará una lista de posible diagnósticos de enfermedades",
+    "titleBeta": "Obtén diagnósticos e información médica en segundos",
     "p1.title": "Ejemplos",
     "p1.subtitle": "Pulsa en el texto para usarlo como ejemplo",
     "p1.1": "El paciente tiene trece meses. Primera convulsión focal a los tres meses. Convulsiones múltiples tónico-clónicas. Convulsiones febriles. Un estado epiléptico a los ocho meses.",

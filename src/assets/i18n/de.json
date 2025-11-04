@@ -18,14 +18,16 @@
     "warning_message": "Dies ist eine experimentelle Version, die Beschreibungen aus medizinischen Berichten oder Bildern generiert.",
     "warning_medical": "Das Ergebnis muss von einem Gesundheitsfachmann überprüft werden.",
     "warning_feedback": "Wir benötigen Nutzerfeedback, um zu wissen, ob das Ergebnis zuverlässig ist; Ihr Feedback ist grundlegend für die Verbesserung des Tools.",
-    "dual_mode_hint": "Dieses Feld akzeptiert zwei Eingaben: Beschreiben Sie einen Patienten oder stellen Sie eine medizinische Frage. Wenn keines erkannt wird, bitten wir Sie um die Patientbeschreibung.",
+    "dual_mode_hint": "Dieses Feld akzeptiert zwei Eingabetypen: Patientenbeschreibung für die Diagnose oder medizinische Fragen.",
     "example_patient": "Beispiel (Patient): 45-jähriger Mann mit 38,5 °C Fieber, trockenem Husten seit 3 Tagen und leichter Dyspnoe.",
     "example_question": "Beispiel (Frage): Wie hoch ist die Amoxicillin-Dosis bei erwachsenen Patienten mit bakterieller Sinusitis?",
     "files_limit_images": "Bild(er) nicht hinzugefügt: Maximum 5.",
     "files_limit_docs": "Dokument(e) nicht hinzugefügt: Maximum 5.",
     "files_limit_total": "Gesamtgröße überschritten (20MB). Reduzieren oder entfernen Sie Dateien.",
     "files_duplicates": "Doppelte Datei(en) ignoriert.",
-    "files_unsupported_format": "Datei(en) mit nicht unterstütztem Format. Gültige Formate: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF."
+    "files_unsupported_format": "Datei(en) mit nicht unterstütztem Format. Gültige Formate: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
+    "upload_limits": "Limit: {{maxMB}} MB gesamt, max. {{maxDocs}} Dokumente und {{maxImages}} Bilder.",
+    "upload_usage": "Verwendet: {{docs}}/{{maxDocs}} Dok., {{images}}/{{maxImages}} Bilder, {{usedMB}}/{{maxMB}} MB."
   },
   "footer":{
     "Collaboration": "Zusammenarbeit",
@@ -462,6 +464,8 @@
   "progress":{
     "connecting": "Verbinden...",
     "translating": "Beschreibung übersetzen...",
+    "extract_documents": "Dokumente extrahieren...",
+    "summarize_input": "Medizinische Zusammenfassung wird erstellt...",
     "medical_question": "Medizinische Frage verarbeiten...",
     "analyzing": "Symptome mit KI analysieren...",
     "getting_details": "Diagnose-Details abrufen...",
@@ -661,6 +665,7 @@
     "Recommendations": "Für beste Ergebnisse geben Sie an, wann und warum die Symptome aufgetreten sind",
     "Search": "Suchen",
     "Need help": "Hilfe benötigt?",
+    "Getting started": "Schnellstart",
     "dropzone": "Dateien zum Hochladen hier ablegen",
     "Made with love by": "Mit ❤️ gemacht von",
     "required": "Bitte geben Sie die Patientendaten (Alter, Geschlecht, Symptome) und deren Beginn an. Beispiel: Frau, 42 Jahre alt, seit 3 Monaten starke Kopfschmerzen, Schwindel, Migräne in der Familie.",
@@ -721,6 +726,7 @@
     "Type here": "Hier eingeben!",
     "Placeholder help": "Geben Sie hier Patientendetails ein (Alter, Geschlecht, Symptome) und wann sie begannen.\nBeispiel: Weiblich, 42, schwere Kopfschmerzen seit 3 Monaten, Schwindel, familiäre Vorgeschichte von Migräne.",
     "title": "Geben Sie eine kurze Beschreibung des Patienten ein und DxGPT liefert eine Liste möglicher Krankheitsdiagnosen",
+    "titleBeta": "Diagnostik und medizinische Informationen in Sekunden",
     "p1.title": "Beispiele",
     "p1.subtitle": "Klicken Sie auf den Text, um ihn als Beispiel zu verwenden",
     "p1.1": "Der Patient ist dreizehn Monate alt. Erster fokaler Anfall mit drei Monaten. Mehrere tonisch-klonische Anfälle. Fieberkrämpfe. Ein Status epilepticus mit acht Monaten.",

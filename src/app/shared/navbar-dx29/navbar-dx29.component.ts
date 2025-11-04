@@ -391,4 +391,20 @@ export class NavbarD29Component implements OnDestroy {
     }
   }
 
+  /**
+   * Alterna el modo Beta ON/OFF y navega a la ruta correspondiente
+   */
+  toggleBeta(): void {
+    const goingToBeta = !this.isBetaPage;
+    try {
+      localStorage.setItem('betaEnabled', goingToBeta ? 'true' : 'false');
+    } catch {}
+    this.lauchEvent(`Toggle - Beta ${goingToBeta ? 'On' : 'Off'}`);
+    if (goingToBeta) {
+      this.router.navigate(['/beta']);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
+
 }

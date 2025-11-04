@@ -550,6 +550,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private getProgressMessage(phase: string): string {
         const messages = {
             'connection': this.translate.instant('progress.connecting') || 'Connecting...',
+            'extract_documents': this.translate.instant('progress.extract_documents') || 'Extracting documents...',
+            'summarize_input': this.translate.instant('progress.summarize_input') || 'Generating medical summary...',
             'translation': this.translate.instant('progress.translating') || 'Translating description...',
             'medical_question': this.translate.instant('progress.medical_question') || 'Asking medical questions...',
             'ai_processing': this.translate.instant('progress.analyzing') || 'Analyzing symptoms with AI...',
@@ -843,7 +845,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         // Inicializar progreso para WebSocket
         setTimeout(() => {
-            this.updateWebSocketProgress(10, 'Conectando...', 'connection');
+            this.updateWebSocketProgress(0, 'Conectando...', 'connection');
         }, 100);
 
         this.callingAI = true;
@@ -2655,7 +2657,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         // Inicializar progreso para WebSocket
         setTimeout(() => {
-            this.updateWebSocketProgress(10, 'Conectando...', 'connection');
+            this.updateWebSocketProgress(0, 'Conectando...', 'connection');
         }, 100);
 
         this.callingAI = true;

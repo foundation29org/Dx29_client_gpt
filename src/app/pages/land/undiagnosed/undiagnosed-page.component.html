@@ -144,7 +144,7 @@
     <div
       class="mt-3 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
       <span class="white pointer help-link" (click)="showContentInfoAPP(contentInfoAPP)"
-      [attr.title]="getLiteral('land.Need help')" [attr.aria-label]="getLiteral('land.Need help')">{{'land.Need help' |
+     [attr.title]="getLiteral('land.Getting started')" [attr.aria-label]="getLiteral('land.Getting started')">{{'land.Getting started' |
         translate }}</span>
     </div>
   </section>
@@ -293,7 +293,7 @@
     </div>
   </section>
 </div>
-<div class="background-dark">
+<div *ngIf="currentStep == 1" class="background-dark">
   <app-testimonials></app-testimonials>
 </div>
 
@@ -437,14 +437,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="white-checkbox mb-5">
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <h4 class="primary">{{'menu.Contact us' | translate }}</h4>
-      </div>
-    </div>
-    <app-send-msg (closeModalEvent)="closeModal()"></app-send-msg>
   </div>
 </ng-template>
 <ng-template #contentviewDoc id="contentviewDoc" let-c="close" let-d="dismiss" appendTo="body">
