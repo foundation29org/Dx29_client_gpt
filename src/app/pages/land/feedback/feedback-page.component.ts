@@ -32,10 +32,17 @@ export class FeedbackPageComponent implements OnDestroy {
     moreFunctLength: number = 0;
     freeTextLength: number = 0;
     formulario: FormGroup;
+    
+    // Nuevos parámetros recibidos
+    model: string = '';
+    fileNames: string = '';
 
     constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private eventsService: EventsService, private uuidService: UuidService) {
         this._startTime = Date.now();
         this.myuuid = this.uuidService.getUuid();
+        
+        // Los parámetros se pasarán a través del modal service
+        // Se inicializarán desde el componente padre
         
 
         this.formulario = new FormGroup({
@@ -106,7 +113,13 @@ export class FeedbackPageComponent implements OnDestroy {
       
           //this.mainForm.value.email = (this.mainForm.value.email).toLowerCase();
           //this.mainForm.value.lang=this.translate.store.currentLang;
-          var value = { value: this.formulario.value, myuuid: this.myuuid, lang: this.translate.store.currentLang}
+          var value = { 
+            value: this.formulario.value, 
+            myuuid: this.myuuid, 
+            lang: this.translate.store.currentLang,
+            model: this.model,
+            fileNames: this.fileNames
+          }
           this.subscription.add( this.http.post(environment.api+'/internal/generalfeedback/', value)
           .subscribe( (res : any) => {
             this.sending = false;
@@ -193,6 +206,15 @@ export class FeedbackPageComponent implements OnDestroy {
         } else {
             localStorage.setItem('showFeedbackDxGPT', 'false')
         }
+    }
+
+    // Métodos públicos para establecer los parámetros desde el componente padre
+    setModel(model: string): void {
+        this.model = model;
+    }
+
+    setSelectedFiles(fileNames: string): void {
+        this.fileNames = fileNames;
     }
 
 }

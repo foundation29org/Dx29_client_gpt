@@ -10,6 +10,7 @@ import { PermalinkViewPageComponent } from "./permalink-view/permalink-view-page
 import { CollaborationComponent } from "./collaboration/collaboration.component";
 import { Foundation29Component } from "./foundation29/foundation29.component";
 import { IntegrationComponent } from "./integration/integration.component";
+import { BetaPageComponent } from "./beta/beta-page.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,13 @@ const routes: Routes = [
         component: UndiagnosedPageComponent,
         data: {
           title: 'menu.Home'
+        },
+      },
+      {
+        path: 'beta',
+        component: BetaPageComponent,
+        data: {
+          title: 'Beta'
         },
       },
       {

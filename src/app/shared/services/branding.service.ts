@@ -14,6 +14,7 @@ export interface BrandingConfig {
     accent: string;
     background: string;
     text: string;
+    contrastText: string;
     sidebar: string;
     backgroundDark: string;
     rating: string; // Added rating color
@@ -119,6 +120,7 @@ export class BrandingService {
     root.style.setProperty('--primary-color', config.colors.primary);
     root.style.setProperty('--secondary-color', config.colors.secondary);
     root.style.setProperty('--accent-color', config.colors.accent);
+    root.style.setProperty('--contrast-text-color', config.colors.contrastText);
     if (config.colors.rating) {
       root.style.setProperty('--rating-color', config.colors.rating);
     }
@@ -240,13 +242,6 @@ export class BrandingService {
    */
   getDonateLink(): string | null {
     return this.getConfigValue<string>('links.donate');
-  }
-
-  /**
-   * Obtiene el enlace de la fundación
-   */
-  getFoundationLink(): string {
-    return this.getConfigValue<string>('links.foundation') || 'https://foundation29.org';
   }
 
   /**

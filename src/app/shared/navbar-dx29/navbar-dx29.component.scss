@@ -114,6 +114,69 @@ i{
   width: 120px;
 }
 
+.beta-a{
+  width: 100px;
+  background: linear-gradient(135deg, #ffc107, #ff8f00) !important;
+  border: none !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3) !important;
+  transition: all 0.3s ease !important;
+  
+  &:hover {
+    background: linear-gradient(135deg, #ff8f00, #ff6f00) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4) !important;
+    color: #000 !important;
+  }
+  
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.3) !important;
+    color: #000 !important;
+  }
+  
+  &:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 6px rgba(255, 193, 7, 0.3) !important;
+  }
+  
+  em {
+    color: #000 !important;
+  }
+  
+  // Estado activo para el botón beta
+  &.beta-active {
+    background: linear-gradient(135deg, #ff8f00, #ff6f00) !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 6px 16px rgba(255, 193, 7, 0.5) !important;
+    border: 2px solid #fff !important;
+    
+    &:hover {
+      background: linear-gradient(135deg, #ff6f00, #ff5722) !important;
+      transform: scale(1.08) !important;
+      box-shadow: 0 8px 20px rgba(255, 193, 7, 0.6) !important;
+    }
+    
+    em {
+      color: #fff !important;
+      animation: betaIconPulse 1.5s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes betaIconPulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
 .logo-header{
   width: 140px;
   height: 37px;
@@ -176,6 +239,15 @@ i{
     font-size: 1.1rem;
     border-radius: 24px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .beta-link .beta-a {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+    font-size: 1.1rem;
+    border-radius: 24px;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
   }
 
   /* Estilos para el dropdown en pantallas estrechas */

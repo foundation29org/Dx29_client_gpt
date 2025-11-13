@@ -5,11 +5,12 @@
     "description": "AI-powered diagnostic assistance",
     "colors": {
       "primary": "#253146",
-      "secondary": "#764ba2",
+      "secondary": "#B30000",
       "accent": "#B30000",
       "rating": "#B30000",
       "background": "#ffffff",
-      "text": "#333333",
+      "text": "#fff",
+      "contrastText": "#000000",
       "backgroundDark": "#1c202a",
       "sidebar": "man-of-steel"
     },
@@ -21,7 +22,6 @@
     },
     "links": {
       "donate": "https://www.foundation29.org/donate/",
-      "foundation": "https://foundation29.org",
       "support": "DxGPT support"
     },
     "backgrounds": {
@@ -41,7 +41,8 @@
       "accent": "#e1a84c",
       "rating": "#e1a84c",
       "background": "#ffffff",
-      "text": "#333333",
+      "text": "#fff",
+      "contrastText": "#000000",
       "backgroundDark": "#599da2",
       "sidebar": "green"
     },
@@ -53,13 +54,44 @@
     },
     "links": {
       "donate": null,
-      "foundation": "https://foundation29.org",
       "support": "SALUD-GPT support"
     },
     "backgrounds": {
       "aboutUs": {
         "gradient": "linear-gradient(135deg, #599da2 0%, #7bbdc7 25%, #599da2 50%, #417b8a 75%, #305c66 100%)",
         "overlay": "linear-gradient(45deg, rgba(56, 142, 60, 0.1) 0%, transparent 50%, rgba(76, 175, 80, 0.08) 100%)"
+      }
+    }
+  },
+  "sermas-gpt": {
+    "name": "SermasGPT",
+    "displayName": "SermasGPT",
+    "description": "Servicio de IA para Madrid de Salud",
+    "colors": {
+      "primary": "#4f70c4",
+      "secondary": "#dc2626",
+      "accent": "#4f70c4",
+      "rating": "#dc2626",
+      "background": "#ffffff",
+      "text": "#4f70c4",
+      "contrastText": "#000000",
+      "backgroundDark": "#f5f7fa",
+      "sidebar": "blue"
+    },
+    "logos": {
+      "header": "assets/img/tenants/madrid/logo.webp",
+      "footer": "assets/img/logo-f29-white.webp",
+      "f29Dark": "assets/img/logo-f29.webp",
+      "favicon": "favicon-sermas.ico"
+    },
+    "links": {
+      "donate": null,
+      "support": "SermasGPT support"
+    },
+    "backgrounds": {
+      "aboutUs": {
+        "gradient": "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 25%, #1e40af 50%, #1d4ed8 75%, #1e3a8a 100%)",
+        "overlay": "linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0%, transparent 50%, rgba(29, 78, 216, 0.08) 100%)"
       }
     }
   }

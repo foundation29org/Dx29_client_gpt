@@ -3,7 +3,26 @@
   <section *ngIf="currentStep == 1" class="col-12 d-flex flex-column">
     <div class="">
       <div class="mb-5 col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
-        <h2 class="white" (click)="changeModeFunctionality()">{{'land.title' | translate }}</h2>
+        <h2 class="white" (click)="changeModeFunctionality()">{{'land.titleBeta' | translate }}</h2>
+        
+        <!-- Subtítulo para versión beta -->
+        <div class="beta-warning mb-4 mt-4">
+          <div class="alert alert-warning d-inline-block" role="alert">
+            <i class="fas fa-flask me-2"></i>
+            <strong>{{ 'beta.warning_title' | translate }}</strong> - {{ 'beta.warning_message' | translate }} 
+            <strong>{{ 'beta.warning_medical' | translate }}</strong> 
+            {{ 'beta.warning_feedback' | translate }}
+          </div>
+          
+        </div>
+        <div class="text-muted small mt-2">
+          {{ 'beta.dual_mode_hint' | translate }}
+          <ul class="mb-0" style="list-style-position: inside; padding-left: 0; margin-left: 0;">
+            <li>{{ 'beta.example_patient' | translate }}</li>
+            <li>{{ 'beta.example_question' | translate }}</li>
+          </ul>
+        </div>
+        
         <div *ngIf="modeFunctionality" class="badge bg-danger pulse-animation mb-3">
           <i class="fa fa-ambulance me-1"></i> ER
         </div>
@@ -12,9 +31,9 @@
     <!-- Banner azul solo si no está analizado -->
     <div
       class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
-      <!--<div class="search" [class.drag-over]="isDragOver"
-           (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">-->
-      <div class="search">
+      <div class="search" [class.drag-over]="isDragOver"
+           (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+      <!--<div class="search">-->
         <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
           [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" [attr.placeholder]="textareaPlaceholder"
           (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
@@ -26,7 +45,7 @@
             </div>
           </div>
       </div>
-      <div class="chips-and-counter-row mt-2 mb-2" *ngIf="false">
+      <div class="chips-and-counter-row mt-2 mb-2">
         <div class="file-chips-row">
           <button type="button" class="chip-btn-add" [disabled]="callingAI" (click)="triggerFileInput(fileInput)"
             title="{{'diagnosis.Upload document or image' | translate}}" aria-label="{{'diagnosis.Upload document or image' | translate}}">
@@ -51,6 +70,13 @@
             </span>
           </span>
         </div>
+      </div>
+      <!-- Límites y uso de subida -->
+      <div class="text-muted small" style="margin-top: -6px;">
+        {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
+        <span class="ms-2">
+          {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
+        </span>
       </div>
       <!-- Mensaje informativo sobre funcionalidad multimodal -->
       <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary mt-3 mb-3" role="alert" style="text-align: left;">

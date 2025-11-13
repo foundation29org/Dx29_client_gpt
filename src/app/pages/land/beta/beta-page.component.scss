@@ -89,6 +89,61 @@ $duration: 180ms;        // animaciones breves, snappy
   display: flex;
   align-items: center;
 }
+
+/* Estilos para el aviso de versión beta */
+.beta-warning {
+  .alert {
+    border: 2px solid #ffc107;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    color: #856404;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+    animation: betaPulse 2s ease-in-out infinite;
+    
+    i {
+      color: #ffc107;
+      font-size: 1.1rem;
+    }
+    
+    strong {
+      color: #856404;
+      font-weight: 700;
+    }
+  }
+}
+
+@keyframes betaPulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+  }
+  50% { 
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(255, 193, 7, 0.3);
+  }
+}
+
+/* Responsive para el aviso beta */
+@media (max-width: 768px) {
+  .beta-warning .alert {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .beta-warning .alert {
+    font-size: 0.85rem;
+    padding: 0.6rem 0.8rem;
+    margin: 0 0.5rem;
+    
+    i {
+      font-size: 1rem;
+    }
+  }
+}
 .search {
   width: 100%;
   position: relative;

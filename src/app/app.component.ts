@@ -11,6 +11,7 @@ import { DOCUMENT } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UuidService } from './shared/services/uuid.service';
 import { BrandingService } from './shared/services/branding.service';
+import { AnalyticsService } from './shared/services/analytics.service';
 
 import {
   NgcCookieConsentService,
@@ -43,7 +44,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     private ngZone: NgZone, 
     private iconsService: IconsService,
     private uuidService: UuidService,
-    private brandingService: BrandingService
+    private brandingService: BrandingService,
+    private analyticsService: AnalyticsService
   ) {
     // Inicializar el UUID al inicio de la aplicación
     this.uuidService.getUuid();
@@ -63,7 +65,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   ngAfterContentInit() {
     if (!this.document) return;
     
-    if(environment.production) {
+    if(environment.production && environment.tenantId == 'dxgpt-prod') {
       ((h: any, o: Document, t: string, j: string, a?: any, r?: any) => {
         h.hj = h.hj || function() {
           (h.hj.q = h.hj.q || []).push(arguments);
@@ -176,6 +178,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
         const titulo = this.translate.instant(this.tituloEvent);
         this.titleService.setTitle(titulo);
         this.changeMeta();
+        
+        // Track page view con analytics
+        this.analyticsService.trackPageView(titulo, {
+          url: this.router.url,
+          title: titulo,
+          fragment: fragment || null
+        });
       })();
     });
 

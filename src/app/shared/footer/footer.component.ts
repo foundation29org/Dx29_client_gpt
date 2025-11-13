@@ -38,7 +38,6 @@ export class FooterComponent{
   email: string = '';
   myuuid: string;
   footerLogo: string = 'assets/img/Foundation29logo.webp';
-  foundationLink: string = 'https://foundation29.org';
   shouldShowDonate: boolean = true;
   
   // Propiedades para el modal send-msg
@@ -216,7 +215,6 @@ private loadBrandingConfig(): void {
   this.brandingService.brandingConfig$.subscribe(config => {
     if (config) {
       this.footerLogo = config.logos.footer;
-      this.foundationLink = config.links.foundation;
       this.shouldShowDonate = config.links.donate !== null;
     }
   });

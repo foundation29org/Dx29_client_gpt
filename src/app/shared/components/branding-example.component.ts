@@ -24,12 +24,10 @@ import { TenantDetectorService } from '../services/tenant-detector.service';
         <p><strong>Current Tenant:</strong> {{currentTenant}}</p>
         <p><strong>Header Logo:</strong> {{headerLogo}}</p>
         <p><strong>Footer Logo:</strong> {{footerLogo}}</p>
-        <p><strong>Foundation Link:</strong> {{foundationLink}}</p>
         <p><strong>Show Donate Link:</strong> {{shouldShowDonate}}</p>
       </div>
       
       <div class="brand-links">
-        <a [href]="foundationLink" target="_blank" class="brand-link">Foundation Website</a>
         <a *ngIf="shouldShowDonate" [href]="donateLink" target="_blank" class="brand-link">Donate</a>
       </div>
     </div>
@@ -99,7 +97,6 @@ export class BrandingExampleComponent implements OnInit {
   headerLogo: string = '';
   footerLogo: string = '';
   f29DarkLogo: string = '';
-  foundationLink: string = '';
   shouldShowDonate: boolean = false;
   donateLink: string | null = null;
 
@@ -124,7 +121,6 @@ export class BrandingExampleComponent implements OnInit {
         this.headerLogo = config.logos.header;
         this.footerLogo = config.logos.footer;
         this.f29DarkLogo = config.logos.f29Dark;
-        this.foundationLink = config.links.foundation;
         this.shouldShowDonate = config.links.donate !== null;
         this.donateLink = config.links.donate;
       }

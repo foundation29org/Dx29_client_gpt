@@ -21,13 +21,13 @@ import { environment } from 'environments/environment';
 declare let gtag: any;
 
 @Component({
-    selector: 'app-undiagnosed-page',
-    templateUrl: './undiagnosed-page.component.html',
-    styleUrls: ['./undiagnosed-page.component.scss'],
+    selector: 'app-beta-page',
+    templateUrl: './beta-page.component.html',
+    styleUrls: ['./beta-page.component.scss'],
     providers: [ApiDx29ServerService],
 })
 
-export class UndiagnosedPageComponent implements OnInit, OnDestroy {
+export class BetaPageComponent implements OnInit, OnDestroy {
 
     // Constantes para formatos soportados por Azure Document Intelligence
     private static readonly SUPPORTED_DOC_TYPES = [
@@ -77,6 +77,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     selectorOption: string = '';
     symtpmsLabel: string = '';
     sending: boolean = false;
+
+    // Getters para límites de subida (visibles en UI)
+    get selectedImagesCount(): number {
+        return (this.selectedFiles || []).filter(f => f.type && BetaPageComponent.SUPPORTED_IMAGE_TYPES.includes(f.type)).length;
+    }
+    get selectedDocsCount(): number {
+        return (this.selectedFiles || []).filter(f => f.type && BetaPageComponent.SUPPORTED_DOC_TYPES.includes(f.type)).length;
+    }
+    get selectedTotalMB(): number {
+        const bytes = (this.selectedFiles || []).reduce((acc: number, f: File) => acc + (f.size || 0), 0);
+        return Math.round((bytes / (1024 * 1024)) * 10) / 10; // 1 decimal
+    }
     symptomsDifferencial: any = [];
     selectedQuestion: string = '';
     email: string = '';
@@ -92,8 +104,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     copyResultAnonymized: string = '';
     timezone: string = '';
     terms2: boolean = false;
-    model: string = 'gpt4o';
-    defaultModel: string = 'gpt4o';
+    model: string = 'gpt5mini';
+    defaultModel: string = 'gpt5mini';
     advancedModel: string = 'o3';
     imageModel: string = 'gpt5';
     
@@ -858,7 +870,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             model: modelToUse,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
-            imageUrls: []
+            imageUrls: [],
+            betaPage: true
         };
         if(this.currentImageUrls.length > 0){
             value.imageUrls = this.currentImageUrls;
@@ -2590,11 +2603,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         let docCount = 0;
         let imgCount = 0;
         for (const file of this.selectedFiles) {
-            if (docCount < 5 && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(file.type)) {
+            if (docCount < 5 && BetaPageComponent.SUPPORTED_DOC_TYPES.includes(file.type)) {
                 formData.append('document', file);
                 docCount++;
                 this.lauchEvent('Document file added: ' + file.name);
-            } else if (imgCount < 5 && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)) {
+            } else if (imgCount < 5 && BetaPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)) {
                 formData.append('image', file);
                 imgCount++;
                 this.lauchEvent('Image file added: ' + file.name);
@@ -2713,21 +2726,21 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
-     /**
+    /**
      * Valida y añade archivos respetando límites de backend y formatos soportados por Azure Document Intelligence:
      * - Tamaño total máximo: 20 MB (documentos + imágenes)
      * - Máximo 5 imágenes y 5 documentos
      * - Formatos soportados: PDF, DOCX, XLSX, PPTX, HTML, JPEG, PNG, BMP, TIFF, HEIF
      * Evita duplicados por nombre y tamaño. Muestra avisos si hay descartes.
      */
-     private validateAndAddFiles(newFiles: File[]): void {
+    private validateAndAddFiles(newFiles: File[]): void {
         const MAX_TOTAL_BYTES = 20 * 1024 * 1024;
         const MAX_DOCS = 5;
         const MAX_IMAGES = 5;
 
         // Estado actual usando las constantes de la clase
-        const isSupportedImage = (f: File) => f.type && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(f.type);
-        const isSupportedDoc = (f: File) => f.type && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(f.type);
+        const isSupportedImage = (f: File) => f.type && BetaPageComponent.SUPPORTED_IMAGE_TYPES.includes(f.type);
+        const isSupportedDoc = (f: File) => f.type && BetaPageComponent.SUPPORTED_DOC_TYPES.includes(f.type);
         const currentImages = this.selectedFiles.filter(isSupportedImage).length;
         const currentDocs = this.selectedFiles.filter(isSupportedDoc).length;
         const currentTotalBytes = this.selectedFiles.reduce((acc, f) => acc + f.size, 0);
@@ -2818,7 +2831,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             });
         }
     }
-
 
     // Métodos para la nueva interfaz de botones
     getButtonText(): string {

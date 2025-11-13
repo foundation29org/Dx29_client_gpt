@@ -32,6 +32,7 @@ export class NavbarD29Component implements OnDestroy {
   isFaqPage: boolean = false;
   isPrivacyPolicyPage: boolean = false;
   isReportsPage: boolean = false;
+  isBetaPage: boolean = false;
   _startTime: any;
   private subscription: Subscription = new Subscription();
   isMenuExpanded = false;
@@ -71,6 +72,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
+          this.isBetaPage = false;
         } else if (tempUrl.indexOf('/aboutus') != -1) {
           this.isHomePage = false;
           this.isAboutPage = true;
@@ -80,6 +82,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
+          this.isBetaPage = false;
         } else if (tempUrl.indexOf('/collaboration') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
@@ -89,6 +92,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
+          this.isBetaPage = false;
         } else if (tempUrl.indexOf('/foundation29') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
@@ -98,6 +102,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
+          this.isBetaPage = false;
         } else if (tempUrl.indexOf('/integration') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
@@ -107,6 +112,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
+          this.isBetaPage = false;
         } else if (tempUrl.indexOf('/faq') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
@@ -116,6 +122,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isFaqPage = true;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
+          this.isBetaPage = false;
         } else if (tempUrl.indexOf('/reports') != -1) {
           this.isHomePage = false;
           this.isAboutPage = false;
@@ -125,6 +132,17 @@ export class NavbarD29Component implements OnDestroy {
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = true;
+          this.isBetaPage = false;
+         } else if (tempUrl.indexOf('/beta') != -1) {
+          this.isHomePage = false;
+          this.isAboutPage = false;
+          this.isCollaborationPage = false;
+          this.isFoundation29Page = false;
+          this.isIntegrationPage = false;
+          this.isFaqPage = false;
+          this.isPrivacyPolicyPage = false;
+          this.isReportsPage = false;
+          this.isBetaPage = true;
          } else if (tempUrl.indexOf('/privacy-policy') != -1) {
             this.isHomePage = false;
             this.isAboutPage = false;
@@ -134,6 +152,7 @@ export class NavbarD29Component implements OnDestroy {
             this.isFaqPage = false;
             this.isPrivacyPolicyPage = true;
             this.isReportsPage = false;
+            this.isBetaPage = false;
         } else {
           this.isHomePage = false;
           this.isAboutPage = false;
@@ -143,6 +162,7 @@ export class NavbarD29Component implements OnDestroy {
           this.isFaqPage = false;
           this.isPrivacyPolicyPage = false;
           this.isReportsPage = false;
+          this.isBetaPage = false;
         }
       }
     );
@@ -187,6 +207,10 @@ export class NavbarD29Component implements OnDestroy {
       {
         "name": "Українська",
         "code": "uk"
+      },
+      {
+        "name": "Català",
+        "code": "ca"        
       }
     ];
     if (sessionStorage.getItem('lang')) {
@@ -364,6 +388,22 @@ export class NavbarD29Component implements OnDestroy {
       case 'contact':
       default:
         return this.translate.instant('menu.Contact us');
+    }
+  }
+
+  /**
+   * Alterna el modo Beta ON/OFF y navega a la ruta correspondiente
+   */
+  toggleBeta(): void {
+    const goingToBeta = !this.isBetaPage;
+    try {
+      localStorage.setItem('betaEnabled', goingToBeta ? 'true' : 'false');
+    } catch {}
+    this.lauchEvent(`Toggle - Beta ${goingToBeta ? 'On' : 'Off'}`);
+    if (goingToBeta) {
+      this.router.navigate(['/beta']);
+    } else {
+      this.router.navigate(['/']);
     }
   }
 

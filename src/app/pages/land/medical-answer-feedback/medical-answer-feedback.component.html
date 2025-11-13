@@ -1,0 +1,43 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    {{ 'medicalInfoModal.feedbackTitle' | translate: { default: 'Feedback de la respuesta médica' } }}
+  </h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  
+</div>
+<div class="modal-body">
+  <div class="mb-3">
+    <strong>{{ 'medicalInfoModal.question' | translate: { default: 'Pregunta' } }}:</strong>
+    <div>{{ question }}</div>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="mb-3">
+      <label class="form-label">{{ 'medicalInfoModal.wasHelpful'| translate}}</label>
+      <div class="d-flex gap-2">
+        <button type="button" class="btn" [ngClass]="form.value.helpful === true ? 'btn-success' : 'btn-outline-success'" (click)="form.patchValue({ helpful: true })">
+          <i class="fa fa-thumbs-up"></i>
+        </button>
+        <button type="button" class="btn" [ngClass]="form.value.helpful === false ? 'btn-danger' : 'btn-outline-danger'" (click)="form.patchValue({ helpful: false })">
+          <i class="fa fa-thumbs-down"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ 'medicalInfoModal.comments' | translate}}</label>
+      <textarea class="form-control" rows="4" formControlName="comments" placeholder="{{ 'medicalInfoModal.commentsPlaceholder' | translate: { default: '¿Qué mejorarías o qué fue útil?' } }}"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email ({{ 'generics.Optional' | translate }})</label>
+      <input type="email" class="form-control" formControlName="email" placeholder="name@example.com"/>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()" [disabled]="sending">{{ 'generics.Close' | translate }}</button>
+  <button type="button" class="btn btn-primary" (click)="submit()" [disabled]="sending || form.invalid">{{ 'generics.Send' | translate }}</button>
+</div>
+
+

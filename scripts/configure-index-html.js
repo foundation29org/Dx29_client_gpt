@@ -22,11 +22,13 @@
  * ============================================================
  *   dxgpt     - DxGPT (configuración por defecto)
  *   salud-gpt - SALUD-GPT (solo Google Analytics)
+ *   sermas-gpt - SermasGPT (solo Google Analytics)
  * 
  * CONFIGURACIÓN:
  * ============================================================
  * - DxGPT: Google Analytics + Google Ads + Conversiones
  * - SALUD-GPT: Solo Google Analytics (Ads comentados)
+ * - SermasGPT: Solo Google Analytics (Ads comentados)
  * 
  * BACKUP:
  * ============================================================
@@ -37,6 +39,8 @@
  * ============================================================
  * node scripts/configure-index-html.js salud-gpt --dry-run
  * node scripts/configure-index-html.js salud-gpt
+ * node scripts/configure-index-html.js sermas-gpt --dry-run
+ * node scripts/configure-index-html.js sermas-gpt
  * node scripts/configure-index-html.js dxgpt
  */
 
@@ -75,6 +79,22 @@ const TENANT_CONFIGS = {
       conversion: null // No usar conversiones para SALUD-GPT
     },
     favicon: 'favicon-salud.ico'
+  },
+  'SermasGPT': {
+    name: 'SermasGPT',
+    // Usar los textos de DxGPT (en inglés)
+    title: 'DxGPT: Diagnostic decision support software based on GPT-4',
+    description: 'DxGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
+    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
+    ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
+    ogUrl: 'https://dxgpt.app',
+    analytics: {
+      googleAnalytics: 'G-XHQLTXXT8X', // Configurar cuando esté disponible
+      googleAds: null, // No usar Google Ads para SermasGPT
+      googleAds2: null, // No usar Google Ads para SermasGPT
+      conversion: null // No usar conversiones para SermasGPT
+    },
+    favicon: 'favicon-sermas.ico'
   }
 };
 
@@ -314,6 +334,7 @@ Uso: node scripts/configure-index-html.js [tenant] [--dry-run]
 Tenants disponibles:
   dxgpt     - DxGPT (configuración por defecto)
   salud-gpt - SALUD-GPT
+  sermas-gpt - SermasGPT
 
 Opciones:
   --dry-run    Solo muestra qué cambios se harían
@@ -322,6 +343,7 @@ Opciones:
 Ejemplos:
   node scripts/configure-index-html.js dxgpt --dry-run
   node scripts/configure-index-html.js salud-gpt
+  node scripts/configure-index-html.js sermas-gpt --dry-run
   `);
   process.exit(0);
 }

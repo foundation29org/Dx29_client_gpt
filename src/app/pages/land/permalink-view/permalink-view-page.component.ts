@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
 import { BrandingService, BrandingConfig } from 'app/shared/services/branding.service';
+import { AnalyticsService } from 'app/shared/services/analytics.service';
 
 @Component({
   selector: 'app-permalink-view-page',
@@ -39,10 +40,17 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private translate: TranslateService,
     private apiDx29ServerService: ApiDx29ServerService,
-    private brandingService: BrandingService
+    private brandingService: BrandingService,
+    private analyticsService: AnalyticsService
   ) {}
 
   ngOnInit() {
+    // Track page view para permalink
+    this.analyticsService.trackPageView('Permalink View', {
+      permalinkId: this.route.snapshot.paramMap.get('id') || '',
+      url: this.router.url
+    });
+    
     // Suscribirse a los cambios de configuración de branding
     this.subscription.add(
       this.brandingService.brandingConfig$.subscribe(config => {
@@ -153,7 +161,7 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     root.style.setProperty('--permalink-accent', this.brandingConfig.colors.accent);
     root.style.setProperty('--permalink-rating', this.brandingConfig.colors.rating);
     root.style.setProperty('--permalink-background', this.brandingConfig.colors.background);
-    root.style.setProperty('--permalink-text', this.brandingConfig.colors.text);
+    root.style.setProperty('--permalink-text', this.brandingConfig.colors.contrastText);
     root.style.setProperty('--permalink-background-dark', this.brandingConfig.colors.backgroundDark);
     
     // Generar gradientes dinámicos
