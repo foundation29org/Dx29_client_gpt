@@ -17,7 +17,7 @@ const path = require('path');
 // Configuración
 const TRANSLATION_DIR = 'src/assets/i18n';
 const BACKUP_DIR = 'src/assets/i18n-backups';
-const TRANSLATION_FILES = ['en.json', 'es.json', 'fr.json', 'de.json', 'pl.json', 'ru.json', 'uk.json'];
+const TRANSLATION_FILES = ['en.json', 'es.json', 'fr.json', 'de.json', 'pl.json', 'ru.json', 'uk.json', 'ca.json'];
 
 // Función para encontrar el backup más reciente de un archivo
 function findLatestBackup(fileName) {

@@ -92,8 +92,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     copyResultAnonymized: string = '';
     timezone: string = '';
     terms2: boolean = false;
-    model: string = 'gpt4o';
-    defaultModel: string = 'gpt4o';
+    model: string = 'gpt5mini';
+    defaultModel: string = 'gpt5mini';
     advancedModel: string = 'o3';
     imageModel: string = 'gpt5';
     
