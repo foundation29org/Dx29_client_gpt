@@ -36,6 +36,7 @@ export class FeedbackPageComponent implements OnDestroy {
     // Nuevos parámetros recibidos
     model: string = '';
     fileNames: string = '';
+    isBetaPage: boolean = false;
 
     constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private eventsService: EventsService, private uuidService: UuidService) {
         this._startTime = Date.now();
@@ -118,7 +119,8 @@ export class FeedbackPageComponent implements OnDestroy {
             myuuid: this.myuuid, 
             lang: this.translate.store.currentLang,
             model: this.model,
-            fileNames: this.fileNames
+            fileNames: this.fileNames,
+            isBetaPage: this.isBetaPage
           }
           this.subscription.add( this.http.post(environment.api+'/internal/generalfeedback/', value)
           .subscribe( (res : any) => {
@@ -215,6 +217,10 @@ export class FeedbackPageComponent implements OnDestroy {
 
     setSelectedFiles(fileNames: string): void {
         this.fileNames = fileNames;
+    }
+
+    setIsBetaPage(isBetaPage: boolean): void {
+        this.isBetaPage = isBetaPage;
     }
 
 }

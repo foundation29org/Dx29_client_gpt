@@ -1635,7 +1635,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             fileNames = this.selectedFiles.map(file => file.name).join(', ');
         }
 
-        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, versionModel: this.model, fileNames: fileNames }
+        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, versionModel: this.model, fileNames: fileNames, isBetaPage: true }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
             .subscribe((res: any) => {
                 this.analyticsService.trackEvent("user_vote", { vote: valueVote, model: this.model });
@@ -1656,6 +1656,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
                     // Pasar parámetros al componente del modal
                     this.modalReference.componentInstance.setModel(this.model);
                     this.modalReference.componentInstance.setSelectedFiles(fileNames);
+                    this.modalReference.componentInstance.setIsBetaPage(true);
                 }else{
                     let msgSuccess = this.translate.instant("land.thanks");
                     this.showSuccess(msgSuccess);
