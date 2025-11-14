@@ -276,7 +276,7 @@
                 <p>{{'land.nofound' | translate }}</p>
               </span>
               <div class="col-md-12 mb-0 white p-2 center-elements background-dark">
-                <button class="btn btn-brand-primary mt-2 mb-2 min-widht-btn" (click)="loadMore()">{{'land.Load more' | translate }}</button>
+                <button *ngIf="diseaseListEn.length < 20 && getDiseaseListTextLength() < 1000" class="btn btn-brand-primary mt-2 mb-2 min-widht-btn" (click)="loadMore()">{{'land.Load more' | translate }}</button>
                 <span class="optionsResults mt-2 mb-2">
                   <em class="mt-1 fa fa-clipboard fa-2x info me-3 pointer white" title="{{'land.Copy results' | translate }}"
                     (click)="copyResults()"></em>

@@ -1270,6 +1270,14 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         this.callAI(this.model);
     }
 
+    getDiseaseListTextLength(): number {
+        if (this.diseaseListEn.length === 0) {
+            return 0;
+        }
+        var diseases = this.diseaseListEn.map(disease => '+' + disease).join(', ');
+        return diseases.length;
+    }
+
     async scrollTo() {
         await this.delay(400);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
