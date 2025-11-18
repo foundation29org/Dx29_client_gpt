@@ -539,11 +539,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     Swal.close();
                     this.webSocket?.close();
                     this.webSocket = null;
-                    this.handleWebSocketError(message.data);
+                    // Asegurar que message.data existe, si no, pasar un objeto vacío
+                    this.handleWebSocketError(message.data || {});
                     break;
             }
         } catch (error) {
             console.error('Error parsing WebSocket message:', error);
+            // Si hay un error al parsear, también debemos manejar el error
+            Swal.close();
+            this.webSocket?.close();
+            this.webSocket = null;
+            this.handleWebSocketError(error || {});
         }
     }
 
@@ -586,11 +592,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         console.error('WebSocket error:', error);
         let msgError = '';
         
-        if (error.type === 'PROCESSING_ERROR') {
-            msgError = this.translate.instant("generics.error try again");
-        } else if (error.type === 'QUEUE_PROCESSING_ERROR') {
-            msgError = this.translate.instant("generics.error try again");
+        // Verificar que error existe y es un objeto válido
+        if (error && typeof error === 'object' && error.type) {
+            if (error.type === 'PROCESSING_ERROR') {
+                msgError = this.translate.instant("generics.error try again");
+            } else if (error.type === 'QUEUE_PROCESSING_ERROR') {
+                msgError = this.translate.instant("generics.error try again");
+            } else {
+                msgError = this.translate.instant("generics.error try again");
+            }
         } else {
+            // Error genérico cuando no hay información específica
             msgError = this.translate.instant("generics.error try again");
         }
         
