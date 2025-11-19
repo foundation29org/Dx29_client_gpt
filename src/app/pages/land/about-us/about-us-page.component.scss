@@ -668,6 +668,9 @@
   padding: 2rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
   
   @media (max-width: 768px) {
     padding: 1.5rem;
@@ -676,8 +679,13 @@
 
 .evaluation-chart {
   max-width: 100%;
+  width: 100%;
   height: auto;
   border-radius: 8px;
+  
+  @media (min-width: 1200px) {
+    max-width: 900px;
+  }
 }
 
 .chart-caption {
