@@ -169,6 +169,67 @@
           "description": "C'est notre métrique la plus innovante. Il n'est pas suffisant que le diagnostic correct soit sur la liste; sa position moyenne est mesurée. Un diagnostic correct en première position est 'infiniment plus utile que en cinquième,' et cette métrique évalue la capacité de DxGPT à 'prioriser comme un spécialiste, offrant la plus grande pertinence clinique dans le plus court temps possible'."
         }
       },
+      "evolution": {
+        "title": "Évolution et performance : Preuves pour le soutien au raisonnement clinique (2024–2025)",
+        "intro": "Chez DxGPT, la transparence fait partie de la sécurité. Nous ne promettons pas de diagnostics ni ne remplaçons le clinicien : nous évaluons, de manière systématique, la capacité des modèles à proposer des hypothèses pertinentes que le professionnel peut accepter, nuancer ou rejeter. Nous soumettons continuellement nos prompts et modèles à des banques de cas cliniques de haute complexité (maladies rares, pédiatrie, médecine interne) pour mesurer dans quelle mesure ils peuvent aider à \"trouver l'aiguille dans la botte de foin\".",
+        "validation": {
+          "title": "1. Validation de faisabilité (Étude 2024 – medRxiv)",
+          "description": "Dans notre première évaluation publique, nous avons comparé plusieurs modèles (GPT-4, Claude, Llama, etc.) dans les maladies rares, en utilisant des cas synthétiques et réels (RAMEDIS).",
+          "data": {
+            "title": "Les données :",
+            "description": "Les meilleurs modèles ont réussi à placer la maladie correcte comme première hypothèse dans environ 60–70% des cas, et dans les 5 premières propositions dans environ 70–90%."
+          },
+          "conclusion": {
+            "title": "La conclusion :",
+            "description": "Ces résultats n'ont pas été interprétés comme une \"capacité diagnostique autonome\", mais comme une preuve que les LLM sont des outils utiles pour soutenir et élargir le diagnostic différentiel."
+          },
+          "reference": "📝 Référence : Preprint medRxiv 2024 (Foundation29).",
+          "repository": "Dépôt",
+          "preprint": "Preprint"
+        },
+        "pv4": {
+          "title": "2. Saut en raisonnement et priorisation (Pipeline PV4 – Début 2025)",
+          "description": "Pour qu'un outil soit vraiment utile au médecin, il ne suffit pas d'avoir raison : il doit bien prioriser. En 2025, nous avons conçu un nouveau cadre d'évaluation (PV4) testant des modèles avancés d'OpenAI (GPT-4o, o1, o3) sur 450 cas pédiatriques complexes.",
+          "technical": {
+            "title": "Précision technique :",
+            "description": "Dans cet environnement de test contrôlé, le modèle le plus avancé (o3-pro) a atteint 96,4% de récupération du diagnostic correct dans les 5 suggestions."
+          },
+          "clinical": {
+            "title": "Priorisation clinique :",
+            "description": "La donnée la plus pertinente est la position moyenne de 1,47 atteinte par le modèle o3. Cela signifie que, lorsqu'il a raison, il tend à placer l'hypothèse correcte en première ou deuxième position, facilitant la revue rapide de l'expert."
+          },
+          "dataSources": {
+            "alt": "Sources de données et traitement ETL pour DxGPT-Bench",
+            "caption": "Diagramme Sankey montrant le flux de données depuis les sources originales (MedQA-USMLE, MedBullets, cas d'urgence, Ramebench) jusqu'à l'ensemble de tests final DxGPT-Bench."
+          },
+          "reference": "📝 Référence :",
+          "repository": "Dépôt DxGPT-Bench-Lab"
+        },
+        "architecture": {
+          "title": "3. Architecture actuelle et famille GPT-5 (Septembre 2025)",
+          "description": "Notre infrastructure actuelle combine efficacité et profondeur, utilisant la famille GPT-5 pour l'usage général et des modèles de raisonnement profond pour les cas limites.",
+          "efficiency": {
+            "title": "Efficacité :",
+            "description": "Dans les tests internes, GPT-5 mini maintient une qualité de suggestions comparable à GPT-4o (variations <0,5%) avec une grande optimisation des coûts et des ressources."
+          },
+          "complexity": {
+            "title": "Complexité :",
+            "description": "Pour les scénarios de haute incertitude, nous maintenons o3 comme notre standard de référence, car il continue de montrer la meilleure capacité de priorisation et de raisonnement profond dans les benchmarks les plus exigeants."
+          },
+          "performance": {
+            "alt": "Comparaison de performance des modèles GPT-5 - Valeur de performance (plus bas = meilleur)",
+            "caption": "Comparaison de performance entre différents modèles et configurations de la famille GPT-5. Les valeurs plus basses (tendant vers 1) indiquent une meilleure performance. Le modèle o3 montre la meilleure performance globale.",
+            "disclaimer": {
+              "title": "Important :",
+              "text": "DxGPT est un outil de soutien et d'orientation pour le diagnostic différentiel. Il ne fournit pas de diagnostics et ne remplace pas le jugement clinique professionnel. Son objectif est de guider et d'élargir le spectre des possibilités diagnostiques afin que les professionnels de santé puissent prendre des décisions éclairées."
+            }
+          }
+        },
+        "note": {
+          "title": "Note importante sur la sécurité :",
+          "description": "Tous ces chiffres décrivent le comportement technique des modèles d'IA dans des banques de cas standardisés (benchmarks). Ils n'équivalent pas à des taux de succès clinique chez les patients réels ni ne convertissent DxGPT en un dispositif médical. En consultation, la variabilité des données du patient, les comorbidités et le contexte de soins nécessitent toujours l'interprétation et la validation d'un professionnel de santé qualifié. DxGPT ne diagnostique pas : il propose des possibilités structurées pour que le clinicien décide."
+        }
+      },
       "user": {
         "title": "Que signifie cela pour l'utilisateur ?",
         "intro": "Ce processus rigoureux se traduit en bénéfices concrets pour votre pratique:",

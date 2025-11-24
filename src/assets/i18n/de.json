@@ -169,6 +169,67 @@
           "description": "Dies ist unsere innovativste Metrik. Es reicht nicht aus, dass der richtige Diagnose auf der Liste ist; seine durchschnittliche Position wird gemessen. Ein richtiger Diagnose in der ersten Position ist 'unendlich mehr nützlich als in der fünften,' und diese Metrik bewertet DxGPT's Fähigkeit, 'wie ein Spezialist priorisieren, die maximale klinische Relevanz in der kürzesten möglichen Zeit anzubieten'."
         }
       },
+      "evolution": {
+        "title": "Evolution und Leistung: Beweise für die Unterstützung des klinischen Denkens (2024–2025)",
+        "intro": "Bei DxGPT ist Transparenz Teil der Sicherheit. Wir versprechen keine Diagnosen und ersetzen den Kliniker nicht: Wir bewerten systematisch die Fähigkeit der Modelle, relevante Hypothesen vorzuschlagen, die der Fachmann akzeptieren, verfeinern oder verwerfen kann. Wir unterwerfen unsere Prompts und Modelle kontinuierlich Banken hochkomplexer klinischer Fälle (seltene Krankheiten, Pädiatrie, Innere Medizin), um zu messen, inwieweit sie helfen können, \"die Nadel im Heuhaufen zu finden\".",
+        "validation": {
+          "title": "1. Machbarkeitsvalidierung (Studie 2024 – medRxiv)",
+          "description": "In unserer ersten öffentlichen Bewertung verglichen wir mehrere Modelle (GPT-4, Claude, Llama, etc.) bei seltenen Krankheiten unter Verwendung synthetischer und realer Fälle (RAMEDIS).",
+          "data": {
+            "title": "Die Daten:",
+            "description": "Die besten Modelle schafften es, die richtige Krankheit als erste Hypothese in etwa 60–70% der Fälle zu platzieren und innerhalb der Top-5-Vorschläge in etwa 70–90%."
+          },
+          "conclusion": {
+            "title": "Die Schlussfolgerung:",
+            "description": "Diese Ergebnisse wurden nicht als \"autonome diagnostische Fähigkeit\" interpretiert, sondern als Beweis dafür, dass LLMs nützliche Werkzeuge zur Unterstützung und Erweiterung der Differentialdiagnose sind."
+          },
+          "reference": "📝 Referenz: medRxiv 2024 Preprint (Foundation29).",
+          "repository": "Repository",
+          "preprint": "Preprint"
+        },
+        "pv4": {
+          "title": "2. Sprung im Denken und Priorisierung (PV4 Pipeline – Anfang 2025)",
+          "description": "Damit ein Werkzeug für den Arzt wirklich nützlich ist, reicht es nicht aus, richtig zu liegen: Es muss gut priorisieren. Im Jahr 2025 entwarfen wir einen neuen Bewertungsrahmen (PV4) und testeten fortgeschrittene OpenAI-Modelle (GPT-4o, o1, o3) an 450 komplexen pädiatrischen Fällen.",
+          "technical": {
+            "title": "Technische Genauigkeit:",
+            "description": "In dieser kontrollierten Testumgebung erreichte das fortgeschrittenste Modell (o3-pro) 96,4% Wiederherstellung der korrekten Diagnose innerhalb der Top-5-Vorschläge."
+          },
+          "clinical": {
+            "title": "Klinische Priorisierung:",
+            "description": "Die relevantesten Daten sind die durchschnittliche Position von 1,47, die vom o3-Modell erreicht wurde. Das bedeutet, dass es, wenn es richtig liegt, dazu neigt, die korrekte Hypothese an erster oder zweiter Stelle zu platzieren, was die schnelle Überprüfung durch den Experten erleichtert."
+          },
+          "dataSources": {
+            "alt": "Datenquellen und ETL-Verarbeitung für DxGPT-Bench",
+            "caption": "Sankey-Diagramm, das den Datenfluss von den ursprünglichen Quellen (MedQA-USMLE, MedBullets, Notfälle, Ramebench) zum finalen DxGPT-Bench-Testsatz zeigt."
+          },
+          "reference": "📝 Referenz:",
+          "repository": "DxGPT-Bench-Lab Repository"
+        },
+        "architecture": {
+          "title": "3. Aktuelle Architektur und GPT-5-Familie (September 2025)",
+          "description": "Unsere aktuelle Infrastruktur kombiniert Effizienz und Tiefe und nutzt die GPT-5-Familie für den allgemeinen Gebrauch und tiefe Denkmodelle für Grenzfälle.",
+          "efficiency": {
+            "title": "Effizienz:",
+            "description": "In internen Tests hält GPT-5 mini eine Vorschlagsqualität vergleichbar mit GPT-4o (Variationen <0,5%) mit großer Optimierung von Kosten und Ressourcen."
+          },
+          "complexity": {
+            "title": "Komplexität:",
+            "description": "Für Szenarien mit hoher Unsicherheit halten wir o3 als unseren Referenzstandard aufrecht, da es weiterhin die beste Priorisierungs- und tiefe Denkfähigkeit in den anspruchsvollsten Benchmarks zeigt."
+          },
+          "performance": {
+            "alt": "GPT-5 Modellleistungsvergleich - Leistungswert (niedriger = besser)",
+            "caption": "Leistungsvergleich zwischen verschiedenen Modellen und Konfigurationen der GPT-5-Familie. Niedrigere Werte (tendierend zu 1) zeigen bessere Leistung. Das o3-Modell zeigt die beste Gesamtleistung.",
+            "disclaimer": {
+              "title": "Wichtig:",
+              "text": "DxGPT ist ein Unterstützungs- und Orientierungswerkzeug für die Differentialdiagnose. Es stellt keine Diagnosen und ersetzt nicht das professionelle klinische Urteil. Sein Zweck ist es, das Spektrum der diagnostischen Möglichkeiten zu leiten und zu erweitern, damit Gesundheitsfachkräfte fundierte Entscheidungen treffen können."
+            }
+          }
+        },
+        "note": {
+          "title": "Wichtiger Sicherheitshinweis:",
+          "description": "Alle diese Zahlen beschreiben das technische Verhalten von KI-Modellen in standardisierten Fallbanken (Benchmarks). Sie entsprechen nicht klinischen Erfolgsraten bei echten Patienten noch verwandeln sie DxGPT in ein Medizinprodukt. In der Konsultation erfordern die Variabilität der Patientendaten, Komorbiditäten und der Versorgungskontext immer die Interpretation und Validierung durch einen qualifizierten Gesundheitsfachmann. DxGPT diagnostiziert nicht: Es schlägt strukturierte Möglichkeiten vor, damit der Kliniker entscheiden kann."
+        }
+      },
       "user": {
         "title": "Was bedeutet das für den Benutzer?",
         "intro": "Dieser strenge Prozess führt zu sichtbaren Vorteilen für Ihre Praxis:",
