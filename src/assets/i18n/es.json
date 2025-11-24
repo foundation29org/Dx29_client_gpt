@@ -169,6 +169,67 @@
           "description": "Esta es nuestra métrica más innovadora. No basta con que el diagnóstico correcto esté en la lista; se mide su posición promedio. Un diagnóstico correcto en primera posición es 'infinitamente más útil que en la quinta', y esta métrica evalúa la capacidad de DxGPT de 'priorizar como un especialista, ofreciendo máxima relevancia clínica en el menor tiempo posible'."
         }
       },
+      "evolution": {
+        "title": "Evolución y rendimiento: Evidencia para el soporte al razonamiento clínico (2024–2025)",
+        "intro": "En DxGPT, la transparencia forma parte de la seguridad. No prometemos diagnósticos ni sustituimos al clínico: evaluamos, de forma sistemática, la capacidad de los modelos para proponer hipótesis relevantes que el profesional puede aceptar, matizar o descartar. Sometemos de forma continua nuestros prompts y modelos a bancos de casos clínicos de alta complejidad (enfermedades raras, pediatría, medicina interna) para medir hasta qué punto pueden ayudar a \"encontrar la aguja en el pajar\".",
+        "validation": {
+          "title": "1. Validación de viabilidad (Estudio 2024 – medRxiv)",
+          "description": "En nuestra primera evaluación pública comparamos múltiples modelos (GPT-4, Claude, Llama, etc.) en enfermedades raras, usando casos sintéticos y reales (RAMEDIS).",
+          "data": {
+            "title": "Los datos:",
+            "description": "Los mejores modelos consiguieron situar la enfermedad correcta como primera hipótesis en torno al 60–70% de los casos, y dentro de las 5 primeras propuestas en aproximadamente el 70–90%."
+          },
+          "conclusion": {
+            "title": "La conclusión:",
+            "description": "Estos resultados no se interpretaron como \"capacidad diagnóstica autónoma\", sino como evidencia de que los LLM son herramientas útiles para apoyar y ampliar el diagnóstico diferencial."
+          },
+          "reference": "📝 Referencia: Preprint medRxiv 2024 (Foundation29).",
+          "repository": "Repositorio",
+          "preprint": "Preprint"
+        },
+        "pv4": {
+          "title": "2. Salto en razonamiento y priorización (Pipeline PV4 – Inicios 2025)",
+          "description": "Para que una herramienta sea realmente útil al médico no basta con acertar: tiene que priorizar bien. En 2025 diseñamos un nuevo marco de evaluación (PV4) probando modelos avanzados de OpenAI (GPT-4o, o1, o3) sobre 450 casos pediátricos complejos.",
+          "technical": {
+            "title": "Precisión técnica:",
+            "description": "En este entorno de prueba controlado, el modelo más avanzado (o3-pro) alcanzó un 96,4% de recuperación del diagnóstico correcto dentro de las 5 sugerencias."
+          },
+          "clinical": {
+            "title": "Priorización clínica:",
+            "description": "El dato más relevante es la posición media de 1,47 lograda por el modelo o3. Esto significa que, cuando acierta, tiende a colocar la hipótesis correcta en primer o segundo lugar, facilitando la revisión rápida del experto."
+          },
+          "dataSources": {
+            "alt": "Fuentes de datos y procesamiento ETL para DxGPT-Bench",
+            "caption": "Diagrama Sankey mostrando el flujo de datos desde las fuentes originales (MedQA-USMLE, MedBullets, casos de urgencias, Ramebench) hasta el banco de pruebas final DxGPT-Bench."
+          },
+          "reference": "📝 Referencia:",
+          "repository": "Repositorio DxGPT-Bench-Lab"
+        },
+        "architecture": {
+          "title": "3. Arquitectura actual y familia GPT-5 (Septiembre 2025)",
+          "description": "Nuestra infraestructura actual combina eficiencia y profundidad, utilizando la familia GPT-5 para el uso general y modelos de razonamiento profundo para casos límite.",
+          "efficiency": {
+            "title": "Eficiencia:",
+            "description": "En pruebas internas, GPT-5 mini mantiene una calidad de sugerencias comparable a GPT-4o (variaciones <0,5%) con una gran optimización de costes y recursos."
+          },
+          "complexity": {
+            "title": "Complejidad:",
+            "description": "Para escenarios de alta incertidumbre, mantenemos o3 como nuestro estándar de referencia, ya que sigue mostrando la mejor capacidad de priorización y razonamiento profundo en los benchmarks más exigentes."
+          },
+          "performance": {
+            "alt": "Comparación de rendimiento de modelos GPT-5 - Valor de rendimiento (menor = mejor)",
+            "caption": "Comparación de rendimiento entre diferentes modelos y configuraciones de la familia GPT-5. Los valores más bajos (tendiendo a 1) indican mejor rendimiento. El modelo o3 muestra el mejor rendimiento general.",
+            "disclaimer": {
+              "title": "Importante:",
+              "text": "DxGPT es una herramienta de apoyo y guía al diagnóstico diferencial. No ofrece diagnósticos ni sustituye el juicio clínico profesional. Su propósito es orientar y ampliar el espectro de posibilidades diagnósticas para que el profesional sanitario pueda tomar decisiones informadas."
+            }
+          }
+        },
+        "note": {
+          "title": "Nota importante sobre seguridad:",
+          "description": "Todas estas cifras describen el comportamiento técnico de los modelos de IA en bancos de casos estandarizados (benchmarks). No equivalen a tasas de éxito clínico en pacientes reales ni convierten a DxGPT en un dispositivo médico. En la consulta, la variabilidad de los datos del paciente, las comorbilidades y el contexto asistencial requieren siempre la interpretación y validación de un profesional sanitario cualificado. DxGPT no diagnostica: propone posibilidades estructuradas para que el clínico decida."
+        }
+      },
       "user": {
         "title": "¿Qué significa esto para el usuario?",
         "intro": "Este proceso riguroso se traduce en beneficios tangibles para tu práctica:",

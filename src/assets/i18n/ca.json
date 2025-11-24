@@ -169,6 +169,67 @@
           "description": "Aquesta és la nostra mètrica més innovadora. No n'hi ha prou que el diagnòstic correcte estigui a la llista; es mesura la seva posició mitjana. Un diagnòstic correcte en primera posició és 'infinitament més útil que en la cinquena', i aquesta mètrica avalua la capacitat de DxGPT de 'prioritzar com un especialista, oferint màxima rellevància clínica en el menor temps possible'."
         }
       },
+      "evolution": {
+        "title": "Evolució i rendiment: Evidència per al suport al raonament clínic (2024–2025)",
+        "intro": "A DxGPT, la transparència forma part de la seguretat. No prometem diagnòstics ni substituïm el clínic: avaluem, de forma sistemàtica, la capacitat dels models per proposar hipòtesis rellevants que el professional pot acceptar, matisar o descartar. Sotmetem de forma contínua els nostres prompts i models a bancs de casos clínics d'alta complexitat (malalties rares, pediatria, medicina interna) per mesurar fins a quin punt poden ajudar a \"trobar l'agulla en el paller\".",
+        "validation": {
+          "title": "1. Validació de viabilitat (Estudi 2024 – medRxiv)",
+          "description": "En la nostra primera avaluació pública vam comparar múltiples models (GPT-4, Claude, Llama, etc.) en malalties rares, usant casos sintètics i reals (RAMEDIS).",
+          "data": {
+            "title": "Les dades:",
+            "description": "Els millors models van aconseguir situar la malaltia correcta com a primera hipòtesi al voltant del 60–70% dels casos, i dins de les 5 primeres propostes en aproximadament el 70–90%."
+          },
+          "conclusion": {
+            "title": "La conclusió:",
+            "description": "Aquests resultats no es van interpretar com a \"capacitat diagnòstica autònoma\", sinó com a evidència que els LLM són eines útils per donar suport i ampliar el diagnòstic diferencial."
+          },
+          "reference": "📝 Referència: Preprint medRxiv 2024 (Foundation29).",
+          "repository": "Repositori",
+          "preprint": "Preprint"
+        },
+        "pv4": {
+          "title": "2. Salt en raonament i priorització (Pipeline PV4 – Inicis 2025)",
+          "description": "Perquè una eina sigui realment útil al metge no n'hi ha prou amb encertar: ha de prioritzar bé. El 2025 vam dissenyar un nou marc d'avaluació (PV4) provant models avançats d'OpenAI (GPT-4o, o1, o3) sobre 450 casos pediàtrics complexos.",
+          "technical": {
+            "title": "Precisió tècnica:",
+            "description": "En aquest entorn de prova controlat, el model més avançat (o3-pro) va assolir un 96,4% de recuperació del diagnòstic correcte dins de les 5 suggerències."
+          },
+          "clinical": {
+            "title": "Priorització clínica:",
+            "description": "La dada més rellevant és la posició mitjana de 1,47 aconseguida pel model o3. Això significa que, quan encerta, tendeix a col·locar la hipòtesi correcta en primer o segon lloc, facilitant la revisió ràpida de l'expert."
+          },
+          "dataSources": {
+            "alt": "Fonts de dades i processament ETL per a DxGPT-Bench",
+            "caption": "Diagrama Sankey que mostra el flux de dades des de les fonts originals (MedQA-USMLE, MedBullets, casos d'urgències, Ramebench) fins al banc de proves final DxGPT-Bench."
+          },
+          "reference": "📝 Referència:",
+          "repository": "Repositori DxGPT-Bench-Lab"
+        },
+        "architecture": {
+          "title": "3. Arquitectura actual i família GPT-5 (Setembre 2025)",
+          "description": "La nostra infraestructura actual combina eficiència i profunditat, utilitzant la família GPT-5 per a l'ús general i models de raonament profund per a casos límit.",
+          "efficiency": {
+            "title": "Eficiència:",
+            "description": "En proves internes, GPT-5 mini manté una qualitat de suggeriments comparable a GPT-4o (variacions <0,5%) amb una gran optimització de costos i recursos."
+          },
+          "complexity": {
+            "title": "Complexitat:",
+            "description": "Per a escenaris d'alta incertesa, mantenim o3 com el nostre estàndard de referència, ja que continua mostrant la millor capacitat de priorització i raonament profund en els benchmarks més exigents."
+          },
+          "performance": {
+            "alt": "Comparació de rendiment de models GPT-5 - Valor de rendiment (menor = millor)",
+            "caption": "Comparació de rendiment entre diferents models i configuracions de la família GPT-5. Els valors més baixos (tendint a 1) indiquen millor rendiment. El model o3 mostra el millor rendiment general.",
+            "disclaimer": {
+              "title": "Important:",
+              "text": "DxGPT és una eina de suport i guia al diagnòstic diferencial. No ofereix diagnòstics ni substitueix el judici clínic professional. El seu propòsit és orientar i ampliar l'espectre de possibilitats diagnòstiques perquè el professional sanitari pugui prendre decisions informades."
+            }
+          }
+        },
+        "note": {
+          "title": "Nota important sobre seguretat:",
+          "description": "Totes aquestes xifres descriuen el comportament tècnic dels models d'IA en bancs de casos estandarditzats (benchmarks). No equivalen a taxes d'èxit clínic en pacients reals ni converteixen DxGPT en un dispositiu mèdic. A la consulta, la variabilitat de les dades del pacient, les comorbilitats i el context assistencial requereixen sempre la interpretació i validació d'un professional sanitari qualificat. DxGPT no diagnostica: proposa possibilitats estructurades perquè el clínic decideixi."
+        }
+      },
       "user": {
         "title": "Què significa això per a l'usuari?",
         "intro": "Aquest procés rigorós es tradueix en beneficis tangibles per a la teva pràctica:",
