@@ -69,8 +69,8 @@ const TENANT_CONFIGS = {
   'SALUD-GPT': {
     name: 'SALUD-GPT',
     // Usar los textos de DxGPT (en inglés)
-    title: 'DxGPT: Diagnostic decision support software based on GPT-4',
-    description: 'DxGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
+    title: 'SALUD-GPT: Diagnostic decision support software based on GPT-4',
+    description: 'SALUD-GPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
     keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
@@ -85,8 +85,8 @@ const TENANT_CONFIGS = {
   'SermasGPT': {
     name: 'SermasGPT',
     // Usar los textos de DxGPT (en inglés)
-    title: 'DxGPT: Diagnostic decision support software based on GPT-4',
-    description: 'DxGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
+    title: 'SermasGPT: Diagnostic decision support software based on GPT-4',
+    description: 'SermasGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
     keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
