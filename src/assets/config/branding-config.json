@@ -94,5 +94,37 @@
         "overlay": "linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0%, transparent 50%, rgba(29, 78, 216, 0.08) 100%)"
       }
     }
+  },
+  "iasalut-ajuda-dx": {
+    "name": "IASalutAjudaDx",
+    "displayName": "IASalutAjudaDx",
+    "description": "Servicio de IA para CatSalut",
+    "colors": {
+      "primary": "#009fe2",
+      "secondary": "#dc2626",
+      "accent": "#009fe2",
+      "rating": "#dc2626",
+      "background": "#ffffff",
+      "text": "#009fe2",
+      "contrastText": "#000000",
+      "backgroundDark": "#f0f9fc",
+      "sidebar": "blue"
+    },
+    "logos": {
+      "header": "assets/img/tenants/catsalut/logo.webp",
+      "footer": "assets/img/logo-f29-white.webp",
+      "f29Dark": "assets/img/logo-f29.webp",
+      "favicon": "favicon-iasalut.ico"
+    },
+    "links": {
+      "donate": null,
+      "support": "IASalutAjudaDx support"
+    },
+    "backgrounds": {
+      "aboutUs": {
+        "gradient": "linear-gradient(135deg, #0078a8 0%, #009fe2 25%, #00b4e6 50%, #009fe2 75%, #0078a8 100%)",
+        "overlay": "linear-gradient(45deg, rgba(0, 159, 226, 0.1) 0%, transparent 50%, rgba(0, 120, 168, 0.08) 100%)"
+      }
+    }
   }
 } 
