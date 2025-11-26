@@ -95,6 +95,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     model: string = 'gpt5mini';
     defaultModel: string = 'gpt5mini';
     advancedModel: string = 'o3';
+    previousModel: string = 'gpt5mini'; // Modelo anterior para restaurar en caso de error
     imageModel: string = 'gpt5';
     
     // Propiedad para manejar el placeholder
@@ -200,6 +201,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async goPrevious() {
         this.model = this.defaultModel;
+        this.previousModel = this.defaultModel; // Resetear también previousModel al volver al inicio
         this.topRelatedConditions = [];
         this.currentStep = 1;
         await this.delay(200);
@@ -606,6 +608,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             msgError = this.translate.instant("generics.error try again");
         }
         
+        // Restaurar el modelo anterior en caso de error
+        if (this.previousModel) {
+            this.model = this.previousModel;
+        }
+        
         this.showError(msgError, error);
         this.callingAI = false;
     }
@@ -803,7 +810,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         // Determinar el modelo a usar
         let modelToUse = stringModel;
-        this.model = modelToUse;
+        //this.model = modelToUse;
+        // NO cambiar this.model aquí - se cambiará solo cuando la llamada sea exitosa
+        // Esto permite restaurar el modelo anterior si hay error o cancelación
         // Siempre usar WebSocket para mejor UX y prepararse para detección de intención
         // Esto evita problemas cuando el backend detecta automáticamente que debe usar o3
         const shouldUseWebSocket = true;
@@ -815,7 +824,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 await this.connectWebSocket();
             } catch (error) {
                 console.error('Error connecting WebSocket:', error);
+                // Restaurar el modelo anterior en caso de error de conexión
+                if (this.previousModel) {
+                    this.model = this.previousModel;
+                }
                 this.showError(this.translate.instant("generics.error try again"), error);
+                this.callingAI = false;
                 return;
             }
         }
@@ -845,6 +859,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         }).then(function (event) {
             if (event.dismiss == Swal.DismissReason.cancel) {
+                // Restaurar el modelo anterior si el usuario cancela
+                if (this.previousModel) {
+                    this.model = this.previousModel;
+                }
                 this.callingAI = false;
                 this.subscription.unsubscribe();
                 this.subscription = new Subscription();
@@ -896,6 +914,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     callAdvancedModel(){
         this.lauchEvent('callAdvancedModel' );
+        // Guardar el modelo actual antes de cambiarlo
+        this.previousModel = this.model;
         this.callingAI = true;
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
@@ -905,6 +925,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     callFastModel(){
         this.lauchEvent('callFastModel');
+        // Guardar el modelo actual antes de cambiarlo
+        this.previousModel = this.model;
         this.callingAI = true;
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
@@ -1090,6 +1112,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             msgError = this.translate.instant('generics.error try again');
         }
     
+        // Restaurar el modelo anterior en caso de error
+        if (this.previousModel) {
+            this.model = this.previousModel;
+        }
+        
         this.showError(msgError, err);
         this.callingAI = false;
     }
@@ -1125,11 +1152,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     processAiSuccess(data: any, value: any) {
+        // Establecer el modelo solo cuando la llamada sea exitosa
         if(data.model && data.model == this.advancedModel){
             this.model = this.advancedModel;
         }else{
             this.model = this.defaultModel;
         }
+        // Limpiar previousModel ya que el cambio fue exitoso
+        this.previousModel = null;
         this.cancelQueueStatusCheck();
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
