@@ -541,6 +541,7 @@
     "Candidate diagnosis": "Diagnòstics candidats",
     "Patient text entered": "Text introduït del pacient",
     "advise": "Tingues en compte que els diagnòstics suggerits es generen mitjançant un model avançat d'intel·ligència artificial basat en el llenguatge, i pot contenir errors.",
+    "adviseEu": "Tingues en compte que aquesta informació es genera mitjançant un model avançat d'intel·ligència artificial basat en el llenguatge, i pot contenir errors. Aquesta eina no ofereix diagnòstics mèdics.",
     "Not satisfied with the results?": "No estàs satisfet amb els resultats?",
     "Not satisfied with the results?Eu": "Vols preparar millor la informació per al teu metge?",
     "Improve patient description": "Millorar la descripció",

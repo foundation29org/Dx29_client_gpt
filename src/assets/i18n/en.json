@@ -541,6 +541,7 @@
     "Candidate diagnosis": "Candidate diagnosis",
     "Patient text entered": "Patient text entered",
     "advise": "Please note that suggested diagnoses are generated using an advanced language-based artificial intelligence model and may contain errors.",
+    "adviseEu": "Please note that this information is generated using an advanced language-based artificial intelligence model and may contain errors. This tool does not provide medical diagnoses.",
     "Not satisfied with the results?": "Not satisfied with the results?",
     "Not satisfied with the results?Eu": "Want to better prepare the information for your doctor?",
     "Improve patient description": "Improve description",

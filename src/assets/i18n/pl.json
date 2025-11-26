@@ -541,6 +541,7 @@
     "Candidate diagnosis": "Kandydat do diagnozy",
     "Patient text entered": "Wprowadzony tekst pacjenta",
     "advise": "Proszę zauważyć, że sugerowane diagnozy są generowane przy użyciu zaawansowanego modelu sztucznej inteligencji opartego na języku i mogą zawierać błędy.",
+    "adviseEu": "Proszę zauważyć, że te informacje są generowane przy użyciu zaawansowanego modelu sztucznej inteligencji opartego na języku i mogą zawierać błędy. To narzędzie nie zapewnia diagnoz medycznych.",
     "Not satisfied with the results?": "Nie jesteś zadowolony z wyników?",
     "Not satisfied with the results?Eu": "Chcesz lepiej przygotować informacje dla swojego lekarza?",
     "Improve patient description": "Popraw opis",

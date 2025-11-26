@@ -267,8 +267,8 @@
                   </tbody>
                 </table>
                 <div class="text-center pt-3">
-                  <p class="text-muted mb-0" *ngIf="model != advancedModel && currentImageUrls.length === 0"><strong>{{'land.Results generated with the advanced model' | translate }}</strong></p>
-                  <p class="text-muted mb-0" *ngIf="model != defaultModel && currentImageUrls.length === 0"><strong>{{'land.Results generated with the faster model' | translate }}</strong></p>
+                  <p class="text-muted mb-0" *ngIf="model == advancedModel && currentImageUrls.length === 0"><strong>{{'land.Results generated with the advanced model' | translate }}</strong></p>
+                  <p class="text-muted mb-0" *ngIf="model == defaultModel && currentImageUrls.length === 0"><strong>{{'land.Results generated with the faster model' | translate }}</strong></p>
                 </div>
                 <p class="text-muted text-center">{{'diagnosis.advise' | translate }}</p>
               </div>
