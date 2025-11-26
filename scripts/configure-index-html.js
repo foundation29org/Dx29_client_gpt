@@ -23,12 +23,14 @@
  *   dxgpt     - DxGPT (configuración por defecto)
  *   salud-gpt - SALUD-GPT (solo Google Analytics)
  *   sermas-gpt - SermasGPT (solo Google Analytics)
+ *   iasalut-ajuda-dx - IASalutAjudaDx (solo Google Analytics)
  * 
  * CONFIGURACIÓN:
  * ============================================================
  * - DxGPT: Google Analytics + Google Ads + Conversiones
  * - SALUD-GPT: Solo Google Analytics (Ads comentados)
  * - SermasGPT: Solo Google Analytics (Ads comentados)
+ * - IASalutAjudaDx: Solo Google Analytics (Ads comentados)
  * 
  * BACKUP:
  * ============================================================
@@ -67,8 +69,8 @@ const TENANT_CONFIGS = {
   'SALUD-GPT': {
     name: 'SALUD-GPT',
     // Usar los textos de DxGPT (en inglés)
-    title: 'DxGPT: Diagnostic decision support software based on GPT-4',
-    description: 'DxGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
+    title: 'SALUD-GPT: Diagnostic decision support software based on GPT-4',
+    description: 'SALUD-GPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
     keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
@@ -83,8 +85,8 @@ const TENANT_CONFIGS = {
   'SermasGPT': {
     name: 'SermasGPT',
     // Usar los textos de DxGPT (en inglés)
-    title: 'DxGPT: Diagnostic decision support software based on GPT-4',
-    description: 'DxGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
+    title: 'SermasGPT: Diagnostic decision support software based on GPT-4',
+    description: 'SermasGPT is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
     keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
@@ -95,6 +97,21 @@ const TENANT_CONFIGS = {
       conversion: null // No usar conversiones para SermasGPT
     },
     favicon: 'favicon-sermas.ico'
+  },
+  'IASalutAjudaDx': {
+    name: 'IASalutAjudaDx',
+    title: 'IASalutAjudaDx: Diagnostic decision support software based on GPT-4',
+    description: 'IASalutAjudaDx is a diagnostic decision support software based on GPT-4. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
+    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
+    ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
+    ogUrl: 'https://dxgpt.app',
+    analytics: {
+      googleAnalytics: 'G-PSF306RXEL', // Configurar cuando esté disponible
+      googleAds: null, // No usar Google Ads para IASalutAjudaDx
+      googleAds2: null, // No usar Google Ads para IASalutAjudaDx
+      conversion: null // No usar conversiones para IASalutAjudaDx
+    },
+    favicon: 'favicon-iasalut.ico'
   }
 };
 
@@ -335,6 +352,7 @@ Tenants disponibles:
   dxgpt     - DxGPT (configuración por defecto)
   salud-gpt - SALUD-GPT
   sermas-gpt - SermasGPT
+  iasalut-ajuda-dx - IASalutAjudaDx
 
 Opciones:
   --dry-run    Solo muestra qué cambios se harían
@@ -344,6 +362,8 @@ Ejemplos:
   node scripts/configure-index-html.js dxgpt --dry-run
   node scripts/configure-index-html.js salud-gpt
   node scripts/configure-index-html.js sermas-gpt --dry-run
+  node scripts/configure-index-html.js iasalut-ajuda-dx --dry-run
+  node scripts/configure-index-html.js iasalut-ajuda-dx
   `);
   process.exit(0);
 }

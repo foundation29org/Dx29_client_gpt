@@ -25,6 +25,7 @@
               "src/favicon.ico",
               "src/favicon-salud.ico",
               "src/favicon-sermas.ico",
+              "src/favicon-iasalut.ico",
               "src/sitemap.xml",
               "src/robots.txt"
             ],
@@ -238,6 +239,79 @@
                   "with": "src/environments/environment.sermas-gpt.dev.ts"
                 }
               ]
+            },
+            "iasalut-ajuda-dx": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.iasalut-ajuda-dx.ts"
+                }
+              ]
+            },
+            "iasalut-ajuda-dx-prod": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.iasalut-ajuda-dx.prod.ts"
+                }
+              ]
+            },
+            "iasalut-ajuda-dx-dev": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": false,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.iasalut-ajuda-dx.dev.ts"
+                }
+              ]
             }
           }
         },
@@ -259,6 +333,9 @@
             "salud-gpt-prod": {
               "browserTarget": "matngular:build:salud-gpt-prod"
             },
+            "salud-gpt-dev": {
+              "browserTarget": "matngular:build:salud-gpt-dev"
+            },
             "sermas-gpt": {
               "browserTarget": "matngular:build:sermas-gpt"
             },
@@ -267,6 +344,15 @@
             },
             "sermas-gpt-dev": {
               "browserTarget": "matngular:build:sermas-gpt-dev"
+            },
+            "iasalut-ajuda-dx": {
+              "browserTarget": "matngular:build:iasalut-ajuda-dx"
+            },
+            "iasalut-ajuda-dx-prod": {
+              "browserTarget": "matngular:build:iasalut-ajuda-dx-prod"
+            },
+            "iasalut-ajuda-dx-dev": {
+              "browserTarget": "matngular:build:iasalut-ajuda-dx-dev"
             }
           }
         },
@@ -292,7 +378,8 @@
               "src/assets",
               "src/favicon.ico",
               "src/favicon-salud.ico",
-              "src/favicon-sermas.ico"
+              "src/favicon-sermas.ico",
+              "src/favicon-iasalut.ico"
             ]
           }
         }
