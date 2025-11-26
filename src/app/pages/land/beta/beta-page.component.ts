@@ -1653,7 +1653,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
               this.medicalTextOriginal,
               this.topRelatedConditions,
               this.lang,
-              pdfMake
+              pdfMake,
+              this.brandingService.isEuMode()
             );
             this.generatingPDF = false;
             this.lauchEvent('Download results');

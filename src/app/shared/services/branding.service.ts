@@ -27,6 +27,7 @@ export interface BrandingConfig {
   };
   links: {
     donate: string | null;
+    beta: boolean | null;
     foundation: string;
     support: string;
   };
@@ -272,5 +273,12 @@ export class BrandingService {
   getAboutUsOverlay(): string {
     return this.getConfigValue<string>('backgrounds.aboutUs.overlay') || 
            'linear-gradient(45deg, rgba(52, 152, 219, 0.1) 0%, transparent 50%, rgba(41, 128, 185, 0.08) 100%)';
+  }
+
+  /**
+   * Verifica si está en modo europeo (EU)
+   */
+  isEuMode(): boolean {
+    return this.getConfigValue<boolean>('euMode') === true;
   }
 } 

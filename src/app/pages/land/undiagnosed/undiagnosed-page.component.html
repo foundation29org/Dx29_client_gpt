@@ -3,7 +3,9 @@
   <section *ngIf="currentStep == 1" class="col-12 d-flex flex-column">
     <div class="">
       <div class="mb-5 col-sm-12 offset-md-2 col-md-8  justify-content-center align-items-center text-center">
-        <h2 class="white" (click)="changeModeFunctionality()">{{'land.title' | translate }}</h2>
+        <h2 *ngIf="!isEuMode()" class="white" (click)="changeModeFunctionality()">{{'land.title' | translate }}</h2>
+        <h2 *ngIf="isEuMode()" class="white" (click)="changeModeFunctionality()">{{'land.titleEu' | translate }}</h2>
+        <p *ngIf="isEuMode()" class="white mt-3 mb-0">{{'land.subtitleEu' | translate }}</p>
         <div *ngIf="modeFunctionality" class="badge bg-danger pulse-animation mb-3">
           <i class="fa fa-ambulance me-1"></i> ER
         </div>
@@ -171,8 +173,11 @@
                     <div id="headerTable" class="border-top-none">
                       <span class="row p-2">
                         <span class="col-12">
-                          <h4 class="white card-title text-bold-700 margin-top-0"><strong>{{'diagnosis.Proposed diagnoses' |
-                            translate }}</strong></h4>
+                          <h4 class="white card-title text-bold-700 margin-top-0"><strong><span *ngIf="!isEuMode()">{{'diagnosis.Proposed diagnoses' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Proposed diagnosesEu' | translate }}</span></strong></h4>
+                          <!-- Disclaimer reforzado para modo EU -->
+                          <div *ngIf="isEuMode()" class="alert alert-warning mt-3 mb-3" role="alert">
+                            <i class="fa fa-exclamation-triangle me-2"></i>{{'diagnosis.disclaimerEu' | translate }}
+                          </div>
                           <span class="float-end">
                             <ng-container *ngIf="!sendingVote; else loadingSpinner">
                               <button class="me-1 btn btn-success" (click)="vote('up')"
@@ -194,13 +199,13 @@
                             translate }}</span>
                           <span class="mt-1 font-small-3 d-block">2. {{'diagnosis.Click on the disease to see more
                             options' | translate }}</span>
-                          <span class="mt-1 font-small-3 d-block">3. <strong>{{'land.Point3.1' | translate }}</strong> 
+                          <span class="mt-1 font-small-3 d-block">3. <strong><span *ngIf="!isEuMode()">{{'land.Point3.1' | translate }}</span><span *ngIf="isEuMode()">{{'land.Point3.1Eu' | translate }}</span></strong> 
                             <div class="mt-2">
                               <button class="me-2 mb-2 btn btn-danger btn-sm size-btn" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
-                                <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
+                                <i class="fa fa-comments me-2"></i><span *ngIf="!isEuMode()">{{'diagnosis.Improve patient description' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Improve patient descriptionEu' | translate }}</span>
                               </button>
                               <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="btn btn-brand-secondary mb-2 btn-sm size-btn" (click)="callAdvancedModel()">
-                                <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
+                                <i class="fa fa-search me-2"></i><span *ngIf="!isEuMode()">{{'diagnosis.Try our advanced mode' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Try our advanced modeEu' | translate }}</span>
                               </button>
                               <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="btn btn-brand-secondary mb-2 btn-sm" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
                             </div>
@@ -277,13 +282,13 @@
         <div class="pt-4 text-center" *ngIf="topRelatedConditions.length>0">
                 
           <div>
-            <h4 class="notsatisfied"><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></h4>
+            <h4 class="notsatisfied"><strong><span *ngIf="!isEuMode()">{{'diagnosis.Not satisfied with the results?' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Not satisfied with the results?Eu' | translate }}</span></strong></h4>
             <div class="p-2 mb-4">
               <button class="btn btn-danger me-3 mt-2" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
-                <i class="fa fa-comments me-2"></i>{{'diagnosis.Improve patient description' | translate }}
+                <i class="fa fa-comments me-2"></i><span *ngIf="!isEuMode()">{{'diagnosis.Improve patient description' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Improve patient descriptionEu' | translate }}</span>
               </button>
               <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="btn btn-brand-secondary mt-2" (click)="callAdvancedModel()">
-                <i class="fa fa-search me-2"></i>{{'diagnosis.Try our advanced mode' | translate }}
+                <i class="fa fa-search me-2"></i><span *ngIf="!isEuMode()">{{'diagnosis.Try our advanced mode' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Try our advanced modeEu' | translate }}</span>
               </button>
               <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="btn btn-brand-secondary mt-2" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
             </div>
@@ -410,19 +415,19 @@
       </div>
       <div class="col-lg-4 mb-3 pt-4">
         <em class="fa fa-rocket fa-2x"></em>
-        <h4 class="mt-2 mb-0">{{'land.p2.title' | translate }}</h4>
-        <span>{{'land.p2.subtitle' | translate }}</span>
+        <h4 class="mt-2 mb-0"><span *ngIf="!isEuMode()">{{'land.p2.title' | translate }}</span><span *ngIf="isEuMode()">{{'land.p2.titleEu' | translate }}</span></h4>
+        <span><span *ngIf="!isEuMode()">{{'land.p2.subtitle' | translate }}</span><span *ngIf="isEuMode()">{{'land.p2.subtitleEu' | translate }}</span></span>
         <div class="card custom-card-1 p-2">
-          <span>{{'land.p2.1' | translate }}</span>
+          <span><span *ngIf="!isEuMode()">{{'land.p2.1' | translate }}</span><span *ngIf="isEuMode()">{{'land.p2.1Eu' | translate }}</span></span>
         </div>
         <div class="card custom-card-1 p-2">
-          <span>{{'land.p2.2' | translate }}</span>
+          <span><span *ngIf="!isEuMode()">{{'land.p2.2' | translate }}</span><span *ngIf="isEuMode()">{{'land.p2.2Eu' | translate }}</span></span>
         </div>
         <div class="card custom-card-1 p-2">
-          <span>{{'land.p2.3' | translate }}</span>
+          <span><span *ngIf="!isEuMode()">{{'land.p2.3' | translate }}</span><span *ngIf="isEuMode()">{{'land.p2.3Eu' | translate }}</span></span>
         </div>
         <div class="card custom-card-1 p-2">
-          <span>{{'land.p2.4' | translate }}</span>
+          <span><span *ngIf="!isEuMode()">{{'land.p2.4' | translate }}</span><span *ngIf="isEuMode()">{{'land.p2.4Eu' | translate }}</span></span>
         </div>
       </div>
       <div class="col-lg-4 mb-3 pt-4">

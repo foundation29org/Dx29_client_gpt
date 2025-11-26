@@ -7,7 +7,7 @@ Privacy Policy - DxGPT
 
 #### 1. Introduction
 
-This Privacy Policy describes how Foundation29 collects, uses, and protects information provided by users of DxGPT, a diagnostic support software based on GPT-4. We are committed to ensuring that your privacy is protected and to complying with all applicable data protection laws and regulations.
+This Privacy Policy describes how Foundation29 collects, uses, and protects information provided by users of DxGPT, a diagnostic support software based on GPT-5 mini. We are committed to ensuring that your privacy is protected and to complying with all applicable data protection laws and regulations.
 
 #### 2. Information We Collect
 

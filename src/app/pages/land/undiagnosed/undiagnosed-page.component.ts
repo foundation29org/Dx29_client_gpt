@@ -1233,14 +1233,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
 
         const indexDisease = this.topRelatedConditions.length;
+        const isEu = this.isEuMode();
         parseChoices.forEach((disease, i) => {
             const sponsor = this.sponsors.find(s => this.includesElement(s.synonyms, disease.diagnosis));
             const matchingSymptoms = disease.symptoms_in_common.length > 0 ? disease.symptoms_in_common.join(', ') : this.translate.instant("diagnosis.None");
             const nonMatchingSymptoms = disease.symptoms_not_in_common.length > 0 ? disease.symptoms_not_in_common.join(', ') : this.translate.instant("diagnosis.None");
+            // En modo EU, no mostrar numeración y usar textos diferentes
+            const diseaseTitle = isEu ? `${disease.diagnosis}:` : `${indexDisease + i + 1}. ${disease.diagnosis}:`;
+            const matchingLabel = isEu ? this.translate.instant("diagnosis.Matching symptomsEu") : this.translate.instant("diagnosis.Matching symptoms");
+            const nonMatchingLabel = isEu ? this.translate.instant("diagnosis.Non-matching symptomsEu") : this.translate.instant("diagnosis.Non-matching symptoms");
             const content = `
-                <strong>${indexDisease + i + 1}. ${disease.diagnosis}:</strong> ${disease.description}
-                <br> <em class="fa fa-check success me-1"></em>${this.translate.instant("diagnosis.Matching symptoms")}: ${matchingSymptoms}
-                <br> <em class="fa fa-times danger me-1"></em>${this.translate.instant("diagnosis.Non-matching symptoms")}: ${nonMatchingSymptoms}
+                <strong>${diseaseTitle}</strong> ${disease.description}
+                <br> <em class="fa fa-check success me-1"></em>${matchingLabel}: ${matchingSymptoms}
+                <br> <em class="fa fa-times danger me-1"></em>${nonMatchingLabel}: ${nonMatchingSymptoms}
             `;
             this.topRelatedConditions.push({ content, name: disease.diagnosis, url: sponsor?.url || '', description: disease.description, matchingSymptoms: matchingSymptoms, nonMatchingSymptoms: nonMatchingSymptoms });
         });
@@ -1640,7 +1645,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
               this.medicalTextOriginal,
               this.topRelatedConditions,
               this.lang,
-              pdfMake
+              pdfMake,
+              this.brandingService.isEuMode()
             );
             this.generatingPDF = false;
             this.lauchEvent('Download results');
@@ -1973,7 +1979,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if(this.medicalTextOriginal == ''){
             // Mostrar Swal invitando a editar la descripción
             Swal.fire({
-                title: this.translate.instant('diagnosis.Improve patient description'),
+                title: this.isEuMode() ? this.translate.instant('diagnosis.Improve patient descriptionEu') : this.translate.instant('diagnosis.Improve patient description'),
                 html: `
                     <div style="text-align: left;">
                         <p><strong>${this.translate.instant('diagnosis.Please add clinical information')}</strong></p>
@@ -2905,6 +2911,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         
         return this.translate.instant('land.Search');
+    }
+
+    /**
+     * Verifica si está en modo europeo (EU)
+     */
+    isEuMode(): boolean {
+        return this.brandingService.isEuMode();
     }
 
     

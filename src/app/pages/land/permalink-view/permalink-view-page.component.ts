@@ -175,6 +175,13 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Verifica si está en modo europeo (EU)
+   */
+  isEuMode(): boolean {
+    return this.brandingService.isEuMode();
+  }
+
+  /**
    * Genera un color más oscuro para hover
    */
   private generateHoverColor(color: string): string {

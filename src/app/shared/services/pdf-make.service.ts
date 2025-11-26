@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class PdfMakeService {
   constructor(private translate: TranslateService) {}
 
-  async generateResultsPDF(entryText: string, infoDiseases: any[], lang: string, pdfMakeInstance: any) {
+  async generateResultsPDF(entryText: string, infoDiseases: any[], lang: string, pdfMakeInstance: any, isEuMode: boolean = false) {
     const logoBase64 = await this.getBase64ImageFromURL('assets/img/logo-Dx29.png');
     const qrBase64 = await this.getBase64ImageFromURL('assets/img/elements/qr.png');
     const checkBase64 = await this.getBase64ImageFromURL('assets/img/icons/check.png');
@@ -18,6 +18,9 @@ export class PdfMakeService {
       lang === 'es' ? 'es-ES' : lang === 'fr' ? 'fr-FR' : lang === 'ru' ? 'ru-RU' : lang === 'uk' ? 'uk-UA' : lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-US',
       { year: 'numeric', month: 'long', day: 'numeric' }
     );
+
+    const matchingLabel = isEuMode ? this.translate.instant('diagnosis.Matching symptomsEu') : this.translate.instant('diagnosis.Matching symptoms');
+    const nonMatchingLabel = isEuMode ? this.translate.instant('diagnosis.Non-matching symptomsEu') : this.translate.instant('diagnosis.Non-matching symptoms');
 
     const diseaseSections = infoDiseases.map(disease => [
       {
@@ -35,7 +38,7 @@ export class PdfMakeService {
                       {
                         width: '*',
                         text: [
-                          { text: this.translate.instant('diagnosis.Matching symptoms') + ': ', bold: true },
+                          { text: matchingLabel + ': ', bold: true },
                           { text: disease.matchingSymptoms }
                         ],
                         style: 'symptomMatch',
@@ -51,7 +54,7 @@ export class PdfMakeService {
                       {
                         width: '*',
                         text: [
-                          { text: this.translate.instant('diagnosis.Non-matching symptoms') + ': ', bold: true },
+                          { text: nonMatchingLabel + ': ', bold: true },
                           { text: disease.nonMatchingSymptoms }
                         ],
                         style: 'symptomNoMatch',

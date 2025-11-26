@@ -6,7 +6,7 @@ DxGPT Client
 ===============================================================================================================================
 
 #### 1. Overview
-DxGPT is a diagnostic decision support software based on GPT-4. GPT-4 is an Artificial Intelligence (AI) language model developed by OpenAI. It is designed to generate text from previous input. This means that the software can generate a list of diseases from a description of symptoms. However, due to the characteristics of the model, there is a possibility that the software has errors. Therefore, it should not be used for medical use.
+DxGPT is a diagnostic decision support software based on GPT-5 mini. GPT-5 mini is an Artificial Intelligence (AI) language model developed by OpenAI. It is designed to generate text from previous input. This means that the software can generate a list of diseases from a description of symptoms. However, due to the characteristics of the model, there is a possibility that the software has errors. Therefore, it should not be used for medical use.
 
 Once the list of diseases is generated, it can be completed with further information to refine the diagnosis. This includes collecting clinical data, performing laboratory tests, and gathering information from the medical record. This will help clinicians make a more informed decision about the diagnosis. It is important that users give us feedback on the use of the software so that we can improve the model. This is important because it helps us to better understand how the software is being used and how we can improve it.
 

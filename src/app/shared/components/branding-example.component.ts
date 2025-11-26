@@ -98,6 +98,7 @@ export class BrandingExampleComponent implements OnInit {
   footerLogo: string = '';
   f29DarkLogo: string = '';
   shouldShowDonate: boolean = false;
+  shouldShowBeta: boolean = false;
   donateLink: string | null = null;
 
   constructor(
@@ -122,6 +123,7 @@ export class BrandingExampleComponent implements OnInit {
         this.footerLogo = config.logos.footer;
         this.f29DarkLogo = config.logos.f29Dark;
         this.shouldShowDonate = config.links.donate !== null;
+        this.shouldShowBeta = config.links.beta === true;
         this.donateLink = config.links.donate;
       }
     });
