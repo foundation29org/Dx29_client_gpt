@@ -8,6 +8,8 @@ export interface BrandingConfig {
   name: string;
   displayName: string;
   description: string;
+  euMode?: boolean;
+  IS_SELF_HOSTED?: boolean;
   colors: {
     primary: string;
     secondary: string;
@@ -280,5 +282,12 @@ export class BrandingService {
    */
   isEuMode(): boolean {
     return this.getConfigValue<boolean>('euMode') === true;
+  }
+
+  /**
+   * Verifica si es un tenant auto-hospedado (self-hosted)
+   */
+  isSelfHosted(): boolean {
+    return this.getConfigValue<boolean>('IS_SELF_HOSTED') === true;
   }
 } 

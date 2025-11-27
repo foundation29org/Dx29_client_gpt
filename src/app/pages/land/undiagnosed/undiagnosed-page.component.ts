@@ -305,7 +305,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.symtpmsLabel = res;
         });
         
-        this.questions = [
+        // En modo EU o self-hosted, no mostrar la última pregunta (q6)
+        const allQuestions = [
             { id: 1, question: 'land.q1' },
             { id: 2, question: 'land.q2' },
             { id: 3, question: 'land.q3' },
@@ -313,6 +314,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             { id: 5, question: 'land.q5' },
             { id: 6, question: 'land.q6' }
         ];
+        this.questions = (this.isEuMode() || this.brandingService.isSelfHosted()) ? allQuestions.slice(0, -1) : allQuestions;
         this.options = { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") };
     }
 
