@@ -293,9 +293,11 @@ export class NavbarD29Component implements OnDestroy {
   };
 
   goBackEvent() {
-    console.log('goBackEvent');
-    var eventsLang = this.inj.get(EventsService);
-    eventsLang.broadcast('backEvent', true);
+    // Solo ejecutar el evento si estamos en la página principal
+    if (this.isHomePage) {
+      var eventsLang = this.inj.get(EventsService);
+      eventsLang.broadcast('backEvent', true);
+    }
   }
 
   /**
