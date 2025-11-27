@@ -1,8 +1,8 @@
 {
   "menu":{
-    "Home": "IASalutAjudaDx",
+    "Home": "DxGPT",
     "Dashboard": "Inicio",
-    "About us": "Sobre IASalutAjudaDx",
+    "About us": "Sobre DxGPT",
     "Collaboration": "Colaboración",
     "Foundation 29": "Foundation 29",
     "Usage statistics": "Estadísticas de uso",
@@ -42,12 +42,12 @@
     "Contact us": "Contáctanos",
     "Updates": "Actualizaciones",
     "Privacy GDPR HIPAA AI Act": "Privacidad (RGPD/HIPAA/AI Act)",
-    "Dx29info": "IASalutAjudaDx es una herramienta de búsqueda y referencia que se proporciona con fines informativos y no pretende sustituir el juicio o la experiencia del clínico. No debe utilizarse para diagnosticar o tratar afecciones médicas."
+    "Dx29info": "DxGPT es una herramienta de búsqueda y referencia que se proporciona con fines informativos y no pretende sustituir el juicio o la experiencia del clínico. No debe utilizarse para diagnosticar o tratar afecciones médicas."
   },
   "aboutUs": {
     "hero": {
-      "title": "IASalutAjudaDx: Inteligencia aumentada para la confianza diagnóstica",
-      "subtitle": "Transforma la incertidumbre clínica en claridad. IASalutAjudaDx es tu copiloto diagnóstico: estructura el razonamiento, reduce la carga cognitiva y minimiza los sesgos en segundos, incluso en casos complejos o raros.",
+      "title": "DxGPT: Inteligencia aumentada para la confianza diagnóstica",
+      "subtitle": "Transforma la incertidumbre clínica en claridad. DxGPT es tu copiloto diagnóstico: estructura el razonamiento, reduce la carga cognitiva y minimiza los sesgos en segundos, incluso en casos complejos o raros.",
       "evidenceButton": "Evidencia científica",
       "clinicalEvidenceButton": "Evidencia Clínica",
       "highlight1": "Diagnóstico diferencial estructurado",
@@ -55,34 +55,34 @@
       "highlight3": "Integración en sistemas de salud"
     },
     "main": {
-      "description": "IASalutAjudaDx es una herramienta de inteligencia aumentada diseñada por y para el entorno clínico. A diferencia de las IAs de propósito general, no genera texto narrativo abierto, sino un análisis estructurado de cinco hipótesis diagnósticas, clasificadas y razonadas con síntomas a favor y en contra. Utilizamos modelos de lenguaje avanzados, como GPT-5 de OpenAI, dentro de un marco de control médico que garantiza relevancia, consistencia y seguridad en cada resultado. No sustituimos el juicio clínico: lo potenciamos. Le ofrecemos un análisis diferencial instantáneo que ahorra tiempo, neutraliza sesgos cognitivos y eleva la calidad del razonamiento clínico desde el primer momento."
+      "description": "DxGPT es una herramienta de inteligencia aumentada diseñada por y para el entorno clínico. A diferencia de las IAs de propósito general, no genera texto narrativo abierto, sino un análisis estructurado de cinco hipótesis diagnósticas, clasificadas y razonadas con síntomas a favor y en contra. Utilizamos modelos de lenguaje avanzados, como GPT-5 de OpenAI, dentro de un marco de control médico que garantiza relevancia, consistencia y seguridad en cada resultado. No sustituimos el juicio clínico: lo potenciamos. Le ofrecemos un análisis diferencial instantáneo que ahorra tiempo, neutraliza sesgos cognitivos y eleva la calidad del razonamiento clínico desde el primer momento."
     },
     "challenge": {
       "title": "El desafío del diagnóstico clínico",
-      "description": "El diagnóstico, especialmente en enfermedades raras, es un laberinto de datos y síntomas que consume tiempo y genera incertidumbre. Con más de 10.000 enfermedades raras, la mayoría desconocidas para el profesional promedio debido a su baja prevalencia, la familiaridad es un lujo imposible. IASalutAjudaDx actúa como una poderosa herramienta de descarga cognitiva, acelerando el análisis y ampliando el espectro de posibilidades para llegar a un diagnóstico preciso más rápido. En este contexto, la tecnología de apoyo ya no es una opción, sino una necesidad para la seguridad del paciente y la calidad de la atención."
+      "description": "El diagnóstico, especialmente en enfermedades raras, es un laberinto de datos y síntomas que consume tiempo y genera incertidumbre. Con más de 10.000 enfermedades raras, la mayoría desconocidas para el profesional promedio debido a su baja prevalencia, la familiaridad es un lujo imposible. DxGPT actúa como una poderosa herramienta de descarga cognitiva, acelerando el análisis y ampliando el espectro de posibilidades para llegar a un diagnóstico preciso más rápido. En este contexto, la tecnología de apoyo ya no es una opción, sino una necesidad para la seguridad del paciente y la calidad de la atención."
     },
     "why": {
-      "title": "¿Por qué IASalutAjudaDx y no una IA de propósito general?",
+      "title": "¿Por qué DxGPT y no una IA de propósito general?",
       "description": "Las herramientas conversacionales como ChatGPT, Claude o Gemini son modelos de lenguaje de amplio espectro. En el contexto médico, esta flexibilidad es una debilidad fundamental. Su naturaleza no estructurada puede generar respuestas variables, incompletas o clínicamente irrelevantes, careciendo de los controles de seguridad esenciales para la toma de decisiones de alto riesgo."
     },
     "differentiators": {
-      "title": "Diferenciadores clave de IASalutAjudaDx",
+      "title": "Diferenciadores clave de DxGPT",
       "structured": {
         "title": "Análisis estructurado y consistente",
-        "description": "Mientras que una IA generalista produce texto libre, IASalutAjudaDx ofrece un análisis riguroso y reproducible de cinco hipótesis diagnósticas. Cada hipótesis incluye síntomas compatibles e incompatibles, un formato diseñado para desafiar sesgos como el de confirmación y disponibilidad. Nuestro control sobre la instrucción que recibe el modelo (el prompt) garantiza resultados consistentes, confiables y explicables."
+        "description": "Mientras que una IA generalista produce texto libre, DxGPT ofrece un análisis riguroso y reproducible de cinco hipótesis diagnósticas. Cada hipótesis incluye síntomas compatibles e incompatibles, un formato diseñado para desafiar sesgos como el de confirmación y disponibilidad. Nuestro control sobre la instrucción que recibe el modelo (el prompt) garantiza resultados consistentes, confiables y explicables."
       },
       "control": {
         "title": "Marco de control clínico",
-        "description": "IASalutAjudaDx opera dentro de un entorno de control diseñado para mitigar los riesgos inherentes a los modelos de lenguaje grandes (LLMs). Su arquitectura y resultados están supervisados por profesionales de la salud para asegurar que las respuestas no solo sean técnicamente correctas, sino también clínicamente relevantes y seguras."
+        "description": "DxGPT opera dentro de un entorno de control diseñado para mitigar los riesgos inherentes a los modelos de lenguaje grandes (LLMs). Su arquitectura y resultados están supervisados por profesionales de la salud para asegurar que las respuestas no solo sean técnicamente correctas, sino también clínicamente relevantes y seguras."
       },
       "specialization": {
         "title": "Especialización en enfermedades raras",
-        "description": "IASalutAjudaDx está diseñado para incluir sistemáticamente enfermedades raras en el diagnóstico diferencial, un área donde los sistemas generalistas, y a menudo el razonamiento humano, pueden fallar. El sistema integra conocimiento especializado para detectar patrones atípicos y explorar hipótesis que de otro modo serían ignoradas, expandiendo el radar diagnóstico del clínico y mejorando las posibilidades de un diagnóstico temprano y preciso."
+        "description": "DxGPT está diseñado para incluir sistemáticamente enfermedades raras en el diagnóstico diferencial, un área donde los sistemas generalistas, y a menudo el razonamiento humano, pueden fallar. El sistema integra conocimiento especializado para detectar patrones atípicos y explorar hipótesis que de otro modo serían ignoradas, expandiendo el radar diagnóstico del clínico y mejorando las posibilidades de un diagnóstico temprano y preciso."
       }
     },
     "implementation": {
       "title": "Implementación en proveedores de salud",
-      "intro": "Cuando IASalutAjudaDx se despliega en proveedores de salud como hospitales, incluye capacidades expandidas:",
+      "intro": "Cuando DxGPT se despliega en proveedores de salud como hospitales, incluye capacidades expandidas:",
       "capability1": "Gestión de datos clínicos (integración con sistemas de información hospitalaria).",
       "capability2": "Recolección de datos estructurados (formatos estandarizados para análisis posterior).",
       "capability3": "Retroalimentación clínica (los profesionales proporcionan correcciones y observaciones).",
@@ -90,10 +90,10 @@
       "capability5": "Seguridad reforzada (protección de datos y control de uso alineado con regulaciones de salud)."
     },
     "benefits": {
-      "title": "Beneficios clínicos de IASalutAjudaDx",
+      "title": "Beneficios clínicos de DxGPT",
       "time": {
         "title": "Recupera tiempo para lo que más importa: el paciente",
-        "description": "IASalutAjudaDx automatiza la generación del diagnóstico diferencial, transformando minutos de búsqueda e incertidumbre en segundos de análisis estructurado. Esta eficiencia libera al profesional de la salud para centrarse en el juicio clínico, la comunicación con el paciente y la toma de decisiones."
+        "description": "DxGPT automatiza la generación del diagnóstico diferencial, transformando minutos de búsqueda e incertidumbre en segundos de análisis estructurado. Esta eficiencia libera al profesional de la salud para centrarse en el juicio clínico, la comunicación con el paciente y la toma de decisiones."
       },
       "clarity": {
         "title": "Del caos de datos a la claridad diagnóstica",
@@ -101,39 +101,39 @@
       },
       "tool": {
         "title": "Una herramienta, no una aplicación",
-        "description": "A diferencia de las IAs conversacionales, la interfaz de IASalutAjudaDx está optimizada para una sola función: apoyar el diagnóstico. Cada elemento está diseñado para guiar el razonamiento clínico de manera eficiente y segura, eliminando distracciones y enfocándose en la utilidad práctica."
+        "description": "A diferencia de las IAs conversacionales, la interfaz de DxGPT está optimizada para una sola función: apoyar el diagnóstico. Cada elemento está diseñado para guiar el razonamiento clínico de manera eficiente y segura, eliminando distracciones y enfocándose en la utilidad práctica."
       },
       "safety": {
         "title": "Un sistema de seguridad contra atajos mentales",
-        "description": "El diagnóstico clínico es vulnerable a sesgos cognitivos como el de disponibilidad o confirmación. IASalutAjudaDx actúa como un contrapeso objetivo, presentando sistemáticamente un rango de posibilidades basado en la evidencia del caso, incluyendo enfermedades raras. Esto promueve una evaluación más exhaustiva y reduce el riesgo de errores diagnósticos, mejorando la seguridad del paciente."
+        "description": "El diagnóstico clínico es vulnerable a sesgos cognitivos como el de disponibilidad o confirmación. DxGPT actúa como un contrapeso objetivo, presentando sistemáticamente un rango de posibilidades basado en la evidencia del caso, incluyendo enfermedades raras. Esto promueve una evaluación más exhaustiva y reduce el riesgo de errores diagnósticos, mejorando la seguridad del paciente."
       },
       "standardize": {
         "title": "Estandariza la excelencia diagnóstica",
-        "description": "IASalutAjudaDx asegura que cada caso sea analizado con el mismo rigor metodológico, independientemente del profesional o el momento. Esta consistencia reduce la variabilidad en la calidad de la atención y establece un alto estándar de análisis para todo el equipo. Nuestro rendimiento se valida continuamente contra un banco exigente de casos clínicos para garantizar una confiabilidad constante."
+        "description": "DxGPT asegura que cada caso sea analizado con el mismo rigor metodológico, independientemente del profesional o el momento. Esta consistencia reduce la variabilidad en la calidad de la atención y establece un alto estándar de análisis para todo el equipo. Nuestro rendimiento se valida continuamente contra un banco exigente de casos clínicos para garantizar una confiabilidad constante."
       },
       "practice": {
         "title": "Creado en la práctica clínica, para la práctica clínica",
-        "description": "IASalutAjudaDx no es un producto de laboratorio. Ha sido desarrollado en un ciclo continuo de colaboración con médicos de primera línea, hospitales y sociedades científicas. Su diseño y funcionalidades responden a los desafíos reales del diagnóstico, asegurando que no solo sea tecnológicamente avanzado, sino también clínicamente útil, relevante y fácil de integrar en el flujo de trabajo mental del profesional."
+        "description": "DxGPT no es un producto de laboratorio. Ha sido desarrollado en un ciclo continuo de colaboración con médicos de primera línea, hospitales y sociedades científicas. Su diseño y funcionalidades responden a los desafíos reales del diagnóstico, asegurando que no solo sea tecnológicamente avanzado, sino también clínicamente útil, relevante y fácil de integrar en el flujo de trabajo mental del profesional."
       }
     },
     "commitment": {
       "title": "Compromiso y marco regulatorio",
       "experimental": {
-        "title": "IASalutAjudaDx es una plataforma experimental en mejora continua",
+        "title": "DxGPT es una plataforma experimental en mejora continua",
         "description": "Su objetivo es explorar las capacidades de la IA en el diagnóstico, entender sus limitaciones y mejorarla con la retroalimentación de los usuarios y la validación clínica rigurosa. Los nuevos hallazgos se comparten abiertamente a través de GitHub y MedRxiv."
       },
       "protection": {
-        "title": "IASalutAjudaDx protege los datos clínicos con estándares europeos",
-        "description": "IASalutAjudaDx asegura la protección de los datos clínicos mediante una anonimización estricta, sin almacenar información personal ni utilizarla para otros fines. Todo el procesamiento se realiza en centros de datos europeos bajo GDPR, garantizando seguridad, privacidad y transparencia en cada interacción."
+        "title": "DxGPT protege los datos clínicos con estándares europeos",
+        "description": "DxGPT asegura la protección de los datos clínicos mediante una anonimización estricta, sin almacenar información personal ni utilizarla para otros fines. Todo el procesamiento se realiza en centros de datos europeos bajo GDPR, garantizando seguridad, privacidad y transparencia en cada interacción."
       }
     },
     "evaluation": {
       "title": "Evaluación",
       "commitment": {
         "title": "Nuestro compromiso con la evidencia: El marco de validación clínica",
-        "description": "La confianza en una herramienta clínica se gana a través de evidencia rigurosa. La validación de IASalutAjudaDx es un proceso continuo que combina investigación independiente con mejora iterativa basada en datos reales.",
+        "description": "La confianza en una herramienta clínica se gana a través de evidencia rigurosa. La validación de DxGPT es un proceso continuo que combina investigación independiente con mejora iterativa basada en datos reales.",
         "validation": "Hemos realizado una validación clínica independiente inicial en colaboración con el Hospital Sant Joan de Déu, con resultados publicados en medRxiv que muestran una precisión diagnóstica comparable a expertos clínicos.",
-        "framework": "Hemos construido un 'Marco de Validación Constante' que evoluciona continuamente la confiabilidad de IASalutAjudaDx mediante la integración de nuevos casos, retroalimentación clínica y métricas de rendimiento en tiempo real."
+        "framework": "Hemos construido un 'Marco de Validación Constante' que evoluciona continuamente la confiabilidad de DxGPT mediante la integración de nuevos casos, retroalimentación clínica y métricas de rendimiento en tiempo real."
       },
       "testbed": {
         "title": "Un banco de pruebas diseñado para desafiar el sistema",
@@ -143,12 +143,12 @@
         "source2": "Publicaciones científicas sobre enfermedades raras: RAMEDIS y Ramebench.",
         "source3": "Casos reales de servicios de urgencias hospitalarios: HM Hospitals y Hospital de Torrejón.",
         "source4": "Colaboraciones especializadas: Casos supervisados de enfermedades raras.",
-        "conclusion": "Este banco de pruebas evalúa IASalutAjudaDx en el entorno más desafiante, reflejando la complejidad real de la atención sanitaria."
+        "conclusion": "Este banco de pruebas evalúa DxGPT en el entorno más desafiante, reflejando la complejidad real de la atención sanitaria."
       },
       "science": {
         "title": "La ciencia de preguntar: El secreto de la consistencia",
         "description": "Nuestra investigación ha revelado un factor crítico: la calidad de la respuesta de un LLM depende decisivamente de la calidad de la pregunta. Por ello, hemos desarrollado y validado más de 30 formulaciones de prompts (instrucciones) para encontrar la estructura óptima que activa un razonamiento clínico efectivo y consistente.",
-        "differentiator": "Este control experto sobre la formulación es lo que diferencia a IASalutAjudaDx de una IA generalista. No dejamos la calidad del resultado al azar; hemos diseñado un proceso que garantiza que, ante el mismo caso, el sistema siempre aplique el mismo rigor analítico, produciendo resultados fiables y reproducibles."
+        "differentiator": "Este control experto sobre la formulación es lo que diferencia a DxGPT de una IA generalista. No dejamos la calidad del resultado al azar; hemos diseñado un proceso que garantiza que, ante el mismo caso, el sistema siempre aplique el mismo rigor analítico, produciendo resultados fiables y reproducibles."
       },
       "chart": {
         "caption": "El gráfico ilustra cómo nuestra optimización de la formulación (el salto de la familia 4o → o3) no solo aumenta la precisión (eje X), sino que también permite resolver casos de mayor complejidad (eje Y), demostrando un avance significativo en la capacidad de razonamiento clínico del sistema."
@@ -166,12 +166,12 @@
         },
         "prioritization": {
           "title": "Calidad de priorización",
-          "description": "Esta es nuestra métrica más innovadora. No basta con que el diagnóstico correcto esté en la lista; se mide su posición promedio. Un diagnóstico correcto en primera posición es 'infinitamente más útil que en la quinta', y esta métrica evalúa la capacidad de IASalutAjudaDx de 'priorizar como un especialista, ofreciendo máxima relevancia clínica en el menor tiempo posible'."
+          "description": "Esta es nuestra métrica más innovadora. No basta con que el diagnóstico correcto esté en la lista; se mide su posición promedio. Un diagnóstico correcto en primera posición es 'infinitamente más útil que en la quinta', y esta métrica evalúa la capacidad de DxGPT de 'priorizar como un especialista, ofreciendo máxima relevancia clínica en el menor tiempo posible'."
         }
       },
       "evolution": {
         "title": "Evolución y rendimiento: Evidencia para el soporte al razonamiento clínico (2024–2025)",
-        "intro": "En IASalutAjudaDx, la transparencia forma parte de la seguridad. No prometemos diagnósticos ni sustituimos al clínico: evaluamos, de forma sistemática, la capacidad de los modelos para proponer hipótesis relevantes que el profesional puede aceptar, matizar o descartar. Sometemos de forma continua nuestros prompts y modelos a bancos de casos clínicos de alta complejidad (enfermedades raras, pediatría, medicina interna) para medir hasta qué punto pueden ayudar a \"encontrar la aguja en el pajar\".",
+        "intro": "En DxGPT, la transparencia forma parte de la seguridad. No prometemos diagnósticos ni sustituimos al clínico: evaluamos, de forma sistemática, la capacidad de los modelos para proponer hipótesis relevantes que el profesional puede aceptar, matizar o descartar. Sometemos de forma continua nuestros prompts y modelos a bancos de casos clínicos de alta complejidad (enfermedades raras, pediatría, medicina interna) para medir hasta qué punto pueden ayudar a \"encontrar la aguja en el pajar\".",
         "validation": {
           "title": "1. Validación de viabilidad (Estudio 2024 – medRxiv)",
           "description": "En nuestra primera evaluación pública comparamos múltiples modelos (GPT-4, Claude, Llama, etc.) en enfermedades raras, usando casos sintéticos y reales (RAMEDIS).",
@@ -199,11 +199,11 @@
             "description": "El dato más relevante es la posición media de 1,47 lograda por el modelo o3. Esto significa que, cuando acierta, tiende a colocar la hipótesis correcta en primer o segundo lugar, facilitando la revisión rápida del experto."
           },
           "dataSources": {
-            "alt": "Fuentes de datos y procesamiento ETL para IASalutAjudaDx-Bench",
-            "caption": "Diagrama Sankey mostrando el flujo de datos desde las fuentes originales (MedQA-USMLE, MedBullets, casos de urgencias, Ramebench) hasta el banco de pruebas final IASalutAjudaDx-Bench."
+            "alt": "Fuentes de datos y procesamiento ETL para DxGPT-Bench",
+            "caption": "Diagrama Sankey mostrando el flujo de datos desde las fuentes originales (MedQA-USMLE, MedBullets, casos de urgencias, Ramebench) hasta el banco de pruebas final DxGPT-Bench."
           },
           "reference": "📝 Referencia:",
-          "repository": "Repositorio IASalutAjudaDx-Bench-Lab"
+          "repository": "Repositorio DxGPT-Bench-Lab"
         },
         "architecture": {
           "title": "3. Arquitectura actual y familia GPT-5 (Septiembre 2025)",
@@ -221,13 +221,13 @@
             "caption": "Comparación de rendimiento entre diferentes modelos y configuraciones de la familia GPT-5. Los valores más bajos (tendiendo a 1) indican mejor rendimiento. El modelo o3 muestra el mejor rendimiento general.",
             "disclaimer": {
               "title": "Importante:",
-              "text": "IASalutAjudaDx es una herramienta de apoyo y guía al diagnóstico diferencial. No ofrece diagnósticos ni sustituye el juicio clínico profesional. Su propósito es orientar y ampliar el espectro de posibilidades diagnósticas para que el profesional sanitario pueda tomar decisiones informadas."
+              "text": "DxGPT es una herramienta de apoyo y guía al diagnóstico diferencial. No ofrece diagnósticos ni sustituye el juicio clínico profesional. Su propósito es orientar y ampliar el espectro de posibilidades diagnósticas para que el profesional sanitario pueda tomar decisiones informadas."
             }
           }
         },
         "note": {
           "title": "Nota importante sobre seguridad:",
-          "description": "Todas estas cifras describen el comportamiento técnico de los modelos de IA en bancos de casos estandarizados (benchmarks). No equivalen a tasas de éxito clínico en pacientes reales ni convierten a IASalutAjudaDx en un dispositivo médico. En la consulta, la variabilidad de los datos del paciente, las comorbilidades y el contexto asistencial requieren siempre la interpretación y validación de un profesional sanitario cualificado. IASalutAjudaDx no diagnostica: propone posibilidades estructuradas para que el clínico decida."
+          "description": "Todas estas cifras describen el comportamiento técnico de los modelos de IA en bancos de casos estandarizados (benchmarks). No equivalen a tasas de éxito clínico en pacientes reales ni convierten a DxGPT en un dispositivo médico. En la consulta, la variabilidad de los datos del paciente, las comorbilidades y el contexto asistencial requieren siempre la interpretación y validación de un profesional sanitario cualificado. DxGPT no diagnostica: propone posibilidades estructuradas para que el clínico decida."
         }
       },
       "user": {
@@ -245,12 +245,12 @@
           "title": "Relevancia clínica",
           "description": "Las hipótesis no solo son precisas, sino que están priorizadas para reflejar la urgencia y probabilidad clínica."
         },
-        "conclusion": "En resumen, IASalutAjudaDx no es solo un modelo avanzado; es una herramienta de apoyo clínico con un compromiso demostrable con la evidencia, la confiabilidad y la seguridad."
+        "conclusion": "En resumen, DxGPT no es solo un modelo avanzado; es una herramienta de apoyo clínico con un compromiso demostrable con la evidencia, la confiabilidad y la seguridad."
       }
     },
     "clinicalValidation": {
       "title": "Estudio de validación clínica",
-      "description": "IASalutAjudaDx ha sido validado contra médicos en un estudio clínico exhaustivo realizado por el Hospital Sant Joan de Déu. Los resultados demuestran que IASalutAjudaDx logra una precisión diagnóstica comparable a la de clínicos expertos. Esta investigación ha sido publicada como preprint y está actualmente bajo revisión por pares.",
+      "description": "DxGPT ha sido validado contra médicos en un estudio clínico exhaustivo realizado por el Hospital Sant Joan de Déu. Los resultados demuestran que DxGPT logra una precisión diagnóstica comparable a la de clínicos expertos. Esta investigación ha sido publicada como preprint y está actualmente bajo revisión por pares.",
       "validated": "Clínicamente validado",
       "hospital": "Hospital Sant Joan de Déu",
       "accuracy": "Precisión de experto",
@@ -259,7 +259,7 @@
     },
     "trust": {
       "title": "Nuestro pacto de confianza y seguridad",
-      "intro": "La confianza es la base de la medicina. En IASalutAjudaDx, la protección de los datos clínicos y el cumplimiento normativo no son una ocurrencia tardía, sino el núcleo de nuestro diseño. Operamos con una transparencia radical para que profesionales y sistemas de salud puedan utilizar nuestra herramienta con total tranquilidad.",
+      "intro": "La confianza es la base de la medicina. En DxGPT, la protección de los datos clínicos y el cumplimiento normativo no son una ocurrencia tardía, sino el núcleo de nuestro diseño. Operamos con una transparencia radical para que profesionales y sistemas de salud puedan utilizar nuestra herramienta con total tranquilidad.",
       "protection": {
         "title": "Cómo protegemos cada consulta: Un proceso de cero retención para información personal",
         "intro": "Nuestro flujo de trabajo está diseñado para maximizar la utilidad clínica y minimizar a cero el riesgo de exposición de datos.",
@@ -282,9 +282,9 @@
       },
       "governance": {
         "title": "Gobernanza de Datos",
-        "intro": "La siguiente tabla resume el compromiso de IASalutAjudaDx con las mejores prácticas de seguridad y privacidad para equipos de TI y cumplimiento regulatorio.",
+        "intro": "La siguiente tabla resume el compromiso de DxGPT con las mejores prácticas de seguridad y privacidad para equipos de TI y cumplimiento regulatorio.",
         "feature": "Característica / Política",
-        "commitment": "Compromiso de IASalutAjudaDx",
+        "commitment": "Compromiso de DxGPT",
         "processing": "Ubicación de procesamiento de datos",
         "processingValue": "Exclusivamente en centros de datos de la Unión Europea (Microsoft Azure)",
         "storage": "Almacenamiento de datos del paciente",
@@ -304,7 +304,7 @@
       },
       "regulatory": {
         "title": "Nuestro marco regulatorio",
-        "intro": "IASalutAjudaDx tiene una amplia experiencia en entornos regulatorios de salud digital y se alinea con estándares globales exigentes.",
+        "intro": "DxGPT tiene una amplia experiencia en entornos regulatorios de salud digital y se alinea con estándares globales exigentes.",
         "gdpr": {
           "title": "GDPR (Reglamento General de Protección de Datos)",
           "description": "Cumplimiento completo con los principios de legalidad, transparencia, minimización de datos y limitación de propósito, con procesamiento exclusivo en la UE para soberanía de datos."
@@ -315,7 +315,7 @@
         },
         "aiact": {
           "title": "EU AI Act",
-          "description": "Estamos trabajando activamente para una alineación total con la Ley de IA de la Unión Europea. Colaboramos con expertos y autoridades reguladoras para garantizar que IASalutAjudaDx cumpla con los más altos estándares de gestión de riesgos, gobernanza de datos, transparencia y robustez, posicionándonos a la vanguardia de la IA responsable en salud."
+          "description": "Estamos trabajando activamente para una alineación total con la Ley de IA de la Unión Europea. Colaboramos con expertos y autoridades reguladoras para garantizar que DxGPT cumpla con los más altos estándares de gestión de riesgos, gobernanza de datos, transparencia y robustez, posicionándonos a la vanguardia de la IA responsable en salud."
         }
       }
     }
@@ -359,13 +359,13 @@
     "description": "Comprometidos con la apertura, colaboración y responsabilidad en el desarrollo de tecnología médica.",
           "technologyPartners": {
         "title": "Socios tecnológicos",
-        "description": "Agradecemos a Microsoft, que a través de su programa AI for Good nos proporciona la infraestructura en Azure y el apoyo de empleados voluntarios. También a Google, cuyo programa para ONG nos ayuda a aumentar la visibilidad de IASalutAjudaDx en su motor de búsqueda para llegar a más profesionales y pacientes.",
+        "description": "Agradecemos a Microsoft, que a través de su programa AI for Good nos proporciona la infraestructura en Azure y el apoyo de empleados voluntarios. También a Google, cuyo programa para ONG nos ayuda a aumentar la visibilidad de DxGPT en su motor de búsqueda para llegar a más profesionales y pacientes.",
         "microsoftDescription": "Infraestructura en Azure y apoyo de empleados voluntarios",
-        "googleDescription": "Ayuda a aumentar la visibilidad de IASalutAjudaDx para llegar a más profesionales y pacientes"
+        "googleDescription": "Ayuda a aumentar la visibilidad de DxGPT para llegar a más profesionales y pacientes"
       },
     "ourSponsors": {
       "title": "Nuestros patrocinadores",
-      "description": "Extendemos nuestro más profundo agradecimiento a nuestros generosos patrocinadores. Su apoyo es puramente filantrópico, sin intereses comerciales ni intercambio de datos, y es vital para poder desarrollar herramientas como IASalutAjudaDx y ofrecerlas gratuitamente."
+      "description": "Extendemos nuestro más profundo agradecimiento a nuestros generosos patrocinadores. Su apoyo es puramente filantrópico, sin intereses comerciales ni intercambio de datos, y es vital para poder desarrollar herramientas como DxGPT y ofrecerlas gratuitamente."
     },
     "healthSystems": {
       "title": "Uso en sistemas de salud",
@@ -378,11 +378,11 @@
     },
     "implementations": {
       "title": "Implementaciones",
-      "description": "IASalutAjudaDx está siendo implementado en servicios de salud reales, mejorando el diagnóstico de enfermedades raras y casos complejos.",
+      "description": "DxGPT está siendo implementado en servicios de salud reales, mejorando el diagnóstico de enfermedades raras y casos complejos.",
       "aragon": {
         "title": "Servicio Aragonés de Salud",
         "status": "Desde julio de 2025",
-        "description": "IASalutAjudaDx ya está disponible para los profesionales sanitarios del Servicio Aragonés de Salud, permitiendo mejorar la precisión y velocidad en el diagnóstico de enfermedades raras y comunes en la región de Aragón.",
+        "description": "DxGPT ya está disponible para los profesionales sanitarios del Servicio Aragonés de Salud, permitiendo mejorar la precisión y velocidad en el diagnóstico de enfermedades raras y comunes en la región de Aragón.",
         "users": "Usuarios:",
         "usersValue": "+5,000 médicos",
         "scope": "Alcance:",
@@ -393,7 +393,7 @@
       "sermas": {
         "title": "Servicio Madrileño de Salud (SERMAS)",
         "status": "Desde septiembre de 2023",
-        "description": "Implementación pionera de IASalutAjudaDx en el sistema sanitario de la Comunidad de Madrid, proporcionando acceso a más de 6,000 médicos de atención primaria para mejorar las capacidades diagnósticas.",
+        "description": "Implementación pionera de DxGPT en el sistema sanitario de la Comunidad de Madrid, proporcionando acceso a más de 6,000 médicos de atención primaria para mejorar las capacidades diagnósticas.",
         "coverage": "Cobertura:",
         "coverageValue": "Toda la red de atención primaria",
         "users": "Usuarios:",
@@ -406,7 +406,7 @@
       "catsalut": {
         "title": "Servicio Catalán de Salud (CatSalut)",
         "status": "En desarrollo",
-        "description": "Próxima implementación en el sistema sanitario catalán para extender los beneficios de IASalutAjudaDx a una mayor población de profesionales sanitarios en Cataluña.",
+        "description": "Próxima implementación en el sistema sanitario catalán para extender los beneficios de DxGPT a una mayor población de profesionales sanitarios en Cataluña.",
         "statusLabel": "Estado:",
         "statusValue": "Fase de implementación",
         "scope": "Alcance:",
@@ -418,49 +418,49 @@
     "opportunities": {
       "implementations": {
         "title": "Implementaciones en sistemas de salud",
-        "description": "Colabora con nosotros para implementar IASalutAjudaDx en tu organización sanitaria y mejorar las capacidades diagnósticas.",
-        "details1": "Los servicios de salud y sistemas sanitarios que busquen integrar IASalutAjudaDx en sus flujos de trabajo clínicos pueden contar con nuestro apoyo especializado. Ofrecemos servicios completos de implementación técnica, incluyendo integración con sistemas hospitalarios existentes, así como configuración personalizada según las necesidades específicas de cada institución.",
+        "description": "Colabora con nosotros para implementar DxGPT en tu organización sanitaria y mejorar las capacidades diagnósticas.",
+        "details1": "Los servicios de salud y sistemas sanitarios que busquen integrar DxGPT en sus flujos de trabajo clínicos pueden contar con nuestro apoyo especializado. Ofrecemos servicios completos de implementación técnica, incluyendo integración con sistemas hospitalarios existentes, así como configuración personalizada según las necesidades específicas de cada institución.",
         "details2": "Nuestro programa de implementación también cubre la formación de equipos médicos, el establecimiento de protocolos de uso clínico, y soporte técnico continuo durante el proceso de adopción. Para instituciones sanitarias públicas, estas implementaciones se realizan sin costo, como parte de nuestro compromiso con la democratización del acceso a tecnologías médicas avanzadas.",
         "button": "Contáctanos sobre implementaciones"
       },
       "professionals": {
         "title": "Colaboración de profesionales sanitarios",
-        "description": "Únete a nuestra red de profesionales médicos para contribuir al desarrollo y validación de IASalutAjudaDx.",
-        "details1": "La experiencia clínica de médicos y profesionales sanitarios es insustituible para el desarrollo continuo y mejora de IASalutAjudaDx. Buscamos colaboradores que puedan contribuir con su conocimiento revisando casos complejos, validando diagnósticos asistidos por IA, y proporcionando orientación sobre la aplicación práctica de nuestras herramientas en entornos clínicos reales.",
+        "description": "Únete a nuestra red de profesionales médicos para contribuir al desarrollo y validación de DxGPT.",
+        "details1": "La experiencia clínica de médicos y profesionales sanitarios es insustituible para el desarrollo continuo y mejora de DxGPT. Buscamos colaboradores que puedan contribuir con su conocimiento revisando casos complejos, validando diagnósticos asistidos por IA, y proporcionando orientación sobre la aplicación práctica de nuestras herramientas en entornos clínicos reales.",
         "details2": "Valoramos especialmente la participación en estudios clínicos y ensayos controlados para validar la eficacia diagnóstica en diferentes especialidades médicas. Asimismo, la retroalimentación basada en experiencia práctica nos ayuda a identificar áreas de mejora y desarrollar nuevas funcionalidades que respondan a necesidades clínicas reales.",
         "button": "Contáctanos sobre colaboración"
       },
       "research": {
         "title": "Estudios de investigación clínica",
         "description": "Participa en estudios de investigación para evaluar la efectividad y seguridad del diagnóstico asistido por IA.",
-        "details1": "Invitamos a centros médicos, hospitales universitarios y grupos de investigación a colaborar en estudios formales sobre la eficacia e impacto de IASalutAjudaDx en el diagnóstico clínico. Estos estudios son fundamentales para generar evidencia científica rigurosa sobre la utilidad de la inteligencia artificial en la práctica médica y para validar nuestros algoritmos en diferentes contextos clínicos y poblaciones de pacientes.",
+        "details1": "Invitamos a centros médicos, hospitales universitarios y grupos de investigación a colaborar en estudios formales sobre la eficacia e impacto de DxGPT en el diagnóstico clínico. Estos estudios son fundamentales para generar evidencia científica rigurosa sobre la utilidad de la inteligencia artificial en la práctica médica y para validar nuestros algoritmos en diferentes contextos clínicos y poblaciones de pacientes.",
         "details2": "Nuestro objetivo es facilitar la generación de evidencia científica de alta calidad que contribuya al conocimiento médico global y demuestre el valor clínico de las herramientas de diagnóstico asistido por IA.",
         "button": "Contáctanos sobre investigación"
       },
       "technical": {
         "title": "Contribución técnica y desarrollo",
-        "description": "Contribuye al desarrollo técnico de IASalutAjudaDx a través de código, algoritmos o mejoras del sistema.",
-        "details1": "Los profesionales del campo tecnológico pueden contribuir significativamente al avance de IASalutAjudaDx a través de voluntariado técnico especializado. Nuestras necesidades van desde el desarrollo de interfaces de usuario más intuitivas y accesibles hasta consultoría técnica.",
+        "description": "Contribuye al desarrollo técnico de DxGPT a través de código, algoritmos o mejoras del sistema.",
+        "details1": "Los profesionales del campo tecnológico pueden contribuir significativamente al avance de DxGPT a través de voluntariado técnico especializado. Nuestras necesidades van desde el desarrollo de interfaces de usuario más intuitivas y accesibles hasta consultoría técnica.",
         "button": "Contáctanos sobre contribución técnica"
       },
       "partnerships": {
         "title": "Difusión y acuerdos de colaboración estratégica",
-        "description": "Ayúdanos a difundir la concienciación y establecer alianzas estratégicas para expandir el alcance de IASalutAjudaDx.",
-        "details1": "La visibilidad y reconocimiento en la comunidad médica internacional son cruciales para el impacto de IASalutAjudaDx. Colaboramos con medios especializados, organizaciones del sector salud, y profesionales de comunicación científica para difundir casos de éxito, resultados de investigación, y avances tecnológicos.",
+        "description": "Ayúdanos a difundir la concienciación y establecer alianzas estratégicas para expandir el alcance de DxGPT.",
+        "details1": "La visibilidad y reconocimiento en la comunidad médica internacional son cruciales para el impacto de DxGPT. Colaboramos con medios especializados, organizaciones del sector salud, y profesionales de comunicación científica para difundir casos de éxito, resultados de investigación, y avances tecnológicos.",
         "details2": "Estamos interesados en establecer acuerdos de colaboración estratégica con congresos médicos, sociedades científicas, y organizaciones sanitarias que compartan nuestra visión de democratizar el acceso a herramientas de diagnóstico avanzadas. Estas colaboraciones pueden incluir presentaciones en eventos científicos, publicaciones conjuntas, y programas de educación médica continua.",
         "button": "Contáctanos sobre alianzas"
       },
       "donations": {
         "title": "Apoyo financiero y donaciones",
-        "description": "Apoya nuestra misión a través de contribuciones financieras para ayudarnos a continuar desarrollando y mejorando IASalutAjudaDx.",
-        "details1": "La sostenibilidad de IASalutAjudaDx depende del apoyo de individuos y organizaciones comprometidos con la mejora del diagnóstico médico. Ofrecemos múltiples formas de contribuir financieramente a esta causa. Las donaciones monetarias nos permiten mantener la infraestructura tecnológica, desarrollar nuevas funcionalidades, y asegurar que el acceso a la plataforma permanezca completamente gratuito para todos los profesionales médicos. Además, valoramos enormemente las contribuciones de datos médicos anonimizados, que son esenciales para entrenar y mejorar continuamente nuestros algoritmos de diagnóstico.",
+        "description": "Apoya nuestra misión a través de contribuciones financieras para ayudarnos a continuar desarrollando y mejorando DxGPT.",
+        "details1": "La sostenibilidad de DxGPT depende del apoyo de individuos y organizaciones comprometidos con la mejora del diagnóstico médico. Ofrecemos múltiples formas de contribuir financieramente a esta causa. Las donaciones monetarias nos permiten mantener la infraestructura tecnológica, desarrollar nuevas funcionalidades, y asegurar que el acceso a la plataforma permanezca completamente gratuito para todos los profesionales médicos. Además, valoramos enormemente las contribuciones de datos médicos anonimizados, que son esenciales para entrenar y mejorar continuamente nuestros algoritmos de diagnóstico.",
         "details2": "Si deseas hacer una donación financiera, puedes hacerlo directamente a través de los enlaces disponibles en esta página. Para donaciones de datos médicos, nuestro equipo técnico te guiará sobre los protocolos de anonimización y formatos compatibles con nuestros sistemas.",
         "donateButton": "Donar ahora",
         "contactButton": "Contáctanos sobre donaciones"
       }
     },
     "footer": {
-      "text": "IASalutAjudaDx es una iniciativa colaborativa que busca democratizar el acceso a herramientas de diagnóstico médico asistido por IA. Nuestro objetivo es hacer que esta tecnología sea accesible, gratuita y efectiva para profesionales sanitarios de todo el mundo. Tu participación, independientemente de tu formación profesional, es fundamental para lograr este propósito."
+      "text": "DxGPT es una iniciativa colaborativa que busca democratizar el acceso a herramientas de diagnóstico médico asistido por IA. Nuestro objetivo es hacer que esta tecnología sea accesible, gratuita y efectiva para profesionales sanitarios de todo el mundo. Tu participación, independientemente de tu formación profesional, es fundamental para lograr este propósito."
     }
   },
   "generics":{
@@ -597,15 +597,15 @@
   },
   "policy": {
     "title": "Política de privacidad",
-    "subtitle": "Conoce cómo protegemos tu privacidad y datos personales en IASalutAjudaDx.",
+    "subtitle": "Conoce cómo protegemos tu privacidad y datos personales en DxGPT.",
     "lastUpdated": "Última actualización: 21 de abril de 2025",
-    "p1": "Política de privacidad de IASalutAjudaDx (cumple con el RGPD)",
+    "p1": "Política de privacidad de DxGPT (cumple con el RGPD)",
     "p2.1": "1. Quiénes somos y cómo contactarnos",
     "p2.2": "Fundación 29 de Febrero (\"DxGPT\", \"nosotros\") es la responsable del tratamiento de los datos personales procesados a través de la plataforma DxGPT. Como organización sin ánimo de lucro, priorizamos la privacidad y promovemos el manejo responsable de los datos de pacientes.",
     "p2.3": "Delegado de protección de datos (DPO): privacy@foundation29.org",
     "p2.4": "Consultas generales: support@foundation29.org",
     "p2.5": "Estado regulatorio, no es un dispositivo médico",
-    "p2.6": "IASalutAjudaDx no es un dispositivo médico según el MDR de la UE, la FDA de EE. UU. u otras normativas aplicables. Se proporciona únicamente como una herramienta de apoyo a la decisión clínica para profesionales sanitarios cualificados. No debe sustituir el juicio médico profesional, diagnóstico ni tratamiento.",
+    "p2.6": "DxGPT no es un dispositivo médico según el MDR de la UE, la FDA de EE. UU. u otras normativas aplicables. Se proporciona únicamente como una herramienta de apoyo a la decisión clínica para profesionales sanitarios cualificados. No debe sustituir el juicio médico profesional, diagnóstico ni tratamiento.",
     "p3.1": "2. Información que recopilamos",
     "p3.2": "2.1 Datos que proporcionas voluntariamente",
     "p3.3": "Edad, género, síntomas y otros detalles que ingresas al solicitar sugerencias diagnósticas.",
@@ -631,7 +631,7 @@
     "p5.3": "Responder a comentarios y consultas de soporte.",
     "p5.4": "Analizar el uso agregado para mejorar los algoritmos y la experiencia del usuario.",
     "p5.5": "Hacer cumplir nuestros términos de servicio y proteger la seguridad de la plataforma.",
-    "p5.6": "IASalutAjudaDx nunca venderá, alquilará ni compartirá tus datos personales, ni ningún otro tipo de dato, con terceros con fines de marketing o cualquier otro propósito. Este compromiso es permanente e irreversible, y dado que eliminamos los identificadores individuales en el origen y almacenamos solo datos enmascarados, tal compartición es técnicamente inviable.",
+    "p5.6": "DxGPT nunca venderá, alquilará ni compartirá tus datos personales, ni ningún otro tipo de dato, con terceros con fines de marketing o cualquier otro propósito. Este compromiso es permanente e irreversible, y dado que eliminamos los identificadores individuales en el origen y almacenamos solo datos enmascarados, tal compartición es técnicamente inviable.",
     "p5.7": "Sin embargo, podemos divulgar estadísticas de uso totalmente anonimizadas y agregadas que no pueden vincularse a ningún usuario individual.",
     "p6.1": "5. Seguridad y almacenamiento de datos",
     "p6.2": "Todos los canales de datos están protegidos mediante cifrado en tránsito y en reposo.",
@@ -639,7 +639,7 @@
     "p6.4": "Nunca se escribe en disco información de salud sin enmascarar; el procesamiento ocurre solo en memoria volátil.",
     "p6.5": "Se aplican medidas técnicas y organizativas conforme a las normas ISO 27001 y NIST SP 800-88.",
     "p6.6": "El acceso está restringido únicamente a personal autorizado bajo estricta confidencialidad.",
-    "p6.7": "Cumplimiento de HIPAA, IASalutAjudaDx cumple con HIPAA (reglas de privacidad, seguridad y notificación de incidentes) y firma acuerdos de asociación comercial (BAAs). Ver el apéndice A para más detalles.",
+    "p6.7": "Cumplimiento de HIPAA, DxGPT cumple con HIPAA (reglas de privacidad, seguridad y notificación de incidentes) y firma acuerdos de asociación comercial (BAAs). Ver el apéndice A para más detalles.",
     "p7.1": "6. Conservación de datos",
     "p7.2": "Los datos de uso anonimizados y agregados se conservan por un máximo de 5 años antes de ser eliminados de forma irreversible.",
     "p7.3": "Las consultas de soporte y registros contractuales se almacenan hasta 5 años para cumplir requisitos contables y legales.",
@@ -662,7 +662,7 @@
     "p10.2": "Para ejercer cualquiera de los derechos anteriores o plantear una inquietud sobre privacidad, contacta con nuestro DPO en privacy@foundation29.org o escríbenos a la dirección indicada en la sección 1.",
     "p10.3": "Nos comprometemos a responder a todas las solicitudes legítimas en un plazo de un mes natural. Las solicitudes complejas pueden requerir hasta dos meses adicionales, en cuyo caso te lo notificaremos.",
     "p11.1": "10. Cambios en esta política",
-    "p11.2": "Podemos actualizar esta política de privacidad periódicamente. Los cambios significativos se anunciarán dentro de la interfaz de IASalutAjudaDx o por correo electrónico. La fecha de \"Última actualización\" al inicio de esta página indica cuándo se realizaron revisiones.",
+    "p11.2": "Podemos actualizar esta política de privacidad periódicamente. Los cambios significativos se anunciarán dentro de la interfaz de DxGPT o por correo electrónico. La fecha de \"Última actualización\" al inicio de esta página indica cuándo se realizaron revisiones.",
     "p12.1": "Apéndice A. Detalles de cumplimiento con HIPAA",
     "p12.2": "Regla de privacidad, la información de salud protegida (PHI) solo se utiliza o divulga cuando está permitido o con autorización explícita del paciente, y conforme al principio de mínima necesidad.",
     "p12.3": "Regla de seguridad, las salvaguardas administrativas, físicas y técnicas como cifrado en reposo, controles de acceso por rol, registros de auditoría y evaluaciones periódicas de riesgos protegen la PHI electrónica.",
@@ -672,10 +672,10 @@
   },
   "policyShort": {
     "p1": "1. Quiénes somos",
-    "p1.1": "IASalutAjudaDx es gestionado por la Fundación 29 de Febrero.",
+    "p1.1": "DxGPT es gestionado por la Fundación 29 de Febrero.",
     "p1.2": "Escríbele a nuestro delegado de protección de datos (DPO) a privacy@foundation29.org.",
     "p1.3": "¿Necesitas ayuda? Escribe a support@foundation29.org.",
-    "p1.4": "No es un dispositivo médico, IASalutAjudaDx solo ayuda a los médicos a pensar en posibles diagnósticos. No sustituye a un profesional de la salud.",
+    "p1.4": "No es un dispositivo médico, DxGPT solo ayuda a los médicos a pensar en posibles diagnósticos. No sustituye a un profesional de la salud.",
     "p2": "2. Qué información recopilamos",
     "p2.1": "Tú nos das: edad, género, síntomas, comentarios y tu correo si nos escribes.",
     "p2.2": "Información sensible: detalles de salud que escribas.",
@@ -729,7 +729,7 @@
     "NAV_CONTACT_DESCRIPTION": "Contacta con nosotros para cualquier pregunta o feedback."
   },
   "land":{
-    "disclaimer": "<p><strong>IASalutAjudaDx</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo lingúistico GPT-5 mini de OpenAI como modelo predictivo para una herramienta que proporciona información sobre enfermedades. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende reemplazar el consejo médico profesional ni respaldar el diagnóstico, la prevención, el seguimiento, la predicción o el tratamiento y nunca debe usarse para hacer juicios de diagnóstico con paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y cualquier riesgo potencial asociado al uso de la herramienta basada en inteligencia artificial.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo lingúistico GPT-5 mini de OpenAI como modelo predictivo para una herramienta que proporciona información sobre enfermedades. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende reemplazar el consejo médico profesional ni respaldar el diagnóstico, la prevención, el seguimiento, la predicción o el tratamiento y nunca debe usarse para hacer juicios de diagnóstico con paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y cualquier riesgo potencial asociado al uso de la herramienta basada en inteligencia artificial.</p>",
     "check": "No volver a mostrar este mensaje",
     "Recommendations": "Para obtener mejores resultados, indica cuándo y por qué cree que aparecieron los síntomas",
     "Search": "Buscar",
@@ -740,15 +740,15 @@
     "required": "Por favor proporciona detalles del paciente (edad, género, síntomas) y cuándo comenzaron. Ejemplo: Mujer, 42 años, dolores de cabeza severos durante 3 meses, mareos, antecedentes familiares de migrañas.",
     "charactersleft": "Min. 15 caracteres requeridos. Faltan {{value}}.",
     "recommended": "Recomendación: 200-2000 caracteres para mejores resultados.",
-    "searchFile": "También puedes subir un informe completo. Esta funcionalidad está en pruebas y puede ser que de resultados no esperados. IASalutAjudaDx te sugerirá el diagnótico que el modelo considera más adecuado para ese paciente. Para ser respetuosos con la ley de protección de datos no almacenamos datos personales del paciente y los datos se borran al terminar esta sesión. Nos interesaría conocer tu feedback para futuros desarrollos.",
+    "searchFile": "También puedes subir un informe completo. Esta funcionalidad está en pruebas y puede ser que de resultados no esperados. DxGPT te sugerirá el diagnótico que el modelo considera más adecuado para ese paciente. Para ser respetuosos con la ley de protección de datos no almacenamos datos personales del paciente y los datos se borran al terminar esta sesión. Nos interesaría conocer tu feedback para futuros desarrollos.",
     "Browse for file": "Busque el archivo",
     "Accepted files": "Ficheros aceptados: pdf, docx, imágenes",
     "error extension": "El archivo cargado debe tener una extensión .pdf, .docx o archivos de imagen",
     "Extracting the text from the document": "Extrayendo el texto del documento",
-    "swal": "IASalutAjudaDx está calculando. Espera unos segundos a que termine",
+    "swal": "DxGPT está calculando. Espera unos segundos a que termine",
     "swal2": "Estamos teniendo alta demanda, si tarda más de 2 minutos, cancela e intenta de nuevo.",
     "swal3": "Ayúdanos a mejorar, indica la calidad del resultado haciendo clic en los pulgares.",
-    "swalMultimodal": "IASalutAjudaDx está procesando tus archivos. Espera unos segundos a que termine",
+    "swalMultimodal": "DxGPT está procesando tus archivos. Espera unos segundos a que termine",
     "swal2Multimodal": "Estamos extrayendo y analizando el contenido de tus documentos e imágenes.",
     "swal3Multimodal": "Una vez completado, revisa el texto generado y pulsa en buscar para continuar.",
     "multimodalInfo": {
@@ -795,8 +795,8 @@
     "descriptionopt3": "Aquí puede escribir síntomas guia o elementos importantes que ha observado en cualquier tipo de prueba analítica o disgnóstica. Puede incluir cualquier tipo de información como síntomas, resultados, o cualquier otro tipo de biomarcador.",
     "Type here": "¡Escribe aquí!",
     "Placeholder help": "Escribe aquí detalles del paciente (edad, género, síntomas) y cuándo comenzaron.\nEjemplo: Mujer, 42 años, dolores de cabeza severos durante 3 meses, mareos, antecedentes familiares de migrañas.",
-    "title": "Introduce una breve descripción del paciente y IASalutAjudaDx te proporcionará una lista de posible diagnósticos de enfermedades",
-    "titleEu": "Introduce una descripción de tus síntomas y IASalutAjudaDx te ayudará a preparar la conversación con tu profesional sanitario.",
+    "title": "Introduce una breve descripción del paciente y DxGPT te proporcionará una lista de posible diagnósticos de enfermedades",
+    "titleEu": "Introduce una descripción de tus síntomas y DxGPT te ayudará a preparar la conversación con tu profesional sanitario.",
     "subtitleEu": "Generaremos una lista de posibles líneas de evaluación para que puedas comentarlas con tu médico.\n\nNo es un diagnóstico médico ni sustituye una consulta presencial.",
     "titleBeta": "Obtén diagnósticos e información médica en segundos",
     "p1.title": "Ejemplos",
@@ -805,7 +805,7 @@
     "p1.2": "Niña. 11 años. Atrofia hemisférica unilateral, asociada con epilepsia focal resistente a los medicamentos, hemiplejía progresiva y deterioro cognitivo",
     "p2.title": "Capacidades",
     "p2.titleEu": "Funcionalidades",
-    "p2.subtitle": "Características principales de IASalutAjudaDx",
+    "p2.subtitle": "Características principales de DxGPT",
     "p2.subtitleEu": "Cómo te ayuda a preparar tu consulta",
     "p2.1": "Muestra descripciones detalladas con síntomas coincidentes y no coincidentes",
     "p2.1Eu": "Muestra información detallada con aspectos que encajan y no encajan con tu descripción",
@@ -816,7 +816,7 @@
     "p2.4": "Dispone de modo avanzado para análisis más precisos",
     "p2.4Eu": "Dispone de modo avanzado para análisis más detallados",
     "p3.title": "Limitaciones",
-    "p3.subtitle": "Aspectos a tener en cuenta al usar IASalutAjudaDx",
+    "p3.subtitle": "Aspectos a tener en cuenta al usar DxGPT",
     "p3.1": "Ocasionalmente puede generar información incorrecta",
     "p3.2": "No se puede utilizar para el diagnóstico sin supervisión humana",
     "errorLocation": "Hemos detectado que estás utilizando una VPN o una red que no permite la detección de tu ubicación. Esto puede afectar el funcionamiento correcto de nuestra aplicación y la seguridad de nuestros servicios. Por favor, desactiva la VPN o utiliza una red que permita la detección de tu ubicación para continuar.",
@@ -840,7 +840,7 @@
     "Do you want to start over": "¿Quiere empezar de nuevo?",
     "Results copied to the clipboard": "Resultados copiados en el portapapeles",
     "Do not show this message again": "No volver a mostrar este mensaje",
-    "titleOptions": "IASalutAjudaDx busca en <strong>enfermedades raras</strong>, para ampliar la búsqueda a enfermedades comunes, activa este botón:",
+    "titleOptions": "DxGPT busca en <strong>enfermedades raras</strong>, para ampliar la búsqueda a enfermedades comunes, activa este botón:",
     "opt1": "Enfermedades raras",
     "opt2": "Ver enfermedades comunes",
     "rare": "rare diseases",
@@ -867,43 +867,43 @@
     },
     "Please answer at least one question": "Por favor, responde al menos una pregunta",
     "aboutUs": {
-      "P1_Title": "IASalutAjudaDx",
-      "P1_Summary_P1": "IASalutAjudaDx es una herramienta de apoyo al diagnóstico diseñada por y para el entorno clínico. A diferencia de las IAs generalistas, no ofrece respuestas abiertas, sino un análisis estructurado de cinco hipótesis diagnósticas, razonadas y clasificadas. Usamos la tecnología más avanzada, como o3 de OpenAI, dentro de un marco de control médico que garantiza la relevancia y seguridad de cada resultado. No reemplazamos al médico; le ofrecemos una segunda opinión instantánea, diseñada para ahorrar tiempo, reducir sesgos y elevar la calidad del razonamiento clínico desde el primer momento.",
+      "P1_Title": "DxGPT",
+      "P1_Summary_P1": "DxGPT es una herramienta de apoyo al diagnóstico diseñada por y para el entorno clínico. A diferencia de las IAs generalistas, no ofrece respuestas abiertas, sino un análisis estructurado de cinco hipótesis diagnósticas, razonadas y clasificadas. Usamos la tecnología más avanzada, como o3 de OpenAI, dentro de un marco de control médico que garantiza la relevancia y seguridad de cada resultado. No reemplazamos al médico; le ofrecemos una segunda opinión instantánea, diseñada para ahorrar tiempo, reducir sesgos y elevar la calidad del razonamiento clínico desde el primer momento.",
       
       "P1.S1.T": "El desafío del diagnóstico clínico",
-      "P1.S1.B1.Q": "¿Qué problema fundamental resuelve IASalutAjudaDx?",
-      "P1.S1.B1.A_P1": "El diagnóstico médico, especialmente en enfermedades raras, es un proceso lento y complejo. Los profesionales deben analizar innumerables síntomas y datos, lo que puede retrasar tratamientos y generar incertidumbre. IASalutAjudaDx actúa como una potente ayuda cognitiva, agilizando este proceso para llegar antes a un diagnóstico acertado.",
+      "P1.S1.B1.Q": "¿Qué problema fundamental resuelve DxGPT?",
+      "P1.S1.B1.A_P1": "El diagnóstico médico, especialmente en enfermedades raras, es un proceso lento y complejo. Los profesionales deben analizar innumerables síntomas y datos, lo que puede retrasar tratamientos y generar incertidumbre. DxGPT actúa como una potente ayuda cognitiva, agilizando este proceso para llegar antes a un diagnóstico acertado.",
       "P1.S1.B2.Q": "¿Por qué las enfermedades raras son un reto tan grande?",
       "P1.S1.B2.A_P1": "Existen más de 10.000 enfermedades raras, y la mayoría son desconocidas para el profesional medio debido a su baja frecuencia. Esta falta de familiaridad convierte el diagnóstico en un desafío enorme. La tecnología de apoyo ya no es un lujo, sino una necesidad para mejorar la precisión y la calidad asistencial en estos casos.",
       
-      "P1.S2.T": "Por qué IASalutAjudaDx y no una IA generalista",
-      "P1.S2.B1.Q": "¿En qué se diferencia IASalutAjudaDx de usar un chatbot de IA como ChatGPT?",
-      "P1.S2.B1.A_P1": "IASalutAjudaDx transforma el diagnóstico diferencial porque está diseñado con un propósito clínico específico. En lugar de una consulta abierta, obtienes cinco hipótesis diagnósticas estructuradas, razonadas y clasificadas con estándares como ICD-10. Es un entorno supervisado que aplica IA avanzada dentro de un marco seguro y orientado al diagnóstico real.",
+      "P1.S2.T": "Por qué DxGPT y no una IA generalista",
+      "P1.S2.B1.Q": "¿En qué se diferencia DxGPT de usar un chatbot de IA como ChatGPT?",
+      "P1.S2.B1.A_P1": "DxGPT transforma el diagnóstico diferencial porque está diseñado con un propósito clínico específico. En lugar de una consulta abierta, obtienes cinco hipótesis diagnósticas estructuradas, razonadas y clasificadas con estándares como ICD-10. Es un entorno supervisado que aplica IA avanzada dentro de un marco seguro y orientado al diagnóstico real.",
       "P1.S2.B2.Q": "¿Qué ventajas concretas ofrece este enfoque especializado?",
-      "P1.S2.B2.A_P1": "El diseño clínico de IASalutAjudaDx proporciona beneficios directos:",
+      "P1.S2.B2.A_P1": "El diseño clínico de DxGPT proporciona beneficios directos:",
       "P1.S2.B2.A_L1.I1": "Ahorro de tiempo: El diagnóstico es prácticamente inmediato.",
       "P1.S2.B2.A_L1.I2": "Claridad clínica: Cada hipótesis incluye síntomas compatibles e incompatibles explícitos.",
       "P1.S2.B2.A_L1.I3": "Interfaz optimizada: Está diseñada para la toma de decisiones médicas, no para la exploración libre.",
       "P1.S2.B2.A_L1.I4": "Reducción de sesgos: Disminuye el sesgo de disponibilidad, asegurando que no se olviden diagnósticos raros.",
       "P1.S2.B2.A_L1.I5": "Consistencia y validación: El mismo caso siempre recibe un análisis igual de riguroso, validado continuamente con nuestro benchmark clínico propio.",
       "P1.S2.B3.Q": "¿Entonces, ¿cuál es el futuro de la IA en medicina?",
-      "P1.S2.B3.A_P1": "El futuro no será un único sistema para todo, sino un ecosistema de soluciones especializadas y validadas médicamente como IASalutAjudaDx. Usarlo hoy es contribuir activamente a cómo se construye y valida la inteligencia artificial en medicina desde la práctica clínica real.",
+      "P1.S2.B3.A_P1": "El futuro no será un único sistema para todo, sino un ecosistema de soluciones especializadas y validadas médicamente como DxGPT. Usarlo hoy es contribuir activamente a cómo se construye y valida la inteligencia artificial en medicina desde la práctica clínica real.",
       
       "P1.S3.T": "Impacto real: implementaciones en sistemas de salud",
-      "P1.S3.Intro_P1": "IASalutAjudaDx ya está siendo integrado en sistemas de salud públicos para ayudar a los médicos a mejorar el diagnóstico de enfermedades raras en la práctica clínica diaria. A continuación se muestran nuestras implementaciones actuales y en desarrollo:",
+      "P1.S3.Intro_P1": "DxGPT ya está siendo integrado en sistemas de salud públicos para ayudar a los médicos a mejorar el diagnóstico de enfermedades raras en la práctica clínica diaria. A continuación se muestran nuestras implementaciones actuales y en desarrollo:",
       "P1.S3.B1.T": "Implementación Pionera: Servicio Madrileño de Salud (SERMAS)",
-      "P1.S3.B1.Content_P1": "Desde septiembre de 2023, el Servicio Madrileño de Salud (SERMAS) ha sido pionero en la implementación de IASalutAjudaDx para más de 6.000 médicos de Atención Primaria de la Comunidad de Madrid. Esta iniciativa ha permitido mejorar la precisión y rapidez en el diagnóstico de enfermedades raras, reduciendo significativamente el tiempo necesario para derivar a los pacientes a especialistas adecuados.",
+      "P1.S3.B1.Content_P1": "Desde septiembre de 2023, el Servicio Madrileño de Salud (SERMAS) ha sido pionero en la implementación de DxGPT para más de 6.000 médicos de Atención Primaria de la Comunidad de Madrid. Esta iniciativa ha permitido mejorar la precisión y rapidez en el diagnóstico de enfermedades raras, reduciendo significativamente el tiempo necesario para derivar a los pacientes a especialistas adecuados.",
       "P1.S3.B1.RelatedLink1": "El Servicio Madrileño de Salud, pionero en la aplicación de Inteligencia Artificial Generativa para la mejora del diagnóstico en pacientes con enfermedades raras",
       "P1.S3.B1.RelatedLink2": "La Comunidad de Madrid posibilita el acceso de más de 6.000 médicos de Atención Primaria a la IA para el diagnóstico de enfermedades raras",
       "P1.S3.B2.T": "En Desarrollo: CatSalut (Cataluña)",
-      "P1.S3.B2.Content_P1": "Actualmente estamos trabajando para implementar IASalutAjudaDx en el sistema de salud catalán (CatSalut), con el objetivo de llevar esta innovadora herramienta a los profesionales sanitarios de Cataluña para mejorar el diagnóstico de enfermedades raras en la región.",
+      "P1.S3.B2.Content_P1": "Actualmente estamos trabajando para implementar DxGPT en el sistema de salud catalán (CatSalut), con el objetivo de llevar esta innovadora herramienta a los profesionales sanitarios de Cataluña para mejorar el diagnóstico de enfermedades raras en la región.",
       "P1.S3.B3.T": "Servicio Aragonés de Salud",
-      "P1.S3.B3.Content_P1": "IASalutAjudaDx ya está disponible para los profesionales sanitarios del Servicio Aragonés de Salud, permitiendo mejorar la precisión y rapidez en el diagnóstico de enfermedades raras y mayoritarias en la región de Aragón.",
+      "P1.S3.B3.Content_P1": "DxGPT ya está disponible para los profesionales sanitarios del Servicio Aragonés de Salud, permitiendo mejorar la precisión y rapidez en el diagnóstico de enfermedades raras y mayoritarias en la región de Aragón.",
 
       "P2_Title": "Benchmarking",
       "P2_Summary_P1": "Para que una herramienta de IA sea útil en la clínica, debe ser evaluada con el máximo rigor. No nos conformamos con métricas genéricas; hemos construido, procesado y validado nuestro propio banco de pruebas: DxGPT-bench. Este conjunto de 997 casos clínicos, estadísticamente representativo y diverso, nos permite medir la precisión de los modelos de lenguaje en escenarios realistas, garantizando que DxGPT se basa en evidencia sólida y transparente.",
       
-      "P2.S1.T": "La creación de IASalutAjudaDx-bench: nuestros datos",
+      "P2.S1.T": "La creación de DxGPT-bench: nuestros datos",
       "P2.S1.B1.Q": "¿De dónde provienen los datos que utiliza el benchmark?",
       "P2.S1.B1.A_P1": "Nuestra base de datos integra cinco fuentes complementarias para cubrir un amplio espectro de la práctica médica:",
       "P2.S1.B1.A_L1.I1": "Casos de urgencias reales del sistema hospitalario HM de Madrid.",
@@ -924,84 +924,84 @@
       "P2.S2.B3.A_P1": "Dado el significativo coste computacional, se priorizó la optimización del dataset. Ampliarlo para cubrir el 100% de los códigos ICD-10 agregaría principalmente variantes muy raras con un impacto marginal en la evaluación comparativa de los modelos, a un coste prohibitivo. Nuestro enfoque proporciona una evaluación comprehensiva con recursos razonables.",
       
       "P2.S3.T": "El proceso de evaluación y los resultados",
-      "P2.S3.B1.Q": "¿Cómo se evalúa un modelo de lenguaje con IASalutAjudaDx-bench?",
+      "P2.S3.B1.Q": "¿Cómo se evalúa un modelo de lenguaje con DxGPT-bench?",
       "P2.S3.B1.A_P1": "El proceso es automático:",
       "P2.S3.B1.A_L1.I1": "El modelo a evaluar genera diagnósticos para cada uno de los casos del benchmark.",
       "P2.S3.B1.A_L1.I2": "Estos se comparan con el diagnóstico correcto usando similitud semántica, bien con un modelo BERT especializado en el ámbito clínico, o bien con un modelo de lenguaje de razonamiento.",
       "P2.S3.B1.A_L1.I3": "Se asigna un nivel de severidad a cada diagnóstico.",
       "P2.S3.B1.A_L1.I4": "Se calcula un la distancia entre las severidades de los diagnósticos generados y el correcto.",
       "P2.S3.B1.A_P2": "Estas dos métricas correctamente clasificadas permiten extraer no solo métricas de precisión global, sino también representar datos de optimismo diagnóstico y estratificar los puntos originales para visualizar diversas correlaciones.",
-      "P2.S3.B2.Q": "¿Se ha validado IASalutAjudaDx frente a médicos en un estudio clínico?",
-      "P2.S3.B2.A_P1": "Sí. El Hospital Sant Joan de Déu ha realizado un estudio clínico exhaustivo. Los resultados indican que IASalutAjudaDx alcanza una precisión diagnóstica comparable a la de expertos clínicos. Este trabajo se ha publicado como preprint y está en revisión por pares. Puedes leer el estudio completo aquí:",
-      "P2.S3.B2.A_P2": "Evaluación de la utilidad clínica de IASalutAjudaDx | medRxiv.",
+      "P2.S3.B2.Q": "¿Se ha validado DxGPT frente a médicos en un estudio clínico?",
+      "P2.S3.B2.A_P1": "Sí. El Hospital Sant Joan de Déu ha realizado un estudio clínico exhaustivo. Los resultados indican que DxGPT alcanza una precisión diagnóstica comparable a la de expertos clínicos. Este trabajo se ha publicado como preprint y está en revisión por pares. Puedes leer el estudio completo aquí:",
+      "P2.S3.B2.A_P2": "Evaluación de la utilidad clínica de DxGPT | medRxiv.",
 
       "P3_Title": "Quiénes somos",
       "P3_Summary_P1": "Fundación 29 es una organización sin ánimo de lucro comprometida con la mejora de la vida de personas con enfermedades raras y crónicas. Inspirados en el Día Mundial de las Enfermedades Raras, celebrado el 29 de febrero, usamos los datos y herramientas digitales para promover diagnósticos más tempranos, empoderar a los pacientes y apoyar a los profesionales sanitarios.",
-      "P3_Summary_P2": "A través de la colaboración con hospitales, investigadores y la comunidad médica en general, buscamos una atención sanitaria más personalizada, inclusiva y eficaz. Nuestras iniciativas se basan en la ciencia abierta, la transparencia y la convicción de que los datos pueden generar un cambio positivo en los sistemas de salud. IASalutAjudaDx es un reflejo de nuestra misión: una herramienta desarrollada bajo los principios de la ciencia abierta, la transparencia y la colaboración, ofrecida de forma gratuita para devolver valor a la sociedad.",
+      "P3_Summary_P2": "A través de la colaboración con hospitales, investigadores y la comunidad médica en general, buscamos una atención sanitaria más personalizada, inclusiva y eficaz. Nuestras iniciativas se basan en la ciencia abierta, la transparencia y la convicción de que los datos pueden generar un cambio positivo en los sistemas de salud. DxGPT es un reflejo de nuestra misión: una herramienta desarrollada bajo los principios de la ciencia abierta, la transparencia y la colaboración, ofrecida de forma gratuita para devolver valor a la sociedad.",
 
       "P3.S1.T": "Nuestra misión y compromiso",
       "P3.S1.B1.Q": "¿Qué es la Fundación 29?",
       "P3.S1.B1.A_P1": "Somos una organización sin ánimo de lucro inspirada en el Día Mundial de las Enfermedades Raras (29 de febrero). Buscamos una atención sanitaria más personalizada, inclusiva y eficaz, colaborando con hospitales, investigadores y la comunidad médica. Creemos que los datos pueden generar un cambio positivo en los sistemas de salud.",
       "P3.S1.B2.Q": "¿Cuál es vuestro compromiso con la transparencia y la ciencia abierta?",
-      "P3.S1.B2.A_P1": "Es total. En nuestra apuesta por la transparencia, hemos hecho público el código fuente de IASalutAjudaDx. Puedes explorar y contribuir a nuestros repositorios del <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>cliente</a> y del <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>servidor</a> en GitHub.",
-      "P3.S1.B3.Q": "¿IASalutAjudaDx es un producto finalizado?",
-      "P3.S1.B3.A_P1": "No, IASalutAjudaDx es una plataforma experimental en desarrollo continuo. Su objetivo es explorar las capacidades de la IA en el diagnóstico, entender sus limitaciones y mejorarla con la retroalimentación de los usuarios y la validación clínica rigurosa. Los nuevos hallazgos se compartirán en nuestro GitHub y en MedRxiv.",
+      "P3.S1.B2.A_P1": "Es total. En nuestra apuesta por la transparencia, hemos hecho público el código fuente de DxGPT. Puedes explorar y contribuir a nuestros repositorios del <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>cliente</a> y del <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>servidor</a> en GitHub.",
+      "P3.S1.B3.Q": "¿DxGPT es un producto finalizado?",
+      "P3.S1.B3.A_P1": "No, DxGPT es una plataforma experimental en desarrollo continuo. Su objetivo es explorar las capacidades de la IA en el diagnóstico, entender sus limitaciones y mejorarla con la retroalimentación de los usuarios y la validación clínica rigurosa. Los nuevos hallazgos se compartirán en nuestro GitHub y en MedRxiv.",
       "P3.S1.B4.Q": "¿Qué garantías legales y de protección de datos ofrecéis?",
-      "P3.S1.B4.A_P1": "Contamos con amplia experiencia en cumplimiento normativo. IASalutAjudaDx se alinea con los marcos de protección de datos como RGPD y HIPAA, y trabajamos para una alineación total con la Ley de IA de la Unión Europea, colaborando con autoridades reguladoras para asegurar los más altos estándares éticos y legales.",
+      "P3.S1.B4.A_P1": "Contamos con amplia experiencia en cumplimiento normativo. DxGPT se alinea con los marcos de protección de datos como RGPD y HIPAA, y trabajamos para una alineación total con la Ley de IA de la Unión Europea, colaborando con autoridades reguladoras para asegurar los más altos estándares éticos y legales.",
 
       "P3.S2.T": "Colaboradores y apoyos",
       "P3.S2.B1.Q": "¿Quiénes son vuestros socios tecnológicos?",
-      "P3.S2.B1.A_P1": "Agradecemos a Microsoft, que a través de su programa AI for Good nos proporciona la infraestructura en Azure y el apoyo de empleados voluntarios. También a Google, cuyo programa para ONGs nos ayuda a aumentar la visibilidad de IASalutAjudaDx para llegar a más profesionales y pacientes.",
+      "P3.S2.B1.A_P1": "Agradecemos a Microsoft, que a través de su programa AI for Good nos proporciona la infraestructura en Azure y el apoyo de empleados voluntarios. También a Google, cuyo programa para ONGs nos ayuda a aumentar la visibilidad de DxGPT para llegar a más profesionales y pacientes.",
       "P3.S2.B2.Q": "¿Y vuestros patrocinadores?",
-      "P3.S2.B2.A_P1": "Extendemos nuestro más profundo agradecimiento a nuestros generosos patrocinadores. Su apoyo es puramente filantrópico, sin intereses comerciales ni intercambio de datos, y es vital para poder desarrollar herramientas como IASalutAjudaDx y ofrecerlas gratuitamente.",
+      "P3.S2.B2.A_P1": "Extendemos nuestro más profundo agradecimiento a nuestros generosos patrocinadores. Su apoyo es puramente filantrópico, sin intereses comerciales ni intercambio de datos, y es vital para poder desarrollar herramientas como DxGPT y ofrecerlas gratuitamente.",
 
       "P3.S3.T": "Únete a nuestra misión",
       "P3.S3.B1.Q": "¿Cómo puedo colaborar o convertirme en patrocinador?",
       "P3.S3.B1.A_P1": "Si te interesa apoyar nuestra misión, ya sea como patrocinador o colaborador, por favor contáctanos. Juntos, podemos seguir construyendo un futuro más saludable.",
       "t8": "Nuestros patrocinadores",
-      "p8": "Extendemos nuestro más profundo agradecimiento a nuestros generosos patrocinadores. Su apoyo es puramente filantrópico, sin intereses comerciales ni intercambio de datos, y es vital para poder desarrollar herramientas como IASalutAjudaDx y ofrecerlas gratuitamente.",
+      "p8": "Extendemos nuestro más profundo agradecimiento a nuestros generosos patrocinadores. Su apoyo es puramente filantrópico, sin intereses comerciales ni intercambio de datos, y es vital para poder desarrollar herramientas como DxGPT y ofrecerlas gratuitamente.",
       "t9": "Únete a nosotros",
       "p9.1": "Si te interesa apoyar nuestra misión, ya sea como patrocinador o colaborador, por favor contáctanos. Juntos, podemos seguir construyendo un futuro más saludable."
     },
     "faqs": {
       "title": "Preguntas frecuentes",
-      "subtitle": "Resuelve todas tus dudas sobre IASalutAjudaDx y cómo puede ayudarte en el diagnóstico médico.",
+      "subtitle": "Resuelve todas tus dudas sobre DxGPT y cómo puede ayudarte en el diagnóstico médico.",
       "q1": "¿Mi información médica se mantiene confidencial?",
-      "a1": "Sí, tu privacidad es nuestra máxima prioridad. IASalutAjudaDx es una iniciativa de la Fundación 29, una organización sin ánimo de lucro comprometida con la protección rigurosa de tus datos personales y de salud. Nunca vendemos, alquilamos ni compartimos tu información personal con terceros para fines comerciales o de marketing. Todos los datos que proporcionas se cifran de forma segura tanto durante la transmisión como en el almacenamiento. Además, los datos sensibles se anonimizan automáticamente antes de ser guardados, garantizando que no se pueda identificar a ninguna persona. El acceso a tus datos está estrictamente controlado y limitado al personal autorizado que cumple con estrictas obligaciones de confidencialidad, en total conformidad con las normativas RGPD y HIPAA.",
-      "q2": "¿Puedo usar IASalutAjudaDx en situaciones de emergencia?",
-      "a2": "No, IASalutAjudaDx no está diseñado ni destinado a gestionar emergencias médicas ni condiciones urgentes. En caso de emergencia, contacta inmediatamente con los servicios de emergencia locales o acude al centro médico más cercano. IASalutAjudaDx ha sido desarrollado como un recurso de apoyo para profesionales sanitarios, con el objetivo de mejorar los procesos de diagnóstico y la toma de decisiones. Sin embargo, nunca debe considerarse un sustituto del juicio profesional ni de la intervención inmediata por parte de personal médico cualificado.",
-      "q3": "¿Cómo sugiere IASalutAjudaDx posibles diagnósticos?",
-      "a3": "IASalutAjudaDx utiliza modelos avanzados de inteligencia artificial y aprendizaje automático para analizar los síntomas y la información clínica proporcionada por los profesionales de salud. Compara estos datos con una base de conocimiento médico extensa para sugerir posibles condiciones. IASalutAjudaDx no es un dispositivo médico; funciona como un sistema de apoyo a la decisión clínica. Esto significa que ayuda a los profesionales proporcionando orientaciones sobre posibles diagnósticos, pero no reemplaza su juicio clínico ni su evaluación profesional. Las sugerencias de IASalutAjudaDx están pensadas para ayudar a identificar diagnósticos potenciales y orientar investigaciones adicionales, pero siempre se debe consultar a un profesional sanitario cualificado para obtener un diagnóstico y tratamiento definitivo.",
-      "q4": "¿Puedo hablar con un médico humano a través de IASalutAjudaDx?",
-      "a4": "Actualmente, IASalutAjudaDx es totalmente automatizado y no permite la comunicación directa con médicos u otro personal sanitario. Para cualquier preocupación de salud específica o consulta médica detallada, por favor contacta con tu profesional de salud habitual o busca asesoramiento médico directamente.",
-      "q5": "¿IASalutAjudaDx está disponible en todo el mundo?",
-      "a5": "Sí, IASalutAjudaDx está disponible para usuarios en todo el mundo. No obstante, es importante tener en cuenta que las prácticas médicas, la terminología y los estándares sanitarios pueden variar significativamente entre países y regiones. IASalutAjudaDx intenta proporcionar información aplicable de forma universal, pero los usuarios deben interpretar sus sugerencias dentro del contexto de las prácticas y normas médicas locales.",
-      "q6": "¿En qué idiomas puedo usar IASalutAjudaDx?",
-      "a6": "IASalutAjudaDx puede procesar entradas y generar respuestas en prácticamente cualquier idioma. Sin embargo, como su entrenamiento se basó principalmente en datos en inglés, las respuestas en este idioma suelen tener mayor precisión y fiabilidad. Para idiomas con menor cantidad de datos médicos disponibles o menos usuarios, las sugerencias pueden ser ocasionalmente menos precisas o incompletas. Te animamos a usar IASalutAjudaDx en tu idioma preferido o nativo y a compartir tu experiencia con nosotros. Esto nos ayuda a mejorar continuamente su capacidad y precisión en distintos idiomas.",
-      "q7": "¿Con qué frecuencia se actualiza la información médica de IASalutAjudaDx?",
-      "a7": "IASalutAjudaDx no actualiza directamente su base de datos interna o conocimientos. En su lugar, nuestro equipo realiza pruebas y evaluaciones constantes de los modelos y algoritmos de inteligencia artificial más avanzados. Llevamos a cabo estudios clínicos en colaboración con hospitales e instituciones médicas para verificar y mejorar el rendimiento de IASalutAjudaDx, con especial atención a su precisión en el diagnóstico de enfermedades raras y casos complejos. Este proceso continuo asegura que IASalutAjudaDx se mantenga actualizado y eficaz.",
-      "q8": "¿Cómo puedo enviar comentarios sobre IASalutAjudaDx?",
-      "a8": "Tu opinión es muy importante para la mejora continua de IASalutAjudaDx. Puedes enviar comentarios fácilmente desde la aplicación usando la pestaña roja ubicada en el lado derecho de la interfaz. También puedes escribirnos por correo electrónico a support@foundation29.org. Revisamos cuidadosamente todos los comentarios y sugerencias para mejorar nuestro servicio.",
-      "q9": "¿Puedo ver estadísticas sobre el uso de IASalutAjudaDx?",
-      "a9": "Sí, puedes acceder a estadísticas completas en la sección 'Estadísticas de uso', ubicada en el menú superior de la interfaz de IASalutAjudaDx. Allí encontrarás información detallada como el número total de usuarios, los síntomas más introducidos, los diagnósticos más sugeridos, la distribución geográfica de los usuarios y un resumen de los comentarios. Estas estadísticas se presentan de forma anónima y no contienen información que permita identificar a ningún usuario.",
-      "q10": "¿Quién puede colaborar en el desarrollo de IASalutAjudaDx?",
-      "a10": "Buscamos activamente y damos la bienvenida a colaboraciones con investigadores, profesionales de la salud, instituciones médicas y organizaciones interesadas en el avance de las tecnologías de diagnóstico asistido por IA. Si deseas contribuir al proyecto o explorar oportunidades de investigación conjunta, escríbenos a support@foundation29.org o completa el formulario de contacto disponible en nuestro sitio web oficial. La colaboración nos permite mejorar continuamente las capacidades y la utilidad práctica de IASalutAjudaDx.",
-      "q11": "Represento a un grupo de pacientes. ¿Cómo podemos colaborar con IASalutAjudaDx?",
-      "a11": "Si representas a un grupo de pacientes u organización de apoyo, te animamos a colaborar promoviendo IASalutAjudaDx dentro de tu comunidad. Nos interesa especialmente conocer las experiencias de tu grupo con condiciones médicas específicas, ya que esta información nos ayuda a entender mejor vuestras necesidades y a adaptar IASalutAjudaDx en consecuencia. Por favor, contáctanos para hablar sobre posibles formas de colaboración y cómo IASalutAjudaDx puede apoyar a tu grupo.",
-      "q12": "¿IASalutAjudaDx se considera un dispositivo médico?",
-      "a12": "No. IASalutAjudaDx no está clasificado ni regulado como dispositivo médico según las normativas internacionales como el Reglamento de Dispositivos Médicos de la Unión Europea (EU MDR) o la Administración de Alimentos y Medicamentos de EE. UU. (FDA). IASalutAjudaDx se utiliza exclusivamente como una herramienta experimental de apoyo a la decisión clínica, diseñada para ayudar a profesionales sanitarios cualificados mediante orientaciones y sugerencias diagnósticas. Siempre debe utilizarse como complemento y no como sustituto de la evaluación médica profesional.",
-      "q13": "¿IASalutAjudaDx es gratuito?",
-      "a13": "Sí, IASalutAjudaDx es completamente gratuito. Es desarrollado y mantenido como un proyecto sin ánimo de lucro por la Fundación 29, financiado a través de donaciones filantrópicas, subvenciones y colaboraciones. Nuestro objetivo es ofrecer herramientas avanzadas de diagnóstico asistido por IA sin coste a profesionales sanitarios y pacientes en todo el mundo, promoviendo la equidad y el acceso en el diagnóstico médico.",
+      "a1": "Sí, tu privacidad es nuestra máxima prioridad. DxGPT es una iniciativa de la Fundación 29, una organización sin ánimo de lucro comprometida con la protección rigurosa de tus datos personales y de salud. Nunca vendemos, alquilamos ni compartimos tu información personal con terceros para fines comerciales o de marketing. Todos los datos que proporcionas se cifran de forma segura tanto durante la transmisión como en el almacenamiento. Además, los datos sensibles se anonimizan automáticamente antes de ser guardados, garantizando que no se pueda identificar a ninguna persona. El acceso a tus datos está estrictamente controlado y limitado al personal autorizado que cumple con estrictas obligaciones de confidencialidad, en total conformidad con las normativas RGPD y HIPAA.",
+      "q2": "¿Puedo usar DxGPT en situaciones de emergencia?",
+      "a2": "No, DxGPT no está diseñado ni destinado a gestionar emergencias médicas ni condiciones urgentes. En caso de emergencia, contacta inmediatamente con los servicios de emergencia locales o acude al centro médico más cercano. DxGPT ha sido desarrollado como un recurso de apoyo para profesionales sanitarios, con el objetivo de mejorar los procesos de diagnóstico y la toma de decisiones. Sin embargo, nunca debe considerarse un sustituto del juicio profesional ni de la intervención inmediata por parte de personal médico cualificado.",
+      "q3": "¿Cómo sugiere DxGPT posibles diagnósticos?",
+      "a3": "DxGPT utiliza modelos avanzados de inteligencia artificial y aprendizaje automático para analizar los síntomas y la información clínica proporcionada por los profesionales de salud. Compara estos datos con una base de conocimiento médico extensa para sugerir posibles condiciones. DxGPT no es un dispositivo médico; funciona como un sistema de apoyo a la decisión clínica. Esto significa que ayuda a los profesionales proporcionando orientaciones sobre posibles diagnósticos, pero no reemplaza su juicio clínico ni su evaluación profesional. Las sugerencias de DxGPT están pensadas para ayudar a identificar diagnósticos potenciales y orientar investigaciones adicionales, pero siempre se debe consultar a un profesional sanitario cualificado para obtener un diagnóstico y tratamiento definitivo.",
+      "q4": "¿Puedo hablar con un médico humano a través de DxGPT?",
+      "a4": "Actualmente, DxGPT es totalmente automatizado y no permite la comunicación directa con médicos u otro personal sanitario. Para cualquier preocupación de salud específica o consulta médica detallada, por favor contacta con tu profesional de salud habitual o busca asesoramiento médico directamente.",
+      "q5": "¿DxGPT está disponible en todo el mundo?",
+      "a5": "Sí, DxGPT está disponible para usuarios en todo el mundo. No obstante, es importante tener en cuenta que las prácticas médicas, la terminología y los estándares sanitarios pueden variar significativamente entre países y regiones. DxGPT intenta proporcionar información aplicable de forma universal, pero los usuarios deben interpretar sus sugerencias dentro del contexto de las prácticas y normas médicas locales.",
+      "q6": "¿En qué idiomas puedo usar DxGPT?",
+      "a6": "DxGPT puede procesar entradas y generar respuestas en prácticamente cualquier idioma. Sin embargo, como su entrenamiento se basó principalmente en datos en inglés, las respuestas en este idioma suelen tener mayor precisión y fiabilidad. Para idiomas con menor cantidad de datos médicos disponibles o menos usuarios, las sugerencias pueden ser ocasionalmente menos precisas o incompletas. Te animamos a usar DxGPT en tu idioma preferido o nativo y a compartir tu experiencia con nosotros. Esto nos ayuda a mejorar continuamente su capacidad y precisión en distintos idiomas.",
+      "q7": "¿Con qué frecuencia se actualiza la información médica de DxGPT?",
+      "a7": "DxGPT no actualiza directamente su base de datos interna o conocimientos. En su lugar, nuestro equipo realiza pruebas y evaluaciones constantes de los modelos y algoritmos de inteligencia artificial más avanzados. Llevamos a cabo estudios clínicos en colaboración con hospitales e instituciones médicas para verificar y mejorar el rendimiento de DxGPT, con especial atención a su precisión en el diagnóstico de enfermedades raras y casos complejos. Este proceso continuo asegura que DxGPT se mantenga actualizado y eficaz.",
+      "q8": "¿Cómo puedo enviar comentarios sobre DxGPT?",
+      "a8": "Tu opinión es muy importante para la mejora continua de DxGPT. Puedes enviar comentarios fácilmente desde la aplicación usando la pestaña roja ubicada en el lado derecho de la interfaz. También puedes escribirnos por correo electrónico a support@foundation29.org. Revisamos cuidadosamente todos los comentarios y sugerencias para mejorar nuestro servicio.",
+      "q9": "¿Puedo ver estadísticas sobre el uso de DxGPT?",
+      "a9": "Sí, puedes acceder a estadísticas completas en la sección 'Estadísticas de uso', ubicada en el menú superior de la interfaz de DxGPT. Allí encontrarás información detallada como el número total de usuarios, los síntomas más introducidos, los diagnósticos más sugeridos, la distribución geográfica de los usuarios y un resumen de los comentarios. Estas estadísticas se presentan de forma anónima y no contienen información que permita identificar a ningún usuario.",
+      "q10": "¿Quién puede colaborar en el desarrollo de DxGPT?",
+      "a10": "Buscamos activamente y damos la bienvenida a colaboraciones con investigadores, profesionales de la salud, instituciones médicas y organizaciones interesadas en el avance de las tecnologías de diagnóstico asistido por IA. Si deseas contribuir al proyecto o explorar oportunidades de investigación conjunta, escríbenos a support@foundation29.org o completa el formulario de contacto disponible en nuestro sitio web oficial. La colaboración nos permite mejorar continuamente las capacidades y la utilidad práctica de DxGPT.",
+      "q11": "Represento a un grupo de pacientes. ¿Cómo podemos colaborar con DxGPT?",
+      "a11": "Si representas a un grupo de pacientes u organización de apoyo, te animamos a colaborar promoviendo DxGPT dentro de tu comunidad. Nos interesa especialmente conocer las experiencias de tu grupo con condiciones médicas específicas, ya que esta información nos ayuda a entender mejor vuestras necesidades y a adaptar DxGPT en consecuencia. Por favor, contáctanos para hablar sobre posibles formas de colaboración y cómo DxGPT puede apoyar a tu grupo.",
+      "q12": "¿DxGPT se considera un dispositivo médico?",
+      "a12": "No. DxGPT no está clasificado ni regulado como dispositivo médico según las normativas internacionales como el Reglamento de Dispositivos Médicos de la Unión Europea (EU MDR) o la Administración de Alimentos y Medicamentos de EE. UU. (FDA). DxGPT se utiliza exclusivamente como una herramienta experimental de apoyo a la decisión clínica, diseñada para ayudar a profesionales sanitarios cualificados mediante orientaciones y sugerencias diagnósticas. Siempre debe utilizarse como complemento y no como sustituto de la evaluación médica profesional.",
+      "q13": "¿DxGPT es gratuito?",
+      "a13": "Sí, DxGPT es completamente gratuito. Es desarrollado y mantenido como un proyecto sin ánimo de lucro por la Fundación 29, financiado a través de donaciones filantrópicas, subvenciones y colaboraciones. Nuestro objetivo es ofrecer herramientas avanzadas de diagnóstico asistido por IA sin coste a profesionales sanitarios y pacientes en todo el mundo, promoviendo la equidad y el acceso en el diagnóstico médico.",
       "q14": "¿Se utiliza mi información para otros fines?",
-      "a14": "IASalutAjudaDx nunca utiliza tus datos personales para otros fines como marketing o actividades comerciales. Utilizamos estrictamente datos agregados y anónimos, como patrones de uso general, síntomas frecuentes y sugerencias diagnósticas, y tendencias en general, para mejorar la precisión, fiabilidad y funcionalidad de nuestros algoritmos. Este dato agregado se anónima completamente y garantiza que ningún usuario individual pueda ser identificado a partir de esta información."
+      "a14": "DxGPT nunca utiliza tus datos personales para otros fines como marketing o actividades comerciales. Utilizamos estrictamente datos agregados y anónimos, como patrones de uso general, síntomas frecuentes y sugerencias diagnósticas, y tendencias en general, para mejorar la precisión, fiabilidad y funcionalidad de nuestros algoritmos. Este dato agregado se anónima completamente y garantiza que ningún usuario individual pueda ser identificado a partir de esta información."
     },
     "diagnosed":{
       "timeline":{
         "title":"Vamos a ayudarte a construir una línea de tiempo de sus síntomas. Estos datos pueden mejorar la gestión de tu enfermedad y ayudar a otros pacientes como usted en su odisea diagnóstica. Hay dos pasos sencillos:",
-        "subtitlea": "En este informe, el usuario de IASalutAjudaDx describe los síntomas del paciente con el objetivo de mejorar la comunicación médico-paciente.",
+        "subtitlea": "En este informe, el usuario de DxGPT describe los síntomas del paciente con el objetivo de mejorar la comunicación médico-paciente.",
         "subtitleb": "Se recomienda llevar el informe a la siguiente visita médica para que tanto el paciente como el médico ayuden a precisar más los",
         "subtitlec": "contenidos.",
-        "subtitle1": "Este informe ha sido generado con IASalutAjudaDx, una herramienta de asistencia al diagnóstico a través de la descripción",
+        "subtitle1": "Este informe ha sido generado con DxGPT, una herramienta de asistencia al diagnóstico a través de la descripción",
         "subtitle2": "sintomatológica de precisión desarrollada por Fundación 29 de Febrero (www.foundation29.org). Juntos aceleramos",
         "subtitle3": "el proceso de diagnóstico de enfermedades raras y su tratamiento de una forma fácil y sencilla.",
         "footer1": "Somos una organización sin ánimo de lucro que diseña y crea herramientas para la gestión de los pacientes de sus propios datos,",
@@ -1016,10 +1016,10 @@
     }
   },
   "permalink":{
-    "title": "Resultados IASalutAjudaDx",
+    "title": "Resultados DxGPT",
     "titleEu": "Información para tu médico",
-    "subtitle": "Diagnósticos sugeridos generados por IASalutAjudaDx",
-    "subtitleEu": "Áreas de evaluación clínica generadas por IASalutAjudaDx",
+    "subtitle": "Diagnósticos sugeridos generados por DxGPT",
+    "subtitleEu": "Áreas de evaluación clínica generadas por DxGPT",
     "print": "Imprimir",
     "share": "Compartir",
     "newAnalysis": "Nuevo Análisis",
@@ -1045,8 +1045,8 @@
     "medicalDisclaimerTitleEu": "Importante - Información de uso",
     "medicalDisclaimer": "Este informe es únicamente para fines informativos y de apoyo clínico.",
     "medicalDisclaimerEu": "Esta información está pensada únicamente para ayudarte a preparar tu consulta médica.",
-    "disclaimer1": "IASalutAjudaDx es una herramienta de asistencia diagnóstica basada en IA",
-    "disclaimer1Eu": "IASalutAjudaDx es una herramienta de apoyo basada en IA para organizar información clínica",
+    "disclaimer1": "DxGPT es una herramienta de asistencia diagnóstica basada en IA",
+    "disclaimer1Eu": "DxGPT es una herramienta de apoyo basada en IA para organizar información clínica",
     "disclaimer2": "Los resultados NO constituyen un diagnóstico médico definitivo",
     "disclaimer2Eu": "Esta herramienta NO ofrece diagnósticos médicos ni recomendaciones de tratamiento",
     "disclaimer3": "Siempre consulte con un profesional médico cualificado",
@@ -1058,8 +1058,8 @@
     "developedBy": "Desarrollado por",
     "footer": "Herramienta de asistencia diagnóstica basada en inteligencia artificial para profesionales de la salud. Cumple con normativas RGPD y HIPAA.",
     "oops": "¡Ups!",
-    "shareTitle": "Resultados de IASalutAjudaDx",
-    "shareText": "Compartir resultados médicos de IASalutAjudaDx",
+    "shareTitle": "Resultados de DxGPT",
+    "shareText": "Compartir resultados médicos de DxGPT",
     "copied": "Enlace copiado al portapapeles"
   },
   "feedback":{
@@ -1083,8 +1083,8 @@
   "seo":{
     "home":{
       "keywords": "diagnóstico, diagnosticar, enfermedad rara, GPT, síndrome, enfermedad, pronóstico, síntomas, epilepsia, crisis epiléptica, convulsiones, retraso en el desarrollo, pediatría, genética, neurología, enfermedad genética",
-      "description": "IASalutAjudaDx es un software de ayuda a la toma de decisiones en el diagnóstico basado en GPT-5 mini. IA que ayuda al diagnóstico de enfermedades. Totalmente gratuita para médicos y pacientes.",
-      "title": "IASalutAjudaDx: ayuda a la toma de decisiones en el diagnóstico basado en GPT-5 mini"
+      "description": "DxGPT es un software de ayuda a la toma de decisiones en el diagnóstico basado en GPT-5 mini. IA que ayuda al diagnóstico de enfermedades. Totalmente gratuita para médicos y pacientes.",
+      "title": "DxGPT: ayuda a la toma de decisiones en el diagnóstico basado en GPT-5 mini"
     }
   },
   "cookie": {
@@ -1132,11 +1132,11 @@
     "terms": "términos de uso de los datos del formulario",
     "acceptterms": "Debe aceptar los términos para continuar.",
     "modalTitle": "Términos de uso de los datos del formulario",
-    "modalBody2": "Al enviar el formulario, usted acepta que IASalutAjudaDx puede utilizar su información de contacto (correo electrónico) para los siguientes propósitos:",
+    "modalBody2": "Al enviar el formulario, usted acepta que DxGPT puede utilizar su información de contacto (correo electrónico) para los siguientes propósitos:",
     "modalBody3": "Soporte y asistencia:",
     "modalBody4": "Responder a sus consultas y solicitudes de soporte.",
     "modalBody5": "Comunicaciones y actualizaciones:",
-    "modalBody6": "Informarle sobre nuevas versiones, actualizaciones y mejoras del software IASalutAjudaDx.",
+    "modalBody6": "Informarle sobre nuevas versiones, actualizaciones y mejoras del software DxGPT.",
     "modalBody7": "Retroalimentación y mejora del Servicio:",
     "modalBody8": "Solicitar su retroalimentación para mejorar la calidad y funcionalidad del software.",
     "modalBody9": "Protección de sus datos",
@@ -1202,7 +1202,7 @@
   },
   "integration": {
     "title": "Integración",
-    "subtitle": "Descubre cómo IASalutAjudaDx puede integrarse en tu flujo de trabajo médico",
+    "subtitle": "Descubre cómo DxGPT puede integrarse en tu flujo de trabajo médico",
     "deployment_models": {
       "title": "Modelos de despliegue",
       "recommended": "Recomendado",
@@ -1251,14 +1251,14 @@
     },
     "hospitals_clinics": {
       "title": "Para proveedores sanitarios",
-      "portal_integration": "Integración en portales - Embebe IASalutAjudaDx en tu sistema existente",
+      "portal_integration": "Integración en portales - Embebe DxGPT en tu sistema existente",
       "multilingual_support": "Soporte multilingüe - Funciona en múltiples idiomas",
       "regulatory_compliance": "Cumplimiento normativo - Versión self-hosted para HIPAA/HIS",
       "azure_ad_integration": "Integración con Azure AD - Autenticación corporativa"
     },
     "developers": {
       "title": "Para desarrolladores",
-      "rest_api": "API REST - Integra IASalutAjudaDx en tus aplicaciones",
+      "rest_api": "API REST - Integra DxGPT en tus aplicaciones",
       "advanced_ai_models": "Modelos de IA avanzados - GPT-5 mini y O3 para diagnósticos precisos",
       "websocket_realtime": "WebSocket - Comunicación en tiempo real",
       "complete_documentation": "Documentación completa - Swagger UI y ejemplos de código"
@@ -1301,7 +1301,7 @@
     },
     "cta": {
       "title": "¿Listo para empezar?",
-      "description": "Contacta con nosotros para implementar IASalutAjudaDx en tu organización",
+      "description": "Contacta con nosotros para implementar DxGPT en tu organización",
       "contact_us": "Contáctanos"
     }
   }
