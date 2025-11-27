@@ -38,6 +38,7 @@ export class NavbarD29Component implements OnDestroy {
   isMenuExpanded = false;
   headerLogo: string = 'assets/img/logo-Dx29.webp';
   shouldShowDonate: boolean = true;
+  shouldShowBeta: boolean = false;
   
   // Referencia al modal
   private modalRef: NgbModalRef;
@@ -292,9 +293,11 @@ export class NavbarD29Component implements OnDestroy {
   };
 
   goBackEvent() {
-    console.log('goBackEvent');
-    var eventsLang = this.inj.get(EventsService);
-    eventsLang.broadcast('backEvent', true);
+    // Solo ejecutar el evento si estamos en la página principal
+    if (this.isHomePage) {
+      var eventsLang = this.inj.get(EventsService);
+      eventsLang.broadcast('backEvent', true);
+    }
   }
 
   /**
@@ -306,6 +309,7 @@ export class NavbarD29Component implements OnDestroy {
         if (config) {
           this.headerLogo = config.logos.header;
           this.shouldShowDonate = config.links.donate !== null;
+          this.shouldShowBeta = config.links.beta === true;
         }
       })
     );

@@ -312,6 +312,70 @@
                   "with": "src/environments/environment.iasalut-ajuda-dx.dev.ts"
                 }
               ]
+            },
+            "dxeugpt": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dxeugpt.ts"
+                }
+              ]
+            },
+            "dxeugpt-prod": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dxeugpt.prod.ts"
+                }
+              ]
+            },
+            "dxeugpt-dev": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": false,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dxeugpt.dev.ts"
+                }
+              ]
             }
           }
         },
@@ -353,6 +417,15 @@
             },
             "iasalut-ajuda-dx-dev": {
               "browserTarget": "matngular:build:iasalut-ajuda-dx-dev"
+            },
+            "dxeugpt": {
+              "browserTarget": "matngular:build:dxeugpt"
+            },
+            "dxeugpt-prod": {
+              "browserTarget": "matngular:build:dxeugpt-prod"
+            },
+            "dxeugpt-dev": {
+              "browserTarget": "matngular:build:dxeugpt-dev"
             }
           }
         },

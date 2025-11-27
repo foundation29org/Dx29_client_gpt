@@ -26,6 +26,7 @@ Script genérico para preparar el branding y el index.html de cualquier tenant.
 node scripts/prepare-tenant-release.js SALUD-GPT
 node scripts/prepare-tenant-release.js OTRO-TENANT
 node scripts/prepare-tenant-release.js IASalutAjudaDx
+node scripts/prepare-tenant-release.js dxeugpt
 ```
 - Ejecuta la configuración de index.html y el reemplazo de branding para el tenant indicado.
 - Muestra el estado de los cambios (`git status` y `git diff`).

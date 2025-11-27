@@ -15,23 +15,23 @@ import { AnalyticsService } from 'app/shared/services/analytics.service';
 export class PermalinkViewPageComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
-  
+
   // Datos del permalink
   permalinkId: string = '';
   isLoading: boolean = true;
   hasError: boolean = false;
   errorMessage: string = '';
-  
+
   // Datos médicos
   medicalDescription: string = '';
   anonymizedDescription: string = '';
   diagnoses: any[] = [];
   lang: string = 'es';
   createdDate: string = '';
-  
+
   // UI
   currentYear: number = new Date().getFullYear();
-  
+
   // Branding
   brandingConfig: BrandingConfig | null = null;
 
@@ -42,7 +42,7 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     private apiDx29ServerService: ApiDx29ServerService,
     private brandingService: BrandingService,
     private analyticsService: AnalyticsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     // Track page view para permalink
@@ -50,7 +50,7 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
       permalinkId: this.route.snapshot.paramMap.get('id') || '',
       url: this.router.url
     });
-    
+
     // Suscribirse a los cambios de configuración de branding
     this.subscription.add(
       this.brandingService.brandingConfig$.subscribe(config => {
@@ -58,14 +58,14 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
         this.applyBrandingStyles();
       })
     );
-    
+
     // Obtener el ID del permalink de la URL
     this.permalinkId = this.route.snapshot.paramMap.get('id') || '';
-    
+
     if (this.permalinkId) {
-        this.loadPermalink();
+      this.loadPermalink();
     } else {
-        this.showError(this.translate.instant('permalink.Invalid permalink'));
+      this.showError(this.translate.instant('permalink.Invalid permalink'));
     }
   }
 
@@ -143,7 +143,18 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
       });
     } else {
       navigator.clipboard.writeText(url);
-      alert(this.translate.instant('permalink.copied'));
+
+      let msgSuccess = this.translate.instant("permalink.Permalink created and copied");
+      Swal.fire({
+        icon: 'success',
+        html: msgSuccess,
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: false
+      })
+      setTimeout(function () {
+        Swal.close();
+      }, 2000);
     }
   }
 
@@ -152,9 +163,9 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
    */
   private applyBrandingStyles(): void {
     if (!this.brandingConfig) return;
-    
+
     const root = document.documentElement;
-    
+
     // Aplicar variables CSS específicas para el permalink
     root.style.setProperty('--permalink-primary', this.brandingConfig.colors.primary);
     root.style.setProperty('--permalink-secondary', this.brandingConfig.colors.secondary);
@@ -163,15 +174,22 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     root.style.setProperty('--permalink-background', this.brandingConfig.colors.background);
     root.style.setProperty('--permalink-text', this.brandingConfig.colors.contrastText);
     root.style.setProperty('--permalink-background-dark', this.brandingConfig.colors.backgroundDark);
-    
+
     // Generar gradientes dinámicos
     const gradientStart = this.brandingConfig.colors.primary;
     const gradientEnd = this.brandingConfig.colors.secondary;
     root.style.setProperty('--permalink-gradient', `linear-gradient(135deg, ${gradientStart} 0%, ${gradientEnd} 100%)`);
-    
+
     // Generar colores de hover
     const primaryHover = this.generateHoverColor(this.brandingConfig.colors.primary);
     root.style.setProperty('--permalink-primary-hover', primaryHover);
+  }
+
+  /**
+   * Verifica si está en modo europeo (EU)
+   */
+  isEuMode(): boolean {
+    return this.brandingService.isEuMode();
   }
 
   /**
@@ -182,12 +200,12 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     const r = parseInt(hex.substr(0, 2), 16);
     const g = parseInt(hex.substr(2, 2), 16);
     const b = parseInt(hex.substr(4, 2), 16);
-    
+
     const darkenFactor = 0.8;
     const newR = Math.round(r * darkenFactor);
     const newG = Math.round(g * darkenFactor);
     const newB = Math.round(b * darkenFactor);
-    
+
     return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
   }
 } 

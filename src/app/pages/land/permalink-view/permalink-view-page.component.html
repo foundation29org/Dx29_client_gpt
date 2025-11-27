@@ -25,9 +25,9 @@
       <div class="row align-items-center">
         <div class="col-md-12 col-lg-5 text-center text-md-start">
           <h1 class="page-title">
-            {{ 'permalink.title' | translate }}
+            <span *ngIf="!isEuMode()">{{ 'permalink.title' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.titleEu' | translate }}</span>
           </h1>
-          <p class="subtitle">{{ 'permalink.subtitle' | translate }}</p>
+          <p class="subtitle"><span *ngIf="!isEuMode()">{{ 'permalink.subtitle' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.subtitleEu' | translate }}</span></p>
         </div>
         <div class="col-md-12 col-lg-7 text-center text-md-end">
           <div class="action-buttons">
@@ -93,9 +93,9 @@
       <div class="card-header">
         <h4 class="card-title mb-0">
           <i class="fa fa-stethoscope text-success"></i>
-          {{ 'permalink.suggestedDiagnoses' | translate }}
+          <span *ngIf="!isEuMode()">{{ 'permalink.suggestedDiagnoses' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.suggestedDiagnosesEu' | translate }}</span>
         </h4>
-        <small class="text-muted">{{ 'permalink.orderedByRelevance' | translate }}</small>
+        <small class="text-muted" *ngIf="!isEuMode()">{{ 'permalink.orderedByRelevance' | translate }}</small>
       </div>
       <div class="card-body">
         <div *ngIf="diagnoses.length === 0" class="text-center text-muted py-4">
@@ -105,7 +105,7 @@
 
         <div *ngFor="let diagnosis of diagnoses; let i = index" class="diagnosis-item">
           <div class="diagnosis-header">
-            <div class="diagnosis-number">{{ i + 1 }}</div>
+            <div class="diagnosis-number" *ngIf="!isEuMode()">{{ i + 1 }}</div>
             <div class="diagnosis-info">
               <h5 class="diagnosis-name">{{ diagnosis.name }}</h5>
               <div class="diagnosis-description" [innerHTML]="diagnosis.content"></div>
@@ -128,18 +128,18 @@
       <div class="card-header bg-warning text-dark">
         <h5 class="card-title mb-0">
           <i class="fa fa-exclamation-triangle"></i>
-          {{ 'permalink.medicalDisclaimerTitle' | translate }}
+          <span *ngIf="!isEuMode()">{{ 'permalink.medicalDisclaimerTitle' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.medicalDisclaimerTitleEu' | translate }}</span>
         </h5>
       </div>
       <div class="card-body">
         <div class="disclaimer-content">
-          <p><strong>{{ 'permalink.medicalDisclaimer' | translate }}</strong></p>
+          <p><strong><span *ngIf="!isEuMode()">{{ 'permalink.medicalDisclaimer' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.medicalDisclaimerEu' | translate }}</span></strong></p>
           <ul class="disclaimer-list">
-            <li>{{ 'permalink.disclaimer1' | translate }}</li>
-            <li>{{ 'permalink.disclaimer2' | translate }}</li>
-            <li>{{ 'permalink.disclaimer3' | translate }}</li>
-            <li>{{ 'permalink.disclaimer4' | translate }}</li>
-            <li>{{ 'permalink.disclaimer5' | translate }}</li>
+            <li><span *ngIf="!isEuMode()">{{ 'permalink.disclaimer1' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.disclaimer1Eu' | translate }}</span></li>
+            <li><span *ngIf="!isEuMode()">{{ 'permalink.disclaimer2' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.disclaimer2Eu' | translate }}</span></li>
+            <li><span *ngIf="!isEuMode()">{{ 'permalink.disclaimer3' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.disclaimer3Eu' | translate }}</span></li>
+            <li><span *ngIf="!isEuMode()">{{ 'permalink.disclaimer4' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.disclaimer4Eu' | translate }}</span></li>
+            <li><span *ngIf="!isEuMode()">{{ 'permalink.disclaimer5' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.disclaimer5Eu' | translate }}</span></li>
           </ul>
         </div>
       </div>
