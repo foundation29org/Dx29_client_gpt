@@ -47,19 +47,25 @@
   "aboutUs": {
     "hero": {
       "title": "DxGPT: Intel·ligència augmentada per a la confiança diagnòstica",
+      "titleEu": "DxGPT: Intel·ligència augmentada per preparar la teva consulta mèdica",
       "subtitle": "Transforma la incertesa clínica en claredat. DxGPT és el teu copilot diagnòstic: estructura el raonament, redueix la càrrega cognitiva i minimitza els biaixos en segons, fins i tot en casos complexos o rars.",
+      "subtitleEu": "Transforma la incertesa clínica en claredat. DxGPT t'ajuda a preparar la informació per al teu professional sanitari: estructura la informació, organitza els símptomes i t'ajuda a identificar possibles àrees d'avaluació en segons, fins i tot en casos complexos o rars.",
       "evidenceButton": "Evidència científica",
       "clinicalEvidenceButton": "Evidència Clínica",
       "highlight1": "Diagnòstic diferencial estructurat",
+      "highlight1Eu": "Avaluació clínica estructurada",
       "highlight2": "Seguretat i validació clínica",
       "highlight3": "Integració en sistemes de salut"
     },
     "main": {
-      "description": "DxGPT és una eina d'intel·ligència augmentada dissenyada per i per a l'entorn clínic. A diferència de les IAs de propòsit general, no genera text narratiu obert, sinó una anàlisi estructurada de cinc hipòtesis diagnòstiques, classificades i raonades amb símptomes a favor i en contra. Utilitzem models de llenguatge avançats, com GPT-5 d'OpenAI, dins d'un marc de control mèdic que garanteix rellevància, consistència i seguretat en cada resultat. No substituïm el judici clínic: el potenciem. T'oferim una anàlisi diferencial instantània que estalvia temps, neutralitza biaixos cognitius i eleva la qualitat del raonament clínic des del primer moment."
+      "description": "DxGPT és una eina d'intel·ligència augmentada dissenyada per i per a l'entorn clínic. A diferència de les IAs de propòsit general, no genera text narratiu obert, sinó una anàlisi estructurada de cinc hipòtesis diagnòstiques, classificades i raonades amb símptomes a favor i en contra. Utilitzem models de llenguatge avançats, com GPT-5 d'OpenAI, dins d'un marc de control mèdic que garanteix rellevància, consistència i seguretat en cada resultat. No substituïm el judici clínic: el potenciem. T'oferim una anàlisi diferencial instantània que estalvia temps, neutralitza biaixos cognitius i eleva la qualitat del raonament clínic des del primer moment.",
+      "descriptionEu": "DxGPT és una eina d'intel·ligència augmentada dissenyada per ajudar-te a preparar la informació que comentaràs amb el teu professional sanitari. A diferència de les IAs de propòsit general, no genera text narratiu obert, sinó una anàlisi estructurada de possibles àrees d'avaluació clínica, organitzades amb aspectes que encaixen o no encaixen amb la teva descripció. Utilitzem models de llenguatge avançats, com GPT-5 d'OpenAI, dins d'un marc de control mèdic que garanteix rellevància, consistència i seguretat en cada resultat. No oferim diagnòstics ni substituïm la consulta mèdica: t'ajudem a organitzar la informació. T'oferim una preparació estructurada que et permet arribar millor informat a la teva consulta, organitzant els aspectes rellevants perquè puguis comentar-los amb el teu metge."
     },
     "challenge": {
       "title": "El desafiament del diagnòstic clínic",
-      "description": "El diagnòstic, especialment en malalties rares, és un laberint de dades i símptomes que consumeix temps i genera incertesa. Amb més de 10.000 malalties rares, la majoria desconegudes per al professional mitjà a causa de la seva baixa prevalença, la familiaritat és un luxe impossible. DxGPT actua com una poderosa eina de descàrrega cognitiva, accelerant l'anàlisi i ampliant l'espectre de possibilitats per arribar a un diagnòstic precís més ràpid. En aquest context, la tecnologia de suport ja no és una opció, sinó una necessitat per a la seguretat del pacient i la qualitat de l'atenció."
+      "titleEu": "El desafiament de preparar la informació per a la teva consulta mèdica",
+      "description": "El diagnòstic, especialment en malalties rares, és un laberint de dades i símptomes que consumeix temps i genera incertesa. Amb més de 10.000 malalties rares, la majoria desconegudes per al professional mitjà a causa de la seva baixa prevalença, la familiaritat és un luxe impossible. DxGPT actua com una poderosa eina de descàrrega cognitiva, accelerant l'anàlisi i ampliant l'espectre de possibilitats per arribar a un diagnòstic precís més ràpid. En aquest context, la tecnologia de suport ja no és una opció, sinó una necessitat per a la seguretat del pacient i la qualitat de l'atenció.",
+      "descriptionEu": "Preparar adequadament la informació per a una consulta mèdica, especialment quan hi ha símptomes complexos o poc comuns, pot ser un desafiament. Amb més de 10.000 malalties rares, moltes desconegudes fins i tot per professionals experimentats a causa de la seva baixa prevalença, organitzar la informació de manera efectiva pot ser difícil. DxGPT actua com una eina de suport, ajudant-te a estructurar i organitzar els símptomes i aspectes rellevants perquè puguis comentar-los de manera més efectiva amb el teu professional sanitari. En aquest context, tenir la informació ben organitzada pot millorar la qualitat de la consulta i facilitar la comunicació amb el teu metge."
     },
     "why": {
       "title": "Per què DxGPT i no una IA de propòsit general?",
@@ -69,7 +75,8 @@
       "title": "Diferenciadors clau de DxGPT",
       "structured": {
         "title": "Anàlisi estructurat i consistent",
-        "description": "Mentre que una IA generalista produeix text lliure, DxGPT ofereix una anàlisi rigorosa i reproducible de cinc hipòtesis diagnòstiques. Cada hipòtesi inclou símptomes compatibles i incompatibles, un format dissenyat per desafiar biaixos com el de confirmació i disponibilitat. El nostre control sobre la instrucció que rep el model (el prompt) garanteix resultats consistents, fiables i explicables."
+        "description": "Mentre que una IA generalista produeix text lliure, DxGPT ofereix una anàlisi rigorosa i reproducible de cinc hipòtesis diagnòstiques. Cada hipòtesi inclou símptomes compatibles i incompatibles, un format dissenyat per desafiar biaixos com el de confirmació i disponibilitat. El nostre control sobre la instrucció que rep el model (el prompt) garanteix resultats consistents, fiables i explicables.",
+        "descriptionEu": "Mentre que una IA generalista produeix text lliure, DxGPT ofereix una anàlisi rigorosa i reproducible de possibles àrees d'avaluació clínica. Cada àrea inclou aspectes que encaixen o no encaixen amb la teva descripció, un format dissenyat per ajudar-te a organitzar la informació de manera estructurada. El nostre control sobre la instrucció que rep el model (el prompt) garanteix resultats consistents, fiables i explicables perquè puguis preparar millor la teva consulta."
       },
       "control": {
         "title": "Marc de control clínic",
@@ -77,7 +84,8 @@
       },
       "specialization": {
         "title": "Especialització en malalties rares",
-        "description": "DxGPT està dissenyat per incloure sistemàticament malalties rares en el diagnòstic diferencial, una àrea on els sistemes generalistes, i sovint el raonament humà, poden fallar. El sistema integra coneixement especialitzat per detectar patrons atípics i explorar hipòtesis que d'altra manera serien ignorades, expandint el radar diagnòstic del clínic i millorant les possibilitats d'un diagnòstic precoç i precís."
+        "description": "DxGPT està dissenyat per incloure sistemàticament malalties rares en el diagnòstic diferencial, una àrea on els sistemes generalistes, i sovint el raonament humà, poden fallar. El sistema integra coneixement especialitzat per detectar patrons atípics i explorar hipòtesis que d'altra manera serien ignorades, expandint el radar diagnòstic del clínic i millorant les possibilitats d'un diagnòstic precoç i precís.",
+        "descriptionEu": "DxGPT està dissenyat per incloure sistemàticament informació sobre malalties rares i poc comuns en les possibles àrees d'avaluació, un àmbit on els sistemes generalistes poden no ser tan útils. El sistema integra coneixement especialitzat per detectar patrons atípics i explorar àrees d'avaluació que d'altra manera podrien passar-se per alt, ajudant-te a preparar informació més completa per comentar amb el teu professional sanitari i facilitant una avaluació més exhaustiva."
       }
     },
     "implementation": {
@@ -93,34 +101,42 @@
       "title": "Beneficis clínics de DxGPT",
       "time": {
         "title": "Recupera temps per al que més importa: el pacient",
-        "description": "DxGPT automatitza la generació del diagnòstic diferencial, transformant minuts de cerca i incertesa en segons d'anàlisi estructurat. Aquesta eficiència allibera al professional de la salut per centrar-se en el judici clínic, la comunicació amb el pacient i la presa de decisions."
+        "description": "DxGPT automatitza la generació del diagnòstic diferencial, transformant minuts de cerca i incertesa en segons d'anàlisi estructurat. Aquesta eficiència allibera al professional de la salut per centrar-se en el judici clínic, la comunicació amb el pacient i la presa de decisions.",
+        "descriptionEu": "DxGPT t'ajuda a organitzar la informació de manera estructurada, transformant minuts de cerca i incertesa en segons d'anàlisi organitzat. Aquesta eficiència et permet arribar millor preparat a la teva consulta, amb la informació estructurada i llesta per comentar amb el teu professional sanitari, facilitant una comunicació més efectiva."
       },
       "clarity": {
         "title": "Del caos de dades a la claredat diagnòstica",
-        "description": "Presentem la informació en un format net i estructurat, dissenyat per al pensament clínic. Les hipòtesis es mostren amb símptomes a favor i en contra, permetent una avaluació ràpida i una presa de decisions més segura i informada."
+        "titleEu": "Del caos d'informació a la claredat organitzada",
+        "description": "Presentem la informació en un format net i estructurat, dissenyat per al pensament clínic. Les hipòtesis es mostren amb símptomes a favor i en contra, permetent una avaluació ràpida i una presa de decisions més segura i informada.",
+        "descriptionEu": "Presentem la informació en un format net i estructurat, dissenyat per facilitar la preparació de la teva consulta. Les possibles àrees d'avaluació es mostren amb aspectes que encaixen o no encaixen amb la teva descripció, permetent una organització ràpida de la informació perquè puguis comentar-la de manera més efectiva amb el teu professional sanitari."
       },
       "tool": {
         "title": "Una eina, no una aplicació",
-        "description": "A diferència de les IAs conversacionals, la interfície de DxGPT està optimitzada per a una sola funció: donar suport al diagnòstic. Cada element està dissenyat per guiar el raonament clínic de manera eficient i segura, eliminant distraccions i enfocant-se en la utilitat pràctica."
+        "description": "A diferència de les IAs conversacionals, la interfície de DxGPT està optimitzada per a una sola funció: donar suport al diagnòstic. Cada element està dissenyat per guiar el raonament clínic de manera eficient i segura, eliminant distraccions i enfocant-se en la utilitat pràctica.",
+        "descriptionEu": "A diferència de les IAs conversacionals, la interfície de DxGPT està optimitzada per a una sola funció: ajudar-te a preparar la informació per a la teva consulta mèdica. Cada element està dissenyat per organitzar la informació de manera eficient i estructurada, eliminant distraccions i enfocant-se en ajudar-te a preparar millor la teva conversa amb el teu professional sanitari."
       },
       "safety": {
         "title": "Un sistema de seguretat contra dreceres mentals",
-        "description": "El diagnòstic clínic és vulnerable a biaixos cognitius com el de disponibilitat o confirmació. DxGPT actua com un contrapès objectiu, presentant sistemàticament un rang de possibilitats basat en l'evidència del cas, incloent malalties rares. Això promou una avaluació més exhaustiva i redueix el risc d'errors diagnòstics, millorant la seguretat del pacient."
+        "description": "El diagnòstic clínic és vulnerable a biaixos cognitius com el de disponibilitat o confirmació. DxGPT actua com un contrapès objectiu, presentant sistemàticament un rang de possibilitats basat en l'evidència del cas, incloent malalties rares. Això promou una avaluació més exhaustiva i redueix el risc d'errors diagnòstics, millorant la seguretat del pacient.",
+        "descriptionEu": "L'organització d'informació mèdica pot veure's afectada per biaixos cognitius com el de disponibilitat o confirmació. DxGPT actua com una eina de suport, presentant sistemàticament un rang de possibles àrees d'avaluació basat en la informació que proporciones, incloent condicions poc comuns. Això t'ajuda a preparar informació més completa per comentar amb el teu professional sanitari, facilitant una avaluació més exhaustiva durant la teva consulta."
       },
       "standardize": {
         "title": "Estandaritza l'excel·lència diagnòstica",
+        "titleEu": "Estandaritza la preparació d'informació",
         "description": "DxGPT assegura que cada cas sigui analitzat amb el mateix rigor metodològic, independentment del professional o el moment. Aquesta consistència redueix la variabilitat en la qualitat de l'atenció i estableix un alt estàndard d'anàlisi per a tot l'equip. El nostre rendiment es valida contínuament contra un banc exigent de casos clínics per garantir una fiabilitat constant."
       },
       "practice": {
         "title": "Creat en la pràctica clínica, per a la pràctica clínica",
-        "description": "DxGPT no és un producte de laboratori. Ha estat desenvolupat en un cicle continu de col·laboració amb metges de primera línia, hospitals i societats científiques. El seu disseny i funcionalitats responen als desafiaments reals del diagnòstic, assegurant que no només sigui tecnològicament avançat, sinó també clínicament útil, rellevant i fàcil d'integrar en el flux de treball mental del professional."
+        "description": "DxGPT no és un producte de laboratori. Ha estat desenvolupat en un cicle continu de col·laboració amb metges de primera línia, hospitals i societats científiques. El seu disseny i funcionalitats responen als desafiaments reals del diagnòstic, assegurant que no només sigui tecnològicament avançat, sinó també clínicament útil, rellevant i fàcil d'integrar en el flux de treball mental del professional.",
+        "descriptionEu": "DxGPT no és un producte de laboratori. Ha estat desenvolupat en un cicle continu de col·laboració amb metges de primera línia, hospitals i societats científiques. El seu disseny i funcionalitats responen a la necessitat real d'organitzar informació mèdica de manera efectiva, assegurant que no només sigui tecnològicament avançat, sinó també útil i rellevant per ajudar-te a preparar millor la teva consulta amb el teu professional sanitari."
       }
     },
     "commitment": {
       "title": "Compromís i marc regulatori",
       "experimental": {
         "title": "DxGPT és una plataforma experimental en millora contínua",
-        "description": "El seu objectiu és explorar les capacitats de la IA en el diagnòstic, entendre les seves limitacions i millorar-la amb la retroalimentació dels usuaris i la validació clínica rigorosa. Els nous descobriments es comparteixen obertament a través de GitHub i MedRxiv."
+        "description": "El seu objectiu és explorar les capacitats de la IA en el diagnòstic, entendre les seves limitacions i millorar-la amb la retroalimentació dels usuaris i la validació clínica rigorosa. Els nous descobriments es comparteixen obertament a través de GitHub i MedRxiv.",
+        "descriptionEu": "El seu objectiu és explorar les capacitats de la IA per ajudar a organitzar informació mèdica, entendre les seves limitacions i millorar-la amb la retroalimentació dels usuaris i la validació clínica rigorosa. Els nous descobriments es comparteixen obertament a través de GitHub i MedRxiv."
       },
       "protection": {
         "title": "DxGPT protegeix les dades clíniques amb estàndards europeus",
@@ -133,6 +149,7 @@
         "title": "El nostre compromís amb l'evidència: El marc de validació clínica",
         "description": "La confiança en una eina clínica es guanya a través d'evidència rigorosa. La validació de DxGPT és un procés continu que combina investigació independent amb millora iterativa basada en dades reals.",
         "validation": "Hem realitzat una validació clínica independent inicial en col·laboració amb l'Hospital Sant Joan de Déu, amb resultats publicats a medRxiv que mostren una precisió diagnòstica comparable a experts clínics.",
+        "validationEu": "Hem realitzat una validació clínica independent inicial en col·laboració amb l'Hospital Sant Joan de Déu, amb resultats publicats a medRxiv que mostren la capacitat de l'eina per organitzar informació de manera comparable a com ho farien experts clínics.",
         "framework": "Hem construït un 'Marc de Validació Constant' que evoluciona contínuament la fiabilitat de DxGPT mitjançant la integració de nous casos, retroalimentació clínica i mètriques de rendiment en temps real."
       },
       "testbed": {
@@ -172,6 +189,7 @@
       "evolution": {
         "title": "Evolució i rendiment: Evidència per al suport al raonament clínic (2024–2025)",
         "intro": "A DxGPT, la transparència forma part de la seguretat. No prometem diagnòstics ni substituïm el clínic: avaluem, de forma sistemàtica, la capacitat dels models per proposar hipòtesis rellevants que el professional pot acceptar, matisar o descartar. Sotmetem de forma contínua els nostres prompts i models a bancs de casos clínics d'alta complexitat (malalties rares, pediatria, medicina interna) per mesurar fins a quin punt poden ajudar a \"trobar l'agulla en el paller\".",
+        "introEu": "A DxGPT, la transparència forma part de la seguretat. No oferim diagnòstics mèdics ni substituïm la consulta amb un professional sanitari: avaluem, de forma sistemàtica, la capacitat dels models per ajudar-te a organitzar informació rellevant que puguis comentar amb el teu metge. Sotmetem de forma contínua els nostres prompts i models a bancs de casos clínics d'alta complexitat (malalties rares, pediatria, medicina interna) per mesurar fins a quin punt poden ajudar-te a preparar millor la informació per a la teva consulta.",
         "validation": {
           "title": "1. Validació de viabilitat (Estudi 2024 – medRxiv)",
           "description": "En la nostra primera avaluació pública vam comparar múltiples models (GPT-4, Claude, Llama, etc.) en malalties rares, usant casos sintètics i reals (RAMEDIS).",
@@ -181,7 +199,8 @@
           },
           "conclusion": {
             "title": "La conclusió:",
-            "description": "Aquests resultats no es van interpretar com a \"capacitat diagnòstica autònoma\", sinó com a evidència que els LLM són eines útils per donar suport i ampliar el diagnòstic diferencial."
+            "description": "Aquests resultats no es van interpretar com a \"capacitat diagnòstica autònoma\", sinó com a evidència que els LLM són eines útils per donar suport i ampliar el diagnòstic diferencial.",
+            "descriptionEu": "Aquests resultats no es van interpretar com a \"capacitat diagnòstica autònoma\", sinó com a evidència que els LLM són eines útils per ajudar a organitzar informació mèdica i preparar millor la consulta amb el professional sanitari."
           },
           "reference": "📝 Referència: Preprint medRxiv 2024 (Foundation29).",
           "repository": "Repositori",
@@ -192,7 +211,8 @@
           "description": "Perquè una eina sigui realment útil al metge no n'hi ha prou amb encertar: ha de prioritzar bé. El 2025 vam dissenyar un nou marc d'avaluació (PV4) provant models avançats d'OpenAI (GPT-4o, o1, o3) sobre 450 casos pediàtrics complexos.",
           "technical": {
             "title": "Precisió tècnica:",
-            "description": "En aquest entorn de prova controlat, el model més avançat (o3-pro) va assolir un 96,4% de recuperació del diagnòstic correcte dins de les 5 suggerències."
+            "description": "En aquest entorn de prova controlat, el model més avançat (o3-pro) va assolir un 96,4% de recuperació del diagnòstic correcte dins de les 5 suggerències.",
+            "descriptionEu": "En aquest entorn de prova controlat, el model més avançat (o3-pro) va assolir un 96,4% de recuperació d'informació rellevant dins de les 5 àrees d'avaluació suggerides."
           },
           "clinical": {
             "title": "Priorització clínica:",
@@ -221,13 +241,16 @@
             "caption": "Comparació de rendiment entre diferents models i configuracions de la família GPT-5. Els valors més baixos (tendint a 1) indiquen millor rendiment. El model o3 mostra el millor rendiment general.",
             "disclaimer": {
               "title": "Important:",
-              "text": "DxGPT és una eina de suport i guia al diagnòstic diferencial. No ofereix diagnòstics ni substitueix el judici clínic professional. El seu propòsit és orientar i ampliar l'espectre de possibilitats diagnòstiques perquè el professional sanitari pugui prendre decisions informades."
+              "text": "DxGPT és una eina de suport i guia al diagnòstic diferencial. No ofereix diagnòstics ni substitueix el judici clínic professional. El seu propòsit és orientar i ampliar l'espectre de possibilitats diagnòstiques perquè el professional sanitari pugui prendre decisions informades.",
+              "titleEu": "Important:",
+              "textEu": "DxGPT és una eina de suport per ajudar-te a preparar la informació que comentaràs amb el teu professional sanitari. No ofereix diagnòstics mèdics ni recomanacions de tractament. Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Sempre has de consultar amb un professional mèdic qualificat per obtenir un diagnòstic i tractament adequats."
             }
           }
         },
         "note": {
           "title": "Nota important sobre seguretat:",
-          "description": "Totes aquestes xifres descriuen el comportament tècnic dels models d'IA en bancs de casos estandarditzats (benchmarks). No equivalen a taxes d'èxit clínic en pacients reals ni converteixen DxGPT en un dispositiu mèdic. A la consulta, la variabilitat de les dades del pacient, les comorbilitats i el context assistencial requereixen sempre la interpretació i validació d'un professional sanitari qualificat. DxGPT no diagnostica: proposa possibilitats estructurades perquè el clínic decideixi."
+          "description": "Totes aquestes xifres descriuen el comportament tècnic dels models d'IA en bancs de casos estandarditzats (benchmarks). No equivalen a taxes d'èxit clínic en pacients reals ni converteixen DxGPT en un dispositiu mèdic. A la consulta, la variabilitat de les dades del pacient, les comorbilitats i el context assistencial requereixen sempre la interpretació i validació d'un professional sanitari qualificat. DxGPT no diagnostica: proposa possibilitats estructurades perquè el clínic decideixi.",
+          "descriptionEu": "Totes aquestes xifres descriuen el comportament tècnic dels models d'IA en bancs de casos estandarditzats (benchmarks). No equivalen a taxes d'èxit clínic en pacients reals ni converteixen DxGPT en un dispositiu mèdic. Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament. Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Sempre has de consultar amb un professional mèdic qualificat per obtenir un diagnòstic i tractament adequats."
         }
       },
       "user": {
@@ -251,6 +274,7 @@
     "clinicalValidation": {
       "title": "Estudi de validació clínica",
       "description": "DxGPT ha estat validat contra metges en un estudi clínic exhaustiu realitzat per l'Hospital Sant Joan de Déu. Els resultats demostren que DxGPT aconsegueix una precisió diagnòstica comparable a la de clínics experts. Aquesta investigació ha estat publicada com preprint i està actualment sota revisió per pares.",
+      "descriptionEu": "DxGPT ha estat validat en un estudi clínic exhaustiu realitzat per l'Hospital Sant Joan de Déu. Els resultats demostren la capacitat de l'eina per organitzar informació de manera comparable a com ho farien clínics experts. Aquesta investigació ha estat publicada com preprint i està actualment sota revisió per pares. Recorda que aquesta eina no ofereix diagnòstics mèdics ni substitueix la consulta amb un professional sanitari.",
       "validated": "Clínicament validat",
       "hospital": "Hospital Sant Joan de Déu",
       "accuracy": "Precisió d'expert",
@@ -269,7 +293,8 @@
         },
         "memory": {
           "title": "Processament en memòria",
-          "description": "L'anàlisi diagnòstic es realitza en temps real i en memòria, sense emmagatzemar dades clíniques o personals del pacient en servidors."
+          "description": "L'anàlisi diagnòstic es realitza en temps real i en memòria, sense emmagatzemar dades clíniques o personals del pacient en servidors.",
+          "descriptionEu": "L'anàlisi d'informació es realitza en temps real i en memòria, sense emmagatzemar dades clíniques o personals del pacient en servidors."
         },
         "retraining": {
           "title": "Prohibició de reentrenament",
@@ -483,7 +508,7 @@
     "Next": "Següent",
     "Close": "Tancar",
     "More information": "Més informació",
-    "Foundation 29": "Fundació 29",
+    "Foundation 29": "Foundation 29",
     "Please wait": "Si us plau, espera...",
     "sorry cant anwser1": "Hem detectat contingut al teu text que pot no alinear-se amb les nostres polítiques internes. Et demanem que revisis i ajustis el text que has proporcionat. Si el problema persisteix, considera tornar a visitar-nos un altre dia mentre treballem per millorar l'experiència. També pots proporcionar una descripció alternativa. Per obtenir assistència immediata, comunica't amb el nostre equip de suport dedicat a support@foundation29.org. Ens disculpem sincerament per qualsevol inconvenient causat. Recorda la importància de complir amb les nostres pautes d'ús per mantenir l'accés a la nostra eina.",
     "sorry cant anwser2": "Ara mateix no podem respondre a això. Prova un altre dia per donar-nos temps a solucionar-ho. Mentrestant, pots seleccionar una altra opció. Si necessites ajuda immediata, escriu al nostre equip de suport: support@foundation29.org Disculpa les molèsties.",
@@ -539,6 +564,8 @@
     "disclaimerEu": "Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament.\n\nEstà pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari.",
     "Click on the disease to see more options": "Fes clic en la malaltia per veure més opcions. Per exemple, fer diagnòstic diferencial.",
     "Candidate diagnosis": "Diagnòstics candidats",
+    "Candidate diagnosisEu": "Possibles àrees d'avaluació clínica",
+    "Order does not imply probabilityEu": "Nota: L'ordre de presentació no implica major probabilitat d'encert.",
     "Patient text entered": "Text introduït del pacient",
     "advise": "Tingues en compte que els diagnòstics suggerits es generen mitjançant un model avançat d'intel·ligència artificial basat en el llenguatge, i pot contenir errors.",
     "adviseEu": "Tingues en compte que aquesta informació es genera mitjançant un model avançat d'intel·ligència artificial basat en el llenguatge, i pot contenir errors. Aquesta eina no ofereix diagnòstics mèdics.",
@@ -557,9 +584,9 @@
     "detected personal information": "Hem detectat informació personal en la descripció clínica que has introduït.",
     "proceeded to delete": "Hem procedit a eliminar aquesta informació i guardar el text anonimitzat.",
     "Matching symptoms": "Símptomes coincidents",
-    "Matching symptomsEu": "Aspectes que encaixen amb la descripció",
+    "Matching symptomsEu": "Informació que encaixa amb la descripció",
     "Non-matching symptoms": "Símptomes no coincidents",
-    "Non-matching symptomsEu": "Aspectes que no encaixen amb la descripció",
+    "Non-matching symptomsEu": "Informació que no encaixa amb la descripció",
     "None": "Cap",
     "Text generated": "Text generat",
     "We have processed your inputs": "Hem processat les teves entrades i generat un resum",
@@ -668,7 +695,7 @@
     "p12.3": "Regla de seguretat, les salvaguardes administratives, físiques i tècniques com xifrat en repòs, controls d'accés per rol, registres d'auditoria i avaluacions periòdiques de riscos protegeixen la PHI electrònica.",
     "p12.4": "Regla de notificació de bretxes, si ocorre una bretxa que impliqui PHI, notifiquem a les persones afectades i al Departament de Salut i Serveis Humans dels EUA sense demora indeguda i en cap cas més tard de 60 dies després de la seva detecció.",
     "p12.5": "Acords d'associació comercial (BAAs), signem BAAs amb cada proveïdor que manege PHI en el nostre nom, exigint contractualment que apliquin mesures de protecció equivalents a les de HIPAA.",
-    "Foundation 29": "© 2025 Fundació 29 de Febrer. Tots els drets reservats."
+    "Foundation 29": "© 2025 Foundation 29. Tots els drets reservats."
   },
   "policyShort": {
     "p1": "1. Qui som",
@@ -729,7 +756,8 @@
     "NAV_CONTACT_DESCRIPTION": "Contacta amb nosaltres per a qualsevol pregunta o feedback."
   },
   "land":{
-    "disclaimer": "<p><strong>DxGPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa el model lingüístic GPT-5 mini d'OpenAI com a model predictiu per a una eina que proporciona informació sobre malalties. Està dissenyada per proporcionar informació general i suggeriments basats en els símptomes proporcionats. L'eina no pretén reemplaçar el consell mèdic professional ni respaldar el diagnòstic, la prevenció, el seguiment, la predicció o el tractament i mai s'ha d'usar per fer judicis de diagnòstic amb pacients reals.</p><p>Degut a que la IA pot donar resultats variables, la precisió del diagnòstic i les suggeriments de l'eina poden variar, per la qual cosa és important consultar a un professional sanitari qualificat per garantir un diagnòstic precís i adequat. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa el model GPT-5 mini d'OpenAI com a model predictiu per a una eina que proporciona informació sobre malalties. Està dissenyada per proporcionar informació general i suggeriments basats en els símptomes proporcionats. L'eina no pretén reemplaçar el consell mèdic professional ni respaldar el diagnòstic, la prevenció, el seguiment, la predicció o el tractament i mai s'ha d'usar per fer judicis de diagnòstic amb pacients reals.</p><p>Degut a que la IA pot donar resultats variables, la precisió del diagnòstic i les suggeriments de l'eina poden variar, per la qual cosa és important consultar a un professional sanitari qualificat per garantir un diagnòstic precís i adequat. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
+    "disclaimerEu": "<p><strong>DxGPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa el model GPT-5 mini d'OpenAI com a model predictiu per a una eina que t'ajuda a preparar la informació que comentaràs amb el teu professional sanitari. Està dissenyada per ajudar-te a organitzar els teus símptomes i generar una llista de possibles àrees d'avaluació clínica que puguis discutir amb el teu metge.</p><p><strong>Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament.</strong> Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Degut a que la IA pot donar resultats variables, és important consultar sempre a un professional sanitari qualificat per obtenir un diagnòstic i tractament adequats. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
     "check": "No tornar a mostrar aquest missatge",
     "Recommendations": "Per obtenir millors resultats, indica quan i per què creus que van aparèixer els símptomes",
     "Search": "Cercar",
@@ -796,7 +824,7 @@
     "Type here": "Escriu aquí!",
     "Placeholder help": "Escriu aquí detalls del pacient (edat, gènere, símptomes) i quan van començar.\nExemple: Dona, 42 anys, dolors de cap severs durant 3 mesos, marejos, antecedents familiars de migranyes.",
     "title": "Introdueix una breu descripció del pacient i DxGPT et proporcionarà una llista de possibles diagnòstics de malalties",
-    "titleEu": "Introdueix una descripció dels teus símptomes i DxGPT t'ajudarà a preparar la conversa amb el teu professional sanitari.",
+    "titleEu": "Introdueix una descripció dels teus símptomes i DxGPT t'ajudarà a preparar la conversa amb el teu professional sanitari",
     "subtitleEu": "Generarem una llista de possibles línies d'avaluació perquè puguis comentar-les amb el teu metge.\n\nNo és un diagnòstic mèdic ni substitueix una consulta presencial.",
     "titleBeta": "Obté diagnòstics i informació mèdica en segons",
     "p1.title": "Exemples",
@@ -849,6 +877,9 @@
     "Show common diseases": "Mostrar malalties comunes",
     "Show rare diseases": "Mostrar malalties rares",
     "Load more": "Carregar més",
+    "Export and share": "Exportar/Compartir",
+    "Export and share options": "Opcions d'exportació i compartir",
+    "Choose an option": "Tria una opció:",
     "followup": {
       "title": "T'han estat útils aquests diagnòstics?",
       "question": "Alguna d'aquestes descripcions s'apropa al que experimentes?",
@@ -1023,7 +1054,10 @@
     "print": "Imprimir",
     "share": "Compartir",
     "newAnalysis": "Nova anàlisi",
-    "Create permalink": "Crear enllaç permanent",
+    "Create permalink": "Compartir resultats",
+    "Share results": "Compartir resultats",
+    "Link created": "Enllaç creat",
+    "Copy and share": "Copia l'enllaç i comparteix-lo amb el teu metge o professional sanitari",
     "Generating PDF": "Generant PDF",
     "Creating permalink": "Creant enllaç",
     "Permalink created and copied": "✅ Enllaç permanent creat i copiat al porta-retalls. Comparteix-lo amb el teu metge.",
@@ -1057,6 +1091,7 @@
     "disclaimer5Eu": "En cas d'emergència mèdica, contacteu immediatament amb els serveis d'urgència",
     "developedBy": "Desenvolupat per",
     "footer": "Eina d'assistència diagnòstica basada en intel·ligència artificial per a professionals de la salut. Compleix amb RGPD i HIPAA.",
+    "footerEu": "Eina per ajudar a organitzar informació mèdica basada en intel·ligència artificial. No proporciona diagnòstics mèdics ni recomanacions de tractament. Compleix amb RGPD i HIPAA.",
     "oops": "Ups!",
     "shareTitle": "Resultats de DxGPT",
     "shareText": "Compartir resultats mèdics de DxGPT",

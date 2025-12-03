@@ -2,8 +2,8 @@
 <section class="hero-section">
   <div class="container">
     <div class="hero-content">
-      <h1 class="hero-title">{{'aboutUs.hero.title' | translate }}</h1>
-      <p class="hero-description">{{'aboutUs.hero.subtitle' | translate }}</p>
+      <h1 class="hero-title"><span *ngIf="!isEuMode()">{{'aboutUs.hero.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.hero.titleEu' | translate }}</span></h1>
+      <p class="hero-description"><span *ngIf="!isEuMode()">{{'aboutUs.hero.subtitle' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.hero.subtitleEu' | translate }}</span></p>
       
       <!-- Call to Action Buttons -->
       <div class="hero-actions">
@@ -21,7 +21,7 @@
       <div class="feature-highlights">
         <div class="highlight-item">
           <i class="fas fa-folder-open"></i>
-          <span>{{'aboutUs.hero.highlight1' | translate }}</span>
+          <span><span *ngIf="!isEuMode()">{{'aboutUs.hero.highlight1' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.hero.highlight1Eu' | translate }}</span></span>
         </div>
         <div class="highlight-item">
           <i class="fas fa-shield-heart"></i>
@@ -40,13 +40,13 @@
 <section class="main-content">
   <div class="container">
     <div class="content-text">
-      <p>{{'aboutUs.main.description' | translate }}</p>
+      <p><span *ngIf="!isEuMode()">{{'aboutUs.main.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.main.descriptionEu' | translate }}</span></p>
     </div>
     
     <!-- Challenge Section -->
     <div class="challenge-section">
-      <h2 class="section-title">{{'aboutUs.challenge.title' | translate }}</h2>
-      <p class="challenge-text">{{'aboutUs.challenge.description' | translate }}</p>
+      <h2 class="section-title"><span *ngIf="!isEuMode()">{{'aboutUs.challenge.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.challenge.titleEu' | translate }}</span></h2>
+      <p class="challenge-text"><span *ngIf="!isEuMode()">{{'aboutUs.challenge.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.challenge.descriptionEu' | translate }}</span></p>
     </div>
     
     <!-- Why DxGPT Section -->
@@ -66,7 +66,7 @@
             <i class="fas fa-list-check"></i>
           </div>
           <h3 class="differentiator-title">{{'aboutUs.differentiators.structured.title' | translate }}</h3>
-          <p class="differentiator-text">{{'aboutUs.differentiators.structured.description' | translate }}</p>
+          <p class="differentiator-text"><span *ngIf="!isEuMode()">{{'aboutUs.differentiators.structured.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.differentiators.structured.descriptionEu' | translate }}</span></p>
         </div>
         
         <!-- Clinical Control -->
@@ -84,7 +84,7 @@
             <i class="fas fa-microscope"></i>
           </div>
           <h3 class="differentiator-title">{{'aboutUs.differentiators.specialization.title' | translate }}</h3>
-          <p class="differentiator-text">{{'aboutUs.differentiators.specialization.description' | translate }}</p>
+          <p class="differentiator-text"><span *ngIf="!isEuMode()">{{'aboutUs.differentiators.specialization.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.differentiators.specialization.descriptionEu' | translate }}</span></p>
         </div>
       </div>
     </div>
@@ -124,7 +124,7 @@
             <i class="fas fa-clock"></i>
           </div>
           <h3 class="benefit-title">{{'aboutUs.benefits.time.title' | translate }}</h3>
-          <p class="benefit-text">{{'aboutUs.benefits.time.description' | translate }}</p>
+          <p class="benefit-text"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.time.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.time.descriptionEu' | translate }}</span></p>
         </div>
         
         <!-- Benefit 2: Clarity -->
@@ -132,8 +132,8 @@
           <div class="benefit-icon">
             <i class="fas fa-eye"></i>
           </div>
-          <h3 class="benefit-title">{{'aboutUs.benefits.clarity.title' | translate }}</h3>
-          <p class="benefit-text">{{'aboutUs.benefits.clarity.description' | translate }}</p>
+          <h3 class="benefit-title"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.clarity.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.clarity.titleEu' | translate }}</span></h3>
+          <p class="benefit-text"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.clarity.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.clarity.descriptionEu' | translate }}</span></p>
         </div>
         
         <!-- Benefit 3: Tool -->
@@ -142,7 +142,7 @@
             <i class="fas fa-cogs"></i>
           </div>
           <h3 class="benefit-title">{{'aboutUs.benefits.tool.title' | translate }}</h3>
-          <p class="benefit-text">{{'aboutUs.benefits.tool.description' | translate }}</p>
+          <p class="benefit-text"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.tool.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.tool.descriptionEu' | translate }}</span></p>
         </div>
         
         <!-- Benefit 4: Safety -->
@@ -151,7 +151,7 @@
             <i class="fas fa-brain"></i>
           </div>
           <h3 class="benefit-title">{{'aboutUs.benefits.safety.title' | translate }}</h3>
-          <p class="benefit-text">{{'aboutUs.benefits.safety.description' | translate }}</p>
+          <p class="benefit-text"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.safety.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.safety.descriptionEu' | translate }}</span></p>
         </div>
         
         <!-- Benefit 5: Standardize -->
@@ -159,7 +159,7 @@
           <div class="benefit-icon">
             <i class="fas fa-check"></i>
           </div>
-          <h3 class="benefit-title">{{'aboutUs.benefits.standardize.title' | translate }}</h3>
+          <h3 class="benefit-title"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.standardize.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.standardize.titleEu' | translate }}</span></h3>
           <p class="benefit-text">{{'aboutUs.benefits.standardize.description' | translate }}</p>
         </div>
         
@@ -169,7 +169,7 @@
             <i class="fas fa-users"></i>
           </div>
           <h3 class="benefit-title">{{'aboutUs.benefits.practice.title' | translate }}</h3>
-          <p class="benefit-text">{{'aboutUs.benefits.practice.description' | translate }}</p>
+          <p class="benefit-text"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.practice.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.practice.descriptionEu' | translate }}</span></p>
         </div>
       </div>
     </div>
@@ -185,7 +185,7 @@
             <i class="fas fa-search"></i>
           </div>
           <h3 class="commitment-title">{{'aboutUs.commitment.experimental.title' | translate }}</h3>
-          <p class="commitment-text">{{'aboutUs.commitment.experimental.description' | translate }}</p>
+          <p class="commitment-text"><span *ngIf="!isEuMode()">{{'aboutUs.commitment.experimental.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.commitment.experimental.descriptionEu' | translate }}</span></p>
         </div>
         
         <!-- Data Protection -->
@@ -207,7 +207,7 @@
       <div class="evaluation-subsection">
         <h3 class="subsection-title">{{'aboutUs.evaluation.commitment.title' | translate }}</h3>
         <p class="subsection-text">{{'aboutUs.evaluation.commitment.description' | translate }}</p>
-        <p class="subsection-text">{{'aboutUs.evaluation.commitment.validation' | translate }}</p>
+        <p class="subsection-text"><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.commitment.validation' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.commitment.validationEu' | translate }}</span></p>
         <p class="subsection-text">{{'aboutUs.evaluation.commitment.framework' | translate }}</p>
       </div>
       
@@ -263,7 +263,7 @@
       <!-- Evolution and Performance Section -->
       <div class="evaluation-subsection">
         <h3 class="subsection-title">{{'aboutUs.evaluation.evolution.title' | translate }}</h3>
-        <p class="subsection-text">{{'aboutUs.evaluation.evolution.intro' | translate }}</p>
+        <p class="subsection-text"><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.intro' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.introEu' | translate }}</span></p>
         
         <!-- Validation Study 2024 -->
         <div class="evolution-item">
@@ -276,7 +276,7 @@
             </li>
             <li>
               <strong>{{'aboutUs.evaluation.evolution.validation.conclusion.title' | translate }}</strong>
-              <p>{{'aboutUs.evaluation.evolution.validation.conclusion.description' | translate }}</p>
+              <p><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.validation.conclusion.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.validation.conclusion.descriptionEu' | translate }}</span></p>
             </li>
           </ul>
           
@@ -308,7 +308,7 @@
           <ul class="evolution-list">
             <li>
               <strong>{{'aboutUs.evaluation.evolution.pv4.technical.title' | translate }}</strong>
-              <p>{{'aboutUs.evaluation.evolution.pv4.technical.description' | translate }}</p>
+              <p><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.pv4.technical.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.pv4.technical.descriptionEu' | translate }}</span></p>
             </li>
             <li>
               <strong>{{'aboutUs.evaluation.evolution.pv4.clinical.title' | translate }}</strong>
@@ -357,8 +357,8 @@
             </div>
             <p class="chart-caption">{{'aboutUs.evaluation.evolution.architecture.performance.caption' | translate }}</p>
             <p class="subsection-text" style="margin-top: 1rem; font-style: italic; color: #666;">
-              <strong>{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.title' | translate }}</strong>
-              {{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.text' | translate }}
+              <strong><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.titleEu' | translate }}</span></strong>
+              <span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.text' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.textEu' | translate }}</span>
             </p>
           </div>
         </div>
@@ -366,7 +366,7 @@
         <!-- Important Note -->
         <div class="evolution-note">
           <p class="subsection-text"><strong>{{'aboutUs.evaluation.evolution.note.title' | translate }}</strong></p>
-          <p class="subsection-text">{{'aboutUs.evaluation.evolution.note.description' | translate }}</p>
+          <p class="subsection-text"><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.note.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.note.descriptionEu' | translate }}</span></p>
         </div>
       </div>
       
@@ -407,7 +407,7 @@
       
       <div class="validation-content">
         <p class="validation-description">
-          {{'aboutUs.clinicalValidation.description' | translate }}
+          <span *ngIf="!isEuMode()">{{'aboutUs.clinicalValidation.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.clinicalValidation.descriptionEu' | translate }}</span>
         </p>
         
         <div class="validation-highlights">
@@ -450,7 +450,7 @@
           </li>
           <li>
             <strong>{{'aboutUs.trust.protection.memory.title' | translate }}</strong>
-            <p>{{'aboutUs.trust.protection.memory.description' | translate }}</p>
+            <p><span *ngIf="!isEuMode()">{{'aboutUs.trust.protection.memory.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.trust.protection.memory.descriptionEu' | translate }}</span></p>
           </li>
           <li>
             <strong>{{'aboutUs.trust.protection.retraining.title' | translate }}</strong>

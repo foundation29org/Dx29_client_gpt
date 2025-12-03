@@ -4,7 +4,7 @@
     "Dashboard": "Inicio",
     "About us": "Sobre DxGPT",
     "Collaboration": "Colaboración",
-    "Foundation 29": "Foundation 29",
+    "Foundation 29": "Fundación 29",
     "Usage statistics": "Estadísticas de uso",
     "Statistics": "Estadísticas",
     "Privacy": "Privacidad",
@@ -47,19 +47,25 @@
   "aboutUs": {
     "hero": {
       "title": "DxGPT: Inteligencia aumentada para la confianza diagnóstica",
+      "titleEu": "DxGPT: Inteligencia aumentada para preparar tu consulta médica",
       "subtitle": "Transforma la incertidumbre clínica en claridad. DxGPT es tu copiloto diagnóstico: estructura el razonamiento, reduce la carga cognitiva y minimiza los sesgos en segundos, incluso en casos complejos o raros.",
+      "subtitleEu": "Transforma la incertidumbre clínica en claridad. DxGPT te ayuda a preparar la información para tu profesional sanitario: estructura la información, organiza los síntomas y te ayuda a identificar posibles áreas de evaluación en segundos, incluso en casos complejos o raros.",
       "evidenceButton": "Evidencia científica",
       "clinicalEvidenceButton": "Evidencia Clínica",
       "highlight1": "Diagnóstico diferencial estructurado",
+      "highlight1Eu": "Evaluación clínica estructurada",
       "highlight2": "Seguridad y validación clínica",
       "highlight3": "Integración en sistemas de salud"
     },
     "main": {
-      "description": "DxGPT es una herramienta de inteligencia aumentada diseñada por y para el entorno clínico. A diferencia de las IAs de propósito general, no genera texto narrativo abierto, sino un análisis estructurado de cinco hipótesis diagnósticas, clasificadas y razonadas con síntomas a favor y en contra. Utilizamos modelos de lenguaje avanzados, como GPT-5 de OpenAI, dentro de un marco de control médico que garantiza relevancia, consistencia y seguridad en cada resultado. No sustituimos el juicio clínico: lo potenciamos. Le ofrecemos un análisis diferencial instantáneo que ahorra tiempo, neutraliza sesgos cognitivos y eleva la calidad del razonamiento clínico desde el primer momento."
+      "description": "DxGPT es una herramienta de inteligencia aumentada diseñada por y para el entorno clínico. A diferencia de las IAs de propósito general, no genera texto narrativo abierto, sino un análisis estructurado de cinco hipótesis diagnósticas, clasificadas y razonadas con síntomas a favor y en contra. Utilizamos modelos de lenguaje avanzados, como GPT-5 de OpenAI, dentro de un marco de control médico que garantiza relevancia, consistencia y seguridad en cada resultado. No sustituimos el juicio clínico: lo potenciamos. Le ofrecemos un análisis diferencial instantáneo que ahorra tiempo, neutraliza sesgos cognitivos y eleva la calidad del razonamiento clínico desde el primer momento.",
+      "descriptionEu": "DxGPT es una herramienta de inteligencia aumentada diseñada para ayudarte a preparar la información que comentarás con tu profesional sanitario. A diferencia de las IAs de propósito general, no genera texto narrativo abierto, sino un análisis estructurado de posibles áreas de evaluación clínica, organizadas con aspectos que encajan o no encajan con tu descripción. Utilizamos modelos de lenguaje avanzados, como GPT-5 de OpenAI, dentro de un marco de control médico que garantiza relevancia, consistencia y seguridad en cada resultado. No ofrecemos diagnósticos ni sustituimos la consulta médica: te ayudamos a organizar la información. Te ofrecemos una preparación estructurada que te permite llegar mejor informado a tu consulta, organizando los aspectos relevantes para que puedas comentarlos con tu médico."
     },
     "challenge": {
       "title": "El desafío del diagnóstico clínico",
-      "description": "El diagnóstico, especialmente en enfermedades raras, es un laberinto de datos y síntomas que consume tiempo y genera incertidumbre. Con más de 10.000 enfermedades raras, la mayoría desconocidas para el profesional promedio debido a su baja prevalencia, la familiaridad es un lujo imposible. DxGPT actúa como una poderosa herramienta de descarga cognitiva, acelerando el análisis y ampliando el espectro de posibilidades para llegar a un diagnóstico preciso más rápido. En este contexto, la tecnología de apoyo ya no es una opción, sino una necesidad para la seguridad del paciente y la calidad de la atención."
+      "titleEu": "El desafío de preparar la información para tu consulta médica",
+      "description": "El diagnóstico, especialmente en enfermedades raras, es un laberinto de datos y síntomas que consume tiempo y genera incertidumbre. Con más de 10.000 enfermedades raras, la mayoría desconocidas para el profesional promedio debido a su baja prevalencia, la familiaridad es un lujo imposible. DxGPT actúa como una poderosa herramienta de descarga cognitiva, acelerando el análisis y ampliando el espectro de posibilidades para llegar a un diagnóstico preciso más rápido. En este contexto, la tecnología de apoyo ya no es una opción, sino una necesidad para la seguridad del paciente y la calidad de la atención.",
+      "descriptionEu": "Preparar adecuadamente la información para una consulta médica, especialmente cuando hay síntomas complejos o poco comunes, puede ser un desafío. Con más de 10.000 enfermedades raras, muchas desconocidas incluso para profesionales experimentados debido a su baja prevalencia, organizar la información de manera efectiva puede ser difícil. DxGPT actúa como una herramienta de apoyo, ayudándote a estructurar y organizar los síntomas y aspectos relevantes para que puedas comentarlos de manera más efectiva con tu profesional sanitario. En este contexto, tener la información bien organizada puede mejorar la calidad de la consulta y facilitar la comunicación con tu médico."
     },
     "why": {
       "title": "¿Por qué DxGPT y no una IA de propósito general?",
@@ -69,7 +75,8 @@
       "title": "Diferenciadores clave de DxGPT",
       "structured": {
         "title": "Análisis estructurado y consistente",
-        "description": "Mientras que una IA generalista produce texto libre, DxGPT ofrece un análisis riguroso y reproducible de cinco hipótesis diagnósticas. Cada hipótesis incluye síntomas compatibles e incompatibles, un formato diseñado para desafiar sesgos como el de confirmación y disponibilidad. Nuestro control sobre la instrucción que recibe el modelo (el prompt) garantiza resultados consistentes, confiables y explicables."
+        "description": "Mientras que una IA generalista produce texto libre, DxGPT ofrece un análisis riguroso y reproducible de cinco hipótesis diagnósticas. Cada hipótesis incluye síntomas compatibles e incompatibles, un formato diseñado para desafiar sesgos como el de confirmación y disponibilidad. Nuestro control sobre la instrucción que recibe el modelo (el prompt) garantiza resultados consistentes, confiables y explicables.",
+        "descriptionEu": "Mientras que una IA generalista produce texto libre, DxGPT ofrece un análisis riguroso y reproducible de posibles áreas de evaluación clínica. Cada área incluye aspectos que encajan o no encajan con tu descripción, un formato diseñado para ayudarte a organizar la información de manera estructurada. Nuestro control sobre la instrucción que recibe el modelo (el prompt) garantiza resultados consistentes, confiables y explicables para que puedas preparar mejor tu consulta."
       },
       "control": {
         "title": "Marco de control clínico",
@@ -77,7 +84,8 @@
       },
       "specialization": {
         "title": "Especialización en enfermedades raras",
-        "description": "DxGPT está diseñado para incluir sistemáticamente enfermedades raras en el diagnóstico diferencial, un área donde los sistemas generalistas, y a menudo el razonamiento humano, pueden fallar. El sistema integra conocimiento especializado para detectar patrones atípicos y explorar hipótesis que de otro modo serían ignoradas, expandiendo el radar diagnóstico del clínico y mejorando las posibilidades de un diagnóstico temprano y preciso."
+        "description": "DxGPT está diseñado para incluir sistemáticamente enfermedades raras en el diagnóstico diferencial, un área donde los sistemas generalistas, y a menudo el razonamiento humano, pueden fallar. El sistema integra conocimiento especializado para detectar patrones atípicos y explorar hipótesis que de otro modo serían ignoradas, expandiendo el radar diagnóstico del clínico y mejorando las posibilidades de un diagnóstico temprano y preciso.",
+        "descriptionEu": "DxGPT está diseñado para incluir sistemáticamente información sobre enfermedades raras y poco comunes en las posibles áreas de evaluación, un ámbito donde los sistemas generalistas pueden no ser tan útiles. El sistema integra conocimiento especializado para detectar patrones atípicos y explorar áreas de evaluación que de otro modo podrían pasarse por alto, ayudándote a preparar información más completa para comentar con tu profesional sanitario y facilitando una evaluación más exhaustiva."
       }
     },
     "implementation": {
@@ -93,34 +101,42 @@
       "title": "Beneficios clínicos de DxGPT",
       "time": {
         "title": "Recupera tiempo para lo que más importa: el paciente",
-        "description": "DxGPT automatiza la generación del diagnóstico diferencial, transformando minutos de búsqueda e incertidumbre en segundos de análisis estructurado. Esta eficiencia libera al profesional de la salud para centrarse en el juicio clínico, la comunicación con el paciente y la toma de decisiones."
+        "description": "DxGPT automatiza la generación del diagnóstico diferencial, transformando minutos de búsqueda e incertidumbre en segundos de análisis estructurado. Esta eficiencia libera al profesional de la salud para centrarse en el juicio clínico, la comunicación con el paciente y la toma de decisiones.",
+        "descriptionEu": "DxGPT te ayuda a organizar la información de manera estructurada, transformando minutos de búsqueda e incertidumbre en segundos de análisis organizado. Esta eficiencia te permite llegar mejor preparado a tu consulta, con la información estructurada y lista para comentar con tu profesional sanitario, facilitando una comunicación más efectiva."
       },
       "clarity": {
         "title": "Del caos de datos a la claridad diagnóstica",
-        "description": "Presentamos la información en un formato limpio y estructurado, diseñado para el pensamiento clínico. Las hipótesis se muestran con síntomas a favor y en contra, permitiendo una evaluación rápida y una toma de decisiones más segura e informada."
+        "titleEu": "Del caos de información a la claridad organizada",
+        "description": "Presentamos la información en un formato limpio y estructurado, diseñado para el pensamiento clínico. Las hipótesis se muestran con síntomas a favor y en contra, permitiendo una evaluación rápida y una toma de decisiones más segura e informada.",
+        "descriptionEu": "Presentamos la información en un formato limpio y estructurado, diseñado para facilitar la preparación de tu consulta. Las posibles áreas de evaluación se muestran con aspectos que encajan o no encajan con tu descripción, permitiendo una organización rápida de la información para que puedas comentarla de manera más efectiva con tu profesional sanitario."
       },
       "tool": {
         "title": "Una herramienta, no una aplicación",
-        "description": "A diferencia de las IAs conversacionales, la interfaz de DxGPT está optimizada para una sola función: apoyar el diagnóstico. Cada elemento está diseñado para guiar el razonamiento clínico de manera eficiente y segura, eliminando distracciones y enfocándose en la utilidad práctica."
+        "description": "A diferencia de las IAs conversacionales, la interfaz de DxGPT está optimizada para una sola función: apoyar el diagnóstico. Cada elemento está diseñado para guiar el razonamiento clínico de manera eficiente y segura, eliminando distracciones y enfocándose en la utilidad práctica.",
+        "descriptionEu": "A diferencia de las IAs conversacionales, la interfaz de DxGPT está optimizada para una sola función: ayudarte a preparar la información para tu consulta médica. Cada elemento está diseñado para organizar la información de manera eficiente y estructurada, eliminando distracciones y enfocándose en ayudarte a preparar mejor tu conversación con tu profesional sanitario."
       },
       "safety": {
         "title": "Un sistema de seguridad contra atajos mentales",
-        "description": "El diagnóstico clínico es vulnerable a sesgos cognitivos como el de disponibilidad o confirmación. DxGPT actúa como un contrapeso objetivo, presentando sistemáticamente un rango de posibilidades basado en la evidencia del caso, incluyendo enfermedades raras. Esto promueve una evaluación más exhaustiva y reduce el riesgo de errores diagnósticos, mejorando la seguridad del paciente."
+        "description": "El diagnóstico clínico es vulnerable a sesgos cognitivos como el de disponibilidad o confirmación. DxGPT actúa como un contrapeso objetivo, presentando sistemáticamente un rango de posibilidades basado en la evidencia del caso, incluyendo enfermedades raras. Esto promueve una evaluación más exhaustiva y reduce el riesgo de errores diagnósticos, mejorando la seguridad del paciente.",
+        "descriptionEu": "La organización de información médica puede verse afectada por sesgos cognitivos como el de disponibilidad o confirmación. DxGPT actúa como una herramienta de apoyo, presentando sistemáticamente un rango de posibles áreas de evaluación basado en la información que proporcionas, incluyendo condiciones poco comunes. Esto te ayuda a preparar información más completa para comentar con tu profesional sanitario, facilitando una evaluación más exhaustiva durante tu consulta."
       },
       "standardize": {
         "title": "Estandariza la excelencia diagnóstica",
+        "titleEu": "Estandariza la preparación de información",
         "description": "DxGPT asegura que cada caso sea analizado con el mismo rigor metodológico, independientemente del profesional o el momento. Esta consistencia reduce la variabilidad en la calidad de la atención y establece un alto estándar de análisis para todo el equipo. Nuestro rendimiento se valida continuamente contra un banco exigente de casos clínicos para garantizar una confiabilidad constante."
       },
       "practice": {
         "title": "Creado en la práctica clínica, para la práctica clínica",
-        "description": "DxGPT no es un producto de laboratorio. Ha sido desarrollado en un ciclo continuo de colaboración con médicos de primera línea, hospitales y sociedades científicas. Su diseño y funcionalidades responden a los desafíos reales del diagnóstico, asegurando que no solo sea tecnológicamente avanzado, sino también clínicamente útil, relevante y fácil de integrar en el flujo de trabajo mental del profesional."
+        "description": "DxGPT no es un producto de laboratorio. Ha sido desarrollado en un ciclo continuo de colaboración con médicos de primera línea, hospitales y sociedades científicas. Su diseño y funcionalidades responden a los desafíos reales del diagnóstico, asegurando que no solo sea tecnológicamente avanzado, sino también clínicamente útil, relevante y fácil de integrar en el flujo de trabajo mental del profesional.",
+        "descriptionEu": "DxGPT no es un producto de laboratorio. Ha sido desarrollado en un ciclo continuo de colaboración con médicos de primera línea, hospitales y sociedades científicas. Su diseño y funcionalidades responden a la necesidad real de organizar información médica de manera efectiva, asegurando que no solo sea tecnológicamente avanzado, sino también útil y relevante para ayudarte a preparar mejor tu consulta con tu profesional sanitario."
       }
     },
     "commitment": {
       "title": "Compromiso y marco regulatorio",
       "experimental": {
         "title": "DxGPT es una plataforma experimental en mejora continua",
-        "description": "Su objetivo es explorar las capacidades de la IA en el diagnóstico, entender sus limitaciones y mejorarla con la retroalimentación de los usuarios y la validación clínica rigurosa. Los nuevos hallazgos se comparten abiertamente a través de GitHub y MedRxiv."
+        "description": "Su objetivo es explorar las capacidades de la IA en el diagnóstico, entender sus limitaciones y mejorarla con la retroalimentación de los usuarios y la validación clínica rigurosa. Los nuevos hallazgos se comparten abiertamente a través de GitHub y MedRxiv.",
+        "descriptionEu": "Su objetivo es explorar las capacidades de la IA para ayudar a organizar información médica, entender sus limitaciones y mejorarla con la retroalimentación de los usuarios y la validación clínica rigurosa. Los nuevos hallazgos se comparten abiertamente a través de GitHub y MedRxiv."
       },
       "protection": {
         "title": "DxGPT protege los datos clínicos con estándares europeos",
@@ -133,6 +149,7 @@
         "title": "Nuestro compromiso con la evidencia: El marco de validación clínica",
         "description": "La confianza en una herramienta clínica se gana a través de evidencia rigurosa. La validación de DxGPT es un proceso continuo que combina investigación independiente con mejora iterativa basada en datos reales.",
         "validation": "Hemos realizado una validación clínica independiente inicial en colaboración con el Hospital Sant Joan de Déu, con resultados publicados en medRxiv que muestran una precisión diagnóstica comparable a expertos clínicos.",
+        "validationEu": "Hemos realizado una validación clínica independiente inicial en colaboración con el Hospital Sant Joan de Déu, con resultados publicados en medRxiv que muestran la capacidad de la herramienta para organizar información de manera comparable a cómo lo harían expertos clínicos.",
         "framework": "Hemos construido un 'Marco de Validación Constante' que evoluciona continuamente la confiabilidad de DxGPT mediante la integración de nuevos casos, retroalimentación clínica y métricas de rendimiento en tiempo real."
       },
       "testbed": {
@@ -172,6 +189,7 @@
       "evolution": {
         "title": "Evolución y rendimiento: Evidencia para el soporte al razonamiento clínico (2024–2025)",
         "intro": "En DxGPT, la transparencia forma parte de la seguridad. No prometemos diagnósticos ni sustituimos al clínico: evaluamos, de forma sistemática, la capacidad de los modelos para proponer hipótesis relevantes que el profesional puede aceptar, matizar o descartar. Sometemos de forma continua nuestros prompts y modelos a bancos de casos clínicos de alta complejidad (enfermedades raras, pediatría, medicina interna) para medir hasta qué punto pueden ayudar a \"encontrar la aguja en el pajar\".",
+        "introEu": "En DxGPT, la transparencia forma parte de la seguridad. No ofrecemos diagnósticos médicos ni sustituimos la consulta con un profesional sanitario: evaluamos, de forma sistemática, la capacidad de los modelos para ayudarte a organizar información relevante que puedas comentar con tu médico. Sometemos de forma continua nuestros prompts y modelos a bancos de casos clínicos de alta complejidad (enfermedades raras, pediatría, medicina interna) para medir hasta qué punto pueden ayudarte a preparar mejor la información para tu consulta.",
         "validation": {
           "title": "1. Validación de viabilidad (Estudio 2024 – medRxiv)",
           "description": "En nuestra primera evaluación pública comparamos múltiples modelos (GPT-4, Claude, Llama, etc.) en enfermedades raras, usando casos sintéticos y reales (RAMEDIS).",
@@ -181,7 +199,8 @@
           },
           "conclusion": {
             "title": "La conclusión:",
-            "description": "Estos resultados no se interpretaron como \"capacidad diagnóstica autónoma\", sino como evidencia de que los LLM son herramientas útiles para apoyar y ampliar el diagnóstico diferencial."
+            "description": "Estos resultados no se interpretaron como \"capacidad diagnóstica autónoma\", sino como evidencia de que los LLM son herramientas útiles para apoyar y ampliar el diagnóstico diferencial.",
+            "descriptionEu": "Estos resultados no se interpretaron como \"capacidad diagnóstica autónoma\", sino como evidencia de que los LLM son herramientas útiles para ayudar a organizar información médica y preparar mejor la consulta con el profesional sanitario."
           },
           "reference": "📝 Referencia: Preprint medRxiv 2024 (Foundation29).",
           "repository": "Repositorio",
@@ -192,7 +211,8 @@
           "description": "Para que una herramienta sea realmente útil al médico no basta con acertar: tiene que priorizar bien. En 2025 diseñamos un nuevo marco de evaluación (PV4) probando modelos avanzados de OpenAI (GPT-4o, o1, o3) sobre 450 casos pediátricos complejos.",
           "technical": {
             "title": "Precisión técnica:",
-            "description": "En este entorno de prueba controlado, el modelo más avanzado (o3-pro) alcanzó un 96,4% de recuperación del diagnóstico correcto dentro de las 5 sugerencias."
+            "description": "En este entorno de prueba controlado, el modelo más avanzado (o3-pro) alcanzó un 96,4% de recuperación del diagnóstico correcto dentro de las 5 sugerencias.",
+            "descriptionEu": "En este entorno de prueba controlado, el modelo más avanzado (o3-pro) alcanzó un 96,4% de recuperación de información relevante dentro de las 5 áreas de evaluación sugeridas."
           },
           "clinical": {
             "title": "Priorización clínica:",
@@ -221,13 +241,16 @@
             "caption": "Comparación de rendimiento entre diferentes modelos y configuraciones de la familia GPT-5. Los valores más bajos (tendiendo a 1) indican mejor rendimiento. El modelo o3 muestra el mejor rendimiento general.",
             "disclaimer": {
               "title": "Importante:",
-              "text": "DxGPT es una herramienta de apoyo y guía al diagnóstico diferencial. No ofrece diagnósticos ni sustituye el juicio clínico profesional. Su propósito es orientar y ampliar el espectro de posibilidades diagnósticas para que el profesional sanitario pueda tomar decisiones informadas."
+              "text": "DxGPT es una herramienta de apoyo y guía al diagnóstico diferencial. No ofrece diagnósticos ni sustituye el juicio clínico profesional. Su propósito es orientar y ampliar el espectro de posibilidades diagnósticas para que el profesional sanitario pueda tomar decisiones informadas.",
+              "titleEu": "Importante:",
+              "textEu": "DxGPT es una herramienta de apoyo para ayudarte a preparar la información que comentarás con tu profesional sanitario. No ofrece diagnósticos médicos ni recomendaciones de tratamiento. Está pensada únicamente para ayudarte a organizar la información que comentarás con un profesional sanitario. Siempre debes consultar con un profesional médico cualificado para obtener un diagnóstico y tratamiento adecuados."
             }
           }
         },
         "note": {
           "title": "Nota importante sobre seguridad:",
-          "description": "Todas estas cifras describen el comportamiento técnico de los modelos de IA en bancos de casos estandarizados (benchmarks). No equivalen a tasas de éxito clínico en pacientes reales ni convierten a DxGPT en un dispositivo médico. En la consulta, la variabilidad de los datos del paciente, las comorbilidades y el contexto asistencial requieren siempre la interpretación y validación de un profesional sanitario cualificado. DxGPT no diagnostica: propone posibilidades estructuradas para que el clínico decida."
+          "description": "Todas estas cifras describen el comportamiento técnico de los modelos de IA en bancos de casos estandarizados (benchmarks). No equivalen a tasas de éxito clínico en pacientes reales ni convierten a DxGPT en un dispositivo médico. En la consulta, la variabilidad de los datos del paciente, las comorbilidades y el contexto asistencial requieren siempre la interpretación y validación de un profesional sanitario cualificado. DxGPT no diagnostica: propone posibilidades estructuradas para que el clínico decida.",
+          "descriptionEu": "Todas estas cifras describen el comportamiento técnico de los modelos de IA en bancos de casos estandarizados (benchmarks). No equivalen a tasas de éxito clínico en pacientes reales ni convierten a DxGPT en un dispositivo médico. Esta herramienta no ofrece diagnósticos médicos ni recomendaciones de tratamiento. Está pensada únicamente para ayudarte a organizar la información que comentarás con un profesional sanitario. Siempre debes consultar con un profesional médico cualificado para obtener un diagnóstico y tratamiento adecuados."
         }
       },
       "user": {
@@ -251,6 +274,7 @@
     "clinicalValidation": {
       "title": "Estudio de validación clínica",
       "description": "DxGPT ha sido validado contra médicos en un estudio clínico exhaustivo realizado por el Hospital Sant Joan de Déu. Los resultados demuestran que DxGPT logra una precisión diagnóstica comparable a la de clínicos expertos. Esta investigación ha sido publicada como preprint y está actualmente bajo revisión por pares.",
+      "descriptionEu": "DxGPT ha sido validado en un estudio clínico exhaustivo realizado por el Hospital Sant Joan de Déu. Los resultados demuestran la capacidad de la herramienta para organizar información de manera comparable a cómo lo harían clínicos expertos. Esta investigación ha sido publicada como preprint y está actualmente bajo revisión por pares. Recuerda que esta herramienta no ofrece diagnósticos médicos ni sustituye la consulta con un profesional sanitario.",
       "validated": "Clínicamente validado",
       "hospital": "Hospital Sant Joan de Déu",
       "accuracy": "Precisión de experto",
@@ -269,7 +293,8 @@
         },
         "memory": {
           "title": "Procesamiento en memoria",
-          "description": "El análisis diagnóstico se realiza en tiempo real y en memoria, sin almacenar datos clínicos o personales del paciente en servidores."
+          "description": "El análisis diagnóstico se realiza en tiempo real y en memoria, sin almacenar datos clínicos o personales del paciente en servidores.",
+          "descriptionEu": "El análisis de información se realiza en tiempo real y en memoria, sin almacenar datos clínicos o personales del paciente en servidores."
         },
         "retraining": {
           "title": "Prohibición de reentrenamiento",
@@ -539,6 +564,8 @@
     "disclaimerEu": "Esta herramienta no ofrece diagnósticos médicos ni recomendaciones de tratamiento.\n\nEstá pensada únicamente para ayudarte a organizar la información que comentarás con un profesional sanitario.",
     "Click on the disease to see more options": "Haz clic en la enfermedad para ver más opciones. Por ejemplo, hacer diagnóstico diferencial.",
     "Candidate diagnosis": "Diagnósticos candidatos",
+    "Candidate diagnosisEu": "Posibles áreas de evaluación clínica",
+    "Order does not imply probabilityEu": "Nota: El orden de presentación no implica mayor probabilidad de acierto.",
     "Patient text entered": "Texto introducido del paciente",
     "advise": "Tenga en cuenta que los diagnósticos sugeridos se generan mediante un modelo avanzado de inteligencia artificial basado en el lenguaje, y puede contener errores.",
     "adviseEu": "Tenga en cuenta que esta información se genera mediante un modelo avanzado de inteligencia artificial basado en el lenguaje, y puede contener errores. Esta herramienta no ofrece diagnósticos médicos.",
@@ -557,9 +584,9 @@
     "detected personal information": "Hemos detectado información personal en la descripción clínica que ha introducido.",
     "proceeded to delete": "Hemos procedido a eliminar esta información y guardar el texto anonimizado.",
     "Matching symptoms": "Síntomas coincidentes",
-    "Matching symptomsEu": "Aspectos que encajan con la descripción",
+    "Matching symptomsEu": "Información que encaja con la descripción",
     "Non-matching symptoms": "Síntomas no coincidentes",
-    "Non-matching symptomsEu": "Aspectos que no encajan con la descripción",
+    "Non-matching symptomsEu": "Información que no encaja con la descripción",
     "None": "Ninguno",
     "Text generated": "Texto generado",
     "We have processed your inputs": "Hemos procesado tus entradas y generado un resumen",
@@ -729,7 +756,8 @@
     "NAV_CONTACT_DESCRIPTION": "Contacta con nosotros para cualquier pregunta o feedback."
   },
   "land":{
-    "disclaimer": "<p><strong>DxGPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo lingúistico GPT-5 mini de OpenAI como modelo predictivo para una herramienta que proporciona información sobre enfermedades. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende reemplazar el consejo médico profesional ni respaldar el diagnóstico, la prevención, el seguimiento, la predicción o el tratamiento y nunca debe usarse para hacer juicios de diagnóstico con paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y cualquier riesgo potencial asociado al uso de la herramienta basada en inteligencia artificial.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo GPT-5 mini de OpenAI como modelo predictivo para una herramienta que proporciona información sobre enfermedades. Está diseñada para proporcionar información general y sugerencias basadas en los síntomas proporcionados. La herramienta no pretende reemplazar el consejo médico profesional ni respaldar el diagnóstico, la prevención, el seguimiento, la predicción o el tratamiento y nunca debe usarse para hacer juicios de diagnóstico con paciente reales.</p><p>Debido a que la IA puede dar resultados variables, la precisión del diagnóstico y las sugerencias de la herramienta pueden variar, por lo que es importante consultar a un profesional sanitario cualificado para garantizar un diagnóstico preciso y adecuado. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y cualquier riesgo potencial asociado al uso de la herramienta basada en inteligencia artificial.</p>",
+    "disclaimerEu": "<p><strong>DxGPT</strong> es un experimento de investigación que usa una inteligencia artificial de propósito general. En concreto usa el modelo GPT-5 mini de OpenAI como modelo predictivo para una herramienta que te ayuda a preparar la información que comentarás con tu profesional sanitario. Está diseñada para ayudarte a organizar tus síntomas y generar una lista de posibles áreas de evaluación clínica que puedas discutir con tu médico.</p><p><strong>Esta herramienta no ofrece diagnósticos médicos ni recomendaciones de tratamiento.</strong> Está pensada únicamente para ayudarte a organizar la información que comentarás con un profesional sanitario. Debido a que la IA puede dar resultados variables, es importante consultar siempre a un profesional sanitario cualificado para obtener un diagnóstico y tratamiento adecuados. El uso de esta herramienta es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, el usuario reconoce que ha leído y comprendido este descargo de responsabilidad, y cualquier riesgo potencial asociado al uso de la herramienta basada en inteligencia artificial.</p>",
     "check": "No volver a mostrar este mensaje",
     "Recommendations": "Para obtener mejores resultados, indica cuándo y por qué cree que aparecieron los síntomas",
     "Search": "Buscar",
@@ -796,7 +824,7 @@
     "Type here": "¡Escribe aquí!",
     "Placeholder help": "Escribe aquí detalles del paciente (edad, género, síntomas) y cuándo comenzaron.\nEjemplo: Mujer, 42 años, dolores de cabeza severos durante 3 meses, mareos, antecedentes familiares de migrañas.",
     "title": "Introduce una breve descripción del paciente y DxGPT te proporcionará una lista de posible diagnósticos de enfermedades",
-    "titleEu": "Introduce una descripción de tus síntomas y DxGPT te ayudará a preparar la conversación con tu profesional sanitario.",
+    "titleEu": "Introduce una descripción de tus síntomas y DxGPT te ayudará a preparar la conversación con tu profesional sanitario",
     "subtitleEu": "Generaremos una lista de posibles líneas de evaluación para que puedas comentarlas con tu médico.\n\nNo es un diagnóstico médico ni sustituye una consulta presencial.",
     "titleBeta": "Obtén diagnósticos e información médica en segundos",
     "p1.title": "Ejemplos",
@@ -849,6 +877,9 @@
     "Show common diseases": "Mostrar enfermedades comunes",
     "Show rare diseases": "Mostrar enfermedades raras",
     "Load more": "Cargar más",
+    "Export and share": "Exportar/Compartir",
+    "Export and share options": "Opciones de exportación y compartir",
+    "Choose an option": "Elige una opción:",
     "followup": {
       "title": "¿Te resultan útiles estos diagnósticos?",
       "question": "¿Alguna de estas descripciones se acerca a lo que experimentas?",
@@ -1023,7 +1054,10 @@
     "print": "Imprimir",
     "share": "Compartir",
     "newAnalysis": "Nuevo Análisis",
-    "Create permalink": "Crear enlace permanente",
+    "Create permalink": "Compartir resultados",
+    "Share results": "Compartir resultados",
+    "Link created": "Enlace creado",
+    "Copy and share": "Copia el enlace y compártelo con tu médico o profesional sanitario",
     "Generating PDF": "Generando PDF",
     "Creating permalink": "Creando enlace",
     "Permalink created and copied": "✅ Enlace permanente creado y copiado al portapapeles. Compártelo con tu médico.",
@@ -1057,6 +1091,7 @@
     "disclaimer5Eu": "En caso de emergencia médica, contacte inmediatamente con servicios de urgencia",
     "developedBy": "Desarrollado por",
     "footer": "Herramienta de asistencia diagnóstica basada en inteligencia artificial para profesionales de la salud. Cumple con normativas RGPD y HIPAA.",
+    "footerEu": "Herramienta para ayudar a organizar información médica basada en inteligencia artificial. No proporciona diagnósticos médicos ni recomendaciones de tratamiento. Cumple con normativas RGPD y HIPAA.",
     "oops": "¡Ups!",
     "shareTitle": "Resultados de DxGPT",
     "shareText": "Compartir resultados médicos de DxGPT",

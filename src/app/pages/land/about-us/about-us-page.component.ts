@@ -58,6 +58,11 @@ export class AboutUsPageComponent {
         return this.brandingService.getAboutUsOverlay();
     }
 
-
+    /**
+     * Verifica si está en modo EU
+     */
+    isEuMode(): boolean {
+        return this.brandingService.isEuMode();
+    }
 
 }
