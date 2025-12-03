@@ -204,10 +204,10 @@
                               <button class="me-2 mb-2 btn btn-danger btn-sm size-btn" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
                                 <i class="fa fa-comments me-2"></i><span *ngIf="!isEuMode()">{{'diagnosis.Improve patient description' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Improve patient descriptionEu' | translate }}</span>
                               </button>
-                              <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="btn btn-brand-secondary mb-2 btn-sm size-btn" (click)="callAdvancedModel()">
+                              <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="btn btn-brand-secondary mb-2 me-2 btn-sm size-btn" (click)="callAdvancedModel()">
                                 <i class="fa fa-search me-2"></i><span *ngIf="!isEuMode()">{{'diagnosis.Try our advanced mode' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Try our advanced modeEu' | translate }}</span>
                               </button>
-                              <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="btn btn-brand-secondary mb-2 btn-sm" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+                              <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="btn btn-brand-secondary mb-2 me-2 btn-sm" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
                               <button *ngIf="isEuMode()" class="btn btn-brand-secondary mb-2 btn-sm size-btn" 
                                 [attr.title]="getLiteral('land.Export and share options')"
                                 [attr.aria-label]="getLiteral('land.Export and share options')"
