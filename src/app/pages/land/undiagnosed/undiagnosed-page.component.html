@@ -208,6 +208,12 @@
                                 <i class="fa fa-search me-2"></i><span *ngIf="!isEuMode()">{{'diagnosis.Try our advanced mode' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Try our advanced modeEu' | translate }}</span>
                               </button>
                               <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="btn btn-brand-secondary mb-2 btn-sm" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast me-2"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+                              <button *ngIf="isEuMode()" class="btn btn-brand-secondary mb-2 btn-sm size-btn" 
+                                [attr.title]="getLiteral('land.Export and share options')"
+                                [attr.aria-label]="getLiteral('land.Export and share options')"
+                                (click)="showExportOptions(contentExportOptions)">
+                                <i class="fa fa-download me-2"></i>{{'land.Export and share' | translate }}
+                              </button>
                             </div>
                           </span>
                         </span>
@@ -272,7 +278,7 @@
             </div>
           </span>
         </div>
-        <div class="pt-4 text-center" *ngIf="topRelatedConditions.length>0">
+        <div class="pt-5 text-center" *ngIf="topRelatedConditions.length>0">
                 
           <div>
             <h4 class="notsatisfied"><strong><span *ngIf="!isEuMode()">{{'diagnosis.Not satisfied with the results?' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Not satisfied with the results?Eu' | translate }}</span></strong></h4>

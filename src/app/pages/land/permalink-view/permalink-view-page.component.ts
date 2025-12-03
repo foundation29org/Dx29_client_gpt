@@ -129,7 +129,7 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
   }
 
   goHome() {
-    this.router.navigate(['/']);
+    window.open('/', '_blank');
   }
 
   async sharePermalink() {
