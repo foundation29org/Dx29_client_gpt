@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
 import { BrandingService, BrandingConfig } from 'app/shared/services/branding.service';
 import { AnalyticsService } from 'app/shared/services/analytics.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-permalink-view-page',
@@ -31,6 +32,7 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
 
   // UI
   currentYear: number = new Date().getFullYear();
+  generatingPDF: boolean = false;
 
   // Branding
   brandingConfig: BrandingConfig | null = null;
@@ -41,7 +43,8 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private apiDx29ServerService: ApiDx29ServerService,
     private brandingService: BrandingService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private clipboard: Clipboard
   ) { }
 
   ngOnInit() {
@@ -126,35 +129,139 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
   }
 
   goHome() {
-    this.router.navigate(['/']);
+    window.open('/', '_blank');
   }
 
-  printPage() {
-    window.print();
-  }
-
-  sharePermalink() {
+  async sharePermalink() {
     const url = window.location.href;
+    
+    // Intentar usar la API nativa de compartir si está disponible
     if (navigator.share) {
-      navigator.share({
-        title: this.translate.instant('permalink.shareTitle'),
-        text: this.translate.instant('permalink.shareText'),
-        url: url
-      });
-    } else {
-      navigator.clipboard.writeText(url);
+      try {
+        await navigator.share({
+          title: this.translate.instant('permalink.shareTitle'),
+          text: this.translate.instant('permalink.shareText'),
+          url: url
+        });
+        return; // Si se compartió exitosamente, salir
+      } catch (shareError: any) {
+        // Si el usuario cancela el share, no mostrar error
+        if (shareError.name === 'AbortError') {
+          return;
+        }
+        // Si hay otro error, continuar con el modal
+      }
+    }
+    
+    // Si no hay navigator.share o falló, mostrar modal con el enlace
+    this.showShareModal(url);
+  }
 
-      let msgSuccess = this.translate.instant("permalink.Permalink created and copied");
+  private showShareModal(permalinkUrl: string) {
+    Swal.fire({
+      title: this.translate.instant('permalink.Share results'),
+      html: `
+        <div style="text-align: left;">
+          <p><strong>${this.translate.instant('permalink.Link created')}</strong></p>
+          <div class="input-group mb-3">
+            <input type="text" id="permalinkInput" class="form-control" value="${permalinkUrl}" readonly style="font-size: 0.9rem;">
+            <button class="btn btn-outline-secondary" type="button" id="copyPermalinkBtn">
+              <i class="fa fa-copy"></i>
+            </button>
+          </div>
+          <p class="text-muted" style="font-size: 0.85rem;">${this.translate.instant('permalink.Copy and share')}</p>
+        </div>
+      `,
+      icon: 'success',
+      confirmButtonText: this.translate.instant('generics.Close'),
+      showCancelButton: false,
+      allowOutsideClick: true,
+      didOpen: () => {
+        const copyBtn = document.getElementById('copyPermalinkBtn');
+        const input = document.getElementById('permalinkInput') as HTMLInputElement;
+        
+        if (copyBtn && input) {
+          copyBtn.addEventListener('click', async () => {
+            try {
+              input.select();
+              await this.clipboard.copy(permalinkUrl);
+              
+              // Feedback visual
+              const originalHtml = copyBtn.innerHTML;
+              copyBtn.innerHTML = '<i class="fa fa-check"></i>';
+              copyBtn.classList.add('btn-success');
+              copyBtn.classList.remove('btn-outline-secondary');
+              
+              // Mostrar mensaje de éxito
+              const successMsg = this.translate.instant('land.Results copied to the clipboard');
+              Swal.fire({
+                icon: 'success',
+                title: successMsg,
+                timer: 2000,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
+              });
+              
+              setTimeout(() => {
+                copyBtn.innerHTML = originalHtml;
+                copyBtn.classList.remove('btn-success');
+                copyBtn.classList.add('btn-outline-secondary');
+              }, 2000);
+            } catch (error) {
+              console.error('Error copying to clipboard:', error);
+            }
+          });
+          
+          // Seleccionar el texto al hacer click en el input
+          input.addEventListener('click', () => {
+            input.select();
+          });
+        }
+      }
+    });
+  }
+
+  /**
+   * Descarga los resultados como PDF
+   */
+  async downloadResults() {
+    if (this.generatingPDF) {
+      return;
+    }
+
+    try {
+      this.generatingPDF = true;
+      const pdfMakeModule = await import('pdfmake/build/pdfmake');
+      const vfsFontsModule = await import('pdfmake/build/vfs_fonts');
+
+      // Extraer los módulos correctamente
+      const pdfMake = (pdfMakeModule as any).default || pdfMakeModule;
+      const vfsFonts = (vfsFontsModule as any).default || vfsFontsModule;
+
+      // Asignar VFS correctamente
+      pdfMake.vfs = vfsFonts.vfs;
+
+      const { PdfMakeService } = await import('app/shared/services/pdf-make.service');
+      const pdfService = new PdfMakeService(this.translate);
+
+      await pdfService.generateResultsPDF(
+        this.medicalDescription,
+        this.diagnoses,
+        this.lang,
+        pdfMake,
+        this.isEuMode()
+      );
+
+      this.generatingPDF = false;
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      this.generatingPDF = false;
       Swal.fire({
-        icon: 'success',
-        html: msgSuccess,
-        showCancelButton: false,
-        showConfirmButton: false,
-        allowOutsideClick: false
-      })
-      setTimeout(function () {
-        Swal.close();
-      }, 2000);
+        icon: 'error',
+        title: this.translate.instant('generics.Error'),
+        text: this.translate.instant('generics.Something went wrong')
+      });
     }
   }
 

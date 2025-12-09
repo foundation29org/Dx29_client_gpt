@@ -14,12 +14,12 @@ export class UuidService {
   }
 
   private initializeUuid(): void {
-    const storedUuid = sessionStorage.getItem(this.STORAGE_KEY);
+    const storedUuid = localStorage.getItem(this.STORAGE_KEY);
     if (storedUuid) {
       this.uuid = storedUuid;
     } else {
       this.uuid = uuidv4();
-      sessionStorage.setItem(this.STORAGE_KEY, this.uuid);
+      localStorage.setItem(this.STORAGE_KEY, this.uuid);
     }
   }
 

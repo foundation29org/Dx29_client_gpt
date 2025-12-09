@@ -276,31 +276,21 @@
                 <p>{{'land.nofound' | translate }}</p>
               </span>
               <div class="col-md-12 mb-0 white p-2 center-elements background-dark">
-                <button *ngIf="diseaseListEn.length < 20 && getDiseaseListTextLength() < 1000" class="btn btn-brand-primary mt-2 mb-2 min-widht-btn" (click)="loadMore()">{{'land.Load more' | translate }}</button>
-                <span class="optionsResults mt-2 mb-2">
-                  <em class="mt-1 fa fa-clipboard fa-2x info me-3 pointer white" title="{{'land.Copy results' | translate }}"
-                    (click)="copyResults()"></em>
-                  <em class="mt-1 fa fa-2x fa-download info me-3 ms-1 pointer white" [class.not-allowed]="callingAnonymize || generatingPDF"
-                    [attr.title]="(callingAnonymize || generatingPDF) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
-                    [attr.aria-label]="(callingAnonymize || generatingPDF) ? getLiteral('generics.Please wait') : getLiteral('land.Download results')"
-                    (click)="!callingAnonymize && !generatingPDF && downloadResults()"></em>
-                  <em class="mt-1 fa-solid fa-share fa-2x info ms-1 pointer white" [class.not-allowed]="creatingPermalink"
-                    [attr.title]="creatingPermalink ? getLiteral('generics.Please wait') : getLiteral('permalink.Create permalink')"
-                    [attr.aria-label]="creatingPermalink ? getLiteral('generics.Please wait') : getLiteral('permalink.Create permalink')"
-                    (click)="!creatingPermalink && createPermalink()"></em>
-                    <span *ngIf="generatingPDF" class="ms-2">
-                      <em class="fa fa-spinner fa-spin"></em> {{'land.Generating PDF' | translate }}...
-                    </span>
-                    <span *ngIf="creatingPermalink" class="ms-2">
-                      <em class="fa fa-spinner fa-spin"></em> {{'permalink.Creating permalink' | translate }}...
-                    </span>
-                </span>
+                <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                  <button *ngIf="diseaseListEn.length < 20 && getDiseaseListTextLength() < 1000" class="btn btn-brand-primary mt-2 mb-2 min-widht-btn" (click)="loadMore()">{{'land.Load more' | translate }}</button>
+                  <button class="btn btn-brand-secondary mt-2 mb-2" 
+                    [attr.title]="getLiteral('land.Export and share options')"
+                    [attr.aria-label]="getLiteral('land.Export and share options')"
+                    (click)="showExportOptions(contentExportOptions)">
+                    <i class="fa fa-download me-2"></i>{{'land.Export and share' | translate }}
+                  </button>
+                </div>
               </div>
               
             </div>
           </span>
         </div>
-        <div class="pt-4 text-center" *ngIf="topRelatedConditions.length>0">
+        <div class="pt-5 text-center" *ngIf="topRelatedConditions.length>0">
                 
           <div>
             <h4 class="notsatisfied"><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></h4>
@@ -605,6 +595,47 @@
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         {{ 'land.followup.modal.processing' | translate }}
       </span>
+    </button>
+  </div>
+</ng-template>
+
+<!-- Modal de opciones de exportación y compartir -->
+<ng-template #contentExportOptions let-c="close" let-d="dismiss" appendTo="body">
+  <div class="modal-header">
+    <h4 class="modal-title">{{'land.Export and share options' | translate }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeExportModal()"></button>
+  </div>
+  <div class="modal-body">
+    <p class="mb-4">{{'land.Choose an option' | translate}}:</p>
+    <div class="d-grid gap-2">
+      <button class="btn btn-brand-secondary text-start" 
+        type="button"
+        (click)="handleCopyFromModal()">
+        <i class="fa fa-clipboard me-2"></i>{{'land.Copy results' | translate }}
+      </button>
+      <button class="btn btn-brand-secondary text-start" 
+        type="button"
+        [disabled]="callingAnonymize || generatingPDF"
+        (click)="handleDownloadFromModal()">
+        <i *ngIf="!generatingPDF" class="fa fa-download me-2"></i>
+        <i *ngIf="generatingPDF" class="fa fa-spinner fa-spin me-2"></i>
+        <span *ngIf="!generatingPDF">{{'land.Download results' | translate }}</span>
+        <span *ngIf="generatingPDF">{{'land.Generating PDF' | translate }}...</span>
+      </button>
+      <button class="btn btn-brand-secondary text-start" 
+        type="button"
+        [disabled]="creatingPermalink"
+        (click)="handleShareFromModal()">
+        <i *ngIf="!creatingPermalink" class="fa-solid fa-share me-2"></i>
+        <i *ngIf="creatingPermalink" class="fa fa-spinner fa-spin me-2"></i>
+        <span *ngIf="!creatingPermalink">{{'permalink.Share results' | translate }}</span>
+        <span *ngIf="creatingPermalink">{{'permalink.Creating permalink' | translate }}...</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeExportModal()">
+      {{'generics.Close' | translate }}
     </button>
   </div>
 </ng-template>

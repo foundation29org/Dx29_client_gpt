@@ -121,7 +121,14 @@ export class PdfMakeService {
           bold: false,
           margin: [0, 0, 0, 10]
         }),
-        { text: this.translate.instant('diagnosis.Candidate diagnosis'), style: 'subheader', margin: [0, 18, 0, 8] },
+        { text: isEuMode ? this.translate.instant('diagnosis.Candidate diagnosisEu') : this.translate.instant('diagnosis.Candidate diagnosis'), style: 'subheader', margin: [0, 18, 0, 8] },
+        ...(isEuMode ? [
+          {
+            text: this.translate.instant('diagnosis.Order does not imply probabilityEu'),
+            style: 'orderNote',
+            margin: [0, 0, 0, 12]
+          }
+        ] : []),
         ...diseaseSections,
         // Bloque completo del "About us"
         { text: this.translate.instant('generics.Foundation 29'), style: 'footerTitle', margin: [0, 30, 0, 5] },
@@ -160,7 +167,8 @@ export class PdfMakeService {
         footerTitle: { fontSize: 12, bold: true, color: '#2a3b4d' },
         footerText: { fontSize: 9, color: '#777777', margin: [0, 2, 0, 0] },
         footer6Text: { fontSize: 9, color: '#777777' },
-        email: { fontSize: 9, color: '#3366CC' }
+        email: { fontSize: 9, color: '#3366CC' },
+        orderNote: { fontSize: 9, color: '#666666', italics: true, margin: [0, 0, 0, 8] }
       },
       images: {
         logoDxGPT: logoBase64,

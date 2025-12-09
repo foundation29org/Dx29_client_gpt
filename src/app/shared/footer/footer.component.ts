@@ -116,7 +116,7 @@ submitInvalidForm() {
 
 onSubmitRevolution() {
   this.sending = true;
-  var params = { userName: this.userName ,email: this.email, description: this.msgfeedBack, lang: sessionStorage.getItem('lang'), subscribe: this.checkSubscribe, myuuid: this.myuuid };
+  var params = { userName: this.userName ,email: this.email, description: this.msgfeedBack, lang: localStorage.getItem('lang'), subscribe: this.checkSubscribe, myuuid: this.myuuid };
   this.http.post(environment.api + '/internal/homesupport/', params)
       .subscribe((res: any) => {
           this.sending = false;

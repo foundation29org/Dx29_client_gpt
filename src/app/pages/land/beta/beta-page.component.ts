@@ -1563,12 +1563,33 @@ export class BetaPageComponent implements OnInit, OnDestroy {
 
             // Llama al backend para crear el permalink
             this.apiDx29ServerService.createPermalink(permalinkData).subscribe(
-                (res: any) => {
+                async (res: any) => {
                     const permalinkId = res.permalinkId || res.id; // según tu backend
                     const permalinkUrl = `${window.location.origin}/result/${permalinkId}`;
-                    this.clipboard.copy(permalinkUrl);
-                    let msgSuccess = this.translate.instant("permalink.Permalink created and copied");
-                    this.showSuccess(msgSuccess);
+                    
+                    // Intentar usar la API nativa de compartir si está disponible
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({
+                                title: this.translate.instant('permalink.shareTitle'),
+                                text: this.translate.instant('permalink.shareText'),
+                                url: permalinkUrl
+                            });
+                            this.lauchEvent("Create permalink");
+                            this.creatingPermalink = false;
+                            return;
+                        } catch (shareError: any) {
+                            // Si el usuario cancela el share, no mostrar error
+                            if (shareError.name === 'AbortError') {
+                                this.creatingPermalink = false;
+                                return;
+                            }
+                            // Si hay otro error, continuar con el modal
+                        }
+                    }
+                    
+                    // Si no hay navigator.share o falló, mostrar modal con el enlace
+                    this.showPermalinkModal(permalinkUrl);
                     this.lauchEvent("Create permalink");
                     this.creatingPermalink = false;
                 },
@@ -1583,10 +1604,147 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    private showPermalinkModal(permalinkUrl: string) {
+        Swal.fire({
+            title: this.translate.instant('permalink.Share results'),
+            html: `
+                <div style="text-align: left;">
+                    <p><strong>${this.translate.instant('permalink.Link created')}</strong></p>
+                    <div class="input-group mb-3">
+                        <input type="text" id="permalinkInput" class="form-control" value="${permalinkUrl}" readonly style="font-size: 0.9rem;">
+                        <button class="btn btn-outline-secondary" type="button" id="copyPermalinkBtn">
+                            <i class="fa fa-copy"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted" style="font-size: 0.85rem;">${this.translate.instant('permalink.Copy and share')}</p>
+                </div>
+            `,
+            icon: 'success',
+            confirmButtonText: this.translate.instant('generics.Close'),
+            showCancelButton: false,
+            allowOutsideClick: true,
+            didOpen: () => {
+                const copyBtn = document.getElementById('copyPermalinkBtn');
+                const input = document.getElementById('permalinkInput') as HTMLInputElement;
+                
+                if (copyBtn && input) {
+                    copyBtn.addEventListener('click', async () => {
+                        try {
+                            input.select();
+                            await this.clipboard.copy(permalinkUrl);
+                            
+                            // Feedback visual
+                            const originalHtml = copyBtn.innerHTML;
+                            copyBtn.innerHTML = '<i class="fa fa-check"></i>';
+                            copyBtn.classList.add('btn-success');
+                            copyBtn.classList.remove('btn-outline-secondary');
+                            
+                            // Mostrar mensaje de éxito
+                            const successMsg = this.translate.instant('land.Results copied to the clipboard');
+                            Swal.fire({
+                                icon: 'success',
+                                title: successMsg,
+                                timer: 2000,
+                                showConfirmButton: false,
+                                toast: true,
+                                position: 'top-end'
+                            });
+                            
+                            setTimeout(() => {
+                                copyBtn.innerHTML = originalHtml;
+                                copyBtn.classList.remove('btn-success');
+                                copyBtn.classList.add('btn-outline-secondary');
+                            }, 2000);
+                        } catch (error) {
+                            console.error('Error copying to clipboard:', error);
+                        }
+                    });
+                    
+                    // Seleccionar el texto al hacer click en el input
+                    input.addEventListener('click', () => {
+                        input.select();
+                    });
+                }
+            }
+        });
+    }
+
     private handlePermalinkError() {
         let msgError = this.translate.instant("permalink.Error creating permalink");
         this.showError(msgError, null);
         console.error('Error creating permalink');
+    }
+
+    /**
+     * Muestra un modal con opciones de exportación y compartir
+     */
+    showExportOptions(contentExportOptions) {
+        if (this.topRelatedConditions.length === 0) {
+            return;
+        }
+        let ngbModalOptions: NgbModalOptions = {
+            backdrop: 'static',
+            keyboard: false,
+            size: 'md',
+            centered: true
+        };
+        this.modalReference = this.modalService.open(contentExportOptions, ngbModalOptions);
+    }
+
+    /**
+     * Cierra el modal de exportación
+     */
+    closeExportModal() {
+        if (this.modalReference) {
+            this.modalReference.close();
+        }
+    }
+
+    /**
+     * Ejecuta la acción de copiar resultados desde el modal
+     */
+    handleCopyFromModal() {
+        var finalReport = "";
+        var infoDiseases = this.getPlainInfoDiseases2();
+        if (infoDiseases != "") {
+            // Dividir los diagnósticos en una lista y formatearlos
+            const formattedDiseases = infoDiseases.split('\n').map(disease => `- ${disease}`).join('\n');
+            finalReport = this.translate.instant("diagnosis.Proposed diagnoses") + ":\n" + formattedDiseases;
+        }
+        this.clipboard.copy(finalReport);
+        this.closeExportModal();
+        
+        // Mostrar mensaje de éxito con toast
+        const msgSuccess = this.translate.instant("land.Results copied to the clipboard");
+        Swal.fire({
+            icon: 'success',
+            title: msgSuccess,
+            timer: 3000,
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end'
+        });
+        this.lauchEvent("Copy results");
+    }
+
+    /**
+     * Ejecuta la acción de descargar resultados desde el modal
+     */
+    handleDownloadFromModal() {
+        if (!this.callingAnonymize && !this.generatingPDF) {
+            this.closeExportModal();
+            this.downloadResults();
+        }
+    }
+
+    /**
+     * Ejecuta la acción de compartir resultados desde el modal
+     */
+    handleShareFromModal() {
+        if (!this.creatingPermalink) {
+            this.closeExportModal();
+            this.createPermalink();
+        }
     }
 
     /**

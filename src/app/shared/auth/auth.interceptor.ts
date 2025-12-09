@@ -10,9 +10,13 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const headers = req.headers
-      .set('Ocp-Apim-Subscription-Key', environment.apiSubscriptionKey)
-      .set('X-Tenant-Id', environment.tenantId);
+    let headers = req.headers.set('X-Tenant-Id', environment.tenantId);
+    
+    // Solo agregar el header de APIM si hay una subscription key configurada
+    // (para self-hosted puede estar vacío si no usan APIM)
+    if (environment.apiSubscriptionKey) {
+      headers = headers.set('Ocp-Apim-Subscription-Key', environment.apiSubscriptionKey);
+    }
 
     const authReq = req.clone({ headers });
 

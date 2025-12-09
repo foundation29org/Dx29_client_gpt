@@ -214,9 +214,9 @@ export class NavbarD29Component implements OnDestroy {
         "code": "ca"        
       }
     ];
-    if (sessionStorage.getItem('lang')) {
-      this.translate.use(sessionStorage.getItem('lang'));
-      this.searchLangName(sessionStorage.getItem('lang'));
+    if (localStorage.getItem('lang')) {
+      this.translate.use(localStorage.getItem('lang'));
+      this.searchLangName(localStorage.getItem('lang'));
     } else {
       const browserLang: string = this.translate.getBrowserLang();
       var foundlang = false;
@@ -224,22 +224,22 @@ export class NavbarD29Component implements OnDestroy {
         if (browserLang.match(lang.code)) {
           this.translate.use(lang.code);
           foundlang = true;
-          sessionStorage.setItem('lang', lang.code);
+          localStorage.setItem('lang', lang.code);
           this.searchLangName(lang.name);
         }
       }
       if (!foundlang) {
-        sessionStorage.setItem('lang', this.translate.store.currentLang);
+        localStorage.setItem('lang', this.translate.store.currentLang);
       }
     }
     var eventsLang = this.inj.get(EventsService);
-    eventsLang.broadcast('loadLang', sessionStorage.getItem('lang'));
+    eventsLang.broadcast('loadLang', localStorage.getItem('lang'));
     /*this.subscription.add(this.langService.getLangs()
       .subscribe((res: any) => {
         this.langs = res;
-        if (sessionStorage.getItem('lang')) {
-          this.translate.use(sessionStorage.getItem('lang'));
-          this.searchLangName(sessionStorage.getItem('lang'));
+        if (localStorage.getItem('lang')) {
+          this.translate.use(localStorage.getItem('lang'));
+          this.searchLangName(localStorage.getItem('lang'));
         } else {
           const browserLang: string = this.translate.getBrowserLang();
           var foundlang = false;
@@ -247,16 +247,16 @@ export class NavbarD29Component implements OnDestroy {
             if (browserLang.match(lang.code)) {
               this.translate.use(lang.code);
               foundlang = true;
-              sessionStorage.setItem('lang', lang.code);
+              localStorage.setItem('lang', lang.code);
               this.searchLangName(lang.name);
             }
           }
           if (!foundlang) {
-            sessionStorage.setItem('lang', this.translate.store.currentLang);
+            localStorage.setItem('lang', this.translate.store.currentLang);
           }
         }
         var eventsLang = this.inj.get(EventsService);
-        eventsLang.broadcast('loadLang', sessionStorage.getItem('lang'));
+        eventsLang.broadcast('loadLang', localStorage.getItem('lang'));
 
       }, (err) => {
         console.log(err);
@@ -266,7 +266,7 @@ export class NavbarD29Component implements OnDestroy {
 
   searchLangName(code: string) {
     for (let lang of this.langs) {
-      var actualLang = sessionStorage.getItem('lang');
+      var actualLang = localStorage.getItem('lang');
       if (actualLang == lang.code) {
         this.currentLang = lang.code;
       }
@@ -275,7 +275,7 @@ export class NavbarD29Component implements OnDestroy {
 
   ChangeLanguage(language: string) {
     this.translate.use(language);
-    sessionStorage.setItem('lang', language);
+    localStorage.setItem('lang', language);
     this.searchLangName(language);
     var eventsLang = this.inj.get(EventsService);
     eventsLang.broadcast('changelang', language);
@@ -283,7 +283,7 @@ export class NavbarD29Component implements OnDestroy {
 
   lauchEvent(category) {
     var secs = this.getElapsedSeconds();
-    gtag('event', category, { 'myuuid': sessionStorage.getItem('uuid'), 'event_label': secs });
+    gtag('event', category, { 'myuuid': localStorage.getItem('uuid'), 'event_label': secs });
   }
 
   getElapsedSeconds() {
