@@ -193,7 +193,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
       const titulo = this.translate.instant(this.tituloEvent);
       this.titleService.setTitle(titulo);
       this.changeMeta();
-      sessionStorage.setItem('lang', lang);
+      localStorage.setItem('lang', lang);
 
 
       this.translate

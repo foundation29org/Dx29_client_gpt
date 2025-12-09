@@ -1277,6 +1277,9 @@
         "note": "Ta opcja nie jest jeszcze dostępna, pracujemy nad nią"
       }
     },
+    "users_types": {
+      "title": "Typy użytkowników"
+    },
     "healthcare_professionals": {
       "title": "Dla profesjonalistów opieki zdrowotnej",
       "differential_diagnosis": "Diagnoza różnicowa - Uzyskaj listę możliwych diagnoz",

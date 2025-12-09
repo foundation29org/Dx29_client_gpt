@@ -1277,6 +1277,9 @@
         "note": "Diese Option ist noch nicht verfügbar, wir arbeiten daran"
       }
     },
+    "users_types": {
+      "title": "Benutzertypen"
+    },
     "healthcare_professionals": {
       "title": "Für Gesundheitsexperten",
       "differential_diagnosis": "Differentialdiagnose - Erhalte eine Liste möglicher Diagnosen",

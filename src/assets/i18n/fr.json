@@ -1277,6 +1277,9 @@
         "note": "Cette option n'est pas encore disponible, nous y travaillons"
       }
     },
+    "users_types": {
+      "title": "Types d'utilisateurs"
+    },
     "healthcare_professionals": {
       "title": "Pour les professionnels de santé",
       "differential_diagnosis": "Diagnostic différentiel - Obtenez une liste de diagnostics possibles",

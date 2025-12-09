@@ -1277,6 +1277,9 @@
         "note": "Aquesta opció encara no està disponible; hi estem treballant"
       }
     },
+    "users_types": {
+      "title": "Tipus d'usuaris"
+    },
     "healthcare_professionals": {
       "title": "Per a professionals sanitaris",
       "differential_diagnosis": "Diagnòstic diferencial - Obtén una llista de possibles diagnòstics",
