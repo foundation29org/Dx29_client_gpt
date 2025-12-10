@@ -5,21 +5,32 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DxGPT: Diagnostic decision support software based on GPT-5 mini</title>
-  <meta name="title" content="DxGPT: Diagnostic decision support software based on GPT-5 mini">
-  <meta name="keywords" content="dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease" />
-  <meta name="description" content="DxGPT is a diagnostic decision support software based on GPT-5 mini. AI that helps the diagnosis of diseases. Totally free for doctors and patients." />
+
+  <title>DxGPT: Free AI Clinical Decision Support for Complex & Rare Diseases</title>
+  <meta name="title" content="DxGPT: Free AI Clinical Decision Support for Complex & Rare Diseases">
+  <meta name="keywords" content="dx, GPT, rare disease, diagnosis, genetic, physicians, artificial intelligence, AI, genomics, disease, decision support" />
+  <meta name="description" content="Free AI diagnostic assistant by Foundation29. Instant differential diagnosis for common, complex & rare diseases. Powered by Advanced Generative AI. GDPR compliant." />
+  
+  <link rel="canonical" href="https://dxgpt.app/">
+
   <base href="/">
+
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="DxGPT: Diagnostic decision support software based on GPT-5 mini" />
-  <meta property="og:title" content="DxGPT: Diagnostic decision support software based on GPT-5 mini" />
-  <meta property="og:description" content="DxGPT is a diagnostic decision support software based on GPT-5 mini. AI that helps the diagnosis of diseases. Totally free for doctors and patients." />
+  <meta property="og:site_name" content="DxGPT" />
+  <meta property="og:title" content="DxGPT: Free AI Clinical Decision Support for Complex & Rare Diseases" />
+  <meta property="og:description" content="Generate differential diagnoses instantly. A free tool for physicians covering general and rare conditions using advanced AI. Privacy-first." />
   <meta property="og:image" content="https://dxgpt.app/assets/img/logo-Dx29.png" />
   <meta property="og:url" content="https://dxgpt.app" />
+
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="DxGPT: Diagnostic decision support software based on GPT-5 mini" />
-  <meta name="twitter:description" content="DxGPT is a diagnostic decision support software based on GPT-5 mini. AI that helps the diagnosis of diseases. Totally free for doctors and patients." />
+  <meta name="twitter:title" content="DxGPT: Free AI Clinical Decision Support for Complex & Rare Diseases" />
+  <meta name="twitter:description" content="Generate differential diagnoses instantly. A free tool for physicians covering general and rare conditions using advanced AI. Privacy-first." />
   <meta name="twitter:image" content="https://dxgpt.app/assets/img/logo-Dx29.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <!-- Preconnect optimizado -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,10 +40,64 @@
   <link rel="dns-prefetch" href="//www.googleadservices.com">
   <link rel="dns-prefetch" href="//googleads.g.doubleclick.net">
   <link rel="dns-prefetch" href="//www.google.com">
-  <link rel="dns-prefetch" href="//www.google.com">
   
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+ <!-- Structured Data (JSON-LD) for SEO + GEO -->
+ <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "DxGPT",
+    "alternateName": "DxGPT diagnostic decision support",
+    "url": "https://dxgpt.app/",
+    "image": "https://dxgpt.app/assets/img/logo-Dx29.png",
+    "description": "DxGPT is an AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "DxGPT",
+      "url": "https://dxgpt.app/"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Artificial intelligence for diagnostic decision support in rare and complex diseases"
+    },
+    "audience": {
+      "@type": "Audience",
+      "audienceType": [
+        "Physicians",
+        "Geneticists",
+        "Healthcare professionals",
+        "Patients with rare diseases"
+      ]
+    },
+    "featureList": [
+      "AI-powered diagnostic decision support",
+      "Support for rare and genetic diseases",
+      "Structured and unstructured clinical data input",
+      "AI-powered suggestions for possible diagnoses",
+      "Free access for doctors and patients"
+    ],
+    "keywords": [
+      "dxgpt",
+      "diagnostic decision support",
+      "rare disease diagnosis",
+      "genetic diagnosis",
+      "AI diagnosis",
+      "AI-powered diagnostic decision support",
+      "large language models",
+      "clinical decision support",
+      "medical AI",
+      "genomics"
+    ]
+  }
+  </script>
 
   <script async type="text/javascript">
     var isApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && location.hostname != "localhost" && location.hostname != "127.0.0.1";
@@ -71,18 +136,132 @@
       gtag('js', new Date());
       gtag('config', 'AW-335378785');
       gtag('config', 'AW-16829919003');
-    </script>
-  
-    <script>
       gtag('event', 'conversion', {'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'});
     </script>
-
-
 </head>
 
 <body>
   <!-- F29 by LOA -->
-  <app-root></app-root>
+  <app-root>
+    <!-- ESTILOS CRÍTICOS INLINE (Para el spinner y layout básico antes de que cargue Angular) -->
+    <style>
+      .geo-shell { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #333; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; }
+      .geo-header { text-align: center; margin-bottom: 40px; padding-top: 40px; }
+      .geo-spinner {
+        border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%;
+        width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto;
+      }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      .geo-section { margin-bottom: 30px; }
+      .geo-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.9rem; text-align: center; }
+      .geo-nav a { color: #0d6efd; text-decoration: none; margin: 0 10px; }
+      .geo-faq-item { margin-bottom: 25px; }
+      .geo-faq-item h3 { color: #2c3e50; font-size: 1.2rem; margin-bottom: 8px; }
+      .geo-faq-item p { margin-top: 0; }
+      h1 { color: #2c3e50; font-size: 1.8rem; }
+      h2 { color: #2c3e50; font-size: 1.4rem; margin-top: 25px; }
+      li { margin-bottom: 10px; }
+    </style>
+    <div class="geo-shell">
+      
+      <!-- 1. HEADER VISUAL (Lo primero que ve el usuario: Logo + Spinner) -->
+      <header class="geo-header">
+        <img src="assets/img/logo-Dx29.png" alt="DxGPT Logo" width="180" style="max-width: 100%; height: auto;">
+        
+        <div class="geo-spinner"></div>
+        <p style="color: #666; font-size: 1.1rem;">Loading AI Diagnostic Engine...</p>
+        
+        <h1 style="margin-top: 20px;">DxGPT: AI-Powered Diagnostic Decision Support</h1>
+        <p>A free tool for physicians and patients using advanced AI technology developed by Foundation29.</p>
+      </header>
+      
+      <!-- 2. CONTENIDO PRINCIPAL (Tus textos + Estructura Semántica) -->
+      <main>
+        
+        <!-- TU SECCIÓN: DEFINICIÓN -->
+        <section class="geo-section">
+          <h2>What is DxGPT?</h2>
+          <p>
+            <strong>DxGPT</strong> is an advanced AI-assisted medical diagnosis platform developed by <strong>Foundation29</strong>. 
+            Using state-of-the-art artificial intelligence and medical language models, 
+            DxGPT helps healthcare professionals and patients obtain accurate <strong>differential diagnoses</strong> 
+            from symptom descriptions and clinical histories.
+          </p>
+          <p>
+            Key features include intelligent differential diagnosis that generates prioritized lists of possible diagnoses, 
+            <strong>multilingual support</strong> with automatic language detection and result translation, 
+            <strong>GDPR-ready architecture</strong> with automatic anonymization of sensitive data, and real-time asynchronous 
+            communication for advanced processing models. DxGPT offers healthcare professionals an <strong>instant second opinion</strong> 
+            to save time, reduce diagnostic bias, and elevate the quality of clinical reasoning.
+          </p>
+        </section>
+        
+        <!-- TU SECCIÓN: CÓMO FUNCIONA -->
+        <section class="geo-section">
+          <h2>How does DxGPT work?</h2>
+          <p>DxGPT works in 4 simple steps:</p>
+          <ol>
+            <li><strong>Describe your symptoms:</strong> Enter a medical description in free text.</li>
+            <li><strong>Intelligent processing:</strong> Our AI algorithms analyze the information using advanced language models, detecting clinical patterns and medical correlations.</li>
+            <li><strong>Differential diagnosis:</strong> You receive a prioritized list of possible diagnoses, each with information about compatible symptoms, recommended diagnostic tests, and detailed case analysis.</li>
+            <li><strong>Interactive refinement:</strong> You can answer AI-generated follow-up questions to refine the diagnosis, obtain detailed information about specific diseases, or request genetic testing recommendations.</li>
+          </ol>
+          <p><em>Powered by cutting-edge artificial intelligence models and secure cloud infrastructure on Microsoft Azure.</em></p>
+        </section>
+        
+        <!-- FAQ (Vital para capturar preguntas de voz en Google/Siri/ChatGPT) -->
+        <section class="geo-section">
+          <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+          <h2>Frequently Asked Questions</h2>
+          
+          <div class="geo-faq-item">
+            <h3>Is my medical information kept confidential?</h3>
+            <p>Yes, your privacy is our highest priority. DxGPT is an initiative by Foundation 29, a non-profit organization committed to rigorously protecting your personal and health data. We never sell, rent, or share your personal information with third parties for commercial or marketing purposes. All data you provide is securely encrypted both during transmission and when stored. Additionally, sensitive details are anonymized automatically before being saved, ensuring individual identities cannot be revealed. Access to your data is strictly controlled and limited to authorized personnel who adhere to strict confidentiality obligations, fully complying with GDPR and HIPAA regulations.</p>
+          </div>
+          
+          <div class="geo-faq-item">
+            <h3>Can I use DxGPT in emergency situations?</h3>
+            <p>No, DxGPT is not intended or designed to handle medical emergencies or urgent medical conditions. In the event of an emergency, please immediately contact your local emergency services or visit the nearest emergency facility. DxGPT is developed as a supportive resource for medical professionals, aiming to enhance diagnostic processes and decision-making. However, it must never be considered a substitute for the professional judgment and immediate intervention provided by trained medical personnel.</p>
+          </div>
+          
+          <div class="geo-faq-item">
+            <h3>How does DxGPT suggest possible diagnoses?</h3>
+            <p>DxGPT utilizes advanced artificial intelligence and machine learning models to analyze the symptoms and clinical information provided by healthcare professionals. It compares this input against an extensive database of existing medical knowledge to suggest potential conditions. DxGPT is explicitly not a medical device; rather, it operates as a decision-support system. This means it aids medical professionals by providing guidance on potential diagnoses but does not replace their expert clinical judgment or professional assessments. The suggestions DxGPT provides are intended to assist clinicians in identifying possible diagnoses and directing further investigation, but it is essential always to consult a qualified healthcare professional for a definitive diagnosis and treatment plan.</p>
+          </div>
+          
+          <div class="geo-faq-item">
+            <h3>Is DxGPT considered a medical device?</h3>
+            <p>No. DxGPT is not classified or regulated as a medical device under international regulations such as the European Union's Medical Device Regulation (EU MDR) or the U.S. Food and Drug Administration (FDA). DxGPT serves purely as an experimental clinical decision-support tool, designed exclusively to assist qualified healthcare professionals by providing guidance and suggestions for diagnosis. It should always be used alongside, and not in replacement of, professional medical evaluation.</p>
+          </div>
+          
+          <div class="geo-faq-item">
+            <h3>Is DxGPT free to use?</h3>
+            <p>Yes, DxGPT is entirely free to use. It is developed and maintained as a non-profit project by Foundation 29, funded through philanthropic donations, grants, and collaborative partnerships. We aim to make advanced AI diagnostic support tools freely available to healthcare professionals and patients globally, promoting equity and access in medical diagnostics.</p>
+          </div>
+          
+          <div class="geo-faq-item">
+            <h3>Is my data used for secondary use?</h3>
+            <p>DxGPT never uses your personal data for secondary purposes such as marketing or commercial activities. We strictly use aggregated, anonymous data—including general usage patterns, frequently reported symptoms, common diagnostic suggestions, and overall trends—to enhance our algorithms' accuracy, reliability, and functionality. This aggregated data is completely anonymized and ensures that no individual user can be identified from this information.</p>
+          </div>
+          
+          <div class="geo-faq-item">
+            <h3>What languages can I use with DxGPT?</h3>
+            <p>DxGPT can process inputs and provide responses in virtually any language. However, because its training data was predominantly in English, responses in English typically offer the highest accuracy and reliability. For languages with fewer users or less available medical training data, DxGPT's suggestions might occasionally be less accurate or incomplete. We strongly encourage you to use DxGPT in your preferred or native language and provide feedback about your experience. This will help us continuously improve its capabilities and accuracy across different languages.</p>
+          </div>
+        </section>
+        
+        <!-- 3. NAVEGACIÓN (Tus enlaces con mejor formato) -->
+        <nav class="geo-nav">
+          <strong>Navigate to:</strong><br>
+          <a href="/aboutus">About Us</a> | 
+          <a href="/faq">FAQ</a> | 
+          <a href="/foundation29">Foundation29</a> | 
+          <a href="/collaboration">Collaboration</a> | 
+          <a href="/privacy-policy">Privacy Policy</a>
+        </nav>
+      </main>
+    </div>
+  </app-root>
 </body>
 
 </html>

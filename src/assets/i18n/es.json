@@ -897,6 +897,24 @@
       }
     },
     "Please answer at least one question": "Por favor, responde al menos una pregunta",
+    "seoBlock": {
+      "title": "¿Qué es DxGPT?",
+      "description": "DxGPT es una plataforma avanzada de diagnóstico médico asistido por Inteligencia Artificial desarrollada por Foundation29. Utilizando inteligencia artificial de última generación y modelos de lenguaje médico, DxGPT ayuda a profesionales sanitarios y pacientes a obtener diagnósticos diferenciales precisos a partir de descripciones de síntomas e historiales clínicos. Características principales: diagnóstico diferencial inteligente que genera listas de posibles diagnósticos ordenados por probabilidad, soporte multilingüe con detección automática del idioma y traducción de resultados, privacidad garantizada con arquitectura GDPR-ready y anonimización automática de datos sensibles, y respuesta en tiempo real con comunicación asíncrona para modelos de procesamiento avanzado. DxGPT ofrece a los profesionales sanitarios una segunda opinión instantánea para ahorrar tiempo, reducir el sesgo diagnóstico y elevar la calidad del razonamiento clínico.",
+      "descriptionEu": "DxGPT es una herramienta de inteligencia aumentada desarrollada por Foundation29 diseñada para ayudarte a preparar la información que comentarás con tu profesional sanitario. Utilizando modelos de IA avanzados, DxGPT proporciona un análisis estructurado de posibles áreas de evaluación clínica, organizadas con aspectos que encajan o no encajan con tu descripción. Nuestra plataforma procesa descripciones en lenguaje natural de síntomas e historial clínico para ayudarte a organizar la información de manera estructurada, con especial fortaleza en condiciones raras y poco comunes. Características principales: soporte multilingüe, arquitectura de privacidad compatible con GDPR, y resultados estructurados diseñados para ayudarte a llegar mejor informado a tu consulta.",
+      "howItWorksTitle": "¿Cómo funciona DxGPT?",
+      "howItWorksIntro": "DxGPT funciona en 4 pasos sencillos:",
+      "howItWorksStep1": "Describe tus síntomas: Introduce una descripción médica en texto libre.",
+      "howItWorksStep2": "Procesamiento inteligente: Nuestros algoritmos de IA analizan la información utilizando modelos de lenguaje avanzados, detectando patrones clínicos y correlaciones médicas.",
+      "howItWorksStep3": "Diagnóstico diferencial: Recibes una lista priorizada de posibles diagnósticos, cada uno con información sobre síntomas compatibles, pruebas diagnósticas recomendadas y análisis detallado del caso.",
+      "howItWorksStep4": "Refinamiento interactivo: Puedes responder preguntas de seguimiento generadas por la IA para precisar el diagnóstico, obtener información detallada sobre enfermedades específicas, o solicitar recomendaciones de pruebas genéticas.",
+      "howItWorksFooter": "Tecnología de respaldo: Modelos de IA de última generación e infraestructura cloud segura en Microsoft Azure.",
+      "howItWorksIntroEu": "DxGPT te ayuda a preparar tu consulta médica en 4 pasos sencillos:",
+      "howItWorksStep1Eu": "Describe tus síntomas: Introduce una descripción en texto libre.",
+      "howItWorksStep2Eu": "Procesamiento inteligente: Nuestros algoritmos de IA analizan tu información utilizando modelos de lenguaje avanzados para identificar características clínicas relevantes.",
+      "howItWorksStep3Eu": "Áreas de evaluación estructuradas: Recibes una lista de posibles áreas de evaluación clínica, cada una con aspectos que encajan o no encajan con tu descripción, ayudándote a organizar la información para tu consulta.",
+      "howItWorksStep4Eu": "Refinamiento interactivo: Puedes responder preguntas generadas por la IA para completar información y prepararte mejor para tu cita.",
+      "howItWorksFooterEu": "Tecnología de respaldo: Modelos de IA de última generación e infraestructura cloud segura diseñada para ayudarte a organizar información de manera efectiva para tu profesional sanitario."
+    },
     "aboutUs": {
       "P1_Title": "DxGPT",
       "P1_Summary_P1": "DxGPT es una herramienta de apoyo al diagnóstico diseñada por y para el entorno clínico. A diferencia de las IAs generalistas, no ofrece respuestas abiertas, sino un análisis estructurado de cinco hipótesis diagnósticas, razonadas y clasificadas. Usamos la tecnología más avanzada, como o3 de OpenAI, dentro de un marco de control médico que garantiza la relevancia y seguridad de cada resultado. No reemplazamos al médico; le ofrecemos una segunda opinión instantánea, diseñada para ahorrar tiempo, reducir sesgos y elevar la calidad del razonamiento clínico desde el primer momento.",

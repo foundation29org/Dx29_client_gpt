@@ -301,6 +301,39 @@
   <app-testimonials></app-testimonials>
 </div>
 
+<!-- SEO Block: Rich content for search engines and AI crawlers - Always visible for SEO -->
+<section class="seo-content-block">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="seo-text-content">
+          <h2 class="seo-title">{{'land.seoBlock.title' | translate}}</h2>
+          <p class="seo-description" *ngIf="!isEuMode()">{{'land.seoBlock.description' | translate}}</p>
+          <p class="seo-description" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEu' | translate}}</p>
+          
+          <h3 class="seo-subtitle">{{'land.seoBlock.howItWorksTitle' | translate}}</h3>
+          <p class="seo-intro" *ngIf="!isEuMode()">{{'land.seoBlock.howItWorksIntro' | translate}}</p>
+          <p class="seo-intro" *ngIf="isEuMode()">{{'land.seoBlock.howItWorksIntroEu' | translate}}</p>
+          <ol class="seo-steps-list" *ngIf="!isEuMode()">
+            <li class="seo-step">{{'land.seoBlock.howItWorksStep1' | translate}}</li>
+            <li class="seo-step">{{'land.seoBlock.howItWorksStep2' | translate}}</li>
+            <li class="seo-step">{{'land.seoBlock.howItWorksStep3' | translate}}</li>
+            <li class="seo-step">{{'land.seoBlock.howItWorksStep4' | translate}}</li>
+          </ol>
+          <ol class="seo-steps-list" *ngIf="isEuMode()">
+            <li class="seo-step">{{'land.seoBlock.howItWorksStep1Eu' | translate}}</li>
+            <li class="seo-step">{{'land.seoBlock.howItWorksStep2Eu' | translate}}</li>
+            <li class="seo-step">{{'land.seoBlock.howItWorksStep3Eu' | translate}}</li>
+            <li class="seo-step">{{'land.seoBlock.howItWorksStep4Eu' | translate}}</li>
+          </ol>
+          <p class="seo-footer" *ngIf="!isEuMode()">{{'land.seoBlock.howItWorksFooter' | translate}}</p>
+          <p class="seo-footer" *ngIf="isEuMode()">{{'land.seoBlock.howItWorksFooterEu' | translate}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <ng-template #contentInfoDisease let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header" id="idHeader">
     <div class="content-header text-start">

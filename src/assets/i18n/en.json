@@ -897,6 +897,24 @@
       }
     },
     "Please answer at least one question": "Please answer at least one question",
+    "seoBlock": {
+      "title": "What is DxGPT?",
+      "description": "DxGPT is an advanced AI-assisted medical diagnosis platform developed by Foundation29. Using state-of-the-art artificial intelligence and medical language models, DxGPT helps healthcare professionals and patients obtain accurate differential diagnoses from symptom descriptions and clinical histories. Key features include intelligent differential diagnosis that generates prioritized lists of possible diagnoses, multilingual support with automatic language detection and result translation, GDPR-ready architecture with automatic anonymization of sensitive data, and real-time asynchronous communication for advanced processing models. DxGPT offers healthcare professionals an instant second opinion to save time, reduce diagnostic bias, and elevate the quality of clinical reasoning.",
+      "descriptionEu": "DxGPT is an augmented intelligence tool developed by Foundation29 designed to help you prepare the information you will discuss with your healthcare professional. Using advanced AI models, DxGPT provides a structured analysis of possible clinical evaluation areas, organized with aspects that match or do not match your description. Our platform processes natural language descriptions of symptoms and clinical history to help you organize information in a structured way, with particular strength in rare and uncommon conditions. Key features include multilingual support, GDPR-compliant privacy architecture, and structured results designed to help you arrive better informed at your consultation.",
+      "howItWorksTitle": "How does DxGPT work?",
+      "howItWorksIntro": "DxGPT works in 4 simple steps:",
+      "howItWorksStep1": "Describe your symptoms by entering a medical description in free text.",
+      "howItWorksStep2": "Intelligent processing: Our AI algorithms analyze the information using advanced language models, detecting clinical patterns and medical correlations.",
+      "howItWorksStep3": "Differential diagnosis: You receive a prioritized list of possible diagnoses, each with information about compatible symptoms, recommended diagnostic tests, and detailed case analysis.",
+      "howItWorksStep4": "Interactive refinement: You can answer AI-generated follow-up questions to refine the diagnosis, obtain detailed information about specific diseases, or request genetic testing recommendations.",
+      "howItWorksFooter": "Powered by cutting-edge artificial intelligence models and secure cloud infrastructure on Microsoft Azure.",
+      "howItWorksIntroEu": "DxGPT helps you prepare for your medical consultation in 4 simple steps:",
+      "howItWorksStep1Eu": "Describe your symptoms by entering a description in free text.",
+      "howItWorksStep2Eu": "Intelligent processing: Our AI algorithms analyze your information using advanced language models to identify relevant clinical features.",
+      "howItWorksStep3Eu": "Structured evaluation areas: You receive a list of possible clinical evaluation areas, each with aspects that match or do not match your description, helping you organize information for your consultation.",
+      "howItWorksStep4Eu": "Interactive refinement: You can answer AI-generated questions to complete information and better prepare for your appointment.",
+      "howItWorksFooterEu": "Powered by cutting-edge AI models and secure cloud infrastructure designed to help you organize information effectively for your healthcare professional."
+    },
     "aboutUs": {
       "P1_Title": "DxGPT",
       "P1_Summary_P1": "DxGPT is a diagnostic support tool designed by and for the clinical environment. Unlike general-purpose AIs, it does not provide open-ended answers, but rather a structured analysis of five diagnostic hypotheses, reasoned and ranked. We use the most advanced technology, like OpenAI’s o3, within a medical oversight framework that ensures the relevance and safety of every result. We do not replace the doctor; we offer an instant second opinion, designed to save time, reduce bias, and elevate the quality of clinical reasoning from the start.",

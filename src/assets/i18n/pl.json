@@ -897,7 +897,25 @@
       }
     },
     "Please answer at least one question": "Proszę odpowiedzieć na co najmniej jedno pytanie",
-     "aboutUs": {
+    "seoBlock": {
+      "title": "Czym jest DxGPT?",
+      "description": "DxGPT to zaawansowana platforma diagnostyki medycznej wspomagana sztuczną inteligencją, opracowana przez Foundation29. Wykorzystując najnowocześniejszą sztuczną inteligencję i modele językowe medyczne, DxGPT pomaga pracownikom służby zdrowia i pacjentom uzyskać dokładne diagnozy różnicowe na podstawie opisów objawów i historii klinicznych. Kluczowe funkcje: inteligentna diagnostyka różnicowa, która generuje uporządkowane listy możliwych diagnoz, wsparcie wielojęzyczne z automatycznym wykrywaniem języka i tłumaczeniem wyników, architektura zgodna z RODO z automatyczną anonimizacją wrażliwych danych oraz komunikacja asynchroniczna w czasie rzeczywistym dla zaawansowanych modeli przetwarzania. DxGPT oferuje pracownikom służby zdrowia natychmiastową drugą opinię, aby zaoszczędzić czas, zmniejszyć błędy diagnostyczne i podnieść jakość rozumowania klinicznego.",
+      "descriptionEu": "DxGPT to narzędzie rozszerzonej inteligencji opracowane przez Foundation29, zaprojektowane, aby pomóc Ci przygotować informacje, które omówisz ze swoim pracownikiem służby zdrowia. Wykorzystując zaawansowane modele SI, DxGPT zapewnia strukturalną analizę możliwych obszarów oceny klinicznej, zorganizowanych z aspektami, które pasują lub nie pasują do Twojego opisu. Nasza platforma przetwarza opisy w języku naturalnym objawów i historii klinicznej, aby pomóc Ci uporządkować informacje w sposób strukturalny, ze szczególną siłą w rzadkich i nietypowych schorzeniach. Kluczowe funkcje: wsparcie wielojęzyczne, architektura prywatności zgodna z RODO oraz ustrukturyzowane wyniki zaprojektowane, aby pomóc Ci przyjść lepiej poinformowanym na konsultację.",
+      "howItWorksTitle": "Jak działa DxGPT?",
+      "howItWorksIntro": "DxGPT działa w 4 prostych krokach:",
+      "howItWorksStep1": "Opisz swoje objawy: Wprowadź opis medyczny w formie swobodnego tekstu.",
+      "howItWorksStep2": "Inteligentne przetwarzanie: Nasze algorytmy SI analizują informacje, wykorzystując zaawansowane modele językowe, wykrywając wzorce kliniczne i korelacje medyczne.",
+      "howItWorksStep3": "Diagnostyka różnicowa: Otrzymujesz uporządkowaną listę możliwych diagnoz, każda z informacjami o zgodnych objawach, zalecanych testach diagnostycznych i szczegółowej analizie przypadku.",
+      "howItWorksStep4": "Interaktywne dopracowanie: Możesz odpowiadać na pytania uzupełniające generowane przez SI, aby doprecyzować diagnozę, uzyskać szczegółowe informacje o konkretnych chorobach lub poprosić o zalecenia dotyczące testów genetycznych.",
+      "howItWorksFooter": "Technologia wsparcia: Najnowocześniejsze modele sztucznej inteligencji i bezpieczna infrastruktura chmurowa w Microsoft Azure.",
+      "howItWorksIntroEu": "DxGPT pomaga Ci przygotować się do konsultacji medycznej w 4 prostych krokach:",
+      "howItWorksStep1Eu": "Opisz swoje objawy: Wprowadź opis w formie swobodnego tekstu.",
+      "howItWorksStep2Eu": "Inteligentne przetwarzanie: Nasze algorytmy SI analizują Twoje informacje, wykorzystując zaawansowane modele językowe do identyfikacji istotnych cech klinicznych.",
+      "howItWorksStep3Eu": "Ustrukturyzowane obszary oceny: Otrzymujesz listę możliwych obszarów oceny klinicznej, każdy z aspektami, które pasują lub nie pasują do Twojego opisu, pomagając Ci uporządkować informacje na konsultację.",
+      "howItWorksStep4Eu": "Interaktywne dopracowanie: Możesz odpowiadać na pytania generowane przez SI, aby uzupełnić informacje i lepiej przygotować się na wizytę.",
+      "howItWorksFooterEu": "Technologia wsparcia: Najnowocześniejsze modele SI i bezpieczna infrastruktura chmurowa zaprojektowana, aby pomóc Ci skutecznie organizować informacje dla Twojego pracownika służby zdrowia."
+    },
+    "aboutUs": {
       "P1_Title": "DxGPT",
       "P1_Summary_P1": "DxGPT to narzędzie wspomagające diagnostykę, zaprojektowane przez i dla środowiska klinicznego. W przeciwieństwie do ogólnych SI, nie oferuje otwartych odpowiedzi, lecz strukturalną analizę pięciu hipotez diagnostycznych – uzasadnionych i uporządkowanych. Korzystamy z najnowocześniejszej technologii, jak o3 od OpenAI, w ramach nadzoru medycznego, co gwarantuje trafność i bezpieczeństwo każdego wyniku. Nie zastępujemy lekarza – oferujemy mu natychmiastową drugą opinię, stworzoną w celu oszczędzenia czasu, zmniejszenia błędów poznawczych i podniesienia jakości rozumowania klinicznego od samego początku.",
 
