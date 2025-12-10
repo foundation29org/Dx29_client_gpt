@@ -696,3 +696,116 @@ body {
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
   }
 }
+
+// SEO Content Block - Rich content for search engines (visible and aesthetically pleasing)
+.seo-content-block {
+  background-color: #ffffff !important;
+  color: #333333;
+  margin-top: 0;
+  padding: 3rem 0;
+  
+  .container {
+    background-color: transparent !important;
+  }
+  
+  .seo-text-content {
+    text-align: left;
+    line-height: 1.7;
+    
+    .seo-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #1c202a;
+      margin-bottom: 1.25rem;
+      margin-top: 0;
+    }
+    
+    .seo-subtitle {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #1c202a;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .seo-description {
+      font-size: 1.05rem;
+      color: #555555;
+      margin-bottom: 1rem;
+      text-align: justify;
+      line-height: 1.7;
+    }
+    
+    .seo-intro {
+      font-size: 1.05rem;
+      color: #555555;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    
+    .seo-steps-list {
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+      counter-reset: step-counter;
+      
+      .seo-step {
+        font-size: 1.05rem;
+        color: #555555;
+        margin-bottom: 1.25rem;
+        line-height: 1.7;
+        padding-left: 0.5rem;
+        list-style-type: decimal;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    
+    .seo-footer {
+      font-size: 1rem;
+      color: #666666;
+      margin-top: 1.5rem;
+      font-style: italic;
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    padding: 2rem 0;
+    
+    .seo-text-content {
+      .seo-title {
+        font-size: 1.5rem;
+      }
+      
+      .seo-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .seo-description {
+        font-size: 1rem;
+        text-align: left;
+      }
+      
+      .seo-intro {
+        font-size: 1rem;
+      }
+      
+      .seo-steps-list {
+        padding-left: 1.25rem;
+        margin: 1.25rem 0;
+        
+        .seo-step {
+          font-size: 1rem;
+          margin-bottom: 1rem;
+        }
+      }
+      
+      .seo-footer {
+        font-size: 0.95rem;
+        margin-top: 1.25rem;
+      }
+    }
+  }
+}
