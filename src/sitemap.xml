@@ -1,45 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
+  <url>
+    <loc>https://dxgpt.app/</loc>
+    <lastmod>2025-12-11T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dxgpt.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://dxgpt.app/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://dxgpt.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://dxgpt.app/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://dxgpt.app/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://dxgpt.app/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dxgpt.app/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://dxgpt.app/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dxgpt.app/"/>
+  </url>
 
-<url>
-  <loc>https://dxgpt.app/</loc>
-  <lastmod>2025-09-08T11:06:38+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://dxgpt.app/aboutus</loc>
-  <lastmod>2025-09-08T11:06:38+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dxgpt.app/faq</loc>
-  <lastmod>2025-09-08T11:06:38+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dxgpt.app/collaboration</loc>
-  <lastmod>2025-09-08T11:06:38+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dxgpt.app/foundation29</loc>
-  <lastmod>2025-09-08T11:06:38+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dxgpt.app/reports</loc>
-  <lastmod>2025-09-08T11:06:38+00:00</lastmod>
-  <priority>0.60</priority>
-</url>
-<url>
-  <loc>https://dxgpt.app/privacy-policy</loc>
-  <lastmod>2025-09-08T11:06:38+00:00</lastmod>
-  <priority>0.70</priority>
-</url>
+  <url>
+    <loc>https://dxgpt.app/aboutus</loc>
+    <lastmod>2025-12-11T00:00:00+00:00</lastmod>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dxgpt.app/aboutus"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://dxgpt.app/aboutus"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://dxgpt.app/aboutus"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://dxgpt.app/aboutus"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://dxgpt.app/aboutus"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://dxgpt.app/aboutus"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dxgpt.app/aboutus"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://dxgpt.app/aboutus"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dxgpt.app/aboutus"/>
+  </url>
+
+  <url>
+    <loc>https://dxgpt.app/faq</loc>
+    <lastmod>2025-12-11T00:00:00+00:00</lastmod>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dxgpt.app/faq"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://dxgpt.app/faq"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://dxgpt.app/faq"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://dxgpt.app/faq"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://dxgpt.app/faq"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://dxgpt.app/faq"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dxgpt.app/faq"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://dxgpt.app/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dxgpt.app/faq"/>
+  </url>
+
+  <url>
+    <loc>https://dxgpt.app/collaboration</loc>
+    <lastmod>2025-12-11T00:00:00+00:00</lastmod>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dxgpt.app/collaboration"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://dxgpt.app/collaboration"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://dxgpt.app/collaboration"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://dxgpt.app/collaboration"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://dxgpt.app/collaboration"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://dxgpt.app/collaboration"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dxgpt.app/collaboration"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://dxgpt.app/collaboration"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dxgpt.app/collaboration"/>
+  </url>
+
+  <url>
+    <loc>https://dxgpt.app/foundation29</loc>
+    <lastmod>2025-12-11T00:00:00+00:00</lastmod>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dxgpt.app/foundation29"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://dxgpt.app/foundation29"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://dxgpt.app/foundation29"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://dxgpt.app/foundation29"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://dxgpt.app/foundation29"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://dxgpt.app/foundation29"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dxgpt.app/foundation29"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://dxgpt.app/foundation29"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dxgpt.app/foundation29"/>
+  </url>
+
+  <url>
+    <loc>https://dxgpt.app/reports</loc>
+    <lastmod>2025-12-11T00:00:00+00:00</lastmod>
+    <priority>0.60</priority>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dxgpt.app/reports"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://dxgpt.app/reports"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://dxgpt.app/reports"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://dxgpt.app/reports"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://dxgpt.app/reports"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://dxgpt.app/reports"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dxgpt.app/reports"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://dxgpt.app/reports"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dxgpt.app/reports"/>
+  </url>
+
+  <url>
+    <loc>https://dxgpt.app/privacy-policy</loc>
+    <lastmod>2025-12-11T00:00:00+00:00</lastmod>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dxgpt.app/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://dxgpt.app/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://dxgpt.app/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://dxgpt.app/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://dxgpt.app/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://dxgpt.app/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dxgpt.app/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://dxgpt.app/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dxgpt.app/privacy-policy"/>
+  </url>
+
 </urlset>

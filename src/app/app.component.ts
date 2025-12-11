@@ -32,6 +32,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   private scrollPosition: number = 0;
   private ticking: boolean = false;
   private isOpenSwal: boolean = false;
+  private isEuMode: boolean = false;
+  private statusChangeSubscription?: Subscription;
+  private cookieConsentInitialized: boolean = false;
+
   constructor(
     @Inject(DOCUMENT) private document: Document, 
     private router: Router, 
@@ -62,41 +66,100 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  /**
+   * Inicializa el sistema de cookies según el modo (EU o no-EU)
+   * - EU mode: Muestra banner opt-in, carga analytics solo tras consentimiento
+   * - Non-EU mode: Carga analytics inmediatamente (sin banner)
+   */
+  private initializeCookieConsent(): void {
+    if (this.cookieConsentInitialized) return;
+    this.cookieConsentInitialized = true;
+
+    this.isEuMode = this.brandingService.isEuMode();
+
+    if (this.isEuMode) {
+      // EU MODE: GDPR compliance - requiere consentimiento explícito
+      this.initializeEuModeCookies();
+    } else {
+      // NON-EU MODE: Cargar analytics inmediatamente (carga diferida, sin esperar consentimiento)
+      this.analyticsService.setCookieConsent(true);
+    }
+  }
+
+  /**
+   * Inicializa el sistema de cookies para modo EU (GDPR)
+   * - Configura el banner como opt-in
+   * - Suscribe a eventos de cambio de estado
+   * - Verifica si ya existe consentimiento previo
+   */
+  private initializeEuModeCookies(): void {
+    console.log('Inicializando modo EU (GDPR) para cookies');
+
+    // Configurar el cookie consent como opt-in y habilitarlo
+    this.ccService.getConfig().type = 'opt-in';
+    this.ccService.getConfig().enabled = true;
+    this.ccService.getConfig().cookie.domain = window.location.hostname;
+
+    // Suscribirse a cambios de estado del consentimiento
+    this.statusChangeSubscription = this.ccService.statusChange$.subscribe(
+      (event: NgcStatusChangeEvent) => {
+        this.handleCookieConsentChange(event);
+      }
+    );
+
+    // Verificar si ya existe consentimiento previo guardado
+    const existingConsent = this.ccService.hasConsented();
+    if (existingConsent) {
+      console.log('Consentimiento de cookies existente detectado');
+      this.analyticsService.setCookieConsent(true);
+    }
+
+    // Cargar traducciones del banner
+    this.updateCookieBannerTranslations();
+  }
+
+  /**
+   * Maneja los cambios de estado del consentimiento de cookies
+   */
+  private handleCookieConsentChange(event: NgcStatusChangeEvent): void {
+    console.log('Cookie consent status changed:', event.status);
+    
+    if (event.status === 'allow') {
+      // Usuario aceptó las cookies - cargar analytics
+      this.analyticsService.setCookieConsent(true);
+    } else if (event.status === 'deny') {
+      // Usuario rechazó las cookies - no cargar analytics
+      this.analyticsService.setCookieConsent(false);
+    }
+  }
+
   ngAfterContentInit() {
+    // En EU mode, Hotjar se carga a través de analyticsService tras consentimiento
+    // Solo cargar directamente si NO es EU mode y es producción
     if (!this.document) return;
     
-    if(environment.production && environment.tenantId == 'dxgpt-prod') {
-      ((h: any, o: Document, t: string, j: string, a?: any, r?: any) => {
-        h.hj = h.hj || function() {
-          (h.hj.q = h.hj.q || []).push(arguments);
-        };
-        h._hjSettings = { 
-          hjid: environment.hotjarSiteId, 
-          hjsv: 6,
-          cookieDomain: 'https://dxgpt.app',
-          cookieSecure: true,
-          cookieSameSite: 'Lax'
-        };
-        a = o.getElementsByTagName('head')[0];
-        r = o.createElement('script');
-        r.async = 1;
-        r.defer = true;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        // Cargar Hotjar después de que la página esté lista
-        setTimeout(() => {
-          a?.appendChild(r);
-        }, 2000);
-      })(window as any, this.document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    // Si es EU mode, no cargar Hotjar aquí - se cargará tras consentimiento
+    if (this.brandingService.isEuMode()) {
+      return;
+    }
+    
+    // Non-EU mode: cargar Hotjar directamente (comportamiento legacy)
+    if (environment.production && (environment.tenantId === 'dxgpt-prod' || environment.tenantId === 'dxeugpt-prod')) {
+      setTimeout(() => {
+        this.analyticsService.loadHotjar();
+      }, 2000);
     }
   }
 
   ngOnInit() {
     this.iconsService.loadIcons();
     
-    // Inicializar el servicio de branding
+    // Inicializar el servicio de branding y configurar cookies cuando esté listo
     this.brandingService.brandingConfig$.subscribe(config => {
       if (config) {
         console.log('Branding config loaded:', config.name);
+        // Inicializar el sistema de cookies una vez que tenemos la configuración
+        this.initializeCookieConsent();
       }
     });
 
@@ -114,22 +177,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
       this.titleService.setTitle(titulo);
       this.changeMeta();
 
-      this.translate
-        .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.policy'])
-        .subscribe(data => {
-          this.ccService.getConfig().content = this.ccService.getConfig().content || {};
-          // Override default messages with the translated ones
-          this.ccService.getConfig().content.header = data['cookie.header'];
-          this.ccService.getConfig().content.message = data['cookie.message'];
-          this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
-          this.ccService.getConfig().content.allow = data['cookie.allow'];
-          this.ccService.getConfig().content.deny = data['cookie.deny'];
-          this.ccService.getConfig().content.link = data['cookie.link'];
-          this.ccService.getConfig().content.policy = data['cookie.policy'];
-          this.ccService.getConfig().content.href = 'https://dxgpt.app/cookies';
-          this.ccService.destroy(); //remove previous cookie bar (with default messages)
-          this.ccService.init(this.ccService.getConfig()); // update config with translated messages
-        });
+      // Solo actualizar el banner de cookies si estamos en EU mode
+      if (this.isEuMode) {
+        this.updateCookieBannerTranslations();
+      }
     });
 
     this.subscription = this.router.events
@@ -195,49 +246,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
       this.changeMeta();
       localStorage.setItem('lang', lang);
 
-
-      this.translate
-        .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.policy'])
-        .subscribe(data => {
-
-          this.ccService.getConfig().content = this.ccService.getConfig().content || {};
-          // Override default messages with the translated ones
-          this.ccService.getConfig().content.header = data['cookie.header'];
-          this.ccService.getConfig().content.message = data['cookie.message'];
-          this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
-          this.ccService.getConfig().content.allow = data['cookie.allow'];
-          this.ccService.getConfig().content.deny = data['cookie.deny'];
-          this.ccService.getConfig().content.link = data['cookie.link'];
-          this.ccService.getConfig().content.policy = data['cookie.policy'];
-          this.ccService.getConfig().content.href = 'https://dxgpt.app/cookies';
-          this.ccService.destroy();//remove previous cookie bar (with default messages)
-          this.ccService.init(this.ccService.getConfig()); // update config with translated messages
-        });
-
+      // Solo actualizar el banner de cookies si estamos en EU mode
+      if (this.isEuMode) {
+        this.updateCookieBannerTranslations();
+      }
     });
 
-    this.ccService.getConfig().cookie.domain = window.location.hostname;
-
-
-    this.translate
-      .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.policy'])
-      .subscribe(data => {
-
-        this.ccService.getConfig().content = this.ccService.getConfig().content || {};
-        // Override default messages with the translated ones
-        this.ccService.getConfig().content.header = data['cookie.header'];
-        this.ccService.getConfig().content.message = data['cookie.message'];
-        this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
-        this.ccService.getConfig().content.allow = data['cookie.allow'];
-        this.ccService.getConfig().content.deny = data['cookie.deny'];
-        this.ccService.getConfig().content.link = data['cookie.link'];
-        this.ccService.getConfig().content.policy = data['cookie.policy'];
-        this.ccService.getConfig().content.href = 'https://dxgpt.app/cookies';
-        this.ccService.destroy();//remove previous cookie bar (with default messages)
-        this.ccService.init(this.ccService.getConfig()); // update config with translated messages
-      });
-
-      window.addEventListener('scroll', this.onScroll.bind(this), true);
+    window.addEventListener('scroll', this.onScroll.bind(this), true);
       document.addEventListener('touchstart', this.onTouchStart.bind(this), { passive: true });
       document.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
   }
@@ -303,6 +318,31 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    if (this.statusChangeSubscription) {
+      this.statusChangeSubscription.unsubscribe();
+    }
+  }
+
+  /**
+   * Actualiza las traducciones del banner de cookies (solo para EU mode)
+   */
+  private updateCookieBannerTranslations(): void {
+    this.translate
+      .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.policy'])
+      .subscribe(data => {
+        this.ccService.getConfig().content = this.ccService.getConfig().content || {};
+        // Override default messages with the translated ones
+        this.ccService.getConfig().content.header = data['cookie.header'];
+        this.ccService.getConfig().content.message = data['cookie.message'];
+        this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
+        this.ccService.getConfig().content.allow = data['cookie.allow'];
+        this.ccService.getConfig().content.deny = data['cookie.deny'];
+        this.ccService.getConfig().content.link = data['cookie.link'];
+        this.ccService.getConfig().content.policy = data['cookie.policy'];
+        this.ccService.getConfig().content.href = 'https://dxgpt.app/cookies';
+        this.ccService.destroy(); // Remove previous cookie bar (with default messages)
+        this.ccService.init(this.ccService.getConfig()); // Update config with translated messages
+      });
   }
 
   changeMeta() {

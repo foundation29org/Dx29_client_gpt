@@ -123,7 +123,7 @@ en resumen para actualizar un tenant existente con los ultimos cambios de dxgpt:
 
 si es un nuevo tenant:
 1. crear los environments necesarios
-2. añadir el tenant a configure-index-html para adaptar el html (hotjar, analitycs, etc)
+2. añadir el tenant a configure-index-html para adaptar el html (analitycs, etc)
 3. establecer la configuracion en branding-config (para la UI)
 4. poner el favicon en assets y los environments del tenant en angular.json, y poner en el package.json como se lanzar esos envs de angular.json
 5. crear el swa y coger el token para ponerlo en los environments
@@ -147,7 +147,6 @@ Cuando una empresa va a hacer el deploy del SWA en el tenant de Azure del hospit
    export const environment = {
      production: true,
      api: 'https://api-del-hospital.ejemplo.com/api', // URL absoluta del container
-     hotjarSiteId: '',
      INSTRUMENTATION_KEY: '...', // Si el hospital quiere analytics
      apiSubscriptionKey: '', // Vacío si no usan APIM, o key del APIM del hospital si lo usan
      tenantId: 'tenant-name-prod'
