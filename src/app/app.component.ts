@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone, Inject, AfterContentInit } from '@angular/core';
-import { environment } from 'environments/environment';
+import { Component, OnInit, OnDestroy, NgZone, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,7 +22,7 @@ import {
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   tituloEvent: string = '';
@@ -134,23 +133,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     }
   }
 
-  ngAfterContentInit() {
-    // En EU mode, Hotjar se carga a través de analyticsService tras consentimiento
-    // Solo cargar directamente si NO es EU mode y es producción
-    if (!this.document) return;
-    
-    // Si es EU mode, no cargar Hotjar aquí - se cargará tras consentimiento
-    if (this.brandingService.isEuMode()) {
-      return;
-    }
-    
-    // Non-EU mode: cargar Hotjar directamente (comportamiento legacy)
-    if (environment.production && (environment.tenantId === 'dxgpt-prod' || environment.tenantId === 'dxeugpt-prod')) {
-      setTimeout(() => {
-        this.analyticsService.loadHotjar();
-      }, 2000);
-    }
-  }
+
 
   ngOnInit() {
     this.iconsService.loadIcons();
