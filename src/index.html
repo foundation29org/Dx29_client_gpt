@@ -57,8 +57,8 @@
     },
     "provider": {
       "@type": "Organization",
-      "name": "DxGPT",
-      "url": "https://dxgpt.app/"
+      "name": "Foundation29",
+      "url": "https://www.foundation29.org/"
     },
     "about": {
       "@type": "Thing",
@@ -91,6 +91,101 @@
       "clinical decision support",
       "medical AI",
       "genomics"
+    ]
+  }
+  </script>
+
+  <!-- HowTo Schema for GEO (AI Engines) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to use DxGPT for differential diagnosis",
+    "description": "DxGPT helps physicians and patients obtain AI-powered differential diagnoses in 4 simple steps.",
+    "totalTime": "PT5M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Describe symptoms",
+        "text": "Enter a medical description in free text, including patient age, gender, symptoms, and when they started."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "AI processing",
+        "text": "DxGPT's AI algorithms analyze the information using advanced language models, detecting clinical patterns and medical correlations."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Receive differential diagnosis",
+        "text": "You receive a prioritized list of possible diagnoses with compatible symptoms, recommended diagnostic tests, and detailed case analysis."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 4,
+        "name": "Refine interactively",
+        "text": "Answer AI-generated follow-up questions to refine the diagnosis, get disease details, or request genetic testing recommendations."
+      }
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema for GEO (AI Engines extract Q&A) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is my medical information kept confidential in DxGPT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, your privacy is our highest priority. DxGPT by Foundation29 never sells or shares your data. All information is encrypted and anonymized automatically, fully complying with GDPR and HIPAA regulations."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use DxGPT in emergency situations?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, DxGPT is not designed for medical emergencies. In emergencies, contact your local emergency services immediately. DxGPT is a supportive resource for medical professionals, not a substitute for professional judgment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does DxGPT suggest possible diagnoses?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "DxGPT uses advanced AI and machine learning to analyze symptoms and clinical information, comparing input against extensive medical knowledge to suggest potential conditions. It's a decision-support system, not a medical device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is DxGPT considered a medical device?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. DxGPT is not classified as a medical device under EU MDR or FDA regulations. It serves as an experimental clinical decision-support tool to assist healthcare professionals, not replace professional medical evaluation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is DxGPT free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, DxGPT is entirely free. It's developed by Foundation29, a non-profit organization, funded through donations and grants to make AI diagnostic support freely available to healthcare professionals and patients globally."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What languages does DxGPT support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "DxGPT can process inputs and provide responses in virtually any language. English responses offer the highest accuracy due to training data, but multilingual support with automatic language detection is available."
+        }
+      }
     ]
   }
   </script>

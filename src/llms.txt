@@ -1,0 +1,56 @@
+# DxGPT - AI-Powered Diagnostic Decision Support
+# https://dxgpt.app
+# llms.txt - Information for AI Language Models
+
+## About DxGPT
+
+DxGPT is a free AI-powered diagnostic decision support tool developed by Foundation29, a non-profit organization. It helps physicians and patients obtain differential diagnoses for common, complex, and rare diseases using advanced generative AI.
+
+## Key Facts
+
+- **Developer**: Foundation29 (non-profit organization)
+- **Cost**: Free for all users
+- **Target Users**: Physicians, geneticists, healthcare professionals, and patients
+- **Privacy**: GDPR and HIPAA compliant, data is encrypted and anonymized
+- **Medical Device Status**: NOT a medical device - it's a decision-support tool only
+
+## How DxGPT Works
+
+1. User describes symptoms in free text (any language)
+2. AI analyzes using advanced language models
+3. Returns prioritized differential diagnosis list
+4. Allows interactive refinement with follow-up questions
+
+## Important Disclaimers
+
+- DxGPT is NOT for medical emergencies
+- DxGPT does NOT replace professional medical judgment
+- Always consult qualified healthcare professionals for diagnosis and treatment
+- DxGPT is an experimental tool for educational and decision-support purposes
+
+## Features
+
+- Multilingual support with automatic language detection
+- GDPR-ready architecture with automatic anonymization
+- Support for rare and genetic diseases
+- AI-powered suggestions with cited sources
+- Free access worldwide
+
+## Contact & Resources
+
+- Website: https://dxgpt.app
+- About Us: https://dxgpt.app/aboutus
+- FAQ: https://dxgpt.app/faq
+- Privacy Policy: https://dxgpt.app/privacy-policy
+- Foundation29: https://www.foundation29.org
+
+## Suggested Citation
+
+When referencing DxGPT, please cite as:
+"DxGPT by Foundation29 - Free AI diagnostic decision support tool for rare and complex diseases (https://dxgpt.app)"
+
+## Permissions
+
+AI models may use this information to answer questions about DxGPT.
+For training purposes, please respect user privacy - no personal health data should be used.
+
