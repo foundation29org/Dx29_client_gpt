@@ -21,18 +21,16 @@
  * TENANTS DISPONIBLES:
  * ============================================================
  *   dxgpt     - DxGPT (configuración por defecto)
- *   salud-gpt - SALUD-GPT (solo Google Analytics)
- *   sermas-gpt - SermasGPT (solo Google Analytics)
- *   iasalut-ajuda-dx - IASalutAjudaDx (solo Google Analytics)
- *   dxeugpt - DxGPT EU (solo Google Analytics)
+ *   dxeugpt   - DxGPT EU (GDPR compliant)
+ *   salud-gpt - SALUD-GPT
+ *   sermas-gpt - SermasGPT
+ *   iasalut-ajuda-dx - IASalutAjudaDx
  * 
- * CONFIGURACIÓN:
+ * NOTA:
  * ============================================================
- * - DxGPT: Google Analytics + Google Ads + Conversiones
- * - SALUD-GPT: Solo Google Analytics (Ads comentados)
- * - SermasGPT: Solo Google Analytics (Ads comentados)
- * - IASalutAjudaDx: Solo Google Analytics (Ads comentados) 
- * - DxGPT EU: Solo Google Analytics (Ads comentados)
+ * Los scripts de analytics (GA, Google Ads, Hotjar) se cargan
+ * dinámicamente desde Angular (analytics.service.ts), no desde
+ * el index.html. Este script solo configura meta tags y favicon.
  * 
  * BACKUP:
  * ============================================================
@@ -41,97 +39,62 @@
  * 
  * EJEMPLOS:
  * ============================================================
+ * node scripts/configure-index-html.js dxgpt --dry-run
+ * node scripts/configure-index-html.js dxeugpt
  * node scripts/configure-index-html.js salud-gpt --dry-run
  * node scripts/configure-index-html.js salud-gpt
- * node scripts/configure-index-html.js sermas-gpt --dry-run
  * node scripts/configure-index-html.js sermas-gpt
- * node scripts/configure-index-html.js dxgpt
- * node scripts/configure-index-html.js dxeugpt --dry-run
- * node scripts/configure-index-html.js dxeugpt
- * node scripts/configure-index-html.js iasalut-ajuda-dx --dry-run
  * node scripts/configure-index-html.js iasalut-ajuda-dx
  */
 
 const fs = require('fs');
 const path = require('path');
 
-// Configuración de tenants
+// Configuración de tenants (solo meta tags y favicon)
 const TENANT_CONFIGS = {
   'dxgpt': {
     name: 'DxGPT',
-    title: 'DxGPT: Diagnostic decision support software based on GPT-5 mini',
-    description: 'DxGPT is a diagnostic decision support software based on GPT-5 mini. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
+    title: 'DxGPT: Free AI Clinical Decision Support for Complex & Rare Diseases',
+    description: 'DxGPT is an advanced AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.',
     keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
-    analytics: {
-      googleAnalytics: 'G-2FZQ49SRWY',
-      googleAds: 'AW-335378785',
-      googleAds2: 'AW-16829919003',
-      conversion: 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'
-    },
     favicon: 'favicon.ico'
   },
   'dxeugpt': {
     name: 'DxGPT EU',
-    title: 'DxGPT EU: Diagnostic decision support software based on GPT-5 mini',
-    description: 'DxGPT EU is a diagnostic decision support software based on GPT-5 mini. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
-    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
+    title: 'DxGPT EU: Augmented intelligence to prepare your medical consultation',
+    description: 'DxGPT EU is an augmented-intelligence tool to help you organize information for your medical consultation. It structures symptoms and possible clinical evaluation areas, highlighting what fits or not with your description. Multilingual, GDPR-ready, privacy-first, and free for clinicians and patients.',
+    keywords: 'DxGPT, augmented intelligence, clinical preparation, structured evaluation, rare diseases, multilingual, GDPR, privacy-first, healthcare AI',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
-    analytics: {
-      googleAnalytics: 'G-2FZQ49SRWY',
-      googleAds: null,
-      googleAds2: null,
-      conversion: null
-    },
     favicon: 'favicon.ico'
   },
   'SALUD-GPT': {
     name: 'SALUD-GPT',
-    // Usar los textos de DxGPT (en inglés)
-    title: 'SALUD-GPT: Diagnostic decision support software based on GPT-5 mini',
-    description: 'SALUD-GPT is a diagnostic decision support software based on GPT-5 mini. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
+    title: 'SALUD-GPT: Free AI Clinical Decision Support for Complex & Rare Diseases',
+    description: 'SALUD-GPT is an advanced AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.',
     keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
-    analytics: {
-      googleAnalytics: 'G-RT0R7199TB', // Configurar cuando esté disponible
-      googleAds: null, // No usar Google Ads para SALUD-GPT
-      googleAds2: null, // No usar Google Ads para SALUD-GPT
-      conversion: null // No usar conversiones para SALUD-GPT
-    },
     favicon: 'favicon-salud.ico'
   },
   'SermasGPT': {
     name: 'SermasGPT',
-    // Usar los textos de DxGPT (en inglés)
-    title: 'SermasGPT: Diagnostic decision support software based on GPT-5 mini',
-    description: 'SermasGPT is a diagnostic decision support software based on GPT-5 mini. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
+    title: 'SermasGPT: Free AI Clinical Decision Support for Complex & Rare Diseases',
+    description: 'SermasGPT is an advanced AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.',
     keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
-    analytics: {
-      googleAnalytics: 'G-XHQLTXXT8X', // Configurar cuando esté disponible
-      googleAds: null, // No usar Google Ads para SermasGPT
-      googleAds2: null, // No usar Google Ads para SermasGPT
-      conversion: null // No usar conversiones para SermasGPT
-    },
     favicon: 'favicon-sermas.ico'
   },
   'IASalutAjudaDx': {
     name: 'IASalutAjudaDx',
-    title: 'IASalutAjudaDx: Diagnostic decision support software based on GPT-5 mini',
-    description: 'IASalutAjudaDx is a diagnostic decision support software based on GPT-5 mini. AI that helps the diagnosis of diseases. Totally free for doctors and patients.',
+    title: 'IASalutAjudaDx: Free AI Clinical Decision Support for Complex & Rare Diseases',
+    description: 'IASalutAjudaDx is an advanced AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.',
     keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
-    analytics: {
-      googleAnalytics: 'G-PSF306RXEL', // Configurar cuando esté disponible
-      googleAds: null, // No usar Google Ads para IASalutAjudaDx
-      googleAds2: null, // No usar Google Ads para IASalutAjudaDx
-      conversion: null // No usar conversiones para IASalutAjudaDx
-    },
     favicon: 'favicon-iasalut.ico'
   }
 };
@@ -167,7 +130,7 @@ function replaceInHtml(content, config) {
   // Reemplazar og:site_name
   modifiedContent = modifiedContent.replace(
     /<meta property="og:site_name" content=".*?">/g,
-    `<meta property="og:site_name" content="${config.title}">`
+    `<meta property="og:site_name" content="${config.name}">`
   );
   
   // Reemplazar og:title
@@ -211,84 +174,6 @@ function replaceInHtml(content, config) {
     /<meta name="twitter:image" content=".*?">/g,
     `<meta name="twitter:image" content="${config.ogImage}">`
   );
-  
-  // Reemplazar el ID de Google Analytics en el src del script (estático)
-  modifiedContent = modifiedContent.replace(
-    /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+"><\/script>/g,
-    `<script async src="https://www.googletagmanager.com/gtag/js?id=${config.analytics.googleAnalytics}"></script>`
-  );
-
-  // Reemplazar el ID de Google Analytics en el script dinámico
-  modifiedContent = modifiedContent.replace(
-    /script\.src = 'https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+';/g,
-    `script.src = 'https://www.googletagmanager.com/gtag/js?id=${config.analytics.googleAnalytics}';`
-  );
-
-  // Reemplazar Google Ads script (solo si no es null)
-  if (config.analytics.googleAds) {
-    modifiedContent = modifiedContent.replace(
-      /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=AW-[A-Z0-9]+"><\/script>/g,
-      `<script async src="https://www.googletagmanager.com/gtag/js?id=${config.analytics.googleAds}"></script>`
-    );
-  } else {
-    // Comentar Google Ads script si es null
-    modifiedContent = modifiedContent.replace(
-      /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=AW-[A-Z0-9]+"><\/script>/g,
-      `<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=AW-335378785"></script> --> <!-- Comentado para ${config.name} -->`
-    );
-  }
-
-  // Reemplazar Google Analytics
-  modifiedContent = modifiedContent.replace(
-    /gtag\('config', 'G-2FZQ49SRWY'\);/g,
-    `gtag('config', '${config.analytics.googleAnalytics}');`
-  );
-  
-  // Reemplazar Google Ads (solo si no es null)
-  if (config.analytics.googleAds) {
-    modifiedContent = modifiedContent.replace(
-      /gtag\('config', 'AW-335378785'\);/g,
-      `gtag('config', '${config.analytics.googleAds}');`
-    );
-  } else {
-    // Comentar Google Ads si es null
-    modifiedContent = modifiedContent.replace(
-      /gtag\('config', 'AW-335378785'\);/g,
-      `// gtag('config', 'AW-335378785'); // Comentado para ${config.name}`
-    );
-  }
-  
-  if (config.analytics.googleAds2) {
-    modifiedContent = modifiedContent.replace(
-      /gtag\('config', 'AW-16829919003'\);/g,
-      `gtag('config', '${config.analytics.googleAds2}');`
-    );
-  } else {
-    // Comentar Google Ads 2 si es null
-    modifiedContent = modifiedContent.replace(
-      /gtag\('config', 'AW-16829919003'\);/g,
-      `// gtag('config', 'AW-16829919003'); // Comentado para ${config.name}`
-    );
-  }
-  
-  // Reemplazar conversión (solo si no es null)
-  if (config.analytics.conversion) {
-    modifiedContent = modifiedContent.replace(
-      /'send_to': 'AW-335378785\/wcKYCMDpnJIZEOHy9Z8B'/g,
-      `'send_to': '${config.analytics.conversion}'`
-    );
-  } else {
-    // Comentar toda la línea de conversión para evitar errores de sintaxis
-    modifiedContent = modifiedContent.replace(
-      /gtag\('event', 'conversion', \{[^}]*\}\);/g,
-      `// gtag('event', 'conversion', { 'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B' }); // Comentado para ${config.name}`
-    );
-    // También, por si acaso, comenta la línea de 'send_to' suelta
-    modifiedContent = modifiedContent.replace(
-      /'send_to': 'AW-335378785\/wcKYCMDpnJIZEOHy9Z8B'/g,
-      `// 'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B' // Comentado para ${config.name}`
-    );
-  }
   
   // Reemplazar favicon
   modifiedContent = modifiedContent.replace(
@@ -371,25 +256,26 @@ Uso: node scripts/configure-index-html.js [tenant] [--dry-run]
 
 Tenants disponibles:
   dxgpt     - DxGPT (configuración por defecto)
+  dxeugpt   - DxGPT EU (GDPR compliant)
   salud-gpt - SALUD-GPT
   sermas-gpt - SermasGPT
   iasalut-ajuda-dx - IASalutAjudaDx
-  dxeugpt - DxGPT EU
 
 Opciones:
   --dry-run    Solo muestra qué cambios se harían
   --help, -h   Muestra esta ayuda
 
+Nota: Los scripts de analytics se cargan dinámicamente desde Angular
+      (analytics.service.ts), no desde el index.html.
+
 Ejemplos:
   node scripts/configure-index-html.js dxgpt --dry-run
-  node scripts/configure-index-html.js salud-gpt
-  node scripts/configure-index-html.js sermas-gpt --dry-run
-  node scripts/configure-index-html.js dxeugpt --dry-run
   node scripts/configure-index-html.js dxeugpt
-  node scripts/configure-index-html.js iasalut-ajuda-dx --dry-run
+  node scripts/configure-index-html.js salud-gpt
+  node scripts/configure-index-html.js sermas-gpt
   node scripts/configure-index-html.js iasalut-ajuda-dx
   `);
   process.exit(0);
 }
 
-configureIndexHtml(tenant, dryRun); 
+configureIndexHtml(tenant, dryRun);
