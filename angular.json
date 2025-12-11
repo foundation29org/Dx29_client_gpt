@@ -27,7 +27,8 @@
               "src/favicon-sermas.ico",
               "src/favicon-iasalut.ico",
               "src/sitemap.xml",
-              "src/robots.txt"
+              "src/robots.txt",
+              "src/llms.txt"
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
