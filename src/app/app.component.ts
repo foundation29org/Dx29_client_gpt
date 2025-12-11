@@ -98,6 +98,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
     // Configurar el cookie consent como opt-in y habilitarlo
     this.ccService.getConfig().type = 'opt-in';
     this.ccService.getConfig().enabled = true;
+    this.ccService.getConfig().revokable = true; // Permitir cambiar de opinión en EU mode
     this.ccService.getConfig().cookie.domain = window.location.hostname;
 
     // Suscribirse a cambios de estado del consentimiento

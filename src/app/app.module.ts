@@ -34,7 +34,8 @@ const cookieConfig: NgcCookieConsentConfig = {
   },
   theme: 'edgeless',
   type: 'opt-in', // GDPR compliance: requiere consentimiento explícito
-  enabled: false // Se habilita dinámicamente solo para EU mode en app.component.ts
+  enabled: false, // Se habilita dinámicamente solo para EU mode en app.component.ts
+  revokable: false // Ocultar el botón de revoke en non-EU mode
 };
 
 export function createTranslateLoader(http: HttpClient) {
