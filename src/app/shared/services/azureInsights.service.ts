@@ -7,6 +7,7 @@ import { environment } from 'environments/environment';
 })
 export class InsightsService {
   private appInsights: ApplicationInsights;
+  private initialized = false;
 
   constructor() {
     this.appInsights = new ApplicationInsights({ config: {
@@ -14,14 +15,36 @@ export class InsightsService {
       disableFetchTracking: true,
       disableAjaxTracking: true,
       enableAutoRouteTracking: false,
-      autoTrackPageVisitTime : false,
+      autoTrackPageVisitTime: false,
       loggingLevelConsole: 1,
       /* ...Other Configuration Options... */
     } });
+    
+    // Diferir la carga de App Insights para no bloquear el render inicial
+    this.deferredInit();
+  }
+
+  private deferredInit(): void {
+    // Usar requestIdleCallback si está disponible, sino setTimeout
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(() => this.initialize(), { timeout: 2000 });
+    } else {
+      setTimeout(() => this.initialize(), 100);
+    }
+  }
+
+  private initialize(): void {
+    if (this.initialized) return;
     this.appInsights.loadAppInsights();
+    this.initialized = true;
   }
 
   trackEvent(eventName: string, properties?: { [key: string]: any }) {
+    // Asegurar que App Insights esté inicializado
+    if (!this.initialized) {
+      this.initialize();
+    }
+
     // Siempre incluir tenantId en las propiedades
     const enhancedProperties = {
       ...properties,
@@ -39,6 +62,11 @@ export class InsightsService {
   }
 
   trackPageView(pageName: string, properties?: { [key: string]: any }) {
+    // Asegurar que App Insights esté inicializado
+    if (!this.initialized) {
+      this.initialize();
+    }
+
     const enhancedProperties = {
       ...properties,
       tenantId: environment.tenantId,
@@ -54,6 +82,11 @@ export class InsightsService {
   }
 
   trackException(exception) {
+    // Asegurar que App Insights esté inicializado
+    if (!this.initialized) {
+      this.initialize();
+    }
+
     let stringException;
     if (typeof exception === 'string') {
       stringException = exception;
