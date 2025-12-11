@@ -1267,7 +1267,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         Swal.close();
         //window.scrollTo(0, 0);
          // Nueva conversión para la cuenta de display
-         if(environment.tenantId == 'dxgpt-prod'){
+         if(environment.tenantId == 'dxgpt-prod' || environment.tenantId == 'dxeugpt-prod'){
             gtag('event', 'conversion', {
                 'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
             });

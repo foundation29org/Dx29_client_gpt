@@ -308,8 +308,10 @@
       <div class="col-lg-10">
         <div class="seo-text-content">
           <h2 class="seo-title">{{'land.seoBlock.title' | translate}}</h2>
-          <p class="seo-description" *ngIf="!isEuMode()">{{'land.seoBlock.description' | translate}}</p>
-          <p class="seo-description" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEu' | translate}}</p>
+          <p class="seo-description" *ngIf="!isEuMode()">{{'land.seoBlock.descriptionP1' | translate}}</p>
+          <p class="seo-description" *ngIf="!isEuMode()">{{'land.seoBlock.descriptionP2' | translate}}</p>
+          <p class="seo-description" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEuP1' | translate}}</p>
+          <p class="seo-description" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEuP2' | translate}}</p>
           
           <h3 class="seo-subtitle">{{'land.seoBlock.howItWorksTitle' | translate}}</h3>
           <p class="seo-intro" *ngIf="!isEuMode()">{{'land.seoBlock.howItWorksIntro' | translate}}</p>

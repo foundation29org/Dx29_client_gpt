@@ -34,12 +34,8 @@
 
   <!-- Preconnect optimizado -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://script.hotjar.com" crossorigin>
 
-  <!-- DNS Prefetch -->
-  <link rel="dns-prefetch" href="//www.googleadservices.com">
-  <link rel="dns-prefetch" href="//googleads.g.doubleclick.net">
-  <link rel="dns-prefetch" href="//www.google.com">
+  <!-- DNS Prefetch - Analytics se carga dinámicamente desde Angular -->
   
  <!-- Structured Data (JSON-LD) for SEO + GEO -->
  <script type="application/ld+json">
@@ -109,35 +105,8 @@
     }
     </script>
 
-    <!-- Scripts optimizados para carga diferida -->
-    <script>
-      // Cargar Google Analytics después de que la página esté lista
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          var script = document.createElement('script');
-          script.async = true;
-          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-2FZQ49SRWY';
-          document.head.appendChild(script);
-          
-          script.onload = function() {
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-2FZQ49SRWY');
-          };
-        }, 1000);
-      });
-    </script>
-  
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-335378785"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-335378785');
-      gtag('config', 'AW-16829919003');
-      gtag('event', 'conversion', {'send_to': 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'});
-    </script>
+    <!-- Analytics (GA, Google Ads, Hotjar) se cargan dinámicamente desde Angular -->
+    <!-- Ver: analytics.service.ts -->
 </head>
 
 <body>
