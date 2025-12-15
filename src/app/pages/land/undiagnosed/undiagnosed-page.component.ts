@@ -880,11 +880,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }, 100);
 
         this.callingAI = true;
+        
+        // Validar y sanitizar lang para evitar enviar "undefined" como cadena
+        let langValue = this.lang;
+        if (!langValue || langValue === 'undefined' || langValue === 'null' || typeof langValue !== 'string' || langValue.length < 2) {
+            langValue = 'en'; // Fallback seguro
+            console.warn('Invalid lang value detected, using fallback "en":', this.lang);
+        }
+        
         var value = { 
             description: this.medicalTextEng, 
             diseases_list: '', 
             myuuid: this.myuuid, 
-            lang: this.lang, 
+            lang: langValue, 
             timezone: this.timezone, 
             model: modelToUse,
             // Filtrar parámetros - solo permite campos válidos
