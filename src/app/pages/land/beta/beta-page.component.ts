@@ -1349,7 +1349,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             'Detailed Information',
             'Diagnosis Test',
             'Differential Diagnosis',
-            'Why Diagnosis'
+            'Why Diagnosis',
+            'Genetic Tests'
         ];
         return events[index] || '';
     }
