@@ -179,6 +179,31 @@ export class NavbarD29Component implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  /**
+   * Valida si un código de idioma está en la lista de idiomas disponibles
+   */
+  private isValidLangCode(langCode: string | null): boolean {
+    if (!langCode || langCode === 'undefined' || langCode === 'null' || langCode.trim() === '') {
+      return false;
+    }
+    return this.langs.some(lang => lang.code === langCode);
+  }
+
+  /**
+   * Obtiene el idioma de localStorage de forma segura, validando que sea válido
+   */
+  private getValidLangFromStorage(): string | null {
+    const storedLang = localStorage.getItem('lang');
+    if (this.isValidLangCode(storedLang)) {
+      return storedLang;
+    }
+    // Si el valor es inválido, limpiarlo del localStorage
+    if (storedLang) {
+      localStorage.removeItem('lang');
+    }
+    return null;
+  }
+
   loadLanguages() {
     this.langs = [
       {
@@ -214,22 +239,34 @@ export class NavbarD29Component implements OnDestroy {
         "code": "ca"        
       }
     ];
-    if (localStorage.getItem('lang')) {
-      this.translate.use(localStorage.getItem('lang'));
-      this.searchLangName(localStorage.getItem('lang'));
+    
+    // Intentar obtener un idioma válido del localStorage
+    const storedLang = this.getValidLangFromStorage();
+    
+    if (storedLang) {
+      this.translate.use(storedLang);
+      this.searchLangName(storedLang);
     } else {
+      // No hay idioma válido en localStorage, intentar detectar del navegador
       const browserLang: string = this.translate.getBrowserLang();
       var foundlang = false;
-      for (let lang of this.langs) {
-        if (browserLang.match(lang.code)) {
-          this.translate.use(lang.code);
-          foundlang = true;
-          localStorage.setItem('lang', lang.code);
-          this.searchLangName(lang.name);
+      if (browserLang) {
+        for (let lang of this.langs) {
+          if (browserLang.match(lang.code)) {
+            this.translate.use(lang.code);
+            foundlang = true;
+            localStorage.setItem('lang', lang.code);
+            this.searchLangName(lang.name);
+            break;
+          }
         }
       }
       if (!foundlang) {
-        localStorage.setItem('lang', this.translate.store.currentLang);
+        // Usar 'en' como idioma por defecto si no se encuentra el idioma del navegador
+        const defaultLang = 'en';
+        this.translate.use(defaultLang);
+        localStorage.setItem('lang', defaultLang);
+        this.searchLangName(defaultLang);
       }
     }
     var eventsLang = this.inj.get(EventsService);
@@ -264,16 +301,30 @@ export class NavbarD29Component implements OnDestroy {
       }));*/
   }
 
+  /**
+   * Obtiene el idioma actual de forma segura, con validación
+   * Útil para otros componentes que necesiten obtener el idioma
+   */
+  getCurrentLang(): string {
+    const validLang = this.getValidLangFromStorage();
+    return validLang || 'en';
+  }
+
   searchLangName(code: string) {
-    for (let lang of this.langs) {
-      var actualLang = localStorage.getItem('lang');
-      if (actualLang == lang.code) {
-        this.currentLang = lang.code;
-      }
+    if (this.isValidLangCode(code)) {
+      this.currentLang = code;
+    } else {
+      // Si el código no es válido, usar el idioma por defecto
+      this.currentLang = 'en';
     }
   }
 
   ChangeLanguage(language: string) {
+    // Validar que el idioma sea válido antes de guardarlo
+    if (!this.isValidLangCode(language)) {
+      console.warn(`Idioma inválido: ${language}. Usando 'en' como fallback.`);
+      language = 'en';
+    }
     this.translate.use(language);
     localStorage.setItem('lang', language);
     this.searchLangName(language);

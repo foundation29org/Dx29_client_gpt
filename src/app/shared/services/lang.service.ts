@@ -9,6 +9,9 @@ import { map, catchError } from 'rxjs/operators';
 export class LangService {
 
     langs: any = [];
+    
+    // Lista de idiomas válidos (debe coincidir con la lista en navbar-dx29.component.ts)
+    private static readonly VALID_LANG_CODES = ['de', 'en', 'es', 'fr', 'pl', 'ru', 'uk', 'ca'];
 
     constructor(public translate : TranslateService, private http: HttpClient, public insightsService: InsightsService) {}
 
@@ -27,5 +30,33 @@ export class LangService {
             return err;
           })
         );
+    }
+
+    /**
+     * Obtiene el idioma de localStorage de forma segura, validando que sea válido
+     * Si el valor es inválido (undefined, null, o no está en la lista), retorna 'en' como fallback
+     * y limpia el valor inválido del localStorage
+     * @returns Código de idioma válido (por defecto 'en')
+     */
+    static getValidLangFromStorage(): string {
+        const storedLang = localStorage.getItem('lang');
+        
+        // Validar que el valor no sea null, undefined (string), null (string), o vacío
+        if (!storedLang || storedLang === 'undefined' || storedLang === 'null' || storedLang.trim() === '') {
+            // Limpiar valor inválido si existe
+            if (storedLang) {
+                localStorage.removeItem('lang');
+            }
+            return 'en';
+        }
+        
+        // Validar que el código esté en la lista de idiomas válidos
+        if (LangService.VALID_LANG_CODES.includes(storedLang)) {
+            return storedLang;
+        }
+        
+        // Si no es válido, limpiarlo y retornar 'en'
+        localStorage.removeItem('lang');
+        return 'en';
     }
 }

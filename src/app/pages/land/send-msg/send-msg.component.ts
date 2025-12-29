@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { UuidService } from 'app/shared/services/uuid.service';
+import { LangService } from 'app/shared/services/lang.service';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { BrandingService } from 'app/shared/services/branding.service';
@@ -141,7 +142,7 @@ lauchEvent(category) {
         //this.mainForm.value.email = (this.mainForm.value.email).toLowerCase();
         //this.mainForm.value.lang=this.translate.store.currentLang;
         var params = this.mainForm.value;
-        params.lang = localStorage.getItem('lang');
+        params.lang = LangService.getValidLangFromStorage();
         params.subscribe = this.checkSubscribe;
         params.myuuid = this.myuuid;
         this.subscription.add( this.http.post(environment.api+'/internal/homesupport/', params)
