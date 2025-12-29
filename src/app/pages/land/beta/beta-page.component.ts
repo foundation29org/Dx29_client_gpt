@@ -14,6 +14,7 @@ import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { AnalyticsService } from 'app/shared/services/analytics.service';
 import { FeedbackPageComponent } from 'app/pages/land/feedback/feedback-page.component';
 import { UuidService } from 'app/shared/services/uuid.service';
+import { LangService } from 'app/shared/services/lang.service';
 import { BrandingService } from 'app/shared/services/branding.service';
 import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
 import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
@@ -179,7 +180,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         // Inicializar el placeholder con el idioma correcto
         this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
         //get the language from the session
-        this.lang = localStorage.getItem('lang') || 'en';
+        this.lang = LangService.getValidLangFromStorage();
     }
 
     private setLangFromSession(lang: string) {

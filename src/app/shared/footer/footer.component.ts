@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PrivacyPolicyPageComponent } from 'app/pages/land/privacy-policy/privacy-policy.component';
 import { CookiesPageComponent } from 'app/pages/land/cookies/cookies.component';
 import { UuidService } from 'app/shared/services/uuid.service';
+import { LangService } from 'app/shared/services/lang.service';
 import { BrandingService } from 'app/shared/services/branding.service';
 import { filter } from 'rxjs/operators';
 
@@ -116,7 +117,7 @@ submitInvalidForm() {
 
 onSubmitRevolution() {
   this.sending = true;
-  var params = { userName: this.userName ,email: this.email, description: this.msgfeedBack, lang: localStorage.getItem('lang'), subscribe: this.checkSubscribe, myuuid: this.myuuid };
+  var params = { userName: this.userName ,email: this.email, description: this.msgfeedBack, lang: LangService.getValidLangFromStorage(), subscribe: this.checkSubscribe, myuuid: this.myuuid };
   this.http.post(environment.api + '/internal/homesupport/', params)
       .subscribe((res: any) => {
           this.sending = false;
