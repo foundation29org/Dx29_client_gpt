@@ -1132,6 +1132,7 @@
     "onstarts": "Please, rate the quality by clicking on the stars.",
     "selectusertype": "Please select if you are a doctor or a patient.",
     "doctor": "Doctor",
+    "nurse": "Nurse Practitioner / PA",
     "patient": "Patient",
     "none": "I prefer not to say",
     "caregiver": "Caregiver",

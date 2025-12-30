@@ -1132,6 +1132,7 @@
     "onstarts": "Bitte bewerten Sie die Qualität, indem Sie auf die Sterne klicken.",
     "selectusertype": "Bitte wählen Sie aus, ob Sie Arzt oder Patient sind.",
     "doctor": "Arzt",
+    "nurse": "Nurse Practitioner / PA",
     "patient": "Patient",
     "none": "Ich möchte es nicht sagen",
     "caregiver": "Betreuer",
