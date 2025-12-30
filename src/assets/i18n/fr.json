@@ -1131,8 +1131,9 @@
   "Submitted": "Soumis",
   "onstarts": "Veuillez noter la qualité en cliquant sur les étoiles.",
   "selectusertype": "Veuillez sélectionner si vous êtes un médecin ou un patient.",
-  "doctor": "Médecin",
-  "patient": "Patient",
+    "doctor": "Médecin",
+    "nurse": "Infirmier praticien / PA",
+    "patient": "Patient",
   "none": "Je préfère ne pas le dire",
   "caregiver": "Soignant",
   "userType": "Type d'utilisateur"

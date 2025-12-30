@@ -1132,6 +1132,7 @@
     "onstarts": "Por favor, valore la calidad pulsando en las estrellas.",
     "selectusertype": "Por favor, seleccione si es un médico o un paciente.",
     "doctor": "Médico",
+    "nurse": "Enfermero/a examinador/a / PA",
     "patient": "Paciente",
     "none": "Prefiero no decirlo",
     "caregiver": "Cuidador",

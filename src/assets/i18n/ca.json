@@ -1132,6 +1132,7 @@
     "onstarts": "Si us plau, valora la qualitat prement a les estrelles.",
     "selectusertype": "Si us plau, selecciona si ets metge o pacient.",
     "doctor": "Metge",
+    "nurse": "Infermer/a examinador/a / PA",
     "patient": "Pacient",
     "none": "Prefereixo no dir-ho",
     "caregiver": "Cuidador",
