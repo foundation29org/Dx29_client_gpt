@@ -174,6 +174,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         this.myuuid = this.uuidService.getUuid();
         this.lauchEvent("Init Page");
         this.currentStep = 1;
+        // Asegurar estado inicial sin diagnósticos
+        this.eventsService.broadcast('hasDiagnostics', false);
         this.loadSponsors();
         this.loadingIP();
         
@@ -217,6 +219,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         this.previousModel = this.defaultModel; // Resetear también previousModel al volver al inicio
         this.topRelatedConditions = [];
         this.currentStep = 1;
+        // Notificar que ya no hay diagnósticos activos
+        this.eventsService.broadcast('hasDiagnostics', false);
         await this.delay(200);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
@@ -1272,6 +1276,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             this.currentStep = 2;
             history.pushState({ step: 2 }, 'DxGPT');
         }
+        // Notificar que hay diagnósticos activos
+        this.eventsService.broadcast('hasDiagnostics', true);
         this.callingAI = false;
         Swal.close();
         //window.scrollTo(0, 0);
@@ -1516,6 +1522,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         this.medicalTextOriginal = '';
         this.copyMedicalText = '';
         this.topRelatedConditions = [];
+        // Notificar que ya no hay diagnósticos activos
+        this.eventsService.broadcast('hasDiagnostics', false);
     }
 
     showMoreInfoDiseasePopup(diseaseIndex, contentInfoDisease) {

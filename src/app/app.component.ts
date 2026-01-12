@@ -32,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private ticking: boolean = false;
   private isOpenSwal: boolean = false;
   private isEuMode: boolean = false;
+  private hasDiagnostics: boolean = false;
   private statusChangeSubscription?: Subscription;
   private cookieConsentInitialized: boolean = false;
 
@@ -239,6 +240,11 @@ export class AppComponent implements OnInit, OnDestroy {
     window.addEventListener('scroll', this.onScroll.bind(this), true);
       document.addEventListener('touchstart', this.onTouchStart.bind(this), { passive: true });
       document.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
+
+    // Escuchar cuando hay diagnósticos activos para mostrar popup de confirmación
+    this.eventsService.on('hasDiagnostics', (hasDiagnostics: boolean) => {
+      this.hasDiagnostics = hasDiagnostics;
+    });
   }
 
   private onScroll() {
@@ -265,8 +271,9 @@ export class AppComponent implements OnInit, OnDestroy {
     const deltaX = x - this.startX;
     const angle = Math.abs(Math.atan2(deltaY, deltaX) * 180 / Math.PI);
     
-    // Si el gesto es principalmente vertical (ángulo > 60°) y hacia abajo
-    if (angle > 60 && deltaY > 0 && this.scrollPosition <= 0) {
+    // Si el gesto es principalmente vertical (ángulo > 60°), hacia abajo y con suficiente desplazamiento
+    // Solo mostrar popup si hay diagnósticos que perder
+    if (angle > 60 && deltaY > 80 && this.scrollPosition <= 0 && this.hasDiagnostics) {
       e.preventDefault();
       this.ngZone.run(() => {
         this.showReloadConfirmation();
@@ -285,8 +292,8 @@ export class AppComponent implements OnInit, OnDestroy {
       text: this.translate.instant("generics.Unsaved changes will be lost"),
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: config?.colors.primary || '#B30000',
-      cancelButtonColor: '#B0B6BB',
+      confirmButtonColor: '#B0B6BB',
+      cancelButtonColor: config?.colors.primary || '#B30000',
       confirmButtonText: this.translate.instant("generics.Yes, reload"),
       cancelButtonText: this.translate.instant("generics.Cancel")
     }).then((result) => {
