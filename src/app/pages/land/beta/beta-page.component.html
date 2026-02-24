@@ -191,133 +191,139 @@
         </button>
       </div>
       <div class="col-12 mt-3">
-        <div class="card rounded-lg border shadow">
-          <span class="mt-0 mb-0">
-            <div class="section maintxt min-height-0">
-              <div class="col-md-12 p-2 mb-0 white background-dark" aria-labelledby="get diagnosis">
-                <div>
-                  <div>
-                    <div id="headerTable" class="border-top-none">
-                      <span class="row p-2">
-                        <span class="col-12">
-                          <h4 class="white card-title text-bold-700 margin-top-0"><strong>{{'diagnosis.Proposed diagnoses' |
-                            translate }}</strong></h4>
-                          <span class="float-end">
-                            <ng-container *ngIf="!sendingVote; else loadingSpinner">
-                              <button class="me-1 btn btn-success" (click)="vote('up')"
-                                [disabled]="sendingVote || callingAnonymize" title="Vote up">
-                                <em class="icon-hand fa fa-2x fa-thumbs-up"></em>
-                              </button>
-                              <button class="ms-1 btn btn-danger" (click)="vote('down')"
-                                [disabled]="sendingVote || callingAnonymize" title="Vote down">
-                                <em class="icon-hand fa fa-2x fa-thumbs-down"></em>
-                              </button>
-                            </ng-container>
-                            <ng-template #loadingSpinner>
-                              <span class="d-block">
-                                <em class="fa fa-spinner fa-spin fa-fw"></em>
-                              </span>
-                            </ng-template>
-                          </span>
-                          <span class="mt-1 font-small-3 d-block">1. {{'land.Indicates the quality of the result' |
-                            translate }}</span>
-                          <span class="mt-1 font-small-3 d-block">2. {{'diagnosis.Click on the disease to see more
-                            options' | translate }}</span>
-                          <span class="mt-1 font-small-3 d-block">3. <strong>{{'land.Point3.1' | translate }}</strong> 
-                            <div class="mt-2">
-                              <button class="results-action-btn results-action-btn--primary me-2 mb-2" style="font-size:0.82rem; padding:0.4rem 0.85rem;" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
-                                <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
-                              </button>
-                              <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary me-2 mb-2" style="font-size:0.82rem; padding:0.4rem 0.85rem;" (click)="callAdvancedModel()">
-                                <i class="fa fa-search"></i>{{'diagnosis.Try our advanced mode' | translate }}
-                              </button>
-                              <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary me-2 mb-2" style="font-size:0.82rem; padding:0.4rem 0.85rem;" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
-                            </div>
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="disease-results" *ngIf="topRelatedConditions.length>0">
-                <div *ngFor="let disease of topRelatedConditions; let i = index"
-                     class="disease-card"
-                     (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
-                  <div class="disease-card__header">
-                    <span class="disease-card__rank" *ngIf="!isEuMode()">{{i + 1}}</span>
-                    <div class="disease-card__title-group">
-                      <h3 class="disease-card__name">{{disease.name}}</h3>
-                      <p class="disease-card__description">{{disease.description}}</p>
-                    </div>
-                  </div>
-                  <div class="disease-card__symptoms">
-                    <div class="disease-card__symptom-group disease-card__symptom-group--match">
-                      <span class="disease-card__symptom-icon"><i class="fa fa-check"></i></span>
-                      <p class="disease-card__symptom-text">
-                        <strong *ngIf="!isEuMode()">{{'diagnosis.Matching symptoms' | translate}}:</strong>
-                        <strong *ngIf="isEuMode()">{{'diagnosis.Matching symptomsEu' | translate}}:</strong>
-                        {{disease.matchingSymptoms}}
-                      </p>
-                    </div>
-                    <div class="disease-card__symptom-group disease-card__symptom-group--mismatch">
-                      <span class="disease-card__symptom-icon"><i class="fa fa-times"></i></span>
-                      <p class="disease-card__symptom-text">
-                        <strong *ngIf="!isEuMode()">{{'diagnosis.Non-matching symptoms' | translate}}:</strong>
-                        <strong *ngIf="isEuMode()">{{'diagnosis.Non-matching symptomsEu' | translate}}:</strong>
-                        {{disease.nonMatchingSymptoms}}
-                      </p>
-                    </div>
-                  </div>
-                  <div class="disease-card__footer">
-                    <div *ngIf="disease.name !== '' && disease.url !== ''" class="disease-card__sponsor">
-                      <a class="disease-card__sponsor-link" [href]="disease.url" target="_blank"
-                         (click)="$event.stopPropagation()">
-                        {{'diagnosis.SponsorMsg' | translate}} <i class="ms-1 ft-external-link"></i>
-                      </a>
-                    </div>
-                    <span class="disease-card__more-link">
-                      {{'generics.More information' | translate}} <i class="fa fa-arrow-right ms-1"></i>
-                    </span>
-                  </div>
-                </div>
-                <div class="text-center pt-3">
-                  <p class="text-muted mb-0" *ngIf="model == advancedModel && currentImageUrls.length === 0"><strong>{{'land.Results generated with the advanced model' | translate }}</strong></p>
-                  <p class="text-muted mb-0" *ngIf="model == defaultModel && currentImageUrls.length === 0"><strong>{{'land.Results generated with the faster model' | translate }}</strong></p>
-                </div>
-                <p class="text-muted text-center">{{'diagnosis.advise' | translate }}</p>
-              </div>
-              <span *ngIf="topRelatedConditions.length==0">
-                <p>{{'land.nofound' | translate }}</p>
-              </span>
-              <div class="col-md-12 mb-0 white p-2 center-elements background-dark">
-                <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
-                  <button *ngIf="diseaseListEn.length < 20 && getDiseaseListTextLength() < 1000" class="btn btn-brand-primary mt-2 mb-2 min-widht-btn" (click)="loadMore()">{{'land.Load more' | translate }}</button>
-                  <button class="btn btn-brand-secondary mt-2 mb-2" 
-                    [attr.title]="getLiteral('land.Export and share options')"
-                    [attr.aria-label]="getLiteral('land.Export and share options')"
-                    (click)="showExportOptions(contentExportOptions)">
-                    <i class="fa fa-download me-2"></i>{{'land.Export and share' | translate }}
+        <div class="results-panel">
+          <!-- Results header -->
+          <div class="results-header">
+            <div class="results-header__top">
+              <h4 class="results-header__title">{{'diagnosis.Proposed diagnoses' | translate }}</h4>
+              <div class="results-header__vote">
+                <ng-container *ngIf="!sendingVote; else loadingSpinner">
+                  <button class="vote-btn vote-btn--up" (click)="vote('up')"
+                    [disabled]="sendingVote || callingAnonymize" title="Vote up">
+                    <i class="fa fa-thumbs-up"></i>
                   </button>
-                </div>
+                  <button class="vote-btn vote-btn--down" (click)="vote('down')"
+                    [disabled]="sendingVote || callingAnonymize" title="Vote down">
+                    <i class="fa fa-thumbs-down"></i>
+                  </button>
+                </ng-container>
+                <ng-template #loadingSpinner>
+                  <span><i class="fa fa-spinner fa-spin fa-fw"></i></span>
+                </ng-template>
               </div>
-              
             </div>
-          </span>
-        </div>
-        <div class="pt-5 text-center" *ngIf="topRelatedConditions.length>0">
-                
-          <div>
-            <h4 class="notsatisfied"><strong>{{'diagnosis.Not satisfied with the results?' | translate }}</strong></h4>
-            <div class="results-actions p-2 mb-4">
-              <button class="results-action-btn results-action-btn--primary" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
+            <div class="results-header__hints">
+              <span class="results-header__hint">
+                <i class="fa fa-star me-1"></i>{{'land.Indicates the quality of the result' | translate }}
+              </span>
+              <span class="results-header__hint">
+                <i class="fa fa-hand-pointer me-1"></i>{{'diagnosis.Click on the disease to see more options' | translate }}
+              </span>
+              <span class="results-header__hint">
+                <i class="fa fa-lightbulb me-1"></i>
+                <strong>{{'land.Point3.1' | translate }}</strong>
+              </span>
+            </div>
+            <div class="results-header__actions">
+              <button class="results-action-btn results-action-btn--primary" style="font-size:0.82rem; padding:0.4rem 0.85rem;" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
                 <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
               </button>
-              <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" (click)="callAdvancedModel()">
+              <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" style="font-size:0.82rem; padding:0.4rem 0.85rem;" (click)="callAdvancedModel()">
                 <i class="fa fa-search"></i>{{'diagnosis.Try our advanced mode' | translate }}
               </button>
-              <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" (click)="callFastModel()"><i class="fa-solid fa-person-running-fast"></i>{{'diagnosis.Try our faster mode' | translate }}</button>
+              <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" style="font-size:0.82rem; padding:0.4rem 0.85rem;" (click)="callFastModel()">
+                <i class="fa-solid fa-person-running-fast"></i>{{'diagnosis.Try our faster mode' | translate }}
+              </button>
             </div>
+          </div>
+
+          <!-- Disease cards -->
+          <div class="disease-results" *ngIf="topRelatedConditions.length>0">
+            <div *ngFor="let disease of topRelatedConditions; let i = index"
+                 class="disease-card"
+                 (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
+              <div class="disease-card__header">
+                <span class="disease-card__rank" *ngIf="!isEuMode()">{{i + 1}}</span>
+                <div class="disease-card__title-group">
+                  <h3 class="disease-card__name">{{disease.name}}</h3>
+                  <p class="disease-card__description">{{disease.description}}</p>
+                </div>
+              </div>
+              <div class="disease-card__symptoms">
+                <div class="disease-card__symptom-group disease-card__symptom-group--match">
+                  <span class="disease-card__symptom-icon"><i class="fa fa-check"></i></span>
+                  <p class="disease-card__symptom-text">
+                    <strong *ngIf="!isEuMode()">{{'diagnosis.Matching symptoms' | translate}}:</strong>
+                    <strong *ngIf="isEuMode()">{{'diagnosis.Matching symptomsEu' | translate}}:</strong>
+                    {{disease.matchingSymptoms}}
+                  </p>
+                </div>
+                <div class="disease-card__symptom-group disease-card__symptom-group--mismatch">
+                  <span class="disease-card__symptom-icon"><i class="fa fa-times"></i></span>
+                  <p class="disease-card__symptom-text">
+                    <strong *ngIf="!isEuMode()">{{'diagnosis.Non-matching symptoms' | translate}}:</strong>
+                    <strong *ngIf="isEuMode()">{{'diagnosis.Non-matching symptomsEu' | translate}}:</strong>
+                    {{disease.nonMatchingSymptoms}}
+                  </p>
+                </div>
+              </div>
+              <div class="disease-card__footer">
+                <div *ngIf="disease.name !== '' && disease.url !== ''" class="disease-card__sponsor">
+                  <a class="disease-card__sponsor-link" [href]="disease.url" target="_blank"
+                     (click)="$event.stopPropagation()">
+                    {{'diagnosis.SponsorMsg' | translate}} <i class="ms-1 ft-external-link"></i>
+                  </a>
+                </div>
+                <span class="disease-card__more-link">
+                  {{'generics.More information' | translate}} <i class="fa fa-arrow-right ms-1"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model badge + disclaimer -->
+          <div class="results-meta" *ngIf="topRelatedConditions.length>0">
+            <span class="results-meta__badge" *ngIf="model == advancedModel && currentImageUrls.length === 0">
+              <i class="fa fa-flask me-1"></i>{{'land.Results generated with the advanced model' | translate }}
+            </span>
+            <span class="results-meta__badge" *ngIf="model == defaultModel && currentImageUrls.length === 0">
+              <i class="fa fa-bolt me-1"></i>{{'land.Results generated with the faster model' | translate }}
+            </span>
+            <p class="results-meta__disclaimer">{{'diagnosis.advise' | translate }}</p>
+          </div>
+
+          <span *ngIf="topRelatedConditions.length==0">
+            <p>{{'land.nofound' | translate }}</p>
+          </span>
+
+          <!-- Bottom actions -->
+          <div class="results-bottom-actions" *ngIf="topRelatedConditions.length>0">
+            <button *ngIf="diseaseListEn.length < 20 && getDiseaseListTextLength() < 1000"
+              class="results-action-btn results-action-btn--primary" (click)="loadMore()">
+              <i class="fa fa-plus"></i>{{'land.Load more' | translate }}
+            </button>
+            <button class="results-action-btn results-action-btn--secondary"
+              [attr.title]="getLiteral('land.Export and share options')"
+              [attr.aria-label]="getLiteral('land.Export and share options')"
+              (click)="showExportOptions(contentExportOptions)">
+              <i class="fa fa-download"></i>{{'land.Export and share' | translate }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Not satisfied section -->
+        <div class="results-not-satisfied" *ngIf="topRelatedConditions.length>0">
+          <h4 class="results-not-satisfied__title">{{'diagnosis.Not satisfied with the results?' | translate }}</h4>
+          <div class="results-not-satisfied__actions">
+            <button class="results-action-btn results-action-btn--primary" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
+              <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
+            </button>
+            <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" (click)="callAdvancedModel()">
+              <i class="fa fa-search"></i>{{'diagnosis.Try our advanced mode' | translate }}
+            </button>
+            <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" (click)="callFastModel()">
+              <i class="fa-solid fa-person-running-fast"></i>{{'diagnosis.Try our faster mode' | translate }}
+            </button>
           </div>
         </div>
       </div>
