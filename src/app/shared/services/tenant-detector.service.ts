@@ -49,6 +49,9 @@ export class TenantDetectorService {
       if (environment.tenantId.includes('iasalut-ajuda-dx')) {
         return 'iasalut-ajuda-dx';
       }
+      if (environment.tenantId.includes('canarias-gpt')) {
+        return 'canarias-gpt';
+      }
     }
     
     return null;
@@ -84,6 +87,9 @@ export class TenantDetectorService {
     if (subdomain === 'iasalut-ajuda-dx' || hostname.includes('iasalut-ajuda-dx')) {
       return 'iasalut-ajuda-dx';
     }
+    if (subdomain === 'canarias-gpt' || hostname.includes('canarias-gpt')) {
+      return 'canarias-gpt';
+    }
     return null;
   }
 
@@ -100,6 +106,8 @@ export class TenantDetectorService {
         return 'SermasGPT';
       case 'iasalut-ajuda-dx':
         return 'IASalutAjudaDx';
+      case 'canarias-gpt':
+        return 'CanariasGPT';
       case 'dxgpt':
       default:
         return 'DxGPT';
@@ -117,6 +125,8 @@ export class TenantDetectorService {
         return 'Servicio de IA para Madrid de Salud';
       case 'iasalut-ajuda-dx':
         return 'Servicio de IA para CatSalut';
+      case 'canarias-gpt':
+        return 'Servicio de IA para Canarias de Salud';
       case 'dxgpt':
         return 'AI-powered diagnostic assistance';
       case 'dxeugpt':
@@ -157,6 +167,12 @@ export class TenantDetectorService {
    */
   isIasalutAjudaDx(tenant: string): boolean {
     return tenant === 'iasalut-ajuda-dx';
+  }
+  /**
+   * Verifica si el tenant actual es CanariasGPT
+   */
+  isCanariasGpt(tenant: string): boolean {
+    return tenant === 'canarias-gpt';
   }
 
   /**

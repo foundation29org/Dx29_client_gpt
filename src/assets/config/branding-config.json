@@ -173,5 +173,40 @@
         "overlay": "linear-gradient(45deg, rgba(0, 159, 226, 0.1) 0%, transparent 50%, rgba(0, 120, 168, 0.08) 100%)"
       }
     }
+  },
+  "canarias-gpt": {
+    "name": "CanariasGPT",
+    "displayName": "CanariasGPT",
+    "description": "Servicio de IA para Canarias de Salud",
+    "euMode": false,
+    "IS_SELF_HOSTED": false,
+    "colors": {
+      "primary": "#194073",
+      "secondary": "#f4d413",
+      "accent": "#194073",
+      "rating": "#194073",
+      "background": "#ffffff",
+      "text": "#194073",
+      "contrastText": "#000000",
+      "backgroundDark": "#f0f9fc",
+      "sidebar": "blue"
+    },
+    "logos": {
+      "header": "assets/img/tenants/canarias/logo.webp",
+      "footer": "assets/img/logo-f29-white.webp",
+      "f29Dark": "assets/img/logo-f29.webp",
+      "favicon": "favicon-canarias.ico"
+    },
+    "links": {
+      "donate": null,
+      "beta": false,
+      "support": "CanariasGPT support"
+    },
+    "backgrounds": {
+      "aboutUs": {
+        "gradient": "linear-gradient(135deg, #0078a8 0%, #009fe2 25%, #00b4e6 50%, #009fe2 75%, #0078a8 100%)",
+        "overlay": "linear-gradient(45deg, rgba(0, 159, 226, 0.1) 0%, transparent 50%, rgba(0, 120, 168, 0.08) 100%)"
+      }
+    }
   }
 } 
