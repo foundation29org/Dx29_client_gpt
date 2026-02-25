@@ -1,8 +1,8 @@
 {
   "menu":{
-    "Home": "SALUD-GPT",
+    "Home": "DxGPT",
     "Dashboard": "Inici",
-    "About us": "Sobre SALUD-GPT",
+    "About us": "Sobre DxGPT",
     "Collaboration": "Col·laboració",
     "Foundation 29": "Foundation 29",
     "Usage statistics": "Estadístiques d'ús",
@@ -42,14 +42,14 @@
     "Contact us": "Contacta'ns",
     "Updates": "Actualitzacions",
     "Privacy GDPR HIPAA AI Act": "Privacitat (RGPD/HIPAA/AI Act)",
-    "Dx29info": "SALUD-GPT és una eina de cerca i referència que es proporciona amb finalitats informatives i no pretén substituir el judici o l'experiència del clínic. No s'ha d'utilitzar per diagnosticar o tractar afeccions mèdiques."
+    "Dx29info": "DxGPT és una eina de cerca i referència que es proporciona amb finalitats informatives i no pretén substituir el judici o l'experiència del clínic. No s'ha d'utilitzar per diagnosticar o tractar afeccions mèdiques."
   },
   "aboutUs": {
     "hero": {
-      "title": "SALUD-GPT: Intel·ligència augmentada per a la confiança diagnòstica",
-      "titleEu": "SALUD-GPT: Intel·ligència augmentada per preparar la teva consulta mèdica",
-      "subtitle": "Transforma la incertesa clínica en claredat. SALUD-GPT és el teu copilot diagnòstic: estructura el raonament, redueix la càrrega cognitiva i minimitza els biaixos en segons, fins i tot en casos complexos o rars.",
-      "subtitleEu": "Transforma la incertesa clínica en claredat. SALUD-GPT t'ajuda a preparar la informació per al teu professional sanitari: estructura la informació, organitza els símptomes i t'ajuda a identificar possibles àrees d'avaluació en segons, fins i tot en casos complexos o rars.",
+      "title": "DxGPT: Intel·ligència augmentada per a la confiança diagnòstica",
+      "titleEu": "DxGPT: Intel·ligència augmentada per preparar la teva consulta mèdica",
+      "subtitle": "Transforma la incertesa clínica en claredat. DxGPT és el teu copilot diagnòstic: estructura el raonament, redueix la càrrega cognitiva i minimitza els biaixos en segons, fins i tot en casos complexos o rars.",
+      "subtitleEu": "Transforma la incertesa clínica en claredat. DxGPT t'ajuda a preparar la informació per al teu professional sanitari: estructura la informació, organitza els símptomes i t'ajuda a identificar possibles àrees d'avaluació en segons, fins i tot en casos complexos o rars.",
       "evidenceButton": "Evidència científica",
       "clinicalEvidenceButton": "Evidència Clínica",
       "highlight1": "Diagnòstic diferencial estructurat",
@@ -58,39 +58,39 @@
       "highlight3": "Integració en sistemes de salut"
     },
     "main": {
-      "description": "SALUD-GPT és una eina d'intel·ligència augmentada dissenyada per i per a l'entorn clínic. A diferència de les IAs de propòsit general, no genera text narratiu obert, sinó una anàlisi estructurada d'hipòtesis diagnòstiques prioritzades, classificades i raonades amb símptomes a favor i en contra. Utilitzem models de llenguatge avançats, com GPT-5 d'OpenAI, dins d'un marc de control mèdic que garanteix rellevància, consistència i seguretat en cada resultat. No substituïm el judici clínic: el potenciem. T'oferim una anàlisi diferencial instantània que estalvia temps, neutralitza biaixos cognitius i eleva la qualitat del raonament clínic des del primer moment.",
-      "descriptionEu": "SALUD-GPT és una eina d'intel·ligència augmentada dissenyada per ajudar-te a preparar la informació que comentaràs amb el teu professional sanitari. A diferència de les IAs de propòsit general, no genera text narratiu obert, sinó una anàlisi estructurada de possibles àrees d'avaluació clínica, organitzades amb aspectes que encaixen o no encaixen amb la teva descripció. Utilitzem models de llenguatge avançats, com GPT-5 d'OpenAI, dins d'un marc de control mèdic que garanteix rellevància, consistència i seguretat en cada resultat. No oferim diagnòstics ni substituïm la consulta mèdica: t'ajudem a organitzar la informació. T'oferim una preparació estructurada que et permet arribar millor informat a la teva consulta, organitzant els aspectes rellevants perquè puguis comentar-los amb el teu metge."
+      "description": "DxGPT és una eina d'intel·ligència augmentada dissenyada per i per a l'entorn clínic. A diferència de les IAs de propòsit general, no genera text narratiu obert, sinó una anàlisi estructurada d'hipòtesis diagnòstiques prioritzades, classificades i raonades amb símptomes a favor i en contra. Utilitzem models de llenguatge avançats, com GPT-5 d'OpenAI, dins d'un marc de control mèdic que garanteix rellevància, consistència i seguretat en cada resultat. No substituïm el judici clínic: el potenciem. T'oferim una anàlisi diferencial instantània que estalvia temps, neutralitza biaixos cognitius i eleva la qualitat del raonament clínic des del primer moment.",
+      "descriptionEu": "DxGPT és una eina d'intel·ligència augmentada dissenyada per ajudar-te a preparar la informació que comentaràs amb el teu professional sanitari. A diferència de les IAs de propòsit general, no genera text narratiu obert, sinó una anàlisi estructurada de possibles àrees d'avaluació clínica, organitzades amb aspectes que encaixen o no encaixen amb la teva descripció. Utilitzem models de llenguatge avançats, com GPT-5 d'OpenAI, dins d'un marc de control mèdic que garanteix rellevància, consistència i seguretat en cada resultat. No oferim diagnòstics ni substituïm la consulta mèdica: t'ajudem a organitzar la informació. T'oferim una preparació estructurada que et permet arribar millor informat a la teva consulta, organitzant els aspectes rellevants perquè puguis comentar-los amb el teu metge."
     },
     "challenge": {
       "title": "El desafiament del diagnòstic clínic",
       "titleEu": "El desafiament de preparar la informació per a la teva consulta mèdica",
-      "description": "El diagnòstic, especialment en malalties rares, és un laberint de dades i símptomes que consumeix temps i genera incertesa. Amb més de 10.000 malalties rares, la majoria desconegudes per al professional mitjà a causa de la seva baixa prevalença, la familiaritat és un luxe impossible. SALUD-GPT actua com una poderosa eina de descàrrega cognitiva, accelerant l'anàlisi i ampliant l'espectre de possibilitats per arribar a un diagnòstic precís més ràpid. En aquest context, la tecnologia de suport ja no és una opció, sinó una necessitat per a la seguretat del pacient i la qualitat de l'atenció.",
-      "descriptionEu": "Preparar adequadament la informació per a una consulta mèdica, especialment quan hi ha símptomes complexos o poc comuns, pot ser un desafiament. Amb més de 10.000 malalties rares, moltes desconegudes fins i tot per professionals experimentats a causa de la seva baixa prevalença, organitzar la informació de manera efectiva pot ser difícil. SALUD-GPT actua com una eina de suport, ajudant-te a estructurar i organitzar els símptomes i aspectes rellevants perquè puguis comentar-los de manera més efectiva amb el teu professional sanitari. En aquest context, tenir la informació ben organitzada pot millorar la qualitat de la consulta i facilitar la comunicació amb el teu metge."
+      "description": "El diagnòstic, especialment en malalties rares, és un laberint de dades i símptomes que consumeix temps i genera incertesa. Amb més de 10.000 malalties rares, la majoria desconegudes per al professional mitjà a causa de la seva baixa prevalença, la familiaritat és un luxe impossible. DxGPT actua com una poderosa eina de descàrrega cognitiva, accelerant l'anàlisi i ampliant l'espectre de possibilitats per arribar a un diagnòstic precís més ràpid. En aquest context, la tecnologia de suport ja no és una opció, sinó una necessitat per a la seguretat del pacient i la qualitat de l'atenció.",
+      "descriptionEu": "Preparar adequadament la informació per a una consulta mèdica, especialment quan hi ha símptomes complexos o poc comuns, pot ser un desafiament. Amb més de 10.000 malalties rares, moltes desconegudes fins i tot per professionals experimentats a causa de la seva baixa prevalença, organitzar la informació de manera efectiva pot ser difícil. DxGPT actua com una eina de suport, ajudant-te a estructurar i organitzar els símptomes i aspectes rellevants perquè puguis comentar-los de manera més efectiva amb el teu professional sanitari. En aquest context, tenir la informació ben organitzada pot millorar la qualitat de la consulta i facilitar la comunicació amb el teu metge."
     },
     "why": {
-      "title": "Per què SALUD-GPT i no una IA de propòsit general?",
+      "title": "Per què DxGPT i no una IA de propòsit general?",
       "description": "Les eines conversacionals com ChatGPT, Claude o Gemini són models de llenguatge d'ampli espectre. En el context mèdic, aquesta flexibilitat és una debilitat fonamental. La seva naturalesa no estructurada pot generar respostes variables, incompletes o clínicament irrelevants, mancant dels controls de seguretat essencials per a la presa de decisions d'alt risc."
     },
     "differentiators": {
-      "title": "Diferenciadors clau de SALUD-GPT",
+      "title": "Diferenciadors clau de DxGPT",
       "structured": {
         "title": "Anàlisi estructurat i consistent",
-        "description": "Mentre que una IA generalista produeix text lliure, SALUD-GPT ofereix una anàlisi rigorosa i reproducible d'hipòtesis diagnòstiques prioritzades. Cada hipòtesi inclou símptomes compatibles i incompatibles, un format dissenyat per desafiar biaixos com el de confirmació i disponibilitat. El nostre control sobre la instrucció que rep el model (el prompt) garanteix resultats consistents, fiables i explicables.",
-        "descriptionEu": "Mentre que una IA generalista produeix text lliure, SALUD-GPT ofereix una anàlisi rigorosa i reproducible de possibles àrees d'avaluació clínica. Cada àrea inclou aspectes que encaixen o no encaixen amb la teva descripció, un format dissenyat per ajudar-te a organitzar la informació de manera estructurada. El nostre control sobre la instrucció que rep el model (el prompt) garanteix resultats consistents, fiables i explicables perquè puguis preparar millor la teva consulta."
+        "description": "Mentre que una IA generalista produeix text lliure, DxGPT ofereix una anàlisi rigorosa i reproducible d'hipòtesis diagnòstiques prioritzades. Cada hipòtesi inclou símptomes compatibles i incompatibles, un format dissenyat per desafiar biaixos com el de confirmació i disponibilitat. El nostre control sobre la instrucció que rep el model (el prompt) garanteix resultats consistents, fiables i explicables.",
+        "descriptionEu": "Mentre que una IA generalista produeix text lliure, DxGPT ofereix una anàlisi rigorosa i reproducible de possibles àrees d'avaluació clínica. Cada àrea inclou aspectes que encaixen o no encaixen amb la teva descripció, un format dissenyat per ajudar-te a organitzar la informació de manera estructurada. El nostre control sobre la instrucció que rep el model (el prompt) garanteix resultats consistents, fiables i explicables perquè puguis preparar millor la teva consulta."
       },
       "control": {
         "title": "Marc de control clínic",
-        "description": "SALUD-GPT opera dins d'un entorn de control dissenyat per mitigar els riscos inherents als models de llenguatge grans (LLMs). La seva arquitectura i resultats estan supervisats per professionals de la salut per assegurar que les respostes no només siguin tècnicament correctes, sinó també clínicament rellevants i segures."
+        "description": "DxGPT opera dins d'un entorn de control dissenyat per mitigar els riscos inherents als models de llenguatge grans (LLMs). La seva arquitectura i resultats estan supervisats per professionals de la salut per assegurar que les respostes no només siguin tècnicament correctes, sinó també clínicament rellevants i segures."
       },
       "specialization": {
         "title": "Especialització en malalties rares",
-        "description": "SALUD-GPT està dissenyat per incloure sistemàticament malalties rares en el diagnòstic diferencial, una àrea on els sistemes generalistes, i sovint el raonament humà, poden fallar. El sistema integra coneixement especialitzat per detectar patrons atípics i explorar hipòtesis que d'altra manera serien ignorades, expandint el radar diagnòstic del clínic i millorant les possibilitats d'un diagnòstic precoç i precís.",
-        "descriptionEu": "SALUD-GPT està dissenyat per incloure sistemàticament informació sobre malalties rares i poc comuns en les possibles àrees d'avaluació, un àmbit on els sistemes generalistes poden no ser tan útils. El sistema integra coneixement especialitzat per detectar patrons atípics i explorar àrees d'avaluació que d'altra manera podrien passar-se per alt, ajudant-te a preparar informació més completa per comentar amb el teu professional sanitari i facilitant una avaluació més exhaustiva."
+        "description": "DxGPT està dissenyat per incloure sistemàticament malalties rares en el diagnòstic diferencial, una àrea on els sistemes generalistes, i sovint el raonament humà, poden fallar. El sistema integra coneixement especialitzat per detectar patrons atípics i explorar hipòtesis que d'altra manera serien ignorades, expandint el radar diagnòstic del clínic i millorant les possibilitats d'un diagnòstic precoç i precís.",
+        "descriptionEu": "DxGPT està dissenyat per incloure sistemàticament informació sobre malalties rares i poc comuns en les possibles àrees d'avaluació, un àmbit on els sistemes generalistes poden no ser tan útils. El sistema integra coneixement especialitzat per detectar patrons atípics i explorar àrees d'avaluació que d'altra manera podrien passar-se per alt, ajudant-te a preparar informació més completa per comentar amb el teu professional sanitari i facilitant una avaluació més exhaustiva."
       }
     },
     "implementation": {
       "title": "Implementació en proveïdors de salut",
-      "intro": "Quan SALUD-GPT es desplega en proveïdors de salut com hospitals, inclou capacitats expandides:",
+      "intro": "Quan DxGPT es desplega en proveïdors de salut com hospitals, inclou capacitats expandides:",
       "capability1": "Gestió de dades clíniques (integració amb sistemes d'informació hospitalària).",
       "capability2": "Recollida de dades estructurades (formats estandarditzats per a anàlisi posterior).",
       "capability3": "Retroalimentació clínica (els professionals proporcionen correccions i observacions).",
@@ -98,11 +98,11 @@
       "capability5": "Seguretat reforçada (protecció de dades i control d'ús alineat amb regulacions de salut)."
     },
     "benefits": {
-      "title": "Beneficis clínics de SALUD-GPT",
+      "title": "Beneficis clínics de DxGPT",
       "time": {
         "title": "Recupera temps per al que més importa: el pacient",
-        "description": "SALUD-GPT automatitza la generació del diagnòstic diferencial, transformant minuts de cerca i incertesa en segons d'anàlisi estructurat. Aquesta eficiència allibera al professional de la salut per centrar-se en el judici clínic, la comunicació amb el pacient i la presa de decisions.",
-        "descriptionEu": "SALUD-GPT t'ajuda a organitzar la informació de manera estructurada, transformant minuts de cerca i incertesa en segons d'anàlisi organitzat. Aquesta eficiència et permet arribar millor preparat a la teva consulta, amb la informació estructurada i llesta per comentar amb el teu professional sanitari, facilitant una comunicació més efectiva."
+        "description": "DxGPT automatitza la generació del diagnòstic diferencial, transformant minuts de cerca i incertesa en segons d'anàlisi estructurat. Aquesta eficiència allibera al professional de la salut per centrar-se en el judici clínic, la comunicació amb el pacient i la presa de decisions.",
+        "descriptionEu": "DxGPT t'ajuda a organitzar la informació de manera estructurada, transformant minuts de cerca i incertesa en segons d'anàlisi organitzat. Aquesta eficiència et permet arribar millor preparat a la teva consulta, amb la informació estructurada i llesta per comentar amb el teu professional sanitari, facilitant una comunicació més efectiva."
       },
       "clarity": {
         "title": "Del caos de dades a la claredat diagnòstica",
@@ -112,45 +112,45 @@
       },
       "tool": {
         "title": "Una eina, no una aplicació",
-        "description": "A diferència de les IAs conversacionals, la interfície de SALUD-GPT està optimitzada per a una sola funció: donar suport al diagnòstic. Cada element està dissenyat per guiar el raonament clínic de manera eficient i segura, eliminant distraccions i enfocant-se en la utilitat pràctica.",
-        "descriptionEu": "A diferència de les IAs conversacionals, la interfície de SALUD-GPT està optimitzada per a una sola funció: ajudar-te a preparar la informació per a la teva consulta mèdica. Cada element està dissenyat per organitzar la informació de manera eficient i estructurada, eliminant distraccions i enfocant-se en ajudar-te a preparar millor la teva conversa amb el teu professional sanitari."
+        "description": "A diferència de les IAs conversacionals, la interfície de DxGPT està optimitzada per a una sola funció: donar suport al diagnòstic. Cada element està dissenyat per guiar el raonament clínic de manera eficient i segura, eliminant distraccions i enfocant-se en la utilitat pràctica.",
+        "descriptionEu": "A diferència de les IAs conversacionals, la interfície de DxGPT està optimitzada per a una sola funció: ajudar-te a preparar la informació per a la teva consulta mèdica. Cada element està dissenyat per organitzar la informació de manera eficient i estructurada, eliminant distraccions i enfocant-se en ajudar-te a preparar millor la teva conversa amb el teu professional sanitari."
       },
       "safety": {
         "title": "Un sistema de seguretat contra dreceres mentals",
-        "description": "El diagnòstic clínic és vulnerable a biaixos cognitius com el de disponibilitat o confirmació. SALUD-GPT actua com un contrapès objectiu, presentant sistemàticament un rang de possibilitats basat en l'evidència del cas, incloent malalties rares. Això promou una avaluació més exhaustiva i redueix el risc d'errors diagnòstics, millorant la seguretat del pacient.",
-        "descriptionEu": "L'organització d'informació mèdica pot veure's afectada per biaixos cognitius com el de disponibilitat o confirmació. SALUD-GPT actua com una eina de suport, presentant sistemàticament un rang de possibles àrees d'avaluació basat en la informació que proporciones, incloent condicions poc comuns. Això t'ajuda a preparar informació més completa per comentar amb el teu professional sanitari, facilitant una avaluació més exhaustiva durant la teva consulta."
+        "description": "El diagnòstic clínic és vulnerable a biaixos cognitius com el de disponibilitat o confirmació. DxGPT actua com un contrapès objectiu, presentant sistemàticament un rang de possibilitats basat en l'evidència del cas, incloent malalties rares. Això promou una avaluació més exhaustiva i redueix el risc d'errors diagnòstics, millorant la seguretat del pacient.",
+        "descriptionEu": "L'organització d'informació mèdica pot veure's afectada per biaixos cognitius com el de disponibilitat o confirmació. DxGPT actua com una eina de suport, presentant sistemàticament un rang de possibles àrees d'avaluació basat en la informació que proporciones, incloent condicions poc comuns. Això t'ajuda a preparar informació més completa per comentar amb el teu professional sanitari, facilitant una avaluació més exhaustiva durant la teva consulta."
       },
       "standardize": {
         "title": "Estandaritza l'excel·lència diagnòstica",
         "titleEu": "Estandaritza la preparació d'informació",
-        "description": "SALUD-GPT assegura que cada cas sigui analitzat amb el mateix rigor metodològic, independentment del professional o el moment. Aquesta consistència redueix la variabilitat en la qualitat de l'atenció i estableix un alt estàndard d'anàlisi per a tot l'equip. El nostre rendiment es valida contínuament contra un banc exigent de casos clínics per garantir una fiabilitat constant."
+        "description": "DxGPT assegura que cada cas sigui analitzat amb el mateix rigor metodològic, independentment del professional o el moment. Aquesta consistència redueix la variabilitat en la qualitat de l'atenció i estableix un alt estàndard d'anàlisi per a tot l'equip. El nostre rendiment es valida contínuament contra un banc exigent de casos clínics per garantir una fiabilitat constant."
       },
       "practice": {
         "title": "Creat en la pràctica clínica, per a la pràctica clínica",
-        "description": "SALUD-GPT no és un producte de laboratori. Ha estat desenvolupat en un cicle continu de col·laboració amb metges de primera línia, hospitals i societats científiques. El seu disseny i funcionalitats responen als desafiaments reals del diagnòstic, assegurant que no només sigui tecnològicament avançat, sinó també clínicament útil, rellevant i fàcil d'integrar en el flux de treball mental del professional.",
-        "descriptionEu": "SALUD-GPT no és un producte de laboratori. Ha estat desenvolupat en un cicle continu de col·laboració amb metges de primera línia, hospitals i societats científiques. El seu disseny i funcionalitats responen a la necessitat real d'organitzar informació mèdica de manera efectiva, assegurant que no només sigui tecnològicament avançat, sinó també útil i rellevant per ajudar-te a preparar millor la teva consulta amb el teu professional sanitari."
+        "description": "DxGPT no és un producte de laboratori. Ha estat desenvolupat en un cicle continu de col·laboració amb metges de primera línia, hospitals i societats científiques. El seu disseny i funcionalitats responen als desafiaments reals del diagnòstic, assegurant que no només sigui tecnològicament avançat, sinó també clínicament útil, rellevant i fàcil d'integrar en el flux de treball mental del professional.",
+        "descriptionEu": "DxGPT no és un producte de laboratori. Ha estat desenvolupat en un cicle continu de col·laboració amb metges de primera línia, hospitals i societats científiques. El seu disseny i funcionalitats responen a la necessitat real d'organitzar informació mèdica de manera efectiva, assegurant que no només sigui tecnològicament avançat, sinó també útil i rellevant per ajudar-te a preparar millor la teva consulta amb el teu professional sanitari."
       }
     },
     "commitment": {
       "title": "Compromís i marc regulatori",
       "experimental": {
-        "title": "SALUD-GPT és una plataforma experimental en millora contínua",
+        "title": "DxGPT és una plataforma experimental en millora contínua",
         "description": "El seu objectiu és explorar les capacitats de la IA en el diagnòstic, entendre les seves limitacions i millorar-la amb la retroalimentació dels usuaris i la validació clínica rigorosa. Els nous descobriments es comparteixen obertament a través de GitHub i MedRxiv.",
         "descriptionEu": "El seu objectiu és explorar les capacitats de la IA per ajudar a organitzar informació mèdica, entendre les seves limitacions i millorar-la amb la retroalimentació dels usuaris i la validació clínica rigorosa. Els nous descobriments es comparteixen obertament a través de GitHub i MedRxiv."
       },
       "protection": {
-        "title": "SALUD-GPT protegeix les dades clíniques amb estàndards europeus",
-        "description": "SALUD-GPT assegura la protecció de les dades clíniques mitjançant una anonimització estricta, sense emmagatzemar informació personal ni utilitzar-la per a altres finalitats. Tot el processament es realitza en centres de dades europees sota GDPR, garantint seguretat, privacitat i transparència en cada interacció."
+        "title": "DxGPT protegeix les dades clíniques amb estàndards europeus",
+        "description": "DxGPT assegura la protecció de les dades clíniques mitjançant una anonimització estricta, sense emmagatzemar informació personal ni utilitzar-la per a altres finalitats. Tot el processament es realitza en centres de dades europees sota GDPR, garantint seguretat, privacitat i transparència en cada interacció."
       }
     },
     "evaluation": {
       "title": "Avaluació",
       "commitment": {
         "title": "El nostre compromís amb l'evidència: El marc de validació clínica",
-        "description": "La confiança en una eina clínica es guanya a través d'evidència rigorosa. La validació de SALUD-GPT és un procés continu que combina investigació independent amb millora iterativa basada en dades reals.",
+        "description": "La confiança en una eina clínica es guanya a través d'evidència rigorosa. La validació de DxGPT és un procés continu que combina investigació independent amb millora iterativa basada en dades reals.",
         "validation": "Hem realitzat una validació clínica independent inicial en col·laboració amb l'Hospital Sant Joan de Déu, amb resultats publicats a medRxiv que mostren una precisió diagnòstica comparable a experts clínics.",
         "validationEu": "Hem realitzat una validació clínica independent inicial en col·laboració amb l'Hospital Sant Joan de Déu, amb resultats publicats a medRxiv que mostren la capacitat de l'eina per organitzar informació de manera comparable a com ho farien experts clínics.",
-        "framework": "Hem construït un 'Marc de Validació Constant' que evoluciona contínuament la fiabilitat de SALUD-GPT mitjançant la integració de nous casos, retroalimentació clínica i mètriques de rendiment en temps real."
+        "framework": "Hem construït un 'Marc de Validació Constant' que evoluciona contínuament la fiabilitat de DxGPT mitjançant la integració de nous casos, retroalimentació clínica i mètriques de rendiment en temps real."
       },
       "testbed": {
         "title": "Un banc de proves dissenyat per desafiar el sistema",
@@ -160,12 +160,12 @@
         "source2": "Publicacions científiques sobre malalties rares: RAMEDIS i Ramebench.",
         "source3": "Casos reals de serveis d'urgències hospitalaris: HM Hospitals i Hospital de Torrejón.",
         "source4": "Col·laboracions especialitzades: Casos supervisats de malalties rares.",
-        "conclusion": "Aquest banc de proves avalua SALUD-GPT en l'entorn més desafiador, reflectint la complexitat real de l'atenció sanitària."
+        "conclusion": "Aquest banc de proves avalua DxGPT en l'entorn més desafiador, reflectint la complexitat real de l'atenció sanitària."
       },
       "science": {
         "title": "La ciència de preguntar: El secret de la consistència",
         "description": "La nostra investigació ha revelat un factor crític: la qualitat de la resposta d'un LLM depèn decisivament de la qualitat de la pregunta. Per això, hem desenvolupat i validat més de 30 formulacions de prompts (instruccions) per trobar l'estructura òptima que activa un raonament clínic efectiu i consistent.",
-        "differentiator": "Aquest control expert sobre la formulació és el que diferencia SALUD-GPT d'una IA generalista. No deixem la qualitat del resultat a l'atzar; hem dissenyat un procés que garanteix que, davant del mateix cas, el sistema sempre apliqui el mateix rigor analític, produint resultats fiables i reproducibles."
+        "differentiator": "Aquest control expert sobre la formulació és el que diferencia DxGPT d'una IA generalista. No deixem la qualitat del resultat a l'atzar; hem dissenyat un procés que garanteix que, davant del mateix cas, el sistema sempre apliqui el mateix rigor analític, produint resultats fiables i reproducibles."
       },
       "chart": {
         "caption": "El gràfic il·lustra com la nostra optimització de la formulació (el salt de la família 4o → o3) no només augmenta la precisió (eix X), sinó que també permet resoldre casos de major complexitat (eix Y), demostrant un avanç significatiu en la capacitat de raonament clínic del sistema."
@@ -183,13 +183,13 @@
         },
         "prioritization": {
           "title": "Qualitat de priorització",
-          "description": "Aquesta és la nostra mètrica més innovadora. No n'hi ha prou que el diagnòstic correcte estigui a la llista; es mesura la seva posició mitjana. Un diagnòstic correcte en primera posició és 'infinitament més útil que en la cinquena', i aquesta mètrica avalua la capacitat de SALUD-GPT de 'prioritzar com un especialista, oferint màxima rellevància clínica en el menor temps possible'."
+          "description": "Aquesta és la nostra mètrica més innovadora. No n'hi ha prou que el diagnòstic correcte estigui a la llista; es mesura la seva posició mitjana. Un diagnòstic correcte en primera posició és 'infinitament més útil que en la cinquena', i aquesta mètrica avalua la capacitat de DxGPT de 'prioritzar com un especialista, oferint màxima rellevància clínica en el menor temps possible'."
         }
       },
       "evolution": {
         "title": "Evolució i rendiment: Evidència per al suport al raonament clínic (2024–2025)",
-        "intro": "A SALUD-GPT, la transparència forma part de la seguretat. No prometem diagnòstics ni substituïm el clínic: avaluem, de forma sistemàtica, la capacitat dels models per proposar hipòtesis rellevants que el professional pot acceptar, matisar o descartar. Sotmetem de forma contínua els nostres prompts i models a bancs de casos clínics d'alta complexitat (malalties rares, pediatria, medicina interna) per mesurar fins a quin punt poden ajudar a \"trobar l'agulla en el paller\".",
-        "introEu": "A SALUD-GPT, la transparència forma part de la seguretat. No oferim diagnòstics mèdics ni substituïm la consulta amb un professional sanitari: avaluem, de forma sistemàtica, la capacitat dels models per ajudar-te a organitzar informació rellevant que puguis comentar amb el teu metge. Sotmetem de forma contínua els nostres prompts i models a bancs de casos clínics d'alta complexitat (malalties rares, pediatria, medicina interna) per mesurar fins a quin punt poden ajudar-te a preparar millor la informació per a la teva consulta.",
+        "intro": "A DxGPT, la transparència forma part de la seguretat. No prometem diagnòstics ni substituïm el clínic: avaluem, de forma sistemàtica, la capacitat dels models per proposar hipòtesis rellevants que el professional pot acceptar, matisar o descartar. Sotmetem de forma contínua els nostres prompts i models a bancs de casos clínics d'alta complexitat (malalties rares, pediatria, medicina interna) per mesurar fins a quin punt poden ajudar a \"trobar l'agulla en el paller\".",
+        "introEu": "A DxGPT, la transparència forma part de la seguretat. No oferim diagnòstics mèdics ni substituïm la consulta amb un professional sanitari: avaluem, de forma sistemàtica, la capacitat dels models per ajudar-te a organitzar informació rellevant que puguis comentar amb el teu metge. Sotmetem de forma contínua els nostres prompts i models a bancs de casos clínics d'alta complexitat (malalties rares, pediatria, medicina interna) per mesurar fins a quin punt poden ajudar-te a preparar millor la informació per a la teva consulta.",
         "validation": {
           "title": "1. Validació de viabilitat (Estudi 2024 – medRxiv)",
           "description": "En la nostra primera avaluació pública vam comparar múltiples models (GPT-4, Claude, Llama, etc.) en malalties rares, usant casos sintètics i reals (RAMEDIS).",
@@ -219,11 +219,11 @@
             "description": "La dada més rellevant és la posició mitjana de 1,47 aconseguida pel model o3. Això significa que, quan encerta, tendeix a col·locar la hipòtesi correcta en primer o segon lloc, facilitant la revisió ràpida de l'expert."
           },
           "dataSources": {
-            "alt": "Fonts de dades i processament ETL per a SALUD-GPT-Bench",
-            "caption": "Diagrama Sankey que mostra el flux de dades des de les fonts originals (MedQA-USMLE, MedBullets, casos d'urgències, Ramebench) fins al banc de proves final SALUD-GPT-Bench."
+            "alt": "Fonts de dades i processament ETL per a DxGPT-Bench",
+            "caption": "Diagrama Sankey que mostra el flux de dades des de les fonts originals (MedQA-USMLE, MedBullets, casos d'urgències, Ramebench) fins al banc de proves final DxGPT-Bench."
           },
           "reference": "📝 Referència:",
-          "repository": "Repositori SALUD-GPT-Bench-Lab"
+          "repository": "Repositori DxGPT-Bench-Lab"
         },
         "architecture": {
           "title": "3. Arquitectura actual i família GPT-5 (Setembre 2025)",
@@ -241,16 +241,16 @@
             "caption": "Comparació de rendiment entre diferents models i configuracions de la família GPT-5. Els valors més baixos (tendint a 1) indiquen millor rendiment. El model o3 mostra el millor rendiment general.",
             "disclaimer": {
               "title": "Important:",
-              "text": "SALUD-GPT és una eina de suport i guia al diagnòstic diferencial. No ofereix diagnòstics ni substitueix el judici clínic professional. El seu propòsit és orientar i ampliar l'espectre de possibilitats diagnòstiques perquè el professional sanitari pugui prendre decisions informades.",
+              "text": "DxGPT és una eina de suport i guia al diagnòstic diferencial. No ofereix diagnòstics ni substitueix el judici clínic professional. El seu propòsit és orientar i ampliar l'espectre de possibilitats diagnòstiques perquè el professional sanitari pugui prendre decisions informades.",
               "titleEu": "Important:",
-              "textEu": "SALUD-GPT és una eina de suport per ajudar-te a preparar la informació que comentaràs amb el teu professional sanitari. No ofereix diagnòstics mèdics ni recomanacions de tractament. Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Sempre has de consultar amb un professional mèdic qualificat per obtenir un diagnòstic i tractament adequats."
+              "textEu": "DxGPT és una eina de suport per ajudar-te a preparar la informació que comentaràs amb el teu professional sanitari. No ofereix diagnòstics mèdics ni recomanacions de tractament. Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Sempre has de consultar amb un professional mèdic qualificat per obtenir un diagnòstic i tractament adequats."
             }
           }
         },
         "note": {
           "title": "Nota important sobre seguretat:",
-          "description": "Totes aquestes xifres descriuen el comportament tècnic dels models d'IA en bancs de casos estandarditzats (benchmarks). No equivalen a taxes d'èxit clínic en pacients reals ni converteixen SALUD-GPT en un dispositiu mèdic. A la consulta, la variabilitat de les dades del pacient, les comorbilitats i el context assistencial requereixen sempre la interpretació i validació d'un professional sanitari qualificat. SALUD-GPT no diagnostica: proposa possibilitats estructurades perquè el clínic decideixi.",
-          "descriptionEu": "Totes aquestes xifres descriuen el comportament tècnic dels models d'IA en bancs de casos estandarditzats (benchmarks). No equivalen a taxes d'èxit clínic en pacients reals ni converteixen SALUD-GPT en un dispositiu mèdic. Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament. Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Sempre has de consultar amb un professional mèdic qualificat per obtenir un diagnòstic i tractament adequats."
+          "description": "Totes aquestes xifres descriuen el comportament tècnic dels models d'IA en bancs de casos estandarditzats (benchmarks). No equivalen a taxes d'èxit clínic en pacients reals ni converteixen DxGPT en un dispositiu mèdic. A la consulta, la variabilitat de les dades del pacient, les comorbilitats i el context assistencial requereixen sempre la interpretació i validació d'un professional sanitari qualificat. DxGPT no diagnostica: proposa possibilitats estructurades perquè el clínic decideixi.",
+          "descriptionEu": "Totes aquestes xifres descriuen el comportament tècnic dels models d'IA en bancs de casos estandarditzats (benchmarks). No equivalen a taxes d'èxit clínic en pacients reals ni converteixen DxGPT en un dispositiu mèdic. Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament. Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Sempre has de consultar amb un professional mèdic qualificat per obtenir un diagnòstic i tractament adequats."
         }
       },
       "user": {
@@ -268,13 +268,13 @@
           "title": "Rellevància clínica",
           "description": "Les hipòtesis no només són precises, sinó que estan prioritzades per reflectir la urgència i probabilitat clínica."
         },
-        "conclusion": "En resum, SALUD-GPT no és només un model avançat; és una eina de suport clínic amb un compromís demostrable amb l'evidència, la fiabilitat i la seguretat."
+        "conclusion": "En resum, DxGPT no és només un model avançat; és una eina de suport clínic amb un compromís demostrable amb l'evidència, la fiabilitat i la seguretat."
       }
     },
     "clinicalValidation": {
       "title": "Estudi de validació clínica",
-      "description": "SALUD-GPT ha estat validat contra metges en un estudi clínic exhaustiu realitzat per l'Hospital Sant Joan de Déu. Els resultats demostren que SALUD-GPT aconsegueix una precisió diagnòstica comparable a la de clínics experts. Aquesta investigació ha estat publicada com preprint i està actualment sota revisió per pares.",
-      "descriptionEu": "SALUD-GPT ha estat validat en un estudi clínic exhaustiu realitzat per l'Hospital Sant Joan de Déu. Els resultats demostren la capacitat de l'eina per organitzar informació de manera comparable a com ho farien clínics experts. Aquesta investigació ha estat publicada com preprint i està actualment sota revisió per pares. Recorda que aquesta eina no ofereix diagnòstics mèdics ni substitueix la consulta amb un professional sanitari.",
+      "description": "DxGPT ha estat validat contra metges en un estudi clínic exhaustiu realitzat per l'Hospital Sant Joan de Déu. Els resultats demostren que DxGPT aconsegueix una precisió diagnòstica comparable a la de clínics experts. Aquesta investigació ha estat publicada com preprint i està actualment sota revisió per pares.",
+      "descriptionEu": "DxGPT ha estat validat en un estudi clínic exhaustiu realitzat per l'Hospital Sant Joan de Déu. Els resultats demostren la capacitat de l'eina per organitzar informació de manera comparable a com ho farien clínics experts. Aquesta investigació ha estat publicada com preprint i està actualment sota revisió per pares. Recorda que aquesta eina no ofereix diagnòstics mèdics ni substitueix la consulta amb un professional sanitari.",
       "validated": "Clínicament validat",
       "hospital": "Hospital Sant Joan de Déu",
       "accuracy": "Precisió d'expert",
@@ -283,7 +283,7 @@
     },
     "trust": {
       "title": "El nostre pacte de confiança i seguretat",
-      "intro": "La confiança és la base de la medicina. En SALUD-GPT, la protecció de les dades clíniques i el compliment normatiu no són una ocorrència tardana, sinó el nucli del nostre disseny. Operem amb una transparència radical perquè professionals i sistemes de salut puguin utilitzar la nostra eina amb total tranquil·litat.",
+      "intro": "La confiança és la base de la medicina. En DxGPT, la protecció de les dades clíniques i el compliment normatiu no són una ocorrència tardana, sinó el nucli del nostre disseny. Operem amb una transparència radical perquè professionals i sistemes de salut puguin utilitzar la nostra eina amb total tranquil·litat.",
       "protection": {
         "title": "Com protegeix cada consulta: Un procés de zero retenció per a informació personal",
         "intro": "El nostre flux de treball està dissenyat per maximitzar la utilitat clínica i minimitzar a zero el risc d'exposició de dades.",
@@ -307,9 +307,9 @@
       },
       "governance": {
         "title": "Governança de Dades",
-        "intro": "La següent taula resumeix el compromís de SALUD-GPT amb les millors pràctiques de seguretat i privacitat per a equips d'IT i compliment normatiu.",
+        "intro": "La següent taula resumeix el compromís de DxGPT amb les millors pràctiques de seguretat i privacitat per a equips d'IT i compliment normatiu.",
         "feature": "Característica / Política",
-        "commitment": "Compromís de SALUD-GPT",
+        "commitment": "Compromís de DxGPT",
         "processing": "Ubicació de processament de dades",
         "processingValue": "Exclusivament en centres de dades de la Unió Europea (Microsoft Azure)",
         "storage": "Emmagatzematge de dades del pacient",
@@ -329,7 +329,7 @@
       },
       "regulatory": {
         "title": "El nostre marc regulatori",
-        "intro": "SALUD-GPT té una àmplia experiència en entorns normatius de salut digital i s'alinea amb estàndards globals exigents.",
+        "intro": "DxGPT té una àmplia experiència en entorns normatius de salut digital i s'alinea amb estàndards globals exigents.",
         "gdpr": {
           "title": "GDPR (Reglament General de Protecció de Dades)",
           "description": "Compliment complet amb els principis de legalitat, transparència, minimització de dades i limitació de propòsit, amb processament exclusiu a la UE per sobirania de dades."
@@ -340,7 +340,7 @@
         },
         "aiact": {
           "title": "EU AI Act",
-          "description": "Estem treballant activament per a una alineació total amb la Llei d'IA de la Unió Europea. Col·laborem amb experts iauthorities reguladores per garantir que SALUD-GPT compleixi amb els més alts estàndards de gestió de riscos, governança de dades, transparència i robustesa, posicionant-nos a l'avantguarda de la IA responsable en salut."
+          "description": "Estem treballant activament per a una alineació total amb la Llei d'IA de la Unió Europea. Col·laborem amb experts iauthorities reguladores per garantir que DxGPT compleixi amb els més alts estàndards de gestió de riscos, governança de dades, transparència i robustesa, posicionant-nos a l'avantguarda de la IA responsable en salut."
         }
       }
     }
@@ -384,13 +384,13 @@
     "description": "Compromesos amb l'obertura, col·laboració i responsabilitat en el desenvolupament de tecnologia mèdica.",
           "technologyPartners": {
         "title": "Socis tecnològics",
-        "description": "Agraïm a Microsoft, que a través del seu programa AI for Good ens proporciona la infraestructura a Azure i el suport d'empleats voluntaris. També a Google, el programa per a ONG ens ajuda a augmentar la visibilitat de SALUD-GPT al seu motor de cerca per arribar a més professionals i pacients.",
+        "description": "Agraïm a Microsoft, que a través del seu programa AI for Good ens proporciona la infraestructura a Azure i el suport d'empleats voluntaris. També a Google, el programa per a ONG ens ajuda a augmentar la visibilitat de DxGPT al seu motor de cerca per arribar a més professionals i pacients.",
         "microsoftDescription": "Infraestructura a Azure i suport d'empleats voluntaris",
-        "googleDescription": "Ajuda a augmentar la visibilitat de SALUD-GPT per arribar a més professionals i pacients"
+        "googleDescription": "Ajuda a augmentar la visibilitat de DxGPT per arribar a més professionals i pacients"
       },
     "ourSponsors": {
       "title": "Els nostres patrocinadors",
-      "description": "Estenem el nostre més profund agraïment als nostres generosos patrocinadors. El seu suport és purament filantròpic, sense interessos comercials ni intercanvi de dades, i és vital per poder desenvolupar eines com SALUD-GPT i oferir-les gratuïtament."
+      "description": "Estenem el nostre més profund agraïment als nostres generosos patrocinadors. El seu suport és purament filantròpic, sense interessos comercials ni intercanvi de dades, i és vital per poder desenvolupar eines com DxGPT i oferir-les gratuïtament."
     },
     "healthSystems": {
       "title": "Ús en sistemes de salut",
@@ -403,11 +403,11 @@
     },
     "implementations": {
       "title": "Implementacions",
-      "description": "SALUD-GPT està sent implementat en serveis de salut reals, millorant el diagnòstic de malalties rares i casos complexos.",
+      "description": "DxGPT està sent implementat en serveis de salut reals, millorant el diagnòstic de malalties rares i casos complexos.",
       "aragon": {
         "title": "Servei Aragonès de Salut",
         "status": "Des de juliol de 2025",
-        "description": "SALUD-GPT ja està disponible per als professionals sanitaris del Servei Aragonès de Salut, permetent millorar la precisió i velocitat en el diagnòstic de malalties rares i comunes a la regió d'Aragó.",
+        "description": "DxGPT ja està disponible per als professionals sanitaris del Servei Aragonès de Salut, permetent millorar la precisió i velocitat en el diagnòstic de malalties rares i comunes a la regió d'Aragó.",
         "users": "Usuaris:",
         "usersValue": "+5.000 metges",
         "scope": "Abast:",
@@ -418,7 +418,7 @@
       "sermas": {
         "title": "Servei Madrileny de Salut (SERMAS)",
         "status": "Des de setembre de 2023",
-        "description": "Implementació pionera de SALUD-GPT al sistema sanitari de la Comunitat de Madrid, proporcionant accés a més de 6.000 metges d'atenció primària per millorar les capacitats diagnòstiques.",
+        "description": "Implementació pionera de DxGPT al sistema sanitari de la Comunitat de Madrid, proporcionant accés a més de 6.000 metges d'atenció primària per millorar les capacitats diagnòstiques.",
         "coverage": "Cobertura:",
         "coverageValue": "Tota la xarxa d'atenció primària",
         "users": "Usuaris:",
@@ -431,7 +431,7 @@
       "catsalut": {
         "title": "Servei Català de Salut (CatSalut)",
         "status": "En desenvolupament",
-        "description": "Propera implementació al sistema sanitari català per estendre els beneficis de SALUD-GPT a una major població de professionals sanitaris a Catalunya.",
+        "description": "Propera implementació al sistema sanitari català per estendre els beneficis de DxGPT a una major població de professionals sanitaris a Catalunya.",
         "statusLabel": "Estat:",
         "statusValue": "Fase d'implementació",
         "scope": "Abast:",
@@ -443,49 +443,49 @@
     "opportunities": {
       "implementations": {
         "title": "Implementacions en sistemes de salut",
-        "description": "Col·labora amb nosaltres per implementar SALUD-GPT a la teva organització sanitària i millorar les capacitats diagnòstiques.",
-        "details1": "Els serveis de salut i sistemes sanitaris que busquin integrar SALUD-GPT als seus fluxos de treball clínics poden comptar amb el nostre suport especialitzat. Oferim serveis complets d'implementació tècnica, incloent integració amb sistemes hospitalaris existents, així com configuració personalitzada segons les necessitats específiques de cada institució.",
+        "description": "Col·labora amb nosaltres per implementar DxGPT a la teva organització sanitària i millorar les capacitats diagnòstiques.",
+        "details1": "Els serveis de salut i sistemes sanitaris que busquin integrar DxGPT als seus fluxos de treball clínics poden comptar amb el nostre suport especialitzat. Oferim serveis complets d'implementació tècnica, incloent integració amb sistemes hospitalaris existents, així com configuració personalitzada segons les necessitats específiques de cada institució.",
         "details2": "El nostre programa d'implementació també cobreix la formació d'equips mèdics, l'establiment de protocols d'ús clínic, i suport tècnic continu durant el procés d'adopció. Per a institucions sanitàries públiques, aquestes implementacions es realitzen sense cost, com a part del nostre compromís amb la democratització de l'accés a tecnologies mèdiques avançades.",
         "button": "Contacta'ns sobre implementacions"
       },
       "professionals": {
         "title": "Col·laboració de professionals sanitaris",
-        "description": "Uneix-te a la nostra xarxa de professionals mèdics per contribuir al desenvolupament i validació de SALUD-GPT.",
-        "details1": "L'experiència clínica de metges i professionals sanitaris és insubstituïble per al desenvolupament continu i millora de SALUD-GPT. Busquem col·laboradors que puguin contribuir amb el seu coneixement revisant casos complexos, validant diagnòstics assistits per IA, i proporcionant orientació sobre l'aplicació pràctica de les nostres eines en entorns clínics reals.",
+        "description": "Uneix-te a la nostra xarxa de professionals mèdics per contribuir al desenvolupament i validació de DxGPT.",
+        "details1": "L'experiència clínica de metges i professionals sanitaris és insubstituïble per al desenvolupament continu i millora de DxGPT. Busquem col·laboradors que puguin contribuir amb el seu coneixement revisant casos complexos, validant diagnòstics assistits per IA, i proporcionant orientació sobre l'aplicació pràctica de les nostres eines en entorns clínics reals.",
         "details2": "Valorem especialment la participació en estudis clínics i assajos controlats per validar l'eficàcia diagnòstica en diferents especialitats mèdiques. Així mateix, la retroalimentació basada en experiència pràctica ens ajuda a identificar àrees de millora i desenvolupar noves funcionalitats que responguin a necessitats clíniques reals.",
         "button": "Contacta'ns sobre col·laboració"
       },
       "research": {
         "title": "Estudis d'investigació clínica",
         "description": "Participa en estudis d'investigació per avaluar l'efectivitat i seguretat del diagnòstic assistit per IA.",
-        "details1": "Invitam a centres mèdics, hospitals universitaris i grups d'investigació a col·laborar en estudis formals sobre l'eficàcia i impacte de SALUD-GPT en el diagnòstic clínic. Aquests estudis són fonamentals per generar evidència científica rigorosa sobre la utilitat de la intel·ligència artificial en la pràctica mèdica i per validar els nostres algoritmes en diferents contextos clínics i poblacions de pacients.",
+        "details1": "Invitam a centres mèdics, hospitals universitaris i grups d'investigació a col·laborar en estudis formals sobre l'eficàcia i impacte de DxGPT en el diagnòstic clínic. Aquests estudis són fonamentals per generar evidència científica rigorosa sobre la utilitat de la intel·ligència artificial en la pràctica mèdica i per validar els nostres algoritmes en diferents contextos clínics i poblacions de pacients.",
         "details2": "El nostre objectiu és facilitar la generació d'evidència científica d'alta qualitat que contribueixi al coneixement mèdic global i demostri el valor clínic de les eines de diagnòstic assistit per IA.",
         "button": "Contacta'ns sobre investigació"
       },
       "technical": {
         "title": "Contribució tècnica i desenvolupament",
-        "description": "Contribueix al desenvolupament tècnic de SALUD-GPT a través de codi, algoritmes o millores del sistema.",
-        "details1": "Els professionals del camp tecnològic poden contribuir significativament a l'avanç de SALUD-GPT a través de voluntariat tècnic especialitzat. Les nostres necessitats van des del desenvolupament d'interfícies d'usuari més intuïtives i accessibles fins a consultoria tècnica.",
+        "description": "Contribueix al desenvolupament tècnic de DxGPT a través de codi, algoritmes o millores del sistema.",
+        "details1": "Els professionals del camp tecnològic poden contribuir significativament a l'avanç de DxGPT a través de voluntariat tècnic especialitzat. Les nostres necessitats van des del desenvolupament d'interfícies d'usuari més intuïtives i accessibles fins a consultoria tècnica.",
         "button": "Contacta'ns sobre contribució tècnica"
       },
       "partnerships": {
         "title": "Difusió i acords de col·laboració estratègica",
-        "description": "Ajuda'ns a difondre la conscienciació i establir aliances estratègiques per expandir l'abast de SALUD-GPT.",
-        "details1": "La visibilitat i reconeixement a la comunitat mèdica internacional són crucials per a l'impacte de SALUD-GPT. Col·laborem amb mitjans especialitzats, organitzacions del sector salut, i professionals de comunicació científica per difondre casos d'èxit, resultats d'investigació, i avenços tecnològics.",
+        "description": "Ajuda'ns a difondre la conscienciació i establir aliances estratègiques per expandir l'abast de DxGPT.",
+        "details1": "La visibilitat i reconeixement a la comunitat mèdica internacional són crucials per a l'impacte de DxGPT. Col·laborem amb mitjans especialitzats, organitzacions del sector salut, i professionals de comunicació científica per difondre casos d'èxit, resultats d'investigació, i avenços tecnològics.",
         "details2": "Estem interessats en establir acords de col·laboració estratègica amb congressos mèdics, societats científiques, i organitzacions sanitàries que comparteixin la nostra visió de democratitzar l'accés a eines de diagnòstic avançades. Aquestes col·laboracions poden incloure presentacions en esdeveniments científics, publicacions conjuntes, i programes d'educació mèdica contínua.",
         "button": "Contacta'ns sobre aliances"
       },
       "donations": {
         "title": "Suport financer i donacions",
-        "description": "Suporta la nostra missió a través de contribucions financeres per ajudar-nos a continuar desenvolupant i millorant SALUD-GPT.",
-        "details1": "La sostenibilitat de SALUD-GPT depèn del suport d'individus i organitzacions compromesos amb la millora del diagnòstic mèdic. Oferim múltiples formes de contribuir financerament a aquesta causa. Les donacions monetàries ens permeten mantenir la infraestructura tecnològica, desenvolupar noves funcionalitats, i assegurar que l'accés a la plataforma romangui completament gratuït per a tots els professionals mèdics. A més, valorem enormement les contribucions de dades mèdiques anonimitzades, que són essencials per entrenar i millorar contínuament els nostres algoritmes de diagnòstic.",
+        "description": "Suporta la nostra missió a través de contribucions financeres per ajudar-nos a continuar desenvolupant i millorant DxGPT.",
+        "details1": "La sostenibilitat de DxGPT depèn del suport d'individus i organitzacions compromesos amb la millora del diagnòstic mèdic. Oferim múltiples formes de contribuir financerament a aquesta causa. Les donacions monetàries ens permeten mantenir la infraestructura tecnològica, desenvolupar noves funcionalitats, i assegurar que l'accés a la plataforma romangui completament gratuït per a tots els professionals mèdics. A més, valorem enormement les contribucions de dades mèdiques anonimitzades, que són essencials per entrenar i millorar contínuament els nostres algoritmes de diagnòstic.",
         "details2": "Si desitges fer una donació financera, pots fer-ho directament a través dels enllaços disponibles en aquesta pàgina. Per a donacions de dades mèdiques, el nostre equip tècnic et guiarà sobre els protocols d'anonimització i formats compatibles amb els nostres sistemes.",
         "donateButton": "Donar ara",
         "contactButton": "Contacta'ns sobre donacions"
       }
     },
     "footer": {
-      "text": "SALUD-GPT és una iniciativa col·laborativa que busca democratitzar l'accés a eines de diagnòstic mèdic assistit per IA. El nostre objectiu és fer que aquesta tecnologia sigui accessible, gratuïta i efectiva per a professionals sanitaris de tot el món. La teva participació, independentment de la teva formació professional, és fonamental per aconseguir aquest propòsit."
+      "text": "DxGPT és una iniciativa col·laborativa que busca democratitzar l'accés a eines de diagnòstic mèdic assistit per IA. El nostre objectiu és fer que aquesta tecnologia sigui accessible, gratuïta i efectiva per a professionals sanitaris de tot el món. La teva participació, independentment de la teva formació professional, és fonamental per aconseguir aquest propòsit."
     }
   },
   "generics":{
@@ -624,15 +624,15 @@
   },
   "policy": {
     "title": "Política de privacitat",
-    "subtitle": "Coneix com protegeix la teva privacitat i dades personals a SALUD-GPT.",
+    "subtitle": "Coneix com protegeix la teva privacitat i dades personals a DxGPT.",
     "lastUpdated": "Última actualització: 21 d'abril de 2025",
-    "p1": "Política de privacitat de SALUD-GPT (compleix amb el RGPD)",
+    "p1": "Política de privacitat de DxGPT (compleix amb el RGPD)",
     "p2.1": "1. Qui som i com contactar-nos",
     "p2.2": "Fundació 29 de Febrer (\"DxGPT\", \"nosaltres\") és la responsable del tractament de les dades personals processades a través de la plataforma DxGPT. Com a organització sense ànim de lucre, prioritzem la privacitat i promovem el maneig responsable de les dades de pacients.",
     "p2.3": "Delegat de protecció de dades (DPO): privacy@foundation29.org",
     "p2.4": "Consultes generals: support@foundation29.org",
     "p2.5": "Estat normatiu, no és un dispositiu mèdic",
-    "p2.6": "SALUD-GPT no és un dispositiu mèdic segons el MDR de la UE, la FDA dels EUA o altres normatives aplicables. Es proporciona únicament com una eina de suport a la decisió clínica per a professionals sanitaris qualificats. No ha de substituir el judici mèdic professional, diagnòstic ni tractament.",
+    "p2.6": "DxGPT no és un dispositiu mèdic segons el MDR de la UE, la FDA dels EUA o altres normatives aplicables. Es proporciona únicament com una eina de suport a la decisió clínica per a professionals sanitaris qualificats. No ha de substituir el judici mèdic professional, diagnòstic ni tractament.",
     "p3.1": "2. Informació que recopilem",
     "p3.2": "2.1 Dades que proporciones voluntàriament",
     "p3.3": "Edat, gènere, símptomes i altres detalls que ingressis en sol·licitar suggeriments diagnòstics.",
@@ -658,7 +658,7 @@
     "p5.3": "Respondre a comentaris i consultes de suport.",
     "p5.4": "Analitzar l'ús agregat per millorar els algoritmes i l'experiència de l'usuari.",
     "p5.5": "Fer complir els nostres termes de servei i protegir la seguretat de la plataforma.",
-    "p5.6": "SALUD-GPT mai vendrà, llogarà ni compartirà les teves dades personals, ni cap altre tipus de dada, amb tercers amb finalitats de màrqueting o qualsevol altre propòsit. Aquest compromís és permanent i irreversible, i donat que eliminem els identificadors individuals en l'origen i emmagatzemem només dades enmascarades, tal compartició és tècnicament inviable.",
+    "p5.6": "DxGPT mai vendrà, llogarà ni compartirà les teves dades personals, ni cap altre tipus de dada, amb tercers amb finalitats de màrqueting o qualsevol altre propòsit. Aquest compromís és permanent i irreversible, i donat que eliminem els identificadors individuals en l'origen i emmagatzemem només dades enmascarades, tal compartició és tècnicament inviable.",
     "p5.7": "No obstant això, podem divulgar estadístiques d'ús totalment anonimitzades i agregades que no poden vincular-se a cap usuari individual.",
     "p6.1": "5. Seguretat i emmagatzematge de dades",
     "p6.2": "Tots els canals de dades estan protegits mitjançant xifrat en trànsit i en repòs.",
@@ -666,7 +666,7 @@
     "p6.4": "Mai s'escriu en disc informació de salut sense enmascarar; el processament ocorre només en memòria volàtil.",
     "p6.5": "S'apliquen mesures tècniques i organitzatives conforme a les normes ISO 27001 i NIST SP 800-88.",
     "p6.6": "L'accés està restringit únicament a personal autoritzat sota estricta confidencialitat.",
-    "p6.7": "Compliment de HIPAA, SALUD-GPT compleix amb HIPAA (regles de privacitat, seguretat i notificació d'incidents) i signa acords d'associació comercial (BAAs). Veure l'apèndix A per a més detalls.",
+    "p6.7": "Compliment de HIPAA, DxGPT compleix amb HIPAA (regles de privacitat, seguretat i notificació d'incidents) i signa acords d'associació comercial (BAAs). Veure l'apèndix A per a més detalls.",
     "p7.1": "6. Conservació de dades",
     "p7.2": "Les dades d'ús anonimitzades i agregades es conserven per un màxim de 5 anys abans de ser eliminades de forma irreversible.",
     "p7.3": "Les consultes de suport i registres contractuals s'emmagatzemen fins a 5 anys per complir requisits comptables i legals.",
@@ -689,7 +689,7 @@
     "p10.2": "Per exercir qualsevol dels drets anteriors o plantejar una inquietud sobre privacitat, contacta amb el nostre DPO a privacy@foundation29.org o escriu-nos a l'adreça indicada a la secció 1.",
     "p10.3": "Ens comprometem a respondre a totes les sol·licituds legítimes en un termini d'un mes natural. Les sol·licituds complexes poden requerir fins a dos mesos addicionals, en aquest cas t'ho notificarem.",
     "p11.1": "10. Canvis en aquesta política",
-    "p11.2": "Podem actualitzar aquesta política de privacitat periòdicament. Els canvis significatius s'anunciaran dins de la interfície de SALUD-GPT o per correu electrònic. La data de \"Última actualització\" al inici d'aquesta pàgina indica quan es van realitzar revisions.",
+    "p11.2": "Podem actualitzar aquesta política de privacitat periòdicament. Els canvis significatius s'anunciaran dins de la interfície de DxGPT o per correu electrònic. La data de \"Última actualització\" al inici d'aquesta pàgina indica quan es van realitzar revisions.",
     "p12.1": "Apèndix A. Detalls de compliment amb HIPAA",
     "p12.2": "Regla de privacitat, la informació de salut protegida (PHI) només s'utilitza o divulga quan està permès o amb autorització explícita del pacient, i conforme al principi de mínima necessitat.",
     "p12.3": "Regla de seguretat, les salvaguardes administratives, físiques i tècniques com xifrat en repòs, controls d'accés per rol, registres d'auditoria i avaluacions periòdiques de riscos protegeixen la PHI electrònica.",
@@ -699,10 +699,10 @@
   },
   "policyShort": {
     "p1": "1. Qui som",
-    "p1.1": "SALUD-GPT és gestionat per la Fundació 29 de Febrer.",
+    "p1.1": "DxGPT és gestionat per la Fundació 29 de Febrer.",
     "p1.2": "Escriu-li al nostre delegat de protecció de dades (DPO) a privacy@foundation29.org.",
     "p1.3": "Necessites ajuda? Escriu a support@foundation29.org.",
-    "p1.4": "No és un dispositiu mèdic, SALUD-GPT només ajuda els metges a pensar en possibles diagnòstics. No substitueix a un professional de la salut.",
+    "p1.4": "No és un dispositiu mèdic, DxGPT només ajuda els metges a pensar en possibles diagnòstics. No substitueix a un professional de la salut.",
     "p2": "2. Quina informació recopilem",
     "p2.1": "Tu ens dones: edat, gènere, símptomes, comentaris i el teu correu si ens escrius.",
     "p2.2": "Informació sensible: detalls de salut que escriguis.",
@@ -756,8 +756,8 @@
     "NAV_CONTACT_DESCRIPTION": "Contacta amb nosaltres per a qualsevol pregunta o feedback."
   },
   "land":{
-    "disclaimer": "<p><strong>SALUD-GPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa el model GPT-5 mini d'OpenAI com a model predictiu per a una eina que proporciona informació sobre malalties. Està dissenyada per proporcionar informació general i suggeriments basats en els símptomes proporcionats. L'eina no pretén reemplaçar el consell mèdic professional ni respaldar el diagnòstic, la prevenció, el seguiment, la predicció o el tractament i mai s'ha d'usar per fer judicis de diagnòstic amb pacients reals.</p><p>Degut a que la IA pot donar resultats variables, la precisió del diagnòstic i les suggeriments de l'eina poden variar, per la qual cosa és important consultar a un professional sanitari qualificat per garantir un diagnòstic precís i adequat. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
-    "disclaimerEu": "<p><strong>SALUD-GPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa el model GPT-5 mini d'OpenAI com a model predictiu per a una eina que t'ajuda a preparar la informació que comentaràs amb el teu professional sanitari. Està dissenyada per ajudar-te a organitzar els teus símptomes i generar una llista de possibles àrees d'avaluació clínica que puguis discutir amb el teu metge.</p><p><strong>Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament.</strong> Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Degut a que la IA pot donar resultats variables, és important consultar sempre a un professional sanitari qualificat per obtenir un diagnòstic i tractament adequats. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa el model GPT-5 mini d'OpenAI com a model predictiu per a una eina que proporciona informació sobre malalties. Està dissenyada per proporcionar informació general i suggeriments basats en els símptomes proporcionats. L'eina no pretén reemplaçar el consell mèdic professional ni respaldar el diagnòstic, la prevenció, el seguiment, la predicció o el tractament i mai s'ha d'usar per fer judicis de diagnòstic amb pacients reals.</p><p>Degut a que la IA pot donar resultats variables, la precisió del diagnòstic i les suggeriments de l'eina poden variar, per la qual cosa és important consultar a un professional sanitari qualificat per garantir un diagnòstic precís i adequat. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
+    "disclaimerEu": "<p><strong>DxGPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa el model GPT-5 mini d'OpenAI com a model predictiu per a una eina que t'ajuda a preparar la informació que comentaràs amb el teu professional sanitari. Està dissenyada per ajudar-te a organitzar els teus símptomes i generar una llista de possibles àrees d'avaluació clínica que puguis discutir amb el teu metge.</p><p><strong>Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament.</strong> Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Degut a que la IA pot donar resultats variables, és important consultar sempre a un professional sanitari qualificat per obtenir un diagnòstic i tractament adequats. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
     "check": "No tornar a mostrar aquest missatge",
     "Recommendations": "Per obtenir millors resultats, indica quan i per què creus que van aparèixer els símptomes",
     "Search": "Cercar",
@@ -768,15 +768,15 @@
     "required": "Si us plau proporciona detalls del pacient (edat, gènere, símptomes) i quan van començar. Exemple: Dona, 42 anys, dolors de cap severs durant 3 mesos, marejos, antecedents familiars de migranyes.",
     "charactersleft": "Mín. 15 caràcters requerits. Falten {{value}}.",
     "recommended": "Recomanació: 200-2000 caràcters per millors resultats.",
-    "searchFile": "També pots pujar un informe complet. Aquesta funcionalitat està en proves i pot ser que doni resultats no esperats. SALUD-GPT et suggerirà el diagnòstic que el model considera més adequat per a aquest pacient. Per ser respectuosos amb la llei de protecció de dades no emmagatzemem dades personals del pacient i les dades s'esborren en acabar aquesta sessió. Ens interessaria conèixer el teu feedback per a futurs desenvolupaments.",
+    "searchFile": "També pots pujar un informe complet. Aquesta funcionalitat està en proves i pot ser que doni resultats no esperats. DxGPT et suggerirà el diagnòstic que el model considera més adequat per a aquest pacient. Per ser respectuosos amb la llei de protecció de dades no emmagatzemem dades personals del pacient i les dades s'esborren en acabar aquesta sessió. Ens interessaria conèixer el teu feedback per a futurs desenvolupaments.",
     "Browse for file": "Busca el fitxer",
     "Accepted files": "Fitxers acceptats: pdf, docx, imatges",
     "error extension": "El fitxer carregat ha de tenir una extensió .pdf, .docx o fitxers d'imatge",
     "Extracting the text from the document": "Extraient el text del document",
-    "swal": "SALUD-GPT està calculant. Espera uns segons a que acabi",
+    "swal": "DxGPT està calculant. Espera uns segons a que acabi",
     "swal2": "Estem tenint alta demanda, si triga més de 2 minuts, cancela i intenta de nou.",
     "swal3": "Ajuda'ns a millorar, indica la qualitat del resultat fent clic en els polzes.",
-    "swalMultimodal": "SALUD-GPT està processant els teus fitxers. Espera uns segons a que acabi",
+    "swalMultimodal": "DxGPT està processant els teus fitxers. Espera uns segons a que acabi",
     "swal2Multimodal": "Estem extraient i analitzant el contingut dels teus documents i imatges.",
     "swal3Multimodal": "Un cop completat, revisa el text generat i prem en cercar per continuar.",
     "multimodalInfo": {
@@ -823,8 +823,8 @@
     "descriptionopt3": "Aquí pots escriure símptomes guia o elements importants que has observat en qualsevol tipus de prova analítica o diagnòstica. Pots incloure qualsevol tipus d'informació com símptomes, resultats, o qualsevol altre tipus de biomarcador.",
     "Type here": "Escriu aquí!",
     "Placeholder help": "Escriu aquí detalls del pacient (edat, gènere, símptomes) i quan van començar.\nExemple: Dona, 42 anys, dolors de cap severs durant 3 mesos, marejos, antecedents familiars de migranyes.",
-    "title": "Introdueix una breu descripció del pacient i SALUD-GPT et proporcionarà una llista de possibles diagnòstics de malalties",
-    "titleEu": "Introdueix una descripció dels teus símptomes i SALUD-GPT t'ajudarà a preparar la conversa amb el teu professional sanitari",
+    "title": "Introdueix una breu descripció del pacient i DxGPT et proporcionarà una llista de possibles diagnòstics de malalties",
+    "titleEu": "Introdueix una descripció dels teus símptomes i DxGPT t'ajudarà a preparar la conversa amb el teu professional sanitari",
     "subtitleEu": "Generarem una llista de possibles línies d'avaluació perquè puguis comentar-les amb el teu metge.\n\nNo és un diagnòstic mèdic ni substitueix una consulta presencial.",
     "titleBeta": "Obté diagnòstics i informació mèdica en segons",
     "p1.title": "Exemples",
@@ -833,7 +833,7 @@
     "p1.2": "Nena. 11 anys. Atrofia hemisfèrica unilateral, associada amb epilèpsia focal resistent als medicaments, hemiplegia progressiva i deteriorament cognitiu",
     "p2.title": "Capacitats",
     "p2.titleEu": "Funcionalitats",
-    "p2.subtitle": "Característiques principals de SALUD-GPT",
+    "p2.subtitle": "Característiques principals de DxGPT",
     "p2.subtitleEu": "Com et ajuda a preparar la teva consulta",
     "p2.1": "Mostra descripcions detallades amb símptomes coincidents i no coincidents",
     "p2.1Eu": "Mostra informació detallada amb aspectes que encaixen i no encaixen amb la teva descripció",
@@ -844,7 +844,7 @@
     "p2.4": "Disposa de mode avançat per anàlisis més precises",
     "p2.4Eu": "Disposa de mode avançat per anàlisis més detallades",
     "p3.title": "Limitacions",
-    "p3.subtitle": "Aspects a tenir en compte en usar SALUD-GPT",
+    "p3.subtitle": "Aspects a tenir en compte en usar DxGPT",
     "p3.1": "Ocasionalment pot generar informació incorrecta",
     "p3.2": "No es pot utilitzar per al diagnòstic sense supervisió humana",
     "errorLocation": "Hem detectat que estàs utilitzant una VPN o una xarxa que no permet la detecció de la teva ubicació. Això pot afectar el funcionament correcte de la nostra aplicació i la seguretat dels nostres serveis. Si us plau, desactiva la VPN o utilitza una xarxa que permeti la detecció de la teva ubicació per continuar.",
@@ -868,7 +868,7 @@
     "Do you want to start over": "Vols començar de nou?",
     "Results copied to the clipboard": "Resultats copiats al porta-retalls",
     "Do not show this message again": "No mostrar aquest missatge de nou",
-    "titleOptions": "SALUD-GPT cerca en <strong>malalties rares</strong>, per ampliar la cerca a malalties comunes, activa aquest botó:",
+    "titleOptions": "DxGPT cerca en <strong>malalties rares</strong>, per ampliar la cerca a malalties comunes, activa aquest botó:",
     "opt1": "Malalties rares",
     "opt2": "Veure malalties comunes",
     "rare": "malalties rares",
@@ -898,21 +898,21 @@
     },
     "Please answer at least one question": "Si us plau, respon almenys una pregunta",
     "seoBlock": {
-      "title": "Què és SALUD-GPT?",
-      "description": "SALUD-GPT és una plataforma avançada de diagnòstic mèdic assistida per IA desenvolupada per Foundation29. Fem servir models de llenguatge avançats per oferir una anàlisi diferencial ràpida a partir de descripcions de símptomes i historials clínics.\n\nL'objectiu és complementar, no substituir, el judici clínic: estalviar temps, neutralitzar biaixos cognitius i elevar la qualitat del raonament clínic des del primer moment. Característiques principals: diagnòstic diferencial intel·ligent amb llistes prioritzades de possibles diagnòstics; suport multilingüe amb detecció automàtica de l'idioma i traducció de resultats; privacitat garantida amb arquitectura GDPR-ready i anonimització automàtica de dades sensibles; comunicació asíncrona en temps real per a models de processament avançat.",
-      "descriptionP1": "SALUD-GPT és una plataforma avançada de diagnòstic mèdic assistida per IA desenvolupada per Foundation29. Fem servir models de llenguatge avançats per oferir una anàlisi diferencial ràpida a partir de descripcions de símptomes i historials clínics.",
+      "title": "Què és DxGPT?",
+      "description": "DxGPT és una plataforma avançada de diagnòstic mèdic assistida per IA desenvolupada per Foundation29. Fem servir models de llenguatge avançats per oferir una anàlisi diferencial ràpida a partir de descripcions de símptomes i historials clínics.\n\nL'objectiu és complementar, no substituir, el judici clínic: estalviar temps, neutralitzar biaixos cognitius i elevar la qualitat del raonament clínic des del primer moment. Característiques principals: diagnòstic diferencial intel·ligent amb llistes prioritzades de possibles diagnòstics; suport multilingüe amb detecció automàtica de l'idioma i traducció de resultats; privacitat garantida amb arquitectura GDPR-ready i anonimització automàtica de dades sensibles; comunicació asíncrona en temps real per a models de processament avançat.",
+      "descriptionP1": "DxGPT és una plataforma avançada de diagnòstic mèdic assistida per IA desenvolupada per Foundation29. Fem servir models de llenguatge avançats per oferir una anàlisi diferencial ràpida a partir de descripcions de símptomes i historials clínics.",
       "descriptionP2": "L'objectiu és complementar, no substituir, el judici clínic: estalviar temps, neutralitzar biaixos cognitius i elevar la qualitat del raonament clínic des del primer moment. Característiques principals: diagnòstic diferencial intel·ligent amb llistes prioritzades de possibles diagnòstics; suport multilingüe amb detecció automàtica de l'idioma i traducció de resultats; privacitat garantida amb arquitectura GDPR-ready i anonimització automàtica de dades sensibles; comunicació asíncrona en temps real per a models de processament avançat.",
-      "descriptionEu": "SALUD-GPT és una eina d'intel·ligència augmentada desenvolupada per Foundation29 dissenyada per ajudar-te a preparar la informació que comentaràs amb el teu professional sanitari. Utilitzant models d'IA avançats, SALUD-GPT proporciona una anàlisi estructurada de possibles àrees d'avaluació clínica, organitzades amb aspectes que encaixen o no encaixen amb la teva descripció. La nostra plataforma processa descripcions en llenguatge natural de símptomes i historial clínic per ajudar-te a organitzar la informació de manera estructurada, amb especial fortalesa en condicions rares i poc comunes. Característiques principals: suport multilingüe, arquitectura de privacitat compatible amb GDPR, i resultats estructurats dissenyats per ajudar-te a arribar millor informat a la teva consulta.",
-      "descriptionEuP1": "SALUD-GPT és una eina d'intel·ligència augmentada desenvolupada per Foundation29 dissenyada per ajudar-te a preparar la informació que comentaràs amb el teu professional sanitari. Utilitzant models d'IA avançats, SALUD-GPT proporciona una anàlisi estructurada de possibles àrees d'avaluació clínica, organitzades amb aspectes que encaixen o no encaixen amb la teva descripció.",
+      "descriptionEu": "DxGPT és una eina d'intel·ligència augmentada desenvolupada per Foundation29 dissenyada per ajudar-te a preparar la informació que comentaràs amb el teu professional sanitari. Utilitzant models d'IA avançats, DxGPT proporciona una anàlisi estructurada de possibles àrees d'avaluació clínica, organitzades amb aspectes que encaixen o no encaixen amb la teva descripció. La nostra plataforma processa descripcions en llenguatge natural de símptomes i historial clínic per ajudar-te a organitzar la informació de manera estructurada, amb especial fortalesa en condicions rares i poc comunes. Característiques principals: suport multilingüe, arquitectura de privacitat compatible amb GDPR, i resultats estructurats dissenyats per ajudar-te a arribar millor informat a la teva consulta.",
+      "descriptionEuP1": "DxGPT és una eina d'intel·ligència augmentada desenvolupada per Foundation29 dissenyada per ajudar-te a preparar la informació que comentaràs amb el teu professional sanitari. Utilitzant models d'IA avançats, DxGPT proporciona una anàlisi estructurada de possibles àrees d'avaluació clínica, organitzades amb aspectes que encaixen o no encaixen amb la teva descripció.",
       "descriptionEuP2": "La nostra plataforma processa descripcions en llenguatge natural de símptomes i historial clínic per ajudar-te a organitzar la informació de manera estructurada, amb especial fortalesa en condicions rares i poc comunes. Característiques principals: suport multilingüe, arquitectura de privacitat compatible amb GDPR, i resultats estructurats dissenyats per ajudar-te a arribar millor informat a la teva consulta.",
-      "howItWorksTitle": "Com funciona SALUD-GPT?",
-      "howItWorksIntro": "SALUD-GPT funciona en 4 passos senzills:",
+      "howItWorksTitle": "Com funciona DxGPT?",
+      "howItWorksIntro": "DxGPT funciona en 4 passos senzills:",
       "howItWorksStep1": "Descriu els teus símptomes: Introdueix una descripció mèdica en text lliure.",
       "howItWorksStep2": "Processament intel·ligent: Els nostres algoritmes d'IA analitzen la informació utilitzant models de llenguatge avançats, detectant patrons clínics i correlacions mèdiques.",
       "howItWorksStep3": "Diagnòstic diferencial: Reps una llista prioritzada de possibles diagnòstics, cadascun amb informació sobre símptomes compatibles, proves diagnòstiques recomanades i anàlisi detallada del cas.",
       "howItWorksStep4": "Refinament interactiu: Pots respondre preguntes de seguiment generades per la IA per precisar el diagnòstic, obtenir informació detallada sobre malalties específiques, o sol·licitar recomanacions de proves genètiques.",
       "howItWorksFooter": "Tecnologia de suport: Models d'IA de darrera generació i infraestructura cloud segura a Microsoft Azure.",
-      "howItWorksIntroEu": "SALUD-GPT t'ajuda a preparar la teva consulta mèdica en 4 passos senzills:",
+      "howItWorksIntroEu": "DxGPT t'ajuda a preparar la teva consulta mèdica en 4 passos senzills:",
       "howItWorksStep1Eu": "Descriu els teus símptomes: Introdueix una descripció en text lliure.",
       "howItWorksStep2Eu": "Processament intel·ligent: Els nostres algoritmes d'IA analitzen la teva informació utilitzant models de llenguatge avançats per identificar característiques clíniques rellevants.",
       "howItWorksStep3Eu": "Àrees d'avaluació estructurades: Reps una llista de possibles àrees d'avaluació clínica, cadascuna amb aspectes que encaixen o no encaixen amb la teva descripció, ajudant-te a organitzar la informació per a la teva consulta.",
@@ -920,43 +920,43 @@
       "howItWorksFooterEu": "Tecnologia de suport: Models d'IA de darrera generació i infraestructura cloud segura dissenyada per ajudar-te a organitzar informació de manera efectiva per al teu professional sanitari."
     },
     "aboutUs": {
-      "P1_Title": "SALUD-GPT",
-      "P1_Summary_P1": "SALUD-GPT és una eina de suport al diagnòstic dissenyada per i per a l'entorn clínic. A diferència de les IAs generalistes, no ofereix respostes obertes, sinó una anàlisi estructurada d'hipòtesis diagnòstiques prioritzades, raonades i classificades. Fem servir la tecnologia més avançada, com o3 d'OpenAI, dins d'un marc de control mèdic que garanteix la rellevància i la seguretat de cada resultat. No substituïm el metge; li oferim una segona opinió instantània, dissenyada per estalviar temps, reduir biaixos i elevar la qualitat del raonament clínic des del primer moment.",
+      "P1_Title": "DxGPT",
+      "P1_Summary_P1": "DxGPT és una eina de suport al diagnòstic dissenyada per i per a l'entorn clínic. A diferència de les IAs generalistes, no ofereix respostes obertes, sinó una anàlisi estructurada d'hipòtesis diagnòstiques prioritzades, raonades i classificades. Fem servir la tecnologia més avançada, com o3 d'OpenAI, dins d'un marc de control mèdic que garanteix la rellevància i la seguretat de cada resultat. No substituïm el metge; li oferim una segona opinió instantània, dissenyada per estalviar temps, reduir biaixos i elevar la qualitat del raonament clínic des del primer moment.",
       
       "P1.S1.T": "El desafiament del diagnòstic clínic",
-      "P1.S1.B1.Q": "Quin problema fonamental resol SALUD-GPT?",
-      "P1.S1.B1.A_P1": "El diagnòstic mèdic, especialment en malalties rares, és un procés lent i complex. Els professionals han d'analitzar innombrables símptomes i dades, cosa que pot endarrerir tractaments i generar incertesa. SALUD-GPT actua com una potent ajuda cognitiva, agilitzant aquest procés per arribar abans a un diagnòstic encertat.",
+      "P1.S1.B1.Q": "Quin problema fonamental resol DxGPT?",
+      "P1.S1.B1.A_P1": "El diagnòstic mèdic, especialment en malalties rares, és un procés lent i complex. Els professionals han d'analitzar innombrables símptomes i dades, cosa que pot endarrerir tractaments i generar incertesa. DxGPT actua com una potent ajuda cognitiva, agilitzant aquest procés per arribar abans a un diagnòstic encertat.",
       "P1.S1.B2.Q": "Per què les malalties rares són un repte tan gran?",
       "P1.S1.B2.A_P1": "Hi ha més de 10.000 malalties rares, i la majoria són desconegudes per al professional mitjà per la seva baixa freqüència. Aquesta manca de familiaritat converteix el diagnòstic en un gran repte. La tecnologia de suport ja no és un luxe, sinó una necessitat per millorar la precisió i la qualitat assistencial en aquests casos.",
       
-      "P1.S2.T": "Per què SALUD-GPT i no una IA generalista",
-      "P1.S2.B1.Q": "En què es diferencia SALUD-GPT d'usar un chatbot d'IA com ChatGPT?",
-      "P1.S2.B1.A_P1": "SALUD-GPT transforma el diagnòstic diferencial perquè està dissenyat amb un propòsit clínic específic. En lloc d'una consulta oberta, obtens múltiples hipòtesis diagnòstiques estructurades, raonades i classificades amb estàndards com ICD-10. És un entorn supervisat que aplica IA avançada dins d'un marc segur i orientat al diagnòstic real.",
+      "P1.S2.T": "Per què DxGPT i no una IA generalista",
+      "P1.S2.B1.Q": "En què es diferencia DxGPT d'usar un chatbot d'IA com ChatGPT?",
+      "P1.S2.B1.A_P1": "DxGPT transforma el diagnòstic diferencial perquè està dissenyat amb un propòsit clínic específic. En lloc d'una consulta oberta, obtens múltiples hipòtesis diagnòstiques estructurades, raonades i classificades amb estàndards com ICD-10. És un entorn supervisat que aplica IA avançada dins d'un marc segur i orientat al diagnòstic real.",
       "P1.S2.B2.Q": "Quins avantatges concrets ofereix aquest enfocament especialitzat?",
-      "P1.S2.B2.A_P1": "El disseny clínic de SALUD-GPT proporciona beneficis directes:",
+      "P1.S2.B2.A_P1": "El disseny clínic de DxGPT proporciona beneficis directes:",
       "P1.S2.B2.A_L1.I1": "Estalvi de temps: el diagnòstic és pràcticament immediat.",
       "P1.S2.B2.A_L1.I2": "Claredat clínica: cada hipòtesi inclou símptomes compatibles i incompatibles explícits.",
       "P1.S2.B2.A_L1.I3": "Interfície optimitzada: està dissenyada per a la presa de decisions mèdiques, no per a l'exploració lliure.",
       "P1.S2.B2.A_L1.I4": "Reducció de biaixos: disminueix el biaix de disponibilitat, assegurant que no s'oblidin diagnòstics rars.",
       "P1.S2.B2.A_L1.I5": "Consistència i validació: el mateix cas rep sempre una anàlisi igual de rigorosa, validada contínuament amb el nostre benchmark clínic propi.",
       "P1.S2.B3.Q": "Aleshores, quin és el futur de la IA en medicina?",
-      "P1.S2.B3.A_P1": "El futur no serà un únic sistema per a tot, sinó un ecosistema de solucions especialitzades i validades mèdicament com SALUD-GPT. Fer-lo servir avui és contribuir activament a com es construeix i valida la intel·ligència artificial en medicina des de la pràctica clínica real.",
+      "P1.S2.B3.A_P1": "El futur no serà un únic sistema per a tot, sinó un ecosistema de solucions especialitzades i validades mèdicament com DxGPT. Fer-lo servir avui és contribuir activament a com es construeix i valida la intel·ligència artificial en medicina des de la pràctica clínica real.",
       
       "P1.S3.T": "Impacte real: implementacions en sistemes de salut",
-      "P1.S3.Intro_P1": "SALUD-GPT ja s'està integrant en sistemes de salut públics per ajudar els metges a millorar el diagnòstic de malalties rares en la pràctica clínica diària. A continuació es mostren les nostres implementacions actuals i en desenvolupament:",
+      "P1.S3.Intro_P1": "DxGPT ja s'està integrant en sistemes de salut públics per ajudar els metges a millorar el diagnòstic de malalties rares en la pràctica clínica diària. A continuació es mostren les nostres implementacions actuals i en desenvolupament:",
       "P1.S3.B1.T": "Implementació pionera: Servei Madrileny de Salut (SERMAS)",
-      "P1.S3.B1.Content_P1": "Des de setembre de 2023, el Servei Madrileny de Salut (SERMAS) ha estat pioner en la implementació de SALUD-GPT per a més de 6.000 metges d'Atenció Primària de la Comunitat de Madrid. Aquesta iniciativa ha permès millorar la precisió i la rapidesa en el diagnòstic de malalties rares, reduint significativament el temps necessari per derivar els pacients a especialistes adients.",
+      "P1.S3.B1.Content_P1": "Des de setembre de 2023, el Servei Madrileny de Salut (SERMAS) ha estat pioner en la implementació de DxGPT per a més de 6.000 metges d'Atenció Primària de la Comunitat de Madrid. Aquesta iniciativa ha permès millorar la precisió i la rapidesa en el diagnòstic de malalties rares, reduint significativament el temps necessari per derivar els pacients a especialistes adients.",
       "P1.S3.B1.RelatedLink1": "El Servei Madrileny de Salut, pioner en l'aplicació d'IA generativa per millorar el diagnòstic en pacients amb malalties rares",
       "P1.S3.B1.RelatedLink2": "La Comunitat de Madrid possibilita l'accés de més de 6.000 metges d'Atenció Primària a la IA per al diagnòstic de malalties rares",
       "P1.S3.B2.T": "En desenvolupament: CatSalut (Catalunya)",
-      "P1.S3.B2.Content_P1": "Actualment estem treballant per implementar SALUD-GPT al sistema de salut català (CatSalut), amb l'objectiu de portar aquesta eina innovadora als professionals sanitaris de Catalunya per millorar el diagnòstic de malalties rares a la regió.",
+      "P1.S3.B2.Content_P1": "Actualment estem treballant per implementar DxGPT al sistema de salut català (CatSalut), amb l'objectiu de portar aquesta eina innovadora als professionals sanitaris de Catalunya per millorar el diagnòstic de malalties rares a la regió.",
       "P1.S3.B3.T": "Servei Aragonès de Salut",
-      "P1.S3.B3.Content_P1": "SALUD-GPT ja està disponible per als professionals sanitaris del Servei Aragonès de Salut, permetent millorar la precisió i la rapidesa en el diagnòstic de malalties rares i majoritàries a la regió d'Aragó.",
+      "P1.S3.B3.Content_P1": "DxGPT ja està disponible per als professionals sanitaris del Servei Aragonès de Salut, permetent millorar la precisió i la rapidesa en el diagnòstic de malalties rares i majoritàries a la regió d'Aragó.",
 
       "P2_Title": "Benchmarking",
       "P2_Summary_P1": "Perquè una eina d'IA sigui útil a la clínica, s'ha d'avaluar amb el màxim rigor. No ens conformem amb mètriques genèriques; hem construït, processat i validat el nostre propi banc de proves: DxGPT-bench. Aquest conjunt de 997 casos clínics, estadísticament representatiu i divers, ens permet mesurar la precisió dels models de llenguatge en escenaris realistes, garantint que DxGPT es basa en evidència sòlida i transparent.",
       
-      "P2.S1.T": "La creació de SALUD-GPT-bench: les nostres dades",
+      "P2.S1.T": "La creació de DxGPT-bench: les nostres dades",
       "P2.S1.B1.Q": "D'on provenen les dades que utilitza el benchmark?",
       "P2.S1.B1.A_P1": "La nostra base de dades integra cinc fonts complementàries per cobrir un ampli espectre de la pràctica mèdica:",
       "P2.S1.B1.A_L1.I1": "Casos d'urgències reals del sistema hospitalari HM de Madrid.",
@@ -977,84 +977,84 @@
       "P2.S2.B3.A_P1": "Atès el cost computacional significatiu, es va prioritzar l'optimització del conjunt de dades. Ampliar-lo per cobrir el 100% dels codis ICD-10 afegiria principalment variants molt rares amb un impacte marginal en l'avaluació comparativa dels models, a un cost prohibitiu. El nostre enfocament proporciona una avaluació comprensiva amb recursos raonables.",
       
       "P2.S3.T": "El procés d'avaluació i els resultats",
-      "P2.S3.B1.Q": "Com s'avalua un model de llenguatge amb SALUD-GPT-bench?",
+      "P2.S3.B1.Q": "Com s'avalua un model de llenguatge amb DxGPT-bench?",
       "P2.S3.B1.A_P1": "El procés és automàtic:",
       "P2.S3.B1.A_L1.I1": "El model a avaluar genera diagnòstics per a cadascun dels casos del benchmark.",
       "P2.S3.B1.A_L1.I2": "Aquests es comparen amb el diagnòstic correcte usant similitud semàntica, bé amb un model BERT especialitzat en l'àmbit clínic, o bé amb un model de llenguatge de raonament.",
       "P2.S3.B1.A_L1.I3": "S'assigna un nivell de severitat a cada diagnòstic.",
       "P2.S3.B1.A_L1.I4": "Es calcula la distància entre les severitats dels diagnòstics generats i el correcte.",
       "P2.S3.B1.A_P2": "Aquestes dues mètriques correctament classificades permeten extreure no només mètriques de precisió global, sinó també representar dades d'optimisme diagnòstic i estratificar els punts originals per visualitzar diverses correlacions.",
-      "P2.S3.B2.Q": "S'ha validat SALUD-GPT davant metges en un estudi clínic?",
-      "P2.S3.B2.A_P1": "Sí. L'Hospital Sant Joan de Déu ha realitzat un estudi clínic exhaustiu. Els resultats indiquen que SALUD-GPT assoleix una precisió diagnòstica comparable a la d'experts clínics. Aquest treball s'ha publicat com a preprint i està en revisió per parells. Pots llegir l'estudi complet aquí:",
-      "P2.S3.B2.A_P2": "Avaluació de la utilitat clínica de SALUD-GPT | medRxiv.",
+      "P2.S3.B2.Q": "S'ha validat DxGPT davant metges en un estudi clínic?",
+      "P2.S3.B2.A_P1": "Sí. L'Hospital Sant Joan de Déu ha realitzat un estudi clínic exhaustiu. Els resultats indiquen que DxGPT assoleix una precisió diagnòstica comparable a la d'experts clínics. Aquest treball s'ha publicat com a preprint i està en revisió per parells. Pots llegir l'estudi complet aquí:",
+      "P2.S3.B2.A_P2": "Avaluació de la utilitat clínica de DxGPT | medRxiv.",
       
       "P3_Title": "Qui som",
       "P3_Summary_P1": "La Fundació 29 és una organització sense ànim de lucre compromesa amb la millora de la vida de persones amb malalties rares i cròniques. Inspirats en el Dia Mundial de les Malalties Rares, celebrat el 29 de febrer, fem servir dades i eines digitals per promoure diagnòstics més precoços, apoderar els pacients i donar suport als professionals sanitaris.",
-      "P3_Summary_P2": "A través de la col·laboració amb hospitals, investigadors i la comunitat mèdica en general, busquem una atenció sanitària més personalitzada, inclusiva i eficaç. Les nostres iniciatives es basen en la ciència oberta, la transparència i la convicció que les dades poden generar un canvi positiu en els sistemes de salut. SALUD-GPT és un reflex de la nostra missió: una eina desenvolupada sota els principis de la ciència oberta, la transparència i la col·laboració, oferta de manera gratuïta per retornar valor a la societat.",
+      "P3_Summary_P2": "A través de la col·laboració amb hospitals, investigadors i la comunitat mèdica en general, busquem una atenció sanitària més personalitzada, inclusiva i eficaç. Les nostres iniciatives es basen en la ciència oberta, la transparència i la convicció que les dades poden generar un canvi positiu en els sistemes de salut. DxGPT és un reflex de la nostra missió: una eina desenvolupada sota els principis de la ciència oberta, la transparència i la col·laboració, oferta de manera gratuïta per retornar valor a la societat.",
       
       "P3.S1.T": "La nostra missió i compromís",
       "P3.S1.B1.Q": "Què és la Fundació 29?",
       "P3.S1.B1.A_P1": "Som una organització sense ànim de lucre inspirada en el Dia Mundial de les Malalties Rares (29 de febrer). Busquem una atenció sanitària més personalitzada, inclusiva i eficaç, col·laborant amb hospitals, investigadors i la comunitat mèdica. Creiem que les dades poden generar un canvi positiu en els sistemes de salut.",
       "P3.S1.B2.Q": "Quin és el vostre compromís amb la transparència i la ciència oberta?",
-      "P3.S1.B2.A_P1": "És total. En la nostra aposta per la transparència, hem fet públic el codi font de SALUD-GPT. Pots explorar i contribuir als nostres repositoris del <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>client</a> i del <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>servidor</a> a GitHub.",
-      "P3.S1.B3.Q": "SALUD-GPT és un producte finalitzat?",
-      "P3.S1.B3.A_P1": "No, SALUD-GPT és una plataforma experimental en desenvolupament continu. El seu objectiu és explorar les capacitats de la IA en el diagnòstic, entendre'n les limitacions i millorar-la amb la retroalimentació dels usuaris i la validació clínica rigorosa. Les noves troballes es compartiran al nostre GitHub i a MedRxiv.",
+      "P3.S1.B2.A_P1": "És total. En la nostra aposta per la transparència, hem fet públic el codi font de DxGPT. Pots explorar i contribuir als nostres repositoris del <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_client_gpt' target='_blank'>client</a> i del <a class='white text-decoration-underline' href='https://github.com/foundation29org/Dx29_server_gpt' target='_blank'>servidor</a> a GitHub.",
+      "P3.S1.B3.Q": "DxGPT és un producte finalitzat?",
+      "P3.S1.B3.A_P1": "No, DxGPT és una plataforma experimental en desenvolupament continu. El seu objectiu és explorar les capacitats de la IA en el diagnòstic, entendre'n les limitacions i millorar-la amb la retroalimentació dels usuaris i la validació clínica rigorosa. Les noves troballes es compartiran al nostre GitHub i a MedRxiv.",
       "P3.S1.B4.Q": "Quines garanties legals i de protecció de dades oferiu?",
-      "P3.S1.B4.A_P1": "Comptem amb àmplia experiència en compliment normatiu. SALUD-GPT s'alinea amb els marcs de protecció de dades com RGPD i HIPAA, i treballem per a una alineació total amb la Llei d'IA de la Unió Europea, col·laborant ambauthorities reguladores per assegurar els estàndards ètics i legals més alts.",
+      "P3.S1.B4.A_P1": "Comptem amb àmplia experiència en compliment normatiu. DxGPT s'alinea amb els marcs de protecció de dades com RGPD i HIPAA, i treballem per a una alineació total amb la Llei d'IA de la Unió Europea, col·laborant ambauthorities reguladores per assegurar els estàndards ètics i legals més alts.",
       
       "P3.S2.T": "Col·laboradors i suports",
       "P3.S2.B1.Q": "Qui són els vostres socis tecnològics?",
-      "P3.S2.B1.A_P1": "Agraïm Microsoft, que a través del seu programa AI for Good ens proporciona la infraestructura a Azure i el suport d'empleats voluntaris. També Google, el programa per a ONGs del qual ens ajuda a augmentar la visibilitat de SALUD-GPT per arribar a més professionals i pacients.",
+      "P3.S2.B1.A_P1": "Agraïm Microsoft, que a través del seu programa AI for Good ens proporciona la infraestructura a Azure i el suport d'empleats voluntaris. També Google, el programa per a ONGs del qual ens ajuda a augmentar la visibilitat de DxGPT per arribar a més professionals i pacients.",
       "P3.S2.B2.Q": "I els vostres patrocinadors?",
-      "P3.S2.B2.A_P1": "Estenem el nostre més profund agraïment als nostres generosos patrocinadors. El seu suport és purament filantròpic, sense interessos comercials ni intercanvi de dades, i és vital per poder desenvolupar eines com SALUD-GPT i oferir-les gratuïtament.",
+      "P3.S2.B2.A_P1": "Estenem el nostre més profund agraïment als nostres generosos patrocinadors. El seu suport és purament filantròpic, sense interessos comercials ni intercanvi de dades, i és vital per poder desenvolupar eines com DxGPT i oferir-les gratuïtament.",
       
       "P3.S3.T": "Uneix-te a la nostra missió",
       "P3.S3.B1.Q": "Com puc col·laborar o esdevenir patrocinador?",
       "P3.S3.B1.A_P1": "Si t'interessa donar suport a la nostra missió, sigui com a patrocinador o col·laborador, si us plau contacta'ns. Junts, podem continuar construint un futur més saludable.",
       "t8": "Els nostres patrocinadors",
-      "p8": "Estenem el nostre més profund agraïment als nostres generosos patrocinadors. El seu suport és purament filantròpic, sense interessos comercials ni intercanvi de dades, i és vital per poder desenvolupar eines com SALUD-GPT i oferir-les gratuïtament.",
+      "p8": "Estenem el nostre més profund agraïment als nostres generosos patrocinadors. El seu suport és purament filantròpic, sense interessos comercials ni intercanvi de dades, i és vital per poder desenvolupar eines com DxGPT i oferir-les gratuïtament.",
       "t9": "Uneix-te a nosaltres",
       "p9.1": "Si t'interessa donar suport a la nostra missió, sigui com a patrocinador o col·laborador, si us plau contacta'ns. Junts, podem continuar construint un futur més saludable."
     },
     "faqs": {
       "title": "Preguntes freqüents",
-      "subtitle": "Resol tots els teus dubtes sobre SALUD-GPT i com pot ajudar-te en el diagnòstic mèdic.",
+      "subtitle": "Resol tots els teus dubtes sobre DxGPT i com pot ajudar-te en el diagnòstic mèdic.",
       "q1": "La meva informació mèdica es manté confidencial?",
-      "a1": "Sí, la teva privacitat és la nostra màxima prioritat. SALUD-GPT és una iniciativa de la Fundació 29, una organització sense ànim de lucre compromesa amb la protecció rigorosa de les teves dades personals i de salut. No venem, lloguem ni compartim mai la teva informació personal amb tercers per a fins comercials o de màrqueting. Totes les dades que proporciones es xifren de manera segura tant durant la transmissió com en l'emmagatzematge. A més, les dades sensibles s'anonimitzen automàticament abans de guardar-se, garantint que no es pugui identificar cap persona. L'accés a les teves dades està estrictament controlat i limitat al personal autoritzat amb obligacions estrictes de confidencialitat, en total conformitat amb les normatives RGPD i HIPAA.",
-      "q2": "Puc utilitzar SALUD-GPT en situacions d'emergència?",
-      "a2": "No, SALUD-GPT no està dissenyat ni destinat a gestionar emergències mèdiques ni condicions urgents. En cas d'emergència, contacta immediatament amb els serveis d'emergència locals o acudeix al centre mèdic més proper. SALUD-GPT ha estat desenvolupat com a recurs de suport per a professionals sanitaris amb l'objectiu de millorar els processos de diagnòstic i la presa de decisions. No obstant això, mai no s'ha de considerar un substitut del judici professional ni de la intervenció immediata per part de personal mèdic qualificat.",
-      "q3": "Com suggereix SALUD-GPT possibles diagnòstics?",
-      "a3": "SALUD-GPT utilitza models avançats d'intel·ligència artificial i aprenentatge automàtic per analitzar els símptomes i la informació clínica proporcionada pels professionals de la salut. Compara aquestes dades amb un ampli coneixement mèdic per suggerir possibles condicions. SALUD-GPT no és un dispositiu mèdic; funciona com a sistema de suport a la decisió clínica. Això vol dir que ajuda els professionals oferint orientacions sobre possibles diagnòstics, però no substitueix el seu judici clínic ni la seva avaluació professional.",
-      "q4": "Puc parlar amb un metge humà a través de SALUD-GPT?",
-      "a4": "Actualment, SALUD-GPT és totalment automatitzat i no permet la comunicació directa amb metges o altre personal sanitari. Per a qualsevol preocupació específica de salut o consulta mèdica detallada, contacta amb el teu professional sanitari habitual o busca assessorament mèdic directament.",
-      "q5": "SALUD-GPT està disponible a tot el món?",
-      "a5": "Sí, SALUD-GPT està disponible per a usuaris d'arreu del món. Tanmateix, és important tenir en compte que les pràctiques mèdiques, la terminologia i els estàndards sanitaris poden variar significativament entre països i regions. SALUD-GPT intenta proporcionar informació aplicable de manera universal, però les suggerències han d'interpretar-se dins el context de les pràctiques i normes mèdiques locals.",
-      "q6": "En quins idiomes puc utilitzar SALUD-GPT?",
-      "a6": "SALUD-GPT pot processar entrades i generar respostes en pràcticament qualsevol idioma. No obstant això, com que l'entrenament es va basar principalment en dades en anglès, les respostes en aquest idioma solen tenir més precisió i fiabilitat. Per a idiomes amb menys dades mèdiques disponibles o menys usuaris, les suggerències poden ser ocasionalment menys precises o incompletes. T'animem a utilitzar SALUD-GPT en el teu idioma preferit i a compartir la teva experiència per ajudar-nos a millorar.",
-      "q7": "Amb quina freqüència s'actualitza la informació mèdica de SALUD-GPT?",
-      "a7": "SALUD-GPT no actualitza directament una base de coneixement pròpia. En lloc d'això, el nostre equip realitza proves i avaluacions constants dels models i algoritmes d'IA més avançats. Duguem a terme estudis clínics en col·laboració amb hospitals i institucions mèdiques per verificar i millorar el rendiment de SALUD-GPT, amb especial atenció a la precisió en malalties rares i casos complexos.",
-      "q8": "Com puc enviar comentaris sobre SALUD-GPT?",
-      "a8": "La teva opinió és molt important per a la millora contínua de SALUD-GPT. Pots enviar comentaris des de l'aplicació amb la pestanya vermella del lateral dret de la interfície o escriure'ns a support@foundation29.org. Revisem acuradament tots els comentaris i suggeriments per millorar el servei.",
-      "q9": "Puc veure estadístiques sobre l'ús de SALUD-GPT?",
+      "a1": "Sí, la teva privacitat és la nostra màxima prioritat. DxGPT és una iniciativa de la Fundació 29, una organització sense ànim de lucre compromesa amb la protecció rigorosa de les teves dades personals i de salut. No venem, lloguem ni compartim mai la teva informació personal amb tercers per a fins comercials o de màrqueting. Totes les dades que proporciones es xifren de manera segura tant durant la transmissió com en l'emmagatzematge. A més, les dades sensibles s'anonimitzen automàticament abans de guardar-se, garantint que no es pugui identificar cap persona. L'accés a les teves dades està estrictament controlat i limitat al personal autoritzat amb obligacions estrictes de confidencialitat, en total conformitat amb les normatives RGPD i HIPAA.",
+      "q2": "Puc utilitzar DxGPT en situacions d'emergència?",
+      "a2": "No, DxGPT no està dissenyat ni destinat a gestionar emergències mèdiques ni condicions urgents. En cas d'emergència, contacta immediatament amb els serveis d'emergència locals o acudeix al centre mèdic més proper. DxGPT ha estat desenvolupat com a recurs de suport per a professionals sanitaris amb l'objectiu de millorar els processos de diagnòstic i la presa de decisions. No obstant això, mai no s'ha de considerar un substitut del judici professional ni de la intervenció immediata per part de personal mèdic qualificat.",
+      "q3": "Com suggereix DxGPT possibles diagnòstics?",
+      "a3": "DxGPT utilitza models avançats d'intel·ligència artificial i aprenentatge automàtic per analitzar els símptomes i la informació clínica proporcionada pels professionals de la salut. Compara aquestes dades amb un ampli coneixement mèdic per suggerir possibles condicions. DxGPT no és un dispositiu mèdic; funciona com a sistema de suport a la decisió clínica. Això vol dir que ajuda els professionals oferint orientacions sobre possibles diagnòstics, però no substitueix el seu judici clínic ni la seva avaluació professional.",
+      "q4": "Puc parlar amb un metge humà a través de DxGPT?",
+      "a4": "Actualment, DxGPT és totalment automatitzat i no permet la comunicació directa amb metges o altre personal sanitari. Per a qualsevol preocupació específica de salut o consulta mèdica detallada, contacta amb el teu professional sanitari habitual o busca assessorament mèdic directament.",
+      "q5": "DxGPT està disponible a tot el món?",
+      "a5": "Sí, DxGPT està disponible per a usuaris d'arreu del món. Tanmateix, és important tenir en compte que les pràctiques mèdiques, la terminologia i els estàndards sanitaris poden variar significativament entre països i regions. DxGPT intenta proporcionar informació aplicable de manera universal, però les suggerències han d'interpretar-se dins el context de les pràctiques i normes mèdiques locals.",
+      "q6": "En quins idiomes puc utilitzar DxGPT?",
+      "a6": "DxGPT pot processar entrades i generar respostes en pràcticament qualsevol idioma. No obstant això, com que l'entrenament es va basar principalment en dades en anglès, les respostes en aquest idioma solen tenir més precisió i fiabilitat. Per a idiomes amb menys dades mèdiques disponibles o menys usuaris, les suggerències poden ser ocasionalment menys precises o incompletes. T'animem a utilitzar DxGPT en el teu idioma preferit i a compartir la teva experiència per ajudar-nos a millorar.",
+      "q7": "Amb quina freqüència s'actualitza la informació mèdica de DxGPT?",
+      "a7": "DxGPT no actualitza directament una base de coneixement pròpia. En lloc d'això, el nostre equip realitza proves i avaluacions constants dels models i algoritmes d'IA més avançats. Duguem a terme estudis clínics en col·laboració amb hospitals i institucions mèdiques per verificar i millorar el rendiment de DxGPT, amb especial atenció a la precisió en malalties rares i casos complexos.",
+      "q8": "Com puc enviar comentaris sobre DxGPT?",
+      "a8": "La teva opinió és molt important per a la millora contínua de DxGPT. Pots enviar comentaris des de l'aplicació amb la pestanya vermella del lateral dret de la interfície o escriure'ns a support@foundation29.org. Revisem acuradament tots els comentaris i suggeriments per millorar el servei.",
+      "q9": "Puc veure estadístiques sobre l'ús de DxGPT?",
       "a9": "Sí, pots accedir a estadístiques completes a l'enllaç 'Estadístiques d'ús' del peu de pàgina (abaix a l'esquerra). Hi trobaràs informació com el nombre total d'usuaris, els símptomes més introduïts, els diagnòstics més suggerits, la distribució geogràfica i un resum dels comentaris. Aquestes estadístiques es presenten de forma anònima i no contenen informació identificable.",
-      "q10": "Qui pot col·laborar en el desenvolupament de SALUD-GPT?",
+      "q10": "Qui pot col·laborar en el desenvolupament de DxGPT?",
       "a10": "Busquem activament col·laboracions amb investigadors, professionals de la salut, institucions mèdiques i organitzacions interessades en l'avenç de les tecnologies de diagnòstic assistit per IA. Si vols contribuir o explorar oportunitats d'investigació conjunta, escriu-nos a support@foundation29.org o completa el formulari de contacte del nostre lloc web oficial.",
-      "q11": "Represento un grup de pacients. Com podem col·laborar amb SALUD-GPT?",
-      "a11": "Si representes un grup de pacients o una organització de suport, t'animem a promoure SALUD-GPT dins de la teva comunitat. Ens interessa especialment conèixer les experiències del teu grup amb condicions mèdiques específiques per adaptar SALUD-GPT a les vostres necessitats. Si us plau, contacta'ns per parlar de possibles formes de col·laboració.",
-      "q12": "SALUD-GPT es considera un dispositiu mèdic?",
-      "a12": "No. SALUD-GPT no està classificat ni regulat com a dispositiu mèdic segons normatives com l'EU MDR o la FDA. S'utilitza exclusivament com a eina experimental de suport a la decisió clínica per a professionals sanitaris qualificats i sempre com a complement, no com a substitut de l'avaluació mèdica professional.",
-      "q13": "SALUD-GPT és gratuït?",
-      "a13": "Sí, SALUD-GPT és completament gratuït. És desenvolupat i mantingut com a projecte sense ànim de lucre per la Fundació 29, finançat amb donacions filantròpiques, subvencions i col·laboracions, per promoure l'equitat i l'accés al diagnòstic assistit per IA.",
+      "q11": "Represento un grup de pacients. Com podem col·laborar amb DxGPT?",
+      "a11": "Si representes un grup de pacients o una organització de suport, t'animem a promoure DxGPT dins de la teva comunitat. Ens interessa especialment conèixer les experiències del teu grup amb condicions mèdiques específiques per adaptar DxGPT a les vostres necessitats. Si us plau, contacta'ns per parlar de possibles formes de col·laboració.",
+      "q12": "DxGPT es considera un dispositiu mèdic?",
+      "a12": "No. DxGPT no està classificat ni regulat com a dispositiu mèdic segons normatives com l'EU MDR o la FDA. S'utilitza exclusivament com a eina experimental de suport a la decisió clínica per a professionals sanitaris qualificats i sempre com a complement, no com a substitut de l'avaluació mèdica professional.",
+      "q13": "DxGPT és gratuït?",
+      "a13": "Sí, DxGPT és completament gratuït. És desenvolupat i mantingut com a projecte sense ànim de lucre per la Fundació 29, finançat amb donacions filantròpiques, subvencions i col·laboracions, per promoure l'equitat i l'accés al diagnòstic assistit per IA.",
       "q14": "S'utilitza la meva informació per a altres fins?",
-      "a14": "SALUD-GPT mai utilitza les teves dades personals per a altres fins com el màrqueting. Utilitzem estrictament dades agregades i anònimes —com patrons d'ús, símptomes freqüents i tendències— per millorar la precisió, la fiabilitat i la funcionalitat dels algoritmes. Aquesta informació agregada s'anonimitza completament i garanteix que cap usuari pugui ser identificat."
+      "a14": "DxGPT mai utilitza les teves dades personals per a altres fins com el màrqueting. Utilitzem estrictament dades agregades i anònimes —com patrons d'ús, símptomes freqüents i tendències— per millorar la precisió, la fiabilitat i la funcionalitat dels algoritmes. Aquesta informació agregada s'anonimitza completament i garanteix que cap usuari pugui ser identificat."
     },
     "diagnosed":{
       "timeline":{
         "title":"T'ajudarem a construir una línia de temps dels teus símptomes. Aquestes dades poden millorar la gestió de la teva malaltia i ajudar altres pacients com tu en la seva odissea diagnòstica. Hi ha dos passos senzills:",
-        "subtitlea": "En aquest informe, l'usuari de SALUD-GPT descriu els símptomes del pacient amb l'objectiu de millorar la comunicació metge-pacient.",
+        "subtitlea": "En aquest informe, l'usuari de DxGPT descriu els símptomes del pacient amb l'objectiu de millorar la comunicació metge-pacient.",
         "subtitleb": "Es recomana portar l'informe a la propera visita mèdica perquè tant el pacient com el metge ajudin a precisar més els",
         "subtitlec": "continguts.",
-        "subtitle1": "Aquest informe ha estat generat amb SALUD-GPT, una eina d'assistència al diagnòstic a través de la descripció",
+        "subtitle1": "Aquest informe ha estat generat amb DxGPT, una eina d'assistència al diagnòstic a través de la descripció",
         "subtitle2": "sintomatològica de precisió desenvolupada per la Fundació 29 de Febrer (www.foundation29.org). Junts accelerem",
         "subtitle3": "el procés de diagnòstic de malalties rares i el seu tractament d'una manera fàcil i senzilla.",
         "footer1": "Som una organització sense ànim de lucre que dissenya i crea eines perquè els pacients gestionin les seves pròpies dades,",
@@ -1069,10 +1069,10 @@
     }
   },
   "permalink":{
-    "title": "Resultats SALUD-GPT",
+    "title": "Resultats DxGPT",
     "titleEu": "Informació per al teu metge",
-    "subtitle": "Diagnòstics suggerits generats per SALUD-GPT",
-    "subtitleEu": "Àrees d'avaluació clínica generades per SALUD-GPT",
+    "subtitle": "Diagnòstics suggerits generats per DxGPT",
+    "subtitleEu": "Àrees d'avaluació clínica generades per DxGPT",
     "print": "Imprimir",
     "share": "Compartir",
     "newAnalysis": "Nova anàlisi",
@@ -1101,8 +1101,8 @@
     "medicalDisclaimerTitleEu": "Important - Informació d'ús",
     "medicalDisclaimer": "Aquest informe és només per a fins informatius i de suport clínic.",
     "medicalDisclaimerEu": "Aquesta informació està pensada únicament per ajudar-te a preparar la teva consulta mèdica.",
-    "disclaimer1": "SALUD-GPT és una eina d'assistència diagnòstica basada en IA",
-    "disclaimer1Eu": "SALUD-GPT és una eina de suport basada en IA per organitzar informació clínica",
+    "disclaimer1": "DxGPT és una eina d'assistència diagnòstica basada en IA",
+    "disclaimer1Eu": "DxGPT és una eina de suport basada en IA per organitzar informació clínica",
     "disclaimer2": "Els resultats NO constitueixen un diagnòstic mèdic definitiu",
     "disclaimer2Eu": "Aquesta eina NO ofereix diagnòstics mèdics ni recomanacions de tractament",
     "disclaimer3": "Consulteu sempre amb un professional mèdic qualificat",
@@ -1115,8 +1115,8 @@
     "footer": "Eina d'assistència diagnòstica basada en intel·ligència artificial per a professionals de la salut. Compleix amb RGPD i HIPAA.",
     "footerEu": "Eina per ajudar a organitzar informació mèdica basada en intel·ligència artificial. No proporciona diagnòstics mèdics ni recomanacions de tractament. Compleix amb RGPD i HIPAA.",
     "oops": "Ups!",
-    "shareTitle": "Resultats de SALUD-GPT",
-    "shareText": "Compartir resultats mèdics de SALUD-GPT",
+    "shareTitle": "Resultats de DxGPT",
+    "shareText": "Compartir resultats mèdics de DxGPT",
     "copied": "Enllaç copiat al porta-retalls"
   },
   "feedback":{
@@ -1140,8 +1140,8 @@
   "seo":{
     "home":{
       "keywords": "diagnòstic, diagnosticar, malaltia rara, GPT, síndrome, malaltia, pronòstic, símptomes, epilèpsia, crisi epilèptica, convulsions, retard en el desenvolupament, pediatria, genètica, neurologia, malaltia genètica",
-      "description": "SALUD-GPT és un programari d'ajuda a la presa de decisions en el diagnòstic basat en GPT-5 mini. IA que ajuda al diagnòstic de malalties. Totalment gratuïta per a metges i pacients.",
-      "title": "SALUD-GPT: ajuda a la presa de decisions en el diagnòstic basat en GPT-5 mini"
+      "description": "DxGPT és un programari d'ajuda a la presa de decisions en el diagnòstic basat en GPT-5 mini. IA que ajuda al diagnòstic de malalties. Totalment gratuïta per a metges i pacients.",
+      "title": "DxGPT: ajuda a la presa de decisions en el diagnòstic basat en GPT-5 mini"
     }
   },
   "cookie": {
@@ -1167,7 +1167,7 @@
     "p4.1": "Utilitzem les següents categories de galetes:",
     "t5": "5. Detall de galetes",
     "p5.1": "<strong>Galetes estrictament necessàries:</strong> Essencials per al funcionament correcte del lloc web. Aquestes galetes permeten funcionalitats bàsiques com seguretat, gestió de sessions i accessibilitat. No es poden desactivar.",
-    "p5.2": "<strong>Galetes analítiques:</strong> Ens ajuden a entendre com els visitants interactuen amb SALUD-GPT recopilant informació anònima. Aquestes dades ens permeten millorar la plataforma. A la versió de la UE, requereixen el teu consentiment explícit.",
+    "p5.2": "<strong>Galetes analítiques:</strong> Ens ajuden a entendre com els visitants interactuen amb DxGPT recopilant informació anònima. Aquestes dades ens permeten millorar la plataforma. A la versió de la UE, requereixen el teu consentiment explícit.",
     "p5.2.1": "<strong>Google Analytics:</strong> S'utilitza per recopilar estadístiques anònimes sobre l'ús del lloc, com pàgines visitades i temps a la plataforma.",
     "p5.2.2": "<strong>Hotjar:</strong> S'utilitza per entendre el comportament de l'usuari mitjançant mapes de calor i enregistraments de sessió, ajudant-nos a millorar la interfície.",
     "p5.3": "No utilitzem galetes publicitàries, galetes de segmentació comportamental, ni venem dades a tercers.",
@@ -1197,11 +1197,11 @@
     "terms": "termes d'ús de les dades del formulari",
     "acceptterms": "Has d'acceptar els termes per continuar.",
     "modalTitle": "Termes d'ús de les dades del formulari",
-    "modalBody2": "En enviar el formulari, acceptes que SALUD-GPT pot utilitzar la teva informació de contacte (correu electrònic) per als propòsits següents:",
+    "modalBody2": "En enviar el formulari, acceptes que DxGPT pot utilitzar la teva informació de contacte (correu electrònic) per als propòsits següents:",
     "modalBody3": "Suport i assistència:",
     "modalBody4": "Respondre les teves consultes i sol·licituds de suport.",
     "modalBody5": "Comunicacions i actualitzacions:",
-    "modalBody6": "Informar-te sobre noves versions, actualitzacions i millores del programari SALUD-GPT.",
+    "modalBody6": "Informar-te sobre noves versions, actualitzacions i millores del programari DxGPT.",
     "modalBody7": "Retroalimentació i millora del servei:",
     "modalBody8": "Sol·licitar la teva opinió per millorar la qualitat i funcionalitat del programari.",
     "modalBody9": "Protecció de les teves dades",
@@ -1267,7 +1267,7 @@
   },
   "integration": {
     "title": "Integració",
-    "subtitle": "Descobreix com SALUD-GPT pot integrar-se en el teu flux de treball mèdic",
+    "subtitle": "Descobreix com DxGPT pot integrar-se en el teu flux de treball mèdic",
     "deployment_models": {
       "title": "Models de desplegament",
       "recommended": "Recomanat",
@@ -1319,14 +1319,14 @@
     },
     "hospitals_clinics": {
       "title": "Per a proveïdors sanitaris",
-      "portal_integration": "Integració en portals - Incrusta SALUD-GPT al teu sistema existent",
+      "portal_integration": "Integració en portals - Incrusta DxGPT al teu sistema existent",
       "multilingual_support": "Suport multilingüe - Funciona en múltiples idiomes",
       "regulatory_compliance": "Compliment normatiu - Versió self-hosted per a HIPAA/HIS",
       "azure_ad_integration": "Integració amb Azure AD - Autenticació corporativa"
     },
     "developers": {
       "title": "Per a desenvolupadors",
-      "rest_api": "API REST - Integra SALUD-GPT a les teves aplicacions",
+      "rest_api": "API REST - Integra DxGPT a les teves aplicacions",
       "advanced_ai_models": "Models d'IA avançats - GPT-5 mini i O3 per a diagnòstics precisos",
       "websocket_realtime": "WebSocket - Comunicació en temps real",
       "complete_documentation": "Documentació completa - Swagger UI i exemples de codi"
@@ -1369,7 +1369,7 @@
     },
     "cta": {
       "title": "¿Listo para empezar?",
-      "description": "Contacta con nosotros para implementar SALUD-GPT en tu organización",
+      "description": "Contacta con nosotros para implementar DxGPT en tu organización",
       "contact_us": "Contáctanos"
     }
   }
