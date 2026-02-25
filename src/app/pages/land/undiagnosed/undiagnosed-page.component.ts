@@ -1509,6 +1509,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.modalReference.close();
             this.modalReference = undefined;
         }
+        this.selectedQuestion = '';
+        this.answerAI = '';
+        this.loadingAnswerAI = false;
+        this.symptomsDifferencial = [];
     }
 
     restartInitVars() {
@@ -1621,14 +1625,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             title: this.translate.instant('permalink.Share results'),
             html: `
                 <div style="text-align: left;">
-                    <p><strong>${this.translate.instant('permalink.Link created')}</strong></p>
-                    <div class="input-group mb-3">
-                        <input type="text" id="permalinkInput" class="form-control" value="${permalinkUrl}" readonly style="font-size: 0.9rem;">
-                        <button class="btn btn-outline-secondary" type="button" id="copyPermalinkBtn">
+                    <p style="color: #fff; font-weight: 600; margin-bottom: 0.5rem;">${this.translate.instant('permalink.Link created')}</p>
+                    <div style="display: flex; gap: 0; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.15);">
+                        <input type="text" id="permalinkInput" value="${permalinkUrl}" readonly
+                            style="flex: 1; padding: 0.6rem 0.85rem; border: none; background: rgba(255,255,255,0.08); color: #fff; font-size: 0.95rem; outline: none;">
+                        <button type="button" id="copyPermalinkBtn"
+                            style="padding: 0.6rem 0.85rem; border: none; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); cursor: pointer; transition: background 0.2s, color 0.2s;"
+                            onmouseover="this.style.background='rgba(255,255,255,0.22)';this.style.color='#fff'"
+                            onmouseout="this.style.background='rgba(255,255,255,0.12)';this.style.color='rgba(255,255,255,0.7)'">
                             <i class="fa fa-copy"></i>
                         </button>
                     </div>
-                    <p class="text-muted" style="font-size: 0.85rem;">${this.translate.instant('permalink.Copy and share')}</p>
+                    <p style="font-size: 0.88rem; color: rgba(255,255,255,0.5); margin-top: 0.6rem;">${this.translate.instant('permalink.Copy and share')}</p>
                 </div>
             `,
             icon: 'success',
@@ -1645,13 +1653,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             input.select();
                             await this.clipboard.copy(permalinkUrl);
                             
-                            // Feedback visual
                             const originalHtml = copyBtn.innerHTML;
                             copyBtn.innerHTML = '<i class="fa fa-check"></i>';
-                            copyBtn.classList.add('btn-success');
-                            copyBtn.classList.remove('btn-outline-secondary');
+                            copyBtn.style.background = 'rgba(34,197,94,0.25)';
+                            copyBtn.style.color = '#4ade80';
                             
-                            // Mostrar mensaje de éxito
                             const successMsg = this.translate.instant('land.Results copied to the clipboard');
                             Swal.fire({
                                 icon: 'success',
@@ -1664,8 +1670,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             
                             setTimeout(() => {
                                 copyBtn.innerHTML = originalHtml;
-                                copyBtn.classList.remove('btn-success');
-                                copyBtn.classList.add('btn-outline-secondary');
+                                copyBtn.style.background = 'rgba(255,255,255,0.12)';
+                                copyBtn.style.color = 'rgba(255,255,255,0.7)';
                             }, 2000);
                         } catch (error) {
                             console.error('Error copying to clipboard:', error);

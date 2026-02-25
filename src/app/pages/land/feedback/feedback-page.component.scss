@@ -1,42 +1,315 @@
+/* ============================================================
+   FEEDBACK MODAL
+   ============================================================ */
+.feedback-modal {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.feedback-modal__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem 1.75rem 1rem;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.feedback-modal__header-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--accent-color, #4f8cff);
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.feedback-modal__title {
+  margin: 0 0 0.15rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1d26;
+  line-height: 1.3;
+}
+
+.feedback-modal__subtitle {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #6b7280;
+  line-height: 1.45;
+}
+
+.feedback-modal__close {
+  flex-shrink: 0;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: #f3f4f6;
+  color: #9ca3af;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+
+  &:hover {
+    background: #e5e7eb;
+    color: #4b5563;
+  }
+}
+
+.feedback-modal__body {
+  padding: 1.25rem 1.75rem 1.5rem;
+}
+
+/* ============================================================
+   RATING ROWS
+   ============================================================ */
+.feedback-rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+  background: #f9fafb;
+  border: 1px solid #f0f2f5;
+
+  &__label {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #374151;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  &__stars {
+    flex-shrink: 0;
+    color: var(--rating-color, #f59e0b);
+  }
+}
+
 :host ::ng-deep ngb-rating span {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
+  line-height: 1;
 }
 
-.my-rating {
-  color: var(--primary-color, #B30000);
-}
-
-.my-rating:focus-visible {
+:host ::ng-deep ngb-rating:focus-visible {
   outline: none;
 }
 
-.checkbox-container {
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.feedback-section {
+  margin-top: 1rem;
+
+  &__label {
+    margin: 0 0 0.4rem 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  &__optional {
+    font-weight: 400;
+    color: #9ca3af;
+    font-size: 0.88rem;
+  }
+}
+
+/* ============================================================
+   RADIO GROUP
+   ============================================================ */
+.feedback-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  padding: 0.5rem 0;
+}
+
+.feedback-radio {
+  margin-right: 2rem;
+}
+
+::ng-deep .feedback-radio .mat-radio-label {
+  white-space: normal;
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0.2px;
+}
+
+::ng-deep .feedback-radio .mat-radio-outer-circle {
+  border-color: #d1d5db;
+}
+
+::ng-deep .feedback-radio.mat-radio-checked .mat-radio-outer-circle {
+  border-color: var(--accent-color, #4f8cff);
+}
+
+::ng-deep .feedback-radio .mat-radio-inner-circle {
+  background-color: var(--accent-color, #4f8cff);
+}
+
+/* ============================================================
+   TEXTAREA & INPUT
+   ============================================================ */
+.feedback-textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.95rem;
+  color: #374151;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  resize: vertical;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent-color, #4f8cff);
+    box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.1);
+    background: #fff;
+  }
+}
+
+.feedback-input {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.95rem;
+  color: #374151;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent-color, #4f8cff);
+    box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.1);
+    background: #fff;
+  }
+}
+
+.feedback-char-count {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  text-align: right;
+}
+
+/* ============================================================
+   CHECKBOX
+   ============================================================ */
+.feedback-check {
+  margin-top: 1rem;
+  padding: 0.6rem 0;
+
+  &__text {
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: #6b7280;
+    cursor: pointer;
+    white-space: normal;
+    letter-spacing: 0.2px;
+  }
+}
+
+::ng-deep .feedback-check .mat-checkbox-frame {
+  border-color: #d1d5db;
+}
+
+::ng-deep .feedback-check .mat-checkbox-checked .mat-checkbox-background {
+  background-color: var(--accent-color, #4f8cff);
+}
+
+/* ============================================================
+   FOOTER / BUTTONS
+   ============================================================ */
+.feedback-modal__footer {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f0f2f5;
+  margin-top: 0.75rem;
 }
 
-.clickable {
+.feedback-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
   cursor: pointer;
+  transition: background 200ms ease, box-shadow 200ms ease, transform 150ms ease;
+
+  &:hover { transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
 }
 
-::ng-deep .mat-radio-label{
-  white-space: normal;
-  text-transform: none;
-  letter-spacing: 0px;
-  font-weight: 400;
-  letter-spacing: 0.3px;
-  font-size: 1rem;
+.feedback-btn--primary {
+  background: var(--accent-color, #4f8cff);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+  &:hover {
+    background: var(--accent-hover, #3b6fcc);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  }
 }
 
-form label, .form-group label {
-  font-size: 1rem !important;
+.feedback-btn--secondary {
+  background: #f3f4f6;
+  color: #4b5563;
+
+  &:hover {
+    background: #e5e7eb;
+    color: #374151;
+  }
 }
 
-@media ( max-width: 380px ){
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 576px) {
+  .feedback-modal__header {
+    padding: 1.25rem 1.25rem 0.85rem;
+  }
 
-  .centerdiv{
-    clear: both;
-    float: none !important;
+  .feedback-modal__body {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .feedback-rating-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+  }
+
+  :host ::ng-deep ngb-rating span {
+    font-size: 1.5rem;
+  }
+
+  .feedback-modal__footer {
+    flex-direction: column;
+
+    .feedback-btn {
+      width: 100%;
+    }
   }
 }

@@ -181,7 +181,8 @@ export class AnalyticsService {
       'dxeugpt-prod': 'G-2FZQ49SRWY',
       'salud-gpt-prod': 'G-RT0R7199TB',
       'sermas-gpt-prod': 'G-XHQLTXXT8X',
-      'iasalut-ajuda-dx-prod': 'G-PSF306RXEL'
+      'iasalut-ajuda-dx-prod': 'G-PSF306RXEL',
+      'canarias-gpt-prod': 'G-Q3Z17816F8'
     };
     return gaIds[environment.tenantId] || null;
   }
