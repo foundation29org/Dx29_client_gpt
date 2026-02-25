@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>IASalutAjudaDx: Free AI Clinical Decision Support for Complex & Rare Diseases</title>
-  <meta name="title" content="IASalutAjudaDx: Free AI Clinical Decision Support for Complex & Rare Diseases">
-  <meta name="keywords" content="dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease" />
+  <title>DxGPT: Free AI Clinical Decision Support for Complex & Rare Diseases</title>
+  <meta name="title" content="DxGPT: Free AI Clinical Decision Support for Complex & Rare Diseases">
+  <meta name="keywords" content="dx, GPT, rare disease, diagnosis, genetic, physicians, artificial intelligence, AI, genomics, disease, decision support" />
   <meta name="description" content="Free AI diagnostic assistant by Foundation29. Instant differential diagnosis for common, complex & rare diseases. Powered by Advanced Generative AI. GDPR compliant." />
   
   <link rel="canonical" href="https://dxgpt.app/">
@@ -30,7 +30,7 @@
   <meta name="twitter:image" content="https://dxgpt.app/assets/img/logo-Dx29.png" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="favicon-iasalut.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <!-- Preload Font Awesome fonts for better FCP -->
   <link rel="preload" href="assets/fontawesome/webfonts/free-fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
