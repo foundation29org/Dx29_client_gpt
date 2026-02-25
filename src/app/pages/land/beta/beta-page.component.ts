@@ -1634,7 +1634,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
                     <p style="color: #fff; font-weight: 600; margin-bottom: 0.5rem;">${this.translate.instant('permalink.Link created')}</p>
                     <div style="display: flex; gap: 0; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.15);">
                         <input type="text" id="permalinkInput" value="${permalinkUrl}" readonly
-                            style="flex: 1; padding: 0.6rem 0.85rem; border: none; background: rgba(255,255,255,0.08); color: #fff; font-size: 0.88rem; outline: none;">
+                            style="flex: 1; padding: 0.6rem 0.85rem; border: none; background: rgba(255,255,255,0.08); color: #fff; font-size: 0.95rem; outline: none;">
                         <button type="button" id="copyPermalinkBtn"
                             style="padding: 0.6rem 0.85rem; border: none; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); cursor: pointer; transition: background 0.2s, color 0.2s;"
                             onmouseover="this.style.background='rgba(255,255,255,0.22)';this.style.color='#fff'"
@@ -1642,7 +1642,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
                             <i class="fa fa-copy"></i>
                         </button>
                     </div>
-                    <p style="font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-top: 0.6rem;">${this.translate.instant('permalink.Copy and share')}</p>
+                    <p style="font-size: 0.88rem; color: rgba(255,255,255,0.5); margin-top: 0.6rem;">${this.translate.instant('permalink.Copy and share')}</p>
                 </div>
             `,
             icon: 'success',

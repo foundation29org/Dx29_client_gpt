@@ -128,7 +128,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none !important;
   animation: heroFadeIn 0.8s $ease-out-expo 0.55s both;
 
-  i, em { font-size: 0.85rem; }
+  i, em { font-size: 0.88rem; }
 
   &:hover {
     opacity: 1;
@@ -193,7 +193,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     border: 1px solid #fde68a;
     border-radius: 10px;
     padding: 0.65rem 1rem;
-    font-size: 0.84rem;
+    font-size: 0.95rem;
     margin-bottom: 1rem;
   }
 
@@ -205,7 +205,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &__hint {
-    font-size: 0.84rem;
+    font-size: 0.95rem;
     color: #6b7280;
 
     i {
@@ -272,7 +272,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     align-items: center;
     gap: 0.3rem;
     padding: 0.35rem 0.85rem;
-    font-size: 0.78rem;
+    font-size: 0.88rem;
     font-weight: 600;
     color: #6b7280;
     background: #f3f4f6;
@@ -282,7 +282,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   &__disclaimer {
     margin: 0;
-    font-size: 0.8rem;
+    font-size: 0.88rem;
     color: #9ca3af;
     line-height: 1.5;
   }
@@ -384,7 +384,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   gap: 0.45rem;
   padding: 0.55rem 1.1rem;
   border-radius: 10px;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: 600;
   border: none;
   cursor: pointer;
@@ -394,7 +394,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   &:hover { transform: translateY(-1px); }
   &:active { transform: translateY(0); }
 
-  i { font-size: 0.82rem; }
+  i { font-size: 0.88rem; }
 }
 
 .results-action-btn--primary {
@@ -740,7 +740,7 @@ section {
 }
 
 .infoapp-col-subtitle {
-  font-size: 0.8rem;
+  font-size: 0.88rem;
   color: #9ca3af;
   margin: 0 0 0.5rem;
   line-height: 1.35;
@@ -756,7 +756,7 @@ section {
   color: #fff;
   border-radius: 10px;
   padding: 0.65rem 0.85rem;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   line-height: 1.4;
   text-align: left;
   cursor: pointer;
@@ -773,7 +773,7 @@ section {
 
 .infoapp-arrow {
   flex-shrink: 0;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   opacity: 0.6;
   transition: transform 0.2s, opacity 0.2s;
 
@@ -791,7 +791,7 @@ section {
   background: #f3f4f6;
   border-radius: 10px;
   padding: 0.6rem 0.75rem;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   line-height: 1.4;
   text-align: left;
   color: #374151;
@@ -802,7 +802,7 @@ section {
   flex-shrink: 0;
   color: var(--accent-color, #B30000);
   margin-top: 2px;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 
 .infoapp-warning-card {
@@ -814,7 +814,7 @@ section {
   border: 1px solid #fde68a;
   border-radius: 10px;
   padding: 0.6rem 0.75rem;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   line-height: 1.4;
   text-align: left;
   color: #92400e;
@@ -825,7 +825,7 @@ section {
   flex-shrink: 0;
   color: #f59e0b;
   margin-top: 2px;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 768px) {
@@ -1000,7 +1000,7 @@ body {
     background: var(--accent-color, #4f8cff);
     color: #fff;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     line-height: 1;
     margin-top: 2px;
   }
@@ -1020,7 +1020,7 @@ body {
 
   &__description {
     margin: 0;
-    font-size: 0.88rem;
+    font-size: 1rem;
     color: #5a6070;
     line-height: 1.55;
   }
@@ -1057,13 +1057,13 @@ body {
     width: 24px;
     height: 24px;
     border-radius: 7px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     margin-top: 1px;
   }
 
   &__symptom-text {
     margin: 0;
-    font-size: 0.84rem;
+    font-size: 0.95rem;
     color: #4a5068;
     line-height: 1.55;
 
@@ -1090,7 +1090,7 @@ body {
     align-items: center;
     gap: 0.3rem;
     padding: 0.35rem 1rem;
-    font-size: 0.8rem;
+    font-size: 0.88rem;
     font-weight: 600;
     color: var(--accent-color, #4f8cff);
     background: rgba(79, 140, 255, 0.06);
@@ -1110,14 +1110,14 @@ body {
     display: inline-flex;
     align-items: center;
     margin-left: auto;
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     font-weight: 600;
     color: var(--accent-color, #4f8cff);
     cursor: pointer;
     transition: color 200ms ease;
 
     i {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       transition: transform 200ms ease;
     }
 
@@ -1249,7 +1249,7 @@ body {
     gap: 12px;
     margin-top: 16px;
     color: #666;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 }
 
@@ -1311,7 +1311,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 100px;
   padding: 0.25rem 0.75rem 0.25rem 0.6rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   max-width: 220px;
   white-space: nowrap;
   overflow: hidden;
@@ -1342,7 +1342,7 @@ body {
   border: none;
   color: rgba(255, 100, 100, 0.8);
   margin-left: 0.4rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   cursor: pointer;
   padding: 2px;
   display: flex;
@@ -1356,7 +1356,7 @@ body {
 }
 .chips-counter {
   flex-shrink: 0;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   text-align: right;
   min-width: 120px;
   margin-left: 1rem;
@@ -1388,7 +1388,7 @@ body {
 }
 
 .chip-add-text {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   vertical-align: middle;
   user-select: none;
   color: rgba(255, 255, 255, 0.5);
@@ -1470,7 +1470,7 @@ body {
 }
 
 .disease-section-label {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -1490,7 +1490,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.55rem 1rem;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: #374151;
   background: #f9fafb;
@@ -1502,7 +1502,7 @@ body {
   line-height: 1.35;
 
   .disease-question-arrow {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: #9ca3af;
     transition: transform $duration ease, color $duration ease;
     flex-shrink: 0;
@@ -1552,7 +1552,7 @@ body {
 .disease-cancel-link {
   color: var(--accent-color, #B30000);
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 600;
 
   &:hover { text-decoration: underline; }
@@ -1666,7 +1666,7 @@ body {
   text-align: center;
 
   label span {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #6b7280;
     cursor: pointer;
   }
@@ -1726,7 +1726,7 @@ body {
 }
 
 .followup-description {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: #6b7280;
   margin-bottom: 1.25rem;
   line-height: 1.5;
@@ -1750,7 +1750,7 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 0.65rem;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #1a1a2e;
   margin-bottom: 0.6rem;
@@ -1768,7 +1768,7 @@ body {
   border-radius: 50%;
   background: var(--accent-color, #B30000);
   color: #fff;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 700;
   margin-top: 1px;
 }
@@ -1778,7 +1778,7 @@ body {
   border: 1.5px solid #e5e7eb;
   border-radius: 8px;
   padding: 0.6rem 0.85rem;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   line-height: 1.5;
   color: #374151;
   background: #fff;
@@ -1800,7 +1800,7 @@ body {
   background: #f9fafb;
   border-radius: 12px;
   color: #6b7280;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
 }
 
 .followup-footer {
@@ -1814,7 +1814,7 @@ body {
 
 .followup-skip-btn {
   padding: 0.55rem 1.25rem;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: #6b7280;
   background: transparent;
@@ -1842,7 +1842,7 @@ body {
    ============================================================ */
 .edit-char-count {
   text-align: right;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: #9ca3af;
   margin-top: 0.5rem;
 }
@@ -1878,7 +1878,7 @@ body {
 }
 
 .edit-image-name {
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: #6b7280;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1908,7 +1908,7 @@ body {
   border-radius: 10px;
   background: #fff;
   color: #374151;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -1918,7 +1918,7 @@ body {
     width: 20px;
     text-align: center;
     color: var(--accent-color, #B30000);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   &:hover:not(:disabled) {
@@ -1934,7 +1934,7 @@ body {
 }
 
 .anon-text-content {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   line-height: 1.7;
   color: #374151;
   text-align: justify;

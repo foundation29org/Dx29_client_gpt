@@ -225,13 +225,13 @@
               </span>
             </div>
             <div class="results-header__actions">
-              <button class="results-action-btn results-action-btn--primary" style="font-size:0.82rem; padding:0.4rem 0.85rem;" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
+              <button class="results-action-btn results-action-btn--primary" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
                 <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
               </button>
-              <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" style="font-size:0.82rem; padding:0.4rem 0.85rem;" (click)="callAdvancedModel()">
+              <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="callAdvancedModel()">
                 <i class="fa fa-search"></i>{{'diagnosis.Try our advanced mode' | translate }}
               </button>
-              <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" style="font-size:0.82rem; padding:0.4rem 0.85rem;" (click)="callFastModel()">
+              <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="callFastModel()">
                 <i class="fa-solid fa-person-running-fast"></i>{{'diagnosis.Try our faster mode' | translate }}
               </button>
             </div>
@@ -653,7 +653,7 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="closeExportModal()"></button>
   </div>
   <div class="followup-body">
-    <p class="mb-3" style="color: #6b7280; font-size: 0.9rem;">{{'land.Choose an option' | translate}}:</p>
+    <p class="mb-3" style="color: #6b7280; font-size: 0.95rem;">{{'land.Choose an option' | translate}}:</p>
     <div class="d-grid gap-2">
       <button class="export-option-btn" type="button" (click)="handleCopyFromModal()">
         <i class="fa fa-clipboard"></i>
