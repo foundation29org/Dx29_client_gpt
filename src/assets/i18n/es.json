@@ -1135,7 +1135,10 @@
     "patient": "Paciente",
     "none": "Prefiero no decirlo",
     "caregiver": "Cuidador",
-    "userType": "Tipo de usuario"
+    "userType": "Tipo de usuario",
+    "specialty": "Especialidad sanitaria",
+    "specialtyPlaceholder": "Ej.: Neurología, Pediatría, Medicina Interna",
+    "selectspecialty": "Por favor, indica tu especialidad sanitaria."
   },
   "seo":{
     "home":{

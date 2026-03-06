@@ -140,8 +140,8 @@ export class AnalyticsService {
   loadHotjar(): void {
     if (this.hotjarLoaded || !this.document) return;
     
-    // Hotjar solo para DxGPT (incluyendo versión EU) en producción
-    const tenantsWithHotjar = ['dxgpt-prod', 'dxeugpt', 'dxeugpt-prod'];
+    // Hotjar solo para tenants habilitados en producción
+    const tenantsWithHotjar = ['dxgpt-prod', 'dxeugpt', 'dxeugpt-prod', 'canarias-gpt-prod'];
     if (!environment.production || !tenantsWithHotjar.includes(environment.tenantId)) return;
 
     const hotjarSiteId = environment.hotjarSiteId;
