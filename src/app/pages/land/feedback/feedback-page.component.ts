@@ -32,11 +32,45 @@ export class FeedbackPageComponent implements OnDestroy {
     moreFunctLength: number = 0;
     freeTextLength: number = 0;
     formulario: FormGroup;
+    healthcareSpecialtyOptions: Array<{ value: string; i18nKey: string }> = [
+      { value: 'Family Medicine', i18nKey: 'familyMedicine' },
+      { value: 'Internal Medicine', i18nKey: 'internalMedicine' },
+      { value: 'Pediatrics', i18nKey: 'pediatrics' },
+      { value: 'Neurology', i18nKey: 'neurology' },
+      { value: 'Cardiology', i18nKey: 'cardiology' },
+      { value: 'Pulmonology', i18nKey: 'pulmonology' },
+      { value: 'Gastroenterology', i18nKey: 'gastroenterology' },
+      { value: 'Endocrinology', i18nKey: 'endocrinology' },
+      { value: 'Nephrology', i18nKey: 'nephrology' },
+      { value: 'Rheumatology', i18nKey: 'rheumatology' },
+      { value: 'Hematology', i18nKey: 'hematology' },
+      { value: 'Medical Oncology', i18nKey: 'medicalOncology' },
+      { value: 'Infectious Diseases', i18nKey: 'infectiousDiseases' },
+      { value: 'Dermatology', i18nKey: 'dermatology' },
+      { value: 'Psychiatry', i18nKey: 'psychiatry' },
+      { value: 'General Surgery', i18nKey: 'generalSurgery' },
+      { value: 'Orthopedic Surgery and Traumatology', i18nKey: 'orthopedicSurgeryAndTraumatology' },
+      { value: 'Neurosurgery', i18nKey: 'neurosurgery' },
+      { value: 'Urology', i18nKey: 'urology' },
+      { value: 'Gynecology and Obstetrics', i18nKey: 'gynecologyAndObstetrics' },
+      { value: 'Ophthalmology', i18nKey: 'ophthalmology' },
+      { value: 'Otolaryngology', i18nKey: 'otolaryngology' },
+      { value: 'Radiology', i18nKey: 'radiology' },
+      { value: 'Emergency Medicine', i18nKey: 'emergencyMedicine' },
+      { value: 'Intensive Care Medicine', i18nKey: 'intensiveCareMedicine' },
+      { value: 'Clinical Genetics', i18nKey: 'clinicalGenetics' },
+      { value: 'Other', i18nKey: 'other' },
+      { value: 'Prefer not to say', i18nKey: 'preferNotToSay' }
+    ];
     
     // Nuevos parámetros recibidos
     model: string = '';
     fileNames: string = '';
     isBetaPage: boolean = false;
+    showSuggestionBanner: boolean = false;
+    suggestionAppliedBySystem: boolean = false;
+    suggestionPrimarySpecialty: string = '';
+    suggestionAlternativeSpecialties: string[] = [];
 
     constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private eventsService: EventsService, private uuidService: UuidService) {
         this._startTime = Date.now();
@@ -122,14 +156,43 @@ export class FeedbackPageComponent implements OnDestroy {
 
       // Especialidad opcional: solo se limpia si no es profesional sanitario.
       healthcareSpecialtyControl.clearValidators();
-      if (userType === 'professional') {
-        healthcareSpecialtyControl.setValidators([Validators.maxLength(200)]);
-      }
       if (userType !== 'professional') {
         healthcareSpecialtyControl.setValue('');
       }
 
       healthcareSpecialtyControl.updateValueAndValidity({ emitEvent: false });
+    }
+
+    getSpecialtyI18nKeyByValue(value: string): string {
+      const match = this.healthcareSpecialtyOptions.find(option => option.value === value);
+      return match ? match.i18nKey : 'other';
+    }
+
+    selectSuggestedSpecialty(specialty: string): void {
+      this.formulario.patchValue({
+        userType: 'professional',
+        healthcareSpecialty: specialty
+      });
+    }
+
+    confirmSuggestion(): void {
+      this.showSuggestionBanner = false;
+    }
+
+    changeSuggestion(): void {
+      this.suggestionAppliedBySystem = false;
+      this.showSuggestionBanner = false;
+    }
+
+    discardSuggestion(): void {
+      if (this.suggestionAppliedBySystem) {
+        this.formulario.patchValue({
+          userType: '',
+          healthcareSpecialty: ''
+        });
+      }
+      this.suggestionAppliedBySystem = false;
+      this.showSuggestionBanner = false;
     }
   
       sendFeedback(){
@@ -254,6 +317,33 @@ export class FeedbackPageComponent implements OnDestroy {
 
     setIsBetaPage(isBetaPage: boolean): void {
         this.isBetaPage = isBetaPage;
+    }
+
+    setInferredProfile(inferredProfile: any): void {
+        if (!inferredProfile || typeof inferredProfile !== 'object') {
+          return;
+        }
+
+        const inferredUserType = inferredProfile.userType === 'doctor' ? 'professional' : inferredProfile.userType;
+        const feedbackAutofillRecommended = inferredProfile.feedbackAutofillRecommended === true;
+        const topSpecialties = Array.isArray(inferredProfile.topSpecialties) ? inferredProfile.topSpecialties : [];
+        const topCatalogSpecialties = topSpecialties.filter((specialty: string) =>
+          this.healthcareSpecialtyOptions.some(option => option.value === specialty)
+        );
+
+        if (!feedbackAutofillRecommended || inferredUserType !== 'professional') {
+          return;
+        }
+
+        this.suggestionPrimarySpecialty = topCatalogSpecialties[0] || '';
+        this.suggestionAlternativeSpecialties = topCatalogSpecialties.slice(1, 3);
+        this.showSuggestionBanner = true;
+
+        this.formulario.patchValue({ userType: inferredUserType });
+        if (this.suggestionPrimarySpecialty) {
+          this.formulario.patchValue({ healthcareSpecialty: this.suggestionPrimarySpecialty });
+          this.suggestionAppliedBySystem = true;
+        }
     }
 
 }
