@@ -124,6 +124,12 @@
     color: #9ca3af;
     font-size: 0.88rem;
   }
+
+  &__hint {
+    margin: 0 0 0.4rem 0;
+    font-size: 0.82rem;
+    color: #4b5563;
+  }
 }
 
 /* ============================================================
@@ -157,6 +163,23 @@
 
 ::ng-deep .feedback-radio .mat-radio-inner-circle {
   background-color: var(--accent-color, #4f8cff);
+}
+
+.feedback-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.45rem;
+}
+
+.feedback-chip {
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #fff;
+  color: #334155;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.8rem;
+  cursor: pointer;
 }
 
 /* ============================================================

@@ -32,11 +32,44 @@ export class FeedbackPageComponent implements OnDestroy {
     moreFunctLength: number = 0;
     freeTextLength: number = 0;
     formulario: FormGroup;
+    healthcareSpecialtyOptions: Array<{ value: string; i18nKey: string }> = [
+      { value: 'Cardiology', i18nKey: 'cardiology' },
+      { value: 'Clinical Genetics', i18nKey: 'clinicalGenetics' },
+      { value: 'Dermatology', i18nKey: 'dermatology' },
+      { value: 'Emergency Medicine', i18nKey: 'emergencyMedicine' },
+      { value: 'Endocrinology', i18nKey: 'endocrinology' },
+      { value: 'Family Medicine', i18nKey: 'familyMedicine' },
+      { value: 'Gastroenterology', i18nKey: 'gastroenterology' },
+      { value: 'General Surgery', i18nKey: 'generalSurgery' },
+      { value: 'Gynecology and Obstetrics', i18nKey: 'gynecologyAndObstetrics' },
+      { value: 'Hematology', i18nKey: 'hematology' },
+      { value: 'Infectious Diseases', i18nKey: 'infectiousDiseases' },
+      { value: 'Intensive Care Medicine', i18nKey: 'intensiveCareMedicine' },
+      { value: 'Internal Medicine', i18nKey: 'internalMedicine' },
+      { value: 'Medical Oncology', i18nKey: 'medicalOncology' },
+      { value: 'Nephrology', i18nKey: 'nephrology' },
+      { value: 'Neurology', i18nKey: 'neurology' },
+      { value: 'Neurosurgery', i18nKey: 'neurosurgery' },
+      { value: 'Ophthalmology', i18nKey: 'ophthalmology' },
+      { value: 'Orthopedic Surgery and Traumatology', i18nKey: 'orthopedicSurgeryAndTraumatology' },
+      { value: 'Otolaryngology', i18nKey: 'otolaryngology' },
+      { value: 'Pediatrics', i18nKey: 'pediatrics' },
+      { value: 'Psychiatry', i18nKey: 'psychiatry' },
+      { value: 'Pulmonology', i18nKey: 'pulmonology' },
+      { value: 'Radiology', i18nKey: 'radiology' },
+      { value: 'Rheumatology', i18nKey: 'rheumatology' },
+      { value: 'Urology', i18nKey: 'urology' },
+      { value: 'Other', i18nKey: 'other' },
+      { value: 'Prefer not to say', i18nKey: 'preferNotToSay' }
+    ];
+    localizedHealthcareSpecialtyOptions: Array<{ value: string; i18nKey: string }> = [];
     
     // Nuevos parámetros recibidos
     model: string = '';
     fileNames: string = '';
     isBetaPage: boolean = false;
+    suggestionAppliedBySystem: boolean = false;
+    inferredTopSpecialties: string[] = [];
 
     constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private eventsService: EventsService, private uuidService: UuidService) {
         this._startTime = Date.now();
@@ -68,6 +101,12 @@ export class FeedbackPageComponent implements OnDestroy {
               })
             );
           }
+          this.sortHealthcareSpecialtyOptionsByLocale();
+          this.subscription.add(
+            this.translate.onLangChange.subscribe(() => {
+              this.sortHealthcareSpecialtyOptionsByLocale();
+            })
+          );
 
           setTimeout(function () {
             //this.goTo('initpos');
@@ -122,14 +161,46 @@ export class FeedbackPageComponent implements OnDestroy {
 
       // Especialidad opcional: solo se limpia si no es profesional sanitario.
       healthcareSpecialtyControl.clearValidators();
-      if (userType === 'professional') {
-        healthcareSpecialtyControl.setValidators([Validators.maxLength(200)]);
-      }
       if (userType !== 'professional') {
         healthcareSpecialtyControl.setValue('');
       }
 
       healthcareSpecialtyControl.updateValueAndValidity({ emitEvent: false });
+    }
+
+    private sortHealthcareSpecialtyOptionsByLocale(): void {
+      const lastValues = new Set(['Other', 'Prefer not to say']);
+      const locale = this.translate?.currentLang || this.translate?.store?.currentLang || 'en';
+
+      const mainOptions = this.healthcareSpecialtyOptions
+        .filter(option => !lastValues.has(option.value))
+        .slice()
+        .sort((a, b) => {
+          const labelA = this.translate.instant(`feedback.specialtyOptions.${a.i18nKey}`);
+          const labelB = this.translate.instant(`feedback.specialtyOptions.${b.i18nKey}`);
+          return labelA.localeCompare(labelB, locale);
+        });
+
+      const trailingOptions = this.healthcareSpecialtyOptions.filter(option => lastValues.has(option.value));
+      this.localizedHealthcareSpecialtyOptions = [...mainOptions, ...trailingOptions];
+    }
+
+    getSpecialtyI18nKeyByValue(value: string): string {
+      const match = this.healthcareSpecialtyOptions.find(option => option.value === value);
+      return match ? match.i18nKey : 'other';
+    }
+
+    selectSuggestedSpecialty(specialty: string): void {
+      this.formulario.patchValue({
+        userType: 'professional',
+        healthcareSpecialty: specialty
+      });
+      this.suggestionAppliedBySystem = false;
+    }
+
+    getAlternativeSuggestedSpecialties(): string[] {
+      const selectedSpecialty = this.formulario.get('healthcareSpecialty')?.value;
+      return this.inferredTopSpecialties.filter(specialty => specialty !== selectedSpecialty).slice(0, 3);
     }
   
       sendFeedback(){
@@ -254,6 +325,30 @@ export class FeedbackPageComponent implements OnDestroy {
 
     setIsBetaPage(isBetaPage: boolean): void {
         this.isBetaPage = isBetaPage;
+    }
+
+    setInferredProfile(inferredProfile: any): void {
+        if (!inferredProfile || typeof inferredProfile !== 'object') {
+          return;
+        }
+
+        const inferredUserType = inferredProfile.userType === 'doctor' ? 'professional' : inferredProfile.userType;
+        const feedbackAutofillRecommended = inferredProfile.feedbackAutofillRecommended === true;
+        const topSpecialties = Array.isArray(inferredProfile.topSpecialties) ? inferredProfile.topSpecialties : [];
+        const topCatalogSpecialties = topSpecialties.filter((specialty: string) =>
+          this.healthcareSpecialtyOptions.some(option => option.value === specialty)
+        );
+        this.inferredTopSpecialties = topCatalogSpecialties.slice(0, 3);
+
+        if (!feedbackAutofillRecommended || inferredUserType !== 'professional') {
+          return;
+        }
+
+        this.formulario.patchValue({ userType: inferredUserType });
+        if (this.inferredTopSpecialties[0]) {
+          this.formulario.patchValue({ healthcareSpecialty: this.inferredTopSpecialties[0] });
+          this.suggestionAppliedBySystem = true;
+        }
     }
 
 }

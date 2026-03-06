@@ -40,14 +40,29 @@
 
       <div class="feedback-section" *ngIf="formulario.get('userType')?.value === 'professional'">
         <p class="feedback-section__label">{{'feedback.specialty' | translate }}</p>
-        <input
-          type="text"
+        <p class="feedback-section__hint" *ngIf="suggestionAppliedBySystem">
+          {{'feedback.suggestionAutofilled' | translate}}
+        </p>
+        <select
           formControlName="healthcareSpecialty"
           name="healthcareSpecialty"
           class="feedback-input"
-          maxlength="200"
-          placeholder="{{'feedback.specialtyPlaceholder' | translate }}"
         >
+          <option value="">{{'feedback.specialtyPlaceholder' | translate }}</option>
+          <option *ngFor="let specialty of localizedHealthcareSpecialtyOptions" [value]="specialty.value">
+            {{ ('feedback.specialtyOptions.' + specialty.i18nKey) | translate }}
+          </option>
+        </select>
+        <div class="feedback-chip-row" *ngIf="getAlternativeSuggestedSpecialties().length > 0">
+          <button
+            type="button"
+            class="feedback-chip"
+            *ngFor="let alt of getAlternativeSuggestedSpecialties()"
+            (click)="selectSuggestedSpecialty(alt)"
+          >
+            {{('feedback.specialtyOptions.' + getSpecialtyI18nKeyByValue(alt)) | translate}}
+          </button>
+        </div>
       </div>
 
       <div class="feedback-section">
