@@ -1135,7 +1135,10 @@
     "patient": "Pacient",
     "none": "Prefereixo no dir-ho",
     "caregiver": "Cuidador",
-    "userType": "Tipus d'usuari"
+    "userType": "Tipus d'usuari",
+    "specialty": "Especialitat sanitària",
+    "specialtyPlaceholder": "Ex.: Neurologia, Pediatria, Medicina Interna",
+    "selectspecialty": "Si us plau, indica la teva especialitat sanitària."
   },
   "seo":{
     "home":{

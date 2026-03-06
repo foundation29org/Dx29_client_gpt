@@ -1135,7 +1135,10 @@
     "patient": "Patient",
     "none": "Ich möchte es nicht sagen",
     "caregiver": "Betreuer",
-    "userType": "Benutzertyp"
+    "userType": "Benutzertyp",
+    "specialty": "Medizinische Fachrichtung",
+    "specialtyPlaceholder": "z. B. Neurologie, Pädiatrie, Innere Medizin",
+    "selectspecialty": "Bitte geben Sie Ihre medizinische Fachrichtung an."
   },
   "seo":{
     "home":{

@@ -1135,7 +1135,10 @@
     "patient": "Patient",
     "none": "I prefer not to say",
     "caregiver": "Caregiver",
-    "userType": "User type"
+    "userType": "User type",
+    "specialty": "Medical specialty",
+    "specialtyPlaceholder": "e.g. Neurology, Pediatrics, Internal Medicine",
+    "selectspecialty": "Please indicate your medical specialty."
   },
   "seo":{
     "home":{

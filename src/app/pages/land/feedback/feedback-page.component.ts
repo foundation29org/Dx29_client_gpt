@@ -50,6 +50,7 @@ export class FeedbackPageComponent implements OnDestroy {
             pregunta1: new FormControl('', Validators.required), // Definir los controles del formulario
             pregunta2: new FormControl('', Validators.required),
             userType: new FormControl('', Validators.required),
+            healthcareSpecialty: new FormControl(''),
             moreFunct: new FormControl(''),
             freeText: new FormControl(''),
             email: new FormControl('', [Validators.email]),
@@ -58,6 +59,15 @@ export class FeedbackPageComponent implements OnDestroy {
 
           this.moreFunctLength = this.formulario.get('moreFunct').value.length;
           this.freeTextLength = this.formulario.get('freeText').value.length;
+          this.updateHealthcareSpecialtyValidation(this.formulario.get('userType')?.value);
+          const userTypeControl = this.formulario.get('userType');
+          if (userTypeControl) {
+            this.subscription.add(
+              userTypeControl.valueChanges.subscribe((userType: string) => {
+                this.updateHealthcareSpecialtyValidation(userType);
+              })
+            );
+          }
 
           setTimeout(function () {
             //this.goTo('initpos');
@@ -103,6 +113,24 @@ export class FeedbackPageComponent implements OnDestroy {
     openWeb(){
         window.open('https://www.foundation29.org', '_blank');
     }
+
+    private updateHealthcareSpecialtyValidation(userType: string): void {
+      const healthcareSpecialtyControl = this.formulario.get('healthcareSpecialty');
+      if (!healthcareSpecialtyControl) {
+        return;
+      }
+
+      // Especialidad opcional: solo se limpia si no es profesional sanitario.
+      healthcareSpecialtyControl.clearValidators();
+      if (userType === 'professional') {
+        healthcareSpecialtyControl.setValidators([Validators.maxLength(200)]);
+      }
+      if (userType !== 'professional') {
+        healthcareSpecialtyControl.setValue('');
+      }
+
+      healthcareSpecialtyControl.updateValueAndValidity({ emitEvent: false });
+    }
   
       sendFeedback(){
         if (this.formulario.valid) {
@@ -111,11 +139,16 @@ export class FeedbackPageComponent implements OnDestroy {
           const respuesta2 = this.formulario.get('pregunta2')?.value;
           const moreFunct = this.formulario.get('moreFunct')?.value;
           const freeText = this.formulario.get('freeText')?.value;
+          const rawHealthcareSpecialty = this.formulario.get('healthcareSpecialty')?.value;
+          const healthcareSpecialty = (rawHealthcareSpecialty || '').trim();
+          const feedbackFormValue = { ...this.formulario.value };
+          delete feedbackFormValue.healthcareSpecialty;
       
           //this.mainForm.value.email = (this.mainForm.value.email).toLowerCase();
           //this.mainForm.value.lang=this.translate.store.currentLang;
           var value = { 
-            value: this.formulario.value, 
+            value: feedbackFormValue, 
+            healthcareSpecialty,
             myuuid: this.myuuid, 
             lang: this.translate.store.currentLang,
             model: this.model,

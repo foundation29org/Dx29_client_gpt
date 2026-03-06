@@ -1135,7 +1135,10 @@
     "patient": "Pacjent",
     "none": "Wolę nie mówić",
     "caregiver": "Opiekun",
-    "userType": "Typ użytkownika"
+    "userType": "Typ użytkownika",
+    "specialty": "Specjalizacja medyczna",
+    "specialtyPlaceholder": "np. Neurologia, Pediatria, Choroby wewnętrzne",
+    "selectspecialty": "Proszę podać swoją specjalizację medyczną."
   },
   "seo":{
     "home":{
