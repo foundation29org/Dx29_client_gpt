@@ -127,9 +127,9 @@ a:focus
     z-index: 5;
   }
   
-  .swal2-styled.swal2-confirm{
-    background-color: var(--primary-color, #253146) !important;
-  }
+.swal2-styled.swal2-confirm{
+  background-color: var(--primary-color, #253146) !important;
+}
   
   .main-panel {
     margin-top: 65px;
@@ -161,7 +161,7 @@ a:focus
     }
   }
 
-  /* Estilos personalizados para el modal de carga de DxGPT */
+/* Estilos personalizados para el modal de carga de DxGPT */
 .dxgpt-modal-loading {
   background: #23272f !important;
   border-radius: 18px !important;
@@ -184,21 +184,65 @@ a:focus
   min-width: 350px;
   max-width: 95vw;
 }
-.swal2-html-container {
-  color: #e0e0e0 !important;
-  font-size: 1.08rem !important;
+
+.swal2-toast {
+  min-width: 0 !important;
+  max-width: min(95vw, 440px) !important;
+  padding: 0.9rem 1rem !important;
+  border-radius: 14px !important;
 }
+
+.swal2-title {
+  color: #f5f7fb !important;
+  font-weight: 700 !important;
+  font-size: 1.08rem !important;
+  line-height: 1.35 !important;
+}
+
+.swal2-toast .swal2-title {
+  font-size: 1rem !important;
+  margin: 0 !important;
+}
+
+.swal2-html-container {
+  color: #f2f4f8 !important;
+  font-size: 1.08rem !important;
+  line-height: 1.55 !important;
+}
+
+.swal2-toast .swal2-html-container {
+  color: #f8fafc !important;
+  font-size: 0.96rem !important;
+}
+
+.swal2-toast .swal2-icon {
+  margin: 0 0.55rem 0 0 !important;
+  transform: scale(0.82);
+}
+
+.swal2-icon.swal2-success {
+  border-color: rgba(74, 222, 128, 0.35) !important;
+}
+
+.swal2-icon.swal2-success [class^='swal2-success-line'],
+.swal2-icon.swal2-success [class*=' swal2-success-line'] {
+  background-color: #22c55e !important;
+}
+
+.swal2-timer-progress-bar {
+  background: linear-gradient(90deg, var(--primary-color, #253146), #22c55e) !important;
+}
+
 .swal2-cancel {
-  background: #444 !important;
+  background: rgba(255, 255, 255, 0.14) !important;
   color: #fff !important;
   border-radius: 8px !important;
-  border: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
   font-weight: 500 !important;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-  box-shadow: 0 2px 8px #0002;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
   transition: background 0.2s;
 }
 .swal2-cancel:hover {
-  background: #666 !important;
+  background: rgba(255, 255, 255, 0.22) !important;
 }
-  

@@ -135,6 +135,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     selectedFiles: File[] = [];
     summary: string = '';
     details: any = null;
+    inferredProfile: any = null;
 
     isDragOver = false;
 
@@ -1182,6 +1183,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.currentPosition = null;
         this.totalWaitTime = null;
         this.startTime = null;
+        this.inferredProfile = data?.inferredProfile || data?.data?.inferredProfile || null;
         if(data.data){
             if(data.data.length > 0){
                 this.copyMedicalText = this.medicalTextEng;
@@ -1876,6 +1878,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     // Pasar parámetros al componente del modal
                     this.modalReference.componentInstance.setModel(this.model);
                     this.modalReference.componentInstance.setSelectedFiles(fileNames);
+                    this.modalReference.componentInstance.setInferredProfile(this.inferredProfile);
                 }else{
                     let msgSuccess = this.translate.instant("land.thanks");
                     this.showSuccess(msgSuccess);
