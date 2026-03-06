@@ -26,27 +26,6 @@
         <ngb-rating formControlName="pregunta2" max="5" class="feedback-rating-row__stars"></ngb-rating>
       </div>
 
-      <div class="feedback-suggestion" *ngIf="showSuggestionBanner">
-        <p class="feedback-suggestion__title">{{'feedback.suggestionTitle' | translate }}</p>
-        <p class="feedback-suggestion__text">
-          {{'feedback.suggestionText' | translate}}
-          <strong>{{('feedback.specialtyOptions.' + getSpecialtyI18nKeyByValue(suggestionPrimarySpecialty)) | translate}}</strong>.
-        </p>
-        <p class="feedback-suggestion__alt" *ngIf="suggestionAlternativeSpecialties.length > 0">
-          {{'feedback.suggestionAlternatives' | translate}}
-          <span *ngFor="let alt of suggestionAlternativeSpecialties; let isLast = last">
-            <button type="button" class="feedback-chip feedback-chip--inline" (click)="selectSuggestedSpecialty(alt)">
-              {{('feedback.specialtyOptions.' + getSpecialtyI18nKeyByValue(alt)) | translate}}
-            </button><span *ngIf="!isLast">, </span>
-          </span>
-        </p>
-        <div class="feedback-suggestion__actions">
-          <button type="button" class="feedback-chip" (click)="confirmSuggestion()">{{'feedback.suggestionConfirm' | translate}}</button>
-          <button type="button" class="feedback-chip" (click)="changeSuggestion()">{{'feedback.suggestionChange' | translate}}</button>
-          <button type="button" class="feedback-chip feedback-chip--danger" (click)="discardSuggestion()">{{'feedback.suggestionDiscard' | translate}}</button>
-        </div>
-      </div>
-
       <div class="feedback-section">
         <p class="feedback-section__label">{{'feedback.userType' | translate }}</p>
         <div class="feedback-radio-group">
@@ -70,15 +49,15 @@
           class="feedback-input"
         >
           <option value="">{{'feedback.specialtyPlaceholder' | translate }}</option>
-          <option *ngFor="let specialty of healthcareSpecialtyOptions" [value]="specialty.value">
+          <option *ngFor="let specialty of localizedHealthcareSpecialtyOptions" [value]="specialty.value">
             {{ ('feedback.specialtyOptions.' + specialty.i18nKey) | translate }}
           </option>
         </select>
-        <div class="feedback-chip-row" *ngIf="suggestionAlternativeSpecialties.length > 0">
+        <div class="feedback-chip-row" *ngIf="getAlternativeSuggestedSpecialties().length > 0">
           <button
             type="button"
             class="feedback-chip"
-            *ngFor="let alt of suggestionAlternativeSpecialties"
+            *ngFor="let alt of getAlternativeSuggestedSpecialties()"
             (click)="selectSuggestedSpecialty(alt)"
           >
             {{('feedback.specialtyOptions.' + getSpecialtyI18nKeyByValue(alt)) | translate}}

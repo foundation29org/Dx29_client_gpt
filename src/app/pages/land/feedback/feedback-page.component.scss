@@ -165,44 +165,6 @@
   background-color: var(--accent-color, #4f8cff);
 }
 
-/* ============================================================
-   AI SUGGESTION
-   ============================================================ */
-.feedback-suggestion {
-  margin-bottom: 1rem;
-  padding: 0.8rem 0.9rem;
-  border-radius: 10px;
-  border: 1px solid #dbe7ff;
-  background: #f5f8ff;
-
-  &__title {
-    margin: 0 0 0.35rem 0;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #1f3b8f;
-  }
-
-  &__text {
-    margin: 0;
-    font-size: 0.88rem;
-    color: #334155;
-    line-height: 1.45;
-  }
-
-  &__alt {
-    margin: 0.45rem 0 0 0;
-    font-size: 0.84rem;
-    color: #475569;
-  }
-
-  &__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-    margin-top: 0.65rem;
-  }
-}
-
 .feedback-chip-row {
   display: flex;
   flex-wrap: wrap;
@@ -218,20 +180,6 @@
   padding: 0.2rem 0.65rem;
   font-size: 0.8rem;
   cursor: pointer;
-
-  &--inline {
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    background: transparent;
-    color: #1f3b8f;
-    text-decoration: underline;
-  }
-
-  &--danger {
-    border-color: #fecaca;
-    color: #991b1b;
-  }
 }
 
 /* ============================================================
