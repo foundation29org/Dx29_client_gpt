@@ -70,6 +70,14 @@ export class FeedbackPageComponent implements OnDestroy {
     isBetaPage: boolean = false;
     suggestionAppliedBySystem: boolean = false;
     inferredTopSpecialties: string[] = [];
+    inferredSuggestedUserType: string = '';
+    inferredFeedbackAutofillRecommended: boolean = false;
+    inferredConfidence: number | null = null;
+    inferredConfidenceThreshold: number | null = null;
+    inferredSelectedViaPill: boolean = false;
+    inferredPillClicks: number = 0;
+    inferredAutofilledUserType: string = '';
+    inferredAutofilledSpecialty: string = '';
 
     constructor(public translate: TranslateService, private http: HttpClient, public activeModal: NgbActiveModal, private inj: Injector, public insightsService: InsightsService, private eventsService: EventsService, private uuidService: UuidService) {
         this._startTime = Date.now();
@@ -196,11 +204,59 @@ export class FeedbackPageComponent implements OnDestroy {
         healthcareSpecialty: specialty
       });
       this.suggestionAppliedBySystem = false;
+      this.inferredSelectedViaPill = true;
+      this.inferredPillClicks += 1;
+      this.insightsService.trackEvent('feedback_suggestion_pill_click', {
+        myuuid: this.myuuid,
+        specialty,
+        model: this.model,
+        isBetaPage: this.isBetaPage
+      });
     }
 
     getAlternativeSuggestedSpecialties(): string[] {
       const selectedSpecialty = this.formulario.get('healthcareSpecialty')?.value;
       return this.inferredTopSpecialties.filter(specialty => specialty !== selectedSpecialty).slice(0, 3);
+    }
+
+    private buildInferenceMeta(finalUserType: string, finalHealthcareSpecialty: string) {
+      const suggestedUserType = this.inferredSuggestedUserType || null;
+      const suggestedTopSpecialties = this.inferredTopSpecialties.slice(0, 3);
+      const hasSuggestions = !!suggestedUserType || suggestedTopSpecialties.length > 0;
+
+      const selectedIndex = suggestedTopSpecialties.indexOf(finalHealthcareSpecialty);
+      const selectedFromTop3 = selectedIndex >= 0;
+      const selectedTop3Rank = selectedFromTop3 ? selectedIndex + 1 : null;
+
+      const changedUserType = suggestedUserType ? finalUserType !== suggestedUserType : false;
+      const changedPrimarySpecialty = suggestedTopSpecialties.length > 0
+        ? finalHealthcareSpecialty !== suggestedTopSpecialties[0]
+        : false;
+
+      const changedAfterAutofill = !!this.inferredAutofilledUserType || !!this.inferredAutofilledSpecialty
+        ? finalUserType !== this.inferredAutofilledUserType || finalHealthcareSpecialty !== this.inferredAutofilledSpecialty
+        : false;
+
+      return {
+        hasSuggestions,
+        suggestedUserType,
+        suggestedTopSpecialties,
+        feedbackAutofillRecommended: this.inferredFeedbackAutofillRecommended,
+        confidence: this.inferredConfidence,
+        confidenceThreshold: this.inferredConfidenceThreshold,
+        autofillApplied: !!this.inferredAutofilledUserType || !!this.inferredAutofilledSpecialty,
+        autofilledUserType: this.inferredAutofilledUserType || null,
+        autofilledHealthcareSpecialty: this.inferredAutofilledSpecialty || null,
+        finalUserType,
+        finalHealthcareSpecialty: finalHealthcareSpecialty || null,
+        changedUserType,
+        changedPrimarySpecialty,
+        changedAfterAutofill,
+        selectedFromTop3,
+        selectedTop3Rank,
+        selectedViaSuggestedPill: this.inferredSelectedViaPill,
+        suggestedPillClicks: this.inferredPillClicks
+      };
     }
   
       sendFeedback(){
@@ -212,6 +268,8 @@ export class FeedbackPageComponent implements OnDestroy {
           const freeText = this.formulario.get('freeText')?.value;
           const rawHealthcareSpecialty = this.formulario.get('healthcareSpecialty')?.value;
           const healthcareSpecialty = (rawHealthcareSpecialty || '').trim();
+          const finalUserType = this.formulario.get('userType')?.value || '';
+          const inferenceMeta = this.buildInferenceMeta(finalUserType, healthcareSpecialty);
           const feedbackFormValue = { ...this.formulario.value };
           delete feedbackFormValue.healthcareSpecialty;
       
@@ -220,12 +278,25 @@ export class FeedbackPageComponent implements OnDestroy {
           var value = { 
             value: feedbackFormValue, 
             healthcareSpecialty,
+            inferenceMeta,
             myuuid: this.myuuid, 
             lang: this.translate.store.currentLang,
             model: this.model,
             fileNames: this.fileNames,
             isBetaPage: this.isBetaPage
           }
+          this.insightsService.trackEvent('feedback_inference_submit', {
+            myuuid: this.myuuid,
+            model: this.model,
+            isBetaPage: this.isBetaPage,
+            finalUserType: inferenceMeta.finalUserType,
+            selectedFromTop3: inferenceMeta.selectedFromTop3,
+            selectedTop3Rank: inferenceMeta.selectedTop3Rank,
+            changedUserType: inferenceMeta.changedUserType,
+            changedPrimarySpecialty: inferenceMeta.changedPrimarySpecialty,
+            changedAfterAutofill: inferenceMeta.changedAfterAutofill,
+            selectedViaSuggestedPill: inferenceMeta.selectedViaSuggestedPill
+          });
           this.subscription.add( this.http.post(environment.api+'/internal/generalfeedback/', value)
           .subscribe( (res : any) => {
             this.sending = false;
@@ -334,6 +405,10 @@ export class FeedbackPageComponent implements OnDestroy {
 
         const inferredUserType = inferredProfile.userType === 'doctor' ? 'professional' : inferredProfile.userType;
         const feedbackAutofillRecommended = inferredProfile.feedbackAutofillRecommended === true;
+        this.inferredSuggestedUserType = inferredUserType || '';
+        this.inferredFeedbackAutofillRecommended = feedbackAutofillRecommended;
+        this.inferredConfidence = Number.isFinite(Number(inferredProfile.confidence)) ? Number(inferredProfile.confidence) : null;
+        this.inferredConfidenceThreshold = Number.isFinite(Number(inferredProfile.confidenceThreshold)) ? Number(inferredProfile.confidenceThreshold) : null;
         const topSpecialties = Array.isArray(inferredProfile.topSpecialties) ? inferredProfile.topSpecialties : [];
         const topCatalogSpecialties = topSpecialties.filter((specialty: string) =>
           this.healthcareSpecialtyOptions.some(option => option.value === specialty)
@@ -347,6 +422,8 @@ export class FeedbackPageComponent implements OnDestroy {
         this.formulario.patchValue({ userType: inferredUserType });
         if (this.inferredTopSpecialties[0]) {
           this.formulario.patchValue({ healthcareSpecialty: this.inferredTopSpecialties[0] });
+          this.inferredAutofilledUserType = inferredUserType;
+          this.inferredAutofilledSpecialty = this.inferredTopSpecialties[0];
           this.suggestionAppliedBySystem = true;
         }
     }
