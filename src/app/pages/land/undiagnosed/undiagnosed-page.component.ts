@@ -92,6 +92,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     resultAnonymized: string = '';
     copyResultAnonymized: string = '';
     timezone: string = '';
+    myCountry: string = '';
+    myCountryCode: string = '';
+    countriesList: any[] = [];
     terms2: boolean = false;
     model: string = 'gpt5mini';
     defaultModel: string = 'gpt5mini';
@@ -183,7 +186,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             .subscribe((res: any) => {
                 if (res.timezone) {
                     console.log(res.timezone);
-                    this.timezone = res.timezone
+                    this.timezone = res.timezone;
+                    this.getInfoLocationFromTimezone();
                 } else {
                     this.insightsService.trackException(res);
                 }
@@ -191,6 +195,121 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 console.log(err);
                 this.insightsService.trackException(err);
             }));
+    }
+
+    private normalizeCountryName(value: string): string {
+        return (value || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .trim();
+    }
+
+    private normalizeCountryCode(code: string): string {
+        const legacyCodeMap: { [key: string]: string } = {
+            FX: 'FR',
+            UK: 'GB',
+            SU: 'RU',
+            YU: 'RS',
+            TP: 'TL',
+            DY: 'BJ',
+            HV: 'BF'
+        };
+
+        const normalized = (code || '').toUpperCase().trim();
+        return legacyCodeMap[normalized] || normalized;
+    }
+
+    private findCountryByName(name: string): any | null {
+        if (!name) return null;
+
+        const normalizedName = this.normalizeCountryName(name);
+        return this.countriesList.find(country =>
+            this.normalizeCountryName(this.normalizeCountryCode(country.code)) === normalizedName ||
+            this.normalizeCountryName(country.name) === normalizedName ||
+            this.normalizeCountryName(country.nameEn) === normalizedName
+        ) || null;
+    }
+
+    private getCountryFromTimeZone(resolvedOptions?: Intl.ResolvedDateTimeFormatOptions): any | null {
+        const timezone = resolvedOptions || Intl.DateTimeFormat().resolvedOptions();
+        const timeZone = timezone.timeZone || '';
+        if (!timeZone) return null;
+
+        const exactMatch = this.countriesList.find(country =>
+            Array.isArray(country.timezones) && country.timezones.includes(timeZone)
+        );
+        if (exactMatch) return exactMatch;
+
+        const normalizedTimeZone = this.normalizeCountryName(timeZone);
+        return this.countriesList.find(country =>
+            Array.isArray(country.timezones) &&
+            country.timezones.some(zone => this.normalizeCountryName(zone) === normalizedTimeZone)
+        ) || null;
+    }
+
+    private getCountryFromLocale(): any | null {
+        const resolved = Intl.DateTimeFormat().resolvedOptions();
+        const byTimeZone = this.getCountryFromTimeZone(resolved);
+        if (byTimeZone) return byTimeZone;
+
+        const localeCandidates = [
+            navigator.language,
+            ...(navigator.languages || []),
+            resolved.locale
+        ].filter((value, index, self) => !!value && self.indexOf(value) === index);
+
+        for (const locale of localeCandidates) {
+            const region = (locale.split('-')[1] || '').toUpperCase();
+            if (!region) continue;
+
+            const byCode = this.countriesList.find(country =>
+                this.normalizeCountryCode(country.code) === this.normalizeCountryCode(region)
+            );
+            if (byCode) return byCode;
+
+            try {
+                const regionName = new Intl.DisplayNames(['en'], { type: 'region' }).of(region);
+                const byRegionName = this.findCountryByName(regionName || '');
+                if (byRegionName) return byRegionName;
+            } catch {
+                // Ignore browser/platform support differences and continue fallback chain.
+            }
+        }
+
+        return null;
+    }
+
+    getInfoLocationFromTimezone() {
+        this.loadCountries().then(() => {
+            const country = this.getCountryFromLocale();
+            if (country) {
+                this.myCountry = country.name;
+                this.myCountryCode = country.code;
+            }
+        }).catch((error) => {
+            console.log('Error obteniendo ubicación desde timezone:', error);
+        });
+    }
+
+    loadCountries(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (this.countriesList.length > 0) {
+                resolve();
+                return;
+            }
+
+            this.http.get<any[]>('assets/jsons/countries.json').subscribe(
+                (data) => {
+                    this.countriesList = data.sort((a, b) => a.name.localeCompare(b.name));
+                    resolve();
+                },
+                (error) => {
+                    console.error('Error loading countries:', error);
+                    reject(error);
+                }
+            );
+        });
     }
 
     loadSponsors() {
@@ -900,6 +1019,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             myuuid: this.myuuid, 
             lang: langValue, 
             timezone: this.timezone, 
+            countryName: this.myCountry,
+            countryCode: this.myCountryCode,
             model: modelToUse,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
