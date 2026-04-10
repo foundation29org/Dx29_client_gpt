@@ -243,6 +243,10 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         return seconds;
     };
 
+    isEuMode(): boolean {
+        return this.brandingService.isEuMode();
+    }
+
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
         const eventProperties = { 

@@ -93,6 +93,7 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
 
   /**
    * Dado el markdown, renumera las citas a [1..n], construye referencias y guarda mapping.
+   * Si el texto no contiene citas inline pero sonarData tiene resultados, los muestra todos.
    */
   private renumberInlineCitationsAndBuildReferences(markdown: string): string {
     const usedOriginal = this.extractUniqueCitationNumbers(markdown);
@@ -101,28 +102,51 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
     this.citationOldToNew = new Map<number, number>();
     this._formattedReferences = [];
 
-    // Construir mapeo old->new en orden
-    usedOriginal.forEach((oldNum, idx) => this.citationOldToNew.set(oldNum, idx + 1));
+    if (usedOriginal.length > 0) {
+      // Construir mapeo old->new en orden
+      usedOriginal.forEach((oldNum, idx) => this.citationOldToNew.set(oldNum, idx + 1));
 
-    // Construir referencias solo para las usadas
-    const refs = this.buildReferencesFromSonar(usedOriginal);
-    this._formattedReferences = refs.map((r, i) => ({
-      number: i + 1,
-      title: r.title,
-      url: r.url,
-      date: r.date,
-      snippet: r.snippet,
-      source: r.source
-    }));
+      // Construir referencias solo para las usadas
+      const refs = this.buildReferencesFromSonar(usedOriginal);
+      this._formattedReferences = refs.map((r, i) => ({
+        number: i + 1,
+        title: r.title,
+        url: r.url,
+        date: r.date,
+        snippet: r.snippet,
+        source: r.source
+      }));
 
-    // Reemplazar en el texto los números antiguos por los nuevos; eliminar huérfanas
-    const renumbered = markdown.replace(/\[(\d+)\]/g, (_m, g1) => {
-      const oldNum = Number(g1);
-      const newNum = this.citationOldToNew.get(oldNum);
-      return newNum ? `[${newNum}]` : '';
-    });
+      // Reemplazar en el texto los números antiguos por los nuevos; eliminar huérfanas
+      return markdown.replace(/\[(\d+)\]/g, (_m, g1) => {
+        const oldNum = Number(g1);
+        const newNum = this.citationOldToNew.get(oldNum);
+        return newNum ? `[${newNum}]` : '';
+      });
+    } else {
+      // Sin citas inline: mostrar todas las referencias disponibles de sonarData
+      const results: any[] = Array.isArray(this.sonarDataParsed?.searchResults)
+        ? this.sonarDataParsed.searchResults
+        : [];
+      const citations: string[] = Array.isArray(this.sonarDataParsed?.citations)
+        ? this.sonarDataParsed.citations
+        : [];
 
-    return renumbered;
+      const allRefs: any[] = results.length > 0
+        ? results.filter((r: any) => r?.url)
+        : citations.map((url: string) => ({ title: url, url }));
+
+      this._formattedReferences = allRefs.map((r, i) => ({
+        number: i + 1,
+        title: r.title || r.url,
+        url: r.url,
+        date: r.date || '',
+        snippet: r.snippet || '',
+        source: r.source || ''
+      }));
+
+      return markdown;
+    }
   }
 
   /**
