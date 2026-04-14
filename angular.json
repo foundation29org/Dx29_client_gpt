@@ -457,66 +457,66 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "matngular:build"
+            "buildTarget": "matngular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "matngular:build:production"
+              "buildTarget": "matngular:build:production"
             },
             "develop": {
-              "browserTarget": "matngular:build:develop"
+              "buildTarget": "matngular:build:develop"
             },
             "salud-gpt": {
-              "browserTarget": "matngular:build:salud-gpt"
+              "buildTarget": "matngular:build:salud-gpt"
             },
             "salud-gpt-prod": {
-              "browserTarget": "matngular:build:salud-gpt-prod"
+              "buildTarget": "matngular:build:salud-gpt-prod"
             },
             "salud-gpt-dev": {
-              "browserTarget": "matngular:build:salud-gpt-dev"
+              "buildTarget": "matngular:build:salud-gpt-dev"
             },
             "sermas-gpt": {
-              "browserTarget": "matngular:build:sermas-gpt"
+              "buildTarget": "matngular:build:sermas-gpt"
             },
             "sermas-gpt-prod": {
-              "browserTarget": "matngular:build:sermas-gpt-prod"
+              "buildTarget": "matngular:build:sermas-gpt-prod"
             },
             "sermas-gpt-dev": {
-              "browserTarget": "matngular:build:sermas-gpt-dev"
+              "buildTarget": "matngular:build:sermas-gpt-dev"
             },
             "iasalut-ajuda-dx": {
-              "browserTarget": "matngular:build:iasalut-ajuda-dx"
+              "buildTarget": "matngular:build:iasalut-ajuda-dx"
             },
             "iasalut-ajuda-dx-prod": {
-              "browserTarget": "matngular:build:iasalut-ajuda-dx-prod"
+              "buildTarget": "matngular:build:iasalut-ajuda-dx-prod"
             },
             "iasalut-ajuda-dx-dev": {
-              "browserTarget": "matngular:build:iasalut-ajuda-dx-dev"
+              "buildTarget": "matngular:build:iasalut-ajuda-dx-dev"
             },
             "dxeugpt": {
-              "browserTarget": "matngular:build:dxeugpt"
+              "buildTarget": "matngular:build:dxeugpt"
             },
             "dxeugpt-prod": {
-              "browserTarget": "matngular:build:dxeugpt-prod"
+              "buildTarget": "matngular:build:dxeugpt-prod"
             },
             "dxeugpt-dev": {
-              "browserTarget": "matngular:build:dxeugpt-dev"
+              "buildTarget": "matngular:build:dxeugpt-dev"
             },
             "canarias-gpt": {
-              "browserTarget": "matngular:build:canarias-gpt"
+              "buildTarget": "matngular:build:canarias-gpt"
             },
             "canarias-gpt-prod": {
-              "browserTarget": "matngular:build:canarias-gpt-prod"
+              "buildTarget": "matngular:build:canarias-gpt-prod"
             },
             "canarias-gpt-dev": {
-              "browserTarget": "matngular:build:canarias-gpt-dev"
+              "buildTarget": "matngular:build:canarias-gpt-dev"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "matngular:build"
+            "buildTarget": "matngular:build"
           }
         },
         "test": {
