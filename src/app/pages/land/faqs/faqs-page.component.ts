@@ -6,6 +6,7 @@ import { BrandingService } from 'app/shared/services/branding.service';
     selector: 'app-faqs-page',
     templateUrl: './faqs-page.component.html',
     styleUrls: ['./faqs-page.component.scss'],
+    standalone: false
 })
 
 export class FaqsPageComponent implements OnInit {

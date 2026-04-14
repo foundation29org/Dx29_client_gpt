@@ -8,7 +8,8 @@ import { InsightsService } from 'app/shared/services/azureInsights.service';
     selector: 'app-reports-page',
     templateUrl: './reports-page.component.html',
     styleUrls: ['./reports-page.component.scss'],
-    providers: [ApiDx29ServerService]
+    providers: [ApiDx29ServerService],
+    standalone: false
 })
 
 export class ReportsPageComponent implements OnInit, OnDestroy {

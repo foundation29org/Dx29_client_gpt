@@ -9,9 +9,10 @@ import { UuidService } from 'app/shared/services/uuid.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-medical-answer-feedback',
-  templateUrl: './medical-answer-feedback.component.html',
-  styleUrls: ['./medical-answer-feedback.component.scss']
+    selector: 'app-medical-answer-feedback',
+    templateUrl: './medical-answer-feedback.component.html',
+    styleUrls: ['./medical-answer-feedback.component.scss'],
+    standalone: false
 })
 export class MedicalAnswerFeedbackComponent {
   @Input() question: string = '';

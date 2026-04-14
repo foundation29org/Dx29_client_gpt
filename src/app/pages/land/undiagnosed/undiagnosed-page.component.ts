@@ -26,6 +26,7 @@ declare let gtag: any;
     templateUrl: './undiagnosed-page.component.html',
     styleUrls: ['./undiagnosed-page.component.scss'],
     providers: [ApiDx29ServerService],
+    standalone: false
 })
 
 export class UndiagnosedPageComponent implements OnInit, OnDestroy {

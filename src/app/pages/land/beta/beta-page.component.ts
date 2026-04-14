@@ -26,6 +26,7 @@ declare let gtag: any;
     templateUrl: './beta-page.component.html',
     styleUrls: ['./beta-page.component.scss'],
     providers: [ApiDx29ServerService],
+    standalone: false
 })
 
 export class BetaPageComponent implements OnInit, OnDestroy {

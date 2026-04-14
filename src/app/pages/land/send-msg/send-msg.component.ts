@@ -17,7 +17,8 @@ declare let gtag: any;
 @Component({
     selector: 'app-send-msg',
     templateUrl: './send-msg.component.html',
-    styleUrls: ['./send-msg.component.scss']
+    styleUrls: ['./send-msg.component.scss'],
+    standalone: false
 })
 
 export class SendMsgComponent implements OnDestroy, OnInit {
