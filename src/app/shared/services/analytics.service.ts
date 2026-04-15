@@ -65,7 +65,6 @@ export class AnalyticsService {
       gtag('config', analyticsId);
       
       this.googleAnalyticsLoaded = true;
-      console.log('Google Analytics cargado tras consentimiento:', analyticsId);
     };
 
     this.document.head.appendChild(script);
@@ -111,7 +110,6 @@ export class AnalyticsService {
       }
       
       this.googleAdsLoaded = true;
-      console.log('Google Ads cargado:', adsConfig.primaryId);
     };
 
     this.document.head.appendChild(script);
@@ -167,7 +165,6 @@ export class AnalyticsService {
     })(window as any, this.document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
 
     this.hotjarLoaded = true;
-    console.log('Hotjar cargado tras consentimiento');
   }
 
   /**

@@ -186,7 +186,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.subscription.add(this.apiDx29ServerService.getInfoLocation()
             .subscribe((res: any) => {
                 if (res.timezone) {
-                    console.log(res.timezone);
                     this.timezone = res.timezone;
                     this.getInfoLocationFromTimezone();
                 } else {
@@ -944,7 +943,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         // Esto evita problemas cuando el backend detecta automáticamente que debe usar o3
         const shouldUseWebSocket = true;
         
-        console.log(`Model: ${modelToUse}, shouldUseWebSocket: ${shouldUseWebSocket}`);
+        //console.log(`Model: ${modelToUse}, shouldUseWebSocket: ${shouldUseWebSocket}`);
         
         if (shouldUseWebSocket) {
             try {
