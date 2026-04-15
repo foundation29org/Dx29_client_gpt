@@ -17,7 +17,8 @@ declare let gtag: any;
 @Component({
     selector: 'app-send-msg',
     templateUrl: './send-msg.component.html',
-    styleUrls: ['./send-msg.component.scss']
+    styleUrls: ['./send-msg.component.scss'],
+    standalone: false
 })
 
 export class SendMsgComponent implements OnDestroy, OnInit {
@@ -118,7 +119,13 @@ getElapsedSeconds() {
 
 lauchEvent(category) {
   var secs = this.getElapsedSeconds();
-  gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+  try {
+    if (typeof gtag === 'function') {
+      gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+    }
+  } catch (error) {
+    this.insightsService.trackException(error);
+  }
 }
   
     ngOnDestroy() {

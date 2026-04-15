@@ -6,7 +6,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'app-cookies',
     templateUrl: './cookies.component.html',
-    styleUrls: ['./cookies.component.scss']
+    styleUrls: ['./cookies.component.scss'],
+    standalone: false
 })
 
 export class CookiesPageComponent {

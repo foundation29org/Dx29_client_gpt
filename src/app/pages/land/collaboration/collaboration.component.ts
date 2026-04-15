@@ -3,9 +3,10 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { BrandingService } from 'app/shared/services/branding.service';
 
 @Component({
-  selector: 'app-collaboration',
-  templateUrl: './collaboration.component.html',
-  styleUrls: ['./collaboration.component.scss']
+    selector: 'app-collaboration',
+    templateUrl: './collaboration.component.html',
+    styleUrls: ['./collaboration.component.scss'],
+    standalone: false
 })
 export class CollaborationComponent implements OnInit {
   @ViewChild('sendMsgModal') sendMsgModal!: TemplateRef<any>;

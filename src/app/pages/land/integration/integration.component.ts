@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-integration',
-  templateUrl: './integration.component.html',
-  styleUrls: ['./integration.component.scss']
+    selector: 'app-integration',
+    templateUrl: './integration.component.html',
+    styleUrls: ['./integration.component.scss'],
+    standalone: false
 })
 export class IntegrationComponent implements OnInit {
   @ViewChild('sendMsgModal') sendMsgModal!: TemplateRef<any>;

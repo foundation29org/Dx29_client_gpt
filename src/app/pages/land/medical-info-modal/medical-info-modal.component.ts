@@ -8,9 +8,10 @@ import { MedicalAnswerFeedbackComponent } from '../medical-answer-feedback/medic
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 @Component({
-  selector: 'app-medical-info-modal',
-  templateUrl: './medical-info-modal.component.html',
-  styleUrls: ['./medical-info-modal.component.scss']
+    selector: 'app-medical-info-modal',
+    templateUrl: './medical-info-modal.component.html',
+    styleUrls: ['./medical-info-modal.component.scss'],
+    standalone: false
 })
 export class MedicalInfoModalComponent implements OnInit, OnDestroy {
   @Input() content: string = '';

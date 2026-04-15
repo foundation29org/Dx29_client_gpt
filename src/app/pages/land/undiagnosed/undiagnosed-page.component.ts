@@ -26,6 +26,7 @@ declare let gtag: any;
     templateUrl: './undiagnosed-page.component.html',
     styleUrls: ['./undiagnosed-page.component.scss'],
     providers: [ApiDx29ServerService],
+    standalone: false
 })
 
 export class UndiagnosedPageComponent implements OnInit, OnDestroy {
@@ -185,7 +186,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.subscription.add(this.apiDx29ServerService.getInfoLocation()
             .subscribe((res: any) => {
                 if (res.timezone) {
-                    console.log(res.timezone);
                     this.timezone = res.timezone;
                     this.getInfoLocationFromTimezone();
                 } else {
@@ -943,7 +943,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         // Esto evita problemas cuando el backend detecta automáticamente que debe usar o3
         const shouldUseWebSocket = true;
         
-        console.log(`Model: ${modelToUse}, shouldUseWebSocket: ${shouldUseWebSocket}`);
+        //console.log(`Model: ${modelToUse}, shouldUseWebSocket: ${shouldUseWebSocket}`);
         
         if (shouldUseWebSocket) {
             try {
@@ -1399,9 +1399,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         //window.scrollTo(0, 0);
          // Nueva conversión para la cuenta de display
          if(environment.tenantId == 'dxgpt-prod' || environment.tenantId == 'dxeugpt-prod'){
-            gtag('event', 'conversion', {
-                'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
-            });
+            if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
+                });
+            }
          }
         this.lauchEvent("Search Disease");
         if(this.hasIframeParams()){

@@ -12,10 +12,11 @@ import { filter } from 'rxjs/operators';
 declare let gtag: any;
 
 @Component({
-  selector: 'app-navbar-dx29',
-  templateUrl: './navbar-dx29.component.html',
-  styleUrls: ['./navbar-dx29.component.scss'],
-  providers: [LangService]
+    selector: 'app-navbar-dx29',
+    templateUrl: './navbar-dx29.component.html',
+    styleUrls: ['./navbar-dx29.component.scss'],
+    providers: [LangService],
+    standalone: false
 })
 
 @Injectable()
@@ -334,7 +335,13 @@ export class NavbarD29Component implements OnDestroy {
 
   lauchEvent(category) {
     var secs = this.getElapsedSeconds();
-    gtag('event', category, { 'myuuid': localStorage.getItem('uuid'), 'event_label': secs });
+    try {
+      if (typeof gtag === 'function') {
+        gtag('event', category, { 'myuuid': localStorage.getItem('uuid'), 'event_label': secs });
+      }
+    } catch (error) {
+      this.insightsService.trackException(error);
+    }
   }
 
   getElapsedSeconds() {

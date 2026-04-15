@@ -9,6 +9,7 @@ import { UuidService } from 'app/shared/services/uuid.service';
     selector: 'app-about-us-page',
     templateUrl: './about-us-page.component.html',
     styleUrls: ['./about-us-page.component.scss'],
+    standalone: false
 })
 
 export class AboutUsPageComponent {
@@ -35,7 +36,13 @@ export class AboutUsPageComponent {
 
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
-        gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+        try {
+            if (typeof gtag === 'function') {
+                gtag('event', category, { 'myuuid': this.myuuid, 'event_label': secs });
+            }
+        } catch (error) {
+            this.insightsService.trackException(error);
+        }
     }
 
     openWeb(){
