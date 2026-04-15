@@ -335,7 +335,13 @@ export class NavbarD29Component implements OnDestroy {
 
   lauchEvent(category) {
     var secs = this.getElapsedSeconds();
-    gtag('event', category, { 'myuuid': localStorage.getItem('uuid'), 'event_label': secs });
+    try {
+      if (typeof gtag === 'function') {
+        gtag('event', category, { 'myuuid': localStorage.getItem('uuid'), 'event_label': secs });
+      }
+    } catch (error) {
+      this.insightsService.trackException(error);
+    }
   }
 
   getElapsedSeconds() {

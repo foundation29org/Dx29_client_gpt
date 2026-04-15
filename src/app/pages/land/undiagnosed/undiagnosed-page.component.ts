@@ -1399,9 +1399,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         //window.scrollTo(0, 0);
          // Nueva conversión para la cuenta de display
          if(environment.tenantId == 'dxgpt-prod' || environment.tenantId == 'dxeugpt-prod'){
-            gtag('event', 'conversion', {
-                'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
-            });
+            if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
+                });
+            }
          }
         this.lauchEvent("Search Disease");
         if(this.hasIframeParams()){
