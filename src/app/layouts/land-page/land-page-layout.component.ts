@@ -10,7 +10,8 @@ import { DOCUMENT } from "@angular/common";
 @Component({
     selector: 'app-land-page-layout',
     templateUrl: './land-page-layout.component.html',
-    styleUrls: ['./land-page-layout.component.scss']
+    styleUrls: ['./land-page-layout.component.scss'],
+    standalone: false
 })
 
 export class LandPageLayoutComponent {

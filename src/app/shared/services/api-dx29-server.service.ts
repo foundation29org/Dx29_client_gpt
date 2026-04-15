@@ -45,7 +45,7 @@ diagnose(info: any) {
         catchError((err) => {
           console.log(err);
           this.insightsService.trackException(err);
-          return err;
+          return throwError(() => err);
         })
       );
   }
@@ -57,9 +57,9 @@ diagnose(info: any) {
           return res;
         }),
         catchError((err) => {
-        console.log(err);
-        this.insightsService.trackException(err);
-          return err;
+          console.log(err);
+          this.insightsService.trackException(err);
+          return throwError(() => err);
         })
       );
   }
@@ -73,7 +73,7 @@ diagnose(info: any) {
         catchError((err) => {
           console.log(err);
           this.insightsService.trackException(err);
-          return err;
+          return throwError(() => err);
         })
       );
   }
@@ -86,7 +86,7 @@ diagnose(info: any) {
         }),
         catchError((err) => {
           console.log(err);
-          return throwError(err || 'Server error');
+          return throwError(() => err);
         })
       );
   }
@@ -99,12 +99,11 @@ diagnose(info: any) {
         }),
         catchError((err) => {
           console.log(err);
-          return throwError(err || 'Server error');
+          return throwError(() => err);
         })
       );
   }
 
-  // Nuevo método para procesar las respuestas a las preguntas de seguimiento
   processFollowUpAnswers(value): Observable<any> {
     return this.http.post(environment.api + '/patient/update', value)
       .pipe(
@@ -113,7 +112,7 @@ diagnose(info: any) {
         }),
         catchError((err) => {
           console.log(err);
-          return throwError(err || 'Server error');
+          return throwError(() => err);
         })
       );
   }

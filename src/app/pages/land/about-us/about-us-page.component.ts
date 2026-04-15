@@ -9,6 +9,7 @@ import { UuidService } from 'app/shared/services/uuid.service';
     selector: 'app-about-us-page',
     templateUrl: './about-us-page.component.html',
     styleUrls: ['./about-us-page.component.scss'],
+    standalone: false
 })
 
 export class AboutUsPageComponent {

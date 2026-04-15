@@ -4,7 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
     selector: 'app-termsform',
     templateUrl: './termsform.component.html',
-    styleUrls: ['./termsform.component.scss']
+    styleUrls: ['./termsform.component.scss'],
+    standalone: false
 })
 
 export class TermFormComponent{

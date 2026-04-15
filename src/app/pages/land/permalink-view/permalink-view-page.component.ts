@@ -9,9 +9,10 @@ import { AnalyticsService } from 'app/shared/services/analytics.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
-  selector: 'app-permalink-view-page',
-  templateUrl: './permalink-view-page.component.html',
-  styleUrls: ['./permalink-view-page.component.scss']
+    selector: 'app-permalink-view-page',
+    templateUrl: './permalink-view-page.component.html',
+    styleUrls: ['./permalink-view-page.component.scss'],
+    standalone: false
 })
 export class PermalinkViewPageComponent implements OnInit, OnDestroy {
 

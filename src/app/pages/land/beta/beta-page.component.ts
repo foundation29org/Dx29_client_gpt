@@ -26,6 +26,7 @@ declare let gtag: any;
     templateUrl: './beta-page.component.html',
     styleUrls: ['./beta-page.component.scss'],
     providers: [ApiDx29ServerService],
+    standalone: false
 })
 
 export class BetaPageComponent implements OnInit, OnDestroy {
@@ -839,7 +840,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         // Esto evita problemas cuando el backend detecta automáticamente que debe usar o3
         const shouldUseWebSocket = true;
         
-        console.log(`Model: ${modelToUse}, shouldUseWebSocket: ${shouldUseWebSocket}`);
+        //console.log(`Model: ${modelToUse}, shouldUseWebSocket: ${shouldUseWebSocket}`);
         
         if (shouldUseWebSocket) {
             try {
