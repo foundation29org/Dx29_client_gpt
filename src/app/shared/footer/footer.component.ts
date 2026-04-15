@@ -6,7 +6,6 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
-import { PrivacyPolicyPageComponent } from 'app/pages/land/privacy-policy/privacy-policy.component';
 import { CookiesPageComponent } from 'app/pages/land/cookies/cookies.component';
 import { UuidService } from 'app/shared/services/uuid.service';
 import { LangService } from 'app/shared/services/lang.service';

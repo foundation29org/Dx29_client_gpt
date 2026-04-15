@@ -30,7 +30,8 @@
 
     $sidebar_content.on('click', '.navigation li a',function(){
         var $this = $(this),
-        listItem = $this.parent('li');
+        listItem = $this.parent('li'),
+        openListItems;
 
         if(listItem.hasClass('has-sub') && listItem.hasClass('open')){
             collapse(listItem);
@@ -95,7 +96,8 @@
     $('.logo-text').on('click',function(){
 
         var listItem = $sidebar_content.find('li.open.has-sub'),
-        activeItem = $sidebar_content.find('li.active');
+        activeItem = $sidebar_content.find('li.active'),
+        openItem;
 
         if(listItem.hasClass('has-sub') && listItem.hasClass('open')){
             collapse(listItem);
@@ -119,7 +121,7 @@
     $('.nav-toggle').on('click',function(){
         var $this = $(this),
         toggle_icon= $this.find('.toggle-icon'),
-        toggle = toggle_icon.attr('data-toggle');
+        toggle = toggle_icon.attr('data-toggle'),
         compact_menu_checkbox = $('.cz-compact-menu');
 
         if(toggle === 'expanded'){

@@ -14,7 +14,6 @@ import { AnalyticsService } from './shared/services/analytics.service';
 
 import {
   NgcCookieConsentService,
-  NgcNoCookieLawEvent,
   NgcStatusChangeEvent,
 } from "ngx-cookieconsent";
 

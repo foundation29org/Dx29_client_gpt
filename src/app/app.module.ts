@@ -14,7 +14,6 @@ import { LandPageLayoutComponent } from "./layouts/land-page/land-page-layout.co
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
-import { environment } from '../environments/environment';
 
 // Configuración base del cookie consent
 // El tipo se configura dinámicamente en app.component.ts según si es EU mode o no
