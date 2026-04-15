@@ -778,7 +778,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             if (this.medicalTextOriginal.length > 0) {
                 let introText = this.translate.instant("land.charactersleft", {
                     value: (15 - this.medicalTextOriginal.length)
-                })
+                });
                 text = text + '<br><br>' + introText;
             }
             let introText2 = this.translate.instant("land.recommended");
@@ -834,7 +834,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 if (result.isConfirmed) {
                     if (!this.showErrorCall1) {
                         if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
-                            this.showPanelIntro(contentIntro)
+                            this.showPanelIntro(contentIntro);
                             await this.delay(200);
                             document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
                         } else {
@@ -852,7 +852,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         if (!this.showErrorCall1) {
             if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
-                this.showPanelIntro(contentIntro)
+                this.showPanelIntro(contentIntro);
                 await this.delay(200);
                 document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
             } else {
@@ -1516,7 +1516,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.medicalTextOriginal = this.descriptionImageOnly;
         }
 
-        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, timezone: this.timezone, detectedLang: this.detectedLang, imageUrls: [] }
+        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, timezone: this.timezone, detectedLang: this.detectedLang, imageUrls: [] };
 
         if(this.currentImageUrls.length > 0){
             value.imageUrls = this.currentImageUrls;
