@@ -50,7 +50,6 @@
  */
 
 const fs = require('fs');
-const path = require('path');
 
 // Configuración de tenants (solo meta tags y favicon)
 const TENANT_CONFIGS = {

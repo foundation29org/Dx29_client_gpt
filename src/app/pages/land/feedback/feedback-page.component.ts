@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { NgForm, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { NgForm, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
 import { TranslateService } from '@ngx-translate/core';
@@ -269,10 +269,6 @@ export class FeedbackPageComponent implements OnDestroy {
       sendFeedback(){
         if (this.formulario.valid) {
           this.sending = true;
-          const respuesta1 = this.formulario.get('pregunta1')?.value;
-          const respuesta2 = this.formulario.get('pregunta2')?.value;
-          const moreFunct = this.formulario.get('moreFunct')?.value;
-          const freeText = this.formulario.get('freeText')?.value;
           const rawHealthcareSpecialty = this.formulario.get('healthcareSpecialty')?.value;
           const healthcareSpecialty = (rawHealthcareSpecialty || '').trim();
           const finalUserType = this.formulario.get('userType')?.value || '';

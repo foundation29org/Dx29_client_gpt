@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { EventsService } from 'app/shared/services/events.service';
