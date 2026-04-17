@@ -161,7 +161,6 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     // Propiedades para WebSocket/PubSub
     private webSocket: WebSocket | null = null;
     private isWebSocketConnected: boolean = false;
-    private currentWebSocketProgress: number = 0;
 
     // Propiedades para parámetros de iframe
     iframeParams: IframeParams = {};
@@ -596,22 +595,20 @@ export class BetaPageComponent implements OnInit, OnDestroy {
 
     private updateWebSocketProgress(progress: number, message: string, phase?: string) {
         const displayMessage = phase ? this.getProgressMessage(phase) : message;
-        const safeProgress = Math.max(this.currentWebSocketProgress, progress);
-        this.currentWebSocketProgress = safeProgress;
         
         const progressBar = document.getElementById('progress-bar');
         const progressMessage = document.getElementById('progress-message');
         const progressPercentage = document.getElementById('progress-percentage');
         
         if (progressBar) {
-            progressBar.style.width = safeProgress + '%';
-            console.log(`Progress updated: ${safeProgress}% - ${displayMessage}`);
+            progressBar.style.width = progress + '%';
+            console.log(`Progress updated: ${progress}% - ${displayMessage}`);
         }
         if (progressMessage) {
             progressMessage.textContent = displayMessage;
         }
         if (progressPercentage) {
-            progressPercentage.textContent = Math.round(safeProgress) + '%';
+            progressPercentage.textContent = Math.round(progress) + '%';
         }
     }
 
@@ -899,7 +896,6 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }.bind(this));
 
         // Inicializar progreso para WebSocket
-        this.currentWebSocketProgress = 0;
         setTimeout(() => {
             this.updateWebSocketProgress(0, 'Conectando...', 'connection');
         }, 100);
@@ -2916,7 +2912,6 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }.bind(this));
 
         // Inicializar progreso para WebSocket
-        this.currentWebSocketProgress = 0;
         setTimeout(() => {
             this.updateWebSocketProgress(0, 'Conectando...', 'connection');
         }, 100);
