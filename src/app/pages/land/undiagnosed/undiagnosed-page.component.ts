@@ -96,10 +96,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     myCountryCode: string = '';
     countriesList: any[] = [];
     terms2: boolean = false;
-    model: string = 'gpt5mini';
-    defaultModel: string = 'gpt5mini';
+    model: string = 'gpt54mini';
+    defaultModel: string = 'gpt54mini';
     advancedModel: string = 'o3';
-    previousModel: string = 'gpt5mini'; // Modelo anterior para restaurar en caso de error
+    previousModel: string = 'gpt54mini'; // Modelo anterior para restaurar en caso de error
     imageModel: string = 'gpt5';
     
     // Propiedad para manejar el placeholder
