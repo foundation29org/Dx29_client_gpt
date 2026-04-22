@@ -27,6 +27,7 @@ node scripts/prepare-tenant-release.js SALUD-GPT
 node scripts/prepare-tenant-release.js SermasGPT
 node scripts/prepare-tenant-release.js OTRO-TENANT
 node scripts/prepare-tenant-release.js IASalutAjudaDx
+node scripts/prepare-tenant-release.js CanariasGPT
 node scripts/prepare-tenant-release.js dxeugpt (no hace falta, es mmismos literales que DxGPT)
 ```
 - Ejecuta la configuración de index.html y el reemplazo de branding para el tenant indicado.

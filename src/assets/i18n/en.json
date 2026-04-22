@@ -1,5 +1,5 @@
 {
-  "menu":{
+  "menu": {
     "Home": "DxGPT",
     "Dashboard": "Home",
     "About us": "About DxGPT",
@@ -29,7 +29,7 @@
     "upload_limits": "Limit: {{maxMB}} MB total, max {{maxDocs}} documents and {{maxImages}} images.",
     "upload_usage": "Used: {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} images, {{usedMB}}/{{maxMB}} MB."
   },
-  "footer":{
+  "footer": {
     "Collaboration": "Collaboration",
     "Compliance": "Compliance",
     "Accuracy": "Accuracy",
@@ -184,7 +184,40 @@
         "prioritization": {
           "title": "Quality of Prioritization",
           "description": "This is our most innovative metric. It's not enough for the correct diagnosis to be on the list; its average position is measured. A correct diagnosis in the first position is 'infinitely more useful than in the fifth,' and this metric evaluates DxGPT's ability to 'prioritize like a specialist, offering maximum clinical relevance in the shortest possible time'."
-        }
+        },
+        "steps": {
+          "step1": {
+            "title": "Emulation (DDX generation)",
+            "text": "The LLM receives the clinical case (symptoms, HPO codes) and generates an ordered differential diagnosis (top-10)."
+          },
+          "step2": {
+            "title": "Medical normalization (MedLabeler)",
+            "text": "Azure Text Analytics assigns ICD-10/SNOMED/OMIM/ORPHA codes to each generated diagnosis. Enables comparison with the gold standard using medical ontologies."
+          },
+          "step3": {
+            "title": "Layered evaluation (SNOMED → ICD-10 → BERT → LLM judge)",
+            "text": "Exact code match → ICD-10 tree search (parents and children) → BERT semantic similarity (thresholds 0.80/0.90) → gemini-2.5-pro LLM judge for ambiguous cases."
+          }
+        },
+        "metrics": {
+          "title": "Main metrics",
+          "thMetric": "Metric",
+          "thDescription": "Description",
+          "avgPosition": "Avg position ↓",
+          "avgPositionDesc": "Mean rank of the correct diagnosis in the top-10 (lower = better)",
+          "recall1": "Recall@1",
+          "recall1Desc": "% of cases where the correct diagnosis is 1st",
+          "recall3": "Recall@3",
+          "recall3Desc": "% of cases where the correct diagnosis appears in the top 3",
+          "recall5": "Recall@5",
+          "recall5Desc": "% of cases where the correct diagnosis appears in the top 5",
+          "coverage": "Coverage",
+          "coverageDesc": "% of cases with at least one match"
+        },
+        "evalChainLead": "Evaluation cascade:",
+        "evalChainBody": "① Exact code (SNOMED/ICD-10/OMIM/ORPHA) → ② ICD-10 tree: parents and children → ③ SapBERT semantic (θ≥0.80) → ④ LLM judge gemini-2.5-pro",
+        "fixedParamsIntro": "Fixed parameters (all runs):",
+        "fixedParamsDetail": "temperature=0.1, BERT_accept=0.8, BERT_autoconfirm=0.9, max_tokens=12,000, prompt juanjo_classic_v2."
       },
       "evolution": {
         "title": "Evolution and performance: Evidence for clinical reasoning support (2024–2025)",
@@ -207,16 +240,16 @@
           "preprint": "Preprint"
         },
         "pv4": {
-          "title": "2. Leap in reasoning and prioritization (PV4 Pipeline – Early 2025)",
-          "description": "For a tool to be truly useful to the physician, accuracy is not enough: it must prioritize well. In 2025 we designed a new evaluation framework (PV4) testing advanced OpenAI models (GPT-4o, o1, o3) on 450 complex pediatric cases.",
+          "title": "2. New evaluation architecture: Pipeline PV4 (2025)",
+          "description": "To rigorously measure DxGPT's diagnostic capability, we designed in 2025 an automated evaluation framework (Pipeline PV4) capable of testing any model on thousands of clinical cases with reproducible and auditable results.",
           "technical": {
-            "title": "Technical accuracy:",
-            "description": "In this controlled test environment, the most advanced model (o3-pro) achieved 96.4% recovery of the correct diagnosis within the top 5 suggestions.",
-            "descriptionEu": "In this controlled test environment, the most advanced model (o3-pro) achieved 96.4% recovery of relevant information within the top 5 evaluation areas suggested."
+            "title": "Cascaded evaluation (4 layers):",
+            "description": "Each generated diagnosis goes through: (1) exact medical code matching (SNOMED/ICD-10/OMIM/ORPHA), (2) ICD-10 taxonomy search (parent and sibling codes), (3) BERT semantic similarity, and (4) an independent LLM judge (gemini-2.5-pro) for ambiguous cases. This cascade ensures that clinical synonyms and nomenclature variants do not unfairly penalize the model.",
+            "descriptionEu": "Each generated diagnosis goes through: (1) exact medical code matching (SNOMED/ICD-10/OMIM/ORPHA), (2) ICD-10 taxonomy search (parent and sibling codes), (3) BERT semantic similarity, and (4) an independent LLM judge (gemini-2.5-pro) for ambiguous cases. This cascade ensures that clinical synonyms and nomenclature variants do not unfairly penalize the model."
           },
           "clinical": {
-            "title": "Clinical prioritization:",
-            "description": "The most relevant data is the average position of 1.47 achieved by the o3 model. This means that, when correct, it tends to place the correct hypothesis in first or second place, facilitating rapid expert review."
+            "title": "Publishable metrics:",
+            "description": "The pipeline calculates average_position (mean rank of the correct diagnosis in the list, lower = better) and Recall@K (% of cases where the correct diagnosis appears in the top K suggestions) — the same metrics used in the most relevant papers in the field."
           },
           "dataSources": {
             "alt": "Data sources and ETL processing for DxGPT-Bench",
@@ -226,19 +259,19 @@
           "repository": "DxGPT-Bench-Lab Repository"
         },
         "architecture": {
-          "title": "3. Current architecture and GPT-5 family (September 2025)",
-          "description": "Our current infrastructure combines efficiency and depth, using the GPT-5 family for general use and deep reasoning models for edge cases.",
+          "title": "3. First benchmarks and dataset quality control (2025)",
+          "description": "The first benchmarks on the GPT-5 family confirmed the potential of the new models and, at the same time, revealed a fundamental limitation: label leakage (the correct diagnosis literally appeared in the clinical text in up to 7.3% of cases) and synthetic prefixes that could artificially inflate results. This phase was the starting point for demanding stricter quality controls.",
           "efficiency": {
-            "title": "Efficiency:",
-            "description": "In internal tests, GPT-5 mini maintains suggestion quality comparable to GPT-4o (variations <0.5%) with great optimization of costs and resources."
+            "title": "Models evaluated:",
+            "description": "We compared GPT-4o, GPT-5 mini, o3 and GPT-5 variants on the internal dataset, obtaining first measurements of average_position and success rate that served as provisional benchmarks."
           },
           "complexity": {
-            "title": "Complexity:",
-            "description": "For high uncertainty scenarios, we maintain o3 as our reference standard, as it continues to show the best prioritization and deep reasoning capability in the most demanding benchmarks."
+            "title": "Key finding:",
+            "description": "The variability in results revealed the need to clean the dataset and apply systematic QA controls before publishing any external results. This finding was the trigger for the definitive 2026 benchmark."
           },
           "performance": {
             "alt": "GPT-5 model performance comparison - Performance value (lower = better)",
-            "caption": "Performance comparison between different models and configurations of the GPT-5 family. Lower values (tending to 1) indicate better performance. The o3 model shows the best overall performance.",
+            "caption": "Preliminary comparison of GPT-5 models (2025), before applying dataset quality controls. Results are indicative — the definitive ones, with the validated dataset, are included in the 2026 Benchmark.",
             "disclaimer": {
               "title": "Important:",
               "text": "DxGPT is a support and guidance tool for differential diagnosis. It does not provide diagnoses nor does it replace professional clinical judgment. Its purpose is to guide and expand the spectrum of diagnostic possibilities so that healthcare professionals can make informed decisions.",
@@ -251,6 +284,73 @@
           "title": "Important safety note:",
           "description": "All these figures describe the technical behavior of AI models in standardized case banks (benchmarks). They do not equate to clinical success rates in real patients nor do they convert DxGPT into a medical device. In the consultation, the variability of patient data, comorbidities, and the care context always require the interpretation and validation of a qualified healthcare professional. DxGPT does not diagnose: it proposes structured possibilities for the clinician to decide.",
           "descriptionEu": "All these figures describe the technical behavior of AI models in standardized case banks (benchmarks). They do not equate to clinical success rates in real patients nor do they convert DxGPT into a medical device. This tool does not provide medical diagnoses nor treatment recommendations. It is intended solely to help you organize the information you will discuss with a healthcare professional. You should always consult with a qualified medical professional to obtain appropriate diagnosis and treatment."
+        },
+        "benchmark2026": {
+          "title": "4. Definitive benchmark against DeepRare — Nature 2025 (April 2026)",
+          "description": "After ensuring dataset quality and automating evaluation, in 2026 we compared DxGPT directly against the scientific state of the art: the DeepRare paper (Nature, 2025), the first specialized rare disease AI system publicly evaluated on the same international benchmarks.",
+          "dataset": {
+            "title": "Clean and publishable dataset",
+            "description": "We eliminated label leakage and synthetic boilerplate, creating all_256_clean: 256 real clinical cases passing 4 independent quality controls (0% leakage, 0% boilerplate). It is DxGPT's first auditable baseline on free narrative clinical text."
+          },
+          "hpo": {
+            "title": "6 HPO datasets from the DeepRare paper (3,017 cases)",
+            "description": "We evaluated 10+ models on RAMEDIS (624 cases), LIRICAL (370), HMS — Harvard Medical School (88), MME (40), MyGene2 — Harvard Dataverse (146) and DDD/Gene2Phenotype (1,749 cases) — the largest rare genetic disease dataset evaluated to date. Metric directly comparable with the paper: Recall@K."
+          },
+          "results": {
+            "title": "Main finding: gemini-3-pro-preview leads in rare diseases",
+            "description": "gemini-3-pro-preview wins in all 6/6 datasets in Recall@1, outperforming all evaluated models. On the most statistically robust dataset (DDD, 1,749 cases): R@1 = 70.3% and R@3 = 97.6% — the correct diagnosis appears in the top 3 suggestions in virtually all cases. On narrative clinical text (all_256_clean, 256 cases): avg_position = 1.299 with 98.1% success, while being 3× faster than gemini-2.5-pro."
+          },
+          "deeprare": {
+            "title": "Comparison with the Nature paper",
+            "description": "The unspecialized GPT-4 baseline from the paper achieves ~25–35% R@1. DxGPT with gemini-3-pro-preview reaches 54–77% depending on the dataset, exceeding the baseline by +35–45 percentage points with no rare-disease-specific fine-tuning. The DeepRare system (with specialized fine-tuning) achieves ~74% on MyGene2 — DxGPT as a generalist system reaches 61%."
+          },
+          "reference": "📊 Full results, methodology and configuration available at:",
+          "repository": "DxGPT-Bench-Lab Repository",
+          "pill256": "📋 256 validated clinical cases · QA 0% leakage",
+          "pillHpo": "🧬 6 HPO datasets · 3,017 rare disease cases",
+          "pillModels": "🤖 10+ models benchmarked",
+          "pillWins": "🏆 Won 6/6 datasets",
+          "statRecall1Ddd": "Recall@1 · DDD (1,749 cases)",
+          "statRecall3Ddd": "Recall@3 · DDD · correct diagnosis in top-3",
+          "statAvgPos": "Avg position · narrative clinical text",
+          "statSuccessRate": "Success rate · all_256_clean",
+          "trackATitle": "📋 Track A — Clinical narrative text (all_256_clean · 256 cases)",
+          "trackASubtitle": "Judge: gemini-2.5-pro · avg_position = mean rank of the correct diagnosis (lower = better)",
+          "trackACallout": "This track evaluates the model on real clinical cases in free-form text (history, symptoms, evolution). It is the format closest to the real-world use of DxGPT in production.",
+          "avgPosChartCaption": "Mean position (avg_position) · Lower = better · all_256_clean · 256 cases · Judge gemini-2.5-pro",
+          "thRank": "Rank",
+          "thModel": "Model",
+          "thAvgPos": "Avg position ↓",
+          "thCoverage": "Coverage",
+          "thSecPerCase": "~s/case",
+          "thNotes": "Notes",
+          "rowNoteBestQuality": "Best absolute quality",
+          "rowNoteG3Equal": "Same narrative quality · better on HPO · 3× faster",
+          "rowNoteFlash": "Good quality/cost trade-off",
+          "rowNoteGrok": "Best non-Google alternative",
+          "rowNoteG54Full": "Best pure OpenAI quality",
+          "rowEmProposedNormal": "(proposed default mode)",
+          "rowNoteG54Mini": "⭐ Best OpenAI quality/speed",
+          "rowNoteO3Obsolete": "Obsolete — surpassed in quality",
+          "rowEmPrior": "(previous)",
+          "rowNoteG4o": "Historical reference · API errors fixed",
+          "rowEmProduction": "(current production)",
+          "rowNoteG5Mini": "⚠️ Slow · lower quality than gpt-4o",
+          "trackBTitle": "🧬 Track B — HPO datasets · DeepRare comparison (Nature 2025)",
+          "trackBSubtitle": "Input: list of HPO symptoms (no narrative text). Same methodology as the DeepRare paper. gemini-3-pro-preview wins on all 6/6 datasets.",
+          "headingR1": "📊 Recall@1 — Correct diagnosis in first position",
+          "headingR3": "📊 Recall@3 — Correct diagnosis in top-3",
+          "headingR5": "📊 Recall@5 — Correct diagnosis in top-5",
+          "headingR5Aside": "(models converge — smaller differences)",
+          "thDataset": "Dataset",
+          "thCases": "Cases",
+          "thAdvantageVs25": "Advantage ⭐ vs 2.5",
+          "thGem3Star": "gemini-3-pro ⭐",
+          "advantageTie": "≈ tie",
+          "casesBadgeDdd": "1,749 cases",
+          "hpoFootnote": "✅ = final values after re-evaluation of cases affected by API 503 errors. At Recall@5 models converge (97–100%) — the real differentiator is Recall@1 and Recall@3.",
+          "paperLine": "📄 Reference paper:",
+          "deepRareLink": "DeepRare — Nature (2025)"
         }
       },
       "user": {
@@ -379,15 +479,15 @@
       "link": "our official page."
     }
   },
-  "collaboration":{
+  "collaboration": {
     "title": "Collaboration",
     "description": "Committed to openness, collaboration, and responsibility in the development of medical technology.",
-      "technologyPartners": {
-        "title": "Technology partners",
-        "description": "We thank Microsoft, which through its AI for Good program provides us with the infrastructure on Azure and the support of employee volunteers. Also to Google, whose program for NGOs helps us increase the visibility of DxGPT in its search engine to reach more professionals and patients.",
-        "microsoftDescription": "Infrastructure on Azure and support from employee volunteers",
-        "googleDescription": "Helps increase DxGPT's visibility to reach more professionals and patients"
-      },
+    "technologyPartners": {
+      "title": "Technology partners",
+      "description": "We thank Microsoft, which through its AI for Good program provides us with the infrastructure on Azure and the support of employee volunteers. Also to Google, whose program for NGOs helps us increase the visibility of DxGPT in its search engine to reach more professionals and patients.",
+      "microsoftDescription": "Infrastructure on Azure and support from employee volunteers",
+      "googleDescription": "Helps increase DxGPT's visibility to reach more professionals and patients"
+    },
     "ourSponsors": {
       "title": "Our sponsors",
       "description": "We extend our deepest gratitude to our generous sponsors. Their support is purely philanthropic, with no commercial interests or data exchange, and is vital for developing tools like DxGPT and offering them for free."
@@ -488,7 +588,7 @@
       "text": "DxGPT is a collaborative initiative that seeks to democratize access to AI-assisted medical diagnostic tools. Our goal is to make this technology accessible, free, and effective for healthcare professionals worldwide. Your participation, regardless of your professional background, is fundamental to achieving this purpose."
     }
   },
-  "generics":{
+  "generics": {
     "Email": "Email",
     "Optional": "Optional",
     "Name": "Name",
@@ -547,7 +647,7 @@
     "Waiting": "Waiting",
     "seconds": "seconds"
   },
-  "progress":{
+  "progress": {
     "connecting": "Connecting...",
     "translating": "Translating description...",
     "extract_documents": "Extracting documents...",
@@ -558,9 +658,9 @@
     "anonymizing": "Anonymizing personal information...",
     "finalizing": "Finalizing diagnosis..."
   },
-  "diagnosis":{
-    "Proposed diagnoses":"Proposed diagnoses",
-    "Proposed diagnosesEu":"Possible areas of clinical evaluation",
+  "diagnosis": {
+    "Proposed diagnoses": "Proposed diagnoses",
+    "Proposed diagnosesEu": "Possible areas of clinical evaluation",
     "disclaimerEu": "This tool does not provide medical diagnoses or treatment recommendations.\n\nIt is designed solely to help you organize the information you will discuss with a healthcare professional.",
     "Click on the disease to see more options": "Click on the disease to see more options. For example, make differential diagnosis.",
     "Candidate diagnosis": "Candidate diagnosis",
@@ -755,7 +855,7 @@
     "NAV_SUBSCRIBE_DESCRIPTION": "Subscribe to our newsletter to receive updates on our latest news and projects.",
     "NAV_CONTACT_DESCRIPTION": "Contact us for any questions or feedback."
   },
-  "land":{
+  "land": {
     "disclaimer": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-5 mini model as a predictive model for a tool to provide information on diseases. It is designed to provide general information and suggestions based on the symptoms provided. The tool is not intended to replace professional medical advice, or support diagnosis, prevention, monitoring, prediction or treatment and should never be used to make diagnostic judgments for real patients.</p><p>Because AI can give variable results, diagnostic accuracy and suggestions from the tool may vary, so it is important to consult a qualified healthcare professional to ensure an accurate and appropriate diagnosis. Use of this tool is at the user's own risk and Foundation 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts any potential risks associated with the use of the artificial intelligence-based tool.</p>",
     "disclaimerEu": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-5 mini model as a predictive model for a tool to help you prepare the information you will discuss with your healthcare professional. It is designed to help you organize your symptoms and generate a list of possible clinical evaluation areas that you can discuss with your doctor.</p><p><strong>This tool does not provide medical diagnoses or treatment recommendations.</strong> It is intended solely to help you organize the information you will discuss with a healthcare professional. Because AI can give variable results, it is important to always consult a qualified healthcare professional to obtain an appropriate diagnosis and treatment. Use of this tool is at the user's own risk and Foundation 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts any potential risks associated with the use of the artificial intelligence-based tool.</p>",
     "check": "Dont show this message again",
@@ -922,13 +1022,11 @@
     "aboutUs": {
       "P1_Title": "DxGPT",
       "P1_Summary_P1": "DxGPT is a diagnostic support tool designed by and for the clinical environment. Unlike general-purpose AIs, it does not provide open-ended answers, but rather a structured analysis of prioritized diagnostic hypotheses, reasoned and ranked. We use the most advanced technology, like OpenAI's o3, within a medical oversight framework that ensures the relevance and safety of every result. We do not replace the doctor; we offer an instant second opinion, designed to save time, reduce bias, and elevate the quality of clinical reasoning from the start.",
-
       "P1.S1.T": "The challenge of clinical diagnosis",
       "P1.S1.B1.Q": "What core problem does DxGPT solve?",
       "P1.S1.B1.A_P1": "Medical diagnosis, especially for rare diseases, is a slow and complex process. Professionals must analyze countless symptoms and data, which can delay treatment and create uncertainty. DxGPT acts as a powerful cognitive aid, streamlining this process to reach an accurate diagnosis sooner.",
       "P1.S1.B2.Q": "Why are rare diseases such a big challenge?",
       "P1.S1.B2.A_P1": "There are over 10,000 rare diseases, most of which are unfamiliar to the average clinician due to their low frequency. This lack of familiarity makes diagnosis a major challenge. Supportive technology is no longer a luxury but a necessity to improve accuracy and care quality in these cases.",
-
       "P1.S2.T": "Why DxGPT instead of a general-purpose AI",
       "P1.S2.B1.Q": "How is DxGPT different from using a chatbot like ChatGPT?",
       "P1.S2.B1.A_P1": "DxGPT transforms differential diagnosis because it is designed with a specific clinical purpose. Instead of an open consultation, you get multiple structured, reasoned, and ranked diagnostic hypotheses using standards like ICD-10. It's a supervised environment applying advanced AI within a safe, diagnosis-oriented framework.",
@@ -941,7 +1039,6 @@
       "P1.S2.B2.A_L1.I5": "Consistency and validation: The same case always receives an equally rigorous analysis, continuously validated with our proprietary clinical benchmark.",
       "P1.S2.B3.Q": "So, what is the future of AI in medicine?",
       "P1.S2.B3.A_P1": "The future won’t be a single system for everything, but an ecosystem of specialized, medically validated solutions like DxGPT. Using it today means actively shaping how AI is built and validated in medicine from real clinical practice.",
-
       "P1.S3.T": "Real impact: integration in healthcare systems",
       "P1.S3.Intro_P1": "DxGPT is already being integrated into public healthcare systems to help doctors improve the diagnosis of rare diseases in daily clinical practice. Here are our current and upcoming deployments:",
       "P1.S3.B1.T": "Pioneering Implementation: Madrid Health Service (SERMAS)",
@@ -952,10 +1049,8 @@
       "P1.S3.B2.Content_P1": "We are currently working to implement DxGPT in the Catalan healthcare system (CatSalut), aiming to bring this innovative tool to healthcare professionals in Catalonia to improve rare disease diagnosis in the region.",
       "P1.S3.B3.T": "Aragonese Health Service",
       "P1.S3.B3.Content_P1": "DxGPT is already available for healthcare professionals in the Aragonese Health Service, allowing them to improve the accuracy and speed of diagnosing rare and common diseases in the region of Aragón.",
-
       "P2_Title": "Benchmarking",
       "P2_Summary_P1": "For an AI tool to be clinically useful, it must be rigorously evaluated. We do not settle for generic metrics; we have built, processed, and validated our own test bank: DxGPT-bench. This set of 997 statistically representative and diverse clinical cases allows us to measure language model accuracy in realistic scenarios, ensuring DxGPT is built on solid and transparent evidence.",
-
       "P2.S1.T": "Creating DxGPT-bench: our data",
       "P2.S1.B1.Q": "Where does the benchmark data come from?",
       "P2.S1.B1.A_P1": "Our database integrates five complementary sources to cover a broad spectrum of medical practice:",
@@ -967,7 +1062,6 @@
       "P2.S1.B2.A_P1": "Preprocessing was critical. A normalization pipeline was applied to correct inconsistencies, and GPT-4 was used to filter out non-evaluable cases (e.g., implicit diagnoses or theoretical questions). All diagnoses were labeled with ICD-10 codes to measure diversity in a standardized way.",
       "P2.S1.B3.Q": "How were the final 997 cases selected?",
       "P2.S1.B3.A_P1": "Once the 'datalake' of over 9,500 cases was consolidated, we used a stratified selection algorithm. It extracted an optimal set of 997 cases maximizing diagnostic (ICD-10) coverage and ensuring a uniform distribution of complexity and severity, with significant representation from minority data sources.",
-
       "P2.S2.T": "Statistical validation of DxGPT-bench",
       "P2.S2.B1.Q": "Why use 997 cases instead of the original 9,583?",
       "P2.S2.B1.A_P1": "The reduction is deliberate and statistically justified. The original set had high redundancy (e.g., 2,373 cases of 'pain'). Our final sample (10.4%) eliminates that redundancy but captures 31.8% of unique diagnoses (908 ICD-10 codes) and 43.3% of unique symptoms (1,210), preserving essential diversity.",
@@ -975,7 +1069,6 @@
       "P2.S2.B2.A_P1": "Yes. Stratification by complexity and severity ensures full spectrum coverage, from the simplest cases (C0/S0) to the most complex (C10/S10). Though the rarest strata have few cases (2 in C10), the most populated ones (180 in C5) provide robust statistical power for key model comparisons.",
       "P2.S2.B3.Q": "Why not use an even larger dataset for validation?",
       "P2.S2.B3.A_P1": "Given the significant computational cost, we prioritized dataset optimization. Expanding it to cover 100% of ICD-10 codes would mostly add very rare variants with marginal impact on model benchmarking, at prohibitive cost. Our approach provides a comprehensive evaluation with reasonable resources.",
-
       "P2.S3.T": "Evaluation process and results",
       "P2.S3.B1.Q": "How is a language model evaluated with DxGPT-bench?",
       "P2.S3.B1.A_P1": "The process is automated:",
@@ -987,11 +1080,9 @@
       "P2.S3.B2.Q": "Has DxGPT been validated against doctors in a clinical study?",
       "P2.S3.B2.A_P1": "Yes. Sant Joan de Déu Hospital has conducted a thorough clinical study. Results show DxGPT achieves diagnostic accuracy comparable to expert clinicians. This work has been published as a preprint and is under peer review. You can read the full study here:",
       "P2.S3.B2.A_P2": "Clinical utility evaluation of DxGPT | medRxiv.",
-
       "P3_Title": "Who we are",
       "P3_Summary_P1": "Fundación 29 is a nonprofit organization committed to improving the lives of people with rare and chronic diseases. Inspired by Rare Disease Day, celebrated on February 29, we use data and digital tools to promote earlier diagnoses, empower patients, and support healthcare professionals.",
       "P3_Summary_P2": "Through collaboration with hospitals, researchers, and the medical community, we strive for more personalized, inclusive, and effective healthcare. Our initiatives are based on open science, transparency, and the belief that data can drive positive change in health systems. DxGPT reflects our mission: a tool developed under the principles of open science, transparency, and collaboration, offered for free to give back to society.",
-
       "P3.S1.T": "Our mission and commitment",
       "P3.S1.B1.Q": "What is Fundación 29?",
       "P3.S1.B1.A_P1": "We are a nonprofit organization inspired by Rare Disease Day (February 29). We seek more personalized, inclusive, and effective healthcare by collaborating with hospitals, researchers, and the medical community. We believe data can drive positive change in health systems.",
@@ -1001,13 +1092,11 @@
       "P3.S1.B3.A_P1": "No, DxGPT is an experimental platform under continuous development. Its goal is to explore AI’s capabilities in diagnosis, understand its limitations, and improve it with user feedback and rigorous clinical validation. New findings will be shared on our GitHub and on MedRxiv.",
       "P3.S1.B4.Q": "What legal and data protection guarantees do you offer?",
       "P3.S1.B4.A_P1": "We have extensive experience in regulatory compliance. DxGPT aligns with data protection frameworks like GDPR and HIPAA, and we are working toward full alignment with the EU AI Act, collaborating with regulatory authorities to ensure the highest ethical and legal standards.",
-
       "P3.S2.T": "Partners and supporters",
       "P3.S2.B1.Q": "Who are your technology partners?",
       "P3.S2.B1.A_P1": "We thank Microsoft, which through its AI for Good program provides Azure infrastructure and volunteer employee support. We also thank Google, whose NGO program helps increase DxGPT’s visibility to reach more professionals and patients.",
       "P3.S2.B2.Q": "And your sponsors?",
       "P3.S2.B2.A_P1": "We extend our deepest thanks to our generous sponsors. Their support is purely philanthropic, with no commercial interest or data exchange, and is vital to developing tools like DxGPT and offering them for free.",
-
       "P3.S3.T": "Join our mission",
       "P3.S3.B1.Q": "How can I collaborate or become a sponsor?",
       "P3.S3.B1.A_P1": "If you’re interested in supporting our mission, whether as a sponsor or collaborator, please contact us. Together, we can keep building a healthier future.",
@@ -1048,9 +1137,9 @@
       "q14": "Is my data used for secondary use?",
       "a14": "DxGPT never uses your personal data for secondary purposes such as marketing or commercial activities. We strictly use aggregated, anonymous data—including general usage patterns, frequently reported symptoms, common diagnostic suggestions, and overall trends—to enhance our algorithms' accuracy, reliability, and functionality. This aggregated data is completely anonymized and ensures that no individual user can be identified from this information."
     },
-    "diagnosed":{
-      "timeline":{
-        "title":"We are going to help you build a timeline of your symptoms. This data can improve your disease management and help other patients like you on their diagnostic odyssey. There are 2 easy steps:",
+    "diagnosed": {
+      "timeline": {
+        "title": "We are going to help you build a timeline of your symptoms. This data can improve your disease management and help other patients like you on their diagnostic odyssey. There are 2 easy steps:",
         "subtitlea": "In this report, the DxGPT user describes the patient's symptoms with the aim of improving patient-physician communication.",
         "subtitleb": "It is recommended to take the report to the next medical visit so that both the patient and the physician can help to further",
         "subtitlec": "refine the contents.",
@@ -1063,12 +1152,12 @@
         "footer4": "",
         "footer5": "Join the revolution now at:",
         "footer6": "For any questions or queries, please contact us at",
-        "Report":"Data report",
-        "RegDate":"Expedition date"
+        "Report": "Data report",
+        "RegDate": "Expedition date"
       }
     }
   },
-  "permalink":{
+  "permalink": {
     "title": "DxGPT Results",
     "titleEu": "Information for your doctor",
     "subtitle": "Suggested diagnoses generated by DxGPT",
@@ -1119,7 +1208,7 @@
     "shareText": "Share DxGPT results",
     "copied": "Permalink copied to clipboard"
   },
-  "feedback":{
+  "feedback": {
     "t1": "Your opinion is important to us",
     "subt1": "Your feedback is essential to improve this tool and offer you something even better.",
     "q1": "Did you find this tool useful in identifying disease diagnoses?",
@@ -1177,8 +1266,8 @@
       "preferNotToSay": "Prefer not to say"
     }
   },
-  "seo":{
-    "home":{
+  "seo": {
+    "home": {
       "keywords": "diagnosis, diagnose, rare disease, GPT, syndrome, disease, prognosis, symptoms, HPO, epilepsy, seizures, status epilepticus, developmental delay, pediatrics, genetics, neurology, genetic disease",
       "description": "DxGPT is a diagnostic decision support software based on GPT-5 mini. AI that helps the diagnosis of diseases. Totally free for doctors and patients.",
       "title": "DxGPT: diagnostic decision support software based on GPT-5 mini"
@@ -1221,7 +1310,7 @@
     "t8": "8. Updates to this policy",
     "p8.1": "We may update this Cookie Policy periodically. Changes will be posted on this page with an updated revision date."
   },
-  "testimonials":{
+  "testimonials": {
     "title": "Testimonials from our users",
     "testi1": "I am convinced that this application can simplify the complexity of the healthcare process, without affecting the quality of care, which is the great challenge of any technological solution when approaching the healthcare world. Moreover, as the application is completely free, any healthcare professional or patient can use it regardless of the economic implications and without compromising the privacy and security of its users.",
     "testi2": "A good assistant that complements our capacity for differential diagnosis, especially in those patients with less prevalent diseases, where it is not always possible to keep in mind all the diagnostic possibilities that make up a given conjunction of symptoms, signs and complementary tests.",
@@ -1232,7 +1321,7 @@
     "Juanjo Ríos": "Juanjo Ríos, medical director of Hospital La Paz (Spain)",
     "Anonymous": "Anonymous"
   },
-  "termsform":{
+  "termsform": {
     "accept": "I accept the",
     "terms": "terms of use of the form data",
     "acceptterms": "You must accept the terms to continue.",
