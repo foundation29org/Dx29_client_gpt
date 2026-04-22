@@ -213,11 +213,7 @@
           "recall5Desc": "% de casos on el dx correcte apareix en els 5 primers",
           "coverage": "Coverage",
           "coverageDesc": "% de casos amb almenys 1 coincidència"
-        },
-        "evalChainLead": "Cadena d'avaluació:",
-        "evalChainBody": "① Codi exacte (SNOMED/ICD-10/OMIM/ORPHA) → ② Arbre ICD-10: pares i fills → ③ SapBERT semàntic (θ≥0,80) → ④ Jutge LLM gemini-2.5-pro",
-        "fixedParamsIntro": "Paràmetres fixos (tots els runs):",
-        "fixedParamsDetail": "temperature=0,1, BERT_accept=0,8, BERT_autoconfirm=0,9, max_tokens=12.000, prompt juanjo_classic_v2."
+        }
       },
       "evolution": {
         "title": "Evolució i rendiment: Evidència per al suport al raonament clínic (2024–2025)",

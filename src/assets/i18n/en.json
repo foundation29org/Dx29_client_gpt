@@ -213,11 +213,7 @@
           "recall5Desc": "% of cases where the correct diagnosis appears in the top 5",
           "coverage": "Coverage",
           "coverageDesc": "% of cases with at least one match"
-        },
-        "evalChainLead": "Evaluation cascade:",
-        "evalChainBody": "① Exact code (SNOMED/ICD-10/OMIM/ORPHA) → ② ICD-10 tree: parents and children → ③ SapBERT semantic (θ≥0.80) → ④ LLM judge gemini-2.5-pro",
-        "fixedParamsIntro": "Fixed parameters (all runs):",
-        "fixedParamsDetail": "temperature=0.1, BERT_accept=0.8, BERT_autoconfirm=0.9, max_tokens=12,000, prompt juanjo_classic_v2."
+        }
       },
       "evolution": {
         "title": "Evolution and performance: Evidence for clinical reasoning support (2024–2025)",

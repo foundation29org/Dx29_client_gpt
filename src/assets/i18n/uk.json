@@ -213,11 +213,7 @@
           "recall5Desc": "% випадків із правильним діагнозом у топ-5",
           "coverage": "Coverage",
           "coverageDesc": "% випадків із принаймні одним збігом"
-        },
-        "evalChainLead": "Каскад оцінки:",
-        "evalChainBody": "① Точний код (SNOMED/ICD-10/OMIM/ORPHA) → ② Дерево ICD-10: батьки й діти → ③ SapBERT семантика (θ≥0,80) → ④ Суддя LLM gemini-2.5-pro",
-        "fixedParamsIntro": "Фіксовані параметри (усі прогони):",
-        "fixedParamsDetail": "temperature=0,1, BERT_accept=0,8, BERT_autoconfirm=0,9, max_tokens=12.000, prompt juanjo_classic_v2."
+        }
       },
       "evolution": {
         "title": "Еволюція та продуктивність: Докази для підтримки клінічного міркування (2024–2025)",
