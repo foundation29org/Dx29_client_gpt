@@ -213,11 +213,7 @@
           "recall5Desc": "% przypadków z poprawną diagnozą w top 5",
           "coverage": "Coverage",
           "coverageDesc": "% przypadków z co najmniej jednym dopasowaniem"
-        },
-        "evalChainLead": "Kaskada oceny:",
-        "evalChainBody": "① Dokładny kod (SNOMED/ICD-10/OMIM/ORPHA) → ② Drzewo ICD-10: rodzice i dzieci → ③ SapBERT semantycznie (θ≥0,80) → ④ Sędzia LLM gemini-2.5-pro",
-        "fixedParamsIntro": "Stałe parametry (wszystkie uruchomienia):",
-        "fixedParamsDetail": "temperature=0,1, BERT_accept=0,8, BERT_autoconfirm=0,9, max_tokens=12.000, prompt juanjo_classic_v2."
+        }
       },
       "evolution": {
         "title": "Ewolucja i wydajność: Dowody na wsparcie rozumowania klinicznego (2024–2025)",

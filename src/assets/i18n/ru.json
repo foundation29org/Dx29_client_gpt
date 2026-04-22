@@ -213,11 +213,7 @@
           "recall5Desc": "% случаев с правильным диагнозом в топ-5",
           "coverage": "Coverage",
           "coverageDesc": "% случаев с хотя бы одним совпадением"
-        },
-        "evalChainLead": "Каскад оценки:",
-        "evalChainBody": "① Точный код (SNOMED/ICD-10/OMIM/ORPHA) → ② Дерево ICD-10: родители и дети → ③ SapBERT семантика (θ≥0,80) → ④ Судья LLM gemini-2.5-pro",
-        "fixedParamsIntro": "Фиксированные параметры (все прогоны):",
-        "fixedParamsDetail": "temperature=0,1, BERT_accept=0,8, BERT_autoconfirm=0,9, max_tokens=12.000, prompt juanjo_classic_v2."
+        }
       },
       "evolution": {
         "title": "Эволюция и производительность: Доказательства для поддержки клинического рассуждения (2024–2025)",

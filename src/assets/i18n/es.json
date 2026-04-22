@@ -213,11 +213,7 @@
           "recall5Desc": "% de casos donde el dx correcto aparece en los 5 primeros",
           "coverage": "Coverage",
           "coverageDesc": "% de casos con al menos 1 coincidencia"
-        },
-        "evalChainLead": "Cadena de evaluación:",
-        "evalChainBody": "① Código exacto (SNOMED/ICD-10/OMIM/ORPHA) → ② Árbol ICD-10: padres e hijos → ③ SapBERT semántico (θ≥0,80) → ④ Juez LLM gemini-2.5-pro",
-        "fixedParamsIntro": "Parámetros fijos (todos los runs):",
-        "fixedParamsDetail": "temperature=0,1, BERT_accept=0,8, BERT_autoconfirm=0,9, max_tokens=12.000, prompt juanjo_classic_v2."
+        }
       },
       "evolution": {
         "title": "Evolución y rendimiento: Evidencia para el soporte al razonamiento clínico (2024–2025)",
