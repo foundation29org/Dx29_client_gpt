@@ -244,20 +244,57 @@
       <div class="evaluation-subsection">
         <h3 class="subsection-title">{{'aboutUs.evaluation.methodology.title' | translate }}</h3>
         <p class="subsection-text">{{'aboutUs.evaluation.methodology.intro' | translate }}</p>
-        <ol class="methodology-list">
-          <li>
-            <strong>{{'aboutUs.evaluation.methodology.verification.title' | translate }}</strong>
-            <p>{{'aboutUs.evaluation.methodology.verification.description' | translate }}</p>
-          </li>
-          <li>
-            <strong>{{'aboutUs.evaluation.methodology.context.title' | translate }}</strong>
-            <p>{{'aboutUs.evaluation.methodology.context.description' | translate }}</p>
-          </li>
-          <li>
-            <strong>{{'aboutUs.evaluation.methodology.prioritization.title' | translate }}</strong>
-            <p>{{'aboutUs.evaluation.methodology.prioritization.description' | translate }}</p>
-          </li>
-        </ol>
+
+        <!-- Visual methodology block -->
+        <div style="display:flex;flex-wrap:wrap;gap:28px;margin-top:20px;">
+          <!-- Steps -->
+          <div style="flex:1;min-width:270px;">
+            <div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start;">
+              <div style="width:32px;height:32px;border-radius:50%;background:#2563eb;color:white;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;">1</div>
+              <div>
+                <strong style="display:block;margin-bottom:4px;">{{ 'aboutUs.evaluation.methodology.steps.step1.title' | translate }}</strong>
+                <p style="color:#64748b;font-size:0.88rem;margin:0;">{{ 'aboutUs.evaluation.methodology.steps.step1.text' | translate }}</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start;">
+              <div style="width:32px;height:32px;border-radius:50%;background:#2563eb;color:white;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;">2</div>
+              <div>
+                <strong style="display:block;margin-bottom:4px;">{{ 'aboutUs.evaluation.methodology.steps.step2.title' | translate }}</strong>
+                <p style="color:#64748b;font-size:0.88rem;margin:0;">{{ 'aboutUs.evaluation.methodology.steps.step2.text' | translate }}</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <div style="width:32px;height:32px;border-radius:50%;background:#2563eb;color:white;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;">3</div>
+              <div>
+                <strong style="display:block;margin-bottom:4px;">{{ 'aboutUs.evaluation.methodology.steps.step3.title' | translate }}</strong>
+                <p style="color:#64748b;font-size:0.88rem;margin:0;">{{ 'aboutUs.evaluation.methodology.steps.step3.text' | translate }}</p>
+              </div>
+            </div>
+          </div>
+          <!-- Metrics -->
+          <div style="flex:1;min-width:270px;">
+            <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#64748b;margin-bottom:10px;">{{ 'aboutUs.evaluation.methodology.metrics.title' | translate }}</p>
+            <table style="width:100%;border-collapse:collapse;font-size:0.84rem;">
+              <tr style="background:#f8fafc;">
+                <th style="padding:8px 11px;text-align:left;font-weight:700;color:#64748b;font-size:0.75rem;text-transform:uppercase;border-bottom:2px solid #e2e8f0;">{{ 'aboutUs.evaluation.methodology.metrics.thMetric' | translate }}</th>
+                <th style="padding:8px 11px;text-align:left;font-weight:700;color:#64748b;font-size:0.75rem;text-transform:uppercase;border-bottom:2px solid #e2e8f0;">{{ 'aboutUs.evaluation.methodology.metrics.thDescription' | translate }}</th>
+              </tr>
+              <tr><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;"><strong>{{ 'aboutUs.evaluation.methodology.metrics.avgPosition' | translate }}</strong></td><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;">{{ 'aboutUs.evaluation.methodology.metrics.avgPositionDesc' | translate }}</td></tr>
+              <tr><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;"><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall1' | translate }}</strong></td><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;">{{ 'aboutUs.evaluation.methodology.metrics.recall1Desc' | translate }}</td></tr>
+              <tr><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;"><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall3' | translate }}</strong></td><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;">{{ 'aboutUs.evaluation.methodology.metrics.recall3Desc' | translate }}</td></tr>
+              <tr><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;"><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall5' | translate }}</strong></td><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;">{{ 'aboutUs.evaluation.methodology.metrics.recall5Desc' | translate }}</td></tr>
+              <tr><td style="padding:8px 11px;"><strong>{{ 'aboutUs.evaluation.methodology.metrics.coverage' | translate }}</strong></td><td style="padding:8px 11px;">{{ 'aboutUs.evaluation.methodology.metrics.coverageDesc' | translate }}</td></tr>
+            </table>
+            <p style="font-size:0.79rem;color:#1e293b;margin-top:12px;line-height:1.5;">
+              <strong>{{ 'aboutUs.evaluation.methodology.evalChainLead' | translate }}</strong><br>
+              {{ 'aboutUs.evaluation.methodology.evalChainBody' | translate }}
+            </p>
+            <div style="background:#eff6ff;border-left:4px solid #3b82f6;border-radius:8px;padding:12px 14px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;">
+              <span style="font-size:1.1rem;flex-shrink:0;">📎</span>
+              <div style="font-size:0.81rem;"><strong>{{ 'aboutUs.evaluation.methodology.fixedParamsIntro' | translate }}</strong> {{ 'aboutUs.evaluation.methodology.fixedParamsDetail' | translate }}</div>
+            </div>
+          </div>
+        </div>
       </div>
       
       <!-- Evolution and Performance Section -->
@@ -356,13 +393,490 @@
               <img src="assets/img/evals/evals9-25.jpg" alt="{{'aboutUs.evaluation.evolution.architecture.performance.alt' | translate }}" class="evaluation-chart">
             </div>
             <p class="chart-caption">{{'aboutUs.evaluation.evolution.architecture.performance.caption' | translate }}</p>
-            <p class="subsection-text" style="margin-top: 1rem; font-style: italic; color: #666;">
-              <strong><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.titleEu' | translate }}</span></strong>
-              <span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.text' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.textEu' | translate }}</span>
-            </p>
+          
           </div>
         </div>
         
+        <!-- Benchmark 2026 (Punto 4) -->
+        <div class="evolution-item bench-section" style="margin-top: 3.5rem;">
+          <h4 class="evolution-item-title">{{'aboutUs.evaluation.evolution.benchmark2026.title' | translate }}</h4>
+          <p class="subsection-text">{{'aboutUs.evaluation.evolution.benchmark2026.description' | translate }}</p>
+
+          <!-- Stats pills -->
+          <div class="bench-pills">
+            <span class="bench-pill bench-pill--green">{{ 'aboutUs.evaluation.evolution.benchmark2026.pill256' | translate }}</span>
+            <span class="bench-pill bench-pill--blue">{{ 'aboutUs.evaluation.evolution.benchmark2026.pillHpo' | translate }}</span>
+            <span class="bench-pill bench-pill--yellow">{{ 'aboutUs.evaluation.evolution.benchmark2026.pillModels' | translate }}</span>
+            <span class="bench-pill bench-pill--pink">{{ 'aboutUs.evaluation.evolution.benchmark2026.pillWins' | translate }}</span>
+          </div>
+
+          <ul class="evolution-list">
+            <li>
+              <strong>{{'aboutUs.evaluation.evolution.benchmark2026.dataset.title' | translate }}</strong>
+              <p>{{'aboutUs.evaluation.evolution.benchmark2026.dataset.description' | translate }}</p>
+            </li>
+            <li>
+              <strong>{{'aboutUs.evaluation.evolution.benchmark2026.hpo.title' | translate }}</strong>
+              <p>{{'aboutUs.evaluation.evolution.benchmark2026.hpo.description' | translate }}</p>
+            </li>
+            <li>
+              <strong>{{'aboutUs.evaluation.evolution.benchmark2026.results.title' | translate }}</strong>
+              <p>{{'aboutUs.evaluation.evolution.benchmark2026.results.description' | translate }}</p>
+            </li>
+            <li>
+              <strong>{{'aboutUs.evaluation.evolution.benchmark2026.deeprare.title' | translate }}</strong>
+              <p>{{'aboutUs.evaluation.evolution.benchmark2026.deeprare.description' | translate }}</p>
+            </li>
+          </ul>
+
+          <!-- Key numbers highlight -->
+          <div class="bench-stats-grid">
+            <div class="bench-stat bench-stat--green">
+              <div class="bench-stat__value">70,3%</div>
+              <div class="bench-stat__label">{{ 'aboutUs.evaluation.evolution.benchmark2026.statRecall1Ddd' | translate }}</div>
+            </div>
+            <div class="bench-stat bench-stat--blue">
+              <div class="bench-stat__value">97,6%</div>
+              <div class="bench-stat__label">{{ 'aboutUs.evaluation.evolution.benchmark2026.statRecall3Ddd' | translate }}</div>
+            </div>
+            <div class="bench-stat bench-stat--violet">
+              <div class="bench-stat__value">1,299</div>
+              <div class="bench-stat__label">{{ 'aboutUs.evaluation.evolution.benchmark2026.statAvgPos' | translate }}</div>
+            </div>
+            <div class="bench-stat bench-stat--amber">
+              <div class="bench-stat__value">98,1%</div>
+              <div class="bench-stat__label">{{ 'aboutUs.evaluation.evolution.benchmark2026.statSuccessRate' | translate }}</div>
+            </div>
+          </div>
+
+          <!-- Track A: Chart.js bar chart + ranking table -->
+          <div class="bench-track">
+            <p class="bench-track-title">{{ 'aboutUs.evaluation.evolution.benchmark2026.trackATitle' | translate }}</p>
+            <p class="bench-track-subtitle">{{ 'aboutUs.evaluation.evolution.benchmark2026.trackASubtitle' | translate }}</p>
+
+            <div class="bench-callout bench-callout--info">
+              <span class="bench-callout-icon">ℹ️</span>
+              <div>{{ 'aboutUs.evaluation.evolution.benchmark2026.trackACallout' | translate }}</div>
+            </div>
+
+            <!-- Chart.js avg_position chart -->
+            <div class="bench-chart-card">
+              <div class="bench-chart-caption">{{ 'aboutUs.evaluation.evolution.benchmark2026.avgPosChartCaption' | translate }}</div>
+              <div class="bench-chart-canvas-wrapper">
+                <canvas #trackAChart></canvas>
+              </div>
+            </div>
+
+            <!-- Ranking table -->
+            <div class="bench-table-wrapper">
+            <table class="bench-table bench-table--ranking">
+              <thead>
+                <tr>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thRank' | translate }}</th>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thModel' | translate }}</th>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thSecPerCase' | translate }}</th>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thNotes' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bench-row--gold">
+                  <td>🥇</td>
+                  <td><strong>gemini-2.5-pro</strong></td>
+                  <td>
+                    <div class="bench-cell-bar">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--green" style="width:91%"></div></div>
+                      <span class="bench-cell-bar__label">1.299</span>
+                    </div>
+                  </td>
+                  <td><span class="bench-badge bench-badge--green">98.1% (251/256)</span></td>
+                  <td>27.9s</td>
+                  <td><span class="bench-badge bench-badge--blue">{{ 'aboutUs.evaluation.evolution.benchmark2026.rowNoteBestQuality' | translate }}</span></td>
+                </tr>
+                <tr class="bench-row--gold">
+                  <td>🥇</td>
+                  <td><strong>gemini-3-pro-preview</strong></td>
+                  <td>
+                    <div class="bench-cell-bar">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--green" style="width:91%"></div></div>
+                      <span class="bench-cell-bar__label">1.299</span>
+                    </div>
+                  </td>
+                  <td><span class="bench-badge bench-badge--green">98.1% (251/256)</span></td>
+                  <td><strong class="bench-time-good">10.3s</strong></td>
+                  <td><span class="bench-badge bench-badge--gold">{{ 'aboutUs.evaluation.evolution.benchmark2026.rowNoteG3Equal' | translate }}</span></td>
+                </tr>
+                <tr>
+                  <td>🥈</td>
+                  <td>gemini-2.5-flash</td>
+                  <td>
+                    <div class="bench-cell-bar">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--blue" style="width:76%"></div></div>
+                      <span class="bench-cell-bar__label">1.434</span>
+                    </div>
+                  </td>
+                  <td><span class="bench-badge bench-badge--green">98.1%</span></td>
+                  <td>21.1s</td>
+                  <td>{{ 'aboutUs.evaluation.evolution.benchmark2026.rowNoteFlash' | translate }}</td>
+                </tr>
+                <tr>
+                  <td>🥉</td>
+                  <td>grok-4-1-fast-reasoning</td>
+                  <td>
+                    <div class="bench-cell-bar">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--blue" style="width:74%"></div></div>
+                      <span class="bench-cell-bar__label">1.448</span>
+                    </div>
+                  </td>
+                  <td><span class="bench-badge bench-badge--green">97.7%</span></td>
+                  <td>20.4s</td>
+                  <td>{{ 'aboutUs.evaluation.evolution.benchmark2026.rowNoteGrok' | translate }}</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>gpt-5.4 full</td>
+                  <td>
+                    <div class="bench-cell-bar">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--blue" style="width:66%"></div></div>
+                      <span class="bench-cell-bar__label">1.502</span>
+                    </div>
+                  </td>
+                  <td><span class="bench-badge bench-badge--green">98.8%</span></td>
+                  <td>17.3s</td>
+                  <td>{{ 'aboutUs.evaluation.evolution.benchmark2026.rowNoteG54Full' | translate }}</td>
+                </tr>
+                <tr class="bench-row--green">
+                  <td>5 ⭐</td>
+                  <td><strong>gpt-5.4-mini</strong> <em class="bench-em-success">{{ 'aboutUs.evaluation.evolution.benchmark2026.rowEmProposedNormal' | translate }}</em></td>
+                  <td>
+                    <div class="bench-cell-bar">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--blue" style="width:63%"></div></div>
+                      <span class="bench-cell-bar__label">1.526</span>
+                    </div>
+                  </td>
+                  <td><span class="bench-badge bench-badge--green">98.1%</span></td>
+                  <td><strong class="bench-time-good">4.7s</strong></td>
+                  <td><span class="bench-badge bench-badge--green">{{ 'aboutUs.evaluation.evolution.benchmark2026.rowNoteG54Mini' | translate }}</span></td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>o3 high</td>
+                  <td>
+                    <div class="bench-cell-bar">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--blue" style="width:63%"></div></div>
+                      <span class="bench-cell-bar__label">1.530</span>
+                    </div>
+                  </td>
+                  <td><span class="bench-badge bench-badge--green">98.8%</span></td>
+                  <td>15.9s</td>
+                  <td><span class="bench-badge bench-badge--orange">{{ 'aboutUs.evaluation.evolution.benchmark2026.rowNoteO3Obsolete' | translate }}</span></td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>gpt-4o <em class="bench-em-muted">{{ 'aboutUs.evaluation.evolution.benchmark2026.rowEmPrior' | translate }}</em></td>
+                  <td>
+                    <div class="bench-cell-bar">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--blue" style="width:61%"></div></div>
+                      <span class="bench-cell-bar__label">1.545</span>
+                    </div>
+                  </td>
+                  <td><span class="bench-badge bench-badge--green">98.8% ✅</span></td>
+                  <td>10.3s</td>
+                  <td>{{ 'aboutUs.evaluation.evolution.benchmark2026.rowNoteG4o' | translate }}</td>
+                </tr>
+                <tr class="bench-row--orange">
+                  <td>8 ⚠️</td>
+                  <td><strong>gpt-5-mini low</strong> <em class="bench-em-warn">{{ 'aboutUs.evaluation.evolution.benchmark2026.rowEmProduction' | translate }}</em></td>
+                  <td>
+                    <div class="bench-cell-bar">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--orange" style="width:55%"></div></div>
+                      <span class="bench-cell-bar__label">1.588</span>
+                    </div>
+                  </td>
+                  <td><span class="bench-badge bench-badge--blue">97.7%</span></td>
+                  <td><strong class="bench-time-bad">~48s</strong></td>
+                  <td><span class="bench-badge bench-badge--orange">{{ 'aboutUs.evaluation.evolution.benchmark2026.rowNoteG5Mini' | translate }}</span></td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+          <!-- Track B: HPO datasets — 3 tables -->
+          <div class="bench-track bench-track--b">
+            <p class="bench-track-title">{{ 'aboutUs.evaluation.evolution.benchmark2026.trackBTitle' | translate }}</p>
+            <p class="bench-track-subtitle bench-track-subtitle--b">{{ 'aboutUs.evaluation.evolution.benchmark2026.trackBSubtitle' | translate }}</p>
+
+            <!-- R@1 -->
+            <p class="bench-r-heading">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</p>
+            <div class="bench-table-wrapper bench-table-spaced">
+            <table class="bench-table">
+              <thead>
+                <tr>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thDataset' | translate }}</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCases' | translate }}</th>
+                  <th class="is-center">gpt-4o</th>
+                  <th class="is-center">gpt-5.4-mini</th>
+                  <th class="is-center">gemini-2.5-pro</th>
+                  <th class="is-center is-highlight">{{ 'aboutUs.evaluation.evolution.benchmark2026.thGem3Star' | translate }}</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAdvantageVs25' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>RAMEDIS</strong></td>
+                  <td class="is-center">624</td>
+                  <td class="is-center">49.2%</td>
+                  <td class="is-center">46.3%</td>
+                  <td class="is-center">54.2%</td>
+                  <td class="is-center is-highlight">
+                    <div class="bench-cell-bar bench-cell-bar--compact">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--green-solid" style="width:54%"></div></div>
+                      <span>54.3%</span>
+                    </div>
+                  </td>
+                  <td class="is-center"><span class="bench-badge bench-badge--blue bench-badge--small">{{ 'aboutUs.evaluation.evolution.benchmark2026.advantageTie' | translate }}</span></td>
+                </tr>
+                <tr>
+                  <td><strong>LIRICAL</strong></td>
+                  <td class="is-center">370</td>
+                  <td class="is-center">37.0%</td>
+                  <td class="is-center">55.1%</td>
+                  <td class="is-center">61.9%</td>
+                  <td class="is-center is-highlight">
+                    <div class="bench-cell-bar bench-cell-bar--compact">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--green-solid" style="width:68%"></div></div>
+                      <span>67.8% 🏆</span>
+                    </div>
+                  </td>
+                  <td class="is-center"><span class="bench-badge bench-badge--green bench-badge--small">+5.9pp</span></td>
+                </tr>
+                <tr>
+                  <td><strong>HMS</strong> <em class="bench-em-tiny">Harvard</em></td>
+                  <td class="is-center">88</td>
+                  <td class="is-center">34.1%</td>
+                  <td class="is-center">53.4%</td>
+                  <td class="is-center">56.8%</td>
+                  <td class="is-center is-highlight">
+                    <div class="bench-cell-bar bench-cell-bar--compact">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--green-solid" style="width:73%"></div></div>
+                      <span>72.7% 🏆</span>
+                    </div>
+                  </td>
+                  <td class="is-center"><span class="bench-badge bench-badge--green bench-badge--small">+15.9pp</span></td>
+                </tr>
+                <tr>
+                  <td><strong>MyGene2</strong></td>
+                  <td class="is-center">146</td>
+                  <td class="is-center">23.3%</td>
+                  <td class="is-center">38.4%</td>
+                  <td class="is-center">55.5%</td>
+                  <td class="is-center is-highlight">
+                    <div class="bench-cell-bar bench-cell-bar--compact">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--green-solid" style="width:61%"></div></div>
+                      <span>61.0% 🏆</span>
+                    </div>
+                  </td>
+                  <td class="is-center"><span class="bench-badge bench-badge--green bench-badge--small">+5.5pp</span></td>
+                </tr>
+                <tr>
+                  <td><strong>MME</strong> <em class="bench-em-tiny">China</em></td>
+                  <td class="is-center">40</td>
+                  <td class="is-center">42.5%</td>
+                  <td class="is-center">22.5%</td>
+                  <td class="is-center">65.0%</td>
+                  <td class="is-center is-highlight">
+                    <div class="bench-cell-bar bench-cell-bar--compact">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--green-solid" style="width:78%"></div></div>
+                      <span>77.5% 🏆</span>
+                    </div>
+                  </td>
+                  <td class="is-center"><span class="bench-badge bench-badge--green bench-badge--small">+12.5pp</span></td>
+                </tr>
+                <tr class="bench-row--gold-soft">
+                  <td><strong>DDD</strong> <span class="bench-badge bench-badge--gold bench-badge--xsmall">{{ 'aboutUs.evaluation.evolution.benchmark2026.casesBadgeDdd' | translate }}</span></td>
+                  <td class="is-center"><strong>1.749</strong></td>
+                  <td class="is-center">44.9%</td>
+                  <td class="is-center">52.4%</td>
+                  <td class="is-center">63.5%</td>
+                  <td class="is-center is-highlight-lg">
+                    <div class="bench-cell-bar bench-cell-bar--compact">
+                      <div class="bench-cell-bar__track"><div class="bench-cell-bar__fill bench-cell-bar__fill--green-strong" style="width:70%"></div></div>
+                      <span>70.3% 🏆</span>
+                    </div>
+                  </td>
+                  <td class="is-center"><span class="bench-badge bench-badge--gold bench-badge--small">+6.8pp ★</span></td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+
+            <!-- R@3 -->
+            <p class="bench-r-heading">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</p>
+            <div class="bench-table-wrapper bench-table-spaced">
+            <table class="bench-table">
+              <thead>
+                <tr>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thDataset' | translate }}</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCases' | translate }}</th>
+                  <th class="is-center">gpt-4o</th>
+                  <th class="is-center">gpt-5.4-mini</th>
+                  <th class="is-center">gemini-2.5-pro</th>
+                  <th class="is-center is-highlight">{{ 'aboutUs.evaluation.evolution.benchmark2026.thGem3Star' | translate }}</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAdvantageVs25' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>RAMEDIS</strong></td>
+                  <td class="is-center">624</td>
+                  <td class="is-center">83.7%</td>
+                  <td class="is-center">80.6%</td>
+                  <td class="is-center">92.6%</td>
+                  <td class="is-center is-highlight"><strong>98.2% 🏆</strong></td>
+                  <td class="is-center"><span class="bench-badge bench-badge--green bench-badge--small">+5.6pp</span></td>
+                </tr>
+                <tr>
+                  <td><strong>LIRICAL</strong></td>
+                  <td class="is-center">370</td>
+                  <td class="is-center">73.0%</td>
+                  <td class="is-center">79.7%</td>
+                  <td class="is-center">90.8%</td>
+                  <td class="is-center is-highlight"><strong>98.1% 🏆</strong></td>
+                  <td class="is-center"><span class="bench-badge bench-badge--green bench-badge--small">+7.3pp</span></td>
+                </tr>
+                <tr>
+                  <td><strong>HMS</strong> <em class="bench-em-tiny">Harvard</em></td>
+                  <td class="is-center">88</td>
+                  <td class="is-center">70.5%</td>
+                  <td class="is-center">86.4%</td>
+                  <td class="is-center">90.9%</td>
+                  <td class="is-center is-highlight"><strong>100.0% 🏆</strong></td>
+                  <td class="is-center"><span class="bench-badge bench-badge--green bench-badge--small">+9.1pp</span></td>
+                </tr>
+                <tr>
+                  <td><strong>MyGene2</strong></td>
+                  <td class="is-center">146</td>
+                  <td class="is-center">64.4%</td>
+                  <td class="is-center">77.4%</td>
+                  <td class="is-center">85.6%</td>
+                  <td class="is-center is-highlight"><strong>95.9% 🏆</strong></td>
+                  <td class="is-center"><span class="bench-badge bench-badge--green bench-badge--small">+10.3pp</span></td>
+                </tr>
+                <tr>
+                  <td><strong>MME</strong> <em class="bench-em-tiny">China</em></td>
+                  <td class="is-center">40</td>
+                  <td class="is-center">60.0%</td>
+                  <td class="is-center">62.5%</td>
+                  <td class="is-center">87.5%</td>
+                  <td class="is-center is-highlight"><strong>97.5% 🏆</strong> ✅</td>
+                  <td class="is-center"><span class="bench-badge bench-badge--green bench-badge--small">+10.0pp</span></td>
+                </tr>
+                <tr class="bench-row--gold-soft">
+                  <td><strong>DDD</strong> <span class="bench-badge bench-badge--gold bench-badge--xsmall">{{ 'aboutUs.evaluation.evolution.benchmark2026.casesBadgeDdd' | translate }}</span></td>
+                  <td class="is-center"><strong>1.749</strong></td>
+                  <td class="is-center">76.8%</td>
+                  <td class="is-center">79.6%</td>
+                  <td class="is-center">91.8%</td>
+                  <td class="is-center is-highlight-lg"><strong>97.6% 🏆</strong> ✅</td>
+                  <td class="is-center"><span class="bench-badge bench-badge--gold bench-badge--small">+5.8pp ★</span></td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+
+            <!-- R@5 -->
+            <p class="bench-r-heading bench-r-heading--last">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }} <span class="bench-r5-aside">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5Aside' | translate }}</span></p>
+            <div class="bench-table-wrapper">
+            <table class="bench-table">
+              <thead>
+                <tr>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thDataset' | translate }}</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCases' | translate }}</th>
+                  <th class="is-center">gpt-4o</th>
+                  <th class="is-center">gpt-5.4-mini</th>
+                  <th class="is-center">gemini-2.5-pro</th>
+                  <th class="is-center is-highlight">{{ 'aboutUs.evaluation.evolution.benchmark2026.thGem3Star' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>RAMEDIS</strong></td>
+                  <td class="is-center">624</td>
+                  <td class="is-center"><strong>99.4%</strong></td>
+                  <td class="is-center">97.9%</td>
+                  <td class="is-center">98.4%</td>
+                  <td class="is-center is-soft-success">98.7%</td>
+                </tr>
+                <tr>
+                  <td><strong>LIRICAL</strong></td>
+                  <td class="is-center">370</td>
+                  <td class="is-center">97.8%</td>
+                  <td class="is-center">98.1%</td>
+                  <td class="is-center">97.3%</td>
+                  <td class="is-center is-highlight"><strong>98.9% 🏆</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>HMS</strong> <em class="bench-em-tiny">Harvard</em></td>
+                  <td class="is-center">88</td>
+                  <td class="is-center">94.3%</td>
+                  <td class="is-center"><strong>100.0%</strong></td>
+                  <td class="is-center"><strong>100.0%</strong></td>
+                  <td class="is-center is-soft-success"><strong>100.0%</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>MyGene2</strong></td>
+                  <td class="is-center">146</td>
+                  <td class="is-center">95.9%</td>
+                  <td class="is-center"><strong>97.3%</strong></td>
+                  <td class="is-center"><strong>97.3%</strong></td>
+                  <td class="is-center is-soft-success">95.9%</td>
+                </tr>
+                <tr>
+                  <td><strong>MME</strong> <em class="bench-em-tiny">China</em></td>
+                  <td class="is-center">40</td>
+                  <td class="is-center">95.0%</td>
+                  <td class="is-center">90.0%</td>
+                  <td class="is-center">95.0%</td>
+                  <td class="is-center is-highlight"><strong>97.5% 🏆</strong> ✅</td>
+                </tr>
+                <tr class="bench-row--gold-soft">
+                  <td><strong>DDD</strong> <span class="bench-badge bench-badge--gold bench-badge--xsmall">{{ 'aboutUs.evaluation.evolution.benchmark2026.casesBadgeDdd' | translate }}</span></td>
+                  <td class="is-center"><strong>1.749</strong></td>
+                  <td class="is-center">97.0%</td>
+                  <td class="is-center">97.2%</td>
+                  <td class="is-center">98.0%</td>
+                  <td class="is-center is-highlight"><strong>98.1% 🏆</strong> ✅</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <p class="bench-footnote">{{ 'aboutUs.evaluation.evolution.benchmark2026.hpoFootnote' | translate }}</p>
+          </div>
+
+          <!-- References -->
+          <div class="references-section" style="margin-top: 1rem;">
+            <p class="subsection-text">
+              {{'aboutUs.evaluation.evolution.benchmark2026.reference' | translate }}
+              <a href="https://github.com/foundation29org/dxgpt-bench-lab" target="_blank" class="reference-link">
+                <i class="fas fa-external-link-alt"></i> {{'aboutUs.evaluation.evolution.benchmark2026.repository' | translate }}
+              </a>
+            </p>
+            <p class="subsection-text" style="margin-top: 0.5rem; margin-bottom: 2rem;">
+              {{ 'aboutUs.evaluation.evolution.benchmark2026.paperLine' | translate }}
+              <a href="https://www.nature.com/articles/s41586-025-10097-9" target="_blank" class="reference-link">
+                <i class="fas fa-external-link-alt"></i> {{ 'aboutUs.evaluation.evolution.benchmark2026.deepRareLink' | translate }}
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <p class="subsection-text" style="margin-top: 1rem; font-style: italic; color: #666;">
+          <strong><span class="me-2" *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.titleEu' | translate }}</span></strong>
+          <span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.text' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.textEu' | translate }}</span>
+        </p>
+
         <!-- Important Note -->
         <div class="evolution-note">
           <p class="subsection-text"><strong>{{'aboutUs.evaluation.evolution.note.title' | translate }}</strong></p>

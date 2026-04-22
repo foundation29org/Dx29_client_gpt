@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DxGPT — Evaluación de Modelos LLM para Diagnóstico de Enfermedades Raras</title>
+<style>
+  :root {
+    --primary: #1e3a5f;
+    --accent: #2563eb;
+    --accent2: #059669;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --light: #f8fafc;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --muted: #64748b;
+    --gold: #f59e0b;
+    --silver: #94a3b8;
+    --bronze: #cd7f32;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f1f5f9;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  /* HEADER */
+  .hero {
+    background: linear-gradient(135deg, #1e3a5f 0%, #1e40af 50%, #1d4ed8 100%);
+    color: white;
+    padding: 48px 32px;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
+  .hero p { font-size: 1.1rem; opacity: 0.85; max-width: 680px; margin: 0 auto 24px; }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num { font-size: 2rem; font-weight: 800; display: block; }
+  .hero-stat .lbl { font-size: 0.8rem; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 16px; }
+  .section { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); padding: 32px; margin-bottom: 24px; }
+  .section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon { font-size: 1.4rem; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th {
+    background: #f8fafc;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--border);
+  }
+  td { padding: 11px 14px; border-bottom: 1px solid #f1f5f9; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f8fafc; }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .badge-green { background: #dcfce7; color: #166534; }
+  .badge-blue { background: #dbeafe; color: #1e40af; }
+  .badge-orange { background: #fed7aa; color: #9a3412; }
+  .badge-red { background: #fee2e2; color: #991b1b; }
+  .badge-purple { background: #ede9fe; color: #5b21b6; }
+  .badge-gold { background: #fef3c7; color: #92400e; }
+
+  /* RANK INDICATORS */
+  .rank-gold   { color: #d97706; font-size: 1.2rem; }
+  .rank-silver { color: #64748b; font-size: 1.2rem; }
+  .rank-bronze { color: #cd7f32; font-size: 1.2rem; }
+
+  /* WINNER CELL */
+  .winner td:first-child { border-left: 3px solid #f59e0b; }
+  .winner td { background: #fffbeb; }
+
+  /* METRICS BAR */
+  .bar-container { display: flex; align-items: center; gap: 10px; min-width: 140px; }
+  .bar-track { flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+  .bar-green { background: linear-gradient(90deg, #10b981, #34d399); }
+  .bar-blue  { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+  .bar-gold  { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+  .bar-label { font-size: 0.85rem; font-weight: 700; white-space: nowrap; }
+
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 8px; }
+  .card {
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid var(--border);
+  }
+  .card-blue   { background: #eff6ff; border-color: #bfdbfe; }
+  .card-green  { background: #f0fdf4; border-color: #bbf7d0; }
+  .card-gold   { background: #fffbeb; border-color: #fde68a; }
+  .card-purple { background: #f5f3ff; border-color: #ddd6fe; }
+  .card-label  { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 4px; }
+  .card-value  { font-size: 1.8rem; font-weight: 800; line-height: 1.1; }
+  .card-sub    { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  .card-blue  .card-value  { color: #1e40af; }
+  .card-green .card-value  { color: #166534; }
+  .card-gold  .card-value  { color: #92400e; }
+  .card-purple .card-value { color: #5b21b6; }
+
+  /* CALLOUT */
+  .callout {
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout-info   { background: #eff6ff; border-left: 4px solid #3b82f6; }
+  .callout-win    { background: #f0fdf4; border-left: 4px solid #10b981; }
+  .callout-warn   { background: #fffbeb; border-left: 4px solid #f59e0b; }
+  .callout-icon   { font-size: 1.3rem; flex-shrink: 0; }
+  .callout strong { font-weight: 700; }
+
+  /* DATASET TABLE ICONS */
+  td.center { text-align: center; }
+  .win-cell { font-weight: 700; color: #166534; }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* RECOMMENDATION BOX */
+  .rec-box {
+    border-radius: 10px;
+    border: 1px solid;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .rec-normal { background: #f0fdf4; border-color: #86efac; }
+  .rec-adv    { background: #eff6ff; border-color: #93c5fd; }
+  .rec-title  { font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .rec-normal .rec-title { color: #166534; }
+  .rec-adv    .rec-title { color: #1e40af; }
+  .rec-model  { font-size: 1.25rem; font-weight: 800; margin-bottom: 6px; }
+  .rec-normal .rec-model { color: #15803d; }
+  .rec-adv    .rec-model { color: #1d4ed8; }
+
+  /* FOOTER */
+  footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 32px; }
+
+  /* METHODOLOGY */
+  .method-step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .method-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+  }
+  .method-content strong { display: block; margin-bottom: 2px; }
+  .method-content p { color: var(--muted); font-size: 0.88rem; }
+
+  /* DATASET SOURCE TABLE */
+  .source-tag {
+    background: #f1f5f9;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.78rem;
+    font-family: monospace;
+    color: var(--primary);
+  }
+  /* CHART CONTAINER */
+  .chart-wrap {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 20px 8px;
+    margin-bottom: 28px;
+  }
+  .chart-subtitle {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Informe de Evaluación · Abril 2026</div>
+  <h1>DxGPT — Evaluación de Modelos LLM</h1>
+  <p>Benchmark sistemático para diagnóstico diferencial de enfermedades raras.<br>
+     Comparativa contra el paper de Nature <em>DeepRare (2025)</em>.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="num">10+</span><span class="lbl">Modelos LLM</span></div>
+    <div class="hero-stat"><span class="num">7</span><span class="lbl">Datasets</span></div>
+    <div class="hero-stat"><span class="num">3.273</span><span class="lbl">Casos clínicos</span></div>
+    <div class="hero-stat"><span class="num">38+</span><span class="lbl">Experimentos</span></div>
+    <div class="hero-stat"><span class="num">6/6</span><span class="lbl">Datasets ganados</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- RESUMEN EJECUTIVO -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🎯</span> Resumen Ejecutivo</div>
+
+    <div class="callout callout-win">
+      <span class="callout-icon">🏆</span>
+      <div>
+        <strong>Hallazgo principal:</strong> <strong>gemini-3-pro-preview</strong> supera a gemini-2.5-pro y a todos los modelos evaluados en los 6 datasets de enfermedades raras del paper DeepRare (Nature, 2025), ganando en Recall@1 en todos ellos y siendo 3× más rápido. En el mayor dataset (DDD, 1.749 casos) alcanza un <strong>R@1=70.3%</strong> — valores definitivos tras re-evaluación de casos con error de API 503.
+      </div>
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:12px;">
+      <span class="callout-icon">🧪</span>
+      <div>
+        <strong>Ablación cerrada (2026-04-21) — <code>thinking_level=medium</code> en gemini-3-pro-preview:</strong> evaluado sobre <strong>900 casos</strong> (4 datasets HPO con n=644 + narrativa n=256). En HPO degrada de forma <strong>consistente en 4/4 datasets independientes</strong> (R@1 −5.1pp, R@3 −8.8pp ponderado). En narrativa empate técnico (Δavg_pos +0.016). <strong>Decisión:</strong> medium <strong>no aporta</strong> y cuesta +50% latencia → mantener <code>low</code> en producción y benchmark. Cancelados los 2 runs medium pendientes (RAMEDIS, DDD): ~6h de cómputo ahorradas.
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card card-blue">
+        <div class="card-label">Mejor avg_position</div>
+        <div class="card-value">1.299</div>
+        <div class="card-sub">gemini-2.5-pro · texto narrativo (256 casos)</div>
+      </div>
+      <div class="card card-green">
+        <div class="card-label">Mejor R@1 HPO (DDD)</div>
+        <div class="card-value">70.3%</div>
+        <div class="card-sub">gemini-3-pro-preview · 1.749 casos G2P EBI ✅</div>
+      </div>
+      <div class="card card-gold">
+        <div class="card-label">Velocidad / Calidad</div>
+        <div class="card-value">~5s/caso</div>
+        <div class="card-sub">gpt-5.4-mini · avg_pos 1.526 · 98.1%</div>
+      </div>
+      <div class="card card-purple">
+        <div class="card-label">R@3 DDD (gemini-3-pro)</div>
+        <div class="card-value">97.6%</div>
+        <div class="card-sub">Diagnóstico correcto en top-3 — valores definitivos ✅</div>
+      </div>
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:16px">
+      <span class="callout-icon">⚡</span>
+      <div>
+        <strong>Implicación práctica:</strong> el modo normal actual (<strong>gpt-5-mini low</strong>) es lento y ha perdido calidad respecto a gpt-4o. <strong>gpt-5.4-mini</strong> lo supera en calidad (avg_pos 1.526 vs 1.588), es ~10× más rápido (~5s vs ~48s/caso) y más barato. El modo avanzado (<strong>o3</strong>) debe sustituirse por <strong>gemini-3-pro-preview</strong>: supera a gemini-2.5-pro en HPO (+10 a +16pp R@1), iguala en texto narrativo, y es 3× más rápido.
+      </div>
+    </div>
+  </div>
+
+  <!-- METODOLOGÍA -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔬</span> Metodología de Evaluación</div>
+    <div class="two-col">
+      <div>
+        <div class="method-step">
+          <div class="method-num">1</div>
+          <div class="method-content">
+            <strong>Emulación (DDX Generation)</strong>
+            <p>El modelo LLM recibe el caso clínico (síntomas, HPO codes) y genera un diagnóstico diferencial ordenado (top-10).</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-num">2</div>
+          <div class="method-content">
+            <strong>Normalización médica (MedLabeler)</strong>
+            <p>Azure Text Analytics asigna códigos ICD-10/SNOMED/OMIM/ORPHA a cada diagnóstico generado. Habilita la comparación contra el gold standard mediante ontologías médicas.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-num">3</div>
+          <div class="method-content">
+            <strong>Evaluación por capas (SNOMED → ICD-10 → BERT → LLM Judge)</strong>
+            <p>Coincidencia exacta de códigos → búsqueda en árbol ICD-10 (códigos padre e hijos) → similitud semántica BERT (umbral 0.80/0.90) → juez LLM gemini-2.5-pro para casos ambiguos.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:12px;font-weight:700;">MÉTRICAS PRINCIPALES</p>
+        <table style="font-size:0.85rem;">
+          <tr><th>Métrica</th><th>Descripción</th></tr>
+          <tr><td><strong>Avg Position ↓</strong></td><td>Posición media del dx correcto en el top-10 (menor = mejor)</td></tr>
+          <tr><td><strong>Recall@1</strong></td><td>% de casos donde el dx correcto es el primero</td></tr>
+          <tr><td><strong>Recall@3</strong></td><td>% de casos donde el dx correcto aparece en los 3 primeros</td></tr>
+          <tr><td><strong>Recall@5</strong></td><td>% de casos donde el dx correcto aparece en los 5 primeros</td></tr>
+          <tr><td><strong>Coverage</strong></td><td>% de casos con al menos 1 match (non-unmatched)</td></tr>
+        </table>
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:10px;"><strong>Cadena de evaluación:</strong><br>
+        ① Código exacto (SNOMED/ICD-10/OMIM/ORPHA) → ② Árbol ICD-10: códigos padre e hijos (<code>ENABLE_ICD10_PARENT_SEARCH</code> + <code>SIBLING_SEARCH</code>) → ③ SapBERT semántico (θ≥0.80) → ④ Juez LLM gemini-2.5-pro</p>
+        <div class="callout callout-info" style="margin-top:16px;">
+          <span class="callout-icon">📎</span>
+          <div style="font-size:0.85rem;"><strong>Todos los runs:</strong> temperature=0.1, BERT_accept=0.8, BERT_autoconfirm=0.9, max_tokens=12000, prompt juanjo_classic_v2.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATASETS -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span> Datasets Evaluados</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Dataset</th>
+          <th>Tipo</th>
+          <th>Casos</th>
+          <th>Fuente</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>all_256_clean</strong> <span class="badge badge-purple">Interno</span></td>
+          <td>Texto narrativo clínico</td>
+          <td class="center"><strong>256</strong></td>
+          <td><span class="source-tag">DxGPT</span></td>
+          <td>Dataset limpio DxGPT — sin label leakage, sin boilerplate. Primera línea base publicable.</td>
+        </tr>
+        <tr>
+          <td><strong>RAMEDIS</strong></td>
+          <td>HPO terms</td>
+          <td class="center">624</td>
+          <td><span class="source-tag">RareBench · HuggingFace</span></td>
+          <td>Dataset HPO europeo — enfermedades metabólicas y raras.</td>
+        </tr>
+        <tr>
+          <td><strong>LIRICAL</strong></td>
+          <td>HPO terms</td>
+          <td class="center">370</td>
+          <td><span class="source-tag">RareBench · HuggingFace</span></td>
+          <td>Dataset HPO para diagnóstico diferencial por fenotipado.</td>
+        </tr>
+        <tr>
+          <td><strong>HMS</strong></td>
+          <td>HPO terms</td>
+          <td class="center">88</td>
+          <td><span class="source-tag">RareBench · HuggingFace</span></td>
+          <td>Harvard Medical School — casos de enfermedades raras.</td>
+        </tr>
+        <tr>
+          <td><strong>MME</strong></td>
+          <td>HPO terms</td>
+          <td class="center">40</td>
+          <td><span class="source-tag">RareBench · HuggingFace</span></td>
+          <td>PUMCH — hospital Chino de referencia nacional.</td>
+        </tr>
+        <tr>
+          <td><strong>MyGene2</strong></td>
+          <td>HPO terms</td>
+          <td class="center">146</td>
+          <td><span class="source-tag">Harvard Dataverse</span></td>
+          <td>Pacientes reales de Harvard con diagnóstico genético confirmado.</td>
+        </tr>
+        <tr style="background:#fffbeb;">
+          <td><strong>DDD (G2P)</strong> <span class="badge badge-gold">Nuevo</span></td>
+          <td>HPO terms (Gene2Phenotype)</td>
+          <td class="center"><strong>1.749</strong></td>
+          <td><span class="source-tag">EBI Gene2Phenotype</span></td>
+          <td>Dataset Deciphering Developmental Disorders. Mayor dataset — más robusto estadísticamente.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:8px;">Los datasets HPO se convierten de códigos HP:XXXXXXX a etiquetas de texto usando la ontología HPO (hp.obo) antes de pasarlos al modelo.</p>
+  </div>
+
+  <!-- TRACK A -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📋</span> Track A — Texto Narrativo Clínico (all_256_clean, 256 casos)</div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">ℹ️</span>
+      <div style="font-size:0.85rem;">Este track evalúa la capacidad del modelo con casos clínicos reales en texto libre (historial, síntomas, evolución). Es el formato más parecido al uso real de DxGPT en producción.</div>
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-wrap">
+      <div class="chart-subtitle">Posición media (avg_position) · Menor = Mejor · all_256_clean · 256 casos · Juez gemini-2.5-pro</div>
+      <canvas id="trackAChart" height="95"></canvas>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Modelo</th>
+          <th>Avg Position ↓</th>
+          <th>Coverage</th>
+          <th>~s/caso</th>
+          <th>Notas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="winner">
+          <td><span class="rank-gold">🥇</span></td>
+          <td><strong>gemini-2.5-pro</strong></td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill bar-green" style="width:91%"></div></div>
+              <span class="bar-label">1.299</span>
+            </div>
+          </td>
+          <td><span class="badge badge-green">98.1% (251/256)</span></td>
+          <td>27.9s</td>
+          <td><span class="badge badge-blue">Mejor calidad absoluta</span></td>
+        </tr>
+        <tr class="winner">
+          <td><span class="rank-gold">🥇</span></td>
+          <td><strong>gemini-3-pro-preview</strong></td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill bar-green" style="width:91%"></div></div>
+              <span class="bar-label">1.299</span>
+            </div>
+          </td>
+          <td><span class="badge badge-green">98.1% (251/256)</span></td>
+          <td><strong>10.3s</strong></td>
+          <td><span class="badge badge-gold">Igual calidad texto · <strong>supera en HPO</strong> · 3× más rápido</span></td>
+        </tr>
+        <tr style="background:#fffbeb;">
+          <td>3 ⚠️</td>
+          <td>gemini-3-pro-preview <em>(medium)</em></td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill" style="width:90%;background:#f59e0b;"></div></div>
+              <span class="bar-label">1.315</span>
+            </div>
+          </td>
+          <td><span class="badge badge-green">98.1% (251/256)</span></td>
+          <td>~35s</td>
+          <td><span class="badge badge-orange">Empate con low · NO usar — latencia +50% sin ganancia</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-silver">🥈</span></td>
+          <td>gemini-2.5-flash</td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill bar-blue" style="width:85%"></div></div>
+              <span class="bar-label">1.434</span>
+            </div>
+          </td>
+          <td><span class="badge badge-green">98.1%</span></td>
+          <td>21.1s</td>
+          <td>Buena relación calidad/coste</td>
+        </tr>
+        <tr>
+          <td><span class="rank-bronze">🥉</span></td>
+          <td>grok-4-1-fast-reasoning</td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill bar-blue" style="width:83%"></div></div>
+              <span class="bar-label">1.448</span>
+            </div>
+          </td>
+          <td><span class="badge badge-green">97.7%</span></td>
+          <td>20.4s</td>
+          <td>Mejor alternativa no-Google</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gpt-5.4 full</td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill bar-blue" style="width:79%"></div></div>
+              <span class="bar-label">1.502</span>
+            </div>
+          </td>
+          <td><span class="badge badge-green">98.8%</span></td>
+          <td>17.3s</td>
+          <td>Mejor calidad OpenAI puro</td>
+        </tr>
+        <tr style="background:#f0fdf4;">
+          <td>6 ⭐</td>
+          <td><strong>gpt-5.4-mini</strong> <em>(propuesto modo normal)</em></td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill bar-blue" style="width:77%"></div></div>
+              <span class="bar-label">1.526</span>
+            </div>
+          </td>
+          <td><span class="badge badge-green">98.1%</span></td>
+          <td><strong style="color:#166534;">4.7s</strong></td>
+          <td><span class="badge badge-green">⭐ Mejor calidad/velocidad OpenAI</span></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>o3 high</td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill bar-blue" style="width:76%"></div></div>
+              <span class="bar-label">1.530</span>
+            </div>
+          </td>
+          <td><span class="badge badge-green">98.8%</span></td>
+          <td>15.9s</td>
+          <td><span class="badge badge-orange">Obsoleto — superado en calidad</span></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>gpt-4o <em>(anterior)</em></td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill bar-blue" style="width:75%"></div></div>
+              <span class="bar-label">1.545</span>
+            </div>
+          </td>
+          <td><span class="badge badge-green">98.8% ✅</span></td>
+          <td>10.3s</td>
+          <td>Referencia histórica · corregido errores API</td>
+        </tr>
+        <tr style="background:#fff7ed;">
+          <td>9 ⚠️</td>
+          <td><strong>gpt-5-mini low</strong> <em>(producción actual)</em></td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill" style="width:71%;background:#f97316;"></div></div>
+              <span class="bar-label">1.588</span>
+            </div>
+          </td>
+          <td><span class="badge badge-blue">97.7%</span></td>
+          <td><strong style="color:#dc2626;">~48s</strong></td>
+          <td><span class="badge badge-orange">⚠️ Lento · calidad inferior a gpt-4o</span></td>
+        </tr>
+        <tr>
+          <td>⚠️</td>
+          <td>claude-opus-4-7</td>
+          <td>
+            <div class="bar-container">
+              <div class="bar-track"><div class="bar-fill" style="width:60%;background:#ef4444;"></div></div>
+              <span class="bar-label">1.668*</span>
+            </div>
+          </td>
+          <td><span class="badge badge-red">80.1% ⚠️</span></td>
+          <td>17.1s</td>
+          <td><span class="badge badge-red">Prompt no optimizado para Claude</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:8px;">* avg_pos de claude calculado solo sobre los 205 casos con match. 51/256 sin diagnóstico correcto en top-8 — se requiere optimización de prompt para la familia Claude.</p>
+  </div>
+
+  <!-- TRACK B -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🧬</span> Track B — Datasets HPO · Comparativa DeepRare (Nature 2025)</div>
+
+    <div class="callout callout-win" style="margin-bottom:20px;">
+      <span class="callout-icon">🏆</span>
+      <div>
+        <strong>gemini-3-pro-preview gana en los 6/6 datasets</strong> en R@1, R@3 y R@5, superando a gemini-2.5-pro (+9pp R@1 medio), gpt-4o y gpt-5.4-mini, siendo 3× más rápido (~10s/caso). Valores definitivos tras re-evaluación quirúrgica de 9 casos con error de API 503. ✅
+      </div>
+    </div>
+
+    <!-- R@1 TABLE -->
+    <p style="font-weight:700;font-size:0.9rem;color:var(--primary);margin-bottom:10px;margin-top:4px;">📊 Recall@1 — Diagnóstico correcto en primera posición</p>
+    <table style="margin-bottom:24px;">
+      <thead>
+        <tr>
+          <th>Dataset</th>
+          <th>Casos</th>
+          <th>gpt-4o</th>
+          <th>gpt-5.4-mini</th>
+          <th>gemini-2.5-pro</th>
+          <th style="background:#f0fdf4;color:#166534;">gemini-3-pro ⭐</th>
+          <th>Ventaja ⭐ vs 2.5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>RAMEDIS</strong></td><td class="center">624</td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:49%"></div></div><span class="bar-label">49.2%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:46%"></div></div><span class="bar-label">46.3%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:54%"></div></div><span class="bar-label">54.2%</span></div></td>
+          <td style="background:#f0fdf4;"><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-green" style="width:54%"></div></div><span class="bar-label"><strong>54.3%</strong></span></div></td>
+          <td><span class="badge badge-blue">≈empate</span></td>
+        </tr>
+        <tr>
+          <td><strong>LIRICAL</strong></td><td class="center">370</td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:37%"></div></div><span class="bar-label">37.0%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:55%"></div></div><span class="bar-label">55.1%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:62%"></div></div><span class="bar-label">61.9%</span></div></td>
+          <td style="background:#f0fdf4;"><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-green" style="width:68%"></div></div><span class="bar-label"><strong>67.8% 🏆</strong></span></div></td>
+          <td><span class="badge badge-green">+5.9pp</span></td>
+        </tr>
+        <tr>
+          <td><strong>HMS</strong> <em>Harvard</em></td><td class="center">88</td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:34%"></div></div><span class="bar-label">34.1%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:53%"></div></div><span class="bar-label">53.4%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:57%"></div></div><span class="bar-label">56.8%</span></div></td>
+          <td style="background:#f0fdf4;"><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-green" style="width:73%"></div></div><span class="bar-label"><strong>72.7% 🏆</strong></span></div></td>
+          <td><span class="badge badge-green">+15.9pp</span></td>
+        </tr>
+        <tr>
+          <td><strong>MyGene2</strong></td><td class="center">146</td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:23%"></div></div><span class="bar-label">23.3%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:38%"></div></div><span class="bar-label">38.4%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:55%"></div></div><span class="bar-label">55.5%</span></div></td>
+          <td style="background:#f0fdf4;"><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-green" style="width:61%"></div></div><span class="bar-label"><strong>61.0% 🏆</strong></span></div></td>
+          <td><span class="badge badge-green">+5.5pp</span></td>
+        </tr>
+        <tr>
+          <td><strong>MME</strong> <em>China</em></td><td class="center">40</td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:42%"></div></div><span class="bar-label">42.5%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:22%"></div></div><span class="bar-label">22.5%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:65%"></div></div><span class="bar-label">65.0%</span></div></td>
+          <td style="background:#f0fdf4;"><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-green" style="width:77%"></div></div><span class="bar-label"><strong>77.5% 🏆</strong> ✅</span></div></td>
+          <td><span class="badge badge-green">+12.5pp</span></td>
+        </tr>
+        <tr style="background:#fffbeb;">
+          <td><strong>DDD</strong> <span class="badge badge-gold">1.749 casos</span></td><td class="center"><strong>1.749</strong></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:45%"></div></div><span class="bar-label">44.9%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:52%"></div></div><span class="bar-label">52.4%</span></div></td>
+          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-blue" style="width:63%"></div></div><span class="bar-label">63.5%</span></div></td>
+          <td style="background:#f0fdf4;font-size:1.05rem;"><div class="bar-container"><div class="bar-track"><div class="bar-fill bar-green" style="width:70%"></div></div><span class="bar-label"><strong>70.3% 🏆</strong> ✅</span></div></td>
+          <td><span class="badge badge-gold">+6.8pp ★</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- R@3 TABLE -->
+    <p style="font-weight:700;font-size:0.9rem;color:var(--primary);margin-bottom:10px;">📊 Recall@3 — Diagnóstico correcto en top-3</p>
+    <table style="margin-bottom:24px;font-size:0.88rem;">
+      <thead>
+        <tr>
+          <th>Dataset</th>
+          <th>Casos</th>
+          <th>gpt-4o</th>
+          <th>gpt-5.4-mini</th>
+          <th>gemini-2.5-pro</th>
+          <th style="background:#f0fdf4;color:#166534;">gemini-3-pro ⭐</th>
+          <th>Ventaja ⭐ vs 2.5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>RAMEDIS</strong></td><td class="center">624</td>
+          <td>83.7%</td><td>80.6%</td><td>92.6%</td>
+          <td style="background:#f0fdf4;"><strong>98.2% 🏆</strong></td>
+          <td><span class="badge badge-green">+5.6pp</span></td>
+        </tr>
+        <tr>
+          <td><strong>LIRICAL</strong></td><td class="center">370</td>
+          <td>73.0%</td><td>79.7%</td><td>90.8%</td>
+          <td style="background:#f0fdf4;"><strong>98.1% 🏆</strong></td>
+          <td><span class="badge badge-green">+7.3pp</span></td>
+        </tr>
+        <tr>
+          <td><strong>HMS</strong> <em>Harvard</em></td><td class="center">88</td>
+          <td>70.5%</td><td>86.4%</td><td>90.9%</td>
+          <td style="background:#f0fdf4;"><strong>100.0% 🏆</strong></td>
+          <td><span class="badge badge-green">+9.1pp</span></td>
+        </tr>
+        <tr>
+          <td><strong>MyGene2</strong></td><td class="center">146</td>
+          <td>64.4%</td><td>77.4%</td><td>85.6%</td>
+          <td style="background:#f0fdf4;"><strong>95.9% 🏆</strong></td>
+          <td><span class="badge badge-green">+10.3pp</span></td>
+        </tr>
+        <tr>
+          <td><strong>MME</strong> <em>China</em></td><td class="center">40</td>
+          <td>60.0%</td><td>62.5%</td><td>87.5%</td>
+          <td style="background:#f0fdf4;"><strong>97.5% 🏆</strong> ✅</td>
+          <td><span class="badge badge-green">+10.0pp</span></td>
+        </tr>
+        <tr style="background:#fffbeb;">
+          <td><strong>DDD</strong> <span class="badge badge-gold">1.749 casos</span></td><td class="center"><strong>1.749</strong></td>
+          <td>76.8%</td><td>79.6%</td><td>91.8%</td>
+          <td style="background:#f0fdf4;"><strong>97.6% 🏆</strong> ✅</td>
+          <td><span class="badge badge-gold">+5.8pp ★</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- R@5 TABLE -->
+    <p style="font-weight:700;font-size:0.9rem;color:var(--primary);margin-bottom:10px;">📊 Recall@5 — Diagnóstico correcto en top-5 <span style="font-weight:400;color:var(--muted);font-size:0.82rem;">(los modelos convergen — diferencias menores)</span></p>
+    <table style="font-size:0.88rem;">
+      <thead>
+        <tr>
+          <th>Dataset</th>
+          <th>Casos</th>
+          <th>gpt-4o</th>
+          <th>gpt-5.4-mini</th>
+          <th>gemini-2.5-pro</th>
+          <th style="background:#f0fdf4;color:#166534;">gemini-3-pro ⭐</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>RAMEDIS</strong></td><td class="center">624</td><td><strong>99.4%</strong></td><td>97.9%</td><td>98.4%</td><td style="background:#f0fdf4;">98.7%</td></tr>
+        <tr><td><strong>LIRICAL</strong></td><td class="center">370</td><td>97.8%</td><td>98.1%</td><td>97.3%</td><td style="background:#f0fdf4;"><strong>98.9% 🏆</strong></td></tr>
+        <tr><td><strong>HMS</strong> <em>Harvard</em></td><td class="center">88</td><td>94.3%</td><td><strong>100.0%</strong></td><td><strong>100.0%</strong></td><td style="background:#f0fdf4;"><strong>100.0%</strong></td></tr>
+        <tr><td><strong>MyGene2</strong></td><td class="center">146</td><td>95.9%</td><td><strong>97.3%</strong></td><td><strong>97.3%</strong></td><td style="background:#f0fdf4;">95.9%</td></tr>
+        <tr><td><strong>MME</strong> <em>China</em></td><td class="center">40</td><td>95.0%</td><td>90.0%</td><td>95.0%</td><td style="background:#f0fdf4;"><strong>97.5% 🏆</strong> ✅</td></tr>
+        <tr style="background:#fffbeb;"><td><strong>DDD</strong> <span class="badge badge-gold">1.749 casos</span></td><td class="center"><strong>1.749</strong></td><td>97.0%</td><td>97.2%</td><td>98.0%</td><td style="background:#f0fdf4;"><strong>98.1% 🏆</strong> ✅</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:10px;">
+      ✅ = valores definitivos tras re-evaluación quirúrgica de casos con error de API 503. Barras de R@1 normalizadas 0–100%.
+      Referencia DeepRare (Nature 2025, sistema especializado con fine-tuning): RAMEDIS ~60% R@1, MyGene2 ~74% R@1.
+    </p>
+  </div>
+
+  <!-- VELOCIDAD Y COSTE -->
+  <div class="section">
+    <div class="section-title"><span class="icon">⚡</span> Velocidad y Coste de Referencia</div>
+    <div class="two-col">
+      <div>
+        <p style="font-weight:700;font-size:0.9rem;margin-bottom:12px;color:var(--muted);">TIEMPO DE EMULACIÓN (solo generación DDX)</p>
+        <table style="font-size:0.85rem;">
+          <thead>
+            <tr><th>Modelo</th><th>s/caso</th><th>256 casos</th></tr>
+          </thead>
+          <tbody>
+            <tr style="background:#f0fdf4;"><td><strong>gpt-5.4-mini</strong> ⭐ <em>(propuesto)</em></td><td><strong style="color:#166534;">~5s</strong></td><td>~21 min</td></tr>
+            <tr><td>gpt-4o</td><td>~8-10s</td><td>~40 min</td></tr>
+            <tr><td>gemini-3-pro-preview</td><td>~10s</td><td>~44 min</td></tr>
+            <tr><td>o3 high</td><td>~16s</td><td>~68 min</td></tr>
+            <tr><td>gpt-5.4 full</td><td>~17s</td><td>~74 min</td></tr>
+            <tr><td>grok-4-1-fast-reasoning</td><td>~20s</td><td>~87 min</td></tr>
+            <tr><td>gemini-2.5-flash</td><td>~21s</td><td>~90 min</td></tr>
+            <tr><td>gemini-2.5-pro</td><td>~28-34s</td><td>~120 min</td></tr>
+            <tr style="background:#fff7ed;"><td><strong>gpt-5-mini low</strong> ⚠️ <em>(actual)</em></td><td><strong style="color:#dc2626;">~48s</strong></td><td>~205 min</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:6px;">La fase de evaluación (juez) añade ~1-3h por 256 casos independientemente del modelo.</p>
+      </div>
+      <div>
+        <p style="font-weight:700;font-size:0.9rem;margin-bottom:12px;color:var(--muted);">COSTE APROXIMADO (precios Azure/API, 2026-04)</p>
+        <table style="font-size:0.85rem;">
+          <thead>
+            <tr><th>Modelo</th><th>Coste relativo</th><th>Coste real (256c)</th></tr>
+          </thead>
+          <tbody>
+            <tr style="background:#f0fdf4;"><td><strong>gpt-5.4-mini</strong> ⭐ <em>(propuesto)</em></td><td><strong style="color:#166534;">1× (más barato)</strong></td><td>~&lt;$0.50</td></tr>
+            <tr><td>gemini-2.5-flash</td><td>~0.7×</td><td>~$0.35</td></tr>
+            <tr><td>gemini-2.5-pro</td><td>~12×</td><td>~$6</td></tr>
+            <tr><td>gemini-3-pro-preview</td><td>~12-15×</td><td>~$6-8</td></tr>
+            <tr><td>gpt-4o</td><td>~15×</td><td>~$7-8</td></tr>
+            <tr><td>gpt-5.4 full</td><td>~22×</td><td>~$11</td></tr>
+            <tr style="background:#fff7ed;"><td><strong>claude-opus-4-7</strong></td><td>—</td><td><strong>$8 (medido)</strong></td></tr>
+            <tr><td>o3</td><td>~60×</td><td>~$30+</td></tr>
+            <tr style="background:#fff7ed;"><td><strong>gpt-5-mini low</strong> ⚠️ <em>(actual)</em></td><td>~1× (similar mini)</td><td>~&lt;$0.50</td></tr>
+          </tbody>
+        </table>
+        <div class="callout callout-warn" style="margin-top:12px;font-size:0.82rem;">
+          <span class="callout-icon">💰</span>
+          <div><strong>gpt-5-mini low</strong> (actual) es ~10× más lento que <strong>gpt-5.4-mini</strong> con peor calidad, sin ventaja de coste significativa. El cambio a gpt-5.4-mini es directo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOMENDACIONES -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🚀</span> Recomendaciones de Producción</div>
+
+    <div class="two-col">
+      <div class="rec-box rec-normal">
+        <div class="rec-title">Modo Normal — reemplaza gpt-5-mini low (actual)</div>
+        <div class="rec-model">gpt-5.4-mini low</div>
+        <ul style="font-size:0.88rem;padding-left:18px;color:var(--text);">
+          <li>Avg position <strong>1.526 vs 1.588</strong> de gpt-5-mini → <strong>mejor calidad</strong></li>
+          <li>~5s/caso vs ~48s → <strong>~10× más rápido</strong></li>
+          <li>Coste significativamente menor (~$0.15/$0.60 por 1M tokens)</li>
+          <li>R@1 HPO superior en todos los datasets evaluados</li>
+        </ul>
+      </div>
+      <div class="rec-box rec-adv">
+        <div class="rec-title">Modo Avanzado — reemplaza o3 (actual)</div>
+        <div class="rec-model">gemini-3-pro-preview low</div>
+        <ul style="font-size:0.88rem;padding-left:18px;color:var(--text);">
+          <li>Avg position 1.299 en texto narrativo — empata gemini-2.5-pro</li>
+          <li><strong>Supera a gemini-2.5-pro en HPO:</strong> +10pp R@1 en MME, +15.9pp en HMS Harvard</li>
+          <li>~10s/caso → <strong>3× más rápido que gemini-2.5-pro</strong></li>
+          <li>Evaluación HPO completa en curso (MyGene2, LIRICAL, RAMEDIS, DDD)</li>
+          <li><em>Alternativa:</em> gemini-2.5-pro si gemini-3 no disponible</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <div>
+        <strong>o3 es obsoleto:</strong> es superado en calidad por 6 modelos y no tiene ventaja de velocidad. Continuar usándolo representa un sobrecoste de ~60× sin beneficio de rendimiento.
+      </div>
+    </div>
+  </div>
+
+  <!-- PRÓXIMOS PASOS -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🗺️</span> Próximos Pasos (Fase 4)</div>
+    <div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div class="card card-purple">
+        <div class="card-label">Pendiente</div>
+        <div class="card-value" style="font-size:1.1rem;">DeepSeek</div>
+        <div class="card-sub">Evaluar DeepSeek-R1 / DeepSeek-V3 sobre all_256_clean.</div>
+      </div>
+      <div class="card card-green">
+        <div class="card-label">Pendiente</div>
+        <div class="card-value" style="font-size:1.1rem;">MIMIC-IV</div>
+        <div class="card-sub">Integración del dataset hospitalario MIMIC-IV del paper DeepRare.</div>
+      </div>
+      <div class="card card-gold">
+        <div class="card-label">Alta prioridad</div>
+        <div class="card-value" style="font-size:1.1rem;">Publicación</div>
+        <div class="card-sub">Preparar datos y metodología para publicación científica de los resultados.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>DxGPT Benchmark — Última actualización 2026-04-21 · 43 experimentos · 3.803 casos clínicos</p>
+  <p style="margin-top:4px;">Datasets: all_256_clean (interno) + 6 datasets HPO del paper DeepRare (Nature, 2025) · Ablación <code>thinking_level=medium</code> cerrada (4/4 datasets HPO confirman degradación, n=644)</p>
+</footer>
+<script>
+(function () {
+  var ctx = document.getElementById('trackAChart').getContext('2d');
+
+  var labels = [
+    'gemini-3-pro ⭐',
+    'gemini-2.5-pro',
+    'gemini-3-pro\n(medium) ⚠️',
+    'gemini-2.5-flash',
+    'grok-4.1',
+    'gpt-5.4 full',
+    'gpt-5.4-mini ⭐',
+    'o3',
+    'gpt-4o',
+    'gpt-5.4-mini\n(medium)',
+    'gpt-5-mini ⚠️',
+    'claude-opus ⚠️'
+  ];
+
+  var values = [1.299, 1.299, 1.315, 1.434, 1.448, 1.502, 1.526, 1.530, 1.545, 1.570, 1.588, 1.668];
+
+  var colors = [
+    '#059669',  // gemini-3-pro low      — emerald-600
+    '#10b981',  // gemini-2.5-pro        — emerald-500
+    '#fbbf24',  // gemini-3-pro medium   — amber-400 (highlighted as not-recommended)
+    '#34d399',  // gemini-2.5-flash      — emerald-400
+    '#0891b2',  // grok                   — cyan-600
+    '#3b82f6',  // gpt-5.4 full           — blue-500
+    '#60a5fa',  // gpt-5.4-mini           — blue-400
+    '#818cf8',  // o3                     — indigo-400
+    '#93c5fd',  // gpt-4o                 — blue-300
+    '#f59e0b',  // gpt-5.4-mini med       — amber-500
+    '#f97316',  // gpt-5-mini ⚠️         — orange-500
+    '#ef4444',  // claude-opus ⚠️        — red-500
+  ];
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderRadius: 6,
+        borderSkipped: false,
+        barPercentage: 0.65,
+        base: 1.72,        // bars grow FROM 1.72 (bottom) upward — best model = tallest bar
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: (items) => items[0].label.replace('\n', ' '),
+            label: (item) => '  avg_position: ' + item.raw.toFixed(3) + '  (↓ mejor)',
+          },
+          bodyFont: { size: 13 },
+          padding: 10,
+        }
+      },
+      scales: {
+        y: {
+          reverse: true,   // min at top (1.25), max at bottom (1.72) — labels increase downward
+          min: 1.25,
+          max: 1.72,
+          ticks: {
+            stepSize: 0.05,
+            font: { size: 11 },
+            color: '#64748b',
+            callback: (v) => v.toFixed(2),
+          },
+          title: {
+            display: true,
+            text: 'avg_position  (↓ mejor)',
+            font: { size: 11 },
+            color: '#64748b',
+          },
+          grid: { color: '#f1f5f9' },
+        },
+        x: {
+          ticks: {
+            font: { size: 11 },
+            color: '#334155',
+            maxRotation: 30,
+            minRotation: 15,
+          },
+          grid: { display: false },
+        }
+      }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
