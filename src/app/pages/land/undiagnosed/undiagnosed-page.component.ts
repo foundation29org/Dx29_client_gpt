@@ -483,19 +483,22 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 //ask for confirmation
                 const config = this.brandingService.getBrandingConfig();
                 Swal.fire({
-                    title: this.translate.instant("land.Do you want to start over"),
+                    title: this.translate.instant("land.Leaving report title"),
+                    text: this.translate.instant("land.Leaving report message"),
                     icon: 'info',
                     showCancelButton: true,
                     confirmButtonColor: config?.colors.primary || '#B30000',
                     cancelButtonColor: '#B0B6BB',
-                    confirmButtonText: this.translate.instant("generics.Yes"),
-                    cancelButtonText: this.translate.instant("generics.No"),
+                    confirmButtonText: this.translate.instant("land.Start over"),
+                    cancelButtonText: this.translate.instant("land.Stay on report"),
                     showLoaderOnConfirm: true,
                     allowOutsideClick: false,
                     reverseButtons: true
                 }).then((result) => {
                     if (result.value) {
                         this.newPatient();
+                    } else {
+                        history.pushState({ step: 2 }, 'DxGPT');
                     }
                 });
             }else if(this.currentStep == 1 && this.selectedFiles.length > 0){
