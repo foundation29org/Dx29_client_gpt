@@ -11,7 +11,7 @@ export class LangService {
     langs: any = [];
     
     // Lista de idiomas válidos (debe coincidir con la lista en navbar-dx29.component.ts)
-    private static readonly VALID_LANG_CODES = ['de', 'en', 'es', 'fr', 'pl', 'ru', 'uk', 'ca'];
+    private static readonly VALID_LANG_CODES = ['de', 'en', 'es', 'fr', 'pl', 'pt', 'ru', 'uk', 'ca'];
 
     constructor(public translate : TranslateService, private http: HttpClient, public insightsService: InsightsService) {}
 

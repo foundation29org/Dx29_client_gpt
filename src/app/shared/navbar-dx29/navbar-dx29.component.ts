@@ -228,6 +228,10 @@ export class NavbarD29Component implements OnDestroy {
         "code": "pl"
       },
       {
+        "name": "Português",
+        "code": "pt"
+      },
+      {
         "name": "Русский",
         "code": "ru"
       },
