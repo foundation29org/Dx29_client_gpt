@@ -15,7 +15,7 @@ export class PdfMakeService {
     const logoFooterBase64 = await this.getBase64ImageFromURL('assets/img/logo-foundation-twentynine-footer.png');
 
     const currentDate = new Date().toLocaleDateString(
-      lang === 'es' ? 'es-ES' : lang === 'fr' ? 'fr-FR' : lang === 'ru' ? 'ru-RU' : lang === 'uk' ? 'uk-UA' : lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : lang === 'pt' ? 'pt-PT' : 'en-US',
+      lang === 'es' ? 'es-ES' : lang === 'fr' ? 'fr-FR' : lang === 'ru' ? 'ru-RU' : lang === 'uk' ? 'uk-UA' : lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : lang === 'pt' ? 'pt-PT' : lang === 'hi' ? 'hi-IN' : 'en-US',
       { year: 'numeric', month: 'long', day: 'numeric' }
     );
 
@@ -135,7 +135,7 @@ export class PdfMakeService {
         { text: this.translate.instant('land.diagnosed.timeline.footer1'), style: 'footerText' },
         { text: this.translate.instant('land.diagnosed.timeline.footer2'), style: 'footerText' },
         { text: this.translate.instant('land.diagnosed.timeline.footer3'), style: 'footerText' },
-        ...(lang === 'es' || lang === 'fr' || lang === 'pt'
+        ...(lang === 'es' || lang === 'fr' || lang === 'pt' || lang === 'hi'
           ? [{ text: this.translate.instant('land.diagnosed.timeline.footer4'), style: 'footerText' }]
           : []),
         {

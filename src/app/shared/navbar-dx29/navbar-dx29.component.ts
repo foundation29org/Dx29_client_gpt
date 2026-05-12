@@ -224,6 +224,10 @@ export class NavbarD29Component implements OnDestroy {
         "code": "fr"
       },
       {
+        "name": "हिन्दी",
+        "code": "hi"
+      },
+      {
         "name": "Polski",
         "code": "pl"
       },
