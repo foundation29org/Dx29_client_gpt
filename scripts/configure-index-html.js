@@ -25,7 +25,6 @@
  *   salud-gpt - SALUD-GPT
  *   sermas-gpt - SermasGPT
  *   iasalut-ajuda-dx - IASalutAjudaDx
- *   canarias-gpt - CanariasGPT
  * 
  * NOTA:
  * ============================================================
@@ -46,7 +45,6 @@
  * node scripts/configure-index-html.js salud-gpt
  * node scripts/configure-index-html.js sermas-gpt
  * node scripts/configure-index-html.js iasalut-ajuda-dx
- * node scripts/configure-index-html.js canarias-gpt
  */
 
 const fs = require('fs');
@@ -97,15 +95,6 @@ const TENANT_CONFIGS = {
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
     favicon: 'favicon-iasalut.ico'
-  },
-  'CanariasGPT': {
-    name: 'CanariasGPT',
-    title: 'CanariasGPT: Free AI Clinical Decision Support for Complex & Rare Diseases',
-    description: 'CanariasGPT is an advanced AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.',
-    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
-    ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
-    ogUrl: 'https://dxgpt.app',
-    favicon: 'favicon-canarias.ico'
   }
 };
 
@@ -270,7 +259,6 @@ Tenants disponibles:
   salud-gpt - SALUD-GPT
   sermas-gpt - SermasGPT
   iasalut-ajuda-dx - IASalutAjudaDx
-  canarias-gpt - CanariasGPT
 
 Opciones:
   --dry-run    Solo muestra qué cambios se harían
@@ -285,7 +273,6 @@ Ejemplos:
   node scripts/configure-index-html.js salud-gpt
   node scripts/configure-index-html.js sermas-gpt
   node scripts/configure-index-html.js iasalut-ajuda-dx
-  node scripts/configure-index-html.js canarias-gpt
   `);
   process.exit(0);
 }

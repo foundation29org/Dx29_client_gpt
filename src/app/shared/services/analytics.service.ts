@@ -139,7 +139,7 @@ export class AnalyticsService {
     if (this.hotjarLoaded || !this.document) return;
     
     // Hotjar solo para tenants habilitados en producción
-    const tenantsWithHotjar = ['dxgpt-prod', 'dxeugpt', 'dxeugpt-prod', 'canarias-gpt-prod'];
+    const tenantsWithHotjar = ['dxgpt-prod', 'dxeugpt', 'dxeugpt-prod'];
     if (!environment.production || !tenantsWithHotjar.includes(environment.tenantId)) return;
 
     const hotjarSiteId = environment.hotjarSiteId;
@@ -179,7 +179,6 @@ export class AnalyticsService {
       'salud-gpt-prod': 'G-RT0R7199TB',
       'sermas-gpt-prod': 'G-XHQLTXXT8X',
       'iasalut-ajuda-dx-prod': 'G-PSF306RXEL',
-      'canarias-gpt-prod': 'G-Q3Z17816F8'
     };
     return gaIds[environment.tenantId] || null;
   }
