@@ -1275,7 +1275,7 @@
   },
   "cookie": {
     "header": "We use cookies",
-    "message": "This application uses cookies to improve your experience. In the European version, cookies require your explicit consent before being activated.",
+    "message": "We use cookies to improve your experience.",
     "dismiss": "Got it!",
     "allow": "Allow cookies",
     "deny": "Decline",
