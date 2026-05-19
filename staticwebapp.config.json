@@ -6,7 +6,9 @@
       "/css/*",
       "/js/*",
       "/favicon.ico",
-      "/robots.txt"
+      "/robots.txt",
+      "/sitemap.xml",
+      "/llms.txt"
     ]
   }
 } 

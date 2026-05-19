@@ -1940,12 +1940,12 @@ body {
   text-align: justify;
 }
 
-// SEO Content Block - Rich content for search engines (visible and aesthetically pleasing)
+// SEO Content Block - useful, visible content for users and crawlers.
 .seo-content-block {
-  background-color: #ffffff !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
   color: #333333;
   margin-top: 0;
-  padding: 3rem 0;
+  padding: 4rem 0;
   
   .container {
     background-color: transparent !important;
@@ -1956,26 +1956,35 @@ body {
     line-height: 1.7;
     
     .seo-title {
-      font-size: 1.75rem;
-      font-weight: 600;
+      font-size: clamp(1.8rem, 3vw, 2.35rem);
+      font-weight: 700;
       color: #1c202a;
       margin-bottom: 1.25rem;
       margin-top: 0;
+      letter-spacing: -0.03em;
+    }
+
+    .seo-intro-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 2.75rem;
     }
     
     .seo-subtitle {
-      font-size: 1.35rem;
-      font-weight: 600;
+      font-size: 1.45rem;
+      font-weight: 700;
       color: #1c202a;
-      margin-top: 2rem;
+      margin-top: 2.5rem;
       margin-bottom: 1rem;
+      letter-spacing: -0.02em;
     }
     
     .seo-description {
       font-size: 1.05rem;
-      color: #555555;
+      color: #4b5563;
       margin-bottom: 1rem;
-      text-align: justify;
       line-height: 1.7;
     }
     
@@ -1987,21 +1996,44 @@ body {
     }
     
     .seo-steps-list {
-      padding-left: 1.5rem;
       margin: 1.5rem 0;
+      padding-left: 0;
       counter-reset: step-counter;
+
+      &.seo-steps-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
       
       .seo-step {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+        display: flex;
+        gap: 0.85rem;
         font-size: 1.05rem;
-        color: #555555;
-        margin-bottom: 1.25rem;
+        color: #4b5563;
         line-height: 1.7;
-        padding-left: 0.5rem;
-        list-style-type: decimal;
-        
-        &:last-child {
-          margin-bottom: 0;
-        }
+        list-style: none;
+        margin: 0;
+        padding: 1rem;
+      }
+
+      .seo-step-number {
+        align-items: center;
+        background: color-mix(in srgb, var(--accent-color, #B30000) 12%, #ffffff);
+        border-radius: 999px;
+        color: var(--accent-color, #B30000);
+        display: inline-flex;
+        flex: 0 0 auto;
+        font-weight: 800;
+        height: 2rem;
+        justify-content: center;
+        line-height: 1;
+        margin-top: 0.1rem;
+        width: 2rem;
       }
     }
     
@@ -2011,13 +2043,83 @@ body {
       margin-top: 1.5rem;
       font-style: italic;
     }
+
+    .seo-faq-section {
+      border-top: 1px solid #e5e7eb;
+      margin-top: 3rem;
+      padding-top: 1rem;
+    }
+
+    .seo-faq-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 1.25rem;
+    }
+
+    .seo-faq-item {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 1.2rem;
+
+      h4 {
+        color: #111827;
+        font-size: 1.03rem;
+        font-weight: 700;
+        line-height: 1.35;
+        margin-bottom: 0.65rem;
+      }
+
+      p {
+        color: #4b5563;
+        display: -webkit-box;
+        font-size: 0.96rem;
+        line-height: 1.6;
+        margin: 0;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        line-clamp: 5;
+      }
+    }
+
+    .seo-internal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+
+      a {
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        border-radius: 999px;
+        color: #374151;
+        font-weight: 600;
+        padding: 0.55rem 1rem;
+        text-decoration: none;
+        transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+
+        &:hover {
+          border-color: var(--accent-color, #B30000);
+          color: var(--accent-color, #B30000);
+          transform: translateY(-1px);
+        }
+      }
+    }
   }
   
   // Responsive adjustments
   @media (max-width: 768px) {
-    padding: 2rem 0;
+    padding: 2.5rem 0;
     
     .seo-text-content {
+      .seo-intro-grid,
+      .seo-steps-list.seo-steps-grid,
+      .seo-faq-grid {
+        grid-template-columns: 1fr;
+      }
+
       .seo-title {
         font-size: 1.5rem;
       }
@@ -2028,7 +2130,6 @@ body {
       
       .seo-description {
         font-size: 1rem;
-        text-align: left;
       }
       
       .seo-intro {
@@ -2038,10 +2139,10 @@ body {
       .seo-steps-list {
         padding-left: 1.25rem;
         margin: 1.25rem 0;
+        padding-left: 0;
         
         .seo-step {
           font-size: 1rem;
-          margin-bottom: 1rem;
         }
       }
       

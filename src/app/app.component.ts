@@ -148,12 +148,10 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.meta.addTags([
-      { name: 'keywords', content: this.translate.instant("seo.home.keywords") },
-      { name: 'description', content: this.translate.instant("seo.home.description") },
-      { name: 'title', content: this.translate.instant("seo.home.title") },
-      { name: 'robots', content: 'index, follow' }
-    ]);
+    this.meta.updateTag({ name: 'keywords', content: this.translate.instant("seo.home.keywords") });
+    this.meta.updateTag({ name: 'description', content: this.translate.instant("seo.home.description") });
+    this.meta.updateTag({ name: 'title', content: this.translate.instant("seo.home.title") });
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
 
     // Listener para el evento loadLang que se emite desde navbar-dx29
     this.eventsService.on('loadLang', async (lang) => {

@@ -327,35 +327,103 @@
   <app-testimonials></app-testimonials>
 </div>
 
-<!-- SEO Block: Rich content for search engines and AI crawlers - Always visible for SEO -->
+<!-- SEO Block: visible product content for users, search engines, and AI crawlers -->
 <section class="seo-content-block">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="seo-text-content">
-          <h2 class="seo-title">{{'land.seoBlock.title' | translate}}</h2>
-          <p class="seo-description" *ngIf="!isEuMode()">{{'land.seoBlock.descriptionP1' | translate}}</p>
-          <p class="seo-description" *ngIf="!isEuMode()">{{'land.seoBlock.descriptionP2' | translate}}</p>
-          <p class="seo-description" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEuP1' | translate}}</p>
-          <p class="seo-description" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEuP2' | translate}}</p>
+          <div class="seo-intro-grid">
+            <div>
+              <h2 class="seo-title">{{'land.seoBlock.title' | translate}}</h2>
+              <p class="seo-description" *ngIf="!isEuMode()">{{'land.seoBlock.descriptionP1' | translate}}</p>
+              <p class="seo-description" *ngIf="!isEuMode()">{{'land.seoBlock.descriptionP2' | translate}}</p>
+              <p class="seo-description" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEuP1' | translate}}</p>
+              <p class="seo-description" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEuP2' | translate}}</p>
+            </div>
+          </div>
           
           <h3 class="seo-subtitle">{{'land.seoBlock.howItWorksTitle' | translate}}</h3>
           <p class="seo-intro" *ngIf="!isEuMode()">{{'land.seoBlock.howItWorksIntro' | translate}}</p>
           <p class="seo-intro" *ngIf="isEuMode()">{{'land.seoBlock.howItWorksIntroEu' | translate}}</p>
-          <ol class="seo-steps-list" *ngIf="!isEuMode()">
-            <li class="seo-step">{{'land.seoBlock.howItWorksStep1' | translate}}</li>
-            <li class="seo-step">{{'land.seoBlock.howItWorksStep2' | translate}}</li>
-            <li class="seo-step">{{'land.seoBlock.howItWorksStep3' | translate}}</li>
-            <li class="seo-step">{{'land.seoBlock.howItWorksStep4' | translate}}</li>
+          <ol class="seo-steps-list seo-steps-grid" *ngIf="!isEuMode()">
+            <li class="seo-step">
+              <span class="seo-step-number">1</span>
+              {{'land.seoBlock.howItWorksStep1' | translate}}
+            </li>
+            <li class="seo-step">
+              <span class="seo-step-number">2</span>
+              {{'land.seoBlock.howItWorksStep2' | translate}}
+            </li>
+            <li class="seo-step">
+              <span class="seo-step-number">3</span>
+              {{'land.seoBlock.howItWorksStep3' | translate}}
+            </li>
+            <li class="seo-step">
+              <span class="seo-step-number">4</span>
+              {{'land.seoBlock.howItWorksStep4' | translate}}
+            </li>
           </ol>
-          <ol class="seo-steps-list" *ngIf="isEuMode()">
-            <li class="seo-step">{{'land.seoBlock.howItWorksStep1Eu' | translate}}</li>
-            <li class="seo-step">{{'land.seoBlock.howItWorksStep2Eu' | translate}}</li>
-            <li class="seo-step">{{'land.seoBlock.howItWorksStep3Eu' | translate}}</li>
-            <li class="seo-step">{{'land.seoBlock.howItWorksStep4Eu' | translate}}</li>
+          <ol class="seo-steps-list seo-steps-grid" *ngIf="isEuMode()">
+            <li class="seo-step">
+              <span class="seo-step-number">1</span>
+              {{'land.seoBlock.howItWorksStep1Eu' | translate}}
+            </li>
+            <li class="seo-step">
+              <span class="seo-step-number">2</span>
+              {{'land.seoBlock.howItWorksStep2Eu' | translate}}
+            </li>
+            <li class="seo-step">
+              <span class="seo-step-number">3</span>
+              {{'land.seoBlock.howItWorksStep3Eu' | translate}}
+            </li>
+            <li class="seo-step">
+              <span class="seo-step-number">4</span>
+              {{'land.seoBlock.howItWorksStep4Eu' | translate}}
+            </li>
           </ol>
           <p class="seo-footer" *ngIf="!isEuMode()">{{'land.seoBlock.howItWorksFooter' | translate}}</p>
           <p class="seo-footer" *ngIf="isEuMode()">{{'land.seoBlock.howItWorksFooterEu' | translate}}</p>
+
+          <div class="seo-faq-section" *ngIf="!isEuMode()">
+            <h3 class="seo-subtitle">{{'land.faqs.title' | translate}}</h3>
+            <div class="seo-faq-grid">
+              <article class="seo-faq-item">
+                <h4>{{'land.faqs.q1' | translate}}</h4>
+                <p>{{'land.faqs.a1' | translate}}</p>
+              </article>
+              <article class="seo-faq-item">
+                <h4>{{'land.faqs.q2' | translate}}</h4>
+                <p>{{'land.faqs.a2' | translate}}</p>
+              </article>
+              <article class="seo-faq-item">
+                <h4>{{'land.faqs.q3' | translate}}</h4>
+                <p>{{'land.faqs.a3' | translate}}</p>
+              </article>
+              <article class="seo-faq-item">
+                <h4>{{'land.faqs.q6' | translate}}</h4>
+                <p>{{'land.faqs.a6' | translate}}</p>
+              </article>
+              <article class="seo-faq-item">
+                <h4>{{'land.faqs.q12' | translate}}</h4>
+                <p>{{'land.faqs.a12' | translate}}</p>
+              </article>
+              <article class="seo-faq-item">
+                <h4>{{'land.faqs.q13' | translate}}</h4>
+                <p>{{'land.faqs.a13' | translate}}</p>
+              </article>
+              <article class="seo-faq-item">
+                <h4>{{'land.faqs.q14' | translate}}</h4>
+                <p>{{'land.faqs.a14' | translate}}</p>
+              </article>
+            </div>
+            <nav class="seo-internal-links" aria-label="DxGPT information pages">
+              <a routerLink="/faq">FAQs</a>
+              <a routerLink="/aboutus">{{'menu.About us' | translate}}</a>
+              <a routerLink="/privacy-policy">{{'menu.Privacy' | translate}}</a>
+              <a routerLink="/collaboration">{{'menu.Collaboration' | translate}}</a>
+            </nav>
+          </div>
         </div>
       </div>
     </div>
