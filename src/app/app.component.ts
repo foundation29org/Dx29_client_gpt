@@ -34,12 +34,15 @@ export class AppComponent implements OnInit, OnDestroy {
   private isOpenSwal: boolean = false;
   private requiresCookieConsent: boolean = false;
   private hasDiagnostics: boolean = false;
+  private touchGuardEnabled: boolean = false;
   private statusChangeSubscription?: Subscription;
   private cookieInitializedSubscription?: Subscription;
   private cookieConsentInitialized: boolean = false;
   private cookieConsentPopupInitialized: boolean = false;
   private cookieConsentScriptPromise?: Promise<void>;
   private cookieConsentConfig?: NgcCookieConsentConfig;
+  private readonly boundTouchStart = (event: TouchEvent) => this.onTouchStart(event);
+  private readonly boundTouchMove = (event: TouchEvent) => this.onTouchMove(event);
 
   constructor(
     @Inject(DOCUMENT) private document: Document, 
@@ -330,12 +333,11 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     window.addEventListener('scroll', this.onScroll.bind(this), true);
-      document.addEventListener('touchstart', this.onTouchStart.bind(this), { passive: true });
-      document.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
 
     // Escuchar cuando hay diagnósticos activos para mostrar popup de confirmación
     this.eventsService.on('hasDiagnostics', (hasDiagnostics: boolean) => {
       this.hasDiagnostics = hasDiagnostics;
+      this.updateTouchGuard(hasDiagnostics);
     });
   }
 
@@ -352,6 +354,21 @@ export class AppComponent implements OnInit, OnDestroy {
   private onTouchStart(e: TouchEvent) {
     this.startY = e.touches[0].pageY;
     this.startX = e.touches[0].pageX;
+  }
+
+  private updateTouchGuard(shouldEnable: boolean) {
+    if (shouldEnable && !this.touchGuardEnabled) {
+      document.addEventListener('touchstart', this.boundTouchStart, { passive: true });
+      document.addEventListener('touchmove', this.boundTouchMove, { passive: false });
+      this.touchGuardEnabled = true;
+      return;
+    }
+
+    if (!shouldEnable && this.touchGuardEnabled) {
+      document.removeEventListener('touchstart', this.boundTouchStart);
+      document.removeEventListener('touchmove', this.boundTouchMove);
+      this.touchGuardEnabled = false;
+    }
   }
 
   private onTouchMove(e: TouchEvent) {
@@ -407,6 +424,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.cookieInitializedSubscription) {
       this.cookieInitializedSubscription.unsubscribe();
     }
+    this.updateTouchGuard(false);
   }
 
   /**
