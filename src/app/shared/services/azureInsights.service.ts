@@ -8,6 +8,7 @@ import { environment } from 'environments/environment';
 export class InsightsService {
   private appInsights: ApplicationInsights;
   private initialized = false;
+  private queuedTelemetry: Array<() => void> = [];
 
   constructor() {
     this.appInsights = new ApplicationInsights({ config: {
@@ -37,14 +38,25 @@ export class InsightsService {
     if (this.initialized) return;
     this.appInsights.loadAppInsights();
     this.initialized = true;
+    this.flushQueuedTelemetry();
+  }
+
+  private enqueueTelemetry(sendTelemetry: () => void): void {
+    if (this.initialized) {
+      sendTelemetry();
+      return;
+    }
+
+    this.queuedTelemetry.push(sendTelemetry);
+  }
+
+  private flushQueuedTelemetry(): void {
+    const queuedTelemetry = [...this.queuedTelemetry];
+    this.queuedTelemetry = [];
+    queuedTelemetry.forEach(sendTelemetry => sendTelemetry());
   }
 
   trackEvent(eventName: string, properties?: { [key: string]: any }) {
-    // Asegurar que App Insights esté inicializado
-    if (!this.initialized) {
-      this.initialize();
-    }
-
     // Siempre incluir tenantId en las propiedades
     const enhancedProperties = {
       ...properties,
@@ -53,20 +65,17 @@ export class InsightsService {
       environment: environment.production ? 'production' : 'development'
     };
 
-    if(environment.production){
-      this.appInsights.trackEvent({ name: eventName }, enhancedProperties);
-    }else{
-      this.appInsights.trackEvent({ name: eventName }, enhancedProperties);
-      console.log(`[${environment.tenantId}] ${eventName}`, enhancedProperties);
-    }
+    this.enqueueTelemetry(() => {
+      if(environment.production){
+        this.appInsights.trackEvent({ name: eventName }, enhancedProperties);
+      }else{
+        this.appInsights.trackEvent({ name: eventName }, enhancedProperties);
+        console.log(`[${environment.tenantId}] ${eventName}`, enhancedProperties);
+      }
+    });
   }
 
   trackPageView(pageName: string, properties?: { [key: string]: any }) {
-    // Asegurar que App Insights esté inicializado
-    if (!this.initialized) {
-      this.initialize();
-    }
-
     const enhancedProperties = {
       ...properties,
       tenantId: environment.tenantId,
@@ -74,11 +83,13 @@ export class InsightsService {
       environment: environment.production ? 'production' : 'development'
     };
 
-    if(environment.production){
-      this.appInsights.trackPageView({ name: pageName, properties: enhancedProperties });
-    }else{
-      console.log(`[${environment.tenantId}] Page View: ${pageName}`, enhancedProperties);
-    }
+    this.enqueueTelemetry(() => {
+      if(environment.production){
+        this.appInsights.trackPageView({ name: pageName, properties: enhancedProperties });
+      }else{
+        console.log(`[${environment.tenantId}] Page View: ${pageName}`, enhancedProperties);
+      }
+    });
   }
 
   trackException(exception) {
