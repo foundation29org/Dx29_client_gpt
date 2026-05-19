@@ -13,6 +13,7 @@ import { BrandingService } from './shared/services/branding.service';
 import { AnalyticsService } from './shared/services/analytics.service';
 
 import {
+  NgcCookieConsentConfig,
   NgcCookieConsentService,
   NgcStatusChangeEvent,
 } from "ngx-cookieconsent";
@@ -31,10 +32,14 @@ export class AppComponent implements OnInit, OnDestroy {
   private scrollPosition: number = 0;
   private ticking: boolean = false;
   private isOpenSwal: boolean = false;
-  private isEuMode: boolean = false;
+  private requiresCookieConsent: boolean = false;
   private hasDiagnostics: boolean = false;
   private statusChangeSubscription?: Subscription;
+  private cookieInitializedSubscription?: Subscription;
   private cookieConsentInitialized: boolean = false;
+  private cookieConsentPopupInitialized: boolean = false;
+  private cookieConsentScriptPromise?: Promise<void>;
+  private cookieConsentConfig?: NgcCookieConsentConfig;
 
   constructor(
     @Inject(DOCUMENT) private document: Document, 
@@ -67,23 +72,96 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Inicializa el sistema de cookies según el modo (EU o no-EU)
-   * - EU mode: Muestra banner opt-in, carga analytics solo tras consentimiento
-   * - Non-EU mode: Carga analytics inmediatamente (sin banner)
+   * Inicializa el sistema de cookies según la ubicación probable del usuario.
+   * - Europa: muestra banner opt-in y carga analytics solo tras consentimiento.
+   * - Resto: carga analytics inmediatamente sin mostrar el banner.
    */
   private initializeCookieConsent(): void {
     if (this.cookieConsentInitialized) return;
     this.cookieConsentInitialized = true;
 
-    this.isEuMode = this.brandingService.isEuMode();
+    this.requiresCookieConsent = this.shouldRequireCookieConsent();
 
-    if (this.isEuMode) {
-      // EU MODE: GDPR compliance - requiere consentimiento explícito
-      this.initializeEuModeCookies();
+    if (this.requiresCookieConsent) {
+      void this.initializeEuModeCookies();
     } else {
-      // NON-EU MODE: Cargar analytics inmediatamente (carga diferida, sin esperar consentimiento)
       this.analyticsService.setCookieConsent(true);
     }
+  }
+
+  /**
+   * Muestra consentimiento solo para el DxGPT público:
+   * - tenant europeo explícito (euMode)
+   * - tenant normal dxgpt cuando el usuario parece estar en Europa
+   *
+   * Los tenants internos sanitarios no cargan marketing analytics y no necesitan este banner.
+   */
+  private shouldRequireCookieConsent(): boolean {
+    if (this.brandingService.isEuMode()) return true;
+
+    const isPublicDxgptTenant = this.brandingService.getCurrentTenant() === 'dxgpt';
+    if (!isPublicDxgptTenant) return false;
+
+    return this.isLikelyEuropeanUser();
+  }
+
+  /**
+   * Heurística local y sin llamadas externas. Para cumplimiento estricto convendría
+   * resolverlo en backend/CDN por país, pero evita geolocation de terceros en el arranque.
+   */
+  private isLikelyEuropeanUser(): boolean {
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    return timeZone.startsWith('Europe/') ||
+      timeZone === 'Africa/Ceuta' ||
+      timeZone === 'Atlantic/Canary' ||
+      timeZone === 'Atlantic/Madeira' ||
+      timeZone === 'Atlantic/Azores' ||
+      timeZone === 'Atlantic/Faroe' ||
+      timeZone === 'Atlantic/Reykjavik' ||
+      timeZone === 'Asia/Cyprus' ||
+      timeZone === 'Asia/Famagusta' ||
+      timeZone === 'Asia/Nicosia';
+  }
+
+  private async loadCookieConsentScript(): Promise<void> {
+    if (typeof window === 'undefined' || (window as any).cookieconsent) return;
+
+    if (!this.cookieConsentScriptPromise) {
+      this.cookieConsentScriptPromise = new Promise<void>((resolve, reject) => {
+        const script = this.document.createElement('script');
+        script.src = 'assets/js/cookieconsent.min.js';
+        script.async = true;
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error('Could not load cookieconsent.min.js'));
+        this.document.body.appendChild(script);
+      });
+    }
+
+    return this.cookieConsentScriptPromise;
+  }
+
+  private getCookieConsentConfig(): NgcCookieConsentConfig {
+    if (this.cookieConsentConfig) return this.cookieConsentConfig;
+
+    this.cookieConsentConfig = {
+      cookie: {
+        domain: window.location.hostname
+      },
+      palette: {
+        popup: {
+          background: '#fff'
+        },
+        button: {
+          background: '#000000'
+        }
+      },
+      theme: 'edgeless',
+      type: 'opt-in',
+      enabled: true,
+      revokable: true
+    } as NgcCookieConsentConfig;
+
+    return this.cookieConsentConfig;
   }
 
   /**
@@ -92,27 +170,43 @@ export class AppComponent implements OnInit, OnDestroy {
    * - Suscribe a eventos de cambio de estado
    * - Verifica si ya existe consentimiento previo
    */
-  private initializeEuModeCookies(): void {
+  private async initializeEuModeCookies(): Promise<void> {
     console.log('Inicializando modo EU (GDPR) para cookies');
 
+    try {
+      await this.loadCookieConsentScript();
+    } catch (error) {
+      console.warn('No se pudo cargar el banner de consentimiento de cookies', error);
+      this.analyticsService.setCookieConsent(false);
+      return;
+    }
+
+    const config = this.getCookieConsentConfig();
+
     // Configurar el cookie consent como opt-in y habilitarlo
-    this.ccService.getConfig().type = 'opt-in';
-    this.ccService.getConfig().enabled = true;
-    this.ccService.getConfig().revokable = true; // Permitir cambiar de opinión en EU mode
-    this.ccService.getConfig().cookie.domain = window.location.hostname;
+    config.type = 'opt-in';
+    config.enabled = true;
+    config.revokable = true; // Permitir cambiar de opinión en Europa
+    config.cookie.domain = window.location.hostname;
 
     // Suscribirse a cambios de estado del consentimiento
-    this.statusChangeSubscription = this.ccService.statusChange$.subscribe(
-      (event: NgcStatusChangeEvent) => {
-        this.handleCookieConsentChange(event);
-      }
-    );
+    if (!this.statusChangeSubscription) {
+      this.statusChangeSubscription = this.ccService.statusChange$.subscribe(
+        (event: NgcStatusChangeEvent) => {
+          this.handleCookieConsentChange(event);
+        }
+      );
+    }
 
-    // Verificar si ya existe consentimiento previo guardado
-    const existingConsent = this.ccService.hasConsented();
-    if (existingConsent) {
-      console.log('Consentimiento de cookies existente detectado');
-      this.analyticsService.setCookieConsent(true);
+    if (!this.cookieInitializedSubscription) {
+      this.cookieInitializedSubscription = this.ccService.initialized$.subscribe(() => {
+        this.cookieConsentPopupInitialized = true;
+
+        if (this.ccService.hasConsented()) {
+          console.log('Consentimiento de cookies existente detectado');
+          this.analyticsService.setCookieConsent(true);
+        }
+      });
     }
 
     // Cargar traducciones del banner
@@ -148,12 +242,10 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.meta.addTags([
-      { name: 'keywords', content: this.translate.instant("seo.home.keywords") },
-      { name: 'description', content: this.translate.instant("seo.home.description") },
-      { name: 'title', content: this.translate.instant("seo.home.title") },
-      { name: 'robots', content: 'index, follow' }
-    ]);
+    this.meta.updateTag({ name: 'keywords', content: this.translate.instant("seo.home.keywords") });
+    this.meta.updateTag({ name: 'description', content: this.translate.instant("seo.home.description") });
+    this.meta.updateTag({ name: 'title', content: this.translate.instant("seo.home.title") });
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
 
     // Listener para el evento loadLang que se emite desde navbar-dx29
     this.eventsService.on('loadLang', async (lang) => {
@@ -162,8 +254,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.titleService.setTitle(titulo);
       this.changeMeta();
 
-      // Solo actualizar el banner de cookies si estamos en EU mode
-      if (this.isEuMode) {
+      // Solo actualizar el banner si el usuario requiere consentimiento
+      if (this.requiresCookieConsent) {
         this.updateCookieBannerTranslations();
       }
     });
@@ -231,8 +323,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.changeMeta();
       localStorage.setItem('lang', lang);
 
-      // Solo actualizar el banner de cookies si estamos en EU mode
-      if (this.isEuMode) {
+      // Solo actualizar el banner si el usuario requiere consentimiento
+      if (this.requiresCookieConsent) {
         this.updateCookieBannerTranslations();
       }
     });
@@ -312,27 +404,39 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.statusChangeSubscription) {
       this.statusChangeSubscription.unsubscribe();
     }
+    if (this.cookieInitializedSubscription) {
+      this.cookieInitializedSubscription.unsubscribe();
+    }
   }
 
   /**
    * Actualiza las traducciones del banner de cookies (solo para EU mode)
    */
   private updateCookieBannerTranslations(): void {
+    if (!this.requiresCookieConsent || typeof window === 'undefined' || !(window as any).cookieconsent) return;
+
+    const config = this.getCookieConsentConfig();
+
     this.translate
       .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.policy'])
       .subscribe(data => {
-        this.ccService.getConfig().content = this.ccService.getConfig().content || {};
+        config.content = config.content || {};
         // Override default messages with the translated ones
-        this.ccService.getConfig().content.header = data['cookie.header'];
-        this.ccService.getConfig().content.message = data['cookie.message'];
-        this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
-        this.ccService.getConfig().content.allow = data['cookie.allow'];
-        this.ccService.getConfig().content.deny = data['cookie.deny'];
-        this.ccService.getConfig().content.link = data['cookie.link'];
-        this.ccService.getConfig().content.policy = data['cookie.policy'];
-        this.ccService.getConfig().content.href = 'https://dxgpt.app/cookies';
-        this.ccService.destroy(); // Remove previous cookie bar (with default messages)
-        this.ccService.init(this.ccService.getConfig()); // Update config with translated messages
+        config.content.header = data['cookie.header'];
+        config.content.message = data['cookie.message'];
+        config.content.dismiss = data['cookie.dismiss'];
+        config.content.allow = data['cookie.allow'];
+        config.content.deny = data['cookie.deny'];
+        config.content.link = data['cookie.link'];
+        config.content.policy = data['cookie.policy'];
+        config.content.href = 'https://dxgpt.app/cookies';
+
+        if (this.cookieConsentPopupInitialized) {
+          this.ccService.destroy(); // Remove previous cookie bar before reinitializing with new language
+          this.cookieConsentPopupInitialized = false;
+        }
+
+        this.ccService.init(config); // Update config with translated messages
       });
   }
 

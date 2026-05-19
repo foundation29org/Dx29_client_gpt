@@ -26,10 +26,14 @@
               "src/favicon-salud.ico",
               "src/favicon-sermas.ico",
               "src/favicon-iasalut.ico",
-              "src/favicon-canarias.ico",
               "src/sitemap.xml",
               "src/robots.txt",
-              "src/llms.txt"
+              "src/llms.txt",
+              {
+                "glob": "cookieconsent.min.js",
+                "input": "node_modules/cookieconsent/build",
+                "output": "assets/js"
+              }
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
@@ -38,9 +42,7 @@
               "node_modules/cookieconsent/build/cookieconsent.min.css",
               "src/assets/css/branding-variables.css"
             ],
-            "scripts": [
-              "node_modules/cookieconsent/build/cookieconsent.min.js"
-            ],
+            "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
@@ -378,79 +380,6 @@
                   "with": "src/environments/environment.dxeugpt.dev.ts"
                 }
               ]
-            },
-            "canarias-gpt": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.canarias-gpt.ts"
-                }
-              ]
-            },
-            "canarias-gpt-prod": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.canarias-gpt.prod.ts"
-                }
-              ]
-            },
-            "canarias-gpt-dev": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "optimization": false,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": true,
-              "extractLicenses": false,
-              "vendorChunk": true,
-              "buildOptimizer": false,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.canarias-gpt.dev.ts"
-                }
-              ]
             }
           }
         },
@@ -501,15 +430,6 @@
             },
             "dxeugpt-dev": {
               "buildTarget": "matngular:build:dxeugpt-dev"
-            },
-            "canarias-gpt": {
-              "buildTarget": "matngular:build:canarias-gpt"
-            },
-            "canarias-gpt-prod": {
-              "buildTarget": "matngular:build:canarias-gpt-prod"
-            },
-            "canarias-gpt-dev": {
-              "buildTarget": "matngular:build:canarias-gpt-dev"
             }
           }
         },
@@ -536,8 +456,7 @@
               "src/favicon.ico",
               "src/favicon-salud.ico",
               "src/favicon-sermas.ico",
-              "src/favicon-iasalut.ico",
-              "src/favicon-canarias.ico"
+              "src/favicon-iasalut.ico"
             ]
           }
         }

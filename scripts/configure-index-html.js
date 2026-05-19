@@ -25,7 +25,6 @@
  *   salud-gpt - SALUD-GPT
  *   sermas-gpt - SermasGPT
  *   iasalut-ajuda-dx - IASalutAjudaDx
- *   canarias-gpt - CanariasGPT
  * 
  * NOTA:
  * ============================================================
@@ -46,7 +45,6 @@
  * node scripts/configure-index-html.js salud-gpt
  * node scripts/configure-index-html.js sermas-gpt
  * node scripts/configure-index-html.js iasalut-ajuda-dx
- * node scripts/configure-index-html.js canarias-gpt
  */
 
 const fs = require('fs');
@@ -55,15 +53,18 @@ const fs = require('fs');
 const TENANT_CONFIGS = {
   'dxgpt': {
     name: 'DxGPT',
-    title: 'DxGPT: Free AI Clinical Decision Support for Complex & Rare Diseases',
-    description: 'DxGPT is an advanced AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.',
-    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
+    displayName: 'DxGPT',
+    title: 'DxGPT: Free AI Diagnostic Support for Complex & Rare Diseases',
+    description: 'Free AI diagnostic support by Foundation29. Structure symptoms and clinical histories into possible differential diagnosis hypotheses for professional review. GDPR compliant.',
+    socialDescription: 'Structure clinical descriptions into possible diagnostic hypotheses. A free diagnostic support tool for healthcare professionals, privacy-first.',
+    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, artificial intelligence, AI, genomics, disease, decision support',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
     favicon: 'favicon.ico'
   },
   'dxeugpt': {
     name: 'DxGPT EU',
+    displayName: 'DxGPT',
     title: 'DxGPT EU: Augmented intelligence to prepare your medical consultation',
     description: 'DxGPT EU is an augmented-intelligence tool to help you organize information for your medical consultation. It structures symptoms and possible clinical evaluation areas, highlighting what fits or not with your description. Multilingual, GDPR-ready, privacy-first, and free for clinicians and patients.',
     keywords: 'DxGPT, augmented intelligence, clinical preparation, structured evaluation, rare diseases, multilingual, GDPR, privacy-first, healthcare AI',
@@ -71,43 +72,49 @@ const TENANT_CONFIGS = {
     ogUrl: 'https://dxgpt.app',
     favicon: 'favicon.ico'
   },
-  'SALUD-GPT': {
+  'salud-gpt': {
     name: 'SALUD-GPT',
-    title: 'SALUD-GPT: Free AI Clinical Decision Support for Complex & Rare Diseases',
-    description: 'SALUD-GPT is an advanced AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.',
-    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
+    displayName: 'SALUD-GPT',
+    title: 'SALUD-GPT: AI Diagnostic Support for Healthcare Professionals',
+    description: 'SALUD-GPT is an AI-assisted diagnostic support tool for healthcare professionals. It helps structure clinical information into possible diagnostic hypotheses for professional review.',
+    keywords: 'SALUD-GPT, diagnostic support, healthcare professionals, clinical decision support, diagnostic hypotheses, artificial intelligence, AI',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
     favicon: 'favicon-salud.ico'
   },
-  'SermasGPT': {
+  'sermas-gpt': {
     name: 'SermasGPT',
-    title: 'SermasGPT: Free AI Clinical Decision Support for Complex & Rare Diseases',
-    description: 'SermasGPT is an advanced AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.',
-    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
+    displayName: 'SermasGPT',
+    title: 'SermasGPT: AI Diagnostic Support for Healthcare Professionals',
+    description: 'SermasGPT is an AI-assisted diagnostic support tool for healthcare professionals. It helps structure clinical information into possible diagnostic hypotheses for professional review.',
+    keywords: 'SermasGPT, diagnostic support, healthcare professionals, clinical decision support, diagnostic hypotheses, artificial intelligence, AI',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
     favicon: 'favicon-sermas.ico'
   },
-  'IASalutAjudaDx': {
+  'iasalut-ajuda-dx': {
     name: 'IASalutAjudaDx',
-    title: 'IASalutAjudaDx: Free AI Clinical Decision Support for Complex & Rare Diseases',
-    description: 'IASalutAjudaDx is an advanced AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.',
-    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
+    displayName: 'IASalutAjudaDx',
+    title: 'IASalutAjudaDx: AI Diagnostic Support for Healthcare Professionals',
+    description: 'IASalutAjudaDx is an AI-assisted diagnostic support tool for healthcare professionals. It helps structure clinical information into possible diagnostic hypotheses for professional review.',
+    keywords: 'IASalutAjudaDx, diagnostic support, healthcare professionals, clinical decision support, diagnostic hypotheses, artificial intelligence, AI',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
     favicon: 'favicon-iasalut.ico'
-  },
-  'CanariasGPT': {
-    name: 'CanariasGPT',
-    title: 'CanariasGPT: Free AI Clinical Decision Support for Complex & Rare Diseases',
-    description: 'CanariasGPT is an advanced AI-powered diagnostic decision support web application that helps physicians and patients with the diagnosis of rare and complex diseases.',
-    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, Artificial intelligence, AI, genomics, disease',
-    ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
-    ogUrl: 'https://dxgpt.app',
-    favicon: 'favicon-canarias.ico'
   }
 };
+
+const TENANT_ALIASES = {
+  'SALUD-GPT': 'salud-gpt',
+  'SermasGPT': 'sermas-gpt',
+  'IASalutAjudaDx': 'iasalut-ajuda-dx',
+  'DxGPT': 'dxgpt',
+  'DxGPT EU': 'dxeugpt'
+};
+
+function normalizeTenant(tenant) {
+  return TENANT_ALIASES[tenant] || tenant;
+}
 
 // Función para reemplazar texto en el HTML
 function replaceInHtml(content, config) {
@@ -121,68 +128,68 @@ function replaceInHtml(content, config) {
   
   // Reemplazar meta title
   modifiedContent = modifiedContent.replace(
-    /<meta name="title" content=".*?">/g,
+    /<meta name="title" content=".*?"\s*\/?>/g,
     `<meta name="title" content="${config.title}">`
   );
   
   // Reemplazar meta description
   modifiedContent = modifiedContent.replace(
-    /<meta name="description" content=".*?">/g,
-    `<meta name="description" content="${config.description}">`
+    /<meta name="description" content=".*?"\s*\/?>/g,
+    `<meta name="description" content="${config.description}" />`
   );
   
   // Reemplazar meta keywords
   modifiedContent = modifiedContent.replace(
-    /<meta name="keywords" content=".*?" \/>/g,
+    /<meta name="keywords" content=".*?"\s*\/?>/g,
     `<meta name="keywords" content="${config.keywords}" />`
   );
   
   // Reemplazar og:site_name
   modifiedContent = modifiedContent.replace(
-    /<meta property="og:site_name" content=".*?">/g,
-    `<meta property="og:site_name" content="${config.name}">`
+    /<meta property="og:site_name" content=".*?"\s*\/?>/g,
+    `<meta property="og:site_name" content="${config.name}" />`
   );
   
   // Reemplazar og:title
   modifiedContent = modifiedContent.replace(
-    /<meta property="og:title" content=".*?">/g,
-    `<meta property="og:title" content="${config.title}">`
+    /<meta property="og:title" content=".*?"\s*\/?>/g,
+    `<meta property="og:title" content="${config.title}" />`
   );
   
   // Reemplazar og:description
   modifiedContent = modifiedContent.replace(
-    /<meta property="og:description" content=".*?">/g,
-    `<meta property="og:description" content="${config.description}">`
+    /<meta property="og:description" content=".*?"\s*\/?>/g,
+    `<meta property="og:description" content="${config.socialDescription || config.description}" />`
   );
   
   // Reemplazar og:image
   modifiedContent = modifiedContent.replace(
-    /<meta property="og:image" content=".*?">/g,
-    `<meta property="og:image" content="${config.ogImage}">`
+    /<meta property="og:image" content=".*?"\s*\/?>/g,
+    `<meta property="og:image" content="${config.ogImage}" />`
   );
   
   // Reemplazar og:url
   modifiedContent = modifiedContent.replace(
-    /<meta property="og:url" content=".*?">/g,
-    `<meta property="og:url" content="${config.ogUrl}">`
+    /<meta property="og:url" content=".*?"\s*\/?>/g,
+    `<meta property="og:url" content="${config.ogUrl}" />`
   );
   
   // Reemplazar twitter:title
   modifiedContent = modifiedContent.replace(
-    /<meta name="twitter:title" content=".*?">/g,
-    `<meta name="twitter:title" content="${config.title}">`
+    /<meta name="twitter:title" content=".*?"\s*\/?>/g,
+    `<meta name="twitter:title" content="${config.title}" />`
   );
   
   // Reemplazar twitter:description
   modifiedContent = modifiedContent.replace(
-    /<meta name="twitter:description" content=".*?">/g,
-    `<meta name="twitter:description" content="${config.description}">`
+    /<meta name="twitter:description" content=".*?"\s*\/?>/g,
+    `<meta name="twitter:description" content="${config.socialDescription || config.description}" />`
   );
   
   // Reemplazar twitter:image
   modifiedContent = modifiedContent.replace(
-    /<meta name="twitter:image" content=".*?">/g,
-    `<meta name="twitter:image" content="${config.ogImage}">`
+    /<meta name="twitter:image" content=".*?"\s*\/?>/g,
+    `<meta name="twitter:image" content="${config.ogImage}" />`
   );
   
   // Reemplazar favicon
@@ -196,7 +203,8 @@ function replaceInHtml(content, config) {
 
 // Función principal
 function configureIndexHtml(tenant, dryRun = false) {
-  const config = TENANT_CONFIGS[tenant];
+  const normalizedTenant = normalizeTenant(tenant);
+  const config = TENANT_CONFIGS[normalizedTenant];
   
   if (!config) {
     console.error(`❌ Error: Tenant '${tenant}' no encontrado`);
@@ -211,7 +219,7 @@ function configureIndexHtml(tenant, dryRun = false) {
     process.exit(1);
   }
   
-  console.log(`🔄 Configurando index.html para tenant: ${tenant}`);
+  console.log(`🔄 Configurando index.html para tenant: ${normalizedTenant}`);
   console.log(`📋 Configuración:`, config.name);
   console.log('============================================================');
   
@@ -270,7 +278,6 @@ Tenants disponibles:
   salud-gpt - SALUD-GPT
   sermas-gpt - SermasGPT
   iasalut-ajuda-dx - IASalutAjudaDx
-  canarias-gpt - CanariasGPT
 
 Opciones:
   --dry-run    Solo muestra qué cambios se harían
@@ -285,7 +292,6 @@ Ejemplos:
   node scripts/configure-index-html.js salud-gpt
   node scripts/configure-index-html.js sermas-gpt
   node scripts/configure-index-html.js iasalut-ajuda-dx
-  node scripts/configure-index-html.js canarias-gpt
   `);
   process.exit(0);
 }
