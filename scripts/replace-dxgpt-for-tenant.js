@@ -14,13 +14,13 @@ const path = require('path');
 // Configuración
 const TRANSLATION_DIR = 'src/assets/i18n';
 const BACKUP_DIR = 'src/assets/i18n-backups';
-const TRANSLATION_FILES = ['en.json', 'es.json', 'fr.json', 'de.json', 'pl.json', 'ru.json', 'uk.json', 'ca.json', 'pt.json'];
+const TRANSLATION_FILES = ['en.json', 'es.json', 'fr.json', 'de.json', 'pl.json', 'ru.json', 'uk.json', 'ca.json', 'pt.json', 'hi.json'];
 
 // Patrones que NO debemos reemplazar
 const EXCLUDE_PATTERNS = [
-    /"([^\"]*https?:\/\/[^\"]*DxGPT[^\"]*)"/g,  // URLs
-    /"([^\"]*dxgpt\.app[^\"]*)"/g,             // Dominios específicos
-    /"([^\"]*DxGPT-bench[^\"]*)"/g,            // Nombres técnicos específicos
+    /"([^\"]*https?:\/\/[^\"]*DxGPT[^\"]*)"/,  // URLs
+    /"([^\"]*dxgpt\.app[^\"]*)"/,             // Dominios específicos
+    /"([^\"]*DxGPT-bench[^\"]*)"/,            // Nombres técnicos específicos
 ];
 
 function shouldExclude(text) {

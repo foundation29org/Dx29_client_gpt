@@ -28,7 +28,12 @@
               "src/favicon-iasalut.ico",
               "src/sitemap.xml",
               "src/robots.txt",
-              "src/llms.txt"
+              "src/llms.txt",
+              {
+                "glob": "cookieconsent.min.js",
+                "input": "node_modules/cookieconsent/build",
+                "output": "assets/js"
+              }
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
@@ -37,9 +42,7 @@
               "node_modules/cookieconsent/build/cookieconsent.min.css",
               "src/assets/css/branding-variables.css"
             ],
-            "scripts": [
-              "node_modules/cookieconsent/build/cookieconsent.min.js"
-            ],
+            "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,

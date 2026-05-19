@@ -23,13 +23,13 @@ Script genérico para preparar el branding y el index.html de cualquier tenant.
 
 ### Uso
 ```bash
-node scripts/prepare-tenant-release.js SALUD-GPT
-node scripts/prepare-tenant-release.js SermasGPT
-node scripts/prepare-tenant-release.js OTRO-TENANT
-node scripts/prepare-tenant-release.js IASalutAjudaDx
-node scripts/prepare-tenant-release.js dxeugpt (no hace falta, es mmismos literales que DxGPT)
+node scripts/prepare-tenant-release.js salud-gpt
+node scripts/prepare-tenant-release.js sermas-gpt
+node scripts/prepare-tenant-release.js iasalut-ajuda-dx
+node scripts/prepare-tenant-release.js dxeugpt
 ```
 - Ejecuta la configuración de index.html y el reemplazo de branding para el tenant indicado.
+- Usa preferiblemente el id del tenant (`salud-gpt`, `sermas-gpt`, `iasalut-ajuda-dx`). El script mantiene aliases antiguos como `SALUD-GPT`, `SermasGPT` e `IASalutAjudaDx`.
 - Muestra el estado de los cambios (`git status` y `git diff`).
 - Te deja todo listo para commit.
 
@@ -59,7 +59,7 @@ Script para restaurar archivos de traducción desde los backups automáticos.
 node scripts/restore-backup.js --dry-run
 
 # Restaurar archivos
-done scripts/restore-backup.js
+node scripts/restore-backup.js
 ```
 - Detecta el backup más reciente de cada archivo y lo restaura.
 - Crea backup del archivo actual antes de restaurar.
@@ -72,14 +72,14 @@ done scripts/restore-backup.js
 1. **Crear una rama específica** para el cambio (ej: `feature/tenant-nueva-funcionalidad`)
 2. **Ejecutar el script de preparación** para el tenant:
    ```bash
-   node scripts/prepare-tenant-release.js SALUD-GPT
+   node scripts/prepare-tenant-release.js salud-gpt
    # o para otro tenant
-   node scripts/prepare-tenant-release.js OTRO-TENANT
+   node scripts/prepare-tenant-release.js sermas-gpt
    ```
 3. **Revisar los cambios** (`git diff` o en tu editor)
 4. **Hacer commit** de los archivos modificados
 5. **Lanzar el pipeline dedicado al tenant**
-6. **Restaurar a como estaba** node scripts/restore-dxgpt-branding.js
+6. **Restaurar a como estaba** `node scripts/restore-dxgpt-branding.js`
 7. **(Opcional) Borrar la rama tras el deploy**
 
 ---
@@ -103,7 +103,7 @@ Si necesitas volver al branding original de DxGPT (por ejemplo, tras un release 
 ```bash
 node scripts/restore-dxgpt-branding.js
 ```
-Esto restaurará el index.html y los archivos de traducción desde los backups más recientes.
+Esto regenerará `index.html` con la configuración actual de DxGPT y restaurará las traducciones desde los backups más recientes.
 
 ---
 
@@ -117,13 +117,13 @@ Esto restaurará el index.html y los archivos de traducción desde los backups m
 
 en resumen para actualizar un tenant existente con los ultimos cambios de dxgpt:
 1. crear rama
-2. ejecutar node scripts/prepare-tenant-release.js SALUD-GPT (nombre tenant)
-3. restaurar node scripts/restore-dxgpt-branding.js
+2. ejecutar `node scripts/prepare-tenant-release.js salud-gpt` (id del tenant)
+3. restaurar `node scripts/restore-dxgpt-branding.js`
 4. cerrar rama si se desea
 
 si es un nuevo tenant:
 1. crear los environments necesarios
-2. añadir el tenant a configure-index-html para adaptar el html (analitycs, etc)
+2. añadir el tenant a configure-index-html para adaptar los meta tags y favicon
 3. establecer la configuracion en branding-config (para la UI)
 4. poner el favicon en assets y los environments del tenant en angular.json, y poner en el package.json como se lanzar esos envs de angular.json
 5. crear el swa y coger el token para ponerlo en los environments

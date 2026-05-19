@@ -37,11 +37,11 @@ export class TenantDetectorService {
       if (environment.tenantId.includes('salud-gpt')) {
         return 'salud-gpt';
       }
-      if (environment.tenantId.includes('dxgpt')) {
-        return 'dxgpt';
-      }
       if (environment.tenantId.includes('dxeugpt')) {
         return 'dxeugpt';
+      }
+      if (environment.tenantId.includes('dxgpt')) {
+        return 'dxgpt';
       }
       if (environment.tenantId.includes('sermas-gpt')) {
         return 'sermas-gpt';

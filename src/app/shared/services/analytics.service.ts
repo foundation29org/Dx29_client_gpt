@@ -169,16 +169,17 @@ export class AnalyticsService {
 
   /**
    * Obtiene el ID de Google Analytics según el tenant
-   * Todos los tenants cargan GA dinámicamente para mejor rendimiento
+   * Solo los tenants públicos de DxGPT cargan analytics de marketing.
+   * Los tenants internos sanitarios usan Application Insights/server logs.
    */
   private getGoogleAnalyticsId(): string | null {
+    const tenantsWithGoogleAnalytics = ['dxgpt-prod', 'dxeugpt', 'dxeugpt-prod'];
+    if (!tenantsWithGoogleAnalytics.includes(environment.tenantId)) return null;
+
     const gaIds: { [key: string]: string } = {
       'dxgpt-prod': 'G-2FZQ49SRWY',
-      'dxgpt-local': 'G-2FZQ49SRWY',
+      'dxeugpt': 'G-2FZQ49SRWY',
       'dxeugpt-prod': 'G-2FZQ49SRWY',
-      'salud-gpt-prod': 'G-RT0R7199TB',
-      'sermas-gpt-prod': 'G-XHQLTXXT8X',
-      'iasalut-ajuda-dx-prod': 'G-PSF306RXEL',
     };
     return gaIds[environment.tenantId] || null;
   }
