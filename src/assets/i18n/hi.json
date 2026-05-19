@@ -1275,7 +1275,7 @@
   },
   "cookie": {
     "header": "हम cookies का उपयोग करते हैं",
-    "message": "यह application आपके experience को बेहतर बनाने के लिए cookies का उपयोग करता है। European version में, cookies activate होने से पहले आपकी explicit consent आवश्यक होती है।",
+    "message": "हम आपके experience को बेहतर बनाने के लिए cookies का उपयोग करते हैं।",
     "dismiss": "समझ गया!",
     "allow": "cookies की अनुमति दें",
     "deny": "अस्वीकार करें",

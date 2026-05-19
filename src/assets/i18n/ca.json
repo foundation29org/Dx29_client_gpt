@@ -1275,7 +1275,7 @@
   },
   "cookie": {
     "header": "Utilitzem galetes",
-    "message": "Aquesta aplicació utilitza galetes per millorar la teva experiència. A la versió europea, les galetes requereixen el teu consentiment explícit abans d'activar-se.",
+    "message": "Utilitzem galetes per millorar la teva experiència.",
     "dismiss": "Entesos!",
     "allow": "Permetre galetes",
     "deny": "Rebutjar",

@@ -1275,7 +1275,7 @@
   },
   "cookie": {
     "header": "Usamos cookies",
-    "message": "Esta aplicación utiliza cookies para mejorar tu experiencia. En la versión europea, las cookies requieren tu consentimiento explícito antes de activarse.",
+    "message": "Usamos cookies para mejorar tu experiencia.",
     "dismiss": "¡Entendido!",
     "allow": "Permitir cookies",
     "deny": "Rechazar",

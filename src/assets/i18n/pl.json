@@ -1275,7 +1275,7 @@
   },
   "cookie": {
     "header": "Używamy plików cookie",
-    "message": "Ta aplikacja używa plików cookie, aby poprawić Twoje wrażenia. W wersji europejskiej pliki cookie wymagają Twojej wyraźnej zgody przed aktywacją.",
+    "message": "Używamy plików cookie, aby poprawić Twoje wrażenia.",
     "dismiss": "Rozumiem!",
     "allow": "Zezwól na pliki cookie",
     "deny": "Odrzuć",
