@@ -56,7 +56,8 @@ const TENANT_CONFIGS = {
     displayName: 'DxGPT',
     title: 'DxGPT: Free AI Diagnostic Support for Complex & Rare Diseases',
     description: 'Free AI diagnostic support by Foundation29. Structure symptoms and clinical histories into possible differential diagnosis hypotheses for professional review. GDPR compliant.',
-    keywords: 'dx, GPT, rare disease, diagnostic support, diagnostic hypotheses, genetic, physicians, artificial intelligence, AI, genomics, clinical decision support',
+    socialDescription: 'Structure clinical descriptions into possible diagnostic hypotheses. A free diagnostic support tool for healthcare professionals, privacy-first.',
+    keywords: 'dx, GPT, rare disease, diagnosis, genetic, physicians, artificial intelligence, AI, genomics, disease, decision support',
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
     favicon: 'favicon.ico'
@@ -134,7 +135,7 @@ function replaceInHtml(content, config) {
   // Reemplazar meta description
   modifiedContent = modifiedContent.replace(
     /<meta name="description" content=".*?"\s*\/?>/g,
-    `<meta name="description" content="${config.description}">`
+    `<meta name="description" content="${config.description}" />`
   );
   
   // Reemplazar meta keywords
@@ -158,7 +159,7 @@ function replaceInHtml(content, config) {
   // Reemplazar og:description
   modifiedContent = modifiedContent.replace(
     /<meta property="og:description" content=".*?"\s*\/?>/g,
-    `<meta property="og:description" content="${config.description}" />`
+    `<meta property="og:description" content="${config.socialDescription || config.description}" />`
   );
   
   // Reemplazar og:image
@@ -182,7 +183,7 @@ function replaceInHtml(content, config) {
   // Reemplazar twitter:description
   modifiedContent = modifiedContent.replace(
     /<meta name="twitter:description" content=".*?"\s*\/?>/g,
-    `<meta name="twitter:description" content="${config.description}" />`
+    `<meta name="twitter:description" content="${config.socialDescription || config.description}" />`
   );
   
   // Reemplazar twitter:image
