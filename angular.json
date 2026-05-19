@@ -30,6 +30,11 @@
               "src/robots.txt",
               "src/llms.txt",
               {
+                "glob": "staticwebapp.config.json",
+                "input": ".",
+                "output": "."
+              },
+              {
                 "glob": "cookieconsent.min.js",
                 "input": "node_modules/cookieconsent/build",
                 "output": "assets/js"
