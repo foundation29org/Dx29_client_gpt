@@ -935,7 +935,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async callAI(stringModel: string) {
         Swal.close();
-        
+        if(this.topRelatedConditions.length == 0){
+            this.lauchEvent('diagnosis_started');
+        }
         // Determinar el modelo a usar
         let modelToUse = stringModel;
         //this.model = modelToUse;
@@ -1367,8 +1369,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async continuecallAI(parseChoices0) {
         let parseChoices = parseChoices0;
+
         if (!this.loadMoreDiseases) {
-            this.topRelatedConditions = [];
+             if(this.topRelatedConditions.length == 0){
+                this.lauchEvent('diagnosis_finished');
+            }
+         if(environment.tenantId == 'dxgpt-prod' || environment.tenantId == 'dxeugpt-prod'){
+             // Nueva conversión para la cuenta de display
+            if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
+                });
+            }
+         }
+         this.topRelatedConditions = [];
         }
 
         const indexDisease = this.topRelatedConditions.length;
@@ -1399,14 +1413,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callingAI = false;
         Swal.close();
         //window.scrollTo(0, 0);
-         // Nueva conversión para la cuenta de display
-         if(environment.tenantId == 'dxgpt-prod' || environment.tenantId == 'dxeugpt-prod'){
-            if (typeof gtag === 'function') {
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
-                });
-            }
-         }
+        
         this.lauchEvent("Search Disease");
         if(this.hasIframeParams()){
             console.log('iframeParams con datos:', this.iframeParams);
