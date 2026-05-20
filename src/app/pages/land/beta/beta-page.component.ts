@@ -1277,6 +1277,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
                gtag('event', 'conversion', {
                    'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
                });
+               gtag('event', 'conversion', {'send_to': 'AW-16829919003/czFeCKKStLAcEJvekNk-'});
            }
         }
         this.topRelatedConditions = [];
