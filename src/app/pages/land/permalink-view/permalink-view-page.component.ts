@@ -38,7 +38,7 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
   // Branding
   brandingConfig: BrandingConfig | null = null;
   shouldShowDonate: boolean = false;
-  donateLink: string = 'https://foundation29.org/donate#widget';
+  donateLink: string = 'https://foundation29.org/donate?amount=25&utm_source=dxgpt#widget';
 
   constructor(
     private route: ActivatedRoute,
