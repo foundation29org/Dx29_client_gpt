@@ -58,13 +58,13 @@ export class BrandingService {
     private http: HttpClient,
     private tenantDetector: TenantDetectorService
   ) {
-    // Detectar tenant automáticamente
+    // Detectar tenant autom?ticamente
     this.currentTenant = this.tenantDetector.detectTenant();
     this.loadBrandingConfig();
   }
 
   /**
-   * Establece el tenant actual y carga su configuración
+   * Establece el tenant actual y carga su configuraci?n
    */
   setTenant(tenant: string): void {
     this.currentTenant = tenant;
@@ -79,7 +79,7 @@ export class BrandingService {
   }
 
   /**
-   * Carga la configuración de branding desde el archivo JSON
+   * Carga la configuraci?n de branding desde el archivo JSON
    */
   private loadBrandingConfig(): void {
     this.http.get<BrandingConfigs>('assets/config/branding-config.json')
@@ -94,7 +94,7 @@ export class BrandingService {
   }
 
   /**
-   * Genera un color más oscuro para hover basado en el color primario
+   * Genera un color m?s oscuro para hover basado en el color primario
    */
   private generateHoverColor(color: string): string {
     // Convertir hex a RGB
@@ -114,7 +114,7 @@ export class BrandingService {
   }
 
   /**
-   * Aplica los estilos de branding dinámicamente
+   * Aplica los estilos de branding din?micamente
    */
   private applyBrandingStyles(config: BrandingConfig): void {
     const root = document.documentElement;
@@ -181,7 +181,7 @@ export class BrandingService {
   }
 
   /**
-   * Actualiza el favicon dinámicamente
+   * Actualiza el favicon din?micamente
    */
   private updateFavicon(faviconPath: string): void {
     const link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
@@ -196,14 +196,14 @@ export class BrandingService {
   }
 
   /**
-   * Obtiene la configuración actual de branding
+   * Obtiene la configuraci?n actual de branding
    */
   getBrandingConfig(): BrandingConfig | null {
     return this.brandingConfigSubject.value;
   }
 
   /**
-   * Obtiene un valor específico de la configuración
+   * Obtiene un valor espec?fico de la configuraci?n
    */
   getConfigValue<T>(key: string): T | null {
     const config = this.brandingConfigSubject.value;
@@ -234,14 +234,22 @@ export class BrandingService {
   }
 
   /**
-   * Verifica si debe mostrar el enlace de donación
+   * Verifica si debe mostrar el enlace de donaci?n
    */
   shouldShowDonateLink(): boolean {
     return this.getConfigValue<string>('links.donate') !== null;
   }
 
   /**
-   * Obtiene el enlace de donación
+   * Verifica si debe mostrar el CTA de donaci?n en resultados (solo DxGPT y DxGPT EU)
+   */
+  shouldShowResultsDonate(): boolean {
+    const tenant = this.getCurrentTenant();
+    return (tenant === 'dxgpt' || tenant === 'dxeugpt') && this.shouldShowDonateLink();
+  }
+
+  /**
+   * Obtiene el enlace de donaci?n
    */
   getDonateLink(): string | null {
     return this.getConfigValue<string>('links.donate');
@@ -255,14 +263,14 @@ export class BrandingService {
   }
 
   /**
-   * Obtiene el nombre de la aplicación
+   * Obtiene el nombre de la aplicaci?n
    */
   getAppName(): string {
     return this.getConfigValue<string>('displayName') || 'DxGPT';
   }
 
   /**
-   * Obtiene el gradiente de fondo para la página About Us
+   * Obtiene el gradiente de fondo para la p?gina About Us
    */
   getAboutUsGradient(): string {
     return this.getConfigValue<string>('backgrounds.aboutUs.gradient') || 
@@ -270,7 +278,7 @@ export class BrandingService {
   }
 
   /**
-   * Obtiene el overlay de fondo para la página About Us
+   * Obtiene el overlay de fondo para la p?gina About Us
    */
   getAboutUsOverlay(): string {
     return this.getConfigValue<string>('backgrounds.aboutUs.overlay') || 
@@ -278,7 +286,7 @@ export class BrandingService {
   }
 
   /**
-   * Verifica si está en modo europeo (EU)
+   * Verifica si est? en modo europeo (EU)
    */
   isEuMode(): boolean {
     return this.getConfigValue<boolean>('euMode') === true;

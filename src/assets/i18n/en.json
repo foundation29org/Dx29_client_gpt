@@ -950,6 +950,11 @@
     "Recalculate": "Recalculate",
     "Select at least one symptom": "Select at least one symptom",
     "Donate": "Donate",
+    "supportDxGPT": {
+      "message": "DxGPT is free thanks to Foundation29. If it has helped you, your contribution helps us keep it free for everyone.",
+      "link": "Support DxGPT",
+      "exportMessage": "Was it helpful? Help us keep DxGPT free for everyone."
+    },
     "step1": "Enter your symptoms",
     "step3": "Explore diseases",
     "step3descript": "These diseases match your symptoms. This is a list of suggestions for informational purposes only",

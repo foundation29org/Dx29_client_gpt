@@ -319,6 +319,19 @@
             </button>
           </div>
         </div>
+
+        <div class="results-support" *ngIf="topRelatedConditions.length > 0 && shouldShowDonate">
+          <p class="results-support__text">
+            {{ 'land.supportDxGPT.message' | translate }}
+            <a class="results-support__link"
+               [href]="donateLink"
+               target="_blank"
+               rel="noopener noreferrer"
+               (click)="trackDonateClick('results')">
+              {{ 'land.supportDxGPT.link' | translate }} <i class="fa fa-external-link ms-1" aria-hidden="true"></i>
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -781,6 +794,18 @@
         <span *ngIf="!creatingPermalink">{{'permalink.Share results' | translate }}</span>
         <span *ngIf="creatingPermalink">{{'permalink.Creating permalink' | translate }}...</span>
       </button>
+    </div>
+    <div class="export-support" *ngIf="shouldShowDonate">
+      <p class="export-support__text">
+        {{ 'land.supportDxGPT.exportMessage' | translate }}
+        <a class="export-support__link"
+           [href]="donateLink"
+           target="_blank"
+           rel="noopener noreferrer"
+           (click)="trackDonateClick('export')">
+          {{ 'land.supportDxGPT.link' | translate }} <i class="fa fa-external-link ms-1" aria-hidden="true"></i>
+        </a>
+      </p>
     </div>
   </div>
   <div class="followup-footer">
