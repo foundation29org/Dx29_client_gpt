@@ -158,7 +158,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     isInIframe: boolean = false;
 
     shouldShowDonate: boolean = false;
-    donateLink: string = 'https://foundation29.org/donate#widget';
+    donateLink: string = 'https://foundation29.org/donate?amount=25&utm_source=dxgpt#widget';
 
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService) {
         this.initialize();

@@ -23,7 +23,7 @@
       "favicon": "favicon.ico"
     },
     "links": {
-      "donate": "https://www.foundation29.org/donate#widget",
+      "donate": "https://www.foundation29.org/donate?amount=25&utm_source=dxgpt#widget",
       "beta": true,
       "support": "DxGPT support"
     },
@@ -58,7 +58,7 @@
       "favicon": "favicon.ico"
     },
     "links": {
-      "donate": "https://www.foundation29.org/donate#widget",
+      "donate": "https://www.foundation29.org/donate?amount=25&utm_source=dxgpt#widget",
       "beta": false,
       "support": "DxGPT support"
     },
