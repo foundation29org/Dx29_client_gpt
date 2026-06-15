@@ -166,6 +166,9 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     iframeParams: IframeParams = {};
     isInIframe: boolean = false;
 
+    shouldShowDonate: boolean = false;
+    donateLink: string = 'https://foundation29.org/donate';
+
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService) {
         this.initialize();
     }
@@ -247,6 +250,15 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         return this.brandingService.isEuMode();
     }
 
+    trackDonateClick(context: 'results' | 'export'): void {
+        this.lauchEvent(`Donate click - ${context}`);
+    }
+
+    private updateDonateVisibility(): void {
+        this.shouldShowDonate = this.brandingService.shouldShowResultsDonate();
+        this.donateLink = this.brandingService.getDonateLink() || this.donateLink;
+    }
+
     lauchEvent(category) {
         var secs = this.getElapsedSeconds();
         const eventProperties = { 
@@ -268,6 +280,11 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.updateDonateVisibility();
+        this.brandingService.brandingConfig$.subscribe(() => {
+            this.updateDonateVisibility();
+        });
+
         this.loadTranslations();
         
         // Track page view para la página principal

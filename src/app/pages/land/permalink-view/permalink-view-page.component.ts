@@ -37,6 +37,8 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
 
   // Branding
   brandingConfig: BrandingConfig | null = null;
+  shouldShowDonate: boolean = false;
+  donateLink: string = 'https://foundation29.org/donate';
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +61,7 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.brandingService.brandingConfig$.subscribe(config => {
         this.brandingConfig = config;
+        this.updateDonateVisibility();
         this.applyBrandingStyles();
       })
     );
@@ -298,6 +301,17 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
    */
   isEuMode(): boolean {
     return this.brandingService.isEuMode();
+  }
+
+  private updateDonateVisibility(): void {
+    this.shouldShowDonate = this.brandingService.shouldShowResultsDonate();
+    this.donateLink = this.brandingService.getDonateLink() || this.donateLink;
+  }
+
+  trackDonateClick(): void {
+    this.analyticsService.trackEvent('Donate click - permalink', {
+      permalinkId: this.permalinkId
+    });
   }
 
   /**

@@ -152,6 +152,19 @@
       </div>
     </div>
 
+    <div class="permalink-support" *ngIf="shouldShowDonate">
+      <p class="permalink-support__text">
+        {{ 'land.supportDxGPT.message' | translate }}
+        <a class="permalink-support__link"
+           [href]="donateLink"
+           target="_blank"
+           rel="noopener noreferrer"
+           (click)="trackDonateClick()">
+          {{ 'land.supportDxGPT.link' | translate }} <i class="fa fa-external-link ms-1" aria-hidden="true"></i>
+        </a>
+      </p>
+    </div>
+
     <!-- Footer -->
     <div class="footer-section">
       <div class="row">

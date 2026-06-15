@@ -39,7 +39,8 @@
                 <a class="dropdown-item" 
                    href="https://foundation29.org/donate" 
                    target="_blank" 
-                   rel="noopener noreferrer" 
+                   rel="noopener noreferrer"
+                   (click)="trackDonateClick('footer-funds')"
                    [attr.aria-label]="'menu.DONATE_DROPDOWN_1' | translate">
                   <i class="fas fa-euro-sign me-2" aria-hidden="true"></i>{{ 'menu.DONATE_DROPDOWN_1' | translate }}
                 </a>

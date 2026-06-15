@@ -402,6 +402,34 @@
   }
 }
 
+.permalink-support {
+  margin: 0 2rem 1.5rem;
+  padding: 1rem 1.25rem;
+  background: #f9fafb;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  text-align: center;
+
+  &__text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: #6b7280;
+  }
+
+  &__link {
+    display: inline-block;
+    margin-top: 0.35rem;
+    color: var(--accent-color, #B30000);
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 // Footer Section
 .footer-section {
   padding: 2rem;

@@ -10,6 +10,7 @@ import { CookiesPageComponent } from 'app/pages/land/cookies/cookies.component';
 import { UuidService } from 'app/shared/services/uuid.service';
 import { LangService } from 'app/shared/services/lang.service';
 import { BrandingService } from 'app/shared/services/branding.service';
+import { AnalyticsService } from 'app/shared/services/analytics.service';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -53,7 +54,8 @@ export class FooterComponent{
     private renderer: Renderer2, 
     private router: Router, 
     private uuidService: UuidService,
-    public brandingService: BrandingService
+    public brandingService: BrandingService,
+    private analyticsService: AnalyticsService
   ) { 
     this.myuuid = this.uuidService.getUuid();
     this.router.events.pipe(
@@ -239,6 +241,7 @@ openSubscribeModal(): void {
  * Abre el modal de datos clínicos
  */
 openClinicalDataModal(): void {
+  this.trackDonateClick('footer-clinical-data');
   this.openSendMsgModal('clinicalData');
 }
 
@@ -246,7 +249,12 @@ openClinicalDataModal(): void {
  * Abre el modal de datasets
  */
 openDatasetsModal(): void {
+  this.trackDonateClick('footer-datasets');
   this.openSendMsgModal('datasets');
+}
+
+trackDonateClick(context: 'footer-funds' | 'footer-clinical-data' | 'footer-datasets'): void {
+  this.analyticsService.trackEvent(`Donate click - ${context}`, { myuuid: this.myuuid });
 }
 
 /**
