@@ -228,8 +228,8 @@
               <button class="results-action-btn results-action-btn--primary" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
                 <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
               </button>
-              <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="callAdvancedModel()">
-                <i class="fa fa-search"></i>{{'diagnosis.Try our advanced mode' | translate }}
+              <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary results-action-btn--advanced" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="callAdvancedModel()">
+                <i class="fa fa-wand-magic-sparkles"></i>{{'diagnosis.Try our advanced mode' | translate }}
               </button>
               <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="callFastModel()">
                 <i class="fa-solid fa-person-running-fast"></i>{{'diagnosis.Try our faster mode' | translate }}
@@ -318,8 +318,8 @@
             <button class="results-action-btn results-action-btn--primary" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
               <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
             </button>
-            <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" (click)="callAdvancedModel()">
-              <i class="fa fa-search"></i>{{'diagnosis.Try our advanced mode' | translate }}
+            <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary results-action-btn--advanced" (click)="callAdvancedModel()">
+              <i class="fa fa-wand-magic-sparkles"></i>{{'diagnosis.Try our advanced mode' | translate }}
             </button>
             <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" (click)="callFastModel()">
               <i class="fa-solid fa-person-running-fast"></i>{{'diagnosis.Try our faster mode' | translate }}

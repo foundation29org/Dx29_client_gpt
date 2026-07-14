@@ -457,6 +457,10 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
+.results-action-btn--advanced i {
+  color: #f5a000;
+}
+
 .results-panel .results-action-btn--secondary,
 .results-bottom-actions .results-action-btn--secondary {
   color: #374151;
