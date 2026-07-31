@@ -457,8 +457,20 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
-.results-action-btn--advanced i {
-  color: #f5a000;
+.results-action-btn--advanced {
+  background: #e7a400 !important;
+  color: #1c202a !important;
+  border-color: #e7a400 !important;
+
+  i {
+    color: #1c202a !important;
+  }
+
+  &:hover {
+    background: #c98e00 !important;
+    color: #1c202a !important;
+    border-color: #c98e00 !important;
+  }
 }
 
 .results-panel .results-action-btn--secondary,
