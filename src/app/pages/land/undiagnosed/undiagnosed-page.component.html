@@ -3,8 +3,8 @@
   <section *ngIf="currentStep == 1" class="col-12 d-flex flex-column hero-section">
     <div>
       <div class="mb-4 col-sm-12 offset-md-2 col-md-8 justify-content-center align-items-center text-center">
-        <h2 *ngIf="!isEuMode()" class="hero-title" (click)="changeModeFunctionality()">{{'land.title' | translate }}</h2>
-        <h2 *ngIf="isEuMode()" class="hero-title" (click)="changeModeFunctionality()">{{'land.titleEu' | translate }}</h2>
+        <h1 *ngIf="!isEuMode()" class="hero-title" (click)="changeModeFunctionality()">{{'land.title' | translate }}</h1>
+        <h1 *ngIf="isEuMode()" class="hero-title" (click)="changeModeFunctionality()">{{'land.titleEu' | translate }}</h1>
         <p *ngIf="isEuMode()" class="white mt-3 mb-0">{{'land.subtitleEu' | translate }}</p>
         <div *ngIf="modeFunctionality" class="badge bg-danger pulse-animation mb-3">
           <i class="fa fa-ambulance me-1"></i> ER
