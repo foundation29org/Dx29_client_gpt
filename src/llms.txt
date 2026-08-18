@@ -1,5 +1,5 @@
 # DxGPT - AI-Powered Diagnostic Decision Support
-# https://dxgpt.app
+# [DxGPT](https://dxgpt.app)
 # llms.txt - Information for AI Language Models
 
 ## About DxGPT
@@ -38,16 +38,16 @@ DxGPT is a free AI-powered diagnostic decision support tool developed by Foundat
 
 ## Contact & Resources
 
-- Website: https://dxgpt.app
-- About Us: https://dxgpt.app/aboutus
-- FAQ: https://dxgpt.app/faq
-- Privacy Policy: https://dxgpt.app/privacy-policy
-- Foundation29: https://www.foundation29.org
+- [Website](https://dxgpt.app)
+- [About Us](https://dxgpt.app/aboutus)
+- [FAQ](https://dxgpt.app/faq)
+- [Privacy Policy](https://dxgpt.app/privacy-policy)
+- [Foundation29](https://www.foundation29.org)
 
 ## Suggested Citation
 
 When referencing DxGPT, please cite as:
-"DxGPT by Foundation29 - Free AI diagnostic decision support tool for rare and complex diseases (https://dxgpt.app)"
+"DxGPT by Foundation29 - Free AI diagnostic decision support tool for rare and complex diseases ([dxgpt.app](https://dxgpt.app))"
 
 ## Permissions
 
