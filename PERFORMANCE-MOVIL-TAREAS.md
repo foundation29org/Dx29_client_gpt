@@ -16,7 +16,7 @@
 | 9b | Cloudflare: revisar Bot Fight Mode y cache de `index.html` | Medio (estabiliza mediciones) | Solo config | **Revisado — sin acción** | Ver nota abajo |
 | 2 | App Insights: quitar handler `unload` (bfcache) | Medio | Bajo | **Hecho (código)** | Pendiente desplegar y medir |
 | 3 | Listener de scroll fuera de la zona de Angular | Medio | Bajo | Pendiente | |
-| 4 | Imágenes: header (`fetchpriority`, sin lazy), footer (`width`/`height`) y `logo-Dx29.png` a WebP | Medio (LCP/CLS) | Bajo | Pendiente | |
+| 4 | Imágenes: header (`fetchpriority`, sin lazy), footer (`width`/`height`) y `logo-Dx29.png` a WebP | Medio (LCP/CLS) | Bajo | **Parcial: hecho (código) puntos 1 y 6** | Pendiente desplegar y medir; quedan puntos 2, 3, 5 (recompresión/WebP) |
 | 10 | Reducir CSS sin usar (`styles.css`, 37 KiB) | Bajo | Medio | Pendiente (nueva) | |
 | 5 | `ngZoneEventCoalescing` en el bootstrap | Medio | Bajo (probar bien) | Pendiente | |
 | 6 | Auditar y reducir el bundle `main.js` (107 KiB sin usar) | Alto | Medio | Pendiente | |
@@ -66,7 +66,9 @@
 | Font-display / cookies Hotjar | presentes | presentes | **desaparecidos** |
 | Deprecated APIs (Best Practices) | 5 avisos | 5 avisos | **4 avisos** (se fue "Attribution Reporting") |
 
-Con esto, tanto el fix de duplicados de GA/Ads como la desactivación de Hotjar quedan validados con datos limpios, más allá del ruido puntual del entorno de test. **Decisión pendiente del usuario:** mantener Hotjar desactivado de forma permanente o reactivarlo ya beneficiándose del diferido (cambiar `HOTJAR_ENABLED` a `true` cuando se decida).
+Con esto, tanto el fix de duplicados de GA/Ads como la desactivación de Hotjar quedan validados con datos limpios, más allá del ruido puntual del entorno de test.
+
+**Corrección importante:** la medición "ruidosa" del mismo día (TBT 5.900/4.230 ms) fue con Hotjar ya diferido pero **todavía activo** — no es una medición limpia de "Hotjar diferido". La única medición limpia que tenemos es con Hotjar **desactivado del todo**. No hay por tanto evidencia de que reactivarlo (ni siquiera diferido) sea inocuo para el rendimiento. **Decisión:** Hotjar se mantiene desactivado (`HOTJAR_ENABLED = false`) hasta nueva orden. Si en el futuro se quiere reevaluar, habría que hacerlo como una prueba aislada y limpia, no asumir que el diferido ya lo resolvió.
 
 El TBT seguirá bajando con las tareas 3, 5 y 6; el LCP requiere las tareas 4, 6, 7 y 8 para moverse de forma visible en la puntuación global. Recomendado: medir con 3-5 pasadas y quedarse con la mediana, dado el nivel de ruido observado en el entorno de test.
 
@@ -145,6 +147,11 @@ Revisar si `beta-page` / `undiagnosed-page` tienen listeners similares y aplicar
 6. Añadir `width` y `height` explícitos a los `<img>` del footer (`footer.component.html`) para evitar layout shift ("Image elements do not have explicit width and height").
 
 **Validación:** desaparecen "LCP request discovery", "Improve image delivery", "Serves images with low resolution" e "Image elements do not have explicit width and height"; posible mejora directa de LCP si el logo de cabecera era el elemento LCP en el viewport probado.
+
+**Hecho (código, 19/08):**
+- Punto 1: añadido `width="140" height="37" fetchpriority="high"` a los 4 `<img class="logo-header">` de `navbar-dx29.component.html` (variantes desktop/móvil × home/no-home). No usaban `loading="lazy"`, así que ese punto ya estaba bien.
+- Punto 6: añadido `width="100" height="34"` al logo del footer (`footer.component.html`), usando el tamaño mostrado real que reportaba Lighthouse (100×34), más `loading="lazy"` ya que está fuera del viewport inicial (no es candidato a LCP, así que retrasar su descarga es seguro y ahorra ancho de banda en el arranque).
+- Pendientes de este task (requieren generar/optimizar archivos de imagen, no solo código): puntos 2 (WebP de `logo-Dx29.png`), 3 (versión 2x de `logo-Dx29.webp`) y 5 (recomprimir `logo-f29-white.webp`). Punto 4 (`Foundation29logo.webp` a 2x) queda pendiente también.
 
 ---
 

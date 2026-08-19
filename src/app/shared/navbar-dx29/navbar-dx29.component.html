@@ -7,14 +7,14 @@
       </button>
       <div class="d-none d-xl-block">
           <span class="navbar-header-logos">
-              <img *ngIf="isHomePage" class="logo-header pointer" [src]="headerLogo" alt="DxGPT - AI-powered medical diagnosis" (click)="lauchEvent('Logo');goBackEvent();"/>
-              <img *ngIf="!isHomePage" class="logo-header pointer" [src]="headerLogo" alt="DxGPT - AI-powered medical diagnosis" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
+              <img *ngIf="isHomePage" class="logo-header pointer" [src]="headerLogo" width="140" height="37" fetchpriority="high" alt="DxGPT - AI-powered medical diagnosis" (click)="lauchEvent('Logo');goBackEvent();"/>
+              <img *ngIf="!isHomePage" class="logo-header pointer" [src]="headerLogo" width="140" height="37" fetchpriority="high" alt="DxGPT - AI-powered medical diagnosis" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
           </span>
       </div>
       <div class="d-block">
         <div class="d-sm-block d-xl-none pointer">
-          <img *ngIf="isHomePage" class="mt-1 logo-header pointer" [src]="headerLogo" alt="DxGPT - AI-powered medical diagnosis" (click)="lauchEvent('Logo');goBackEvent();"/>
-          <img *ngIf="!isHomePage" class="mt-1 logo-header pointer" [src]="headerLogo" alt="DxGPT - AI-powered medical diagnosis" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
+          <img *ngIf="isHomePage" class="mt-1 logo-header pointer" [src]="headerLogo" width="140" height="37" fetchpriority="high" alt="DxGPT - AI-powered medical diagnosis" (click)="lauchEvent('Logo');goBackEvent();"/>
+          <img *ngIf="!isHomePage" class="mt-1 logo-header pointer" [src]="headerLogo" width="140" height="37" fetchpriority="high" alt="DxGPT - AI-powered medical diagnosis" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
       </div>
         <div [class.collapse]="!isMenuExpanded" [class.show]="isMenuExpanded" class="navbar-collapse" id="navbarSupportedContent">
           <button *ngIf="isMenuExpanded" class="close-menu-btn d-xl-none" (click)="toggleMenu()">×</button>
