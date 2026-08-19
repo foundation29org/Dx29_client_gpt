@@ -5,22 +5,33 @@
       <div class="mb-4 col-sm-12 offset-md-2 col-md-8 justify-content-center align-items-center text-center">
         <h1 class="hero-title" (click)="changeModeFunctionality()">{{'land.titleBeta' | translate }}</h1>
         
-        <!-- Subtítulo para versión beta -->
-        <div class="beta-warning mb-4 mt-4">
-          <div class="alert alert-warning d-inline-block" role="alert">
+        <!-- Subtítulo para versión beta: una línea fija + detalle bajo demanda -->
+        <div class="beta-warning mb-3 mt-4">
+          <div class="alert alert-warning d-inline-flex align-items-center" role="alert">
             <i class="fas fa-flask me-2"></i>
-            <strong>{{ 'beta.warning_title' | translate }}</strong> - {{ 'beta.warning_message' | translate }} 
-            <strong>{{ 'beta.warning_medical' | translate }}</strong> 
-            {{ 'beta.warning_feedback' | translate }}
+            <span><strong>{{ 'beta.warning_title' | translate }}</strong> — {{ 'beta.warning_medical' | translate }}</span>
+            <button type="button" class="beta-info-btn ms-2" (click)="showBetaDetails = !showBetaDetails"
+              [attr.aria-expanded]="showBetaDetails"
+              [attr.aria-label]="'beta.info_button_label' | translate"
+              [title]="'beta.info_button_label' | translate">
+              <i class="fa fa-info-circle"></i>
+            </button>
           </div>
-          
+          <div class="beta-details" *ngIf="showBetaDetails">
+            <p class="mb-1">{{ 'beta.warning_message' | translate }} {{ 'beta.warning_feedback' | translate }}</p>
+            <p class="mb-0">{{ 'beta.dual_mode_hint' | translate }}</p>
+          </div>
         </div>
-        <div class="hero-hint mt-3">
-          {{ 'beta.dual_mode_hint' | translate }}
-          <ul class="mb-0" style="list-style-position: inside; padding-left: 0; margin-left: 0;">
-            <li>{{ 'beta.example_patient' | translate }}</li>
-            <li>{{ 'beta.example_question' | translate }}</li>
-          </ul>
+        <!-- Los dos modos de entrada, enseñados con ejemplos accionables en vez de texto -->
+        <div class="hero-hint-chips mt-1">
+          <button type="button" class="hint-chip" (click)="useExample('patient')"
+            [title]="'beta.example_patient' | translate">
+            <i class="fa fa-stethoscope me-1"></i>{{ 'beta.example_patient_short' | translate }}
+          </button>
+          <button type="button" class="hint-chip" (click)="useExample('question')"
+            [title]="'beta.example_question' | translate">
+            <i class="fa fa-question-circle me-1"></i>{{ 'beta.example_question_short' | translate }}
+          </button>
         </div>
         
         <div *ngIf="modeFunctionality" class="badge bg-danger pulse-animation mb-3">
@@ -62,7 +73,7 @@
             </span>
           </ng-container>
         </div>
-        <div class="chips-counter">
+        <div class="chips-counter" *ngIf="countCharacters(medicalTextOriginal) >= 2000">
           <span [class.text-danger]="countCharacters(medicalTextOriginal) > 8000" 
                 [class.text-warning]="countCharacters(medicalTextOriginal) > 3000 && countCharacters(medicalTextOriginal) <= 8000">
             {{ countCharacters(medicalTextOriginal) }} {{'generics.characters' | translate}}
@@ -71,28 +82,45 @@
             </span>
           </span>
         </div>
+        <div class="hero-meta hero-meta--inline" *ngIf="countCharacters(medicalTextOriginal) < 2000">
+          <ng-container *ngIf="selectedFiles.length; else uploadLimits">
+            {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
+          </ng-container>
+          <ng-template #uploadLimits>
+            {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
+          </ng-template>
+        </div>
       </div>
-      <div class="hero-meta" style="margin-top: -4px;">
+      <div class="hero-meta" *ngIf="selectedFiles.length && countCharacters(medicalTextOriginal) >= 2000">
         {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
-        <span class="ms-2" *ngIf="selectedFiles.length">
+        <span class="ms-2">
           {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
         </span>
       </div>
-      <!-- Mensaje informativo sobre funcionalidad multimodal -->
+      <!-- Mensaje informativo sobre funcionalidad multimodal: una línea + detalle bajo demanda -->
       <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary mt-3 mb-3" role="alert" style="text-align: left;">
         <div class="d-flex align-items-start">
-          <i class="fa fa-info-circle fa-2x me-3 mt-1"></i>
-          <div>
-            <h5 class="alert-heading mb-2">{{'land.multimodalInfo.title' | translate}}</h5>
-            <p class="mb-2">{{'land.multimodalInfo.description' | translate}}</p>
-            <p class="mb-2"><strong>{{'land.multimodalInfo.instructions' | translate}}</strong></p>
-            <ul class="mb-2">
-              <li>{{'land.multimodalInfo.instruction1' | translate}}</li>
-              <li>{{'land.multimodalInfo.instruction2' | translate}}</li>
-              <li>{{'land.multimodalInfo.instruction3' | translate}}</li>
-              <li>{{'land.multimodalInfo.instruction4' | translate}}</li>
-            </ul>
-            <p class="mb-0"><em>{{'land.multimodalInfo.feedback' | translate}}</em></p>
+          <i class="fa fa-info-circle me-2 mt-1"></i>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center justify-content-between">
+              <span>{{'land.multimodalInfo.short' | translate}}</span>
+              <button type="button" class="beta-info-btn ms-2" (click)="showMultimodalDetails = !showMultimodalDetails"
+                [attr.aria-expanded]="showMultimodalDetails"
+                [attr.aria-label]="(showMultimodalDetails ? 'generics.Hide details' : 'generics.Show details') | translate"
+                [title]="(showMultimodalDetails ? 'generics.Hide details' : 'generics.Show details') | translate">
+                <i class="fa" [class.fa-chevron-down]="!showMultimodalDetails" [class.fa-chevron-up]="showMultimodalDetails"></i>
+              </button>
+            </div>
+            <div *ngIf="showMultimodalDetails" class="mt-2">
+              <p class="mb-2"><strong>{{'land.multimodalInfo.instructions' | translate}}</strong></p>
+              <ul class="mb-2">
+                <li>{{'land.multimodalInfo.instruction1' | translate}}</li>
+                <li>{{'land.multimodalInfo.instruction2' | translate}}</li>
+                <li>{{'land.multimodalInfo.instruction3' | translate}}</li>
+                <li>{{'land.multimodalInfo.instruction4' | translate}}</li>
+              </ul>
+              <p class="mb-0"><em>{{'land.multimodalInfo.feedback' | translate}}</em></p>
+            </div>
           </div>
         </div>
       </div>

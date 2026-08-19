@@ -558,8 +558,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 100%;
   min-height: calc(100vh - 65px);
   display: flex;
-  align-items: flex-start;
-  padding-top: clamp(2rem, 6vh, 5rem);
+  align-items: center;
 }
 
 /* Estilos para el aviso de versión beta */
@@ -599,6 +598,58 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     padding: 0.6rem 0.8rem;
   }
 }
+
+/* Botón "info" para desplegar detalle bajo demanda (progressive disclosure) */
+.beta-info-btn {
+  border: none;
+  background: transparent;
+  color: inherit;
+  opacity: 0.75;
+  padding: 0 0.15rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+}
+
+.beta-details {
+  max-width: 640px;
+  margin: 0.5rem auto 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: left;
+}
+
+/* Ejemplos accionables para enseñar los dos modos de entrada (caso clínico / pregunta) */
+.hero-hint-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.hint-chip {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
 .search {
   width: 100%;
   position: relative;
@@ -1897,6 +1948,7 @@ body {
   min-height: 38px;
   margin-bottom: 0.5rem;
   flex: 1 1 auto;
+  min-width: 0;
 }
 .chip-btn-add {
   border: 1.5px dashed rgba(255, 255, 255, 0.3);
@@ -1987,26 +2039,38 @@ body {
   margin-right: 0.2rem;
   white-space: nowrap;
   margin-top: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
   color: rgba(255, 255, 255, 0.5);
+}
+.hero-meta--inline {
+  flex-shrink: 0;
+  margin: 0 0.2rem 0 1rem;
+  text-align: right;
+  white-space: nowrap;
 }
 @media (max-width: 600px) {
   .chips-and-counter-row {
-    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
     gap: 0.2rem;
+    min-height: auto;
   }
   .chips-counter {
     position: static;
-    width: auto;
-    text-align: right;
+    flex: 1 0 100%;
+    width: 100%;
+    text-align: left;
     margin-left: 0;
-    margin-top: 0;
+    margin-top: -0.15rem;
+  }
+  .hero-meta--inline {
+    position: static;
+    flex: 1 0 100%;
+    width: 100%;
+    text-align: left;
+    margin: -0.15rem 0 0;
   }
   .file-chips-row {
+    flex: 1 0 100%;
     margin-bottom: 0;
   }
 }
