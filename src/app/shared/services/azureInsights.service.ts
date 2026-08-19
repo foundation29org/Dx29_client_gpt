@@ -1,26 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+import type { ApplicationInsights } from '@microsoft/applicationinsights-web';
 import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: "root"
 })
 export class InsightsService {
-  private appInsights: ApplicationInsights;
+  private appInsights?: ApplicationInsights;
   private initialized = false;
+  private initializationPromise?: Promise<void>;
   private queuedTelemetry: Array<() => void> = [];
 
   constructor() {
-    this.appInsights = new ApplicationInsights({ config: {
-      instrumentationKey: environment.INSTRUMENTATION_KEY,
-      disableFetchTracking: true,
-      disableAjaxTracking: true,
-      enableAutoRouteTracking: false,
-      autoTrackPageVisitTime: false,
-      loggingLevelConsole: 1,
-      /* ...Other Configuration Options... */
-    } });
-    
     // Diferir la carga de App Insights para no bloquear el render inicial
     this.deferredInit();
   }
@@ -35,10 +26,35 @@ export class InsightsService {
   }
 
   private initialize(): void {
-    if (this.initialized) return;
-    this.appInsights.loadAppInsights();
-    this.initialized = true;
-    this.flushQueuedTelemetry();
+    if (this.initialized || this.initializationPromise) return;
+
+    this.initializationPromise = import('@microsoft/applicationinsights-web')
+      .then(({ ApplicationInsights }) => {
+        this.appInsights = new ApplicationInsights({
+          config: {
+            instrumentationKey: environment.INSTRUMENTATION_KEY,
+            disableFetchTracking: true,
+            disableAjaxTracking: true,
+            enableAutoRouteTracking: false,
+            autoTrackPageVisitTime: false,
+            loggingLevelConsole: 1,
+            // El SDK usa "unload" por defecto para hacer flush de telemetría al salir, pero un
+            // handler de "unload" en el frame principal impide que el navegador restaure la página
+            // desde el back/forward cache (bfcache). Se excluye aquí: el SDK sigue haciendo flush
+            // igualmente con "pagehide"/"visibilitychange", que sí son compatibles con bfcache.
+            disablePageUnloadEvents: ['unload'],
+          }
+        });
+        this.appInsights.loadAppInsights();
+        this.initialized = true;
+        this.flushQueuedTelemetry();
+      })
+      .catch((error: unknown) => {
+        console.error('No se pudo inicializar Application Insights', error);
+      })
+      .finally(() => {
+        this.initializationPromise = undefined;
+      });
   }
 
   private enqueueTelemetry(sendTelemetry: () => void): void {
@@ -66,10 +82,13 @@ export class InsightsService {
     };
 
     this.enqueueTelemetry(() => {
+      const appInsights = this.appInsights;
+      if (!appInsights) return;
+
       if(environment.production){
-        this.appInsights.trackEvent({ name: eventName }, enhancedProperties);
+        appInsights.trackEvent({ name: eventName }, enhancedProperties);
       }else{
-        this.appInsights.trackEvent({ name: eventName }, enhancedProperties);
+        appInsights.trackEvent({ name: eventName }, enhancedProperties);
         console.log(`[${environment.tenantId}] ${eventName}`, enhancedProperties);
       }
     });
@@ -84,15 +103,18 @@ export class InsightsService {
     };
 
     this.enqueueTelemetry(() => {
+      const appInsights = this.appInsights;
+      if (!appInsights) return;
+
       if(environment.production){
-        this.appInsights.trackPageView({ name: pageName, properties: enhancedProperties });
+        appInsights.trackPageView({ name: pageName, properties: enhancedProperties });
       }else{
         console.log(`[${environment.tenantId}] Page View: ${pageName}`, enhancedProperties);
       }
     });
   }
 
-  trackException(exception) {
+  trackException(exception: unknown) {
     // Asegurar que App Insights esté inicializado
     if (!this.initialized) {
       this.initialize();
@@ -104,7 +126,7 @@ export class InsightsService {
     } else if (typeof exception === 'object') {
       stringException = JSON.stringify(exception);
     } else {
-      stringException = exception.toString();
+      stringException = String(exception);
     }
 
     const enhancedException = {
@@ -116,10 +138,15 @@ export class InsightsService {
       }
     };
 
-    if(environment.production){
-      this.appInsights.trackException(enhancedException);
-    }else{
-      console.log(`[${environment.tenantId}] Exception:`, enhancedException);
-    }
+    this.enqueueTelemetry(() => {
+      const appInsights = this.appInsights;
+      if (!appInsights) return;
+
+      if(environment.production){
+        appInsights.trackException(enhancedException);
+      }else{
+        console.log(`[${environment.tenantId}] Exception:`, enhancedException);
+      }
+    });
   }
 }

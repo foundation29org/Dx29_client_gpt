@@ -74,7 +74,7 @@
       </div>
       <div class="hero-meta" style="margin-top: -4px;">
         {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
-        <span class="ms-2">
+        <span class="ms-2" *ngIf="selectedFiles.length">
           {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
         </span>
       </div>
