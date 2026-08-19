@@ -22,7 +22,7 @@
 | 3 | Listener de scroll fuera de la zona de Angular | Medio | Bajo | Pendiente — **siguiente tarea recomendada** | |
 | 10 | Reducir CSS sin usar (`styles.css`, 37 KiB) | Bajo | Medio | Pendiente (nueva) | |
 | 5 | `ngZoneEventCoalescing` en el bootstrap | Medio | Bajo (probar bien) | Pendiente | |
-| 6 | Auditar y reducir el bundle `main.js` (107 KiB sin usar) | Alto | Medio | Pendiente | |
+| 6 | Auditar y reducir el bundle `main.js` | Alto | Medio | **En curso: App Insights separado** | `main.js`: 222,45→180,37 KiB (−42,08 KiB gzip local) |
 | 7 | Font Awesome: subset o SVG inline (155 KiB de fuente) | Medio | Medio | Pendiente | |
 | 8 | JSONs del arranque (countries, sponsors) fuera del camino crítico | Bajo | Bajo | Pendiente | |
 | 9 | Cloudflare `jsd/main.js` (428 ms CPU) — revisar configuración | Medio | Solo config | Pendiente | |
@@ -229,6 +229,22 @@ platformBrowserDynamic().bootstrapModule(AppModule, {
 3. Mover lo que se pueda a rutas lazy-load y dynamic imports.
 
 **Validación:** comparar tamaño de `main.js` antes/después y el "Reduce unused JavaScript" del informe.
+
+**Análisis local (19/08):** build de producción con `--source-map --stats-json`, analizado mediante las estadísticas nativas de Webpack (la versión actual de `source-map-explorer` no interpreta correctamente los mapas de una sola línea de Angular 19). Los mayores candidatos que entraban en el bundle inicial eran:
+
+| Dependencia | Tamaño en `main.js` (gzip) | Hallazgo |
+|---|---:|---|
+| Application Insights | 46 KiB | Se inicializaba en idle, pero su import estático obligaba a descargar y evaluar el SDK entero durante el arranque. |
+| SweetAlert2 | 20 KiB | Importado estáticamente por varios componentes; próximo candidato, pero requiere centralizar su carga dinámica para eliminarlo realmente de `main.js`. |
+| `@ng-bootstrap` | 10 KiB | Candidato secundario. |
+
+**Implementado — Application Insights como chunk lazy (19/08):** `azureInsights.service.ts` conserva su `requestIdleCallback`, configuración de bfcache y cola de telemetría, pero cambia el import del SDK a `import('@microsoft/applicationinsights-web')`. La cola cubre eventos y excepciones que ocurran antes de que el chunk termine de cargar. El build de producción confirma el resultado:
+
+- `main.js`: **222,45 → 180,37 KiB** comprimido (−42,08 KiB, −19%).
+- Nuevo chunk `microsoft-applicationinsights-web`: 41,02 KiB comprimido; solo se solicita en idle, no en el arranque.
+- Build y linter del servicio sin errores.
+
+Pendiente: desplegar y comparar 3 mediciones Lighthouse móvil. Si se valida, la siguiente parte de esta tarea será SweetAlert2.
 
 ---
 
