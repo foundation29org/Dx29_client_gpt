@@ -13,6 +13,10 @@ interface GoogleAdsConfig {
 // móvil (poco feedback obtenido a cambio de su coste en TBT/CPU). Volver a `true`
 // para reactivarlo. Ver PERFORMANCE-MOVIL-TAREAS.md, Tarea 1.
 const HOTJAR_ENABLED = false;
+// Prueba controlada: cargar GA/Ads inmediatamente después del consentimiento para
+// comprobar si el diferido estaba perdiendo visitas muy cortas. Volver a `true`
+// restaura la carga en idle/interacción sin tocar el resto de la integración.
+const DEFER_GOOGLE_TAGS = false;
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +81,11 @@ export class AnalyticsService {
   private scheduleGoogleTags(): void {
     if (this.googleTagsRequested || !this.document) return;
     this.googleTagsRequested = true;
+
+    if (!DEFER_GOOGLE_TAGS) {
+      this.loadGoogleTags();
+      return;
+    }
 
     this.runOnceOnIdleOrInteraction(
       () => this.loadGoogleTags(),
