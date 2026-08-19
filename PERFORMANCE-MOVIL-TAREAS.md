@@ -11,7 +11,8 @@
 
 | # | Tarea | Impacto esperado | Esfuerzo | Estado | Resultado |
 |---|-------|------------------|----------|--------|-----------|
-| 1 | Diferir GA / Google Ads / Hotjar hasta idle o primera interacción | Alto (TBT −1,5 a −2 s) | Bajo | **Hecho (código)** | Pendiente desplegar y medir |
+| 1 | Diferir GA / Google Ads / Hotjar hasta idle o primera interacción | Alto (TBT −1,5 a −2 s) | Bajo | **Hecho y desplegado** | Perf 51→54, **TBT 3.260→1.310 ms (−60%)**, LCP 4,4→4,8 s (ruido, ver nota) |
+| 9b | Cloudflare: revisar Bot Fight Mode y cache de `index.html` | Medio (estabiliza mediciones) | Solo config | **Revisado — sin acción** | Ver nota abajo |
 | 2 | App Insights: quitar handler `unload` (bfcache) | Medio | Bajo | Pendiente | |
 | 3 | Listener de scroll fuera de la zona de Angular | Medio | Bajo | Pendiente | |
 | 4 | Imágenes del footer: redimensionar y `width`/`height` | Bajo (CLS/LCP) | Bajo | Pendiente | |
@@ -46,6 +47,20 @@
 - **Hallazgo aparte, no corregido aquí:** `trackPageView()` solo envía a Application Insights, nunca a GA — el "page_view" que ves en GA4 es el automático de `gtag('config', ...)` al cargar, no un evento por cada navegación de la SPA. Si en algún momento os interesa medir page views por ruta en GA, sería una tarea nueva (llamar a `gtag('event', 'page_view', ...)` en cada `NavigationEnd`), separada de esta.
 
 **Validación:** TBT en móvil debería bajar claramente (~1,5–2 s menos). También deberían desaparecer o mejorar: aviso de `font-display` (Roboto de Hotjar), fallo de accesibilidad `aria-hidden` (botón de Hotjar), parte de las cookies de terceros en el arranque, y las entradas duplicadas de `gtag/js` en "Reduce unused JavaScript".
+
+**Resultado medido tras desplegar (19/08):** Performance 51→54, **TBT 3.260→1.310 ms (−60%)** — mejora real y esperada. LCP 4,4→4,8 s: no atribuible al cambio (diferir scripts no debería empeorar LCP); ambos valores están en zona "roja" de Lighthouse (>4 s) así que la puntuación no distingue entre ellos. Es variabilidad normal entre mediciones móviles, posiblemente agravada por el challenge de bot de Cloudflare que puede inyectarse en pruebas automatizadas (ver tarea 9b). El TBT seguirá bajando con las tareas 3, 5 y 6; el LCP requiere las tareas 6, 7 y 8 para moverse de forma visible en la puntuación global.
+
+---
+
+## Tarea 9b — Cloudflare: bots y cache rules (config, sin código)
+
+**Contexto:** al comprobar si la caché de Cloudflare podía estar sirviendo una versión antigua del sitio tras el despliegue, una petición simple recibió `403 Forbidden` con cabecera `Cf-Mitigated: challenge` — Cloudflare está lanzando un challenge de bot (Turnstile) ante tráfico que detecta como automatizado. Esto no invalida la medición del TBT (que sí mejoró, demostrando que el build nuevo se sirve correctamente), pero puede añadir variabilidad puntual al LCP si Cloudflare decide challengear también al bot de Lighthouse/PageSpeed Insights en alguna pasada.
+
+**Qué se revisó:**
+1. **Caché**: sin Cache Rules propias, "TTL de caché del navegador" en "Respetar los encabezados existentes" y nivel "Standard" → Cloudflare no cachea `index.html` en el borde por defecto (solo activos estáticos por extensión). No hace falta ninguna acción; se purgó la caché una vez para descartar dudas.
+2. **Bots (Super Bot Fight Mode)**: "Bots verificados: Permitir" ya está activo. "Detecciones JS: On" no afecta a navegadores reales (incluido el Chrome headless de Lighthouse), solo a clientes que no ejecutan JS. "Tráfico definitivamente automatizado: Desafío administrado" sí puede challengear ocasionalmente a Lighthouse/PSI (Chrome headless con marcadores de automatización tipo `navigator.webdriver`), pero **no afecta a usuarios reales** (no tienen esos marcadores). Bajar esta protección para "arreglar" una métrica de laboratorio no compensa el riesgo de abrir la puerta a scraping/abuso real.
+
+**Conclusión:** no se cambia nada en Cloudflare. El ruido de LCP entre pasadas de Lighthouse es esperable y no viene de caché ni de una configuración corregible sin asumir riesgo de seguridad. Para verificar mejoras reales, dar más peso a los **datos de campo (Field Data/CrUX)** de PageSpeed Insights si están disponibles para dxgpt.app (provienen de usuarios reales, no pasan por el challenge de bots) frente a los datos de laboratorio, que son más ruidosos.
 
 ---
 

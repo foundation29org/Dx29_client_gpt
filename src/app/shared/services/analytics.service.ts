@@ -11,6 +11,11 @@ interface GoogleAdsConfig {
   conversionId?: string;
 }
 
+// Desactivado temporalmente para medir el impacto real de Hotjar en el rendimiento
+// móvil (poco feedback obtenido a cambio de su coste en TBT/CPU). Volver a `true`
+// para reactivarlo. Ver PERFORMANCE-MOVIL-TAREAS.md, Tarea 1.
+const HOTJAR_ENABLED = false;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -208,6 +213,7 @@ export class AnalyticsService {
    * así que no hay motivo para competir por CPU con el resto del arranque.
    */
   private scheduleHotjar(): void {
+    if (!HOTJAR_ENABLED) return;
     if (this.hotjarRequested || !this.document) return;
 
     const tenantsWithHotjar = ['dxgpt-prod', 'dxeugpt', 'dxeugpt-prod'];
