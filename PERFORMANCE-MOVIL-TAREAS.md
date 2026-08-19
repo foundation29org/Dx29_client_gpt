@@ -1,7 +1,9 @@
 # Plan de mejora de rendimiento móvil — dxgpt.app
 
-**Estado actual (Lighthouse):** Desktop 74 / Móvil 51.
-**Problema principal en móvil:** TBT 3.260 ms y LCP 4,4 s. El cuello de botella es JavaScript compitiendo por el hilo principal durante el arranque, no el peso de las imágenes ni el CSS.
+**Estado inicial (Lighthouse):** Desktop 74 / Móvil 51.
+**Estado tras Tareas 1, 2 y parte de 4 (19/08):** Desktop **93** (TBT 190 ms, LCP 1,0 s, FCP 0,5 s).
+**Estado móvil tras Tareas 1 y 2 + Tarea 4 completa (19/08, tarde):** Performance **71** (Accessibility 99, Best Practices 77, SEO 100). **FCP 1,1 s y LCP 1,1 s, ambos en verde** (venían de 2,4 s y 4,4 s). CLS 0. Único indicador aún en rojo: **TBT 2.190 ms**.
+**Problema principal en móvil ahora:** ya no son los scripts de terceros (GA/Ads deduplicados y diferidos, Hotjar desactivado — confirmado: una sola entrada de `gtag.js`, cero Hotjar en el informe). El TBT restante viene de la ejecución del propio JS de la app (`main.js` + código de arranque) compitiendo por el hilo principal. Las tareas 3, 5 y 6 son las que atacan esto directamente.
 
 **Metodología:** una tarea por vez. Después de cada tarea: desplegar, esperar a que propague, y volver a pasar Lighthouse móvil (3 pasadas, quedarse con la mediana) antes de tocar la siguiente. Anotar el resultado en la columna "Resultado" de la tabla.
 
@@ -14,9 +16,10 @@
 | 1 | Diferir GA / Google Ads hasta idle o primera interacción + eliminar duplicados | Alto (TBT/JS −60%) | Bajo | **Hecho y confirmado** | Ver nota "medición limpia" abajo |
 | 1c | Desactivar Hotjar (flag `HOTJAR_ENABLED = false`) | Medio | Bajo | **Hecho y confirmado** | Font-display, cookies y CPU de Hotjar desaparecidos del informe |
 | 9b | Cloudflare: revisar Bot Fight Mode y cache de `index.html` | Medio (estabiliza mediciones) | Solo config | **Revisado — sin acción** | Ver nota abajo |
-| 2 | App Insights: quitar handler `unload` (bfcache) | Medio | Bajo | **Hecho (código)** | Pendiente desplegar y medir |
-| 3 | Listener de scroll fuera de la zona de Angular | Medio | Bajo | Pendiente | |
-| 4 | Imágenes: header (`fetchpriority`, sin lazy), footer (`width`/`height`) y `logo-Dx29.png` a WebP | Medio (LCP/CLS) | Bajo | **Parcial: hecho (código) puntos 1 y 6** | Pendiente desplegar y medir; quedan puntos 2, 3, 5 (recompresión/WebP) |
+| 2 | App Insights: quitar handler `unload` (bfcache) | Medio | Bajo | **Hecho y confirmado** | Desktop y móvil: aviso "Unload event listeners deprecated" ha desaparecido (4→3 avisos) |
+| — | Añadir landmark `<main>` (accesibilidad) | Bajo (Accessibility) | Muy bajo | **Hecho** | Pendiente desplegar y medir |
+| 4 | Imágenes: header (`fetchpriority`, `width`/`height`), footer (`width`/`height`, WebP 2x, recompresión) y `logo-Dx29.png` a WebP | Medio (LCP/CLS) | Bajo | **Hecho (completa)** | Pendiente desplegar y medir el punto de resolución (3-5) |
+| 3 | Listener de scroll fuera de la zona de Angular | Medio | Bajo | Pendiente — **siguiente tarea recomendada** | |
 | 10 | Reducir CSS sin usar (`styles.css`, 37 KiB) | Bajo | Medio | Pendiente (nueva) | |
 | 5 | `ngZoneEventCoalescing` en el bootstrap | Medio | Bajo (probar bien) | Pendiente | |
 | 6 | Auditar y reducir el bundle `main.js` (107 KiB sin usar) | Alto | Medio | Pendiente | |
@@ -105,6 +108,8 @@ El SDK usa `pagehide`/`visibilitychange` en su lugar, que sí son compatibles co
 
 **Validación pendiente:** tras desplegar, en Lighthouse debe desaparecer "Page prevented back/forward cache restoration" y el warning "Unload event listeners are deprecated". En DevTools: Application → Back/forward cache → Test.
 
+**Resultado (19/08, desktop):** confirmado — "Unload event listeners are deprecated" ha desaparecido de "Uses deprecated APIs" (pasó de 4 a 3 avisos). Pendiente confirmar en móvil que también desaparece "Page prevented back/forward cache restoration".
+
 ---
 
 ## Tarea 3 — Listener de scroll fuera de la zona de Angular
@@ -148,10 +153,34 @@ Revisar si `beta-page` / `undiagnosed-page` tienen listeners similares y aplicar
 
 **Validación:** desaparecen "LCP request discovery", "Improve image delivery", "Serves images with low resolution" e "Image elements do not have explicit width and height"; posible mejora directa de LCP si el logo de cabecera era el elemento LCP en el viewport probado.
 
-**Hecho (código, 19/08):**
+**Hecho (código, 19/08 mañana):**
 - Punto 1: añadido `width="140" height="37" fetchpriority="high"` a los 4 `<img class="logo-header">` de `navbar-dx29.component.html` (variantes desktop/móvil × home/no-home). No usaban `loading="lazy"`, así que ese punto ya estaba bien.
 - Punto 6: añadido `width="100" height="34"` al logo del footer (`footer.component.html`), usando el tamaño mostrado real que reportaba Lighthouse (100×34), más `loading="lazy"` ya que está fuera del viewport inicial (no es candidato a LCP, así que retrasar su descarga es seguro y ahorra ancho de banda en el arranque).
-- Pendientes de este task (requieren generar/optimizar archivos de imagen, no solo código): puntos 2 (WebP de `logo-Dx29.png`), 3 (versión 2x de `logo-Dx29.webp`) y 5 (recomprimir `logo-f29-white.webp`). Punto 4 (`Foundation29logo.webp` a 2x) queda pendiente también.
+
+**Hecho (imágenes regeneradas, 19/08 tarde) — cierra el resto de la tarea:**
+
+Se usó `sharp` (temporalmente vía `npx sharp-cli`, sin dejar rastro en `package.json`) para regenerar los archivos. Antes de sustituir cada uno se revisó visualmente que no hubiera pérdida de calidad perceptible.
+
+| Archivo | Antes | Después | Detalle |
+|---|---|---|---|
+| `logo-Dx29.webp` (header) | 140×37, 3,4 KiB | **210×56, 5,4 KiB** | Regenerado desde `logo-Dx29.png` (fuente de 225×60, más que suficiente), en vez de partir del propio webp de baja resolución. Resuelve el "Serves images with low resolution" (esperaba 210×56). |
+| `logo-Dx29-shell.webp` (nuevo) | — (antes `.png` de 9,8 KiB) | **180×48, 4,3 KiB** | Nuevo archivo para el logo del *shell* estático de `index.html` (el que se ve antes de que Angular arranque). `index.html` actualizado para usarlo en vez del `.png`. El `.png` original se mantiene intacto para `og:image`/`twitter:image`/JSON-LD (compatibilidad con crawlers) y para `pdf-make.service.ts` (necesita raster para incrustar en PDFs). |
+| `Foundation29logo.webp` (footer) | 586×200, 14,8 KiB | **200×68, 5,4 KiB** | Redimensionado a ~2x de su tamaño mostrado (100×34), como pedía el punto 4. |
+| `logo-f29-white.webp` (footer) | 125×43, 6,8 KiB | **125×43, 2,0 KiB** | Solo recomprimido (misma resolución, ya era razonable), −71% de peso. |
+
+Ahorro total de transferencia en estos 4 archivos: de ~35 KiB a ~17 KiB (y con mejor resolución en el logo de cabecera, no peor).
+
+**Con esto la Tarea 4 queda completa.** Falta desplegar y confirmar en el informe que desaparecen "Serves images with low resolution" e "Improve image delivery" para estos archivos.
+
+---
+
+## Mini-tarea — Landmark `<main>` (accesibilidad) ✅ IMPLEMENTADA
+
+**Del informe:** Lighthouse (Accessibility) señalaba "Document doesn't have a main landmark".
+
+**Qué se ha hecho:** en `src/app/layouts/land-page/land-page-layout.component.html` (el único layout de la app, envuelve navbar + contenido enrutado + footer), se ha cambiado la etiqueta `<div class="main-content">` que envuelve el `<router-outlet>` por `<main class="main-content">`. Cambio de una sola etiqueta, sin tocar clases ni estructura, así que no debería afectar visualmente a nada — build verificado sin errores.
+
+No mejora el rendimiento (TBT/LCP), pero es gratis y ayuda a lectores de pantalla; con Accessibility ya en 99, es la clase de arreglo que probablemente lo deja en 100.
 
 ---
 
@@ -245,4 +274,6 @@ platformBrowserDynamic().bootstrapModule(AppModule, {
 
 ## Orden de re-medición
 
-Tras cada despliegue: PageSpeed Insights (móvil) sobre `https://dxgpt.app` en incógnito, 3 pasadas, apuntar mediana de Performance, TBT y LCP en la tabla de arriba. Objetivo razonable tras las tareas 1–5: **móvil ≥ 70**.
+Tras cada despliegue: PageSpeed Insights (móvil) sobre `https://dxgpt.app` en incógnito, 3 pasadas, apuntar mediana de Performance, TBT y LCP en la tabla de arriba. Objetivo razonable tras las tareas 1–5: **móvil ≥ 70** — ✅ ya alcanzado (71) con solo las tareas 1, 2 y 4. FCP y LCP ya están en verde; el único bloqueante real que queda para subir la puntuación de forma decisiva es el **TBT (2.190 ms)**.
+
+**Siguiente paso recomendado:** Tarea 3 (sacar el listener de `scroll` de la zona de Angular) — es barata, de bajo riesgo, y reduce trabajo de hilo principal en cada scroll táctil en móvil. Tras confirmarla, la Tarea 5 (`ngZoneEventCoalescing`) es el siguiente paso igual de barato. La Tarea 6 (reducir `main.js`) es la que más TBT puede bajar, pero requiere más esfuerzo (analizar el bundle con `source-map-explorer`), así que conviene dejarla para después de agotar las tareas baratas 3 y 5.
