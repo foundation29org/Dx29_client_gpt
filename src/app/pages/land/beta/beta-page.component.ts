@@ -116,6 +116,10 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     private fullPlaceholderText: string = ''; // Almacena el texto completo del placeholder
     private typingInterval: any; // Para el intervalo de animación
 
+    // Controla la visibilidad de los bloques de texto ampliados (progressive disclosure)
+    showBetaDetails: boolean = false;
+    showMultimodalDetails: boolean = false;
+
     // Nuevas propiedades para la funcionalidad de preguntas de seguimiento
     showFollowUpQuestions: boolean = false;
     followUpQuestions: any[] = [];
@@ -670,6 +674,17 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             this.medicalTextOriginal = this.translate.instant("land.p1.2")
         }
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
+        this.resizeTextArea();
+    }
+
+    // Rellena el textarea con un ejemplo de caso clínico o de pregunta médica,
+    // para enseñar los dos modos de entrada sin depender de texto explicativo.
+    useExample(type: 'patient' | 'question'): void {
+        this.medicalTextOriginal = type === 'patient'
+            ? this.translate.instant('land.p1.1')
+            : this.translate.instant('beta.example_question_text');
+        this.lauchEvent(`Beta - Use example (${type})`);
+        this.focusTextArea();
         this.resizeTextArea();
     }
 
