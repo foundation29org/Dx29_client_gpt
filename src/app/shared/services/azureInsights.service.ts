@@ -18,6 +18,11 @@ export class InsightsService {
       enableAutoRouteTracking: false,
       autoTrackPageVisitTime: false,
       loggingLevelConsole: 1,
+      // El SDK usa "unload" por defecto para hacer flush de telemetría al salir, pero un
+      // handler de "unload" en el frame principal impide que el navegador restaure la página
+      // desde el back/forward cache (bfcache). Se excluye aquí: el SDK sigue haciendo flush
+      // igualmente con "pagehide"/"visibilitychange", que sí son compatibles con bfcache.
+      disablePageUnloadEvents: ['unload'],
       /* ...Other Configuration Options... */
     } });
     

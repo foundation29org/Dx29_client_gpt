@@ -11,11 +11,13 @@
 
 | # | Tarea | Impacto esperado | Esfuerzo | Estado | Resultado |
 |---|-------|------------------|----------|--------|-----------|
-| 1 | Diferir GA / Google Ads / Hotjar hasta idle o primera interacción | Alto (TBT −1,5 a −2 s) | Bajo | **Hecho y desplegado** | Perf 51→54, **TBT 3.260→1.310 ms (−60%)**, LCP 4,4→4,8 s (ruido, ver nota) |
+| 1 | Diferir GA / Google Ads hasta idle o primera interacción + eliminar duplicados | Alto (TBT/JS −60%) | Bajo | **Hecho y confirmado** | Ver nota "medición limpia" abajo |
+| 1c | Desactivar Hotjar (flag `HOTJAR_ENABLED = false`) | Medio | Bajo | **Hecho y confirmado** | Font-display, cookies y CPU de Hotjar desaparecidos del informe |
 | 9b | Cloudflare: revisar Bot Fight Mode y cache de `index.html` | Medio (estabiliza mediciones) | Solo config | **Revisado — sin acción** | Ver nota abajo |
-| 2 | App Insights: quitar handler `unload` (bfcache) | Medio | Bajo | Pendiente | |
+| 2 | App Insights: quitar handler `unload` (bfcache) | Medio | Bajo | **Hecho (código)** | Pendiente desplegar y medir |
 | 3 | Listener de scroll fuera de la zona de Angular | Medio | Bajo | Pendiente | |
-| 4 | Imágenes del footer: redimensionar y `width`/`height` | Bajo (CLS/LCP) | Bajo | Pendiente | |
+| 4 | Imágenes: header (`fetchpriority`, sin lazy), footer (`width`/`height`) y `logo-Dx29.png` a WebP | Medio (LCP/CLS) | Bajo | Pendiente | |
+| 10 | Reducir CSS sin usar (`styles.css`, 37 KiB) | Bajo | Medio | Pendiente (nueva) | |
 | 5 | `ngZoneEventCoalescing` en el bootstrap | Medio | Bajo (probar bien) | Pendiente | |
 | 6 | Auditar y reducir el bundle `main.js` (107 KiB sin usar) | Alto | Medio | Pendiente | |
 | 7 | Font Awesome: subset o SVG inline (155 KiB de fuente) | Medio | Medio | Pendiente | |
@@ -48,7 +50,25 @@
 
 **Validación:** TBT en móvil debería bajar claramente (~1,5–2 s menos). También deberían desaparecer o mejorar: aviso de `font-display` (Roboto de Hotjar), fallo de accesibilidad `aria-hidden` (botón de Hotjar), parte de las cookies de terceros en el arranque, y las entradas duplicadas de `gtag/js` en "Reduce unused JavaScript".
 
-**Resultado medido tras desplegar (19/08):** Performance 51→54, **TBT 3.260→1.310 ms (−60%)** — mejora real y esperada. LCP 4,4→4,8 s: no atribuible al cambio (diferir scripts no debería empeorar LCP); ambos valores están en zona "roja" de Lighthouse (>4 s) así que la puntuación no distingue entre ellos. Es variabilidad normal entre mediciones móviles, posiblemente agravada por el challenge de bot de Cloudflare que puede inyectarse en pruebas automatizadas (ver tarea 9b). El TBT seguirá bajando con las tareas 3, 5 y 6; el LCP requiere las tareas 6, 7 y 8 para moverse de forma visible en la puntuación global.
+**Resultado medido tras desplegar (19/08):** Performance 51→54, **TBT 3.260→1.310 ms (−60%)** en la primera medición — mejora real y esperada. LCP 4,4→4,8 s: no atribuible al cambio (diferir scripts no debería empeorar LCP); ambos valores están en zona "roja" de Lighthouse (>4 s) así que la puntuación no distingue entre ellos.
+
+**Mediciones adicionales el mismo día mostraron varianza muy alta** (Performance 58/39, TBT 5.900/4.230 ms, LCP 2,4 s/9,8 s en dos pasadas consecutivas del mismo despliegue). Esa varianza es mayor de lo que cualquier cambio de código podría explicar; se identificaron dos causas de ruido ajenas al código: "Unattributable" CPU disparado a 5.228 ms (ruido del entorno de test) y el script de detección de bots de Cloudflare (`jsd/main.js`) subiendo de 428 ms a 1.212 ms de CPU entre pasadas. **Confirmado como mejora real y verificable pese al ruido:** la duplicación de `gtag.js` (antes 5 requests distintos ~700 KiB en "Reduce unused JavaScript") ha desaparecido por completo — ahora una sola entrada de 177,8 KiB — prueba directa de que el guard síncrono contra la doble carga funciona, incluso aunque el bug de origen (doble disparo de `setCookieConsent(true)` desde `app.component.ts`, visible como `"Consentimiento de cookies existente detectado"` duplicado en consola) sigue sin corregir.
+
+**Ajuste adicional (19/08):** dado el poco valor percibido de Hotjar frente a su coste, se ha desactivado temporalmente con una bandera (`HOTJAR_ENABLED = false` en `analytics.service.ts`) para medir el impacto aislado antes de decidir si se reactiva.
+
+**Medición limpia tras desactivar Hotjar (19/08, misma tarde):** con el ruido del entorno de vuelta a niveles normales (`jsd/main.js` 424 ms, "Unattributable" 1.389 ms — ambos en línea con el baseline original), los resultados confirman las dos mejoras:
+
+| Métrica | Baseline | Ruidoso (mismo día) | Limpio (tras quitar Hotjar) |
+|---|---|---|---|
+| Reduce JS execution time | 5,9 s | 7,0 s | **3,0 s** |
+| Minimize main-thread work | 8,7 s | 15,3 s | **5,8 s** |
+| Reduce unused JS | 483 KiB (5 scripts GTM) | — | **205 KiB (2 entradas: main.js + 1 solo gtag.js)** |
+| Font-display / cookies Hotjar | presentes | presentes | **desaparecidos** |
+| Deprecated APIs (Best Practices) | 5 avisos | 5 avisos | **4 avisos** (se fue "Attribution Reporting") |
+
+Con esto, tanto el fix de duplicados de GA/Ads como la desactivación de Hotjar quedan validados con datos limpios, más allá del ruido puntual del entorno de test. **Decisión pendiente del usuario:** mantener Hotjar desactivado de forma permanente o reactivarlo ya beneficiándose del diferido (cambiar `HOTJAR_ENABLED` a `true` cuando se decida).
+
+El TBT seguirá bajando con las tareas 3, 5 y 6; el LCP requiere las tareas 4, 6, 7 y 8 para moverse de forma visible en la puntuación global. Recomendado: medir con 3-5 pasadas y quedarse con la mediana, dado el nivel de ruido observado en el entorno de test.
 
 ---
 
@@ -64,7 +84,7 @@
 
 ---
 
-## Tarea 2 — Application Insights: eliminar el handler `unload` (bfcache) y sacarlo del camino crítico
+## Tarea 2 — Application Insights: eliminar el handler `unload` (bfcache) y sacarlo del camino crítico ✅ IMPLEMENTADA
 
 **Síntomas en el informe:**
 - "Page prevented back/forward cache restoration: The page has an unload handler in the main frame".
@@ -73,15 +93,15 @@
 
 **Causa:** el SDK `@microsoft/applicationinsights-web` registra por defecto handlers en `unload`/`beforeunload` para hacer flush de telemetría. El handler `unload` rompe el bfcache (las navegaciones atrás/adelante dejan de ser instantáneas).
 
-**Qué hacer:** en `src/app/shared/services/azureInsights.service.ts`, añadir a la config:
+**Qué se ha hecho:** en `src/app/shared/services/azureInsights.service.ts`, añadido a la config:
 
 ```ts
 disablePageUnloadEvents: ['unload'],
 ```
 
-El SDK usará `pagehide`/`visibilitychange` en su lugar, que son compatibles con bfcache. La inicialización diferida con `requestIdleCallback` ya la tienes bien hecha; opcionalmente se puede subir el `timeout` de 2000 a 5000 ms para que el primer `/v2/track` no compita con el LCP.
+El SDK usa `pagehide`/`visibilitychange` en su lugar, que sí son compatibles con bfcache (confirmado en el tipo `IConfig` del SDK instalado, v2.5.11: acepta excluir `beforeunload`/`unload`/`visibilitychange`/`pagehide` individualmente, siempre que quede al menos uno activo). La inicialización diferida con `requestIdleCallback` ya estaba bien hecha, se deja el `timeout` en 2000 ms por ahora.
 
-**Validación:** en Lighthouse debe desaparecer el fallo de bfcache y el warning de `unload` deprecated. En DevTools: Application → Back/forward cache → Test.
+**Validación pendiente:** tras desplegar, en Lighthouse debe desaparecer "Page prevented back/forward cache restoration" y el warning "Unload event listeners are deprecated". En DevTools: Application → Back/forward cache → Test.
 
 ---
 
@@ -111,16 +131,32 @@ Revisar si `beta-page` / `undiagnosed-page` tienen listeners similares y aplicar
 
 ---
 
-## Tarea 4 — Imágenes del footer
+## Tarea 4 — Imágenes: cabecera (LCP), footer y logo estático de `index.html`
 
-**Del informe (21 KiB ahorrables + CLS):**
+**Del informe (actualizado 19/08, con más detalle tras limpiar el ruido):**
 
-1. `assets/img/Foundation29logo.webp`: es de 586×200 pero se muestra a 100×34. Generar una versión de ~200×68 (2x para retina). Ahorro ~14 KiB. Se usa como fallback en `footer.component.ts` y `branding.service.ts` (`getFooterLogo()`).
-2. `assets/img/logo-f29-white.webp`: recomprimir (ahorro ~6 KiB). Es el footer de todos los tenants en `src/assets/config/branding-config.json`.
-3. Añadir `width` y `height` explícitos a los `<img>` del footer (`footer.component.html`) para evitar layout shift.
-4. `assets/img/logo-Dx29.webp` (header): el informe dice lo contrario — se sirve a **baja** resolución para su tamaño mostrado en pantallas retina. Generar versión 2x.
+1. **`img.mt-1.logo-header.pointer` (logo de cabecera, renderizado por Angular) — "LCP request discovery":** Lighthouse señala que le falta `fetchpriority="high"` y que no debe usar `loading="lazy"`, porque es candidato a elemento LCP y debe ser descubrible de inmediato. Localizar el `<img>` en la plantilla del navbar/header y:
+   - añadir `fetchpriority="high"`,
+   - confirmar que no tiene `loading="lazy"` (quitarlo si lo tiene).
+2. **`assets/img/logo-Dx29.png`** — es el logo de respaldo estático dentro del *shell* de `index.html` (el que se ve mientras arranca Angular, antes de que `app-root` se hidrate: `<img src="assets/img/logo-Dx29.png" ...>`). Lighthouse recomienda convertirlo a WebP/AVIF: ahorro ~8,4 KiB. Ojo: mantener también el `.png` o añadir `<picture>` con fallback si se usa en el `og:image` de meta tags (los crawlers de redes sociales no siempre soportan WebP).
+3. **`assets/img/logo-Dx29.webp`** (header, una vez Angular ha pintado): se sirve a **baja** resolución para su tamaño mostrado en pantallas retina ("Serves images with low resolution"). Generar versión 2x.
+4. **`assets/img/Foundation29logo.webp`** (footer): es de 586×200 pero se muestra a 100×34. Generar una versión de ~200×68 (2x para retina). Ahorro ~14 KiB. Se usa como fallback en `footer.component.ts` y `branding.service.ts` (`getFooterLogo()`).
+5. **`assets/img/logo-f29-white.webp`** (footer): recomprimir (ahorro ~6 KiB). Es el footer de todos los tenants en `src/assets/config/branding-config.json`.
+6. Añadir `width` y `height` explícitos a los `<img>` del footer (`footer.component.html`) para evitar layout shift ("Image elements do not have explicit width and height").
 
-**Validación:** desaparecen los avisos "Improve image delivery" e "Image elements do not have explicit width and height".
+**Validación:** desaparecen "LCP request discovery", "Improve image delivery", "Serves images with low resolution" e "Image elements do not have explicit width and height"; posible mejora directa de LCP si el logo de cabecera era el elemento LCP en el viewport probado.
+
+---
+
+## Tarea 10 — Reducir CSS sin usar (nueva, hallazgo del 19/08)
+
+**Del informe:** `styles.css` (bundle global de estilos) transfiere 38,9 KiB de los que ~37 KiB no se usan en la carga inicial ("Reduce unused CSS").
+
+**Qué revisar:** es el CSS global compartido (no el de un componente concreto), así que probablemente incluye estilos de librerías (Bootstrap, SweetAlert2, ngx-cookieconsent, etc.) cargados enteros aunque solo se use una parte. Opciones, de menor a mayor esfuerzo:
+1. Revisar imports de Bootstrap/SCSS en `styles.scss` global — importar solo los módulos de Bootstrap realmente usados en vez del framework completo.
+2. Mover estilos específicos de una sola página/componente (si los hay en el global) a los `.scss` de esos componentes, para que Angular los cargue solo cuando esa ruta se visita.
+
+**Prioridad:** baja frente al resto (37 KiB es mucho menos que los ~200 KiB de JS de las tareas 6/7), dejar para el final.
 
 ---
 
