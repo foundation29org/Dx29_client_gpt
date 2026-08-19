@@ -3,13 +3,20 @@ import { DOCUMENT } from '@angular/common';
 import { environment } from 'environments/environment';
 import { InsightsService } from './azureInsights.service';
 
-declare let gtag: any;
-
 interface GoogleAdsConfig {
   primaryId: string;
   secondaryId?: string;
   conversionId?: string;
 }
+
+// Desactivado temporalmente para medir el impacto real de Hotjar en el rendimiento
+// móvil (poco feedback obtenido a cambio de su coste en TBT/CPU). Volver a `true`
+// para reactivarlo. Ver PERFORMANCE-MOVIL-TAREAS.md, Tarea 1.
+const HOTJAR_ENABLED = false;
+// Prueba controlada: cargar GA/Ads inmediatamente después del consentimiento para
+// comprobar si el diferido estaba perdiendo visitas muy cortas. Volver a `true`
+// restaura la carga en idle/interacción sin tocar el resto de la integración.
+const DEFER_GOOGLE_TAGS = false;
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +31,7 @@ export class AnalyticsService {
   // llamadas casi simultáneas a setCookieConsent(true) inyecten el script dos veces.
   private googleTagsRequested = false;
   private googleTagsLoaded = false;
+  private googleTagsConfigured = false;
   private googleTagsAvailableForTenant: boolean | null = null; // null = aún no evaluado
   private gaEventQueue: Array<() => void> = [];
 
@@ -74,6 +82,11 @@ export class AnalyticsService {
     if (this.googleTagsRequested || !this.document) return;
     this.googleTagsRequested = true;
 
+    if (!DEFER_GOOGLE_TAGS) {
+      this.loadGoogleTags();
+      return;
+    }
+
     this.runOnceOnIdleOrInteraction(
       () => this.loadGoogleTags(),
       2000,
@@ -100,16 +113,18 @@ export class AnalyticsService {
     this.googleTagsAvailableForTenant = true;
 
     const primaryId = gaId || adsConfig?.primaryId;
-    const script = this.document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${primaryId}`;
 
-    script.onload = () => {
-      (window as any).dataLayer = (window as any).dataLayer || [];
-      (window as any).gtag = (window as any).gtag || function gtag(...args: any[]) {
-        (window as any).dataLayer.push(args);
-      };
-      const gtagFn = (window as any).gtag;
+    // El snippet oficial de Google prepara dataLayer y encola la configuración
+    // ANTES de descargar gtag.js. Así el script procesa los comandos al arrancar
+    // y puede enviar el page_view automático de GA4.
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).gtag = (window as any).gtag || function gtag(...args: any[]) {
+      (window as any).dataLayer.push(args);
+    };
+
+    const gtagFn = (window as any).gtag;
+    if (!this.googleTagsConfigured) {
+      this.googleTagsConfigured = true;
       gtagFn('js', new Date());
 
       if (gaId) {
@@ -124,7 +139,13 @@ export class AnalyticsService {
           gtagFn('event', 'conversion', { send_to: adsConfig.conversionId });
         }
       }
+    }
 
+    const script = this.document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${primaryId}`;
+
+    script.onload = () => {
       this.googleTagsLoaded = true;
       this.flushGaEventQueue();
     };
@@ -174,7 +195,7 @@ export class AnalyticsService {
    * Verifica si Google Analytics está disponible
    */
   isGoogleAnalyticsAvailable(): boolean {
-    return this.googleTagsLoaded && typeof gtag !== 'undefined';
+    return this.googleTagsLoaded && typeof (window as any).gtag === 'function';
   }
 
   /**
@@ -208,6 +229,7 @@ export class AnalyticsService {
    * así que no hay motivo para competir por CPU con el resto del arranque.
    */
   private scheduleHotjar(): void {
+    if (!HOTJAR_ENABLED) return;
     if (this.hotjarRequested || !this.document) return;
 
     const tenantsWithHotjar = ['dxgpt-prod', 'dxeugpt', 'dxeugpt-prod'];
@@ -391,7 +413,10 @@ export class AnalyticsService {
 
     this.enqueueGaEvent(() => {
       try {
-        gtag('event', eventName, {
+        const gtagFn = (window as any).gtag;
+        if (typeof gtagFn !== 'function') return;
+
+        gtagFn('event', eventName, {
           'event_category': 'Custom',
           'event_label': properties.tenantId,
           'tenant_id': properties.tenantId,
