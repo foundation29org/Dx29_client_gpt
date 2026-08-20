@@ -109,12 +109,7 @@ export class AnalyticsService {
       if (adsConfig.secondaryId) {
         gtag('config', adsConfig.secondaryId);
       }
-      
-      // Enviar evento de conversión
-      if (adsConfig.conversionId) {
-        gtag('event', 'conversion', { 'send_to': adsConfig.conversionId });
-      }
-      
+
       this.googleAdsLoaded = true;
     };
 
@@ -125,14 +120,15 @@ export class AnalyticsService {
    * Obtiene la configuración de Google Ads según el tenant
    * DxGPT (incluyendo versión EU) usa Google Ads
    */
-  private getGoogleAdsConfig(): { primaryId: string; secondaryId?: string; conversionId?: string } | null {
+  private getGoogleAdsConfig(): { primaryId: string; secondaryId?: string } | null {
     const tenantsWithGoogleAds = ['dxgpt-prod', 'dxeugpt', 'dxeugpt-prod'];
     
     if (tenantsWithGoogleAds.includes(environment.tenantId)) {
       return {
-        primaryId: 'AW-335378785',
-        secondaryId: 'AW-16829919003',
-        conversionId: 'AW-335378785/wcKYCMDpnJIZEOHy9Z8B'
+        // Paid: única cuenta Ads con conversión web directa activa.
+        primaryId: 'AW-16829919003'
+        // Grant histórico (no cargar): AW-335378785.
+        // Grant recibe `diagnosis_finished` desde la conversión importada de GA4.
       };
     }
     return null;

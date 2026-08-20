@@ -1392,11 +1392,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.lauchEvent('diagnosis_finished');
             }
          if(environment.tenantId == 'dxgpt-prod' || environment.tenantId == 'dxeugpt-prod'){
-             // Nueva conversión para la cuenta de display
+             // Paid: conversión web directa al terminar el diagnóstico.
             if (typeof gtag === 'function') {
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
-                });
+                // Desactivada el 20/08/2026, se conserva como referencia:
+                // acción histórica no asociada a las campañas actuales.
+                // gtag('event', 'conversion', {
+                //     'send_to': 'AW-16829919003/877dCLbc_IwaEJvekNk-'
+                // });
                 gtag('event', 'conversion', {'send_to': 'AW-16829919003/czFeCKKStLAcEJvekNk-'});
             }
          }
