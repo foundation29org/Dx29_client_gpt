@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, Inject, DOCUMENT } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,7 +6,7 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 import { Title, Meta } from '@angular/platform-browser';
 import { EventsService } from 'app/shared/services/events.service';
 import { IconsService } from 'app/shared/services/icon.service';
-import { DOCUMENT } from '@angular/common';
+
 import Swal from 'sweetalert2';
 import { UuidService } from './shared/services/uuid.service';
 import { BrandingService } from './shared/services/branding.service';

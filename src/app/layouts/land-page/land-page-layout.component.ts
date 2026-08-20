@@ -2,10 +2,11 @@ import {
   Component,
   Inject,
   Renderer2,
-  HostListener
+  HostListener,
+  DOCUMENT
 } from "@angular/core";
 import { WINDOW } from 'app/shared/services/window.service';
-import { DOCUMENT } from "@angular/common";
+
 
 @Component({
     selector: 'app-land-page-layout',
