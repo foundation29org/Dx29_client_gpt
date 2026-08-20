@@ -205,7 +205,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.cookieInitializedSubscription = this.ccService.initialized$.subscribe(() => {
         this.cookieConsentPopupInitialized = true;
 
-        if (this.ccService.hasConsented()) {
+        if (this.ccService.hasConsented() && !this.analyticsService.hasCookieConsent()) {
           console.log('Consentimiento de cookies existente detectado');
           this.analyticsService.setCookieConsent(true);
         }
