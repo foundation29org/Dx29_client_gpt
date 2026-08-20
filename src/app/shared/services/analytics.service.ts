@@ -3,8 +3,6 @@ import { Injectable, Inject, DOCUMENT } from '@angular/core';
 import { environment } from 'environments/environment';
 import { InsightsService } from './azureInsights.service';
 
-declare let gtag: any;
-
 // Mantener Hotjar desactivado sin alterar la implementación de GA/Ads
 // verificada en producción en la versión 0.0133.
 const HOTJAR_ENABLED = false;
@@ -16,6 +14,10 @@ export class AnalyticsService {
   
   private googleAnalyticsLoaded = false;
   private googleAdsLoaded = false;
+  private googleTagScriptLoaded = false;
+  private googleTagScriptLoading?: Promise<void>;
+  private googleTagQueueInitialized = false;
+  private configuredGoogleTagIds = new Set<string>();
   private hotjarLoaded = false;
   private cookieConsentGiven = false;
 
@@ -55,25 +57,14 @@ export class AnalyticsService {
     const analyticsId = gaId || this.getGoogleAnalyticsId();
     if (!analyticsId) return;
 
-    // Crear el script de gtag
-    const script = this.document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${analyticsId}`;
-    
-    script.onload = () => {
-      // Inicializar gtag
-      (window as any).dataLayer = (window as any).dataLayer || [];
-      function gtag(...args: any[]) {
-        (window as any).dataLayer.push(arguments);
-      }
-      (window as any).gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', analyticsId);
-      
-      this.googleAnalyticsLoaded = true;
-    };
-
-    this.document.head.appendChild(script);
+    this.loadGoogleTagScript(analyticsId)
+      .then(() => {
+        this.configureGoogleTag(analyticsId);
+        this.googleAnalyticsLoaded = true;
+      })
+      .catch((error: unknown) => {
+        console.warn('No se pudo cargar Google Analytics', error);
+      });
   }
 
   /**
@@ -85,35 +76,85 @@ export class AnalyticsService {
     const adsConfig = this.getGoogleAdsConfig();
     if (!adsConfig) return;
 
-    // Crear el script de Google Ads
-    const script = this.document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${adsConfig.primaryId}`;
-    
-    script.onload = () => {
-      // Asegurar que dataLayer existe
-      (window as any).dataLayer = (window as any).dataLayer || [];
-      
-      // Si gtag no existe, crearlo
-      if (!(window as any).gtag) {
-        (window as any).gtag = function() {
-          (window as any).dataLayer.push(arguments);
-        };
-        (window as any).gtag('js', new Date());
-      }
-      
-      const gtag = (window as any).gtag;
-      
-      // Configurar Google Ads
-      gtag('config', adsConfig.primaryId);
-      if (adsConfig.secondaryId) {
-        gtag('config', adsConfig.secondaryId);
-      }
+    this.loadGoogleTagScript(adsConfig.primaryId)
+      .then(() => {
+        this.configureGoogleTag(adsConfig.primaryId);
+        if (adsConfig.secondaryId) {
+          this.configureGoogleTag(adsConfig.secondaryId);
+        }
 
-      this.googleAdsLoaded = true;
-    };
+        this.googleAdsLoaded = true;
+      })
+      .catch((error: unknown) => {
+        console.warn('No se pudo cargar Google Ads', error);
+      });
+  }
 
-    this.document.head.appendChild(script);
+  /**
+   * Carga gtag.js una única vez. Google Analytics y Google Ads usan el mismo
+   * script; cada producto se configura después con su ID propio.
+   */
+  private loadGoogleTagScript(seedId: string): Promise<void> {
+    if (this.googleTagScriptLoaded) {
+      return Promise.resolve();
+    }
+
+    if (this.googleTagScriptLoading) {
+      return this.googleTagScriptLoading;
+    }
+
+    this.initializeGoogleTagQueue();
+
+    const loadPromise = new Promise<void>((resolve, reject) => {
+      const script = this.document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${seedId}`;
+
+      script.onload = () => {
+        this.googleTagScriptLoaded = true;
+        resolve();
+      };
+      script.onerror = () => {
+        script.remove();
+        reject(new Error('No se pudo cargar gtag.js'));
+      };
+
+      this.document.head.appendChild(script);
+    })
+      .catch((error: unknown) => {
+        this.googleTagScriptLoading = undefined;
+        throw error;
+      });
+
+    this.googleTagScriptLoading = loadPromise;
+    return loadPromise;
+  }
+
+  /**
+   * Deja la cola disponible antes de descargar gtag.js, igual que el snippet
+   * oficial de Google. Así no se pierden configuraciones ni eventos tempranos.
+   */
+  private initializeGoogleTagQueue(): void {
+    if (this.googleTagQueueInitialized) return;
+
+    const globalWindow = window as any;
+    globalWindow.dataLayer = globalWindow.dataLayer || [];
+
+    if (typeof globalWindow.gtag !== 'function') {
+      globalWindow.gtag = (...args: any[]) => {
+        globalWindow.dataLayer.push(args);
+      };
+      globalWindow.gtag('js', new Date());
+    }
+
+    this.googleTagQueueInitialized = true;
+  }
+
+  private configureGoogleTag(tagId: string): void {
+    if (this.configuredGoogleTagIds.has(tagId)) return;
+
+    (window as any).gtag('config', tagId);
+    this.configuredGoogleTagIds.add(tagId);
   }
 
   /**
@@ -190,7 +231,7 @@ export class AnalyticsService {
    * Verifica si Google Analytics está disponible
    */
   isGoogleAnalyticsAvailable(): boolean {
-    return this.googleAnalyticsLoaded && typeof gtag !== 'undefined';
+    return this.googleAnalyticsLoaded && typeof (window as any).gtag === 'function';
   }
 
   /**
@@ -285,7 +326,7 @@ export class AnalyticsService {
     }
 
     try {
-      gtag('event', eventName, {
+      (window as any).gtag('event', eventName, {
         'event_category': 'Custom',
         'event_label': properties.tenantId,
         'tenant_id': properties.tenantId,
