@@ -858,8 +858,8 @@
     "NAV_CONTACT_DESCRIPTION": "Contact us for any questions or feedback."
   },
   "land": {
-    "disclaimer": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-5 mini model as a predictive model for a tool to provide information on diseases. It is designed to provide general information and suggestions based on the symptoms provided. The tool is not intended to replace professional medical advice, or support diagnosis, prevention, monitoring, prediction or treatment and should never be used to make diagnostic judgments for real patients.</p><p>Because AI can give variable results, diagnostic accuracy and suggestions from the tool may vary, so it is important to consult a qualified healthcare professional to ensure an accurate and appropriate diagnosis. Use of this tool is at the user's own risk and Foundation 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts any potential risks associated with the use of the artificial intelligence-based tool.</p>",
-    "disclaimerEu": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses OpenAI's GPT-5 mini model as a predictive model for a tool to help you prepare the information you will discuss with your healthcare professional. It is designed to help you organize your symptoms and generate a list of possible clinical evaluation areas that you can discuss with your doctor.</p><p><strong>This tool does not provide medical diagnoses or treatment recommendations.</strong> It is intended solely to help you organize the information you will discuss with a healthcare professional. Because AI can give variable results, it is important to always consult a qualified healthcare professional to obtain an appropriate diagnosis and treatment. Use of this tool is at the user's own risk and Foundation 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts any potential risks associated with the use of the artificial intelligence-based tool.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses the latest advanced AI models as predictive models for a tool to provide information on diseases. It is designed to provide general information and suggestions based on the symptoms provided. The tool is not intended to replace professional medical advice, or support diagnosis, prevention, monitoring, prediction or treatment and should never be used to make diagnostic judgments for real patients.</p><p>Because AI can give variable results, diagnostic accuracy and suggestions from the tool may vary, so it is important to consult a qualified healthcare professional to ensure an accurate and appropriate diagnosis. Use of this tool is at the user's own risk and Foundation 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts any potential risks associated with the use of the artificial intelligence-based tool.</p>",
+    "disclaimerEu": "<p><strong>DxGPT</strong> is a research experiment using a general purpose artificial intelligence. Specifically, it uses the latest advanced AI models as predictive models for a tool to help you prepare the information you will discuss with your healthcare professional. It is designed to help you organize your symptoms and generate a list of possible clinical evaluation areas that you can discuss with your doctor.</p><p><strong>This tool does not provide medical diagnoses or treatment recommendations.</strong> It is intended solely to help you organize the information you will discuss with a healthcare professional. Because AI can give variable results, it is important to always consult a qualified healthcare professional to obtain an appropriate diagnosis and treatment. Use of this tool is at the user's own risk and Foundation 29 is not responsible for any consequences or damages that may result from its use.</p><p>By using this tool, the user acknowledges that he/she has read and understood this disclaimer, and accepts any potential risks associated with the use of the artificial intelligence-based tool.</p>",
     "check": "Dont show this message again",
     "Recommendations": "For best results, indicate when and why you think the symptoms appeared",
     "Search": "Search",
@@ -1281,8 +1281,8 @@
   "seo": {
     "home": {
       "keywords": "diagnosis, diagnose, rare disease, GPT, syndrome, disease, prognosis, symptoms, HPO, epilepsy, seizures, status epilepticus, developmental delay, pediatrics, genetics, neurology, genetic disease",
-      "description": "DxGPT is a diagnostic decision support software based on GPT-5 mini. AI that helps the diagnosis of diseases. Totally free for doctors and patients.",
-      "title": "DxGPT: diagnostic decision support software based on GPT-5 mini"
+      "description": "DxGPT is a diagnostic decision support software based on the latest advanced AI models. AI that helps the diagnosis of diseases. Totally free for doctors and patients.",
+      "title": "DxGPT: diagnostic decision support software based on the latest advanced AI models"
     }
   },
   "cookie": {
@@ -1433,7 +1433,7 @@
         "title": "API access",
         "description": "Direct integration through REST API for developers and applications. Access to all AI models and complete functionalities.",
         "rest_api": "Complete REST API with Swagger documentation",
-        "all_models": "Access to all models (GPT-4o, GPT-5 mini, GPT-5, O3)",
+        "all_models": "Access to the latest advanced AI models",
         "websocket": "Real-time communication via WebSocket",
         "documentation": "Complete documentation and code examples",
         "pricing": "Pay-per-use with flexible plans"
@@ -1468,7 +1468,7 @@
     "developers": {
       "title": "For developers",
       "rest_api": "REST API - Integrate DxGPT into your applications",
-      "advanced_ai_models": "Advanced AI models - GPT-5 mini and O3 for precise diagnoses",
+      "advanced_ai_models": "Latest advanced AI models for precise diagnoses",
       "websocket_realtime": "WebSocket - Real-time communication",
       "complete_documentation": "Complete documentation - Swagger UI and code examples"
     },

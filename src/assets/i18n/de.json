@@ -858,8 +858,8 @@
     "NAV_CONTACT_DESCRIPTION": "Kontaktieren Sie uns für Fragen oder Feedback."
   },
   "land": {
-    "disclaimer": "<p><strong>DxGPT</strong> ist ein Forschungsexperiment, das eine allgemeine künstliche Intelligenz verwendet. Insbesondere nutzt es OpenAIs GPT-5 mini Modell als prädiktives Modell für ein Tool, das Informationen zu Krankheiten liefert. Es ist darauf ausgelegt, allgemeine Informationen und Vorschläge basierend auf den angegebenen Symptomen zu liefern. Das Tool ist nicht dazu bestimmt, professionellen medizinischen Rat zu ersetzen oder Diagnose, Prävention, Überwachung, Vorhersage oder Behandlung zu unterstützen und sollte niemals für diagnostische Beurteilungen bei echten Patienten verwendet werden.</p><p>Da KI variable Ergebnisse liefern kann, können die diagnostische Genauigkeit und Vorschläge des Tools variieren, daher ist es wichtig, einen qualifizierten Gesundheitsexperten zu konsultieren, um eine genaue und angemessene Diagnose sicherzustellen. Die Nutzung dieses Tools erfolgt auf eigenes Risiko, und die Stiftung 29 ist nicht verantwortlich für Konsequenzen oder Schäden, die aus seiner Nutzung resultieren könnten.</p><p>Durch die Nutzung dieses Tools bestätigt der Benutzer, dass er diesen Haftungsausschluss gelesen und verstanden hat und alle potenziellen Risiken akzeptiert, die mit der Nutzung des auf künstlicher Intelligenz basierenden Tools verbunden sind.</p>",
-    "disclaimerEu": "<p><strong>DxGPT</strong> ist ein Forschungsexperiment, das eine allgemeine künstliche Intelligenz verwendet. Insbesondere nutzt es OpenAIs GPT-5 mini Modell als prädiktives Modell für ein Tool, das Ihnen hilft, die Informationen vorzubereiten, die Sie mit Ihrem Gesundheitsfachmann besprechen werden. Es ist darauf ausgelegt, Ihnen zu helfen, Ihre Symptome zu organisieren und eine Liste möglicher klinischer Bewertungsbereiche zu erstellen, die Sie mit Ihrem Arzt besprechen können.</p><p><strong>Dieses Tool bietet keine medizinischen Diagnosen oder Behandlungsempfehlungen.</strong> Es ist ausschließlich dazu gedacht, Ihnen zu helfen, die Informationen zu organisieren, die Sie mit einem Gesundheitsfachmann besprechen werden. Da KI variable Ergebnisse liefern kann, ist es wichtig, immer einen qualifizierten Gesundheitsfachmann zu konsultieren, um eine angemessene Diagnose und Behandlung zu erhalten. Die Nutzung dieses Tools erfolgt auf eigenes Risiko, und die Stiftung 29 ist nicht verantwortlich für Konsequenzen oder Schäden, die aus seiner Nutzung resultieren könnten.</p><p>Durch die Nutzung dieses Tools bestätigt der Benutzer, dass er diesen Haftungsausschluss gelesen und verstanden hat und alle potenziellen Risiken akzeptiert, die mit der Nutzung des auf künstlicher Intelligenz basierenden Tools verbunden sind.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> ist ein Forschungsexperiment, das eine allgemeine künstliche Intelligenz verwendet. Insbesondere nutzt es die neuesten fortschrittlichen KI-Modelle als prädiktive Modelle für ein Tool, das Informationen zu Krankheiten liefert. Es ist darauf ausgelegt, allgemeine Informationen und Vorschläge basierend auf den angegebenen Symptomen zu liefern. Das Tool ist nicht dazu bestimmt, professionellen medizinischen Rat zu ersetzen oder Diagnose, Prävention, Überwachung, Vorhersage oder Behandlung zu unterstützen und sollte niemals für diagnostische Beurteilungen bei echten Patienten verwendet werden.</p><p>Da KI variable Ergebnisse liefern kann, können die diagnostische Genauigkeit und Vorschläge des Tools variieren, daher ist es wichtig, einen qualifizierten Gesundheitsexperten zu konsultieren, um eine genaue und angemessene Diagnose sicherzustellen. Die Nutzung dieses Tools erfolgt auf eigenes Risiko, und die Stiftung 29 ist nicht verantwortlich für Konsequenzen oder Schäden, die aus seiner Nutzung resultieren könnten.</p><p>Durch die Nutzung dieses Tools bestätigt der Benutzer, dass er diesen Haftungsausschluss gelesen und verstanden hat und alle potenziellen Risiken akzeptiert, die mit der Nutzung des auf künstlicher Intelligenz basierenden Tools verbunden sind.</p>",
+    "disclaimerEu": "<p><strong>DxGPT</strong> ist ein Forschungsexperiment, das eine allgemeine künstliche Intelligenz verwendet. Insbesondere nutzt es die neuesten fortschrittlichen KI-Modelle als prädiktive Modelle für ein Tool, das Ihnen hilft, die Informationen vorzubereiten, die Sie mit Ihrem Gesundheitsfachmann besprechen werden. Es ist darauf ausgelegt, Ihnen zu helfen, Ihre Symptome zu organisieren und eine Liste möglicher klinischer Bewertungsbereiche zu erstellen, die Sie mit Ihrem Arzt besprechen können.</p><p><strong>Dieses Tool bietet keine medizinischen Diagnosen oder Behandlungsempfehlungen.</strong> Es ist ausschließlich dazu gedacht, Ihnen zu helfen, die Informationen zu organisieren, die Sie mit einem Gesundheitsfachmann besprechen werden. Da KI variable Ergebnisse liefern kann, ist es wichtig, immer einen qualifizierten Gesundheitsfachmann zu konsultieren, um eine angemessene Diagnose und Behandlung zu erhalten. Die Nutzung dieses Tools erfolgt auf eigenes Risiko, und die Stiftung 29 ist nicht verantwortlich für Konsequenzen oder Schäden, die aus seiner Nutzung resultieren könnten.</p><p>Durch die Nutzung dieses Tools bestätigt der Benutzer, dass er diesen Haftungsausschluss gelesen und verstanden hat und alle potenziellen Risiken akzeptiert, die mit der Nutzung des auf künstlicher Intelligenz basierenden Tools verbunden sind.</p>",
     "check": "Diese Nachricht nicht mehr anzeigen",
     "Recommendations": "Für beste Ergebnisse geben Sie an, wann und warum die Symptome aufgetreten sind",
     "Search": "Suchen",
@@ -1281,8 +1281,8 @@
   "seo": {
     "home": {
       "keywords": "Diagnose, diagnostizieren, seltene Krankheit, GPT, Syndrom, Krankheit, Prognose, Symptome, HPO, Epilepsie, Anfälle, Status epilepticus, Entwicklungsverzögerung, Pädiatrie, Genetik, Neurologie, genetische Erkrankung",
-      "description": "DxGPT ist eine diagnostische Entscheidungsunterstützungssoftware basierend auf GPT-5 mini. KI, die bei der Diagnose von Krankheiten hilft. Völlig kostenlos für Ärzte und Patienten.",
-      "title": "DxGPT: diagnostische Entscheidungsunterstützungssoftware basierend auf GPT-5 mini"
+      "description": "DxGPT ist eine diagnostische Entscheidungsunterstützungssoftware basierend auf den neuesten fortschrittlichen KI-Modellen. KI, die bei der Diagnose von Krankheiten hilft. Völlig kostenlos für Ärzte und Patienten.",
+      "title": "DxGPT: diagnostische Entscheidungsunterstützungssoftware basierend auf den neuesten fortschrittlichen KI-Modellen"
     }
   },
   "cookie": {
@@ -1433,7 +1433,7 @@
         "title": "API-Zugriff",
         "description": "Direkte Integration über REST API für Entwickler und Anwendungen. Zugang zu allen AI-Modellen und vollständigen Funktionen.",
         "rest_api": "Vollständige REST API mit Swagger-Dokumentation",
-        "all_models": "Zugang zu allen Modellen (GPT-4o, GPT-5 mini, GPT-5, O3)",
+        "all_models": "Zugang zu den neuesten fortschrittlichen KI-Modellen",
         "websocket": "Echtzeit-Kommunikation via WebSocket",
         "documentation": "Vollständige Dokumentation und Codebeispiele",
         "pricing": "Pay-per-use mit flexiblen Plänen"
@@ -1468,7 +1468,7 @@
     "developers": {
       "title": "Für Entwickler",
       "rest_api": "REST API - DxGPT in Ihre Anwendungen integrieren",
-      "advanced_ai_models": "Erweiterte AI-Modelle - GPT-5 mini und O3 für präzise Diagnosen",
+      "advanced_ai_models": "Neueste fortschrittliche KI-Modelle für präzise Diagnosen",
       "websocket_realtime": "WebSocket - Echtzeit-Kommunikation",
       "complete_documentation": "Vollständige Dokumentation - Swagger UI und Codebeispiele"
     },
