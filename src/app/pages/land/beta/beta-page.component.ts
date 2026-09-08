@@ -30,22 +30,22 @@ declare let gtag: any;
 
 export class BetaPageComponent implements OnInit, OnDestroy {
 
-    // Constantes para formatos soportados por Azure Document Intelligence
+    // Keep in sync with Server/controllers/all/multimodalInput.js
     private static readonly SUPPORTED_DOC_TYPES = [
         'application/pdf',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // XLSX
-        'application/vnd.openxmlformats-officedocument.presentationml.presentation', // PPTX
-        'text/html',
-        'text/plain' // TXT
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'text/plain'
     ];
-    
+
     private static readonly SUPPORTED_IMAGE_TYPES = [
         'image/jpeg',
-        'image/png', 
-        'image/bmp',
+        'image/png',
         'image/tiff',
-        'image/heif'
+        'image/bmp',
+        'image/webp'
     ];
 
     private subscription: Subscription = new Subscription();
@@ -3018,7 +3018,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
      * Valida y añade archivos respetando límites de backend y formatos soportados por Azure Document Intelligence:
      * - Tamaño total máximo: 20 MB (documentos + imágenes)
      * - Máximo 5 imágenes y 5 documentos
-     * - Formatos soportados: PDF, DOCX, XLSX, PPTX, HTML, JPEG, PNG, BMP, TIFF, HEIF
+     * - Formatos soportados: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, TIFF, BMP, WEBP
      * Evita duplicados por nombre y tamaño. Muestra avisos si hay descartes.
      */
     private validateAndAddFiles(newFiles: File[]): void {

@@ -858,8 +858,8 @@
     "NAV_CONTACT_DESCRIPTION": "Contacta amb nosaltres per a qualsevol pregunta o feedback."
   },
   "land": {
-    "disclaimer": "<p><strong>DxGPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa el model GPT-5 mini d'OpenAI com a model predictiu per a una eina que proporciona informació sobre malalties. Està dissenyada per proporcionar informació general i suggeriments basats en els símptomes proporcionats. L'eina no pretén reemplaçar el consell mèdic professional ni respaldar el diagnòstic, la prevenció, el seguiment, la predicció o el tractament i mai s'ha d'usar per fer judicis de diagnòstic amb pacients reals.</p><p>Degut a que la IA pot donar resultats variables, la precisió del diagnòstic i les suggeriments de l'eina poden variar, per la qual cosa és important consultar a un professional sanitari qualificat per garantir un diagnòstic precís i adequat. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
-    "disclaimerEu": "<p><strong>DxGPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa el model GPT-5 mini d'OpenAI com a model predictiu per a una eina que t'ajuda a preparar la informació que comentaràs amb el teu professional sanitari. Està dissenyada per ajudar-te a organitzar els teus símptomes i generar una llista de possibles àrees d'avaluació clínica que puguis discutir amb el teu metge.</p><p><strong>Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament.</strong> Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Degut a que la IA pot donar resultats variables, és important consultar sempre a un professional sanitari qualificat per obtenir un diagnòstic i tractament adequats. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa els últims models d'intel·ligència artificial més avançats com a models predictius per a una eina que proporciona informació sobre malalties. Està dissenyada per proporcionar informació general i suggeriments basats en els símptomes proporcionats. L'eina no pretén reemplaçar el consell mèdic professional ni respaldar el diagnòstic, la prevenció, el seguiment, la predicció o el tractament i mai s'ha d'usar per fer judicis de diagnòstic amb pacients reals.</p><p>Degut a que la IA pot donar resultats variables, la precisió del diagnòstic i les suggeriments de l'eina poden variar, per la qual cosa és important consultar a un professional sanitari qualificat per garantir un diagnòstic precís i adequat. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
+    "disclaimerEu": "<p><strong>DxGPT</strong> és un experiment d'investigació que usa una intel·ligència artificial de propòsit general. En concret usa els últims models d'intel·ligència artificial més avançats com a models predictius per a una eina que t'ajuda a preparar la informació que comentaràs amb el teu professional sanitari. Està dissenyada per ajudar-te a organitzar els teus símptomes i generar una llista de possibles àrees d'avaluació clínica que puguis discutir amb el teu metge.</p><p><strong>Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament.</strong> Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Degut a que la IA pot donar resultats variables, és important consultar sempre a un professional sanitari qualificat per obtenir un diagnòstic i tractament adequats. L'ús d'aquesta eina és per compte i risc de l'usuari i Fundació 29 no es fa responsable de les conseqüències o danys que puguin derivar-se del seu ús.</p><p>En utilitzar aquesta eina, l'usuari reconeix que ha llegit i comprès aquest descàrrec de responsabilitat, i qualsevol risc potencial associat a l'ús de l'eina basada en intel·ligència artificial.</p>",
     "check": "No tornar a mostrar aquest missatge",
     "Recommendations": "Per obtenir millors resultats, indica quan i per què creus que van aparèixer els símptomes",
     "Search": "Cercar",
@@ -1281,8 +1281,8 @@
   "seo": {
     "home": {
       "keywords": "diagnòstic, diagnosticar, malaltia rara, GPT, síndrome, malaltia, pronòstic, símptomes, epilèpsia, crisi epilèptica, convulsions, retard en el desenvolupament, pediatria, genètica, neurologia, malaltia genètica",
-      "description": "DxGPT és un programari d'ajuda a la presa de decisions en el diagnòstic basat en GPT-5 mini. IA que ajuda al diagnòstic de malalties. Totalment gratuïta per a metges i pacients.",
-      "title": "DxGPT: ajuda a la presa de decisions en el diagnòstic basat en GPT-5 mini"
+      "description": "DxGPT és un programari d'ajuda a la presa de decisions en el diagnòstic basat en els últims models d'IA més avançats. IA que ajuda al diagnòstic de malalties. Totalment gratuïta per a metges i pacients.",
+      "title": "DxGPT: ajuda a la presa de decisions en el diagnòstic basat en els últims models d'IA més avançats"
     }
   },
   "cookie": {
@@ -1433,7 +1433,7 @@
         "title": "Accés a l'API",
         "description": "Integració directa a través d'API REST per a desenvolupadors i aplicacions. Accés a tots els models d'IA i funcionalitats completes.",
         "rest_api": "API REST completa amb documentació Swagger",
-        "all_models": "Accés a tots els models (GPT-4o, GPT-5 mini, GPT-5, O3)",
+        "all_models": "Accés als últims models d'IA més avançats",
         "websocket": "Comunicació en temps real via WebSocket",
         "documentation": "Documentació completa i exemples de codi",
         "pricing": "Pagament per ús amb plans flexibles"
@@ -1468,7 +1468,7 @@
     "developers": {
       "title": "Per a desenvolupadors",
       "rest_api": "API REST - Integra DxGPT a les teves aplicacions",
-      "advanced_ai_models": "Models d'IA avançats - GPT-5 mini i O3 per a diagnòstics precisos",
+      "advanced_ai_models": "Últims models d'IA més avançats per a diagnòstics precisos",
       "websocket_realtime": "WebSocket - Comunicació en temps real",
       "complete_documentation": "Documentació completa - Swagger UI i exemples de codi"
     },

@@ -858,8 +858,8 @@
     "NAV_CONTACT_DESCRIPTION": "Skontaktuj się z nami, jeśli masz pytania lub opinie."
   },
   "land": {
-    "disclaimer": "<p><strong>DxGPT</strong> to eksperyment badawczy wykorzystujący sztuczną inteligencję ogólnego przeznaczenia. W szczególności wykorzystuje model GPT-5 mini firmy OpenAI jako model predykcyjny dla narzędzia dostarczającego informacji o chorobach. Jest zaprojektowany, aby dostarczać ogólnych informacji i sugestii na podstawie podanych objawów. Narzędzie nie ma na celu zastąpienia profesjonalnej porady medycznej ani wspierania diagnozy, zapobiegania, monitorowania, przewidywania lub leczenia i nigdy nie powinno być używane do podejmowania ocen diagnostycznych u rzeczywistych pacjentów.</p><p>Ponieważ AI może dawać zmienne wyniki, dokładność diagnostyczna i sugestie narzędzia mogą się różnić, dlatego ważne jest, aby skonsultować się z wykwalifikowanym pracownikiem służby zdrowia w celu zapewnienia dokładnej i odpowiedniej diagnozy. Korzystanie z tego narzędzia odbywa się na własne ryzyko użytkownika i Fundacja 29 nie ponosi odpowiedzialności za jakiekolwiek konsekwencje lub szkody, które mogą wyniknąć z jego użycia.</p><p>Korzystając z tego narzędzia, użytkownik potwierdza, że przeczytał i zrozumiał to zastrzeżenie oraz akceptuje wszelkie potencjalne ryzyko związane z korystaniem z narzędzia opartego na sztucznej inteligencji.</p>",
-    "disclaimerEu": "<p><strong>DxGPT</strong> to eksperyment badawczy wykorzystujący sztuczną inteligencję ogólnego przeznaczenia. W szczególności wykorzystuje model GPT-5 mini firmy OpenAI jako model predykcyjny dla narzędzia, które pomaga przygotować informacje, które omówisz z Twoim profesjonalistą zdrowotnym. Jest zaprojektowany, aby pomóc organizować Twoje objawy i generować listę możliwych obszarów oceny klinicznej, które możesz omówić z lekarzem.</p><p><strong>To narzędzie nie zapewnia diagnoz medycznych ani zaleceń dotyczących leczenia.</strong> Jest przeznaczone wyłącznie do pomocy w organizowaniu informacji, które omówisz z profesjonalistą zdrowotnym. Ponieważ AI może dawać zmienne wyniki, ważne jest, aby zawsze skonsultować się z wykwalifikowanym pracownikiem służby zdrowia w celu uzyskania odpowiedniej diagnozy i leczenia. Korzystanie z tego narzędzia odbywa się na własne ryzyko użytkownika i Fundacja 29 nie ponosi odpowiedzialności za jakiekolwiek konsekwencje lub szkody, które mogą wyniknąć z jego użycia.</p><p>Korzystając z tego narzędzia, użytkownik potwierdza, że przeczytał i zrozumiał to zastrzeżenie oraz akceptuje wszelkie potencjalne ryzyko związane z korystaniem z narzędzia opartego na sztucznej inteligencji.</p>",
+    "disclaimer": "<p><strong>DxGPT</strong> to eksperyment badawczy wykorzystujący sztuczną inteligencję ogólnego przeznaczenia. W szczególności wykorzystuje najnowsze zaawansowane modele sztucznej inteligencji jako modele predykcyjne dla narzędzia dostarczającego informacji o chorobach. Jest zaprojektowany, aby dostarczać ogólnych informacji i sugestii na podstawie podanych objawów. Narzędzie nie ma na celu zastąpienia profesjonalnej porady medycznej ani wspierania diagnozy, zapobiegania, monitorowania, przewidywania lub leczenia i nigdy nie powinno być używane do podejmowania ocen diagnostycznych u rzeczywistych pacjentów.</p><p>Ponieważ AI może dawać zmienne wyniki, dokładność diagnostyczna i sugestie narzędzia mogą się różnić, dlatego ważne jest, aby skonsultować się z wykwalifikowanym pracownikiem służby zdrowia w celu zapewnienia dokładnej i odpowiedniej diagnozy. Korzystanie z tego narzędzia odbywa się na własne ryzyko użytkownika i Fundacja 29 nie ponosi odpowiedzialności za jakiekolwiek konsekwencje lub szkody, które mogą wyniknąć z jego użycia.</p><p>Korzystając z tego narzędzia, użytkownik potwierdza, że przeczytał i zrozumiał to zastrzeżenie oraz akceptuje wszelkie potencjalne ryzyko związane z korystaniem z narzędzia opartego na sztucznej inteligencji.</p>",
+    "disclaimerEu": "<p><strong>DxGPT</strong> to eksperyment badawczy wykorzystujący sztuczną inteligencję ogólnego przeznaczenia. W szczególności wykorzystuje najnowsze zaawansowane modele sztucznej inteligencji jako modele predykcyjne dla narzędzia, które pomaga przygotować informacje, które omówisz z Twoim profesjonalistą zdrowotnym. Jest zaprojektowany, aby pomóc organizować Twoje objawy i generować listę możliwych obszarów oceny klinicznej, które możesz omówić z lekarzem.</p><p><strong>To narzędzie nie zapewnia diagnoz medycznych ani zaleceń dotyczących leczenia.</strong> Jest przeznaczone wyłącznie do pomocy w organizowaniu informacji, które omówisz z profesjonalistą zdrowotnym. Ponieważ AI może dawać zmienne wyniki, ważne jest, aby zawsze skonsultować się z wykwalifikowanym pracownikiem służby zdrowia w celu uzyskania odpowiedniej diagnozy i leczenia. Korzystanie z tego narzędzia odbywa się na własne ryzyko użytkownika i Fundacja 29 nie ponosi odpowiedzialności za jakiekolwiek konsekwencje lub szkody, które mogą wyniknąć z jego użycia.</p><p>Korzystając z tego narzędzia, użytkownik potwierdza, że przeczytał i zrozumiał to zastrzeżenie oraz akceptuje wszelkie potencjalne ryzyko związane z korystaniem z narzędzia opartego na sztucznej inteligencji.</p>",
     "check": "Nie pokazuj ponownie tej wiadomości",
     "Recommendations": "Dla najlepszych wyników wskaż, kiedy i dlaczego Twoim zdaniem pojawiły się objawy",
     "Search": "Szukaj",
@@ -1281,8 +1281,8 @@
   "seo": {
     "home": {
       "keywords": "diagnoza, diagnozować, rzadka choroba, GPT, syndrom, choroba, prognoza, objawy, HPO, epilepsja, napady, stan padaczkowy, opóźnienie rozwojowe, pediatria, genetyka, neurologia, choroba genetyczna",
-      "description": "DxGPT to oprogramowanie wspomagające decyzje diagnostyczne oparte na GPT-5 mini. AI, która pomaga w diagnozowaniu chorób. Całkowicie bezpłatne dla lekarzy i pacjentów.",
-      "title": "DxGPT: oprogramowanie wspomagające decyzje diagnostyczne oparte na GPT-5 mini"
+      "description": "DxGPT to oprogramowanie wspomagające decyzje diagnostyczne oparte na najnowszych zaawansowanych modelach AI. AI, która pomaga w diagnozowaniu chorób. Całkowicie bezpłatne dla lekarzy i pacjentów.",
+      "title": "DxGPT: oprogramowanie wspomagające decyzje diagnostyczne oparte na najnowszych zaawansowanych modelach AI"
     }
   },
   "cookie": {
@@ -1433,7 +1433,7 @@
         "title": "Dostęp do API",
         "description": "Bezpośrednia integracja przez API REST dla deweloperów i aplikacji. Dostęp do wszystkich modeli AI i pełnych funkcjonalności.",
         "rest_api": "Kompletne API REST z dokumentacją Swagger",
-        "all_models": "Dostęp do wszystkich modeli (GPT-4o, GPT-5 mini, GPT-5, O3)",
+        "all_models": "Dostęp do najnowszych zaawansowanych modeli AI",
         "websocket": "Komunikacja w czasie rzeczywistym przez WebSocket",
         "documentation": "Kompletna dokumentacja i przykłady kodu",
         "pricing": "Płatność za użycie z elastycznymi planami"
@@ -1468,7 +1468,7 @@
     "developers": {
       "title": "Dla deweloperów",
       "rest_api": "API REST - Zintegruj DxGPT w swoich aplikacjach",
-      "advanced_ai_models": "Zaawansowane modele AI - GPT-5 mini i O3 dla precyzyjnych diagnoz",
+      "advanced_ai_models": "Najnowsze zaawansowane modele AI dla precyzyjnych diagnoz",
       "websocket_realtime": "WebSocket - Komunikacja w czasie rzeczywistym",
       "complete_documentation": "Kompletna dokumentacja - Interfejs Swagger i przykłady kodu"
     },
