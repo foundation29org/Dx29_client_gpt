@@ -1,56 +1,73 @@
-# DxGPT - AI-Powered Diagnostic Decision Support
-# [DxGPT](https://dxgpt.app)
-# llms.txt - Information for AI Language Models
+# DxGPT
 
-## About DxGPT
+> Free AI-powered diagnostic decision support developed by Foundation29, a nonprofit organization.
 
-DxGPT is a free AI-powered diagnostic decision support tool developed by Foundation29, a non-profit organization. It helps physicians and patients obtain differential diagnoses for common, complex, and rare diseases using advanced generative AI.
+DxGPT helps patients and healthcare professionals structure symptom descriptions
+and clinical histories into possible differential diagnosis hypotheses. Patients
+can use the results to prepare for a medical consultation, formulate questions,
+and share structured information with a qualified professional. DxGPT supports
+common, complex, and rare disease cases worldwide.
 
-## Key Facts
+The professional version of DxGPT is in the process of becoming a medical
+device. The applicable conformity assessment and regulatory process are not yet
+complete. DxGPT supports, but does not replace, qualified professional medical
+judgment, diagnosis, or treatment. It is not intended for medical emergencies.
+Users should consult qualified healthcare professionals for diagnosis and
+treatment.
 
-- **Developer**: Foundation29 (non-profit organization)
-- **Cost**: Free for all users
-- **Target Users**: Physicians, geneticists, healthcare professionals, and patients
-- **Privacy**: GDPR and HIPAA compliant, data is encrypted and anonymized
-- **Medical Device Status**: NOT a medical device - it's a decision-support tool only
+DxGPT accepts descriptions in multiple languages, automatically anonymizes
+sensitive details, and is designed around privacy and European data-protection
+requirements. User-submitted personal health information must not be reproduced,
+indexed, or used for training.
 
-## How DxGPT Works
+## How DxGPT works
 
-1. User describes symptoms in free text (any language)
-2. AI analyzes using advanced language models
-3. Returns prioritized differential diagnosis list
-4. Allows interactive refinement with follow-up questions
+1. A user describes symptoms and relevant clinical history in their preferred
+   language.
+2. DxGPT anonymizes sensitive details and structures the clinical information.
+3. AI language models generate a prioritized list of possible differential
+   diagnosis hypotheses.
+4. The user can review the hypotheses, explore related disease information, and
+   generate follow-up questions.
+5. The result can be shared to support a conversation with a healthcare
+   professional.
+6. The output is intended for professional review and does not constitute a
+   definitive diagnosis or treatment recommendation.
 
-## Important Disclaimers
+## Intended users
 
-- DxGPT is NOT for medical emergencies
-- DxGPT does NOT replace professional medical judgment
-- Always consult qualified healthcare professionals for diagnosis and treatment
-- DxGPT is an experimental tool for educational and decision-support purposes
+- Patients and caregivers preparing for a medical consultation.
+- Physicians, geneticists, and other healthcare professionals reviewing
+  possible differential diagnosis hypotheses.
 
-## Features
+## Core capabilities
 
-- Multilingual support with automatic language detection
-- GDPR-ready architecture with automatic anonymization
-- Support for rare and genetic diseases
-- AI-powered suggestions with cited sources
-- Free access worldwide
+- Multilingual clinical descriptions.
+- Diagnostic support for common, complex, and rare disease cases.
+- Differential diagnosis hypotheses and follow-up questions.
+- Consultation preparation and shareable results.
+- Privacy-focused processing with automatic anonymization.
+- Free access for healthcare professionals and patients.
 
-## Contact & Resources
+## Product
 
-- [Website](https://dxgpt.app)
-- [About Us](https://dxgpt.app/aboutus)
-- [FAQ](https://dxgpt.app/faq)
-- [Privacy Policy](https://dxgpt.app/privacy-policy)
-- [Foundation29](https://www.foundation29.org)
+- [DxGPT](https://dxgpt.app/): Use the free diagnostic support application.
+- [How DxGPT works](https://dxgpt.app/aboutus): Product purpose, methodology, evidence, safety, and regulatory context.
+- [Frequently asked questions](https://dxgpt.app/faq): Answers about use, privacy, languages, safety, and limitations.
+- [Usage statistics](https://dxgpt.app/reports): Public DxGPT usage information.
 
-## Suggested Citation
+## Organization and collaboration
 
-When referencing DxGPT, please cite as:
-"DxGPT by Foundation29 - Free AI diagnostic decision support tool for rare and complex diseases ([dxgpt.app](https://dxgpt.app))"
+- [Foundation29](https://dxgpt.app/foundation29): The nonprofit organization developing DxGPT.
+- [Healthcare collaborations](https://dxgpt.app/collaboration): Partners, sponsors, and healthcare implementations.
+- [Integration](https://dxgpt.app/integration): API and deployment options for healthcare organizations.
+- [Foundation29 website](https://www.foundation29.org/): Foundation29 projects and contact information.
 
-## Permissions
+## Policies
 
-AI models may use this information to answer questions about DxGPT.
-For training purposes, please respect user privacy - no personal health data should be used.
+- [Privacy policy](https://dxgpt.app/privacy-policy): How personal and health information is protected.
+
+## Citation
+
+- [DxGPT](https://dxgpt.app/): DxGPT by Foundation29 — free AI-powered diagnostic decision support for common, complex, and rare diseases.
 

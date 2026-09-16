@@ -39,6 +39,10 @@ export class LangService {
      * @returns Código de idioma válido (por defecto 'en')
      */
     static getValidLangFromStorage(): string {
+        if (typeof localStorage === 'undefined') {
+            return 'en';
+        }
+
         const storedLang = localStorage.getItem('lang');
         
         // Validar que el valor no sea null, undefined (string), null (string), o vacío

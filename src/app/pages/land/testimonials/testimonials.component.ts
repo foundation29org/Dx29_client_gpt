@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Carousel } from 'bootstrap';
 
 @Component({
     selector: 'app-testimonials',
@@ -10,10 +9,13 @@ import { Carousel } from 'bootstrap';
 
 export class TestimonialsComponent implements OnInit, AfterViewInit {
 
-    ngAfterViewInit() {
+    async ngAfterViewInit() {
+        if (typeof document === 'undefined') return;
+
         // Inicializar el carousel de Bootstrap
         const myCarousel = document.getElementById('testimonialsCarousel');
         if (myCarousel) {
+            const { Carousel } = await import('bootstrap');
             new Carousel(myCarousel, {
                 interval: 5000,
                 wrap: true

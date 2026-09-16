@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -56,11 +57,14 @@ export class BrandingService {
 
   constructor(
     private http: HttpClient,
-    private tenantDetector: TenantDetectorService
+    private tenantDetector: TenantDetectorService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     // Detectar tenant autom?ticamente
     this.currentTenant = this.tenantDetector.detectTenant();
-    this.loadBrandingConfig();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadBrandingConfig();
+    }
   }
 
   /**
@@ -117,6 +121,10 @@ export class BrandingService {
    * Aplica los estilos de branding din?micamente
    */
   private applyBrandingStyles(config: BrandingConfig): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
     const root = document.documentElement;
     
     // Aplicar variables CSS personalizadas

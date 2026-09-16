@@ -20,6 +20,10 @@ export class IframeParamsService {
   private currentParams: IframeParams = {};
 
   constructor() {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     this.detectIframe();
     this.initializeParamCapture();
   }

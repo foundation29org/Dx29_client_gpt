@@ -13,6 +13,11 @@ export class UuidService {
   }
 
   private initializeUuid(): void {
+    if (typeof localStorage === 'undefined') {
+      this.uuid = uuidv4();
+      return;
+    }
+
     const storedUuid = localStorage.getItem(this.STORAGE_KEY);
     if (storedUuid) {
       this.uuid = storedUuid;
