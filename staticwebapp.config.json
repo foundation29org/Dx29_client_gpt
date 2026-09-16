@@ -1,6 +1,54 @@
 {
   "routes": [
     {
+      "route": "/beta",
+      "rewrite": "/beta/index.html"
+    },
+    {
+      "route": "/aboutus",
+      "rewrite": "/aboutus/index.html"
+    },
+    {
+      "route": "/collaboration",
+      "rewrite": "/collaboration/index.html"
+    },
+    {
+      "route": "/integration",
+      "rewrite": "/integration/index.html"
+    },
+    {
+      "route": "/foundation29",
+      "rewrite": "/foundation29/index.html"
+    },
+    {
+      "route": "/faq",
+      "rewrite": "/faq/index.html"
+    },
+    {
+      "route": "/reports",
+      "rewrite": "/reports/index.html"
+    },
+    {
+      "route": "/privacy-policy",
+      "rewrite": "/privacy-policy/index.html"
+    },
+    {
+      "route": "/cookies",
+      "rewrite": "/cookies/index.html"
+    },
+    {
+      "route": "/result/*",
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
+      "route": "/feedback",
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
       "route": "/index.html",
       "headers": {
         "Cache-Control": "no-cache"

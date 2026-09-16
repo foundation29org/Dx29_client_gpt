@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, NgZone, Inject, DOCUMENT } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, Inject, DOCUMENT, Optional, PLATFORM_ID, REQUEST } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
 import { UuidService } from './shared/services/uuid.service';
 import { BrandingService } from './shared/services/branding.service';
 import { AnalyticsService } from './shared/services/analytics.service';
+import { DEFAULT_SEO, getSeoForUrl, SeoRouteConfig } from './shared/seo/seo-routes';
 
 import {
   NgcCookieConsentConfig,
@@ -25,8 +27,14 @@ import {
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  subscription: Subscription;
+  subscription!: Subscription;
   tituloEvent: string = '';
+  private seoTitleEvent: string = DEFAULT_SEO.seoTitle;
+  private seoDescriptionEvent: string = DEFAULT_SEO.seoDescription;
+  private canonicalPath: string = DEFAULT_SEO.canonicalPath || '/';
+  private robotsContent: string = 'index, follow';
+  private brandingDisplayName: string = 'DxGPT';
+  private brandingDescription: string = 'AI-powered diagnostic assistance';
   private startY: number = 0;
   private startX: number = 0;
   private scrollPosition: number = 0;
@@ -46,6 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(DOCUMENT) private document: Document, 
+    @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router, 
     public translate: TranslateService, 
     private ccService: NgcCookieConsentService, 
@@ -57,17 +66,20 @@ export class AppComponent implements OnInit, OnDestroy {
     private iconsService: IconsService,
     private uuidService: UuidService,
     private brandingService: BrandingService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    @Optional() @Inject(REQUEST) private request: Request | null
   ) {
     // Inicializar el UUID al inicio de la aplicación
     this.uuidService.getUuid();
 
     // Detectar específicamente navegación hacia atrás
-    window.onpopstate = (event) => {
-      this.ngZone.run(() => {
-        this.eventsService.broadcast('backEvent', event);
-      });
-    };
+    if (isPlatformBrowser(this.platformId)) {
+      window.onpopstate = (event) => {
+        this.ngZone.run(() => {
+          this.eventsService.broadcast('backEvent', event);
+        });
+      };
+    }
   }
 
   delay(ms: number) {
@@ -190,6 +202,7 @@ export class AppComponent implements OnInit, OnDestroy {
     config.type = 'opt-in';
     config.enabled = true;
     config.revokable = true; // Permitir cambiar de opinión en Europa
+    config.cookie = config.cookie || {};
     config.cookie.domain = window.location.hostname;
 
     // Suscribirse a cambios de estado del consentimiento
@@ -234,27 +247,33 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.iconsService.loadIcons();
+    const isBrowser = isPlatformBrowser(this.platformId);
+    if (isBrowser) {
+      this.iconsService.loadIcons();
+    }
     
     // Inicializar el servicio de branding y configurar cookies cuando esté listo
     this.brandingService.brandingConfig$.subscribe(config => {
       if (config) {
         console.log('Branding config loaded:', config.name);
+        this.brandingDisplayName = config.displayName;
+        this.brandingDescription = config.description;
+        this.changeMeta();
         // Inicializar el sistema de cookies una vez que tenemos la configuración
-        this.initializeCookieConsent();
+        if (isBrowser) {
+          this.initializeCookieConsent();
+        }
       }
     });
 
-    this.meta.updateTag({ name: 'keywords', content: this.translate.instant("seo.home.keywords") });
-    this.meta.updateTag({ name: 'description', content: this.translate.instant("seo.home.description") });
-    this.meta.updateTag({ name: 'title', content: this.translate.instant("seo.home.title") });
-    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+    const initialUrl = this.request?.url ||
+      (isBrowser ? this.document.location.pathname : this.router.url);
+    this.applySeoConfig(getSeoForUrl(initialUrl));
+    this.changeMeta();
 
     // Listener para el evento loadLang que se emite desde navbar-dx29
-    this.eventsService.on('loadLang', async (lang) => {
+    this.eventsService.on('loadLang', async (lang: string) => {
       await this.delay(500);
-      const titulo = this.translate.instant(this.tituloEvent || "seo.home.title");
-      this.titleService.setTitle(titulo);
       this.changeMeta();
 
       // Solo actualizar el banner si el usuario requiere consentimiento
@@ -278,10 +297,10 @@ export class AppComponent implements OnInit, OnDestroy {
         // Verificar si hay un fragmento en la URL
         const fragment = this.router.url.split('#')[1];
         
-        if (fragment) {
+        if (isBrowser && fragment) {
           // Si hay fragmento, esperar a que se renderice y hacer scroll al elemento
           setTimeout(() => {
-            const element = document.getElementById(fragment);
+            const element = this.document.getElementById(fragment);
             if (element) {
               // Calcular la posición considerando la altura del navbar (4.3rem = 68.8px)
               const navbarHeight = 70; // Un poco más que 4.3rem para dar margen
@@ -293,7 +312,7 @@ export class AppComponent implements OnInit, OnDestroy {
               });
             }
           }, 600);
-        } else {
+        } else if (isBrowser) {
           // Si no hay fragmento, hacer scroll al top
           setTimeout(() => {
             window.scrollTo({
@@ -305,26 +324,32 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         
         await this.delay(500);
-        this.tituloEvent = event['title'];
+        const urlSeo = getSeoForUrl(this.router.url);
+        this.tituloEvent = event['title'] || 'menu.Home';
+        this.seoTitleEvent = event['seoTitle'] || urlSeo.seoTitle;
+        this.seoDescriptionEvent = event['seoDescription'] || urlSeo.seoDescription;
+        this.canonicalPath = event['canonicalPath'] || urlSeo.canonicalPath || this.getCurrentCanonicalPath();
+        this.robotsContent = event['robots'] || urlSeo.robots || 'index, follow';
         const titulo = this.translate.instant(this.tituloEvent);
-        this.titleService.setTitle(titulo);
         this.changeMeta();
         
         // Track page view con analytics
-        this.analyticsService.trackPageView(titulo, {
-          url: this.router.url,
-          title: titulo,
-          fragment: fragment || null
-        });
+        if (isBrowser) {
+          this.analyticsService.trackPageView(titulo, {
+            url: this.router.url,
+            title: titulo,
+            fragment: fragment || null
+          });
+        }
       })();
     });
 
-    this.eventsService.on('changelang', async (lang) => {
+    this.eventsService.on('changelang', async (lang: string) => {
       await this.delay(500);
-      const titulo = this.translate.instant(this.tituloEvent);
-      this.titleService.setTitle(titulo);
       this.changeMeta();
-      localStorage.setItem('lang', lang);
+      if (isBrowser) {
+        localStorage.setItem('lang', lang);
+      }
 
       // Solo actualizar el banner si el usuario requiere consentimiento
       if (this.requiresCookieConsent) {
@@ -332,7 +357,9 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    window.addEventListener('scroll', this.onScroll.bind(this), true);
+    if (isBrowser) {
+      window.addEventListener('scroll', this.onScroll.bind(this), true);
+    }
 
     // Escuchar cuando hay diagnósticos activos para mostrar popup de confirmación
     this.eventsService.on('hasDiagnostics', (hasDiagnostics: boolean) => {
@@ -342,6 +369,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private onScroll() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     this.scrollPosition = window.pageYOffset;
     if (!this.ticking) {
       window.requestAnimationFrame(() => {
@@ -357,16 +386,18 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private updateTouchGuard(shouldEnable: boolean) {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     if (shouldEnable && !this.touchGuardEnabled) {
-      document.addEventListener('touchstart', this.boundTouchStart, { passive: true });
-      document.addEventListener('touchmove', this.boundTouchMove, { passive: false });
+      this.document.addEventListener('touchstart', this.boundTouchStart, { passive: true });
+      this.document.addEventListener('touchmove', this.boundTouchMove, { passive: false });
       this.touchGuardEnabled = true;
       return;
     }
 
     if (!shouldEnable && this.touchGuardEnabled) {
-      document.removeEventListener('touchstart', this.boundTouchStart);
-      document.removeEventListener('touchmove', this.boundTouchMove);
+      this.document.removeEventListener('touchstart', this.boundTouchStart);
+      this.document.removeEventListener('touchmove', this.boundTouchMove);
       this.touchGuardEnabled = false;
     }
   }
@@ -407,7 +438,9 @@ export class AppComponent implements OnInit, OnDestroy {
       cancelButtonText: this.translate.instant("generics.Cancel")
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.reload();
+        if (isPlatformBrowser(this.platformId)) {
+          window.location.reload();
+        }
       }
       this.isOpenSwal = false;
     });
@@ -458,10 +491,62 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-  changeMeta() {
+  changeMeta(): void {
+    const isPublicDxgpt =
+      this.brandingService.getCurrentTenant() === 'dxgpt' ||
+      this.brandingService.getCurrentTenant() === 'dxeugpt';
+    const routeTitle = this.translate.instant(this.tituloEvent || 'menu.Home');
+    const title = isPublicDxgpt
+      ? this.translate.instant(this.seoTitleEvent)
+      : routeTitle && routeTitle !== 'DxGPT'
+        ? `${routeTitle} | ${this.brandingDisplayName}`
+        : this.brandingDisplayName;
+    const description = isPublicDxgpt
+      ? this.translate.instant(this.seoDescriptionEvent)
+      : this.brandingDescription;
+
+    this.titleService.setTitle(title);
     this.meta.updateTag({ name: 'keywords', content: this.translate.instant("seo.home.keywords") });
-    this.meta.updateTag({ name: 'description', content: this.translate.instant("seo.home.description") });
-    this.meta.updateTag({ name: 'title', content: this.translate.instant("seo.home.title") });
+    this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ name: 'title', content: title });
+    this.meta.updateTag({ name: 'robots', content: this.robotsContent });
+    this.meta.updateTag({ property: 'og:title', content: title }, "property='og:title'");
+    this.meta.updateTag({ property: 'og:description', content: description }, "property='og:description'");
+    this.meta.updateTag({ name: 'twitter:title', content: title });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+
+    const canonicalUrl = new URL(
+      this.canonicalPath || this.getCurrentCanonicalPath(),
+      isPlatformBrowser(this.platformId)
+        ? this.document.location?.origin || 'https://dxgpt.app'
+        : 'https://dxgpt.app'
+    ).toString();
+    this.meta.updateTag({ property: 'og:url', content: canonicalUrl }, "property='og:url'");
+    this.updateCanonicalLink(canonicalUrl);
+  }
+
+  private applySeoConfig(config: SeoRouteConfig): void {
+    this.seoTitleEvent = config.seoTitle;
+    this.seoDescriptionEvent = config.seoDescription;
+    this.canonicalPath = config.canonicalPath || this.getCurrentCanonicalPath();
+    this.robotsContent = config.robots || 'index, follow';
+  }
+
+  private getCurrentCanonicalPath(): string {
+    const path = this.router.url.split(/[?#]/, 1)[0];
+    return !path || path === '/.' ? '/' : path;
+  }
+
+  private updateCanonicalLink(canonicalUrl: string): void {
+    let canonicalLink = this.document.querySelector<HTMLLinkElement>("link[rel='canonical']");
+
+    if (!canonicalLink) {
+      canonicalLink = this.document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      this.document.head.appendChild(canonicalLink);
+    }
+
+    canonicalLink.setAttribute('href', canonicalUrl);
   }
 
 

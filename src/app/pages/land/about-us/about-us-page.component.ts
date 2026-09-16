@@ -36,6 +36,8 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
+        if (typeof window === 'undefined') return;
+
         this.loadChartJs()
             .then(() => this.renderTrackAChart())
             .catch(err => this.insightsService.trackException(err));

@@ -13,10 +13,14 @@ export class InsightsService {
 
   constructor() {
     // Diferir la carga de App Insights para no bloquear el render inicial
-    this.deferredInit();
+    if (typeof window !== 'undefined') {
+      this.deferredInit();
+    }
   }
 
   private deferredInit(): void {
+    if (typeof window === 'undefined') return;
+
     // Usar requestIdleCallback si está disponible, sino setTimeout
     if ('requestIdleCallback' in window) {
       (window as any).requestIdleCallback(() => this.initialize(), { timeout: 2000 });
@@ -26,7 +30,7 @@ export class InsightsService {
   }
 
   private initialize(): void {
-    if (this.initialized || this.initializationPromise) return;
+    if (typeof window === 'undefined' || this.initialized || this.initializationPromise) return;
 
     this.initializationPromise = import('@microsoft/applicationinsights-web')
       .then(({ ApplicationInsights }) => {
@@ -58,6 +62,8 @@ export class InsightsService {
   }
 
   private enqueueTelemetry(sendTelemetry: () => void): void {
+    if (typeof window === 'undefined') return;
+
     if (this.initialized) {
       sendTelemetry();
       return;

@@ -464,6 +464,261 @@
               "src/favicon-iasalut.ico"
             ]
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist-server",
+            "main": "src/server.ts",
+            "tsConfig": "src/tsconfig.server.json",
+            "buildOptimizer": false,
+            "optimization": false,
+            "sourceMap": true,
+            "extractLicenses": false,
+            "vendorChunk": true
+          },
+          "configurations": {
+            "production": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            },
+            "develop": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": true,
+              "extractLicenses": true,
+              "vendorChunk": false
+            },
+            "salud-gpt": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.salud-gpt.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": true,
+              "extractLicenses": true,
+              "vendorChunk": false
+            },
+            "salud-gpt-prod": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.salud-gpt.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            },
+            "salud-gpt-dev": {
+              "buildOptimizer": false,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.salud-gpt.dev.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            },
+            "sermas-gpt": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sermas-gpt.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": true,
+              "extractLicenses": true,
+              "vendorChunk": false
+            },
+            "sermas-gpt-prod": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sermas-gpt.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            },
+            "sermas-gpt-dev": {
+              "buildOptimizer": false,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sermas-gpt.dev.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            },
+            "iasalut-ajuda-dx": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.iasalut-ajuda-dx.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": true,
+              "extractLicenses": true,
+              "vendorChunk": false
+            },
+            "iasalut-ajuda-dx-prod": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.iasalut-ajuda-dx.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            },
+            "iasalut-ajuda-dx-dev": {
+              "buildOptimizer": false,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.iasalut-ajuda-dx.dev.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            },
+            "dxeugpt": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dxeugpt.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": true,
+              "extractLicenses": true,
+              "vendorChunk": false
+            },
+            "dxeugpt-prod": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dxeugpt.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            },
+            "dxeugpt-dev": {
+              "buildOptimizer": false,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dxeugpt.dev.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "matngular:build:develop",
+              "serverTarget": "matngular:server:develop"
+            },
+            "production": {
+              "browserTarget": "matngular:build:production",
+              "serverTarget": "matngular:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "discoverRoutes": false,
+            "routes": [
+              "/",
+              "/beta",
+              "/aboutus",
+              "/collaboration",
+              "/integration",
+              "/foundation29",
+              "/faq",
+              "/reports",
+              "/privacy-policy",
+              "/cookies"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "matngular:build:production",
+              "serverTarget": "matngular:server:production"
+            },
+            "development": {
+              "browserTarget": "matngular:build:develop",
+              "serverTarget": "matngular:server:develop"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     },

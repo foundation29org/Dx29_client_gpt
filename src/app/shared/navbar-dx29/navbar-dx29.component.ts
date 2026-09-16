@@ -1,4 +1,5 @@
-import { Component, HostListener, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, PLATFORM_ID, ViewChild, TemplateRef } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -57,7 +58,8 @@ export class NavbarD29Component implements OnDestroy {
     private inj: Injector, 
     public insightsService: InsightsService,
     private brandingService: BrandingService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loadLanguages();
     this.router.events.pipe(
@@ -194,6 +196,10 @@ export class NavbarD29Component implements OnDestroy {
    * Obtiene el idioma de localStorage de forma segura, validando que sea válido
    */
   private getValidLangFromStorage(): string | null {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+
     const storedLang = localStorage.getItem('lang');
     if (this.isValidLangCode(storedLang)) {
       return storedLang;
@@ -248,6 +254,14 @@ export class NavbarD29Component implements OnDestroy {
         "code": "ca"        
       }
     ];
+
+    if (!isPlatformBrowser(this.platformId)) {
+      this.translate.setDefaultLang('en');
+      this.translate.use('en');
+      this.currentLang = 'en';
+      this.inj.get(EventsService).broadcast('loadLang', 'en');
+      return;
+    }
     
     // Intentar obtener un idioma válido del localStorage
     const storedLang = this.getValidLangFromStorage();
@@ -335,13 +349,17 @@ export class NavbarD29Component implements OnDestroy {
       language = 'en';
     }
     this.translate.use(language);
-    localStorage.setItem('lang', language);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('lang', language);
+    }
     this.searchLangName(language);
     var eventsLang = this.inj.get(EventsService);
     eventsLang.broadcast('changelang', language);
   }
 
   lauchEvent(category) {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     var secs = this.getElapsedSeconds();
     try {
       if (typeof gtag === 'function') {
@@ -466,9 +484,11 @@ export class NavbarD29Component implements OnDestroy {
    */
   toggleBeta(): void {
     const goingToBeta = !this.isBetaPage;
-    try {
-      localStorage.setItem('betaEnabled', goingToBeta ? 'true' : 'false');
-    } catch {}
+    if (isPlatformBrowser(this.platformId)) {
+      try {
+        localStorage.setItem('betaEnabled', goingToBeta ? 'true' : 'false');
+      } catch {}
+    }
     this.lauchEvent(`Toggle - Beta ${goingToBeta ? 'On' : 'Off'}`);
     if (goingToBeta) {
       this.router.navigate(['/beta']);

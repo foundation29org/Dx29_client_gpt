@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -160,24 +161,29 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     shouldShowDonate: boolean = false;
     donateLink: string = 'https://foundation29.org/donate?amount=25&utm_source=dxgpt#widget';
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService) {
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, @Inject(PLATFORM_ID) private platformId: Object) {
         this.initialize();
     }
 
     private initialize() {
+        const isBrowser = isPlatformBrowser(this.platformId);
         this._startTime = Date.now();
         this.myuuid = this.uuidService.getUuid();
-        this.lauchEvent("Init Page");
+        if (isBrowser) {
+            this.lauchEvent("Init Page");
+        }
         this.currentStep = 1;
         // Asegurar estado inicial sin diagnósticos
         this.eventsService.broadcast('hasDiagnostics', false);
-        this.loadSponsors();
-        this.loadingIP();
+        if (isBrowser) {
+            this.loadSponsors();
+            this.loadingIP();
+        }
         
         // Inicializar el placeholder con el idioma correcto
         this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
         //get the language from the session
-        this.lang = LangService.getValidLangFromStorage();
+        this.lang = isBrowser ? LangService.getValidLangFromStorage() : 'en';
     }
 
     private setLangFromSession(lang: string) {
@@ -390,10 +396,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.loadTranslations();
         
         // Track page view para la página principal
-        this.analyticsService.trackPageView('Undiagnosed Page', {
-          isInIframe: this.isInIframe,
-          hasIframeParams: Object.keys(this.iframeParams).length > 0
-        });
+        if (isPlatformBrowser(this.platformId)) {
+            this.analyticsService.trackPageView('Undiagnosed Page', {
+              isInIframe: this.isInIframe,
+              hasIframeParams: Object.keys(this.iframeParams).length > 0
+            });
+        }
         
         // Detectar si estamos en iframe
         this.isInIframe = this.iframeParamsService.getIsInIframe();
@@ -435,10 +443,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.subscribeToEvents();
         
         // Forzar la actualización del placeholder con el idioma actual
-        setTimeout(() => {
-            this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
-            this.startTypingAnimation();
-        }, 200);
+        if (isPlatformBrowser(this.platformId)) {
+            setTimeout(() => {
+                this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+                this.startTypingAnimation();
+            }, 200);
+        }
     }
 
     loadTranslations() {
