@@ -106,11 +106,11 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     copyResultAnonymized: string = '';
     timezone: string = '';
     terms2: boolean = false;
-    model: string = 'gpt54mini';
-    defaultModel: string = 'gpt54mini';
+    model: string = 'gpt56terra';
+    defaultModel: string = 'gpt56terra';
     advancedModel: string = 'o3';
-    previousModel: string = 'gpt54mini'; // Modelo anterior para restaurar en caso de error
-    imageModel: string = 'gpt5';
+    previousModel: string = 'gpt56terra'; // Modelo anterior para restaurar en caso de error
+    imageModel: string = 'gpt56terra';
     
     // Propiedad para manejar el placeholder
     textareaPlaceholder: string = '';
