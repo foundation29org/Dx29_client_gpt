@@ -256,12 +256,6 @@
               <button class="results-action-btn results-action-btn--primary" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
                 <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
               </button>
-              <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary results-action-btn--advanced" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="callAdvancedModel()">
-                <i class="fa fa-wand-magic-sparkles"></i>{{'diagnosis.Try our advanced mode' | translate }}
-              </button>
-              <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="callFastModel()">
-                <i class="fa-solid fa-person-running-fast"></i>{{'diagnosis.Try our faster mode' | translate }}
-              </button>
             </div>
           </div>
 
@@ -309,14 +303,8 @@
             </div>
           </div>
 
-          <!-- Model badge + disclaimer -->
+          <!-- Medical disclaimer -->
           <div class="results-meta" *ngIf="topRelatedConditions.length>0">
-            <span class="results-meta__badge" *ngIf="model == advancedModel && currentImageUrls.length === 0">
-              <i class="fa fa-flask me-1"></i>{{'land.Results generated with the advanced model' | translate }}
-            </span>
-            <span class="results-meta__badge" *ngIf="model == defaultModel && currentImageUrls.length === 0">
-              <i class="fa fa-bolt me-1"></i>{{'land.Results generated with the faster model' | translate }}
-            </span>
             <p class="results-meta__disclaimer">{{'diagnosis.advise' | translate }}</p>
           </div>
 
@@ -345,12 +333,6 @@
           <div class="results-not-satisfied__actions">
             <button class="results-action-btn results-action-btn--primary" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
               <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
-            </button>
-            <button *ngIf="model != advancedModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary results-action-btn--advanced" (click)="callAdvancedModel()">
-              <i class="fa fa-wand-magic-sparkles"></i>{{'diagnosis.Try our advanced mode' | translate }}
-            </button>
-            <button *ngIf="model != defaultModel && currentImageUrls.length === 0" class="results-action-btn results-action-btn--secondary" (click)="callFastModel()">
-              <i class="fa-solid fa-person-running-fast"></i>{{'diagnosis.Try our faster mode' | translate }}
             </button>
           </div>
         </div>
@@ -519,10 +501,6 @@
         <div class="infoapp-feature-card">
           <i class="fa fa-check infoapp-check"></i>
           <span>{{'land.p2.3' | translate }}</span>
-        </div>
-        <div class="infoapp-feature-card">
-          <i class="fa fa-check infoapp-check"></i>
-          <span>{{'land.p2.4' | translate }}</span>
         </div>
       </div>
 

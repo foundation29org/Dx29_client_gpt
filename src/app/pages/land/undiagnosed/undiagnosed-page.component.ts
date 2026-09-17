@@ -98,10 +98,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     countriesList: any[] = [];
     terms2: boolean = false;
     model: string = 'gpt56terra';
-    defaultModel: string = 'gpt56terra';
-    advancedModel: string = 'o3';
-    previousModel: string = 'gpt56terra'; // Modelo anterior para restaurar en caso de error
-    imageModel: string = 'gpt56terra';
     
     // Propiedad para manejar el placeholder
     textareaPlaceholder: string = '';
@@ -331,8 +327,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async goPrevious() {
-        this.model = this.defaultModel;
-        this.previousModel = this.defaultModel; // Resetear también previousModel al volver al inicio
         this.topRelatedConditions = [];
         this.currentStep = 1;
         // Notificar que ya no hay diagnósticos activos
@@ -763,11 +757,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             msgError = this.translate.instant("generics.error try again");
         }
         
-        // Restaurar el modelo anterior en caso de error
-        if (this.previousModel) {
-            this.model = this.previousModel;
-        }
-        
         this.showError(msgError, error);
         this.callingAI = false;
     }
@@ -925,7 +914,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     continuePreparingcallAI(step) {
         if (step == 'step4') {
-            this.callAI(this.defaultModel);
+            this.callAI();
         } else {
             Swal.fire({
                 title: this.translate.instant("generics.Please wait"),
@@ -936,7 +925,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }).then((result) => {
 
             });
-            this.callAI(this.defaultModel);
+            this.callAI();
         }
 
     }
@@ -960,31 +949,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return filteredParams;
     }
 
-    async callAI(stringModel: string) {
+    async callAI() {
         Swal.close();
         if(this.topRelatedConditions.length == 0){
             this.lauchEvent('diagnosis_started');
         }
-        // Determinar el modelo a usar
-        let modelToUse = stringModel;
-        //this.model = modelToUse;
-        // NO cambiar this.model aquí - se cambiará solo cuando la llamada sea exitosa
-        // Esto permite restaurar el modelo anterior si hay error o cancelación
-        // Siempre usar WebSocket para mejor UX y prepararse para detección de intención
-        // Esto evita problemas cuando el backend detecta automáticamente que debe usar o3
+        // Siempre usar WebSocket para mejorar la UX.
         const shouldUseWebSocket = true;
-        
-        //console.log(`Model: ${modelToUse}, shouldUseWebSocket: ${shouldUseWebSocket}`);
         
         if (shouldUseWebSocket) {
             try {
                 await this.connectWebSocket();
             } catch (error) {
                 console.error('Error connecting WebSocket:', error);
-                // Restaurar el modelo anterior en caso de error de conexión
-                if (this.previousModel) {
-                    this.model = this.previousModel;
-                }
                 this.showError(this.translate.instant("generics.error try again"), error);
                 this.callingAI = false;
                 return;
@@ -1016,10 +993,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         }).then(function (event) {
             if (event.dismiss == Swal.DismissReason.cancel) {
-                // Restaurar el modelo anterior si el usuario cancela
-                if (this.previousModel) {
-                    this.model = this.previousModel;
-                }
                 this.callingAI = false;
                 this.subscription.unsubscribe();
                 this.subscription = new Subscription();
@@ -1052,14 +1025,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             timezone: this.timezone, 
             countryName: this.myCountry,
             countryCode: this.myCountryCode,
-            model: modelToUse,
+            model: this.model,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
             imageUrls: []
         };
         if(this.currentImageUrls.length > 0){
             value.imageUrls = this.currentImageUrls;
-            value.model = this.imageModel;
             if(this.descriptionImageOnly != '' && value.description == ''){
                 value.description = this.descriptionImageOnly;
             }else if (this.descriptionImageOnly != '' && value.description != ''){
@@ -1077,28 +1049,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             (res: any) => this.handledDiagnoseResponse(res, value),
             (err: any) => this.handleAiError(err)
         );
-    }
-
-    callAdvancedModel(){
-        this.lauchEvent('callAdvancedModel' );
-        // Guardar el modelo actual antes de cambiarlo
-        this.previousModel = this.model;
-        this.callingAI = true;
-        this.medicalTextEng = this.medicalTextOriginal;
-        this.differentialTextOriginal = '';
-        this.differentialTextTranslated = '';
-        this.callAI(this.advancedModel);
-    }
-
-    callFastModel(){
-        this.lauchEvent('callFastModel');
-        // Guardar el modelo actual antes de cambiarlo
-        this.previousModel = this.model;
-        this.callingAI = true;
-        this.medicalTextEng = this.medicalTextOriginal;
-        this.differentialTextOriginal = '';
-        this.differentialTextTranslated = '';
-        this.callAI(this.defaultModel);
     }
 
     handledDiagnoseResponse(res: any, value: any) {
@@ -1279,11 +1229,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             msgError = this.translate.instant('generics.error try again');
         }
     
-        // Restaurar el modelo anterior en caso de error
-        if (this.previousModel) {
-            this.model = this.previousModel;
-        }
-        
         this.showError(msgError, err);
         this.callingAI = false;
     }
@@ -1319,14 +1264,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     processAiSuccess(data: any, value: any) {
-        // Establecer el modelo solo cuando la llamada sea exitosa
-        if(data.model && data.model == this.advancedModel){
-            this.model = this.advancedModel;
-        }else{
-            this.model = this.defaultModel;
-        }
-        // Limpiar previousModel ya que el cambio fue exitoso
-        this.previousModel = null;
         this.cancelQueueStatusCheck();
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
@@ -1481,7 +1418,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var diseases = this.diseaseListEn.map(disease => '+' + disease).join(', ');
         this.diseaseListText = diseases;
         this.loadMoreDiseases = true;
-        this.callAI(this.model);
+        this.callAI();
     }
 
     getDiseaseListTextLength(): number {
@@ -2319,7 +2256,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
         this.differentialTextTranslated = '';
-        this.callAI(this.model);
+        this.callAI();
     }
 
 
@@ -2567,7 +2504,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         
                         // Realizar una nueva búsqueda con la descripción actualizada
                         this.processingFollowUpAnswers = false;
-                        this.callAI(this.model);
+                        this.callAI();
                         
                         this.lauchEvent("FollowUp - Descripción actualizada");
                     } else {
