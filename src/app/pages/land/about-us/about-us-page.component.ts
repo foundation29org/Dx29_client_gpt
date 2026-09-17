@@ -152,6 +152,7 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
             'gpt-5.6-sol medium',
             'gemini-3.8-flash low',
             'gemini-3-pro low',
+            'claude-opus-5 low',
             'gemini-2.5-pro low',
             'gpt-5.4-mini low',
             'gpt-4o',
@@ -159,7 +160,7 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
             'gemini-2.5-flash low'
         ];
 
-        const values = [63.3, 62.9, 62.9, 62.1, 62.1, 61.3, 60.9, 59.8, 59.8, 59.4, 58.2, 57.4, 56.6, 56.6];
+        const values = [63.3, 62.9, 62.9, 62.1, 62.1, 61.3, 60.9, 59.8, 59.8, 59.4, 59.4, 58.2, 57.4, 56.6, 56.6];
 
         const colors = [
             '#059669',
@@ -171,6 +172,7 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
             '#4f46e5',
             '#ea580c',
             '#0891b2',
+            '#c2410c',
             '#65a30d',
             '#0ea5e9',
             '#64748b',
