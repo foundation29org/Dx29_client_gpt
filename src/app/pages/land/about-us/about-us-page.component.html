@@ -42,163 +42,62 @@
     <div class="content-text">
       <p><span *ngIf="!isEuMode()">{{'aboutUs.main.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.main.descriptionEu' | translate }}</span></p>
     </div>
-    
-    <!-- Challenge Section -->
+
     <div class="challenge-section">
       <h2 class="section-title"><span *ngIf="!isEuMode()">{{'aboutUs.challenge.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.challenge.titleEu' | translate }}</span></h2>
       <p class="challenge-text"><span *ngIf="!isEuMode()">{{'aboutUs.challenge.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.challenge.descriptionEu' | translate }}</span></p>
     </div>
-    
+
     <!-- Why DxGPT Section -->
     <div class="why-section">
       <h2 class="section-title">{{'aboutUs.why.title' | translate }}</h2>
       <p class="why-text">{{'aboutUs.why.description' | translate }}</p>
     </div>
-    
-    <!-- Key Differentiators Section -->
-    <div class="differentiators-section">
-      <h2 class="section-title">{{'aboutUs.differentiators.title' | translate }}</h2>
-      
-      <div class="differentiators-grid">
-        <!-- Structured Analysis -->
-        <div class="differentiator-card">
-          <div class="differentiator-icon">
-            <i class="fas fa-list-check"></i>
-          </div>
-          <h3 class="differentiator-title">{{'aboutUs.differentiators.structured.title' | translate }}</h3>
-          <p class="differentiator-text"><span *ngIf="!isEuMode()">{{'aboutUs.differentiators.structured.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.differentiators.structured.descriptionEu' | translate }}</span></p>
-        </div>
-        
-        <!-- Clinical Control -->
-        <div class="differentiator-card">
-          <div class="differentiator-icon">
-            <i class="fas fa-shield-halved"></i>
-          </div>
-          <h3 class="differentiator-title">{{'aboutUs.differentiators.control.title' | translate }}</h3>
-          <p class="differentiator-text">{{'aboutUs.differentiators.control.description' | translate }}</p>
-        </div>
-        
-        <!-- Specialization -->
-        <div class="differentiator-card">
-          <div class="differentiator-icon">
-            <i class="fas fa-microscope"></i>
-          </div>
-          <h3 class="differentiator-title">{{'aboutUs.differentiators.specialization.title' | translate }}</h3>
-          <p class="differentiator-text"><span *ngIf="!isEuMode()">{{'aboutUs.differentiators.specialization.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.differentiators.specialization.descriptionEu' | translate }}</span></p>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Implementation Section -->
-    <div class="implementation-section">
-      <h2 class="section-title">{{'aboutUs.implementation.title' | translate }}</h2>
-      <p class="section-intro">{{'aboutUs.implementation.intro' | translate }}</p>
-      
-      <ul class="capabilities-list">
-        <li class="capability-item">
-          <span class="capability-text">{{'aboutUs.implementation.capability1' | translate }}</span>
-        </li>
-        <li class="capability-item">
-          <span class="capability-text">{{'aboutUs.implementation.capability2' | translate }}</span>
-        </li>
-        <li class="capability-item">
-          <span class="capability-text">{{'aboutUs.implementation.capability3' | translate }}</span>
-        </li>
-        <li class="capability-item">
-          <span class="capability-text">{{'aboutUs.implementation.capability4' | translate }}</span>
-        </li>
-        <li class="capability-item">
-          <span class="capability-text">{{'aboutUs.implementation.capability5' | translate }}</span>
-        </li>
-      </ul>
-    </div>
-    
-    <!-- Clinical Benefits Section -->
+
     <div class="benefits-section">
       <h2 class="section-title">{{'aboutUs.benefits.title' | translate }}</h2>
-      
+
       <div class="benefits-grid">
-        <!-- Benefit 1: Time -->
         <div class="benefit-card">
-          <div class="benefit-icon">
-            <i class="fas fa-clock"></i>
-          </div>
+          <div class="benefit-icon"><i class="fas fa-clock"></i></div>
           <h3 class="benefit-title">{{'aboutUs.benefits.time.title' | translate }}</h3>
-          <p class="benefit-text"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.time.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.time.descriptionEu' | translate }}</span></p>
+          <p class="benefit-text">{{'aboutUs.benefits.time.description' | translate }}</p>
         </div>
-        
-        <!-- Benefit 2: Clarity -->
+
         <div class="benefit-card">
-          <div class="benefit-icon">
-            <i class="fas fa-eye"></i>
-          </div>
-          <h3 class="benefit-title"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.clarity.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.clarity.titleEu' | translate }}</span></h3>
-          <p class="benefit-text"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.clarity.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.clarity.descriptionEu' | translate }}</span></p>
-        </div>
-        
-        <!-- Benefit 3: Tool -->
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <i class="fas fa-cogs"></i>
-          </div>
-          <h3 class="benefit-title">{{'aboutUs.benefits.tool.title' | translate }}</h3>
-          <p class="benefit-text"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.tool.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.tool.descriptionEu' | translate }}</span></p>
-        </div>
-        
-        <!-- Benefit 4: Safety -->
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <i class="fas fa-brain"></i>
-          </div>
-          <h3 class="benefit-title">{{'aboutUs.benefits.safety.title' | translate }}</h3>
-          <p class="benefit-text"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.safety.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.safety.descriptionEu' | translate }}</span></p>
-        </div>
-        
-        <!-- Benefit 5: Standardize -->
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <i class="fas fa-check"></i>
-          </div>
-          <h3 class="benefit-title"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.standardize.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.standardize.titleEu' | translate }}</span></h3>
+          <div class="benefit-icon"><i class="fas fa-list-check"></i></div>
+          <h3 class="benefit-title">{{'aboutUs.benefits.standardize.title' | translate }}</h3>
           <p class="benefit-text">{{'aboutUs.benefits.standardize.description' | translate }}</p>
         </div>
-        
-        <!-- Benefit 6: Practice -->
+
         <div class="benefit-card">
-          <div class="benefit-icon">
-            <i class="fas fa-users"></i>
-          </div>
-          <h3 class="benefit-title">{{'aboutUs.benefits.practice.title' | translate }}</h3>
-          <p class="benefit-text"><span *ngIf="!isEuMode()">{{'aboutUs.benefits.practice.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.benefits.practice.descriptionEu' | translate }}</span></p>
+          <div class="benefit-icon"><i class="fas fa-microscope"></i></div>
+          <h3 class="benefit-title">{{'aboutUs.benefits.clarity.title' | translate }}</h3>
+          <p class="benefit-text">{{'aboutUs.benefits.clarity.description' | translate }}</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon"><i class="fas fa-brain"></i></div>
+          <h3 class="benefit-title">{{'aboutUs.benefits.safety.title' | translate }}</h3>
+          <p class="benefit-text">{{'aboutUs.benefits.safety.description' | translate }}</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon"><i class="fas fa-comments"></i></div>
+          <h3 class="benefit-title">{{'aboutUs.benefits.tool.title' | translate }}</h3>
+          <p class="benefit-text">{{'aboutUs.benefits.tool.description' | translate }}</p>
+        </div>
+      </div>
+
+      <div class="benefits-practice">
+        <i class="fas fa-users" aria-hidden="true"></i>
+        <div>
+          <h3>{{'aboutUs.benefits.practice.title' | translate }}</h3>
+          <p>{{'aboutUs.benefits.practice.description' | translate }}</p>
         </div>
       </div>
     </div>
-    
-    <!-- Commitment and Regulatory Framework Section -->
-    <div class="commitment-section">
-      <h2 class="section-title">{{'aboutUs.commitment.title' | translate }}</h2>
-      
-      <div class="commitment-grid">
-        <!-- Experimental Platform -->
-        <div class="commitment-card">
-          <div class="commitment-icon">
-            <i class="fas fa-search"></i>
-          </div>
-          <h3 class="commitment-title">{{'aboutUs.commitment.experimental.title' | translate }}</h3>
-          <p class="commitment-text"><span *ngIf="!isEuMode()">{{'aboutUs.commitment.experimental.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.commitment.experimental.descriptionEu' | translate }}</span></p>
-        </div>
-        
-        <!-- Data Protection -->
-        <div class="commitment-card">
-          <div class="commitment-icon">
-            <i class="fas fa-balance-scale"></i>
-          </div>
-          <h3 class="commitment-title">{{'aboutUs.commitment.protection.title' | translate }}</h3>
-          <p class="commitment-text">{{'aboutUs.commitment.protection.description' | translate }}</p>
-        </div>
-      </div>
-    </div>
-    
+
     <!-- Evaluation Section -->
     <div id="evaluation" class="evaluation-section">
       <h2 class="section-title">{{'aboutUs.evaluation.title' | translate }}</h2>
@@ -561,46 +460,38 @@
       </div>
     </div>
     
-    <!-- Clinical Validation Section -->
     <div id="clinical-validation" class="clinical-validation-section">
       <div class="validation-header">
-        <div class="validation-icon">
-          <i class="fas fa-shield-heart"></i>
-        </div>
-        <h2 class="validation-title">{{'aboutUs.clinicalValidation.title' | translate }}</h2>
         <div class="validation-badge">
           <i class="fas fa-check-circle"></i>
           <span>{{'aboutUs.clinicalValidation.validated' | translate }}</span>
         </div>
+        <h2 class="validation-title">{{'aboutUs.clinicalValidation.title' | translate }}</h2>
       </div>
-      
-      <div class="validation-content">
-        <p class="validation-description">
-          <span *ngIf="!isEuMode()">{{'aboutUs.clinicalValidation.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.clinicalValidation.descriptionEu' | translate }}</span>
-        </p>
-        
-        <div class="validation-highlights">
-          <div class="highlight-item">
-            <i class="fas fa-hospital"></i>
-            <span>{{'aboutUs.clinicalValidation.hospital' | translate }}</span>
-          </div>
-          <div class="highlight-item">
-            <i class="fas fa-chart-line"></i>
-            <span>{{'aboutUs.clinicalValidation.accuracy' | translate }}</span>
-          </div>
-          <div class="highlight-item">
-            <i class="fas fa-microscope"></i>
-            <span>{{'aboutUs.clinicalValidation.research' | translate }}</span>
-          </div>
+
+      <p class="validation-description">
+        <span *ngIf="!isEuMode()">{{'aboutUs.clinicalValidation.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.clinicalValidation.descriptionEu' | translate }}</span>
+      </p>
+
+      <div class="validation-highlights">
+        <div class="highlight-item">
+          <i class="fas fa-hospital"></i>
+          <span>{{'aboutUs.clinicalValidation.hospital' | translate }}</span>
         </div>
-        
-        <div class="validation-cta">
-          <a href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1" target="_blank" class="study-link">
-            <i class="fas fa-external-link-alt"></i>
-            {{'aboutUs.clinicalValidation.studyLink' | translate }}
-          </a>
+        <div class="highlight-item">
+          <i class="fas fa-chart-line"></i>
+          <span>{{'aboutUs.clinicalValidation.accuracy' | translate }}</span>
+        </div>
+        <div class="highlight-item">
+          <i class="fas fa-microscope"></i>
+          <span>{{'aboutUs.clinicalValidation.research' | translate }}</span>
         </div>
       </div>
+
+      <a href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1" target="_blank" rel="noopener" class="study-link">
+        <i class="fas fa-external-link-alt"></i>
+        {{'aboutUs.clinicalValidation.studyLink' | translate }}
+      </a>
     </div>
     
     <!-- Trust and Security Section -->
@@ -633,68 +524,72 @@
       </div>
       
       <!-- Data Governance -->
-      <div class="trust-subsection">
-        <h3 class="subsection-title">{{'aboutUs.trust.governance.title' | translate }}</h3>
-        <p class="subsection-text">{{'aboutUs.trust.governance.intro' | translate }}</p>
-        <div class="governance-table">
-          <div class="table-row header">
-            <div class="table-cell">{{'aboutUs.trust.governance.feature' | translate }}</div>
-            <div class="table-cell">{{'aboutUs.trust.governance.commitment' | translate }}</div>
-          </div>
-          <div class="table-row">
-            <div class="table-cell">{{'aboutUs.trust.governance.processing' | translate }}</div>
-            <div class="table-cell">{{'aboutUs.trust.governance.processingValue' | translate }}</div>
-          </div>
-          <div class="table-row">
-            <div class="table-cell">{{'aboutUs.trust.governance.storage' | translate }}</div>
-            <div class="table-cell">{{'aboutUs.trust.governance.storageValue' | translate }}</div>
-          </div>
-          <div class="table-row">
-            <div class="table-cell">{{'aboutUs.trust.governance.anonymization' | translate }}</div>
-            <div class="table-cell">{{'aboutUs.trust.governance.anonymizationValue' | translate }}</div>
-          </div>
-          <div class="table-row">
-            <div class="table-cell">{{'aboutUs.trust.governance.training' | translate }}</div>
-            <div class="table-cell">{{'aboutUs.trust.governance.trainingValue' | translate }}</div>
-          </div>
-          <div class="table-row">
-            <div class="table-cell">{{'aboutUs.trust.governance.encryption' | translate }}</div>
-            <div class="table-cell">{{'aboutUs.trust.governance.encryptionValue' | translate }}</div>
-          </div>
-          <div class="table-row">
-            <div class="table-cell">{{'aboutUs.trust.governance.compliance' | translate }}</div>
-            <div class="table-cell">{{'aboutUs.trust.governance.complianceValue' | translate }}</div>
-          </div>
-          <div class="table-row">
-            <div class="table-cell">{{'aboutUs.trust.governance.agreements' | translate }}</div>
-            <div class="table-cell">{{'aboutUs.trust.governance.agreementsValue' | translate }}</div>
-          </div>
-          <div class="table-row">
-            <div class="table-cell">{{'aboutUs.trust.governance.audit' | translate }}</div>
-            <div class="table-cell">{{'aboutUs.trust.governance.auditValue' | translate }}</div>
+      <details class="trust-details">
+        <summary>{{'aboutUs.trust.governance.title' | translate }}</summary>
+        <div class="trust-details__content">
+          <p class="subsection-text">{{'aboutUs.trust.governance.intro' | translate }}</p>
+          <div class="governance-table">
+            <div class="table-row header">
+              <div class="table-cell">{{'aboutUs.trust.governance.feature' | translate }}</div>
+              <div class="table-cell">{{'aboutUs.trust.governance.commitment' | translate }}</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">{{'aboutUs.trust.governance.processing' | translate }}</div>
+              <div class="table-cell">{{'aboutUs.trust.governance.processingValue' | translate }}</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">{{'aboutUs.trust.governance.storage' | translate }}</div>
+              <div class="table-cell">{{'aboutUs.trust.governance.storageValue' | translate }}</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">{{'aboutUs.trust.governance.anonymization' | translate }}</div>
+              <div class="table-cell">{{'aboutUs.trust.governance.anonymizationValue' | translate }}</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">{{'aboutUs.trust.governance.training' | translate }}</div>
+              <div class="table-cell">{{'aboutUs.trust.governance.trainingValue' | translate }}</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">{{'aboutUs.trust.governance.encryption' | translate }}</div>
+              <div class="table-cell">{{'aboutUs.trust.governance.encryptionValue' | translate }}</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">{{'aboutUs.trust.governance.compliance' | translate }}</div>
+              <div class="table-cell">{{'aboutUs.trust.governance.complianceValue' | translate }}</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">{{'aboutUs.trust.governance.agreements' | translate }}</div>
+              <div class="table-cell">{{'aboutUs.trust.governance.agreementsValue' | translate }}</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">{{'aboutUs.trust.governance.audit' | translate }}</div>
+              <div class="table-cell">{{'aboutUs.trust.governance.auditValue' | translate }}</div>
+            </div>
           </div>
         </div>
-      </div>
+      </details>
       
       <!-- Regulatory Framework -->
-      <div class="trust-subsection">
-        <h3 class="subsection-title">{{'aboutUs.trust.regulatory.title' | translate }}</h3>
-        <p class="subsection-text">{{'aboutUs.trust.regulatory.intro' | translate }}</p>
-        <ul class="regulatory-list">
-          <li>
-            <strong>{{'aboutUs.trust.regulatory.gdpr.title' | translate }}</strong>
-            <p>{{'aboutUs.trust.regulatory.gdpr.description' | translate }}</p>
-          </li>
-          <li>
-            <strong>{{'aboutUs.trust.regulatory.hipaa.title' | translate }}</strong>
-            <p>{{'aboutUs.trust.regulatory.hipaa.description' | translate }}</p>
-          </li>
-          <li>
-            <strong>{{'aboutUs.trust.regulatory.aiact.title' | translate }}</strong>
-            <p>{{'aboutUs.trust.regulatory.aiact.description' | translate }}</p>
-          </li>
-        </ul>
-      </div>
+      <details class="trust-details">
+        <summary>{{'aboutUs.trust.regulatory.title' | translate }}</summary>
+        <div class="trust-details__content">
+          <p class="subsection-text">{{'aboutUs.trust.regulatory.intro' | translate }}</p>
+          <ul class="regulatory-list">
+            <li>
+              <strong>{{'aboutUs.trust.regulatory.gdpr.title' | translate }}</strong>
+              <p>{{'aboutUs.trust.regulatory.gdpr.description' | translate }}</p>
+            </li>
+            <li>
+              <strong>{{'aboutUs.trust.regulatory.hipaa.title' | translate }}</strong>
+              <p>{{'aboutUs.trust.regulatory.hipaa.description' | translate }}</p>
+            </li>
+            <li>
+              <strong>{{'aboutUs.trust.regulatory.aiact.title' | translate }}</strong>
+              <p>{{'aboutUs.trust.regulatory.aiact.description' | translate }}</p>
+            </li>
+          </ul>
+        </div>
+      </details>
     </div>
   </div>
 </section>
