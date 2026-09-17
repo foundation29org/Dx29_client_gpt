@@ -208,82 +208,68 @@
         <h3 class="subsection-title">{{'aboutUs.evaluation.commitment.title' | translate }}</h3>
         <p class="subsection-text">{{'aboutUs.evaluation.commitment.description' | translate }}</p>
         <p class="subsection-text"><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.commitment.validation' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.commitment.validationEu' | translate }}</span></p>
-        <p class="subsection-text">{{'aboutUs.evaluation.commitment.framework' | translate }}</p>
       </div>
       
       <!-- Testbed designed to challenge -->
       <div class="evaluation-subsection">
         <h3 class="subsection-title">{{'aboutUs.evaluation.testbed.title' | translate }}</h3>
         <p class="subsection-text">{{'aboutUs.evaluation.testbed.description' | translate }}</p>
-        <p class="subsection-text">{{'aboutUs.evaluation.testbed.sources' | translate }}</p>
         <ul class="sources-list">
           <li>{{'aboutUs.evaluation.testbed.source1' | translate }}</li>
           <li>{{'aboutUs.evaluation.testbed.source2' | translate }}</li>
           <li>{{'aboutUs.evaluation.testbed.source3' | translate }}</li>
-          <li>{{'aboutUs.evaluation.testbed.source4' | translate }}</li>
         </ul>
-        <p class="subsection-text">{{'aboutUs.evaluation.testbed.conclusion' | translate }}</p>
       </div>
-      
-      <!-- Science of asking -->
+
+      <!-- DxGPT product layer -->
       <div class="evaluation-subsection">
         <h3 class="subsection-title">{{'aboutUs.evaluation.science.title' | translate }}</h3>
         <p class="subsection-text">{{'aboutUs.evaluation.science.description' | translate }}</p>
         <p class="subsection-text">{{'aboutUs.evaluation.science.differentiator' | translate }}</p>
       </div>
       
-      <!-- Chart Section -->
-      <div class="chart-section">
-        <div class="chart-container">
-          <img src="assets/img/home/prompt_battle_by_prompt_labeled.jpg" alt="DxGPT Evaluation Chart" class="evaluation-chart">
-        </div>
-        <p class="chart-caption">{{'aboutUs.evaluation.chart.caption' | translate }}</p>
-      </div>
-      
       <!-- Evaluation Methodology -->
       <div class="evaluation-subsection">
-        <h3 class="subsection-title">{{'aboutUs.evaluation.methodology.title' | translate }}</h3>
-        <p class="subsection-text">{{'aboutUs.evaluation.methodology.intro' | translate }}</p>
+        <h3 class="subsection-title">{{ 'aboutUs.evaluation.methodology.title' | translate }}</h3>
+        <p class="subsection-text">{{ 'aboutUs.evaluation.methodology.intro' | translate }}</p>
 
-        <!-- Visual methodology block -->
-        <div style="display:flex;flex-wrap:wrap;gap:28px;margin-top:20px;">
-          <!-- Steps -->
-          <div style="flex:1;min-width:270px;">
-            <div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start;">
-              <div style="width:32px;height:32px;border-radius:50%;background:#2563eb;color:white;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;">1</div>
+        <div class="methodology-overview">
+          <div class="methodology-steps">
+            <div class="methodology-step">
+              <div class="methodology-step__number">1</div>
               <div>
-                <strong style="display:block;margin-bottom:4px;">{{ 'aboutUs.evaluation.methodology.steps.step1.title' | translate }}</strong>
-                <p style="color:#64748b;font-size:0.88rem;margin:0;">{{ 'aboutUs.evaluation.methodology.steps.step1.text' | translate }}</p>
+                <strong>{{ 'aboutUs.evaluation.methodology.steps.step1.title' | translate }}</strong>
+                <p>{{ 'aboutUs.evaluation.methodology.steps.step1.text' | translate }}</p>
               </div>
             </div>
-            <div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start;">
-              <div style="width:32px;height:32px;border-radius:50%;background:#2563eb;color:white;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;">2</div>
+            <div class="methodology-step">
+              <div class="methodology-step__number">2</div>
               <div>
-                <strong style="display:block;margin-bottom:4px;">{{ 'aboutUs.evaluation.methodology.steps.step2.title' | translate }}</strong>
-                <p style="color:#64748b;font-size:0.88rem;margin:0;">{{ 'aboutUs.evaluation.methodology.steps.step2.text' | translate }}</p>
+                <strong>{{ 'aboutUs.evaluation.methodology.steps.step2.title' | translate }}</strong>
+                <p>{{ 'aboutUs.evaluation.methodology.steps.step2.text' | translate }}</p>
               </div>
             </div>
-            <div style="display:flex;gap:16px;align-items:flex-start;">
-              <div style="width:32px;height:32px;border-radius:50%;background:#2563eb;color:white;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;">3</div>
+            <div class="methodology-step">
+              <div class="methodology-step__number">3</div>
               <div>
-                <strong style="display:block;margin-bottom:4px;">{{ 'aboutUs.evaluation.methodology.steps.step3.title' | translate }}</strong>
-                <p style="color:#64748b;font-size:0.88rem;margin:0;">{{ 'aboutUs.evaluation.methodology.steps.step3.text' | translate }}</p>
+                <strong>{{ 'aboutUs.evaluation.methodology.steps.step3.title' | translate }}</strong>
+                <p>{{ 'aboutUs.evaluation.methodology.steps.step3.text' | translate }}</p>
               </div>
             </div>
           </div>
-          <!-- Metrics -->
-          <div style="flex:1;min-width:270px;">
-            <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#64748b;margin-bottom:10px;">{{ 'aboutUs.evaluation.methodology.metrics.title' | translate }}</p>
-            <table style="width:100%;border-collapse:collapse;font-size:0.84rem;">
-              <tr style="background:#f8fafc;">
-                <th style="padding:8px 11px;text-align:left;font-weight:700;color:#64748b;font-size:0.75rem;text-transform:uppercase;border-bottom:2px solid #e2e8f0;">{{ 'aboutUs.evaluation.methodology.metrics.thMetric' | translate }}</th>
-                <th style="padding:8px 11px;text-align:left;font-weight:700;color:#64748b;font-size:0.75rem;text-transform:uppercase;border-bottom:2px solid #e2e8f0;">{{ 'aboutUs.evaluation.methodology.metrics.thDescription' | translate }}</th>
+
+          <div class="methodology-metrics">
+            <p class="methodology-metrics__title">{{ 'aboutUs.evaluation.methodology.metrics.title' | translate }}</p>
+            <table>
+              <tr>
+                <th>{{ 'aboutUs.evaluation.methodology.metrics.thMetric' | translate }}</th>
+                <th>{{ 'aboutUs.evaluation.methodology.metrics.thDescription' | translate }}</th>
               </tr>
-              <tr><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;"><strong>{{ 'aboutUs.evaluation.methodology.metrics.avgPosition' | translate }}</strong></td><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;">{{ 'aboutUs.evaluation.methodology.metrics.avgPositionDesc' | translate }}</td></tr>
-              <tr><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;"><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall1' | translate }}</strong></td><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;">{{ 'aboutUs.evaluation.methodology.metrics.recall1Desc' | translate }}</td></tr>
-              <tr><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;"><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall3' | translate }}</strong></td><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;">{{ 'aboutUs.evaluation.methodology.metrics.recall3Desc' | translate }}</td></tr>
-              <tr><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;"><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall5' | translate }}</strong></td><td style="padding:8px 11px;border-bottom:1px solid #f1f5f9;">{{ 'aboutUs.evaluation.methodology.metrics.recall5Desc' | translate }}</td></tr>
-              <tr><td style="padding:8px 11px;"><strong>{{ 'aboutUs.evaluation.methodology.metrics.coverage' | translate }}</strong></td><td style="padding:8px 11px;">{{ 'aboutUs.evaluation.methodology.metrics.coverageDesc' | translate }}</td></tr>
+              <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.avgPosition' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.avgPositionDesc' | translate }}</td></tr>
+              <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall1' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.recall1Desc' | translate }}</td></tr>
+              <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall3' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.recall3Desc' | translate }}</td></tr>
+              <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall5' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.recall5Desc' | translate }}</td></tr>
+              <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.coverage' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.coverageDesc' | translate }}</td></tr>
             </table>
           </div>
         </div>
@@ -291,167 +277,47 @@
       
       <!-- Evolution and Performance Section -->
       <div class="evaluation-subsection">
-        <h3 class="subsection-title">{{'aboutUs.evaluation.evolution.title' | translate }}</h3>
-        <p class="subsection-text"><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.intro' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.introEu' | translate }}</span></p>
+        <h3 class="subsection-title">{{ 'aboutUs.evaluation.evolution.benchmark2026.title' | translate }}</h3>
         
-        <!-- Validation Study 2024 -->
-        <div class="evolution-item">
-          <h4 class="evolution-item-title">{{'aboutUs.evaluation.evolution.validation.title' | translate }}</h4>
-          <p class="subsection-text">{{'aboutUs.evaluation.evolution.validation.description' | translate }}</p>
-          <ul class="evolution-list">
-            <li>
-              <strong>{{'aboutUs.evaluation.evolution.validation.data.title' | translate }}</strong>
-              <p>{{'aboutUs.evaluation.evolution.validation.data.description' | translate }}</p>
-            </li>
-            <li>
-              <strong>{{'aboutUs.evaluation.evolution.validation.conclusion.title' | translate }}</strong>
-              <p><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.validation.conclusion.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.validation.conclusion.descriptionEu' | translate }}</span></p>
-            </li>
-          </ul>
-          
-          <!-- Validation Chart -->
-          <div class="chart-section" style="margin-top: 1.5rem;">
-            <div class="chart-container">
-              <img src="assets/img/evals/allmodels_240724.png" alt="Modelos de evaluación DxGPT 2024" class="evaluation-chart">
-            </div>
-          </div>
-          
-          <!-- References -->
-          <div class="references-section" style="margin-top: 1rem;">
-            <p class="subsection-text">
-              {{'aboutUs.evaluation.evolution.validation.reference' | translate }}
-              <a href="https://github.com/foundation29org/dxgpt_testing" target="_blank" class="reference-link">
-                <i class="fas fa-external-link-alt"></i> {{'aboutUs.evaluation.evolution.validation.repository' | translate }}
-              </a>
-              <a href="https://www.medrxiv.org/content/10.1101/2024.05.08.24307062v1" target="_blank" class="reference-link">
-                <i class="fas fa-external-link-alt"></i> {{'aboutUs.evaluation.evolution.validation.preprint' | translate }}
-              </a>
-            </p>
-          </div>
-        </div>
-        
-        <!-- Pipeline PV4 -->
-        <div class="evolution-item" style="margin-top: 3.5rem;">
-          <h4 class="evolution-item-title">{{'aboutUs.evaluation.evolution.pv4.title' | translate }}</h4>
-          <p class="subsection-text">{{'aboutUs.evaluation.evolution.pv4.description' | translate }}</p>
-          <ul class="evolution-list">
-            <li>
-              <strong>{{'aboutUs.evaluation.evolution.pv4.technical.title' | translate }}</strong>
-              <p><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.pv4.technical.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.pv4.technical.descriptionEu' | translate }}</span></p>
-            </li>
-            <li>
-              <strong>{{'aboutUs.evaluation.evolution.pv4.clinical.title' | translate }}</strong>
-              <p>{{'aboutUs.evaluation.evolution.pv4.clinical.description' | translate }}</p>
-            </li>
-          </ul>
-          
-          <!-- Data Sources Chart -->
-          <div class="chart-section" style="margin-top: 1.5rem;">
-            <div class="chart-container">
-              <img src="assets/img/evals/08_etl_visualized_as_sankey_at_20250708.png" alt="{{'aboutUs.evaluation.evolution.pv4.dataSources.alt' | translate }}" class="evaluation-chart">
-            </div>
-            <p class="chart-caption">{{'aboutUs.evaluation.evolution.pv4.dataSources.caption' | translate }}</p>
-          </div>
-          
-          <!-- References -->
-          <div class="references-section" style="margin-top: 1rem;">
-            <p class="subsection-text">
-              {{'aboutUs.evaluation.evolution.pv4.reference' | translate }}
-              <a href="https://github.com/foundation29org/dxgpt-bench-lab" target="_blank" class="reference-link">
-                <i class="fas fa-external-link-alt"></i> {{'aboutUs.evaluation.evolution.pv4.repository' | translate }}
-              </a>
-            </p>
-          </div>
-        </div>
-        
-        <!-- Current Architecture -->
-        <div class="evolution-item" style="margin-top: 3.5rem;">
-          <h4 class="evolution-item-title">{{'aboutUs.evaluation.evolution.architecture.title' | translate }}</h4>
-          <p class="subsection-text">{{'aboutUs.evaluation.evolution.architecture.description' | translate }}</p>
-          <ul class="evolution-list">
-            <li>
-              <strong>{{'aboutUs.evaluation.evolution.architecture.efficiency.title' | translate }}</strong>
-              <p>{{'aboutUs.evaluation.evolution.architecture.efficiency.description' | translate }}</p>
-            </li>
-            <li>
-              <strong>{{'aboutUs.evaluation.evolution.architecture.complexity.title' | translate }}</strong>
-              <p>{{'aboutUs.evaluation.evolution.architecture.complexity.description' | translate }}</p>
-            </li>
-          </ul>
-          
-          <!-- Performance Comparison Chart -->
-          <div class="chart-section" style="margin-top: 1.5rem;">
-            <div class="chart-container">
-              <img src="assets/img/evals/evals9-25.jpg" alt="{{'aboutUs.evaluation.evolution.architecture.performance.alt' | translate }}" class="evaluation-chart">
-            </div>
-            <p class="chart-caption">{{'aboutUs.evaluation.evolution.architecture.performance.caption' | translate }}</p>
-          
-          </div>
-        </div>
-        
-        <!-- Benchmark 2026 (Punto 4) -->
-        <div class="evolution-item bench-section" style="margin-top: 3.5rem;">
-          <h4 class="evolution-item-title">{{'aboutUs.evaluation.evolution.benchmark2026.title' | translate }}</h4>
-          <p class="subsection-text">{{'aboutUs.evaluation.evolution.benchmark2026.description' | translate }}</p>
-
-          <!-- Stats pills -->
-          <div class="bench-pills">
-            <span class="bench-pill bench-pill--green">{{ 'aboutUs.evaluation.evolution.benchmark2026.pill256' | translate }}</span>
-            <span class="bench-pill bench-pill--blue">{{ 'aboutUs.evaluation.evolution.benchmark2026.pillHpo' | translate }}</span>
-            <span class="bench-pill bench-pill--yellow">{{ 'aboutUs.evaluation.evolution.benchmark2026.pillModels' | translate }}</span>
-          </div>
-
-          <ul class="evolution-list">
-            <li>
-              <strong>{{'aboutUs.evaluation.evolution.benchmark2026.dataset.title' | translate }}</strong>
-              <p>{{'aboutUs.evaluation.evolution.benchmark2026.dataset.description' | translate }}</p>
-            </li>
-            <li>
-              <strong>{{'aboutUs.evaluation.evolution.benchmark2026.hpo.title' | translate }}</strong>
-              <p>{{'aboutUs.evaluation.evolution.benchmark2026.hpo.description' | translate }}</p>
-            </li>
-          </ul>
+        <div class="evolution-item bench-section">
 
           <!-- Key numbers highlight -->
           <div class="bench-stats-grid">
             <div class="bench-stat bench-stat--violet">
               <div class="bench-stat__value">63,3%</div>
-              <div class="bench-stat__label">R@1 · all_256_clean · strict</div>
+              <div class="bench-stat__label">{{ 'aboutUs.evaluation.evolution.benchmark2026.statAvgPos' | translate }}</div>
             </div>
             <div class="bench-stat bench-stat--amber">
               <div class="bench-stat__value">83,2%</div>
-              <div class="bench-stat__label">Coverage · all_256_clean · strict</div>
+              <div class="bench-stat__label">{{ 'aboutUs.evaluation.evolution.benchmark2026.statSuccessRate' | translate }}</div>
             </div>
           </div>
 
           <!-- Track A: Chart.js bar chart + ranking table -->
           <div class="bench-track">
             <p class="bench-track-title">{{ 'aboutUs.evaluation.evolution.benchmark2026.trackATitle' | translate }}</p>
-            <p class="bench-track-subtitle">strict_equivalence · Rank: R@1 → Coverage · 1 config/model</p>
-
-            <div class="bench-callout bench-callout--info">
-              <span class="bench-callout-icon">ℹ️</span>
-              <div>{{ 'aboutUs.evaluation.evolution.benchmark2026.trackACallout' | translate }}</div>
-            </div>
+            <p class="bench-track-subtitle">{{ 'aboutUs.evaluation.evolution.benchmark2026.trackASubtitle' | translate }}</p>
 
             <!-- Chart.js strict R@1 chart -->
             <div class="bench-chart-card">
-              <div class="bench-chart-caption">R@1 strict · Escala ampliada 55–65% · all_256_clean · 256 casos</div>
+              <div class="bench-chart-caption">{{ 'aboutUs.evaluation.evolution.benchmark2026.avgPosChartCaption' | translate }}</div>
               <div class="bench-chart-canvas-wrapper">
                 <canvas #trackAChart></canvas>
               </div>
             </div>
 
             <!-- Ranking table -->
-            <div class="bench-table-wrapper">
-            <table class="bench-table bench-table--ranking">
+            <details class="bench-details">
+              <summary>{{ 'aboutUs.evaluation.evolution.benchmark2026.results.title' | translate }}</summary>
+              <div class="bench-table-wrapper">
+              <table class="bench-table bench-table--ranking">
               <thead>
                 <tr>
                   <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thRank' | translate }}</th>
                   <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thModel' | translate }}</th>
-                  <th>R@1</th>
-                  <th>R@3</th>
-                  <th>R@5</th>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
+                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
                   <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
                   <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
                   <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thSecPerCase' | translate }}</th>
@@ -470,69 +336,126 @@
                   <td><span class="bench-badge bench-badge--green">86,3%</span></td><td>~17s</td>
                 </tr>
                 <tr>
-                  <td>3</td><td>gpt-6-astra low</td><td>62,1%</td><td>78,5%</td><td>82,0%</td><td>1,460</td>
+                  <td>3</td><td><strong>grok-4.6 low</strong></td><td>62,9%</td><td>78,1%</td><td>81,6%</td><td>1,373</td>
+                  <td>81,6%</td><td>17,0s</td>
+                </tr>
+                <tr>
+                  <td>4</td><td>gpt-5.6-terra high</td><td>62,5%</td><td>80,5%</td><td>84,4%</td><td>1,477</td>
+                  <td>85,2%</td><td>—</td>
+                </tr>
+                <tr>
+                  <td>5</td><td>gpt-5.6-terra medium</td><td>62,5%</td><td>79,3%</td><td>84,0%</td><td>1,491</td>
+                  <td>84,4%</td><td>8,4s</td>
+                </tr>
+                <tr>
+                  <td>6</td><td>gpt-5.6-terra xhigh</td><td>62,5%</td><td>75,0%</td><td>78,9%</td><td>1,431</td>
+                  <td>79,7%</td><td>—</td>
+                </tr>
+                <tr>
+                  <td>7</td><td>gpt-6-astra low</td><td>62,1%</td><td>78,5%</td><td>82,0%</td><td>1,460</td>
                   <td>83,2%</td><td>~32,5s</td>
                 </tr>
                 <tr>
-                  <td>4</td><td><strong>gemini-3.5-flash low</strong></td><td>62,1%</td><td>75,4%</td><td>75,4%</td><td>1,223</td>
+                  <td>8</td><td><strong>gemini-3.5-flash low</strong></td><td>62,1%</td><td>75,4%</td><td>75,4%</td><td>1,223</td>
                   <td>75,4%</td><td><strong class="bench-time-good">6,1s</strong></td>
                 </tr>
                 <tr>
-                  <td>5</td><td>gemini-3.1-pro-preview low</td><td>61,3%</td><td>74,6%</td><td>75,0%</td><td>1,240</td>
+                  <td>9</td><td>gemini-3.1-pro-preview low</td><td>61,3%</td><td>74,6%</td><td>75,0%</td><td>1,240</td>
                   <td>75,0%</td><td>9,3s</td>
                 </tr>
                 <tr>
-                  <td>6</td><td>gpt-5.6-sol medium</td><td>60,9%</td><td>76,2%</td><td>81,2%</td><td>1,540</td>
+                  <td>10</td><td>gpt-5.6-luna high</td><td>60,9%</td><td>77,3%</td><td>82,0%</td><td>1,575</td>
+                  <td>83,6%</td><td>~7,6s</td>
+                </tr>
+                <tr>
+                  <td>11</td><td>gpt-5.6-sol medium</td><td>60,9%</td><td>76,2%</td><td>81,2%</td><td>1,540</td>
                   <td>82,4%</td><td>—</td>
                 </tr>
                 <tr>
-                  <td>7</td><td>gemini-3.8-flash low</td><td>59,8%</td><td>73,8%</td><td>77,7%</td><td>1,402</td>
+                  <td>12</td><td>gemini-3.8-flash low</td><td>59,8%</td><td>73,8%</td><td>77,7%</td><td>1,402</td>
                   <td>77,7%</td><td><strong class="bench-time-good">4,4s</strong></td>
                 </tr>
                 <tr>
-                  <td>8</td><td>gemini-3-pro-preview low</td><td>59,8%</td><td>74,6%</td><td>75,0%</td><td>1,281</td>
+                  <td>13</td><td>gemini-3-pro-preview low</td><td>59,8%</td><td>74,6%</td><td>75,0%</td><td>1,281</td>
                   <td>75,0%</td><td>~10s</td>
                 </tr>
                 <tr>
-                  <td>9</td><td>gemini-2.5-pro low</td><td>59,4%</td><td>74,2%</td><td>75,4%</td><td>1,295</td>
+                  <td>14</td><td>gemini-2.5-pro low</td><td>59,4%</td><td>74,2%</td><td>75,4%</td><td>1,295</td>
                   <td>75,4%</td><td>~28s</td>
                 </tr>
                 <tr>
-                  <td>10</td><td>gpt-5.4-mini low</td><td>58,2%</td><td>77,3%</td><td>79,3%</td><td>1,441</td>
+                  <td>15</td><td>gemini-3-pro-preview medium</td><td>59,4%</td><td>71,1%</td><td>73,0%</td><td>1,289</td>
+                  <td>73,0%</td><td>~35s</td>
+                </tr>
+                <tr>
+                  <td>16</td><td>gpt-5.6-sol low</td><td>59,0%</td><td>73,8%</td><td>80,5%</td><td>1,527</td>
+                  <td>80,9%</td><td>14,1s</td>
+                </tr>
+                <tr>
+                  <td>17</td><td>gpt-5.4-mini low</td><td>58,2%</td><td>77,3%</td><td>79,3%</td><td>1,441</td>
                   <td>79,7%</td><td>~5s</td>
                 </tr>
                 <tr>
-                  <td>11</td><td>gpt-4o low</td><td>57,4%</td><td>69,9%</td><td>74,6%</td><td>1,505</td>
+                  <td>18</td><td>gemini-3.1-flash-lite low</td><td>57,8%</td><td>74,6%</td><td>78,1%</td><td>1,445</td>
+                  <td>78,1%</td><td><strong class="bench-time-good">2,8s</strong></td>
+                </tr>
+                <tr>
+                  <td>19</td><td>gpt-4o low</td><td>57,4%</td><td>69,9%</td><td>74,6%</td><td>1,505</td>
                   <td>75,0%</td><td>~8–10s</td>
                 </tr>
                 <tr>
-                  <td>12</td><td>o3-dxgpt high</td><td>56,6%</td><td>74,2%</td><td>80,5%</td><td>1,614</td>
+                  <td>20</td><td>gpt-5.6-luna low</td><td>57,0%</td><td>73,8%</td><td>78,5%</td><td>1,554</td>
+                  <td>79,7%</td><td>6,4s</td>
+                </tr>
+                <tr>
+                  <td>21</td><td>o3-dxgpt high</td><td>56,6%</td><td>74,2%</td><td>80,5%</td><td>1,614</td>
                   <td>80,9%</td><td>—</td>
                 </tr>
                 <tr>
-                  <td>13</td><td>gemini-2.5-flash low</td><td>56,6%</td><td>72,7%</td><td>74,2%</td><td>1,342</td>
+                  <td>22</td><td>gpt-5.6-luna medium</td><td>56,6%</td><td>74,2%</td><td>78,9%</td><td>1,554</td>
+                  <td>79,7%</td><td>7,8s</td>
+                </tr>
+                <tr>
+                  <td>23</td><td>gemini-2.5-flash low</td><td>56,6%</td><td>72,7%</td><td>74,2%</td><td>1,342</td>
                   <td>74,2%</td><td>~21s</td>
                 </tr>
+                <tr>
+                  <td>24</td><td>gpt-5.6-luna xhigh</td><td>55,5%</td><td>69,5%</td><td>73,0%</td><td>1,573</td>
+                  <td>75,0%</td><td>~10,4s</td>
+                </tr>
+                <tr>
+                  <td>25</td><td>claude-opus-5</td><td>35,2%</td><td>45,3%</td><td>48,8%</td><td>2,007</td>
+                  <td>52,3%</td><td>37,2s</td>
+                </tr>
               </tbody>
-            </table>
+              </table>
+              </div>
+            </details>
+          </div>
+
+          <div class="bench-callout bench-callout--info">
+            <div>
+              <strong>{{ 'aboutUs.evaluation.evolution.benchmark2026.multimodal.title' | translate }}</strong>
+              <br>
+              {{ 'aboutUs.evaluation.evolution.benchmark2026.multimodal.description' | translate }}
             </div>
           </div>
 
           <!-- Track B: HPO strict -->
-          <div class="bench-track bench-track--b">
-            <p class="bench-track-title">🧬 HPO · strict_equivalence</p>
-            <p class="bench-track-subtitle bench-track-subtitle--b">Listas de términos HPO · no comparar directamente con casos clínicos narrativos</p>
+          <details class="bench-details bench-details--hpo">
+            <summary>{{ 'aboutUs.evaluation.evolution.benchmark2026.hpo.title' | translate }}</summary>
+            <div class="bench-details__content">
 
-            <p class="bench-r-heading">Terra low · 6 datasets · n=3.017</p>
+            <p class="bench-r-heading">{{ 'aboutUs.evaluation.evolution.benchmark2026.hpo.description' | translate }}</p>
             <div class="bench-table-wrapper bench-table-spaced">
             <table class="bench-table">
               <thead>
                 <tr>
                   <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thDataset' | translate }}</th>
                   <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCases' | translate }}</th>
-                  <th class="is-center">R@1</th>
-                  <th class="is-center">R@3</th>
-                  <th class="is-center">R@5</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
                   <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
                   <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
                 </tr>
@@ -575,7 +498,7 @@
                   <td class="is-center">40,7%</td><td class="is-center">1,579</td>
                 </tr>
                 <tr class="bench-row--green">
-                  <td><strong>Total ponderado</strong></td><td class="is-center"><strong>3.017</strong></td>
+                  <td><strong>Σ</strong></td><td class="is-center"><strong>3.017</strong></td>
                   <td class="is-center"><strong>29,8%</strong></td><td class="is-center"><strong>42,4%</strong></td>
                   <td class="is-center"><strong>46,6%</strong></td><td class="is-center"><strong>46,7%</strong></td>
                   <td class="is-center">—</td>
@@ -584,15 +507,15 @@
             </table>
             </div>
 
-            <p class="bench-r-heading">HMS-88 · comparación strict entre modelos</p>
+            <p class="bench-r-heading">{{ 'aboutUs.evaluation.evolution.benchmark2026.deeprare.title' | translate }}</p>
             <div class="bench-table-wrapper bench-table-spaced">
             <table class="bench-table">
               <thead>
                 <tr>
                   <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thModel' | translate }}</th>
-                  <th class="is-center">R@1</th>
-                  <th class="is-center">R@3</th>
-                  <th class="is-center">R@5</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
+                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
                   <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
                   <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
                 </tr>
@@ -610,7 +533,8 @@
             </table>
             </div>
 
-          </div>
+            </div>
+          </details>
 
           <!-- References -->
           <div class="references-section" style="margin-top: 1rem;">
@@ -629,37 +553,11 @@
           </div>
         </div>
 
-        <p class="subsection-text" style="margin-top: 1rem; font-style: italic; color: #666;">
-          <strong><span class="me-2" *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.title' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.titleEu' | translate }}</span></strong>
-          <span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.text' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.architecture.performance.disclaimer.textEu' | translate }}</span>
-        </p>
-
         <!-- Important Note -->
         <div class="evolution-note">
           <p class="subsection-text"><strong>{{'aboutUs.evaluation.evolution.note.title' | translate }}</strong></p>
           <p class="subsection-text"><span *ngIf="!isEuMode()">{{'aboutUs.evaluation.evolution.note.description' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.evaluation.evolution.note.descriptionEu' | translate }}</span></p>
         </div>
-      </div>
-      
-      <!-- What does this mean for the user -->
-      <div class="evaluation-subsection">
-        <h3 class="subsection-title">{{'aboutUs.evaluation.user.title' | translate }}</h3>
-        <p class="subsection-text">{{'aboutUs.evaluation.user.intro' | translate }}</p>
-        <ul class="user-benefits-list">
-          <li>
-            <strong>{{'aboutUs.evaluation.user.confidence.title' | translate }}</strong>
-            <p>{{'aboutUs.evaluation.user.confidence.description' | translate }}</p>
-          </li>
-          <li>
-            <strong>{{'aboutUs.evaluation.user.consistency.title' | translate }}</strong>
-            <p>{{'aboutUs.evaluation.user.consistency.description' | translate }}</p>
-          </li>
-          <li>
-            <strong>{{'aboutUs.evaluation.user.relevance.title' | translate }}</strong>
-            <p>{{'aboutUs.evaluation.user.relevance.description' | translate }}</p>
-          </li>
-        </ul>
-        <p class="subsection-text">{{'aboutUs.evaluation.user.conclusion' | translate }}</p>
       </div>
     </div>
     

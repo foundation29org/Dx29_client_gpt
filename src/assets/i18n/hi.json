@@ -158,18 +158,19 @@
       },
       "testbed": {
         "title": "सिस्टम को चुनौती देने के लिए डिज़ाइन किया गया testbed",
-        "description": "DxGPT का testbed पाठ्यपुस्तक मामलों के बजाय 1,000 से अधिक जटिल वास्तविक क्लिनिकल मामलों का उपयोग करता है। इन मामलों में विस्तृत विवरण, overlapping symptoms और non-trivial differential diagnoses शामिल हैं, जिनके स्रोत हैं:",
+        "description": "मूल्यांकन तीन पूरक datasets को जोड़ता है:",
         "sources": "मामलों के स्रोत:",
-        "source1": "उच्च-स्तरीय क्लिनिकल प्रश्न बैंक: MedBullets और MedQA USMLE।",
-        "source2": "दुर्लभ बीमारियों पर वैज्ञानिक प्रकाशन: RAMEDIS और Ramebench।",
-        "source3": "अस्पताल आपातकालीन कक्षों के वास्तविक मामले: HM Hospitals और Hospital de Torrejón।",
-        "source4": "विशेष सहयोग: दुर्लभ बीमारियों के पर्यवेक्षित मामले।",
-        "conclusion": "यह testbed DxGPT का मूल्यांकन सबसे चुनौतीपूर्ण वातावरण में करता है, जो वास्तविक स्वास्थ्य सेवा की जटिलता को दर्शाता है।"
+        "source1": "Narrative dataset: 997 representative cases के corpus से चुने गए 256 cases, जो स्वयं MedQA/USMLE, MedBullets, hospital emergency departments, Ramebench और ProCheck के 9,583 cases से बनाए गए थे।",
+        "source2": "Rare-disease dataset: HPO terms से वर्णित 3,017 cases, जो DDD, RAMEDIS, LIRICAL, MyGene2, MME और HMS से आते हैं।",
+        "source3": "Multimodal dataset: MedReaMM में experts द्वारा validated 625 cases और 1,746 images हैं। वर्तमान benchmark 100 cases की curated cohort का उपयोग करता है।",
+        "source4": "स्वतंत्र HPO track: DDD, RAMEDIS, LIRICAL, MyGene2, MME और HMS के 3,017 rare-disease cases।",
+        "source5": "Multimodal track: MedReaMM में experts द्वारा validated 625 cases और 1,746 images हैं; वर्तमान paired benchmark 100 cases की curated cohort का उपयोग करता है। MultiCaRe (>90,000 narratives और >130,000 images) की समीक्षा की गई, लेकिन clean canonical diagnosis न होने और leakage risk के कारण model comparison में उपयोग नहीं किया गया।",
+        "conclusion": "ये 256 cases model comparison के लिए compact और reproducible set हैं, पूरा test corpus नहीं। Narrative और HPO परिणाम अलग-अलग दिखाए जाते हैं।"
       },
       "science": {
-        "title": "पूछने का विज्ञान: स्थिरता का रहस्य",
-        "description": "हमारे शोध ने एक महत्वपूर्ण कारक उजागर किया है: LLM की प्रतिक्रिया की गुणवत्ता निर्णायक रूप से प्रश्न की गुणवत्ता पर निर्भर करती है। इसलिए, हमने प्रभावी और सुसंगत क्लिनिकल तर्क को सक्रिय करने वाली इष्टतम संरचना खोजने के लिए 30 से अधिक prompt formulations (instructions) विकसित और सत्यापित किए हैं।",
-        "differentiator": "Formulation पर यह विशेषज्ञ नियंत्रण ही DxGPT को सामान्य AI से अलग करता है। हम परिणाम की गुणवत्ता को संयोग पर नहीं छोड़ते; हमने ऐसी प्रक्रिया डिज़ाइन की है जो समान मामले के लिए प्रणाली को हमेशा वही विश्लेषणात्मक कठोरता लागू करने और विश्वसनीय, पुनरुत्पादक परिणाम देने में सक्षम बनाती है।"
+        "title": "सिर्फ एक मॉडल से अधिक",
+        "description": "Instructions अभी भी यह प्रभावित करती हैं कि language model क्या प्राथमिकता देता है और differential diagnosis की संभावित hypotheses को कैसे व्यवस्थित करता है। इसलिए DxGPT clinically designed instructions और एक निर्धारित output format का उपयोग करता है, जिन्हें frozen case sets पर परखा जाता है।",
+        "differentiator": "DxGPT केवल किसी एक model से जुड़ाव नहीं है: यह text, documents और images को निकालकर तैयार करता है; personal data को पहचानता और सुरक्षित करता है; लंबी histories का सार बनाता है; case को पूरा या refine करने के लिए guided questions पूछता है; clinical instructions लागू करता है; और professional assessment को support करने, replace नहीं करने, के लिए संभावित diagnostic hypotheses की prioritized, structured list बनाता है। आधार model बदल सकता है, जबकि यह product layer और इसकी continuous evaluation बनी रहती है।"
       },
       "chart": {
         "caption": "चार्ट दिखाता है कि formulation के हमारे optimization (4o → o3 family की छलांग) से न केवल accuracy (X-axis) बढ़ती है, बल्कि अधिक complexity (Y-axis) वाले मामलों को हल करना भी संभव होता है, जो प्रणाली की क्लिनिकल reasoning क्षमता में महत्वपूर्ण प्रगति दर्शाता है।"
@@ -200,7 +201,7 @@
           },
           "step3": {
             "title": "स्तरीय मूल्यांकन (SNOMED → ICD-10 → BERT → LLM जज)",
-            "text": "Exact code match → ICD-10 tree search (parents and children) → BERT semantic similarity (thresholds 0.80/0.90) → ambiguous cases के लिए gemini-2.5-pro LLM judge।"
+            "text": "Exact medical-code match → ICD-10 taxonomy → BERT semantic similarity → ambiguous cases के लिए independent LLM judge।"
           }
         },
         "metrics": {
@@ -286,23 +287,27 @@
           "descriptionEu": "ये सभी आंकड़े standardized case banks (benchmarks) में AI models के technical behavior का वर्णन करते हैं। ये वास्तविक मरीजों में clinical success rates के बराबर नहीं हैं और product की conformity assessment नहीं हैं। यह tool medical diagnoses या treatment recommendations नहीं देता। इसका उद्देश्य केवल उस जानकारी को व्यवस्थित करने में मदद करना है जिस पर आप healthcare professional से चर्चा करेंगे। उचित diagnosis और treatment पाने के लिए आपको हमेशा qualified medical professional से परामर्श करना चाहिए।"
         },
         "benchmark2026": {
-          "title": "4. DeepRare के विरुद्ध definitive benchmark — Nature 2025 (April 2026)",
+          "title": "परिणाम · सितंबर 2026",
           "description": "Dataset quality सुनिश्चित करने और evaluation automate करने के बाद, 2026 में हमने DxGPT की तुलना सीधे scientific state of the art से की: DeepRare paper (Nature, 2025), पहला specialized rare disease AI system जो समान international benchmarks पर publicly evaluated था।",
           "dataset": {
             "title": "स्वच्छ और प्रकाशित करने योग्य dataset",
             "description": "हमने label leakage और synthetic boilerplate हटाए, all_256_clean बनाया: 256 real clinical cases जो 4 independent quality controls पास करते हैं (0% leakage, 0% boilerplate)। यह free narrative clinical text पर DxGPT का पहला auditable baseline है।"
           },
           "hpo": {
-            "title": "DeepRare paper से 6 HPO datasets (3,017 cases)",
-            "description": "हमने RAMEDIS (624 cases), LIRICAL (370), HMS — Harvard Medical School (88), MME (40), MyGene2 — Harvard Dataverse (146) और DDD/Gene2Phenotype (1,749 cases) पर 10+ models का मूल्यांकन किया — आज तक evaluated सबसे बड़ा rare genetic disease dataset। Paper से सीधे comparable metric: Recall@K।"
+            "title": "दुर्लभ रोगों के परिणाम देखें · 3,017 मामले",
+            "description": "दुर्लभ रोगों के छह डेटासेट पर वर्तमान मॉडल के परिणाम"
           },
           "results": {
-            "title": "मुख्य खोज: gemini-3-pro-preview rare diseases में आगे है",
+            "title": "मॉडलों की पूरी तुलना देखें",
             "description": "gemini-3-pro-preview सभी 6/6 datasets में Recall@1 में जीतता है और सभी evaluated models से बेहतर है। सबसे statistically robust dataset (DDD, 1,749 cases) पर: R@1 = 70.3% और R@3 = 97.6% — सही diagnosis लगभग सभी cases में top 3 suggestions में आता है। Narrative clinical text (all_256_clean, 256 cases) पर: avg_position = 1.299 with 98.1% success, जबकि gemini-2.5-pro से 3× faster है।"
           },
           "deeprare": {
-            "title": "Nature paper से तुलना",
+            "title": "HMS पर मॉडलों की तुलना · 88 मामले",
             "description": "Paper का unspecialized GPT-4 baseline ~25–35% R@1 हासिल करता है। gemini-3-pro-preview के साथ DxGPT dataset के अनुसार 54–77% तक पहुंचता है, rare-disease-specific fine-tuning के बिना baseline से +35–45 percentage points अधिक। DeepRare system (specialized fine-tuning के साथ) MyGene2 पर ~74% हासिल करता है — DxGPT generalist system के रूप में 61% तक पहुंचता है।"
+          },
+          "multimodal": {
+            "title": "चित्रों के साथ मूल्यांकन",
+            "description": "चित्रों सहित 100 क्लिनिकल मामलों के प्रारंभिक मूल्यांकन में Terra ने संदर्भ निदान को 67% मामलों में पहले स्थान पर, 82% में पहले तीन विकल्पों में और 84% में सूची में शामिल किया।"
           },
           "reference": "📊 Full results, methodology and configuration उपलब्ध हैं:",
           "repository": "DxGPT-Bench-Lab रिपॉजिटरी",
@@ -312,17 +317,17 @@
           "pillWins": "🏆 6/6 डेटासेट में जीत",
           "statRecall1Ddd": "Recall@1 · DDD (1,749 मामले)",
           "statRecall3Ddd": "Recall@3 · DDD · शीर्ष-3 में सही निदान",
-          "statAvgPos": "औसत स्थान · कथात्मक क्लिनिकल पाठ",
-          "statSuccessRate": "सफलता दर · all_256_clean",
-          "trackATitle": "📋 ट्रैक A — क्लिनिकल कथात्मक पाठ (all_256_clean · 256 मामले)",
-          "trackASubtitle": "जज: gemini-2.5-pro · avg_position = सही निदान की औसत रैंक (कम = बेहतर)",
+          "statAvgPos": "सही निदान पहले स्थान पर",
+          "statSuccessRate": "प्रस्तावित संभावनाओं में सही निदान वाले मामले",
+          "trackATitle": "मॉडलों की तुलना",
+          "trackASubtitle": "सभी मॉडलों को वही 256 कथात्मक मामले—इतिहास, लक्षण और प्रगति—दिए गए और समान पद्धति से मूल्यांकन किया गया।",
           "trackACallout": "यह track model को free-form text (history, symptoms, evolution) में real clinical cases पर evaluate करता है। यह production में DxGPT के real-world use के सबसे निकट format है।",
-          "avgPosChartCaption": "औसत स्थान (avg_position) · कम = बेहतर · all_256_clean · 256 मामले · जज gemini-2.5-pro",
-          "thRank": "रैंक",
+          "avgPosChartCaption": "सही निदान पहले स्थान पर · छोटे अंतर स्पष्ट करने के लिए 55%–65% की विस्तृत स्केल",
+          "thRank": "स्थान",
           "thModel": "मॉडल",
-          "thAvgPos": "औसत स्थान ↓",
-          "thCoverage": "कवरेज",
-          "thSecPerCase": "~s/case",
+          "thAvgPos": "औसत स्थान",
+          "thCoverage": "सूची में शामिल",
+          "thSecPerCase": "प्रति मामला समय",
           "thNotes": "टिप्पणियां",
           "rowNoteBestQuality": "सर्वश्रेष्ठ पूर्ण गुणवत्ता",
           "rowNoteG3Equal": "समान कथात्मक गुणवत्ता · HPO पर बेहतर · 3× तेज",
@@ -338,9 +343,9 @@
           "rowNoteG5Mini": "⚠️ धीमा · gpt-4o से कम गुणवत्ता",
           "trackBTitle": "🧬 ट्रैक B — HPO डेटासेट · DeepRare तुलना (Nature 2025)",
           "trackBSubtitle": "इनपुट: HPO लक्षणों की सूची (कोई कथात्मक पाठ नहीं)। DeepRare पेपर जैसी ही पद्धति। gemini-3-pro-preview सभी 6/6 डेटासेट में जीतता है।",
-          "headingR1": "📊 Recall@1 — पहले स्थान पर सही निदान",
-          "headingR3": "📊 Recall@3 — शीर्ष-3 में सही निदान",
-          "headingR5": "📊 Recall@5 — शीर्ष-5 में सही निदान",
+          "headingR1": "पहला स्थान",
+          "headingR3": "पहले 3 में",
+          "headingR5": "पहले 5 में",
           "headingR5Aside": "(मॉडल अभिसरित होते हैं — अंतर छोटे हैं)",
           "thDataset": "डेटासेट",
           "thCases": "मामले",
@@ -1269,6 +1274,7 @@
       "urology": "यूरोलॉजी",
       "gynecologyAndObstetrics": "स्त्री रोग और प्रसूति",
       "ophthalmology": "नेत्र विज्ञान",
+      "optometry": "ऑप्टोमेट्री",
       "otolaryngology": "कान, नाक और गला रोग",
       "radiology": "रेडियोलॉजी",
       "emergencyMedicine": "आपातकालीन चिकित्सा",

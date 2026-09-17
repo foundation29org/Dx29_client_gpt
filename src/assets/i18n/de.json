@@ -158,18 +158,19 @@
       },
       "testbed": {
         "title": "Ein Testfeld, das das System herausfordert",
-        "description": "Das Testfeld von DxGPT verwendet mehr als 1.000 komplexe klinische Fälle anstelle von Textbüchern. Diese Fälle weisen umfassende Beschreibungen, überlappende Symptome und nicht triviale Differentialdiagnosen auf, die aus:",
+        "description": "Die Evaluation kombiniert drei sich ergänzende Datensätze:",
         "sources": "Fallquellen:",
-        "source1": "Hochschulfragenclinischen von hoher Qualität: MedBullets und MedQA USMLE.",
-        "source2": "Wissenschaftliche Veröffentlichungen über seltene Krankheiten: RAMEDIS und Ramebench.",
-        "source3": "Echte Fälle aus Krankenhaus-Notfallsystemen: HM Hospitals und Hospital de Torrejón.",
-        "source4": "Spezialisierten Zusammenarbeiten: Supervisierte Fälle von seltenen Krankheiten.",
-        "conclusion": "Dieses Testfeld evaluiert DxGPT im schwierigsten Umgebung, reflektiert die wahre Komplexität der medizinischen Versorgung."
+        "source1": "Narrativer Datensatz: 256 Fälle, ausgewählt aus einem repräsentativen Korpus von 997 Fällen, der wiederum aus 9.583 Fällen von MedQA/USMLE, MedBullets, Krankenhausnotaufnahmen, Ramebench und ProCheck hervorging.",
+        "source2": "Datensatz für seltene Erkrankungen: 3.017 anhand von HPO-Begriffen beschriebene Fälle aus DDD, RAMEDIS, LIRICAL, MyGene2, MME und HMS.",
+        "source3": "Multimodaler Datensatz: MedReaMM enthält 625 von Experten validierte Fälle und 1.746 Bilder. Der aktuelle Benchmark verwendet eine kuratierte Kohorte von 100 Fällen.",
+        "source4": "Unabhängiger HPO-Track: 3.017 Fälle seltener Erkrankungen aus DDD, RAMEDIS, LIRICAL, MyGene2, MME und HMS.",
+        "source5": "Multimodaler Track: MedReaMM enthält 625 von Experten validierte Fälle und 1.746 Bilder; der aktuelle gepaarte Benchmark verwendet eine kuratierte Kohorte von 100 Fällen. MultiCaRe (>90.000 Narrative und >130.000 Bilder) wurde geprüft, aber wegen fehlender sauberer kanonischer Diagnose und Leakage-Risiko nicht für Modellvergleiche verwendet.",
+        "conclusion": "Die 256 Fälle sind ein kompakter, reproduzierbarer Vergleichssatz und nicht der gesamte Testbestand. Narrative und HPO-Ergebnisse werden getrennt ausgewiesen."
       },
       "science": {
-        "title": "Die Wissenschaft der Frage: Der Geheimnis der Konsistenz",
-        "description": "Unsere Forschung hat einen kritischen Faktor aufgedeckt: Die Qualität der Antwort eines LLM hängt entscheidend von der Qualität der Frage ab. Daher haben wir über 30 Prompt-Formulierungen (Anweisungen) entwickelt und validiert, um die optimale Struktur zu finden, die effektives und konsistentes klinisches Denken aktiviert.",
-        "differentiator": "Diese Expertenkontrolle über die Formulierung ist es, was DxGPT von einer generalistischen KI unterscheidet. Wir überlassen die Qualität des Ergebnisses nicht dem Zufall; wir haben einen Prozess entworfen, der sicherstellt, dass für denselben Fall das System immer dieselbe analytische Strenge anwendet und zuverlässige und reproduzierbare Ergebnisse produziert."
+        "title": "Mehr als ein Modell",
+        "description": "Anweisungen beeinflussen weiterhin, was ein Sprachmodell priorisiert und wie es mögliche Hypothesen einer Differentialdiagnose ordnet. Deshalb verwendet DxGPT klinisch entwickelte Anweisungen und ein definiertes Ausgabeformat, die anhand eingefrorener Fallsammlungen getestet werden.",
+        "differentiator": "DxGPT ist nicht nur eine Verbindung zu einem Modell: Es extrahiert und bereitet Texte, Dokumente und Bilder auf, erkennt und schützt personenbezogene Daten, fasst lange Krankengeschichten zusammen, stellt geführte Fragen zur Ergänzung oder Verfeinerung des Falls, wendet klinische Anweisungen an und erstellt eine priorisierte, strukturierte Liste möglicher diagnostischer Hypothesen, um die professionelle Beurteilung zu unterstützen, nicht zu ersetzen. Das zugrunde liegende Modell kann wechseln, während diese Produktebene und ihre kontinuierliche Evaluation bestehen bleiben."
       },
       "chart": {
         "caption": "Das Diagramm zeigt, wie unsere Optimierung der Formulierung (Sprung von Familie 4o → o3) nicht nur die Genauigkeit (X-Achse) erhöht, sondern auch die Lösung komplexer Fälle (Y-Achse) ermöglicht, was einen bedeutenden Fortschritt in der klinischen Denkvermögen des Systems zeigt."
@@ -200,7 +201,7 @@
           },
           "step3": {
             "title": "Stufenweise Bewertung (SNOMED → ICD-10 → BERT → LLM-Richter)",
-            "text": "Exakte Codeübereinstimmung → ICD-10-Baumsuche (Eltern und Kinder) → BERT-Semantik (Schwellen 0,80/0,90) → LLM-Richter gemini-2.5-pro bei unklaren Fällen."
+            "text": "Exakte Übereinstimmung medizinischer Codes → ICD-10-Taxonomie → semantische BERT-Ähnlichkeit → unabhängiger LLM-Richter bei unklaren Fällen."
           }
         },
         "metrics": {
@@ -286,23 +287,27 @@
           "descriptionEu": "Alle diese Zahlen beschreiben das technische Verhalten von KI-Modellen in standardisierten Fallbanken (Benchmarks). Sie entsprechen nicht klinischen Erfolgsraten bei echten Patienten und stellen keine Konformitätsbewertung des Produkts dar. Dieses Tool bietet keine medizinischen Diagnosen oder Behandlungsempfehlungen. Es ist ausschließlich dazu gedacht, Ihnen zu helfen, die Informationen zu organisieren, die Sie mit einem Gesundheitsfachmann besprechen werden. Sie sollten immer einen qualifizierten medizinischen Fachmann konsultieren, um eine angemessene Diagnose und Behandlung zu erhalten."
         },
         "benchmark2026": {
-          "title": "4. Endgültiger Benchmark gegen DeepRare — Nature 2025 (April 2026)",
+          "title": "Ergebnisse · September 2026",
           "description": "Nach der Sicherstellung der Datensatzqualität und der Automatisierung der Bewertung haben wir DxGPT 2026 direkt mit dem wissenschaftlichen Stand der Technik verglichen: dem DeepRare-Artikel (Nature, 2025), dem ersten spezialisierten KI-System für seltene Erkrankungen, das öffentlich auf denselben internationalen Benchmarks bewertet wurde.",
           "dataset": {
             "title": "Bereinigter und veröffentlichbarer Datensatz",
             "description": "Wir eliminierten Label-Leakage und synthetisches Boilerplate und erstellten all_256_clean: 256 reale klinische Fälle, die 4 unabhängige Qualitätskontrollen bestehen (0 % Leakage, 0 % Boilerplate). Dies ist DxGPTs erste prüfbare Basislinie auf freiem narrativem klinischem Text."
           },
           "hpo": {
-            "title": "6 HPO-Datensätze aus dem DeepRare-Artikel (3.017 Fälle)",
-            "description": "Wir evaluierten 10+ Modelle auf RAMEDIS (624 Fälle), LIRICAL (370), HMS — Harvard Medical School (88), MME (40), MyGene2 — Harvard Dataverse (146) und DDD/Gene2Phenotype (1.749 Fälle) — dem größten je evaluierten Datensatz für seltene Generkrankungen. Direkt vergleichbare Metrik mit dem Artikel: Recall@K."
+            "title": "Ergebnisse zu seltenen Erkrankungen anzeigen · 3.017 Fälle",
+            "description": "Ergebnisse des aktuellen Modells in sechs Datensätzen zu seltenen Erkrankungen"
           },
           "results": {
-            "title": "Haupterkenntnis: gemini-3-pro-preview führt bei seltenen Erkrankungen",
+            "title": "Vollständigen Modellvergleich anzeigen",
             "description": "gemini-3-pro-preview gewinnt bei allen 6/6 Datensätzen in Recall@1 und übertrifft alle evaluierten Modelle. Auf dem statistisch robustesten Datensatz (DDD, 1.749 Fälle): R@1 = 70,3 % und R@3 = 97,6 % — die korrekte Diagnose erscheint in praktisch allen Fällen unter den 3 ersten Vorschlägen. Im narrativen klinischen Text (all_256_clean, 256 Fälle): avg_position = 1,299 mit 98,1 % Erfolg, dabei 3× schneller als gemini-2.5-pro."
           },
           "deeprare": {
-            "title": "Vergleich mit dem Nature-Artikel",
+            "title": "Modellvergleich auf HMS · 88 Fälle",
             "description": "Die nicht spezialisierte GPT-4-Basislinie aus dem Artikel erreicht ~25–35 % R@1. DxGPT mit gemini-3-pro-preview erreicht 54–77 % je nach Datensatz und übertrifft die Basislinie um +35–45 Prozentpunkte ohne spezielles Fine-Tuning für seltene Erkrankungen. Das DeepRare-System (mit spezialisiertem Fine-Tuning) erreicht ~74 % auf MyGene2 — DxGPT als Generalist erreicht 61 %."
+          },
+          "multimodal": {
+            "title": "Auswertung mit Bildern",
+            "description": "In einer ersten Auswertung von 100 klinischen Fällen mit zugehörigen Bildern setzte Terra die Referenzdiagnose in 67 % auf den ersten Platz, in 82 % unter die ersten drei Optionen und in 84 % in die Liste."
           },
           "reference": "📊 Vollständige Ergebnisse, Methodik und Konfiguration einsehbar unter:",
           "repository": "DxGPT-Bench-Lab Repository",
@@ -312,17 +317,17 @@
           "pillWins": "🏆 6/6 Datensätze gewonnen",
           "statRecall1Ddd": "Recall@1 · DDD (1.749 Fälle)",
           "statRecall3Ddd": "Recall@3 · DDD · korrekte Diagnose in den Top-3",
-          "statAvgPos": "Avg Position · narrativer klinischer Text",
-          "statSuccessRate": "Success Rate · all_256_clean",
-          "trackATitle": "📋 Track A — Klinischer Narrativtext (all_256_clean · 256 Fälle)",
-          "trackASubtitle": "Richter: gemini-2.5-pro · avg_position = mittlerer Rang der korrekten Diagnose (niedriger = besser)",
+          "statAvgPos": "Korrekte Diagnose auf dem ersten Platz",
+          "statSuccessRate": "Fälle mit der korrekten Diagnose unter den vorgeschlagenen Hypothesen",
+          "trackATitle": "Modellvergleich",
+          "trackASubtitle": "Alle Modelle erhielten dieselben 256 narrativen Fälle — Anamnese, Symptome und Verlauf — und wurden mit derselben Methodik bewertet.",
           "trackACallout": "Dieser Track bewertet die Fähigkeit des Modells anhand realer klinischer Fälle in Freitext (Anamnese, Symptome, Verlauf). Es ist das Format, das der realen Nutzung von DxGPT in der Produktion am nächsten kommt.",
-          "avgPosChartCaption": "Mittlere Position (avg_position) · Niedriger = besser · all_256_clean · 256 Fälle · Richter gemini-2.5-pro",
-          "thRank": "Rang",
+          "avgPosChartCaption": "Korrekte Diagnose auf dem ersten Platz · erweiterte Skala von 55 % bis 65 %, um kleine Unterschiede sichtbar zu machen",
+          "thRank": "Platz",
           "thModel": "Modell",
-          "thAvgPos": "Avg Position ↓",
-          "thCoverage": "Coverage",
-          "thSecPerCase": "~s/Fall",
+          "thAvgPos": "Durchschnittliche Position",
+          "thCoverage": "In der Liste enthalten",
+          "thSecPerCase": "Zeit pro Fall",
           "thNotes": "Anmerkungen",
           "rowNoteBestQuality": "Beste absolute Qualität",
           "rowNoteG3Equal": "Gleiche Textqualität · besser bei HPO · 3× schneller",
@@ -338,9 +343,9 @@
           "rowNoteG5Mini": "⚠️ Langsam · schlechtere Qualität als gpt-4o",
           "trackBTitle": "🧬 Track B — HPO-Datensätze · Vergleich mit DeepRare (Nature 2025)",
           "trackBSubtitle": "Eingabe: Liste von HPO-Symptomen (ohne Fließtext). Gleiche Methodik wie im DeepRare-Paper. gemini-3-pro-preview gewinnt alle 6/6 Datensätze.",
-          "headingR1": "📊 Recall@1 — Korrekte Diagnose auf Platz 1",
-          "headingR3": "📊 Recall@3 — Korrekte Diagnose in den Top-3",
-          "headingR5": "📊 Recall@5 — Korrekte Diagnose in den Top-5",
+          "headingR1": "Erster Platz",
+          "headingR3": "Unter den ersten 3",
+          "headingR5": "Unter den ersten 5",
           "headingR5Aside": "(Modelle konvergieren — geringere Unterschiede)",
           "thDataset": "Datensatz",
           "thCases": "Fälle",
@@ -1269,6 +1274,7 @@
       "urology": "Urologie",
       "gynecologyAndObstetrics": "Gynäkologie und Geburtshilfe",
       "ophthalmology": "Augenheilkunde",
+      "optometry": "Optometrie",
       "otolaryngology": "Hals-Nasen-Ohren-Heilkunde",
       "radiology": "Radiologie",
       "emergencyMedicine": "Notfallmedizin",

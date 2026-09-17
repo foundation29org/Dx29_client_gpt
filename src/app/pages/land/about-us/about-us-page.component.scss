@@ -701,6 +701,88 @@
   }
 }
 
+.methodology-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr);
+  gap: 32px;
+  align-items: start;
+  margin-top: 1.25rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.methodology-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+
+  &:last-child { margin-bottom: 0; }
+
+  strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #1e293b;
+  }
+
+  p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+}
+
+.methodology-step__number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+.methodology-metrics__title {
+  margin: 0 0 10px;
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.methodology-metrics table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+
+  tr:first-child { background: #f8fafc; }
+
+  th {
+    padding: 8px 11px;
+    border-bottom: 2px solid #e2e8f0;
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 8px 11px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  tr:last-child td { border-bottom: 0; }
+}
+
 .methodology-list {
   margin: 1.5rem 0;
   padding-left: 0;
@@ -1344,6 +1426,50 @@
 
     @media (max-width: 600px) { height: 260px; }
   }
+
+  /* Keep the public page concise while preserving auditable detail. */
+  .bench-details {
+    margin-top: 16px;
+    border: 1px solid #dbe3ee;
+    border-radius: 10px;
+    background: white;
+    overflow: hidden;
+
+    > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 13px 16px;
+      color: #1e3a5f;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+
+      &::-webkit-details-marker { display: none; }
+      &::after {
+        content: "+";
+        flex-shrink: 0;
+        color: #2563eb;
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+    }
+
+    &[open] {
+      > summary {
+        border-bottom: 1px solid #e2e8f0;
+
+        &::after { content: "−"; }
+      }
+    }
+
+    .bench-table-wrapper { margin-bottom: 0; }
+  }
+
+  .bench-details--hpo { margin-top: 32px; }
+  .bench-details__content { padding: 16px; }
 
   /* Callout boxes (contextual info / win / warn notes) */
   .bench-callout {

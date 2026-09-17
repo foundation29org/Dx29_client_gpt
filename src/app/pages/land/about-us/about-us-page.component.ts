@@ -138,9 +138,14 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
+        const firstPositionLabel = this.translate.instant(
+            'aboutUs.evaluation.evolution.benchmark2026.headingR1'
+        );
+
         const labels = [
             'gpt-5.6-terra low ⭐',
             'gpt-5.4 full',
+            'grok-4.6 low',
             'gpt-6-astra low',
             'gemini-3.5-flash low',
             'gemini-3.1-pro low',
@@ -154,11 +159,12 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
             'gemini-2.5-flash low'
         ];
 
-        const values = [63.3, 62.9, 62.1, 62.1, 61.3, 60.9, 59.8, 59.8, 59.4, 58.2, 57.4, 56.6, 56.6];
+        const values = [63.3, 62.9, 62.9, 62.1, 62.1, 61.3, 60.9, 59.8, 59.8, 59.4, 58.2, 57.4, 56.6, 56.6];
 
         const colors = [
             '#059669',
             '#2563eb',
+            '#111827',
             '#7c3aed',
             '#f59e0b',
             '#db2777',
@@ -177,7 +183,7 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
             data: {
                 labels,
                 datasets: [{
-                    label: 'R@1',
+                    label: firstPositionLabel,
                     data: values,
                     backgroundColor: colors,
                     borderRadius: 6,
@@ -212,7 +218,7 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
                         },
                         title: {
                             display: true,
-                            text: 'R@1 strict  (↑ better)',
+                            text: firstPositionLabel,
                             font: { size: 11 },
                             color: '#64748b',
                         },
