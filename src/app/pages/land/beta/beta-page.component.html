@@ -205,13 +205,13 @@
     <a id="step2"></a>
     <div class="row">
       <div class="results-actions" *ngIf="topRelatedConditions.length>0">
-        <button type="button" class="results-action-btn results-action-btn--primary" (click)="newPatient()">
-          <i class="fa fa-plus-circle"></i>
-          {{'land.New patient' | translate }}
-        </button>
-        <button type="button" class="results-action-btn results-action-btn--secondary" (click)="openDescripModal(contentEditDescription)">
+        <button type="button" class="results-action-btn results-action-btn--primary" (click)="openDescripModal(contentEditDescription)">
           <i class="fa fa-pencil"></i>
           {{'land.Edit description' | translate }}
+        </button>
+        <button type="button" class="results-action-btn results-action-btn--secondary" (click)="newPatient()">
+          <i class="fa fa-plus-circle"></i>
+          {{'land.New patient' | translate }}
         </button>
         <button *ngIf="hasAnonymize" type="button" class="results-action-btn results-action-btn--secondary" (click)="openAnonymize(contentviewDoc)">
           <i class="fa-solid fa-user-shield"></i>
@@ -224,38 +224,9 @@
           <div class="results-header">
             <div class="results-header__top">
               <h4 class="results-header__title">{{'diagnosis.Proposed diagnoses' | translate }}</h4>
-              <div class="results-header__vote">
-                <ng-container *ngIf="!sendingVote; else loadingSpinner">
-                  <button class="vote-btn vote-btn--up" (click)="vote('up')"
-                    [disabled]="sendingVote || callingAnonymize" title="Vote up">
-                    <i class="fa fa-thumbs-up"></i>
-                  </button>
-                  <button class="vote-btn vote-btn--down" (click)="vote('down')"
-                    [disabled]="sendingVote || callingAnonymize" title="Vote down">
-                    <i class="fa fa-thumbs-down"></i>
-                  </button>
-                </ng-container>
-                <ng-template #loadingSpinner>
-                  <span><i class="fa fa-spinner fa-spin fa-fw"></i></span>
-                </ng-template>
-              </div>
-            </div>
-            <div class="results-header__hints">
-              <span class="results-header__hint">
-                <i class="fa fa-star me-1"></i>{{'land.Indicates the quality of the result' | translate }}
-              </span>
-              <span class="results-header__hint">
-                <i class="fa fa-hand-pointer me-1"></i>{{'diagnosis.Click on the disease to see more options' | translate }}
-              </span>
-              <span class="results-header__hint">
-                <i class="fa fa-lightbulb me-1"></i>
-                <strong>{{'land.Point3.1' | translate }}</strong>
-              </span>
-            </div>
-            <div class="results-header__actions">
-              <button class="results-action-btn results-action-btn--primary" style="font-size:0.88rem; padding:0.4rem 0.85rem;" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
-                <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
-              </button>
+              <p class="results-header__hint">
+                {{'diagnosis.Click on the disease to see more options' | translate }}
+              </p>
             </div>
           </div>
 
@@ -263,6 +234,7 @@
           <div class="disease-results" *ngIf="topRelatedConditions.length>0">
             <div *ngFor="let disease of topRelatedConditions; let i = index"
                  class="disease-card"
+                 [id]="'disease-card-' + i"
                  (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
               <div class="disease-card__header">
                 <span class="disease-card__rank" *ngIf="!isEuMode()">{{i + 1}}</span>
@@ -327,13 +299,37 @@
           </div>
         </div>
 
-        <!-- Not satisfied section -->
-        <div class="results-not-satisfied" *ngIf="topRelatedConditions.length>0">
-          <h4 class="results-not-satisfied__title">{{'diagnosis.Not satisfied with the results?' | translate }}</h4>
-          <div class="results-not-satisfied__actions">
-            <button class="results-action-btn results-action-btn--primary" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
-              <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
-            </button>
+        <!-- Result feedback and refinement -->
+        <div class="results-feedback" *ngIf="topRelatedConditions.length>0">
+          <div class="results-feedback__group">
+            <h4 class="results-feedback__title">{{'land.Indicates the quality of the result' | translate }}</h4>
+            <div class="results-feedback__actions">
+              <ng-container *ngIf="!sendingVote; else loadingSpinner">
+                <button class="vote-btn vote-btn--up" (click)="vote('up')"
+                  [disabled]="sendingVote || callingAnonymize" title="Vote up">
+                  <i class="fa fa-thumbs-up"></i>
+                </button>
+                <button class="vote-btn vote-btn--down" (click)="vote('down')"
+                  [disabled]="sendingVote || callingAnonymize" title="Vote down">
+                  <i class="fa fa-thumbs-down"></i>
+                </button>
+              </ng-container>
+              <ng-template #loadingSpinner>
+                <span class="results-feedback__loading"><i class="fa fa-spinner fa-spin fa-fw"></i></span>
+              </ng-template>
+            </div>
+          </div>
+          <div class="results-feedback__divider" aria-hidden="true"></div>
+          <div class="results-feedback__group">
+            <div class="results-feedback__copy">
+              <h4 class="results-feedback__title">{{'diagnosis.Not satisfied with the results?' | translate }}</h4>
+              <p class="results-feedback__description">{{'land.followup.modal.description' | translate }}</p>
+            </div>
+            <div class="results-feedback__actions">
+              <button class="results-action-btn results-action-btn--primary" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
+                <i class="fa fa-comments"></i>{{'diagnosis.Improve patient description' | translate }}
+              </button>
+            </div>
           </div>
         </div>
 

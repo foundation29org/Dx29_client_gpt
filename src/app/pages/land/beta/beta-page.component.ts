@@ -1264,6 +1264,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         this.topRelatedConditions = [];
        }
 
+        const appendedFromLoadMore = this.loadMoreDiseases;
         const indexDisease = this.topRelatedConditions.length;
         parseChoices.forEach((disease, i) => {
             const sponsor = this.sponsors.find(s => this.includesElement(s.synonyms, disease.diagnosis));
@@ -1309,7 +1310,11 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             this.lauchEvent("Multimodal" + this.selectedFiles.length);
         }
         await this.delay(200);
-        this.scrollTo();
+        if (appendedFromLoadMore) {
+            this.scrollToFirstNewDisease(indexDisease);
+        } else {
+            this.scrollTo();
+        }
     }
 
     setDiseaseListEn(text) {
@@ -1338,6 +1343,14 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     async scrollTo() {
         await this.delay(400);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
+    }
+
+    async scrollToFirstNewDisease(index: number) {
+        await this.delay(200);
+        const firstNew = document.getElementById('disease-card-' + index);
+        if (firstNew) {
+            firstNew.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
     cancelCallQuestion() {
