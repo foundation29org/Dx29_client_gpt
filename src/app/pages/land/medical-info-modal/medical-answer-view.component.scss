@@ -1,6 +1,10 @@
 :host {
   display: block;
+  width: 100%;
+  max-width: 78ch;
+  margin: 0 auto;
   color: #2f3744;
+  font-size: 1rem;
 }
 
 .disclaimer-alert {

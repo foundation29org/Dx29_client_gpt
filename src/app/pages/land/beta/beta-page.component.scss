@@ -176,14 +176,16 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .medical-answer-panel {
-  margin-top: 2.25rem;
+  width: calc(100% - 2rem);
+  max-width: 68rem;
+  margin: 2.25rem auto 0;
   overflow: hidden;
   text-align: left;
   background: #fff;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 18px;
   box-shadow: 0 20px 55px rgba(0, 0, 0, 0.24);
-  scroll-margin-top: 1rem;
+  scroll-margin-top: 5rem;
 
   &__header {
     display: flex;
@@ -494,6 +496,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .medical-answer-panel {
+    width: calc(100% - 1rem);
     margin-top: 1.5rem;
     border-radius: 14px;
 
