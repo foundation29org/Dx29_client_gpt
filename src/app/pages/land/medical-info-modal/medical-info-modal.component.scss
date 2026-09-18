@@ -57,6 +57,24 @@
   font-style: italic;
 }
 
+/* Protección ante encabezados que un modelo pueda incluir dentro de una lista. */
+:host ::ng-deep .medical-content li {
+  .list-heading,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    display: inline;
+    margin: 0;
+    color: inherit;
+    font-size: inherit !important;
+    font-weight: inherit;
+    line-height: inherit;
+  }
+}
+
 /* Estilos específicos para contenido Markdown */
 .medical-content {
   /* Encabezados */

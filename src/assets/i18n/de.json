@@ -921,7 +921,12 @@
       "loading": "Klinische Informationen werden vorbereitet…",
       "refineTitle": "Differenzialdiagnose verfeinern",
       "refineHint": "Wählen Sie zusätzliche Befunde aus, die beim Patienten vorliegen.",
-      "update": "Differenzialdiagnose aktualisieren"
+      "update": "Differenzialdiagnose aktualisieren",
+      "completeInformation": "Fehlende Informationen ergänzen",
+      "followUpTitle": "Klinische Informationen ergänzen",
+      "followUpDescription": "Beantworten Sie nur, was bekannt ist. Jede Antwort bleibt mit ihrer Frage verknüpft und wird der Patientenbeschreibung hinzugefügt.",
+      "answerPlaceholder": "Zum Beispiel: Ja, besonders bei Fieber; unbekannt; Untersuchung nicht durchgeführt…",
+      "followUpSubmit": "Differenzialdiagnose aktualisieren"
     },
     "recommended diagnosis test": "Was ist der empfohlene Diagnosetest für jede dieser Krankheiten?",
     "Indicates the quality of the result": "Waren diese Ergebnisse hilfreich?",

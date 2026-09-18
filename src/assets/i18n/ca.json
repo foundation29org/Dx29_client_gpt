@@ -921,7 +921,12 @@
       "loading": "Preparant la informació clínica…",
       "refineTitle": "Refina el diagnòstic diferencial",
       "refineHint": "Selecciona les troballes addicionals presents en el pacient.",
-      "update": "Actualitza el diferencial"
+      "update": "Actualitza el diferencial",
+      "completeInformation": "Completa la informació pendent",
+      "followUpTitle": "Completa la informació clínica",
+      "followUpDescription": "Respon només el que sàpigues. Cada resposta romandrà vinculada a la seva pregunta i s’afegirà a la descripció del pacient.",
+      "answerPlaceholder": "Per exemple: Sí, especialment amb febre; no se sap; prova no realitzada…",
+      "followUpSubmit": "Actualitza el diagnòstic diferencial"
     },
     "recommended diagnosis test": "Quina és la prova diagnòstica recomanada per a cadascuna d'aquestes malalties?",
     "Indicates the quality of the result": "T'han resultat útils aquests resultats?",

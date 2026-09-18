@@ -921,7 +921,12 @@
       "loading": "Preparing clinical information…",
       "refineTitle": "Refine the differential",
       "refineHint": "Select any additional findings present in the patient.",
-      "update": "Update differential"
+      "update": "Update differential",
+      "completeInformation": "Complete missing information",
+      "followUpTitle": "Complete clinical information",
+      "followUpDescription": "Answer only what is known. Each answer stays linked to its question and will be added to the patient description.",
+      "answerPlaceholder": "For example: Yes, especially with fever; unknown; test not performed…",
+      "followUpSubmit": "Update differential"
     },
     "recommended diagnosis test": "What is the recommended diagnostic test for each of these diseases?",
     "Indicates the quality of the result": "Were these results useful?",
