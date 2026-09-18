@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -18,6 +18,7 @@ import { LangService } from 'app/shared/services/lang.service';
 import { BrandingService } from 'app/shared/services/branding.service';
 import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
 import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
+import { IntentEnrichmentService } from 'app/shared/services/intent-enrichment.service';
 import { environment } from 'environments/environment';
 declare let gtag: any;
 
@@ -71,6 +72,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     showErrorCall1: boolean = false;
     showErrorCall2: boolean = false;
     callingAI: boolean = false;
+    private forceDiagnosisNext = false;
     loadingAnswerAI: boolean = false;
     selectedDisease: string = '';
     options: any = {};
@@ -114,6 +116,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
     @ViewChild('autoajustable', { static: false }) mainTextArea: ElementRef;
+    @ViewChild('fileInput', { static: false }) mainFileInput!: ElementRef<HTMLInputElement>;
+    @ViewChild('contentFollowUpQuestions', { static: false }) contentFollowUpQuestions!: TemplateRef<any>;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
 
     private queueStatusTimeout: any;
@@ -170,7 +174,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return Math.round((bytes / (1024 * 1024)) * 10) / 10;
     }
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, @Inject(PLATFORM_ID) private platformId: Object) {
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, private intentEnrichmentService: IntentEnrichmentService, @Inject(PLATFORM_ID) private platformId: Object) {
         this.initialize();
     }
 
@@ -1047,8 +1051,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             model: this.model,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
-            imageUrls: []
+            imageUrls: [],
+            forceDiagnosis: this.forceDiagnosisNext === true
         };
+        this.forceDiagnosisNext = false;
         if(this.currentImageUrls.length > 0){
             value.imageUrls = this.currentImageUrls;
             if(this.descriptionImageOnly != '' && value.description == ''){
@@ -1311,12 +1317,55 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.callingAI = false;
                     this.showMedicalInfoModal(data);
                     this.lauchEvent("Medical Info Modal");
+                }else if(data.intentAction === 'enrich'){
+                    this.showIntentEnrichment(data.intentReason);
                 }else{
                     this.showError(this.translate.instant("undiagnosed.only_patient_description"), null);
                     this.callingAI = false;
                     this.lauchEvent("only_patient_description Modal");
                 }
             }
+        }
+    }
+
+    private dismissLoadingSwal(): void {
+        Swal.close();
+        document.querySelector('.swal2-container')?.remove();
+        document.body.classList.remove('swal2-shown', 'swal2-height-auto');
+    }
+
+    private async showIntentEnrichment(reason: string): Promise<void> {
+        this.callingAI = false;
+        this.dismissLoadingSwal();
+        this.lauchEvent(`Intent enrichment - ${reason || 'unknown'}`);
+
+        const choice = await this.intentEnrichmentService.chooseNextStep(reason);
+        if (choice === 'questions') {
+            this.followUpQuestions = [];
+            this.followUpAnswers = {};
+            this.processingFollowUpAnswers = false;
+            this.medicalTextEng = this.medicalTextOriginal;
+            await this.handleERResponse(this.contentFollowUpQuestions);
+            return;
+        }
+
+        if (choice === 'continue') {
+            this.forceDiagnosisNext = true;
+            this.lauchEvent(`Intent enrichment continue - ${reason || 'unknown'}`);
+            await this.callAI();
+            return;
+        }
+
+        if (choice === 'upload') {
+            this.mainFileInput?.nativeElement.click();
+            return;
+        }
+
+        if (choice === 'edit') {
+            setTimeout(() => {
+                this.mainTextArea?.nativeElement.focus();
+                this.resizeTextArea();
+            });
         }
     }
 
@@ -1353,9 +1402,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     showWrongPageRedirect(target: 'questions' | 'home'): void {
         this.callingAI = false;
         const text = this.medicalTextOriginal;
-        const msgKey = target === 'questions' ? 'land.redirect_to_questions' : 'beta.redirect_to_diagnosis';
-        const btnKey = target === 'questions' ? 'land.redirect_confirm' : 'beta.redirect_confirm';
-        Swal.close();
+        this.dismissLoadingSwal();
+        if (target === 'questions') {
+            this.intentEnrichmentService.chooseExplainRedirect().then((choice) => {
+                if (choice === 'questions') {
+                    this.goToRedirectPage('questions', text);
+                }
+            });
+            return;
+        }
+
+        const msgKey = 'beta.redirect_to_diagnosis';
+        const btnKey = 'beta.redirect_confirm';
         Swal.fire({
             icon: 'info',
             html: this.translate.instant(msgKey),
@@ -1365,12 +1423,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             allowOutsideClick: false
         }).then((result) => {
             if (result.isConfirmed) {
-                if (isPlatformBrowser(this.platformId) && text) {
-                    sessionStorage.setItem('dxgpt.pendingPageInput', text);
-                }
-                this.router.navigate([target === 'questions' ? '/beta' : '/']);
+                this.goToRedirectPage('home', text);
             }
         });
+    }
+
+    private goToRedirectPage(target: 'questions' | 'home', text: string): void {
+        if (isPlatformBrowser(this.platformId) && text) {
+            sessionStorage.setItem('dxgpt.pendingPageInput', text);
+        }
+        this.router.navigate([target === 'questions' ? '/beta' : '/']);
     }
 
     includesElement(array, string) {
@@ -2509,7 +2571,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
     
     hasAnswers(): boolean {
-        return Object.keys(this.followUpAnswers).length > 0;
+        return Object.values(this.followUpAnswers).some(
+            (answer) => typeof answer === 'string' && answer.trim().length > 0
+        );
     }
     
     async processFollowUpAnswers() {

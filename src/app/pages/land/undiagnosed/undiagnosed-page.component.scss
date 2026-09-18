@@ -1775,6 +1775,11 @@ body {
   overflow: hidden;
 }
 
+::ng-deep .intent-gate-window .modal-content {
+  border: none;
+  padding: 0;
+}
+
 .disclaimer-header {
   background: var(--accent-color, #B30000);
   padding: 1.25rem 1.5rem;
