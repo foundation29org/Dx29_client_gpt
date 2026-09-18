@@ -43,6 +43,10 @@
     "files_unsupported_format": "fichier(s) avec format non supporté. Formats valides : PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
     "upload_limits": "Limite : {{maxMB}} Mo au total, max {{maxDocs}} documents et {{maxImages}} images.",
     "upload_usage": "Utilisé : {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} images, {{usedMB}}/{{maxMB}} Mo.",
+    "independent_context": "Chaque question est traitée séparément. Les réponses précédentes ne sont pas envoyées au modèle.",
+    "answer_title": "Réponse médicale",
+    "edit_question": "Modifier la question",
+    "new_question": "Nouvelle question",
     "disclaimer": "<p><strong>Questions médicales</strong> est une expérience de recherche de la Foundation 29. Elle utilise une intelligence artificielle à usage général pour répondre à des questions médicales à des fins éducatives. Elle ne génère pas de diagnostics, n'est pas couverte par la qualification de dispositif médical et ne remplace pas l'avis d'un professionnel de santé.</p><p>Les réponses peuvent contenir des erreurs ou être obsolètes. Lorsque des sources sont disponibles, elles apparaissent dans la consultation afin que vous puissiez les vérifier ; une source ne garantit pas que l'information soit exacte, complète ou applicable à un cas particulier. L'utilisation se fait aux risques de l'utilisateur et la Foundation 29 n'est pas responsable des conséquences ou dommages pouvant en résulter.</p><p>En utilisant cet outil, vous reconnaissez avoir lu et compris ces limitations et tout risque associé à l'utilisation d'un outil basé sur l'intelligence artificielle.</p>"
   },
   "footer": {
@@ -1452,7 +1456,7 @@
     "only_patient_description": "Le texte saisi doit uniquement être une description du patient (âge, sexe, symptômes et date d'apparition). N'incluez pas de questions, d'informations sur des maladies ou des traitements. Cet outil est uniquement destiné à l'aide au diagnostic."
   },
   "medicalInfoModal": {
-    "disclaimerText": "Cet outil est conçu principalement pour <strong>aider au diagnostic</strong>. Les réponses aux questions médicales générales sont fournies à des fins éducatives et doivent être évaluées avec prudence. Elles ne remplacent pas un conseil médical professionnel.",
+    "disclaimerText": "Cette réponse est fournie à des fins éducatives, peut contenir des erreurs et ne remplace pas un avis médical professionnel.",
     "aiGeneratedWarning": "<strong>Note :</strong> Ce texte a été généré par intelligence artificielle et peut contenir des erreurs.",
     "references": "Références",
     "feedbackTitle": "Retour sur la réponse médicale",

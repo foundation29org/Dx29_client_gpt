@@ -163,6 +163,110 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
+.context-isolation-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  max-width: 44rem;
+  margin: 0.85rem auto 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.medical-answer-panel {
+  margin-top: 2.25rem;
+  overflow: hidden;
+  text-align: left;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.24);
+  scroll-margin-top: 1rem;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    color: #fff;
+    background: linear-gradient(
+      135deg,
+      var(--primary-color, #b30000) 0%,
+      var(--secondary-color, #7d0000) 100%
+    );
+  }
+
+  &__heading {
+    min-width: 0;
+
+    h2 {
+      margin: 0.2rem 0 0;
+      font-size: 1.25rem;
+      font-weight: 650;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__eyebrow {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__actions {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  &__body {
+    padding: 1.5rem;
+  }
+}
+
+.answer-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  color: #fff;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 9px;
+  transition: background 150ms ease, transform 150ms ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &--secondary {
+    background: rgba(255, 255, 255, 0.08);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+  }
+
+  &--primary {
+    color: var(--primary-color, #7d0000);
+    background: #fff;
+
+    &:hover {
+      background: #f8f8f8;
+    }
+  }
+}
+
 .hero-questions-link {
   margin: 0.75rem 0 0;
   color: rgba(255, 255, 255, 0.55);
@@ -382,5 +486,32 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   .chips-and-counter-row {
     justify-content: flex-start;
     text-align: left;
+  }
+
+  .context-isolation-note {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .medical-answer-panel {
+    margin-top: 1.5rem;
+    border-radius: 14px;
+
+    &__header {
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    &__actions {
+      width: 100%;
+    }
+
+    &__body {
+      padding: 1rem;
+    }
+  }
+
+  .answer-action {
+    flex: 1 1 auto;
   }
 }

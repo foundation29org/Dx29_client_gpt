@@ -82,7 +82,47 @@
           {{ 'beta.search' | translate }}
         </button>
       </div>
+
+      <p class="context-isolation-note">
+        <i class="fa fa-shield me-1" aria-hidden="true"></i>
+        {{ 'beta.independent_context' | translate }}
+      </p>
     </div>
+
+    <section
+      *ngIf="medicalAnswer"
+      id="medical-answer"
+      class="medical-answer-panel col-sm-12 offset-md-1 col-md-10 offset-lg-1 col-lg-10"
+      aria-live="polite">
+      <header class="medical-answer-panel__header">
+        <div class="medical-answer-panel__heading">
+          <span class="medical-answer-panel__eyebrow">
+            {{ 'beta.answer_title' | translate }}
+          </span>
+          <h2>{{ medicalAnswer.question }}</h2>
+        </div>
+        <div class="medical-answer-panel__actions">
+          <button
+            type="button"
+            class="answer-action answer-action--secondary"
+            (click)="editCurrentQuestion()">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            {{ 'beta.edit_question' | translate }}
+          </button>
+          <button
+            type="button"
+            class="answer-action answer-action--primary"
+            (click)="startNewQuestion()">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            {{ 'beta.new_question' | translate }}
+          </button>
+        </div>
+      </header>
+
+      <div class="medical-answer-panel__body">
+        <app-medical-answer-view [answer]="medicalAnswer"></app-medical-answer-view>
+      </div>
+    </section>
 
     <div class="mt-4 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 text-center mb-4">
       <p class="hero-questions-link">

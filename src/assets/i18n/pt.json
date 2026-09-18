@@ -43,6 +43,10 @@
     "files_unsupported_format": "ficheiro(s) com formato não suportado. Formatos válidos: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
     "upload_limits": "Limite: {{maxMB}} MB no total, máximo de {{maxDocs}} documentos e {{maxImages}} imagens.",
     "upload_usage": "Usado: {{docs}}/{{maxDocs}} documentos, {{images}}/{{maxImages}} imagens, {{usedMB}}/{{maxMB}} MB.",
+    "independent_context": "Cada pergunta é processada separadamente. As respostas anteriores não são enviadas ao modelo.",
+    "answer_title": "Resposta médica",
+    "edit_question": "Modificar pergunta",
+    "new_question": "Nova pergunta",
     "disclaimer": "<p><strong>Perguntas médicas</strong> é um experimento de investigação da Foundation 29. Usa inteligência artificial de uso geral para responder a consultas médicas com fins educativos. Não gera diagnósticos, não está coberta pela qualificação de dispositivo médico e não substitui o conselho de um profissional de saúde.</p><p>As respostas podem conter erros ou estar desatualizadas. Quando houver fontes, elas aparecerão na consulta para que as possas rever; uma fonte não garante que a informação seja correta, completa ou aplicável a um caso concreto. O uso é por conta e risco do utilizador e a Foundation 29 não se responsabiliza por quaisquer consequências ou danos que possam resultar do seu uso.</p><p>Ao utilizar esta ferramenta, reconhecés que leste e compreendeste estas limitações e qualquer risco associado ao uso de uma ferramenta baseada em inteligência artificial.</p>"
   },
   "footer": {
@@ -1452,7 +1456,7 @@
     "only_patient_description": "O texto de entrada deve ser apenas uma descrição do paciente (idade, sexo, sintomas e quando começaram). Não inclua perguntas, informações sobre doenças ou tratamentos. Esta ferramenta serve apenas para assistência diagnóstica."
   },
   "medicalInfoModal": {
-    "disclaimerText": "Esta ferramenta foi concebida principalmente para <strong>ajudar no diagnóstico</strong>. As perguntas médicas gerais são fornecidas para fins educativos e devem ser avaliadas criticamente. Elas não substituem o aconselhamento médico profissional.",
+    "disclaimerText": "Esta resposta tem fins educativos, pode conter erros e não substitui o aconselhamento de um profissional de saúde.",
     "aiGeneratedWarning": "<strong>Nota:</strong> Este texto foi gerado por inteligência artificial e pode conter erros.",
     "references": "Referências",
     "feedbackTitle": "Feedback sobre resposta médica",

@@ -20,7 +20,7 @@ import { AnalyticsService } from 'app/shared/services/analytics.service';
 import { UuidService } from 'app/shared/services/uuid.service';
 import { LangService } from 'app/shared/services/lang.service';
 import { IframeParams, IframeParamsService } from 'app/shared/services/iframe-params.service';
-import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
+import { MedicalAnswerData } from '../medical-info-modal/medical-answer.model';
 
 @Component({
     selector: 'app-beta-page',
@@ -43,6 +43,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     textareaPlaceholder = '';
     iframeParams: IframeParams = {};
     isInIframe = false;
+    medicalAnswer?: MedicalAnswerData;
 
     private readonly subscriptions = new Subscription();
     private activeRequest?: Subscription;
@@ -59,6 +60,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     private isWebSocketConnected = false;
     private readonly startedAt = Date.now();
     private readonly myuuid: string;
+    private submittedQuestion = '';
 
     constructor(
         public translate: TranslateService,
@@ -294,7 +296,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
 
     private async submitMedicalQuestion(): Promise<void> {
-        this.medicalTextEng = this.medicalTextOriginal;
+        this.submittedQuestion = this.medicalTextOriginal.trim();
+        this.medicalTextEng = this.submittedQuestion;
         this.callingAI = true;
         this.lauchEvent('Medical question started');
         Swal.close();
@@ -310,7 +313,9 @@ export class BetaPageComponent implements OnInit, OnDestroy {
 
         const lang = this.isValidLanguage(this.lang) ? this.lang : 'en';
         const value = {
-            description: this.medicalTextEng,
+            // Every request is intentionally self-contained. Neither the previous
+            // answer nor any earlier question is sent to the model.
+            description: this.submittedQuestion,
             diseases_list: '',
             myuuid: this.myuuid,
             lang,
@@ -414,8 +419,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }
 
         if (response?.medicalAnswer) {
-            this.showMedicalInfoModal(response);
-            this.lauchEvent('Medical Info Modal');
+            this.showMedicalAnswer(response);
+            this.lauchEvent('Medical answer displayed inline');
             return;
         }
 
@@ -423,20 +428,39 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         this.lauchEvent('only_medical_question Modal');
     }
 
-    private showMedicalInfoModal(content: any): void {
-        const modalRef = this.modalService.open(MedicalInfoModalComponent, {
-            size: 'lg',
-            backdrop: 'static',
-            keyboard: false,
-            centered: true,
-            windowClass: 'medical-info-modal'
+    private showMedicalAnswer(content: any): void {
+        this.medicalAnswer = {
+            question: content.question || this.submittedQuestion,
+            content: content.medicalAnswer,
+            sonarData: content.sonarData,
+            model: content.model || this.model,
+            selectedFiles: [],
+            detectedLang: content.detectedLang || this.lang
+        };
+        setTimeout(() => {
+            document.getElementById('medical-answer')?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         });
-        modalRef.componentInstance.content = content.medicalAnswer;
-        modalRef.componentInstance.sonarData = content.sonarData;
-        modalRef.componentInstance.title = content.question;
-        modalRef.componentInstance.model = content.model;
-        modalRef.componentInstance.selectedFiles = [];
-        modalRef.componentInstance.detectedLang = content.detectedLang;
+    }
+
+    editCurrentQuestion(): void {
+        this.lauchEvent('Medical answer - Edit question');
+        this.scrollToInput();
+    }
+
+    startNewQuestion(): void {
+        this.medicalTextOriginal = '';
+        this.medicalTextEng = '';
+        this.submittedQuestion = '';
+        this.medicalAnswer = undefined;
+        this.lauchEvent('Medical answer - New question');
+        this.resizeTextArea();
+        setTimeout(() => {
+            this.scrollToInput();
+            this.startTypingAnimation();
+        });
     }
 
     private showWrongPageRedirect(): void {
