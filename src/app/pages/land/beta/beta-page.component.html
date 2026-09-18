@@ -323,10 +323,10 @@
       <div class="disclaimer-icon">
         <i class="fa fa-shield"></i>
       </div>
-      <button type="button" class="btn-close" title="Close" (click)="closePopup()"></button>
+      <button type="button" class="btn-close" title="Close" (click)="dismissDisclaimer()"></button>
     </div>
     <div class="disclaimer-body">
-      <div class="disclaimer-content" [innerHTML]="'land.disclaimer' | translate"></div>
+      <div class="disclaimer-content" [innerHTML]="'beta.disclaimer' | translate"></div>
       <div class="disclaimer-check">
         <mat-checkbox class="example-margin" [(ngModel)]="terms2" (change)="changeTerm($event)">
           <label>
@@ -338,7 +338,7 @@
     <div class="disclaimer-footer">
       <button type="button" class="btn-search-hero" (click)="closePopup();">
         <i class="fa fa-check me-1"></i>
-        {{'generics.Continue' | translate }}
+        {{'land.acceptLimitations' | translate }}
       </button>
     </div>
   </div>

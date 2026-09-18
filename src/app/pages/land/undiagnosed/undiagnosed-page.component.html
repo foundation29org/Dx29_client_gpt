@@ -200,6 +200,30 @@
             <div *ngIf="isEuMode()" class="results-header__eu-disclaimer">
               <i class="fa fa-exclamation-triangle me-2"></i>{{'diagnosis.disclaimerEu' | translate }}
             </div>
+            <div class="results-header__advice" *ngIf="topRelatedConditions.length>0">
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
+              <span *ngIf="!isEuMode()">{{'diagnosis.advise' | translate }}</span>
+              <span *ngIf="isEuMode()">{{'diagnosis.adviseEu' | translate }}</span>
+            </div>
+          </div>
+
+          <!-- Early refinement: keep the full feedback block below the results too -->
+          <div class="results-refinement-top" *ngIf="topRelatedConditions.length>0">
+            <div class="results-refinement-top__copy">
+              <h4 class="results-refinement-top__title">
+                <span *ngIf="!isEuMode()">{{'diagnosis.Not satisfied with the results?' | translate }}</span>
+                <span *ngIf="isEuMode()">{{'diagnosis.Not satisfied with the results?Eu' | translate }}</span>
+              </h4>
+              <p *ngIf="!isEuMode()" class="results-refinement-top__description">
+                {{'land.followup.modal.description' | translate }}
+              </p>
+            </div>
+            <button class="results-action-btn results-action-btn--primary"
+              (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
+              <i class="fa fa-comments"></i>
+              <span *ngIf="!isEuMode()">{{'diagnosis.Improve patient description' | translate }}</span>
+              <span *ngIf="isEuMode()">{{'diagnosis.Improve patient descriptionEu' | translate }}</span>
+            </button>
           </div>
 
           <!-- Disease cards -->
@@ -245,14 +269,6 @@
                 </span>
               </div>
             </div>
-          </div>
-
-          <!-- Medical disclaimer -->
-          <div class="results-meta" *ngIf="topRelatedConditions.length>0">
-            <p class="results-meta__disclaimer">
-              <span *ngIf="!isEuMode()">{{'diagnosis.advise' | translate }}</span>
-              <span *ngIf="isEuMode()">{{'diagnosis.adviseEu' | translate }}</span>
-            </p>
           </div>
 
           <span *ngIf="topRelatedConditions.length==0">
@@ -515,7 +531,7 @@
       <div class="disclaimer-icon">
         <i class="fa fa-shield"></i>
       </div>
-      <button type="button" class="btn-close" title="Close" (click)="closePopup()"></button>
+      <button type="button" class="btn-close" title="Close" (click)="dismissDisclaimer()"></button>
     </div>
     <div class="disclaimer-body">
       <div class="disclaimer-content" [innerHTML]="(isEuMode() ? 'land.disclaimerEu' : 'land.disclaimer') | translate"></div>
@@ -530,7 +546,7 @@
     <div class="disclaimer-footer">
       <button type="button" class="btn-search-hero" (click)="closePopup();">
         <i class="fa fa-check me-1"></i>
-        {{'generics.Continue' | translate }}
+        {{'land.acceptLimitations' | translate }}
       </button>
     </div>
   </div>

@@ -1128,6 +1128,13 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 .disclaimer-footer {
   padding: 0 1.5rem 1.5rem;
   text-align: center;
+
+  .btn-search-hero {
+    white-space: normal;
+    max-width: 100%;
+    line-height: 1.35;
+    padding: 0.75rem 1.4rem;
+  }
 }
 
 /* ============================================================

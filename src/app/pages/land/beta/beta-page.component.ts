@@ -463,18 +463,18 @@ export class BetaPageComponent implements OnInit, OnDestroy {
 
     changeTerm($event) {
         if ($event.checked) {
-            localStorage.setItem('hideIntroLogins', 'true')
+            localStorage.setItem('hideQuestionsDisclaimer', 'true')
         } else {
-            localStorage.setItem('hideIntroLogins', 'false')
+            localStorage.setItem('hideQuestionsDisclaimer', 'false')
         }
     }
 
     showOptions() {
         this.terms2 = !this.terms2;
         if (this.terms2) {
-            localStorage.setItem('hideIntroLogins', 'true')
+            localStorage.setItem('hideQuestionsDisclaimer', 'true')
         } else {
-            localStorage.setItem('hideIntroLogins', 'false')
+            localStorage.setItem('hideQuestionsDisclaimer', 'false')
         }
     }
 
@@ -759,7 +759,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     if (!this.showErrorCall1) {
-                        if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
+                        if (localStorage.getItem('hideQuestionsDisclaimer') == null || localStorage.getItem('hideQuestionsDisclaimer') != 'true') {
                             this.showPanelIntro(contentIntro);
                             await this.delay(200);
                             document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
@@ -777,7 +777,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }
         
         if (!this.showErrorCall1) {
-            if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
+            if (localStorage.getItem('hideQuestionsDisclaimer') == null || localStorage.getItem('hideQuestionsDisclaimer') != 'true') {
                 this.showPanelIntro(contentIntro);
                 await this.delay(200);
                 document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
@@ -787,10 +787,20 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    dismissDisclaimer() {
+        this.terms2 = false;
+        localStorage.setItem('hideQuestionsDisclaimer', 'false');
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+        }
+    }
+
     closePopup() {
         this.preparingcallAI('step1');
         if (this.modalReference != undefined) {
             this.modalReference.close();
+            this.modalReference = undefined;
         }
     }
 

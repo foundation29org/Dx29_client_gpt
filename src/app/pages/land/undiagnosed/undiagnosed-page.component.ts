@@ -893,10 +893,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    dismissDisclaimer() {
+        this.terms2 = false;
+        localStorage.setItem('hideIntroLogins', 'false');
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+        }
+    }
+
     closePopup() {
         this.preparingcallAI('step1');
         if (this.modalReference != undefined) {
             this.modalReference.close();
+            this.modalReference = undefined;
         }
     }
 

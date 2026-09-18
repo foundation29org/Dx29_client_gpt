@@ -192,6 +192,26 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     margin-bottom: 1rem;
   }
 
+  &__advice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    margin-top: 0.9rem;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #f8fafc;
+    color: #6b7280;
+    font-size: 0.82rem;
+    line-height: 1.45;
+
+    i {
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      color: var(--accent-color, #B30000);
+    }
+  }
+
   &__hint {
     margin: 0;
     max-width: 20rem;
@@ -200,6 +220,39 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     color: #7b8492;
     text-align: right;
 
+  }
+}
+
+.results-refinement-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 0.95rem 1.75rem;
+  border-bottom: 1px solid #f0f2f5;
+  background: #f8fafc;
+
+  &__copy {
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0;
+    color: #252a34;
+    font-size: 0.95rem;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+
+  &__description {
+    margin: 0.2rem 0 0;
+    color: #737c89;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .results-action-btn {
+    flex-shrink: 0;
   }
 }
 
@@ -239,35 +292,6 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
       background: #ffe4e6;
       border-color: #fda4af;
     }
-  }
-}
-
-/* ============================================================
-   RESULTS META (model badge + disclaimer)
-   ============================================================ */
-.results-meta {
-  text-align: center;
-  padding: 1.25rem 1.75rem;
-  border-top: 1px solid #f0f2f5;
-
-  &__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.35rem 0.85rem;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: #6b7280;
-    background: #f3f4f6;
-    border-radius: 20px;
-    margin-bottom: 0.65rem;
-  }
-
-  &__disclaimer {
-    margin: 0;
-    font-size: 0.88rem;
-    color: #9ca3af;
-    line-height: 1.5;
   }
 }
 
@@ -393,6 +417,18 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     &__hint {
       max-width: none;
       text-align: left;
+    }
+  }
+
+  .results-refinement-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+
+    .results-action-btn {
+      width: 100%;
+      justify-content: center;
     }
   }
 
@@ -1916,6 +1952,13 @@ body {
 .disclaimer-footer {
   padding: 0 1.5rem 1.5rem;
   text-align: center;
+
+  .btn-search-hero {
+    white-space: normal;
+    max-width: 100%;
+    line-height: 1.35;
+    padding: 0.75rem 1.4rem;
+  }
 }
 
 /* ============================================================
