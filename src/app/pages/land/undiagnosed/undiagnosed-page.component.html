@@ -53,20 +53,12 @@
             </span>
           </span>
         </div>
-        <div class="hero-meta hero-meta--inline" *ngIf="countCharacters(medicalTextOriginal) < 2000">
-          <ng-container *ngIf="selectedFiles.length; else uploadLimits">
-            {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
-          </ng-container>
-          <ng-template #uploadLimits>
-            {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
-          </ng-template>
+        <div class="hero-meta hero-meta--inline" *ngIf="selectedFiles.length && countCharacters(medicalTextOriginal) < 2000">
+          {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
         </div>
       </div>
       <div class="hero-meta" *ngIf="selectedFiles.length && countCharacters(medicalTextOriginal) >= 2000">
-        {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
-        <span class="ms-2">
-          {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
-        </span>
+        {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
       </div>
       <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary mt-3 mb-3" role="alert" style="text-align: left;">
         <div class="d-flex align-items-start">
@@ -164,11 +156,11 @@
     </div>-->
     <div
       class="mt-4 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
-      <span class="quick-start-pill" (click)="showContentInfoAPP(contentInfoAPP)"
+      <button type="button" class="quick-start-pill" (click)="showContentInfoAPP(contentInfoAPP)"
      [attr.title]="getLiteral('land.Getting started')" [attr.aria-label]="getLiteral('land.Getting started')">
         <i class="fa fa-lightbulb-o"></i>
         {{'land.Getting started' | translate }}
-      </span>
+      </button>
       <p class="hero-questions-note" *ngIf="shouldShowQuestionsPage">
         {{'land.questions_footnote' | translate}}
         <a routerLink="/beta" (click)="lauchEvent('Home - Open medical questions')">{{'menu.Questions' | translate}}</a>
