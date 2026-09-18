@@ -1,0 +1,66 @@
+<div class="intent-gate">
+  <div class="intent-gate__header">
+    <div class="intent-gate__header-icon">
+      <i class="fa" [class.fa-stethoscope]="!isExplain" [class.fa-comments]="isExplain"></i>
+    </div>
+    <div>
+      <h4 class="intent-gate__title">{{ titleKey | translate }}</h4>
+      <p class="intent-gate__subtitle">{{ descriptionKey | translate }}</p>
+    </div>
+    <button type="button" class="intent-gate__close" (click)="dismiss()" [attr.aria-label]="'generics.Cancel' | translate">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+
+  <div class="intent-gate__body">
+    <button *ngIf="isExplain" type="button" class="intent-option intent-option--primary" (click)="choose('ask')">
+      <span class="intent-option__icon"><i class="fa fa-comments"></i></span>
+      <span class="intent-option__copy">
+        <span class="intent-option__label">{{ 'land.enrichment.ask_open' | translate }}</span>
+        <span class="intent-option__hint">{{ 'land.enrichment.ask_open_hint' | translate }}</span>
+      </span>
+      <span class="intent-option__badge">{{ 'land.enrichment.recommended' | translate }}</span>
+    </button>
+
+    <button *ngIf="canAskQuestions && !isExplain" type="button" class="intent-option intent-option--primary" (click)="choose('questions')">
+      <span class="intent-option__icon"><i class="fa fa-list-ul"></i></span>
+      <span class="intent-option__copy">
+        <span class="intent-option__label">{{ 'land.enrichment.questions' | translate }}</span>
+        <span class="intent-option__hint">{{ 'land.enrichment.questions_hint' | translate }}</span>
+      </span>
+      <span class="intent-option__badge">{{ 'land.enrichment.recommended' | translate }}</span>
+    </button>
+
+    <button *ngIf="canContinue" type="button" class="intent-option" (click)="choose('continue')">
+      <span class="intent-option__icon"><i class="fa fa-play"></i></span>
+      <span class="intent-option__copy">
+        <span class="intent-option__label">{{ 'land.enrichment.continue' | translate }}</span>
+        <span class="intent-option__hint">{{ 'land.enrichment.continue_hint' | translate }}</span>
+      </span>
+    </button>
+
+    <button *ngIf="canAskQuestions && isExplain" type="button" class="intent-option" (click)="choose('questions')">
+      <span class="intent-option__icon"><i class="fa fa-list-ul"></i></span>
+      <span class="intent-option__copy">
+        <span class="intent-option__label">{{ 'land.enrichment.questions' | translate }}</span>
+        <span class="intent-option__hint">{{ 'land.enrichment.questions_hint' | translate }}</span>
+      </span>
+    </button>
+
+    <button type="button" class="intent-option" (click)="choose('edit')">
+      <span class="intent-option__icon"><i class="fa fa-pencil"></i></span>
+      <span class="intent-option__copy">
+        <span class="intent-option__label">{{ 'land.enrichment.edit' | translate }}</span>
+        <span class="intent-option__hint">{{ 'land.enrichment.edit_hint' | translate }}</span>
+      </span>
+    </button>
+
+    <button *ngIf="!isExplain" type="button" class="intent-option" (click)="choose('upload')">
+      <span class="intent-option__icon"><i class="fa fa-upload"></i></span>
+      <span class="intent-option__copy">
+        <span class="intent-option__label">{{ 'land.enrichment.upload' | translate }}</span>
+        <span class="intent-option__hint">{{ 'land.enrichment.upload_hint' | translate }}</span>
+      </span>
+    </button>
+  </div>
+</div>
