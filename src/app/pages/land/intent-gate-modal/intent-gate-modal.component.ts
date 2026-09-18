@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 export type IntentGateMode = 'enrich' | 'explain';
-export type IntentGateChoice = 'questions' | 'continue' | 'edit' | 'upload';
+export type IntentGateChoice = 'ask' | 'questions' | 'continue' | 'edit' | 'upload';
 
 @Component({
     selector: 'app-intent-gate-modal',
@@ -29,11 +29,12 @@ export class IntentGateModalComponent {
     }
 
     get canContinue(): boolean {
-        return !this.isExplain && this.reason === 'insufficient_patient_context';
+        // The classifier suggests a path. It must never block differential diagnosis.
+        return true;
     }
 
     get canAskQuestions(): boolean {
-        return !this.isExplain && !this.isNonMedical;
+        return !this.isNonMedical;
     }
 
     get titleKey(): string {

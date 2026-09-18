@@ -1320,9 +1320,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 }else if(data.intentAction === 'enrich'){
                     this.showIntentEnrichment(data.intentReason);
                 }else{
-                    this.showError(this.translate.instant("undiagnosed.only_patient_description"), null);
-                    this.callingAI = false;
-                    this.lauchEvent("only_patient_description Modal");
+                    this.showIntentEnrichment(data.intentReason || 'insufficient_patient_context');
                 }
             }
         }
@@ -1340,33 +1338,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.lauchEvent(`Intent enrichment - ${reason || 'unknown'}`);
 
         const choice = await this.intentEnrichmentService.chooseNextStep(reason);
-        if (choice === 'questions') {
-            this.followUpQuestions = [];
-            this.followUpAnswers = {};
-            this.processingFollowUpAnswers = false;
-            this.medicalTextEng = this.medicalTextOriginal;
-            await this.handleERResponse(this.contentFollowUpQuestions);
-            return;
-        }
-
-        if (choice === 'continue') {
-            this.forceDiagnosisNext = true;
-            this.lauchEvent(`Intent enrichment continue - ${reason || 'unknown'}`);
-            await this.callAI();
-            return;
-        }
-
-        if (choice === 'upload') {
-            this.mainFileInput?.nativeElement.click();
-            return;
-        }
-
-        if (choice === 'edit') {
-            setTimeout(() => {
-                this.mainTextArea?.nativeElement.focus();
-                this.resizeTextArea();
-            });
-        }
+        await this.applyIntentChoice(choice, reason);
     }
 
     showMedicalInfoModal(content: any) {
@@ -1405,9 +1377,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.dismissLoadingSwal();
         if (target === 'questions') {
             this.intentEnrichmentService.chooseExplainRedirect().then((choice) => {
-                if (choice === 'questions') {
-                    this.goToRedirectPage('questions', text);
-                }
+                this.applyIntentChoice(choice, 'explain');
             });
             return;
         }
@@ -1426,6 +1396,41 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.goToRedirectPage('home', text);
             }
         });
+    }
+
+    private async applyIntentChoice(choice: string | null, reason: string): Promise<void> {
+        if (choice === 'ask') {
+            this.goToRedirectPage('questions', this.medicalTextOriginal);
+            return;
+        }
+
+        if (choice === 'questions') {
+            this.followUpQuestions = [];
+            this.followUpAnswers = {};
+            this.processingFollowUpAnswers = false;
+            this.medicalTextEng = this.medicalTextOriginal;
+            await this.handleERResponse(this.contentFollowUpQuestions);
+            return;
+        }
+
+        if (choice === 'continue') {
+            this.forceDiagnosisNext = true;
+            this.lauchEvent(`Intent continue - ${reason || 'unknown'}`);
+            await this.callAI();
+            return;
+        }
+
+        if (choice === 'upload') {
+            this.mainFileInput?.nativeElement.click();
+            return;
+        }
+
+        if (choice === 'edit') {
+            setTimeout(() => {
+                this.mainTextArea?.nativeElement.focus();
+                this.resizeTextArea();
+            });
+        }
     }
 
     private goToRedirectPage(target: 'questions' | 'home', text: string): void {

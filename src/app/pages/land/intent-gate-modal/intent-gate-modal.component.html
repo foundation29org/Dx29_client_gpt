@@ -13,7 +13,7 @@
   </div>
 
   <div class="intent-gate__body">
-    <button *ngIf="isExplain" type="button" class="intent-option intent-option--primary" (click)="choose('questions')">
+    <button *ngIf="isExplain" type="button" class="intent-option intent-option--primary" (click)="choose('ask')">
       <span class="intent-option__icon"><i class="fa fa-comments"></i></span>
       <span class="intent-option__copy">
         <span class="intent-option__label">{{ 'land.enrichment.ask_open' | translate }}</span>
@@ -22,7 +22,7 @@
       <span class="intent-option__badge">{{ 'land.enrichment.recommended' | translate }}</span>
     </button>
 
-    <button *ngIf="canAskQuestions" type="button" class="intent-option intent-option--primary" (click)="choose('questions')">
+    <button *ngIf="canAskQuestions && !isExplain" type="button" class="intent-option intent-option--primary" (click)="choose('questions')">
       <span class="intent-option__icon"><i class="fa fa-list-ul"></i></span>
       <span class="intent-option__copy">
         <span class="intent-option__label">{{ 'land.enrichment.questions' | translate }}</span>
@@ -36,6 +36,14 @@
       <span class="intent-option__copy">
         <span class="intent-option__label">{{ 'land.enrichment.continue' | translate }}</span>
         <span class="intent-option__hint">{{ 'land.enrichment.continue_hint' | translate }}</span>
+      </span>
+    </button>
+
+    <button *ngIf="canAskQuestions && isExplain" type="button" class="intent-option" (click)="choose('questions')">
+      <span class="intent-option__icon"><i class="fa fa-list-ul"></i></span>
+      <span class="intent-option__copy">
+        <span class="intent-option__label">{{ 'land.enrichment.questions' | translate }}</span>
+        <span class="intent-option__hint">{{ 'land.enrichment.questions_hint' | translate }}</span>
       </span>
     </button>
 
