@@ -19,6 +19,7 @@ import { BrandingService } from 'app/shared/services/branding.service';
 import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
 import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
 import { environment } from 'environments/environment';
+import { DIAGNOSTIC_GUIDANCE_QUESTIONS } from 'app/shared/models/diagnostic-guidance-question';
 declare let gtag: any;
 
 @Component({
@@ -356,14 +357,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             this.symtpmsLabel = res;
         });
         
-        this.questions = [
-            { id: 1, question: 'land.q1' },
-            { id: 2, question: 'land.q2' },
-            { id: 3, question: 'land.q3' },
-            { id: 4, question: 'land.q4' },
-            { id: 5, question: 'land.q5' },
-            { id: 6, question: 'land.q6' }
-        ];
+        this.questions = DIAGNOSTIC_GUIDANCE_QUESTIONS;
         this.options = { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") };
     }
 
@@ -469,18 +463,18 @@ export class BetaPageComponent implements OnInit, OnDestroy {
 
     changeTerm($event) {
         if ($event.checked) {
-            localStorage.setItem('hideIntroLogins', 'true')
+            localStorage.setItem('hideQuestionsDisclaimer', 'true')
         } else {
-            localStorage.setItem('hideIntroLogins', 'false')
+            localStorage.setItem('hideQuestionsDisclaimer', 'false')
         }
     }
 
     showOptions() {
         this.terms2 = !this.terms2;
         if (this.terms2) {
-            localStorage.setItem('hideIntroLogins', 'true')
+            localStorage.setItem('hideQuestionsDisclaimer', 'true')
         } else {
-            localStorage.setItem('hideIntroLogins', 'false')
+            localStorage.setItem('hideQuestionsDisclaimer', 'false')
         }
     }
 
@@ -765,7 +759,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     if (!this.showErrorCall1) {
-                        if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
+                        if (localStorage.getItem('hideQuestionsDisclaimer') == null || localStorage.getItem('hideQuestionsDisclaimer') != 'true') {
                             this.showPanelIntro(contentIntro);
                             await this.delay(200);
                             document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
@@ -783,7 +777,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }
         
         if (!this.showErrorCall1) {
-            if (localStorage.getItem('hideIntroLogins') == null || localStorage.getItem('hideIntroLogins') != 'true') {
+            if (localStorage.getItem('hideQuestionsDisclaimer') == null || localStorage.getItem('hideQuestionsDisclaimer') != 'true') {
                 this.showPanelIntro(contentIntro);
                 await this.delay(200);
                 document.getElementById('topmodal').scrollIntoView({ behavior: "smooth" });
@@ -793,10 +787,20 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    dismissDisclaimer() {
+        this.terms2 = false;
+        localStorage.setItem('hideQuestionsDisclaimer', 'false');
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+        }
+    }
+
     closePopup() {
         this.preparingcallAI('step1');
         if (this.modalReference != undefined) {
             this.modalReference.close();
+            this.modalReference = undefined;
         }
     }
 
@@ -1412,16 +1416,18 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             'Diagnosis Test',
             'Differential Diagnosis',
             'Why Diagnosis',
-            'Genetic Tests'
+            'Genetic Tests',
+            'Compare Alternatives'
         ];
         return events[index] || '';
     }
 
-    showQuestion(question, index) {
+    showQuestion(question) {
         this.symptomsDifferencial = [];
         this.answerAI = '';
         this.loadingAnswerAI = true;
         this.selectedQuestion = question.question;
+        const questionType = question.questionType;
         var selectedDiseaseEn = this.diseaseListEn[this.selectedInfoDiseaseIndex];
         /*let index2 = selectedDiseaseEn.indexOf('.');
         if (index2 != -1) {
@@ -1429,7 +1435,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             selectedDiseaseEn = temp[1];
         }*/
 
-        let infoOptionEvent = this.getInfoOptionEvent(index);
+        let infoOptionEvent = this.getInfoOptionEvent(questionType);
         if(this.hasIframeParams()){
             if(this.iframeParams.centro){
                 infoOptionEvent += " centro: " + this.iframeParams.centro;
@@ -1450,7 +1456,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             this.medicalTextOriginal = this.descriptionImageOnly;
         }
 
-        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, timezone: this.timezone, detectedLang: this.detectedLang, imageUrls: [] };
+        var value = { questionType, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, timezone: this.timezone, detectedLang: this.detectedLang, imageUrls: [] };
 
         if(this.currentImageUrls.length > 0){
             value.imageUrls = this.currentImageUrls;

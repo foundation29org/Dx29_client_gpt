@@ -192,6 +192,26 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     margin-bottom: 1rem;
   }
 
+  &__advice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    margin-top: 0.9rem;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #f8fafc;
+    color: #6b7280;
+    font-size: 0.82rem;
+    line-height: 1.45;
+
+    i {
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      color: var(--accent-color, #B30000);
+    }
+  }
+
   &__hint {
     margin: 0;
     max-width: 20rem;
@@ -200,6 +220,39 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     color: #7b8492;
     text-align: right;
 
+  }
+}
+
+.results-refinement-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 0.95rem 1.75rem;
+  border-bottom: 1px solid #f0f2f5;
+  background: #f8fafc;
+
+  &__copy {
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0;
+    color: #252a34;
+    font-size: 0.95rem;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+
+  &__description {
+    margin: 0.2rem 0 0;
+    color: #737c89;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .results-action-btn {
+    flex-shrink: 0;
   }
 }
 
@@ -239,35 +292,6 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
       background: #ffe4e6;
       border-color: #fda4af;
     }
-  }
-}
-
-/* ============================================================
-   RESULTS META (model badge + disclaimer)
-   ============================================================ */
-.results-meta {
-  text-align: center;
-  padding: 1.25rem 1.75rem;
-  border-top: 1px solid #f0f2f5;
-
-  &__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.35rem 0.85rem;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: #6b7280;
-    background: #f3f4f6;
-    border-radius: 20px;
-    margin-bottom: 0.65rem;
-  }
-
-  &__disclaimer {
-    margin: 0;
-    font-size: 0.88rem;
-    color: #9ca3af;
-    line-height: 1.5;
   }
 }
 
@@ -393,6 +417,18 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     &__hint {
       max-width: none;
       text-align: left;
+    }
+  }
+
+  .results-refinement-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+
+    .results-action-btn {
+      width: 100%;
+      justify-content: center;
     }
   }
 
@@ -1645,14 +1681,14 @@ body {
 }
 
 .disease-questions-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
 .disease-question-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.55rem 1rem;
@@ -1666,12 +1702,32 @@ body {
   transition: all $duration ease;
   text-align: left;
   line-height: 1.35;
+  min-width: 0;
+  width: 100%;
+
+  span {
+    flex: 1;
+  }
+
+  .disease-question-icon {
+    width: 1rem;
+    color: var(--accent-color, #B30000);
+    text-align: center;
+    flex-shrink: 0;
+  }
 
   .disease-question-arrow {
     font-size: 0.8rem;
     color: #9ca3af;
     transition: transform $duration ease, color $duration ease;
     flex-shrink: 0;
+  }
+
+  &.primary {
+    grid-column: 1 / -1;
+    border-color: var(--accent-color, #B30000);
+    background: #fff;
+    font-weight: 600;
   }
 
   &:hover:not(:disabled) {
@@ -1688,12 +1744,17 @@ body {
     border-color: transparent;
     font-weight: 600;
 
+    .disease-question-icon { color: #fff; }
     .disease-question-arrow { color: rgba(255,255,255,0.7); }
   }
 
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  &.active:disabled {
+    opacity: 0.75;
   }
 }
 
@@ -1713,6 +1774,10 @@ body {
   padding: 0.5rem 0;
   font-size: 0.95rem;
   color: #6b7280;
+}
+
+.disease-loading-spinner {
+  color: var(--accent-color, #B30000);
 }
 
 .disease-cancel-link {
@@ -1751,14 +1816,55 @@ body {
   animation: stepSlideIn 0.3s $ease-out-expo both;
 }
 
+.disease-symptoms-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+
+  .disease-symptoms-heading-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    color: var(--accent-color, #B30000);
+    background: #f3f4f6;
+    flex-shrink: 0;
+  }
+
+  strong {
+    display: block;
+    color: #1a1a2e;
+    font-size: 0.98rem;
+    line-height: 1.3;
+  }
+
+  span {
+    display: block;
+    margin-top: 0.15rem;
+    color: #6b7280;
+    font-size: 0.88rem;
+    line-height: 1.35;
+  }
+}
+
 .disease-modal-footer {
   border-top: 1px solid #f0f0f0;
   padding: 1rem 1.5rem;
 }
 
+@media (max-width: 900px) {
+  .disease-questions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 @media (max-width: 575px) {
   .disease-modal-body { padding: 1rem; }
-  .disease-questions-grid { gap: 0.4rem; }
+  .disease-questions-grid {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
   .disease-question-btn { 
     font-size: 0.85rem; 
     padding: 0.5rem 0.75rem;
@@ -1846,6 +1952,13 @@ body {
 .disclaimer-footer {
   padding: 0 1.5rem 1.5rem;
   text-align: center;
+
+  .btn-search-hero {
+    white-space: normal;
+    max-width: 100%;
+    line-height: 1.35;
+    padding: 0.75rem 1.4rem;
+  }
 }
 
 /* ============================================================

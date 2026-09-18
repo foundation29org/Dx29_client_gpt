@@ -42,7 +42,8 @@
     "files_duplicates": "zduplikowane pliki zignorowane.",
     "files_unsupported_format": "pliki z nieobsługiwanym formatem. Prawidłowe formaty: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
     "upload_limits": "Limit: {{maxMB}} MB łącznie, maks. {{maxDocs}} dokumentów i {{maxImages}} obrazów.",
-    "upload_usage": "Użyto: {{docs}}/{{maxDocs}} dok., {{images}}/{{maxImages}} obrazy, {{usedMB}}/{{maxMB}} MB."
+    "upload_usage": "Użyto: {{docs}}/{{maxDocs}} dok., {{images}}/{{maxImages}} obrazy, {{usedMB}}/{{maxMB}} MB.",
+    "disclaimer": "<p><strong>Pytania medyczne</strong> to eksperyment badawczy Foundation 29. Używa sztucznej inteligencji ogólnego przeznaczenia do odpowiadania na pytania medyczne w celach edukacyjnych. Nie stawia diagnoz, nie jest objęte kwalifikacją wyrobu medycznego i nie zastępuje porady wykwalifikowanego specjalisty.</p><p>Odpowiedzi mogą zawierać błędy lub być nieaktualne. Jeśli są źródła, pojawią się w konsultacji, aby można je było sprawdzić; źródło nie gwarantuje, że informacja jest poprawna, kompletna lub ma zastosowanie do konkretnego przypadku. Korzystanie odbywa się na własne ryzyko użytkownika, a Foundation 29 nie ponosi odpowiedzialności za skutki lub szkody, które mogą z tego wyniknąć.</p><p>Korzystając z tego narzędzia, potwierdzasz, że przeczytałeś i zrozumiałeś te ograniczenia oraz wszelkie ryzyka związane z użyciem narzędzia opartego na sztucznej inteligencji.</p>"
   },
   "footer": {
     "Collaboration": "Współpraca",
@@ -877,6 +878,7 @@
     "disclaimer": "<p><strong>DxGPT</strong> to eksperyment badawczy wykorzystujący sztuczną inteligencję ogólnego przeznaczenia. W szczególności wykorzystuje najnowsze zaawansowane modele sztucznej inteligencji jako modele predykcyjne dla narzędzia dostarczającego informacji o chorobach. Jest zaprojektowany, aby dostarczać ogólnych informacji i sugestii na podstawie podanych objawów. Narzędzie nie ma na celu zastąpienia profesjonalnej porady medycznej ani wspierania diagnozy, zapobiegania, monitorowania, przewidywania lub leczenia i nigdy nie powinno być używane do podejmowania ocen diagnostycznych u rzeczywistych pacjentów.</p><p>Ponieważ AI może dawać zmienne wyniki, dokładność diagnostyczna i sugestie narzędzia mogą się różnić, dlatego ważne jest, aby skonsultować się z wykwalifikowanym pracownikiem służby zdrowia w celu zapewnienia dokładnej i odpowiedniej diagnozy. Korzystanie z tego narzędzia odbywa się na własne ryzyko użytkownika i Fundacja 29 nie ponosi odpowiedzialności za jakiekolwiek konsekwencje lub szkody, które mogą wyniknąć z jego użycia.</p><p>Korzystając z tego narzędzia, użytkownik potwierdza, że przeczytał i zrozumiał to zastrzeżenie oraz akceptuje wszelkie potencjalne ryzyko związane z korystaniem z narzędzia opartego na sztucznej inteligencji.</p>",
     "disclaimerEu": "<p><strong>DxGPT</strong> to eksperyment badawczy wykorzystujący sztuczną inteligencję ogólnego przeznaczenia. W szczególności wykorzystuje najnowsze zaawansowane modele sztucznej inteligencji jako modele predykcyjne dla narzędzia, które pomaga przygotować informacje, które omówisz z Twoim profesjonalistą zdrowotnym. Jest zaprojektowany, aby pomóc organizować Twoje objawy i generować listę możliwych obszarów oceny klinicznej, które możesz omówić z lekarzem.</p><p><strong>To narzędzie nie zapewnia diagnoz medycznych ani zaleceń dotyczących leczenia.</strong> Jest przeznaczone wyłącznie do pomocy w organizowaniu informacji, które omówisz z profesjonalistą zdrowotnym. Ponieważ AI może dawać zmienne wyniki, ważne jest, aby zawsze skonsultować się z wykwalifikowanym pracownikiem służby zdrowia w celu uzyskania odpowiedniej diagnozy i leczenia. Korzystanie z tego narzędzia odbywa się na własne ryzyko użytkownika i Fundacja 29 nie ponosi odpowiedzialności za jakiekolwiek konsekwencje lub szkody, które mogą wyniknąć z jego użycia.</p><p>Korzystając z tego narzędzia, użytkownik potwierdza, że przeczytał i zrozumiał to zastrzeżenie oraz akceptuje wszelkie potencjalne ryzyko związane z korystaniem z narzędzia opartego na sztucznej inteligencji.</p>",
     "check": "Nie pokazuj ponownie tej wiadomości",
+    "acceptLimitations": "Rozumiem te ograniczenia i akceptuję",
     "Recommendations": "Dla najlepszych wyników wskaż, kiedy i dlaczego Twoim zdaniem pojawiły się objawy",
     "Search": "Szukaj",
     "Need help": "Potrzebujesz pomocy?",
@@ -908,12 +910,19 @@
       "instruction4": "Nie pytaj, tylko opisz sytuację kliniczną",
       "feedback": "Proszę podzielić się swoją opinią, klikając przycisk opinii (paski na górze)"
     },
-    "q1": "Jakie są typowe objawy?",
-    "q2": "Podaj mi więcej informacji",
-    "q3": "Podaj test diagnostyczny",
-    "q4": "Jakie inne objawy można stwierdzić, aby dokonać diagnozy różnicowej?",
-    "q5": "Dlaczego uważasz, że ten pacjent ma tę chorobę?",
-    "q6": "Jakie testy genetyczne byłyby odpowiednie?",
+    "q1": "Kluczowe cechy kliniczne",
+    "q2": "Opis choroby",
+    "q3": "Jak to potwierdzić?",
+    "q4": "Co sprawdzić dalej?",
+    "q5": "Dlaczego ta hipoteza?",
+    "q6": "Badania genetyczne",
+    "q7": "Porównaj alternatywy",
+    "diagnosticGuidance": {
+      "loading": "Przygotowywanie informacji klinicznych…",
+      "refineTitle": "Doprecyzuj diagnostykę różnicową",
+      "refineHint": "Wybierz dodatkowe cechy obecne u pacjenta.",
+      "update": "Zaktualizuj diagnostykę różnicową"
+    },
     "recommended diagnosis test": "Jaki jest zalecany test diagnostyczny dla każdej z tych chorób?",
     "Indicates the quality of the result": "Czy te wyniki były pomocne?",
     "Point3.1": "Nie jesteś zadowolony z wyników?",

@@ -253,14 +253,15 @@
     <button type="button" class="btn-close" title="Close" (click)="closeDiseaseUndiagnosed()"></button>
   </div>
   <div class="modal-body disease-modal-body">
-    <p class="disease-section-label">{{'land.Select a question' | translate }}</p>
     <div class="disease-questions-grid">
-      <button *ngFor="let question of questions; let i = index"
+      <button *ngFor="let question of questions"
         class="disease-question-btn"
         [class.active]="selectedQuestion === question.question"
-        (click)="showQuestion(question, i)" 
+        [class.primary]="question.primary"
+        (click)="showQuestion(question)"
         [disabled]="loadingAnswerAI" 
         title="{{question.question | translate}}">
+        <i class="fa {{question.icon}} disease-question-icon"></i>
         <span>{{question.question | translate}}</span>
         <i class="fa fa-chevron-right disease-question-arrow"></i>
       </button>
@@ -268,8 +269,8 @@
 
     <div *ngIf="loadingAnswerAI" class="disease-answer-zone">
       <div class="disease-loading">
-        <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
-        <span>{{'land.swal' | translate }}</span>
+        <div class="spinner-border spinner-border-sm disease-loading-spinner me-2" role="status"></div>
+        <span>{{'land.diagnosticGuidance.loading' | translate }}</span>
         <span class="disease-cancel-link ms-3" (click)="cancelCallQuestion();">{{'generics.Cancel' | translate }}</span>
       </div>
     </div>
@@ -283,9 +284,13 @@
     </div>
 
     <div *ngIf="!loadingAnswerAI && symptomsDifferencial.length > 0" class="disease-symptoms-zone">
-      <p class="disease-section-label mb-3">
-        <i class="fa fa-list-ul me-2"></i>{{'land.Select the symptoms' | translate }}
-      </p>
+      <div class="disease-symptoms-heading">
+        <i class="fa fa-list-ul disease-symptoms-heading-icon"></i>
+        <div>
+          <strong>{{'land.diagnosticGuidance.refineTitle' | translate }}</strong>
+          <span>{{'land.diagnosticGuidance.refineHint' | translate }}</span>
+        </div>
+      </div>
       <div class="symptoms-grid">
         <div *ngFor="let symptom of symptomsDifferencial; let j = index" class="symptom-item">
           <mat-checkbox class="example-margin" name="customCheck{{j}}" [(ngModel)]="symptom.checked"
@@ -298,7 +303,7 @@
         <button type="button" class="btn-search-hero" (click)="recalculateDifferencial()"
           [disabled]="loadingAnswerAI">
           <i class="fa fa-refresh"></i>
-          {{'land.Recalculate' | translate }}
+          {{'land.diagnosticGuidance.update' | translate }}
         </button>
       </div>
     </div>
@@ -318,10 +323,10 @@
       <div class="disclaimer-icon">
         <i class="fa fa-shield"></i>
       </div>
-      <button type="button" class="btn-close" title="Close" (click)="closePopup()"></button>
+      <button type="button" class="btn-close" title="Close" (click)="dismissDisclaimer()"></button>
     </div>
     <div class="disclaimer-body">
-      <div class="disclaimer-content" [innerHTML]="'land.disclaimer' | translate"></div>
+      <div class="disclaimer-content" [innerHTML]="'beta.disclaimer' | translate"></div>
       <div class="disclaimer-check">
         <mat-checkbox class="example-margin" [(ngModel)]="terms2" (change)="changeTerm($event)">
           <label>
@@ -333,7 +338,7 @@
     <div class="disclaimer-footer">
       <button type="button" class="btn-search-hero" (click)="closePopup();">
         <i class="fa fa-check me-1"></i>
-        {{'generics.Continue' | translate }}
+        {{'land.acceptLimitations' | translate }}
       </button>
     </div>
   </div>
