@@ -175,10 +175,15 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   line-height: 1.45;
 }
 
+.medical-result-page {
+  min-height: calc(100vh - 65px);
+  padding: 2rem 1rem 3rem;
+}
+
 .medical-answer-panel {
-  width: calc(100% - 2rem);
-  max-width: 68rem;
-  margin: 2.25rem auto 0;
+  width: 100%;
+  max-width: 66rem;
+  margin: 0 auto;
   overflow: hidden;
   text-align: left;
   background: #fff;
@@ -496,8 +501,6 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .medical-answer-panel {
-    width: calc(100% - 1rem);
-    margin-top: 1.5rem;
     border-radius: 14px;
 
     &__header {

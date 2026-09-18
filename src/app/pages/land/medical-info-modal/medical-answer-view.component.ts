@@ -86,6 +86,7 @@ export class MedicalAnswerViewComponent implements OnChanges {
       marked.setOptions({ breaks: true, gfm: true });
       let parsedContent = await marked.parse(normalizedContent);
       parsedContent = this.normalizeListItemHeadings(parsedContent);
+      parsedContent = this.normalizeHeadingHierarchy(parsedContent);
       parsedContent = this.processReferenceLinks(parsedContent);
       parsedContent = this.addSafeLinkAttributes(parsedContent);
 
@@ -198,6 +199,15 @@ export class MedicalAnswerViewComponent implements OnChanges {
         return `<li${attributes}>${normalizedContent}</li>`;
       }
     );
+  }
+
+  private normalizeHeadingHierarchy(htmlContent: string): string {
+    return htmlContent
+      .replace(
+        /<h([1-6])(?:\s[^>]*)?>([\s\S]*?)<\/h\1>/gi,
+        '<h3>$2</h3>'
+      )
+      .replace(/<hr(?:\s[^>]*)?>/gi, '');
   }
 
   private processReferenceLinks(htmlContent: string): string {

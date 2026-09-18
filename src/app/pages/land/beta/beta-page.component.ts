@@ -44,6 +44,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     iframeParams: IframeParams = {};
     isInIframe = false;
     medicalAnswer?: MedicalAnswerData;
+    viewMode: 'question' | 'answer' = 'question';
 
     private readonly subscriptions = new Subscription();
     private activeRequest?: Subscription;
@@ -437,6 +438,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             selectedFiles: [],
             detectedLang: content.detectedLang || this.lang
         };
+        this.viewMode = 'answer';
         setTimeout(() => {
             document.getElementById('medical-answer')?.scrollIntoView({
                 behavior: 'smooth',
@@ -446,8 +448,12 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
 
     editCurrentQuestion(): void {
+        this.viewMode = 'question';
         this.lauchEvent('Medical answer - Edit question');
-        this.scrollToInput();
+        setTimeout(() => {
+            this.resizeTextArea();
+            this.scrollToInput();
+        });
     }
 
     startNewQuestion(): void {
@@ -455,9 +461,10 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         this.medicalTextEng = '';
         this.submittedQuestion = '';
         this.medicalAnswer = undefined;
+        this.viewMode = 'question';
         this.lauchEvent('Medical answer - New question');
-        this.resizeTextArea();
         setTimeout(() => {
+            this.resizeTextArea();
             this.scrollToInput();
             this.startTypingAnimation();
         });

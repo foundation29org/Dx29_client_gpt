@@ -1,6 +1,6 @@
 <a id="initsteps" class="anchorSteps"></a>
 
-<div class="p-2 vertical-center background-dark">
+<div *ngIf="viewMode === 'question'" class="p-2 vertical-center background-dark">
   <section class="col-12 d-flex flex-column hero-section">
     <div class="mb-4 col-sm-12 offset-md-2 col-md-8 text-center">
       <h1 class="hero-title">{{ 'land.titleBeta' | translate }}</h1>
@@ -89,41 +89,6 @@
       </p>
     </div>
 
-    <section
-      *ngIf="medicalAnswer"
-      id="medical-answer"
-      class="medical-answer-panel"
-      aria-live="polite">
-      <header class="medical-answer-panel__header">
-        <div class="medical-answer-panel__heading">
-          <span class="medical-answer-panel__eyebrow">
-            {{ 'beta.answer_title' | translate }}
-          </span>
-          <h2>{{ medicalAnswer.question }}</h2>
-        </div>
-        <div class="medical-answer-panel__actions">
-          <button
-            type="button"
-            class="answer-action answer-action--secondary"
-            (click)="editCurrentQuestion()">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-            {{ 'beta.edit_question' | translate }}
-          </button>
-          <button
-            type="button"
-            class="answer-action answer-action--primary"
-            (click)="startNewQuestion()">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            {{ 'beta.new_question' | translate }}
-          </button>
-        </div>
-      </header>
-
-      <div class="medical-answer-panel__body">
-        <app-medical-answer-view [answer]="medicalAnswer"></app-medical-answer-view>
-      </div>
-    </section>
-
     <div class="mt-4 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 text-center mb-4">
       <p class="hero-questions-link">
         <a routerLink="/" (click)="lauchEvent('Questions - Open diagnosis')">
@@ -135,8 +100,44 @@
   </section>
 </div>
 
-<div class="background-dark">
-  <app-testimonials></app-testimonials>
+<div
+  *ngIf="viewMode === 'answer' && medicalAnswer"
+  class="medical-result-page background-dark">
+  <section
+    id="medical-answer"
+    class="medical-answer-panel"
+    role="region"
+    aria-live="polite"
+    aria-labelledby="medical-answer-question">
+    <header class="medical-answer-panel__header">
+      <div class="medical-answer-panel__heading">
+        <span class="medical-answer-panel__eyebrow">
+          {{ 'beta.answer_title' | translate }}
+        </span>
+        <h2 id="medical-answer-question">{{ medicalAnswer.question }}</h2>
+      </div>
+      <div class="medical-answer-panel__actions">
+        <button
+          type="button"
+          class="answer-action answer-action--secondary"
+          (click)="editCurrentQuestion()">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+          {{ 'beta.edit_question' | translate }}
+        </button>
+        <button
+          type="button"
+          class="answer-action answer-action--primary"
+          (click)="startNewQuestion()">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          {{ 'beta.new_question' | translate }}
+        </button>
+      </div>
+    </header>
+
+    <div class="medical-answer-panel__body">
+      <app-medical-answer-view [answer]="medicalAnswer"></app-medical-answer-view>
+    </div>
+  </section>
 </div>
 
 <button
