@@ -921,7 +921,12 @@
       "loading": "Préparation des informations cliniques…",
       "refineTitle": "Affiner le diagnostic différentiel",
       "refineHint": "Sélectionnez les éléments supplémentaires présents chez le patient.",
-      "update": "Mettre à jour le différentiel"
+      "update": "Mettre à jour le différentiel",
+      "completeInformation": "Compléter les informations manquantes",
+      "followUpTitle": "Compléter les informations cliniques",
+      "followUpDescription": "Répondez uniquement avec les informations connues. Chaque réponse restera associée à sa question et sera ajoutée à la description du patient.",
+      "answerPlaceholder": "Par exemple : Oui, surtout avec de la fièvre ; inconnu ; examen non réalisé…",
+      "followUpSubmit": "Mettre à jour le diagnostic différentiel"
     },
     "recommended diagnosis test": "Quel est le test de diagnostic recommandé pour chacune de ces maladies ?",
     "Indicates the quality of the result": "Ces résultats vous ont-ils été utiles ?",

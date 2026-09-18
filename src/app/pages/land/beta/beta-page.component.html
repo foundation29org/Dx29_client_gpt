@@ -281,6 +281,13 @@
         <strong>{{selectedQuestion | translate}}</strong>
       </div>
       <div class="disease-answer-content" [innerHTML]="answerAI"></div>
+      <div *ngIf="selectedQuestion === 'land.q5'" class="disease-answer-actions">
+        <button type="button" class="disease-guidance-action"
+          (click)="openHypothesisFollowUp(contentFollowUpQuestions)">
+          <i class="fa fa-comments"></i>
+          {{'land.diagnosticGuidance.completeInformation' | translate }}
+        </button>
+      </div>
     </div>
 
     <div *ngIf="!loadingAnswerAI && symptomsDifferencial.length > 0" class="disease-symptoms-zone">
@@ -492,7 +499,9 @@
       <div class="followup-icon-badge">
         <i class="fa fa-comments"></i>
       </div>
-      <h4 class="followup-title mb-0">{{ 'land.followup.modal.title' | translate }}</h4>
+      <h4 class="followup-title mb-0">
+        {{ (hypothesisFollowUpDisease ? 'land.diagnosticGuidance.followUpTitle' : 'land.followup.modal.title') | translate }}
+      </h4>
     </div>
     <button type="button" class="btn-close" aria-label="Close" (click)="skipFollowUpQuestions()"></button>
   </div>
@@ -506,7 +515,9 @@
     </div>
     
     <div *ngIf="!loadingFollowUpQuestions">
-      <p class="followup-description">{{ 'land.followup.modal.description' | translate }}</p>
+      <p class="followup-description">
+        {{ (hypothesisFollowUpDisease ? 'land.diagnosticGuidance.followUpDescription' : 'land.followup.modal.description') | translate }}
+      </p>
       
       <div *ngFor="let question of followUpQuestions; let i = index" class="followup-question-card">
         <label class="followup-question-label">
@@ -516,7 +527,7 @@
         <textarea 
           class="followup-textarea" 
           rows="2" 
-          [placeholder]="'land.followup.modal.answer_placeholder' | translate" 
+          [placeholder]="(hypothesisFollowUpDisease ? 'land.diagnosticGuidance.answerPlaceholder' : 'land.followup.modal.answer_placeholder') | translate"
           [(ngModel)]="followUpAnswers[i]"
           (input)="updateFollowUpAnswer(i, followUpAnswers[i])">
         </textarea>
@@ -540,7 +551,7 @@
       (click)="processFollowUpAnswers()">
       <span *ngIf="!processingFollowUpAnswers">
         <i class="fa fa-paper-plane"></i>
-        {{ 'land.followup.modal.submit' | translate }}
+        {{ (hypothesisFollowUpDisease ? 'land.diagnosticGuidance.followUpSubmit' : 'land.followup.modal.submit') | translate }}
       </span>
       <span *ngIf="processingFollowUpAnswers">
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

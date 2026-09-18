@@ -921,7 +921,12 @@
       "loading": "Preparando as informações clínicas…",
       "refineTitle": "Refinar o diagnóstico diferencial",
       "refineHint": "Selecione achados adicionais presentes no paciente.",
-      "update": "Atualizar diferencial"
+      "update": "Atualizar diferencial",
+      "completeInformation": "Completar informações em falta",
+      "followUpTitle": "Completar informações clínicas",
+      "followUpDescription": "Responda apenas ao que souber. Cada resposta permanecerá ligada à pergunta e será adicionada à descrição do paciente.",
+      "answerPlaceholder": "Por exemplo: Sim, especialmente com febre; desconhecido; teste não realizado…",
+      "followUpSubmit": "Atualizar diagnóstico diferencial"
     },
     "recommended diagnosis test": "Qual é o teste diagnóstico recomendado para cada uma dessas doenças?",
     "Indicates the quality of the result": "Estes resultados foram úteis?",

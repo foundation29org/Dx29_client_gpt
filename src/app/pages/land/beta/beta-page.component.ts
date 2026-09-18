@@ -125,6 +125,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     followUpAnswers: any = {};
     loadingFollowUpQuestions: boolean = false;
     processingFollowUpAnswers: boolean = false;
+    hypothesisFollowUpDisease: string = '';
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
     @ViewChild('autoajustable', { static: false }) mainTextArea: ElementRef;
@@ -2283,6 +2284,27 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    async openHypothesisFollowUp(contentFollowUp) {
+        this.hypothesisFollowUpDisease = this.selectedDisease;
+        this.followUpQuestions = [];
+        this.followUpAnswers = {};
+        this.loadingFollowUpQuestions = true;
+        this.lauchEvent("Hypothesis FollowUp - Open");
+
+        const ngbModalOptions: NgbModalOptions = {
+            backdrop: 'static',
+            keyboard: false,
+            windowClass: 'ModalClass-lg'
+        };
+
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+        }
+
+        this.modalReference = this.modalService.open(contentFollowUp, ngbModalOptions);
+        await this.generateFollowUpQuestions(this.hypothesisFollowUpDisease);
+    }
+
     changeModeFunctionality(){
         const currentTime = new Date().getTime();
         
@@ -2358,14 +2380,16 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         );
     }
     
-    async generateFollowUpQuestions() {
+    async generateFollowUpQuestions(focusDisease: string = '') {
         // Llamar a la API para generar preguntas de seguimiento
         const value = { 
-            description: this.medicalTextEng, 
-            diseases: this.diseaseListEn.slice(0, 5).join(', '), 
+            description: focusDisease ? (this.medicalTextOriginal || this.medicalTextEng) : this.medicalTextEng,
+            diseases: focusDisease || this.diseaseListEn.slice(0, 5).join(', '),
             myuuid: this.myuuid,
             lang: this.lang,
-            timezone: this.timezone 
+            timezone: this.timezone,
+            mode: focusDisease ? 'hypothesis' : 'general',
+            detectedLanguage: focusDisease ? this.detectedLang : undefined
         };
         
         this.subscription.add(
@@ -2397,6 +2421,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         if (this.modalReference != undefined) {
             this.modalReference.close();
         }
+        this.hypothesisFollowUpDisease = '';
     }
     
     updateFollowUpAnswer(questionIndex: number, answer: string) {
@@ -2404,7 +2429,9 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
     
     hasAnswers(): boolean {
-        return Object.keys(this.followUpAnswers).length > 0;
+        return Object.values(this.followUpAnswers).some(
+            (answer) => typeof answer === 'string' && answer.trim().length > 0
+        );
     }
     
     async processFollowUpAnswers() {
@@ -2442,13 +2469,17 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             }
         }
         
+        const isHypothesisFollowUp = this.hypothesisFollowUpDisease !== '';
+
         // Llamar a la API para procesar las respuestas y actualizar la descripción
         const value = { 
-            description: this.medicalTextEng, 
+            description: isHypothesisFollowUp ? (this.medicalTextOriginal || this.medicalTextEng) : this.medicalTextEng,
             answers: answeredQuestions,
             myuuid: this.myuuid,
             lang: this.lang,
-            timezone: this.timezone 
+            timezone: this.timezone,
+            mode: isHypothesisFollowUp ? 'hypothesis' : 'general',
+            detectedLanguage: isHypothesisFollowUp ? this.detectedLang : undefined
         };
         if(this.modeFunctionality && this.medicalTextEng ==''){
             value.description = this.medicalTextOriginal;
@@ -2470,9 +2501,10 @@ export class BetaPageComponent implements OnInit, OnDestroy {
                         
                         // Realizar una nueva búsqueda con la descripción actualizada
                         this.processingFollowUpAnswers = false;
+                        this.hypothesisFollowUpDisease = '';
                         this.callAI();
                         
-                        this.lauchEvent("FollowUp - Descripción actualizada");
+                        this.lauchEvent(isHypothesisFollowUp ? "Hypothesis FollowUp - Updated" : "FollowUp - Descripción actualizada");
                     } else {
                         this.handleProcessFollowUpAnswersError(res);
                     }
@@ -2498,7 +2530,9 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         if (this.modalReference != undefined) {
             this.modalReference.close();
         }
-        this.lauchEvent("FollowUp - Omitir preguntas");
+        const eventName = this.hypothesisFollowUpDisease ? "Hypothesis FollowUp - Skip" : "FollowUp - Omitir preguntas";
+        this.hypothesisFollowUpDisease = '';
+        this.lauchEvent(eventName);
     }
 
     callAIForSummary(option: string) {

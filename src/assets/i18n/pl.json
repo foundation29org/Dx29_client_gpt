@@ -921,7 +921,12 @@
       "loading": "Przygotowywanie informacji klinicznych…",
       "refineTitle": "Doprecyzuj diagnostykę różnicową",
       "refineHint": "Wybierz dodatkowe cechy obecne u pacjenta.",
-      "update": "Zaktualizuj diagnostykę różnicową"
+      "update": "Zaktualizuj diagnostykę różnicową",
+      "completeInformation": "Uzupełnij brakujące informacje",
+      "followUpTitle": "Uzupełnij informacje kliniczne",
+      "followUpDescription": "Odpowiedz tylko na pytania, na które znasz odpowiedź. Każda odpowiedź pozostanie powiązana z pytaniem i zostanie dodana do opisu pacjenta.",
+      "answerPlaceholder": "Na przykład: Tak, zwłaszcza przy gorączce; nie wiadomo; badania nie wykonano…",
+      "followUpSubmit": "Zaktualizuj diagnostykę różnicową"
     },
     "recommended diagnosis test": "Jaki jest zalecany test diagnostyczny dla każdej z tych chorób?",
     "Indicates the quality of the result": "Czy te wyniki były pomocne?",

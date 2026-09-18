@@ -988,6 +988,34 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   strong { color: #1a1a2e; }
 }
 
+.disease-answer-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.disease-guidance-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid var(--accent-color, #B30000);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--accent-color, #B30000);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $duration ease;
+
+  &:hover {
+    background: var(--accent-color, #B30000);
+    color: #fff;
+  }
+}
+
 .disease-symptoms-zone {
   margin-top: 1rem;
   padding: 1rem 1.25rem;
@@ -1051,6 +1079,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     padding: 0.5rem 0.75rem;
     width: 100%;
   }
+  .disease-guidance-action { width: 100%; justify-content: center; }
   .disease-answer-zone, .disease-symptoms-zone { padding: 0.75rem; }
 }
 
