@@ -225,6 +225,10 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
 
         // Convertir Markdown a HTML
         let parsedContent = await marked.parse(normalized);
+
+        // Algunos modelos generan encabezados dentro de elementos de lista
+        // (por ejemplo, "1. ## Referencia"), lo que produce títulos enormes.
+        parsedContent = this.normalizeListItemHeadings(parsedContent);
         
         // Procesar referencias en el texto para convertirlas en enlaces
         parsedContent = this.processReferenceLinks(parsedContent);
@@ -241,6 +245,23 @@ export class MedicalInfoModalComponent implements OnInit, OnDestroy {
       // En caso de error, mostrar el contenido original
       this.htmlContent = this.content;
     }
+  }
+
+  /**
+   * Convierte encabezados dentro de <li> en texto normal conservando su contenido.
+   * Cubre tanto Markdown irregular procesado por marked como HTML generado directamente.
+   */
+  private normalizeListItemHeadings(htmlContent: string): string {
+    return htmlContent.replace(
+      /<li(\s[^>]*)?>([\s\S]*?)<\/li>/gi,
+      (_listItem, attributes = '', itemContent = '') => {
+        const normalizedContent = itemContent.replace(
+          /<h([1-6])(?:\s[^>]*)?>([\s\S]*?)<\/h\1>/gi,
+          '<span class="list-heading">$2</span>'
+        );
+        return `<li${attributes}>${normalizedContent}</li>`;
+      }
+    );
   }
 
   /**
