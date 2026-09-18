@@ -167,6 +167,21 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   color: rgba(255, 255, 255, 0.4);
   letter-spacing: 0.01em;
 }
+.hero-questions-link {
+  margin: 0.75rem 0 0;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.55);
+
+  a {
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+
+    span {
+      font-weight: 600;
+    }
+  }
+}
 
 /* ============================================================
    RESULTS PANEL
@@ -691,6 +706,10 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.5rem;
+}
+
+.hero-hint-chips--under-box {
+  justify-content: flex-start;
 }
 
 .hint-chip {

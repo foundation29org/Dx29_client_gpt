@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { EventsService } from 'app/shared/services/events.service';
@@ -170,7 +170,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     shouldShowDonate: boolean = false;
     donateLink: string = 'https://foundation29.org/donate?amount=25&utm_source=dxgpt#widget';
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, @Inject(PLATFORM_ID) private platformId: Object) {
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, @Inject(PLATFORM_ID) private platformId: Object) {
         this.initialize();
     }
 
@@ -190,7 +190,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }
         
         // Inicializar el placeholder con el idioma correcto
-        this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+        this.fullPlaceholderText = this.translate.instant('beta.placeholder');
         //get the language from the session
         this.lang = isBrowser ? LangService.getValidLangFromStorage() : 'en';
     }
@@ -341,8 +341,12 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         // Forzar la actualización del placeholder con el idioma actual
         if (isPlatformBrowser(this.platformId)) {
             setTimeout(() => {
-                this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
-                this.startTypingAnimation();
+                this.fullPlaceholderText = this.translate.instant('beta.placeholder');
+                if (this.consumePendingInput()) {
+                    this.resizeTextArea();
+                } else {
+                    this.startTypingAnimation();
+                }
             }, 200);
         }
     }
@@ -388,7 +392,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
                             this.restartInitVars();
                             this.currentStep = 1;
                             setTimeout(() => {
-                                this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+                                this.fullPlaceholderText = this.translate.instant('beta.placeholder');
                                 this.startTypingAnimation();
                             }, 200);
                         }
@@ -451,7 +455,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         // Suscribirse explícitamente a los cambios de idioma del servicio de traducción
         this.subscription.add(
             this.translate.onLangChange.subscribe((event) => {
-                this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+                this.fullPlaceholderText = this.translate.instant('beta.placeholder');
                 if (!this.medicalTextOriginal || this.medicalTextOriginal.trim() === '') {
                     this.startTypingAnimation();
                 }
@@ -939,8 +943,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             model: this.model,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
-            imageUrls: [],
-            betaPage: true
+            imageUrls: []
         };
         if(this.currentImageUrls.length > 0){
             value.imageUrls = this.currentImageUrls;
@@ -957,7 +960,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             value.diseases_list = this.diseaseListText;
         }
 
-        this.apiDx29ServerService.diagnose(value).subscribe(
+        this.apiDx29ServerService.ask(value).subscribe(
             (res: any) => this.handledDiagnoseResponse(res, value),
             (err: any) => this.handleAiError(err)
         );
@@ -1197,14 +1200,17 @@ export class BetaPageComponent implements OnInit, OnDestroy {
                 this.setDiseaseListEn(parseChoices0);
                 this.continuecallAI(parseChoices0);
             }else{
-                if(data.medicalAnswer){
+                if(data.suggestedPage === 'home'){
+                    this.showWrongPageRedirect('home');
+                    this.lauchEvent("Redirect to diagnosis");
+                }else if(data.medicalAnswer){
                     this.callingAI = false;
                     this.showMedicalInfoModal(data);
                     this.lauchEvent("Medical Info Modal");
                 }else{
-                    this.showError(this.translate.instant("undiagnosed.only_patient_description"), null);
+                    this.showError(this.translate.instant("beta.only_medical_question"), null);
                     this.callingAI = false;
-                    this.lauchEvent("only_patient_description Modal");
+                    this.lauchEvent("only_medical_question Modal");
                 }
             }
         }
@@ -1225,6 +1231,42 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.model = content.model;
         modalRef.componentInstance.selectedFiles = this.selectedFiles;
         modalRef.componentInstance.detectedLang = content.detectedLang;
+    }
+
+    private consumePendingInput(): boolean {
+        if (!isPlatformBrowser(this.platformId)) {
+            return false;
+        }
+        const pending = sessionStorage.getItem('dxgpt.pendingPageInput');
+        if (!pending) {
+            return false;
+        }
+        sessionStorage.removeItem('dxgpt.pendingPageInput');
+        this.medicalTextOriginal = pending;
+        return true;
+    }
+
+    showWrongPageRedirect(target: 'questions' | 'home'): void {
+        this.callingAI = false;
+        const text = this.medicalTextOriginal;
+        const msgKey = target === 'questions' ? 'land.redirect_to_questions' : 'beta.redirect_to_diagnosis';
+        const btnKey = target === 'questions' ? 'land.redirect_confirm' : 'beta.redirect_confirm';
+        Swal.close();
+        Swal.fire({
+            icon: 'info',
+            html: this.translate.instant(msgKey),
+            showCancelButton: true,
+            confirmButtonText: this.translate.instant(btnKey),
+            cancelButtonText: this.translate.instant('generics.Cancel'),
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (isPlatformBrowser(this.platformId) && text) {
+                    sessionStorage.setItem('dxgpt.pendingPageInput', text);
+                }
+                this.router.navigate([target === 'questions' ? '/beta' : '/']);
+            }
+        });
     }
 
     includesElement(array, string) {
@@ -2763,7 +2805,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         
         // Asegurarse de que fullPlaceholderText esté actualizado si aún no se ha establecido
         if (!this.fullPlaceholderText) {
-            this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
+            this.fullPlaceholderText = this.translate.instant('beta.placeholder');
         }
         
         this.textareaPlaceholder = '';
@@ -3105,16 +3147,12 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         if (this.callingAI) {
             return this.translate.instant('generics.Please wait');
         }
-        
+
         if (this.medicalTextOriginal.length < 5) {
-            return this.translate.instant('land.placeholderError');
+            return this.translate.instant('beta.placeholder');
         }
-        
-        if (this.selectedFiles.length > 0 && !this.filesAnalyzed) {
-            return this.translate.instant('diagnosis.Analyze uploaded files and search for diagnoses');
-        }
-        
-        return this.translate.instant('land.Search');
+
+        return this.translate.instant('beta.search');
     }
 
     

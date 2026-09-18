@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { EventsService } from 'app/shared/services/events.service';
@@ -155,9 +155,22 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     isInIframe: boolean = false;
 
     shouldShowDonate: boolean = false;
+    shouldShowQuestionsPage: boolean = false;
+    showMultimodalDetails: boolean = false;
     donateLink: string = 'https://foundation29.org/donate?amount=25&utm_source=dxgpt#widget';
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, @Inject(PLATFORM_ID) private platformId: Object) {
+    get selectedImagesCount(): number {
+        return (this.selectedFiles || []).filter(f => f.type && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(f.type)).length;
+    }
+    get selectedDocsCount(): number {
+        return (this.selectedFiles || []).filter(f => f.type && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(f.type)).length;
+    }
+    get selectedTotalMB(): number {
+        const bytes = (this.selectedFiles || []).reduce((acc: number, f: File) => acc + (f.size || 0), 0);
+        return Math.round((bytes / (1024 * 1024)) * 10) / 10;
+    }
+
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, @Inject(PLATFORM_ID) private platformId: Object) {
         this.initialize();
     }
 
@@ -359,6 +372,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private updateDonateVisibility(): void {
         this.shouldShowDonate = this.brandingService.shouldShowResultsDonate();
         this.donateLink = this.brandingService.getDonateLink() || this.donateLink;
+        const config = this.brandingService.getBrandingConfig();
+        this.shouldShowQuestionsPage = config?.links?.beta === true;
     }
 
     lauchEvent(category) {
@@ -440,7 +455,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (isPlatformBrowser(this.platformId)) {
             setTimeout(() => {
                 this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
-                this.startTypingAnimation();
+                if (this.consumePendingInput()) {
+                    this.resizeTextArea();
+                } else {
+                    this.startTypingAnimation();
+                }
             }, 200);
         }
     }
@@ -1285,7 +1304,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.setDiseaseListEn(parseChoices0);
                 this.continuecallAI(parseChoices0);
             }else{
-                if(data.medicalAnswer){
+                if(data.suggestedPage === 'questions'){
+                    this.showWrongPageRedirect('questions');
+                    this.lauchEvent("Redirect to medical questions");
+                }else if(data.medicalAnswer){
                     this.callingAI = false;
                     this.showMedicalInfoModal(data);
                     this.lauchEvent("Medical Info Modal");
@@ -1313,6 +1335,42 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.model = content.model;
         modalRef.componentInstance.selectedFiles = this.selectedFiles;
         modalRef.componentInstance.detectedLang = content.detectedLang;
+    }
+
+    private consumePendingInput(): boolean {
+        if (!isPlatformBrowser(this.platformId)) {
+            return false;
+        }
+        const pending = sessionStorage.getItem('dxgpt.pendingPageInput');
+        if (!pending) {
+            return false;
+        }
+        sessionStorage.removeItem('dxgpt.pendingPageInput');
+        this.medicalTextOriginal = pending;
+        return true;
+    }
+
+    showWrongPageRedirect(target: 'questions' | 'home'): void {
+        this.callingAI = false;
+        const text = this.medicalTextOriginal;
+        const msgKey = target === 'questions' ? 'land.redirect_to_questions' : 'beta.redirect_to_diagnosis';
+        const btnKey = target === 'questions' ? 'land.redirect_confirm' : 'beta.redirect_confirm';
+        Swal.close();
+        Swal.fire({
+            icon: 'info',
+            html: this.translate.instant(msgKey),
+            showCancelButton: true,
+            confirmButtonText: this.translate.instant(btnKey),
+            cancelButtonText: this.translate.instant('generics.Cancel'),
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (isPlatformBrowser(this.platformId) && text) {
+                    sessionStorage.setItem('dxgpt.pendingPageInput', text);
+                }
+                this.router.navigate([target === 'questions' ? '/beta' : '/']);
+            }
+        });
     }
 
     includesElement(array, string) {

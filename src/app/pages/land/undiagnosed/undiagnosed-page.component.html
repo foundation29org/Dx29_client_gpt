@@ -14,7 +14,8 @@
     <div
       class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center">
       <div class="search-container">
-        <div class="search">
+        <div class="search" [class.drag-over]="isDragOver"
+             (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
             [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" [attr.placeholder]="textareaPlaceholder"
             (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
@@ -27,7 +28,7 @@
             </div>
         </div>
       </div>
-      <div class="chips-and-counter-row mt-2 mb-2" *ngIf="false">
+      <div class="chips-and-counter-row mt-2 mb-2">
         <div class="file-chips-row">
           <button type="button" class="chip-btn-add" [disabled]="callingAI" (click)="triggerFileInput(fileInput)"
             title="{{'diagnosis.Upload document or image' | translate}}" aria-label="{{'diagnosis.Upload document or image' | translate}}">
@@ -43,8 +44,8 @@
             </span>
           </ng-container>
         </div>
-        <div class="chips-counter">
-          <span [class.text-danger]="countCharacters(medicalTextOriginal) > 8000" 
+        <div class="chips-counter" *ngIf="countCharacters(medicalTextOriginal) >= 2000">
+          <span [class.text-danger]="countCharacters(medicalTextOriginal) > 8000"
                 [class.text-warning]="countCharacters(medicalTextOriginal) > 3000 && countCharacters(medicalTextOriginal) <= 8000">
             {{ countCharacters(medicalTextOriginal) }} {{'generics.characters' | translate}}
             <span class="ms-1" *ngIf="countCharacters(medicalTextOriginal) > 2000">
@@ -52,22 +53,44 @@
             </span>
           </span>
         </div>
+        <div class="hero-meta hero-meta--inline" *ngIf="countCharacters(medicalTextOriginal) < 2000">
+          <ng-container *ngIf="selectedFiles.length; else uploadLimits">
+            {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
+          </ng-container>
+          <ng-template #uploadLimits>
+            {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
+          </ng-template>
+        </div>
       </div>
-      <!-- Mensaje informativo sobre funcionalidad multimodal -->
+      <div class="hero-meta" *ngIf="selectedFiles.length && countCharacters(medicalTextOriginal) >= 2000">
+        {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
+        <span class="ms-2">
+          {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
+        </span>
+      </div>
       <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary mt-3 mb-3" role="alert" style="text-align: left;">
         <div class="d-flex align-items-start">
-          <i class="fa fa-info-circle fa-2x me-3 mt-1"></i>
-          <div>
-            <h5 class="alert-heading mb-2">{{'land.multimodalInfo.title' | translate}}</h5>
-            <p class="mb-2">{{'land.multimodalInfo.description' | translate}}</p>
-            <p class="mb-2"><strong>{{'land.multimodalInfo.instructions' | translate}}</strong></p>
-            <ul class="mb-2">
-              <li>{{'land.multimodalInfo.instruction1' | translate}}</li>
-              <li>{{'land.multimodalInfo.instruction2' | translate}}</li>
-              <li>{{'land.multimodalInfo.instruction3' | translate}}</li>
-              <li>{{'land.multimodalInfo.instruction4' | translate}}</li>
-            </ul>
-            <p class="mb-0"><em>{{'land.multimodalInfo.feedback' | translate}}</em></p>
+          <i class="fa fa-info-circle me-2 mt-1"></i>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center justify-content-between">
+              <span>{{'land.multimodalInfo.short' | translate}}</span>
+              <button type="button" class="beta-info-btn ms-2" (click)="showMultimodalDetails = !showMultimodalDetails"
+                [attr.aria-expanded]="showMultimodalDetails"
+                [attr.aria-label]="(showMultimodalDetails ? 'generics.Hide details' : 'generics.Show details') | translate"
+                [title]="(showMultimodalDetails ? 'generics.Hide details' : 'generics.Show details') | translate">
+                <i class="fa" [class.fa-chevron-down]="!showMultimodalDetails" [class.fa-chevron-up]="showMultimodalDetails"></i>
+              </button>
+            </div>
+            <div *ngIf="showMultimodalDetails" class="mt-2">
+              <p class="mb-2"><strong>{{'land.multimodalInfo.instructions' | translate}}</strong></p>
+              <ul class="mb-2">
+                <li>{{'land.multimodalInfo.instruction1' | translate}}</li>
+                <li>{{'land.multimodalInfo.instruction2' | translate}}</li>
+                <li>{{'land.multimodalInfo.instruction3' | translate}}</li>
+                <li>{{'land.multimodalInfo.instruction4' | translate}}</li>
+              </ul>
+              <p class="mb-0"><em>{{'land.multimodalInfo.feedback' | translate}}</em></p>
+            </div>
           </div>
         </div>
       </div>
@@ -146,6 +169,10 @@
         <i class="fa fa-lightbulb-o"></i>
         {{'land.Getting started' | translate }}
       </span>
+      <p class="hero-questions-note" *ngIf="shouldShowQuestionsPage">
+        {{'land.questions_footnote' | translate}}
+        <a routerLink="/beta" (click)="lauchEvent('Home - Open medical questions')">{{'menu.Questions' | translate}}</a>
+      </p>
     </div>
   </section>
   <section *ngIf="currentStep == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 mb-5 mt-2 step-transition">

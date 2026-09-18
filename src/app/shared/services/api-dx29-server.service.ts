@@ -30,7 +30,15 @@ getInfoLocation() {
 }
 
 diagnose(info: any) {
-    return this.http.post(environment.api + '/diagnose', info)
+    return this.postDiagnoseOrAsk('/diagnose', info);
+}
+
+ask(info: any) {
+    return this.postDiagnoseOrAsk('/ask', info);
+}
+
+private postDiagnoseOrAsk(path: string, info: any) {
+    return this.http.post(environment.api + path, info)
       .pipe(
         map((res: any) => {
           if (res.result === 'queued') {

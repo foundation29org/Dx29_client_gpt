@@ -114,6 +114,25 @@ i{
   width: 120px;
 }
 
+.questions-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  white-space: nowrap;
+}
+
+.questions-experimental {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #6b5200;
+  background: #ffe08a;
+  border-radius: 999px;
+  padding: 0.08rem 0.32rem;
+  line-height: 1.2;
+}
+
 .beta-a{
   width: 100px;
   background: linear-gradient(135deg, #ffc107, #ff8f00) !important;
@@ -355,6 +374,7 @@ i{
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
+  .questions-link,
   .beta-link {
     margin-top: 10px;
     padding: 16px 0 0;

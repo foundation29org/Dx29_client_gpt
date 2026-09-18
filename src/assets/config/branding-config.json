@@ -94,7 +94,7 @@
     },
     "links": {
       "donate": null,
-      "beta": false,
+      "beta": true,
       "support": "SALUD-GPT support"
     },
     "backgrounds": {

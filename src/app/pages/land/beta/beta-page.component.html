@@ -3,9 +3,8 @@
   <section *ngIf="currentStep == 1" class="col-12 d-flex flex-column hero-section">
     <div>
       <div class="mb-4 col-sm-12 offset-md-2 col-md-8 justify-content-center align-items-center text-center">
-        <h1 class="hero-title" (click)="changeModeFunctionality()">{{'land.titleBeta' | translate }}</h1>
+        <h1 class="hero-title">{{'land.titleBeta' | translate }}</h1>
         
-        <!-- Subtítulo para versión beta: una línea fija + detalle bajo demanda -->
         <div class="beta-warning mb-3 mt-4">
           <div class="alert alert-warning d-inline-flex align-items-center" role="alert">
             <i class="fas fa-flask me-2"></i>
@@ -18,20 +17,9 @@
             </button>
           </div>
           <div class="beta-details" *ngIf="showBetaDetails">
-            <p class="mb-1">{{ 'beta.warning_message' | translate }} {{ 'beta.warning_feedback' | translate }}</p>
-            <p class="mb-0">{{ 'beta.dual_mode_hint' | translate }}</p>
+            <p class="mb-1">{{ 'beta.warning_message' | translate }}</p>
+            <p class="mb-0">{{ 'beta.warning_feedback' | translate }}</p>
           </div>
-        </div>
-        <!-- Los dos modos de entrada, enseñados con ejemplos accionables en vez de texto -->
-        <div class="hero-hint-chips mt-1">
-          <button type="button" class="hint-chip" (click)="useExample('patient')"
-            [title]="'beta.example_patient' | translate">
-            <i class="fa fa-stethoscope me-1"></i>{{ 'beta.example_patient_short' | translate }}
-          </button>
-          <button type="button" class="hint-chip" (click)="useExample('question')"
-            [title]="'beta.example_question' | translate">
-            <i class="fa fa-question-circle me-1"></i>{{ 'beta.example_question_short' | translate }}
-          </button>
         </div>
         
         <div *ngIf="modeFunctionality" class="badge bg-danger pulse-animation mb-3">
@@ -43,140 +31,40 @@
     <div
       class="col-sm-12 offset-md-1 col-md-10 offset-lg-1 col-lg-10 justify-content-center align-items-center text-center">
       <div class="search-container">
-        <div class="search" [class.drag-over]="isDragOver"
-             (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+        <div class="search">
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
             [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" [attr.placeholder]="textareaPlaceholder"
             (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
             [readonly]="callingAI"></textarea>
-            <div *ngIf="isDragOver" class="drag-overlay">
-              <div class="drag-overlay-content">
-                <em class="fa fa-upload fa-3x mb-3"></em>
-                <p>{{'land.dropzone' | translate}}</p>
-              </div>
-            </div>
         </div>
       </div>
-      <div class="chips-and-counter-row mt-2 mb-2">
-        <div class="file-chips-row">
-          <button type="button" class="chip-btn-add" [disabled]="callingAI" (click)="triggerFileInput(fileInput)"
-            title="{{'diagnosis.Upload document or image' | translate}}" aria-label="{{'diagnosis.Upload document or image' | translate}}">
-            <input #fileInput type="file" multiple (change)="onFilesSelected($event)" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,image/jpeg,image/png,image/bmp,image/tiff,image/webp"/>
-            <i class="fa fa-plus"></i>
-          </button>
-          <span *ngIf="!selectedFiles.length" class="chip-add-text d-none d-md-inline ms-1">{{'diagnosis.Upload document or image' | translate}}</span>
-          <ng-container *ngFor="let file of selectedFiles; let i = index">
-            <span class="file-chip">
-              <i class="fa me-1" [class.fa-file-text-o]="!file.type.startsWith('image/')" [class.fa-file-image-o]="file.type.startsWith('image/')"></i>
-              <span class="file-chip-name">{{ file.name }}</span>
-              <button type="button" class="chip-btn-remove" (click)="removeFile(i)"><i class="fa fa-times"></i></button>
-            </span>
-          </ng-container>
-        </div>
-        <div class="chips-counter" *ngIf="countCharacters(medicalTextOriginal) >= 2000">
-          <span [class.text-danger]="countCharacters(medicalTextOriginal) > 8000" 
+      <div class="hero-hint-chips hero-hint-chips--under-box mt-2">
+        <button type="button" class="hint-chip" (click)="useExample('question')"
+          [title]="'beta.example_question' | translate">
+          <i class="fa fa-question-circle me-1"></i>{{ 'beta.example_question_short' | translate }}
+        </button>
+      </div>
+      <div class="chips-and-counter-row mt-2 mb-2" *ngIf="countCharacters(medicalTextOriginal) >= 2000">
+        <div class="chips-counter">
+          <span [class.text-danger]="countCharacters(medicalTextOriginal) > 8000"
                 [class.text-warning]="countCharacters(medicalTextOriginal) > 3000 && countCharacters(medicalTextOriginal) <= 8000">
             {{ countCharacters(medicalTextOriginal) }} {{'generics.characters' | translate}}
-            <span class="ms-1" *ngIf="countCharacters(medicalTextOriginal) > 2000">
+            <span class="ms-1">
               ({{'generics.recommended' | translate}}: 2000-3000)
             </span>
           </span>
         </div>
-        <div class="hero-meta hero-meta--inline" *ngIf="countCharacters(medicalTextOriginal) < 2000">
-          <ng-container *ngIf="selectedFiles.length; else uploadLimits">
-            {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
-          </ng-container>
-          <ng-template #uploadLimits>
-            {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
-          </ng-template>
-        </div>
-      </div>
-      <div class="hero-meta" *ngIf="selectedFiles.length && countCharacters(medicalTextOriginal) >= 2000">
-        {{ 'beta.upload_limits' | translate:{ maxMB: 20, maxDocs: 5, maxImages: 5 } }}
-        <span class="ms-2">
-          {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
-        </span>
-      </div>
-      <!-- Mensaje informativo sobre funcionalidad multimodal: una línea + detalle bajo demanda -->
-      <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary mt-3 mb-3" role="alert" style="text-align: left;">
-        <div class="d-flex align-items-start">
-          <i class="fa fa-info-circle me-2 mt-1"></i>
-          <div class="flex-grow-1">
-            <div class="d-flex align-items-center justify-content-between">
-              <span>{{'land.multimodalInfo.short' | translate}}</span>
-              <button type="button" class="beta-info-btn ms-2" (click)="showMultimodalDetails = !showMultimodalDetails"
-                [attr.aria-expanded]="showMultimodalDetails"
-                [attr.aria-label]="(showMultimodalDetails ? 'generics.Hide details' : 'generics.Show details') | translate"
-                [title]="(showMultimodalDetails ? 'generics.Hide details' : 'generics.Show details') | translate">
-                <i class="fa" [class.fa-chevron-down]="!showMultimodalDetails" [class.fa-chevron-up]="showMultimodalDetails"></i>
-              </button>
-            </div>
-            <div *ngIf="showMultimodalDetails" class="mt-2">
-              <p class="mb-2"><strong>{{'land.multimodalInfo.instructions' | translate}}</strong></p>
-              <ul class="mb-2">
-                <li>{{'land.multimodalInfo.instruction1' | translate}}</li>
-                <li>{{'land.multimodalInfo.instruction2' | translate}}</li>
-                <li>{{'land.multimodalInfo.instruction3' | translate}}</li>
-                <li>{{'land.multimodalInfo.instruction4' | translate}}</li>
-              </ul>
-              <p class="mb-0"><em>{{'land.multimodalInfo.feedback' | translate}}</em></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Banner de revisión después del análisis, ahora encima de la caja de texto -->
-      <div *ngIf="selectedFiles.length > 0 && filesAnalyzed && summary" class="alert alert-success mt-3 mb-3" role="alert" style="text-align: left;">
-        <div class="d-flex align-items-start">
-          <i class="fa fa-check-circle fa-2x me-3 mt-1"></i>
-          <div>
-            <h5 class="alert-heading mb-2">{{'diagnosis.Analysis completed' | translate}}</h5>
-            <p class="mb-2">{{'diagnosis.We have processed your inputs' | translate}}</p>
-            <p class="mb-0"><strong>{{'diagnosis.Please review the text' | translate}}</strong></p>
-          </div>
-        </div>
       </div>
 
       <div class="col-12 text-center mt-4">
-        <button *ngIf="selectedFiles.length > 0 && !filesAnalyzed" 
-                class="btn-search-hero" 
-                (click)="analyzeMultimodal()" 
-                [disabled]="callingAI"
-                [attr.title]="'diagnosis.Analyze uploaded files and search for diagnoses' | translate"
-                [attr.aria-label]="'diagnosis.Analyze uploaded files and search for diagnoses' | translate">
-          <i *ngIf="callingAI" class="fa fa-spinner fa-spin"></i>
-          <i *ngIf="!callingAI" class="fa fa-search-plus"></i>
-          {{'diagnosis.Analyze files and search' | translate}}
-        </button>
-
-        <button *ngIf="(selectedFiles.length === 0 || filesAnalyzed) && !modeFunctionality"
-                class="btn-search-hero" 
+        <button class="btn-search-hero"
                 (click)="checkPopup(contentIntro)"
                 [attr.title]="getButtonTitle()"
                 [attr.aria-label]="getButtonTitle()"
                 [disabled]="callingAI">
           <i *ngIf="callingAI" class="fa fa-spinner fa-spin"></i>
           <i *ngIf="!callingAI" class="fa fa-search"></i>
-          {{'land.Search' | translate }}
-        </button>
-        <button *ngIf="(selectedFiles.length === 0 || filesAnalyzed) && modeFunctionality" 
-                class="btn-search-hero" 
-                (click)="handleERResponse(contentFollowUpQuestions)"
-                [attr.title]="getButtonTitle()"
-                [attr.aria-label]="getButtonTitle()"
-                [disabled]="callingAI">
-          <i *ngIf="callingAI" class="fa fa-spinner fa-spin"></i>
-          <i *ngIf="!callingAI" class="fa fa-search"></i>
-          {{'land.Search' | translate }}
-        </button>
-        
-        <button *ngIf="selectedFiles.length > 0 && filesAnalyzed && filesModifiedAfterAnalysis && !modeFunctionality" 
-                class="btn btn-outline-warning btn-lg ms-2" 
-                (click)="reanalyzeFiles()" 
-                [disabled]="callingAI"
-                title="{{'diagnosis.Files modified - re-analyze needed' | translate}}"
-                aria-label="{{'diagnosis.Files modified - re-analyze needed' | translate}}">
-          <i class="fa fa-exclamation-triangle me-2"></i>
-          {{'diagnosis.Re-analyze' | translate}}
+          {{'beta.search' | translate }}
         </button>
       </div>
     </div>
@@ -194,11 +82,12 @@
     </div>-->
     <div
       class="mt-4 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
-      <span class="quick-start-pill" (click)="showContentInfoAPP(contentInfoAPP)"
-     [attr.title]="getLiteral('land.Getting started')" [attr.aria-label]="getLiteral('land.Getting started')">
-        <i class="fa fa-lightbulb-o"></i>
-        {{'land.Getting started' | translate }}
-      </span>
+      <p class="hero-questions-link">
+        <a routerLink="/" (click)="lauchEvent('Questions - Open diagnosis')">
+          {{'beta.diagnosis_link' | translate}}
+          <span>{{'beta.diagnosis_link_cta' | translate}}</span>
+        </a>
+      </p>
     </div>
   </section>
   <section *ngIf="currentStep == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 mb-5 mt-2 step-transition">
