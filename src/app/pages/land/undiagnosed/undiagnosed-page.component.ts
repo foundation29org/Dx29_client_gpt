@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { EventsService } from 'app/shared/services/events.service';
@@ -97,11 +97,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     myCountryCode: string = '';
     countriesList: any[] = [];
     terms2: boolean = false;
-    model: string = 'gpt54mini';
-    defaultModel: string = 'gpt54mini';
-    advancedModel: string = 'o3';
-    previousModel: string = 'gpt54mini'; // Modelo anterior para restaurar en caso de error
-    imageModel: string = 'gpt5';
+    model: string = 'gpt56terra';
     
     // Propiedad para manejar el placeholder
     textareaPlaceholder: string = '';
@@ -159,9 +155,22 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     isInIframe: boolean = false;
 
     shouldShowDonate: boolean = false;
+    shouldShowQuestionsPage: boolean = false;
+    showMultimodalDetails: boolean = false;
     donateLink: string = 'https://foundation29.org/donate?amount=25&utm_source=dxgpt#widget';
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, @Inject(PLATFORM_ID) private platformId: Object) {
+    get selectedImagesCount(): number {
+        return (this.selectedFiles || []).filter(f => f.type && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(f.type)).length;
+    }
+    get selectedDocsCount(): number {
+        return (this.selectedFiles || []).filter(f => f.type && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(f.type)).length;
+    }
+    get selectedTotalMB(): number {
+        const bytes = (this.selectedFiles || []).reduce((acc: number, f: File) => acc + (f.size || 0), 0);
+        return Math.round((bytes / (1024 * 1024)) * 10) / 10;
+    }
+
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, @Inject(PLATFORM_ID) private platformId: Object) {
         this.initialize();
     }
 
@@ -331,8 +340,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async goPrevious() {
-        this.model = this.defaultModel;
-        this.previousModel = this.defaultModel; // Resetear también previousModel al volver al inicio
         this.topRelatedConditions = [];
         this.currentStep = 1;
         // Notificar que ya no hay diagnósticos activos
@@ -365,6 +372,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private updateDonateVisibility(): void {
         this.shouldShowDonate = this.brandingService.shouldShowResultsDonate();
         this.donateLink = this.brandingService.getDonateLink() || this.donateLink;
+        const config = this.brandingService.getBrandingConfig();
+        this.shouldShowQuestionsPage = config?.links?.beta === true;
     }
 
     lauchEvent(category) {
@@ -446,7 +455,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (isPlatformBrowser(this.platformId)) {
             setTimeout(() => {
                 this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
-                this.startTypingAnimation();
+                if (this.consumePendingInput()) {
+                    this.resizeTextArea();
+                } else {
+                    this.startTypingAnimation();
+                }
             }, 200);
         }
     }
@@ -763,11 +776,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             msgError = this.translate.instant("generics.error try again");
         }
         
-        // Restaurar el modelo anterior en caso de error
-        if (this.previousModel) {
-            this.model = this.previousModel;
-        }
-        
         this.showError(msgError, error);
         this.callingAI = false;
     }
@@ -925,7 +933,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     continuePreparingcallAI(step) {
         if (step == 'step4') {
-            this.callAI(this.defaultModel);
+            this.callAI();
         } else {
             Swal.fire({
                 title: this.translate.instant("generics.Please wait"),
@@ -936,7 +944,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }).then((result) => {
 
             });
-            this.callAI(this.defaultModel);
+            this.callAI();
         }
 
     }
@@ -960,31 +968,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return filteredParams;
     }
 
-    async callAI(stringModel: string) {
+    async callAI() {
         Swal.close();
         if(this.topRelatedConditions.length == 0){
             this.lauchEvent('diagnosis_started');
         }
-        // Determinar el modelo a usar
-        let modelToUse = stringModel;
-        //this.model = modelToUse;
-        // NO cambiar this.model aquí - se cambiará solo cuando la llamada sea exitosa
-        // Esto permite restaurar el modelo anterior si hay error o cancelación
-        // Siempre usar WebSocket para mejor UX y prepararse para detección de intención
-        // Esto evita problemas cuando el backend detecta automáticamente que debe usar o3
+        // Siempre usar WebSocket para mejorar la UX.
         const shouldUseWebSocket = true;
-        
-        //console.log(`Model: ${modelToUse}, shouldUseWebSocket: ${shouldUseWebSocket}`);
         
         if (shouldUseWebSocket) {
             try {
                 await this.connectWebSocket();
             } catch (error) {
                 console.error('Error connecting WebSocket:', error);
-                // Restaurar el modelo anterior en caso de error de conexión
-                if (this.previousModel) {
-                    this.model = this.previousModel;
-                }
                 this.showError(this.translate.instant("generics.error try again"), error);
                 this.callingAI = false;
                 return;
@@ -1016,10 +1012,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         }).then(function (event) {
             if (event.dismiss == Swal.DismissReason.cancel) {
-                // Restaurar el modelo anterior si el usuario cancela
-                if (this.previousModel) {
-                    this.model = this.previousModel;
-                }
                 this.callingAI = false;
                 this.subscription.unsubscribe();
                 this.subscription = new Subscription();
@@ -1052,14 +1044,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             timezone: this.timezone, 
             countryName: this.myCountry,
             countryCode: this.myCountryCode,
-            model: modelToUse,
+            model: this.model,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
             imageUrls: []
         };
         if(this.currentImageUrls.length > 0){
             value.imageUrls = this.currentImageUrls;
-            value.model = this.imageModel;
             if(this.descriptionImageOnly != '' && value.description == ''){
                 value.description = this.descriptionImageOnly;
             }else if (this.descriptionImageOnly != '' && value.description != ''){
@@ -1077,28 +1068,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             (res: any) => this.handledDiagnoseResponse(res, value),
             (err: any) => this.handleAiError(err)
         );
-    }
-
-    callAdvancedModel(){
-        this.lauchEvent('callAdvancedModel' );
-        // Guardar el modelo actual antes de cambiarlo
-        this.previousModel = this.model;
-        this.callingAI = true;
-        this.medicalTextEng = this.medicalTextOriginal;
-        this.differentialTextOriginal = '';
-        this.differentialTextTranslated = '';
-        this.callAI(this.advancedModel);
-    }
-
-    callFastModel(){
-        this.lauchEvent('callFastModel');
-        // Guardar el modelo actual antes de cambiarlo
-        this.previousModel = this.model;
-        this.callingAI = true;
-        this.medicalTextEng = this.medicalTextOriginal;
-        this.differentialTextOriginal = '';
-        this.differentialTextTranslated = '';
-        this.callAI(this.defaultModel);
     }
 
     handledDiagnoseResponse(res: any, value: any) {
@@ -1279,11 +1248,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             msgError = this.translate.instant('generics.error try again');
         }
     
-        // Restaurar el modelo anterior en caso de error
-        if (this.previousModel) {
-            this.model = this.previousModel;
-        }
-        
         this.showError(msgError, err);
         this.callingAI = false;
     }
@@ -1319,14 +1283,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     processAiSuccess(data: any, value: any) {
-        // Establecer el modelo solo cuando la llamada sea exitosa
-        if(data.model && data.model == this.advancedModel){
-            this.model = this.advancedModel;
-        }else{
-            this.model = this.defaultModel;
-        }
-        // Limpiar previousModel ya que el cambio fue exitoso
-        this.previousModel = null;
         this.cancelQueueStatusCheck();
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
@@ -1348,7 +1304,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.setDiseaseListEn(parseChoices0);
                 this.continuecallAI(parseChoices0);
             }else{
-                if(data.medicalAnswer){
+                if(data.suggestedPage === 'questions'){
+                    this.showWrongPageRedirect('questions');
+                    this.lauchEvent("Redirect to medical questions");
+                }else if(data.medicalAnswer){
                     this.callingAI = false;
                     this.showMedicalInfoModal(data);
                     this.lauchEvent("Medical Info Modal");
@@ -1376,6 +1335,42 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.model = content.model;
         modalRef.componentInstance.selectedFiles = this.selectedFiles;
         modalRef.componentInstance.detectedLang = content.detectedLang;
+    }
+
+    private consumePendingInput(): boolean {
+        if (!isPlatformBrowser(this.platformId)) {
+            return false;
+        }
+        const pending = sessionStorage.getItem('dxgpt.pendingPageInput');
+        if (!pending) {
+            return false;
+        }
+        sessionStorage.removeItem('dxgpt.pendingPageInput');
+        this.medicalTextOriginal = pending;
+        return true;
+    }
+
+    showWrongPageRedirect(target: 'questions' | 'home'): void {
+        this.callingAI = false;
+        const text = this.medicalTextOriginal;
+        const msgKey = target === 'questions' ? 'land.redirect_to_questions' : 'beta.redirect_to_diagnosis';
+        const btnKey = target === 'questions' ? 'land.redirect_confirm' : 'beta.redirect_confirm';
+        Swal.close();
+        Swal.fire({
+            icon: 'info',
+            html: this.translate.instant(msgKey),
+            showCancelButton: true,
+            confirmButtonText: this.translate.instant(btnKey),
+            cancelButtonText: this.translate.instant('generics.Cancel'),
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (isPlatformBrowser(this.platformId) && text) {
+                    sessionStorage.setItem('dxgpt.pendingPageInput', text);
+                }
+                this.router.navigate([target === 'questions' ? '/beta' : '/']);
+            }
+        });
     }
 
     includesElement(array, string) {
@@ -1415,6 +1410,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
          this.topRelatedConditions = [];
         }
 
+        const appendedFromLoadMore = this.loadMoreDiseases;
         const indexDisease = this.topRelatedConditions.length;
         const isEu = this.isEuMode();
         parseChoices.forEach((disease, i) => {
@@ -1466,7 +1462,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.lauchEvent("Multimodal" + this.selectedFiles.length);
         }
         await this.delay(200);
-        this.scrollTo();
+        if (appendedFromLoadMore) {
+            this.scrollToFirstNewDisease(indexDisease);
+        } else {
+            this.scrollTo();
+        }
     }
 
     setDiseaseListEn(text) {
@@ -1481,7 +1481,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var diseases = this.diseaseListEn.map(disease => '+' + disease).join(', ');
         this.diseaseListText = diseases;
         this.loadMoreDiseases = true;
-        this.callAI(this.model);
+        this.callAI();
     }
 
     getDiseaseListTextLength(): number {
@@ -1495,6 +1495,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     async scrollTo() {
         await this.delay(400);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
+    }
+
+    async scrollToFirstNewDisease(index: number) {
+        await this.delay(200);
+        const firstNew = document.getElementById('disease-card-' + index);
+        if (firstNew) {
+            firstNew.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
     cancelCallQuestion() {
@@ -2319,7 +2327,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
         this.differentialTextTranslated = '';
-        this.callAI(this.model);
+        this.callAI();
     }
 
 
@@ -2567,7 +2575,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         
                         // Realizar una nueva búsqueda con la descripción actualizada
                         this.processingFollowUpAnswers = false;
-                        this.callAI(this.model);
+                        this.callAI();
                         
                         this.lauchEvent("FollowUp - Descripción actualizada");
                     } else {

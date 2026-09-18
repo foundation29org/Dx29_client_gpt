@@ -56,7 +56,7 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
         return seconds;
     };
 
-    lauchEvent(category) {
+    lauchEvent(category: string) {
         var secs = this.getElapsedSeconds();
         try {
             if (typeof gtag === 'function') {
@@ -128,8 +128,8 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
     }
 
     /**
-     * Renders the Track A "avg_position" bar chart using Chart.js.
-     * Mirrors the chart from eval/docs/benchmark-report.html (reversed Y axis, base = 1.72).
+     * Renders the strict Track A R@1 comparison using Chart.js.
+     * One representative configuration is shown per model family.
      */
     private renderTrackAChart(): void {
         const ChartCtor = (window as any).Chart;
@@ -138,34 +138,46 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
+        const firstPositionLabel = this.translate.instant(
+            'aboutUs.evaluation.evolution.benchmark2026.headingR1'
+        );
+
         const labels = [
-            'gemini-3-pro ⭐',
-            'gemini-2.5-pro',
-            'gemini-2.5-flash',
-            'grok-4.1',
+            'gpt-5.6-terra low ⭐',
             'gpt-5.4 full',
-            'gpt-5.4-mini ⭐',
-            'o3',
+            'grok-4.6 low',
+            'gpt-6-astra low',
+            'gemini-3.5-flash low',
+            'gemini-3.1-pro low',
+            'gpt-5.6-sol medium',
+            'gemini-3.8-flash low',
+            'gemini-3-pro low',
+            'claude-opus-5 low',
+            'gemini-2.5-pro low',
+            'gpt-5.4-mini low',
             'gpt-4o',
-            'gpt-5.4-mini\n(medium)',
-            'gpt-5-mini ⚠️',
-            'claude-opus ⚠️'
+            'o3 high',
+            'gemini-2.5-flash low'
         ];
 
-        const values = [1.299, 1.299, 1.434, 1.448, 1.502, 1.526, 1.530, 1.545, 1.570, 1.588, 1.668];
+        const values = [63.3, 62.9, 62.9, 62.1, 62.1, 61.3, 60.9, 59.8, 59.8, 59.4, 59.4, 58.2, 57.4, 56.6, 56.6];
 
         const colors = [
-            '#059669', // gemini-3-pro
-            '#10b981', // gemini-2.5-pro
-            '#34d399', // gemini-2.5-flash
-            '#0891b2', // grok-4.1
-            '#3b82f6', // gpt-5.4 full
-            '#60a5fa', // gpt-5.4-mini
-            '#818cf8', // o3
-            '#93c5fd', // gpt-4o
-            '#f59e0b', // gpt-5.4-mini medium
-            '#f97316', // gpt-5-mini
-            '#ef4444', // claude-opus
+            '#059669',
+            '#2563eb',
+            '#111827',
+            '#7c3aed',
+            '#f59e0b',
+            '#db2777',
+            '#4f46e5',
+            '#ea580c',
+            '#0891b2',
+            '#c2410c',
+            '#65a30d',
+            '#0ea5e9',
+            '#64748b',
+            '#dc2626',
+            '#a855f7',
         ];
 
         this.trackAChart = new ChartCtor(ctx, {
@@ -173,12 +185,13 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
             data: {
                 labels,
                 datasets: [{
+                    label: firstPositionLabel,
                     data: values,
                     backgroundColor: colors,
                     borderRadius: 6,
                     borderSkipped: false,
                     barPercentage: 0.65,
-                    base: 1.72,
+                    base: 55,
                 }]
             },
             options: {
@@ -189,7 +202,7 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
                     tooltip: {
                         callbacks: {
                             title: (items: any[]) => items[0].label.replace('\n', ' '),
-                            label: (item: any) => '  avg_position: ' + Number(item.raw).toFixed(3) + '  (↓ better)',
+                            label: (item: any) => `  ${item.dataset.label}: ${Number(item.raw).toFixed(1)}%`,
                         },
                         bodyFont: { size: 13 },
                         padding: 10,
@@ -197,18 +210,17 @@ export class AboutUsPageComponent implements AfterViewInit, OnDestroy {
                 },
                 scales: {
                     y: {
-                        reverse: true,
-                        min: 1.25,
-                        max: 1.72,
+                        min: 55,
+                        max: 65,
                         ticks: {
-                            stepSize: 0.05,
+                            stepSize: 2,
                             font: { size: 11 },
                             color: '#64748b',
-                            callback: (v: any) => Number(v).toFixed(2),
+                            callback: (v: any) => Number(v).toFixed(0) + '%',
                         },
                         title: {
                             display: true,
-                            text: 'avg_position  (↓ better)',
+                            text: firstPositionLabel,
                             font: { size: 11 },
                             color: '#64748b',
                         },

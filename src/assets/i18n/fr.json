@@ -9,13 +9,17 @@
     "Statistics": "Statistiques",
     "Privacy": "Confid.",
     "Contact us": "Contactez-nous",
+    "Medical questions": "Questions médicales",
+    "Questions": "Demander",
+    "Experimental": "Expérimental",
+    "Exp": "Exp.",
     "DONATE_DROPDOWN_1": "Faire un don",
     "DONATE_DROPDOWN_2": "Faire un don de données cliniques individuelles",
     "DONATE_DROPDOWN_3": "Faire un don de datasets (institutions/recherche)"
   },
   "beta": {
-    "warning_title": "Version de Test",
-    "warning_message": "Ceci est une version expérimentale qui génère des descriptions à partir de rapports médicaux ou d'images.",
+    "warning_title": "Expérimental",
+    "warning_message": "Cette page répond à des questions médicales générales. Elle ne génère pas de diagnostics et n'est pas couverte par la qualification de dispositif médical.",
     "warning_medical": "Le résultat doit être vérifié par un professionnel de santé.",
     "warning_feedback": "Nous avons besoin de retours utilisateurs pour savoir si le résultat est fiable ; vos commentaires sont fondamentaux pour améliorer l'outil.",
     "dual_mode_hint": "Ce champ accepte deux types d'entrée : description du patient pour le diagnostic ou questions médicales.",
@@ -24,7 +28,14 @@
     "example_patient_short": "Exemple : cas clinique",
     "example_question_short": "Exemple : question médicale",
     "example_question_text": "Quelle est la dose d'amoxicilline chez l'adulte pour une sinusite bactérienne ?",
-    "info_button_label": "Plus d'informations sur la version de test",
+    "info_button_label": "Plus d'informations sur Questions médicales",
+    "placeholder": "Écrivez une question médicale.\nExemple : Quelle est la dose d'amoxicilline chez l'adulte pour une sinusite bactérienne ?",
+    "search": "Demander",
+    "redirect_to_diagnosis": "Cela ressemble à une description de patient, pas à une question médicale. Ouvrez-le sur la page de diagnostic.",
+    "redirect_confirm": "Ouvrir le diagnostic",
+    "only_medical_question": "Cette page répond uniquement aux questions médicales générales. Pour un cas clinique, utilisez la page de diagnostic.",
+    "diagnosis_link": "Besoin d'hypothèses diagnostiques ?",
+    "diagnosis_link_cta": "Aller au diagnostic",
     "files_limit_images": "image(s) non ajoutée(s) : maximum 5.",
     "files_limit_docs": "document(s) non ajouté(s) : maximum 5.",
     "files_limit_total": "Taille totale dépassée (20MB). Réduisez ou supprimez des fichiers.",
@@ -52,7 +63,7 @@
     "hero": {
       "title": "DxGPT: Intelligence augmentée pour la confiance diagnostique",
       "titleEu": "DxGPT: Intelligence augmentée pour préparer votre consultation médicale",
-      "subtitle": "Transforme l'incertitude clinique en clarté. DxGPT est votre co-pilote diagnostique : structure le raisonnement, réduit la charge cognitive et minimise les biais en quelques secondes, même dans les cas complexes ou rares.",
+      "subtitle": "Aide à organiser le raisonnement clinique et à générer des hypothèses diagnostiques, y compris dans les cas complexes ou rares.",
       "subtitleEu": "Transformez l'incertitude clinique en clarté. DxGPT vous aide à préparer les informations pour votre professionnel de santé : structure les informations, organise les symptômes et vous aide à identifier les domaines d'évaluation possibles en quelques secondes, même dans les cas complexes ou rares.",
       "evidenceButton": "Preuves scientifiques",
       "clinicalEvidenceButton": "Preuves cliniques",
@@ -62,18 +73,18 @@
       "highlight3": "Intégration dans les systèmes de santé"
     },
     "main": {
-      "description": "DxGPT est une intelligence augmentée conçue par et pour l'environnement clinique. Contrairement aux IA généralistes, il ne génère pas de texte narratif ouvert, mais un analyse structurée d'hypothèses diagnostiques priorisées, classées et raisonnées avec des symptômes pour et contre. Nous utilisons des modèles de langage avancés, comme GPT-5 d'OpenAI, dans un cadre médical contrôlé qui garantit la pertinence, la cohérence et la sécurité dans chaque résultat. Nous ne remplaçons pas le jugement clinique : nous l'amplifions. Nous vous offrons un analyse différentielle instantanée qui économise du temps, neutralise les biais cognitifs et élève la qualité du raisonnement clinique dès le premier moment.",
+      "description": "DxGPT est un outil d'intelligence augmentée pour étayer le raisonnement clinique. À partir de texte, de documents et d'images, il organise les informations disponibles et génère une liste d'hypothèses diagnostiques possibles pour examen professionnel. Il peut poser des questions guidées pour compléter ou préciser le cas. Il ne remplace pas le jugement clinique : il le renforce.",
       "descriptionEu": "DxGPT est un outil d'intelligence augmentée conçu pour vous aider à préparer les informations que vous discuterez avec votre professionnel de santé. Contrairement aux IA généralistes, il ne génère pas de texte narratif ouvert, mais une analyse structurée de domaines d'évaluation clinique possibles, organisés avec des aspects qui correspondent ou ne correspondent pas à votre description. Nous utilisons des modèles de langage avancés, comme GPT-5 d'OpenAI, dans un cadre médical contrôlé qui garantit la pertinence, la cohérence et la sécurité dans chaque résultat. Nous ne fournissons pas de diagnostics et ne remplaçons pas la consultation médicale : nous vous aidons à organiser les informations. Nous vous offrons une préparation structurée qui vous permet d'arriver mieux informé à votre consultation, en organisant les aspects pertinents pour que vous puissiez les discuter avec votre médecin."
     },
     "challenge": {
       "title": "Le défi du diagnostic clinique",
       "titleEu": "Le défi de préparer les informations pour votre consultation médicale",
-      "description": "Le diagnostic, particulièrement dans les maladies rares, est un labyrinthe de données et de symptômes qui consomme du temps et génère de l'incertitude. Avec plus de 10 000 maladies rares, la plupart étant inconnues des professionnels en raison de leur faible fréquence, la familiarité est un luxe impossible. DxGPT agit comme un outil puissant d'écoute cognitive, accélérant ce processus pour atteindre plus rapidement un diagnostic précis. Dans ce contexte, la technologie de soutien n'est plus une option, mais une nécessité pour la sécurité des patients et la qualité des soins.",
+      "description": "Le diagnostic clinique exige d'intégrer de nombreuses données sous pression de temps. Dans les maladies rares, où il existe plus de 10 000 pathologies et où l'expérience directe est nécessairement limitée, identifier les possibilités pertinentes peut être particulièrement difficile. DxGPT aide à organiser l'information et à élargir le diagnostic différentiel pour étayer l'examen professionnel.",
       "descriptionEu": "Préparer adéquatement les informations pour une consultation médicale, surtout lorsqu'il y a des symptômes complexes ou peu communs, peut être un défi. Avec plus de 10 000 maladies rares, beaucoup inconnues même des professionnels expérimentés en raison de leur faible prévalence, organiser les informations de manière efficace peut être difficile. DxGPT agit comme un outil de soutien, vous aidant à structurer et organiser les symptômes et aspects pertinents pour que vous puissiez les discuter plus efficacement avec votre professionnel de santé. Dans ce contexte, avoir des informations bien organisées peut améliorer la qualité de la consultation et faciliter la communication avec votre médecin."
     },
     "why": {
-      "title": "Pourquoi DxGPT et non une IA généraliste",
-      "description": "Les outils de conversation comme ChatGPT, Claude ou Gemini sont des modèles de langage à large spectre. Dans le contexte médical, cette flexibilité est un fondamental faiblesses. Leur nature non structurée peut générer des réponses variables, incomplètes ou cliniquement inadaptées, manquant les contrôles essentiels de sécurité pour les décisions de haut risque."
+      "title": "Pourquoi DxGPT et non une IA à usage général ?",
+      "description": "Des outils comme ChatGPT, Claude ou Gemini peuvent aussi aider à explorer un cas clinique. DxGPT les intègre dans un flux conçu spécifiquement pour le diagnostic différentiel : il prépare l'information, protège les données personnelles, applique des instructions cliniques et un format de sortie cohérent, permet d'affiner le cas par des questions guidées et évalue en continu ses résultats sur des banques de cas. L'objectif n'est pas de remplacer le professionnel ni de transformer une réponse d'IA en décision clinique, mais de faciliter un examen plus ordonné des possibilités pertinentes."
     },
     "differentiators": {
       "title": "Les différenciateurs clés de DxGPT",
@@ -102,36 +113,36 @@
       "capability5": "Sécurité renforcée (protection des données et contrôle d'utilisation conforme aux réglementations de santé)."
     },
     "benefits": {
-      "title": "Avantages cliniques de DxGPT",
+      "title": "Ce qu'il apporte dans la pratique clinique",
       "time": {
         "title": "Récupérer du temps pour ce qui compte le plus : le patient",
-        "description": "DxGPT automatise la génération du diagnostic différentiel, transforme des minutes de recherche et d'incertitude en secondes d'analyse structurée. Cette efficacité libère le professionnel de la santé pour se concentrer sur le jugement clinique, la communication avec le patient et la prise de décision.",
+        "description": "Il organise les informations disponibles et génère un différentiel structuré en quelques secondes, réduisant le temps consacré à trier les données et à explorer les premières possibilités.",
         "descriptionEu": "DxGPT vous aide à organiser les informations de manière structurée, transformant des minutes de recherche et d'incertitude en secondes d'analyse organisée. Cette efficacité vous permet d'arriver mieux préparé à votre consultation, avec des informations structurées et prêtes à être discutées avec votre professionnel de santé, facilitant une communication plus efficace."
       },
       "clarity": {
-        "title": "Du chaos des données à la clarté diagnostique",
+        "title": "Élargit le radar diagnostique",
         "titleEu": "Du chaos de l'information à la clarté organisée",
-        "description": "Nous présentons les informations dans un format propre et structuré, conçu pour le raisonnement clinique. Les hypothèses sont affichées avec les symptômes pour et contre, permettant une évaluation rapide et une décision plus sûre et informée.",
+        "description": "Il aide à mettre sur la table des hypothèses fréquentes, rares ou peu familières qui pourraient ne pas apparaître lors d'un premier examen du cas.",
         "descriptionEu": "Nous présentons les informations dans un format propre et structuré, conçu pour faciliter la préparation de votre consultation. Les domaines d'évaluation possibles sont affichés avec des aspects qui correspondent ou ne correspondent pas à votre description, permettant une organisation rapide des informations pour que vous puissiez les discuter plus efficacement avec votre professionnel de santé."
       },
       "tool": {
-        "title": "Un outil, pas une application",
-        "description": "Contrairement aux AIs conversationnels, l'interface de DxGPT est optimisée pour une seule fonctionnalité : le soutien au diagnostic. Chaque élément est conçu pour guider efficacement le raisonnement clinique tout en éliminant les distractions et en mettant en avant l'utilité pratique.",
+        "title": "Permet d'affiner le cas",
+        "description": "Les questions guidées signalent les informations qui peuvent manquer et aident à compléter ou nuancer le cas avant un nouvel examen.",
         "descriptionEu": "Contrairement aux AIs conversationnels, l'interface de DxGPT est optimisée pour une seule fonctionnalité : vous aider à préparer les informations pour votre consultation médicale. Chaque élément est conçu pour organiser les informations de manière efficace et structurée, éliminant les distractions et se concentrant sur vous aider à mieux préparer votre conversation avec votre professionnel de santé."
       },
       "safety": {
-        "title": "Un système de sécurité contre les biais mentaux",
-        "description": "Le diagnostic clinique est vulnérable aux biais cognitifs comme l'utilisation ou la confirmation. DxGPT agit comme un contre-poids objectif, présentant systématiquement une gamme de possibilités basées sur l'évidence du cas, y compris les maladies rares. Cela favorise une évaluation plus approfondie et réduit le risque d'erreurs diagnostiques, améliorant la sécurité des patients.",
+        "title": "Un contrepoids aux raccourcis mentaux",
+        "description": "En montrant des alternatives et des éléments pour et contre, il facilite la mise à l'épreuve de la première impression clinique et la révision d'éventuels biais de disponibilité ou de confirmation.",
         "descriptionEu": "L'organisation des informations médicales peut être affectée par des biais cognitifs comme la disponibilité ou la confirmation. DxGPT agit comme un outil de soutien, présentant systématiquement une gamme de domaines d'évaluation possibles basés sur les informations que vous fournissez, y compris des conditions peu communes. Cela vous aide à préparer des informations plus complètes à discuter avec votre professionnel de santé, facilitant une évaluation plus approfondie lors de votre consultation."
       },
       "standardize": {
-        "title": "Standardiser la qualité diagnostique",
+        "title": "Du chaos des données à une revue claire",
         "titleEu": "Standardiser la préparation des informations",
-        "description": "DxGPT garantit que chaque cas est analysé avec la même rigueur méthodologique, quelle que soit la profession ou le moment. Cette cohérence réduit la variabilité dans la qualité des soins et établit un haut standard d'analyse pour l'ensemble de l'équipe. Notre performance est continuellement validée contre un échantillon rigoureux de cas cliniques pour garantir une fiabilité constante."
+        "description": "Il présente symptômes, antécédents, évolution et hypothèses possibles dans un format ordonné, pour que l'information pertinente soit plus facile à évaluer."
       },
       "practice": {
         "title": "Créé dans la pratique clinique, pour la pratique clinique",
-        "description": "DxGPT n'est pas un produit de laboratoire. Il a été développé dans un cycle de collaboration continu avec des médecins du front, des hôpitaux et des sociétés scientifiques. Son design et ses fonctionnalités répondent aux vrais défis du diagnostic, en s'assurant qu'il n'est pas seulement technologiquement avancé, mais également cliniquement utile, pertinent et facile à intégrer dans le travail mental du professionnel.",
+        "description": "DxGPT a été développé en collaboration avec des médecins, des hôpitaux et des sociétés savantes. L'outil évolue à partir de l'expérience d'usage, du retour clinique et de l'évaluation continue sur des banques de cas.",
         "descriptionEu": "DxGPT n'est pas un produit de laboratoire. Il a été développé dans un cycle de collaboration continu avec des médecins du front, des hôpitaux et des sociétés scientifiques. Son design et ses fonctionnalités répondent au besoin réel d'organiser les informations médicales de manière efficace, en s'assurant qu'il n'est pas seulement technologiquement avancé, mais également utile et pertinent pour vous aider à mieux préparer votre consultation avec votre professionnel de santé."
       }
     },
@@ -158,18 +169,19 @@
       },
       "testbed": {
         "title": "Un testbed conçu pour relever le défi",
-        "description": "Notre testbed utilise plus de 1.000 cas cliniques réels complexes au lieu de cas de livre de texte. Ces cas présentent des descriptions extensives, des symptômes superposés et des diagnostics différentiels non triviaux, obtenus de:",
+        "description": "L'évaluation combine trois jeux de données complémentaires :",
         "sources": "Sources de cas:",
-        "source1": "Banques de questions cliniques de haut niveau: MedBullets et MedQA USMLE.",
-        "source2": "Publications scientifiques sur les maladies rares: RAMEDIS et Ramebench.",
-        "source3": "Cas réels de services d'urgences hospitaliers: HM Hospitals et Hospital de Torrejón.",
-        "source4": "Collaborations spécialisées: Cas supervisés de maladies rares.",
-        "conclusion": "Ce testbed évalue DxGPT dans l'environnement le plus défiant, reflétant la complexité réelle de l'attention sanitaire."
+        "source1": "Jeu de données narratif : 256 cas sélectionnés à partir d'un corpus représentatif de 997 cas, lui-même issu de 9 583 cas provenant de MedQA/USMLE, MedBullets, services d'urgences hospitalières, Ramebench et ProCheck.",
+        "source2": "Jeu de données sur les maladies rares : 3 017 cas décrits au moyen de termes HPO, issus de DDD, RAMEDIS, LIRICAL, MyGene2, MME et HMS.",
+        "source3": "Jeu de données multimodal : MedReaMM contient 625 cas validés par des experts et 1 746 images. Le benchmark actuel utilise une cohorte de 100 cas.",
+        "source4": "Track HPO indépendant : 3 017 cas de maladies rares issus de DDD, RAMEDIS, LIRICAL, MyGene2, MME et HMS.",
+        "source5": "Track multimodal : MedReaMM contient 625 cas validés par des experts et 1 746 images ; le benchmark apparié actuel utilise une cohorte de 100 cas. MultiCaRe (>90 000 récits et >130 000 images) a été étudié, mais pas utilisé pour comparer les modèles faute de diagnostic canonique propre et en raison du risque de fuite.",
+        "conclusion": "Les 256 cas forment un ensemble compact et reproductible pour comparer les modèles, et non l'ensemble du corpus. Les résultats narratifs et HPO sont présentés séparément."
       },
       "science": {
-        "title": "La science de la question: Le secret de la cohérence",
-        "description": "Notre recherche a révélé un facteur critique : la qualité de la réponse d'un LLM dépend de manière décisive de la qualité de la question. Par conséquent, nous avons développé et validé plus de 30 formulations de prompt (instructions) pour trouver la structure optimale qui active un raisonnement clinique efficace et cohérent.",
-        "differentiator": "Ce contrôle expert sur la formulation est ce qui différencie DxGPT d'une IA généraliste. Nous ne laissons pas la qualité du résultat au hasard ; nous avons conçu un processus qui s'assure que, pour le même cas, le système applique toujours la même rigueur analytique, produisant des résultats fiables et reproductibles."
+        "title": "Plus qu'un modèle",
+        "description": "Les instructions influencent toujours ce qu'un modèle de langage priorise et la manière dont il organise les hypothèses possibles d'un diagnostic différentiel. DxGPT utilise donc des instructions conçues avec une expertise clinique et un format de sortie défini, testés sur des jeux de cas figés.",
+        "differentiator": "DxGPT n'est pas une simple connexion à un modèle : il extrait et prépare textes, documents et images, détecte et protège les données personnelles, résume les histoires longues, pose des questions guidées pour compléter ou affiner le cas, applique des instructions cliniques et génère une liste priorisée et structurée d'hypothèses diagnostiques possibles afin d'appuyer, et non de remplacer, l'évaluation professionnelle. Le modèle sous-jacent peut changer, tandis que cette couche produit et son évaluation continue demeurent."
       },
       "chart": {
         "caption": "Le graphique illustre comment notre optimisation de la formulation (le saut de la famille 4o → o3) ne pas seulement augmente la précision (axe X), mais permet également de résoudre des cas de plus grande complexité (axe Y), démontrant un avance significatif dans la capacité de raisonnement clinique du système."
@@ -200,7 +212,7 @@
           },
           "step3": {
             "title": "Évaluation par couches (SNOMED → ICD-10 → BERT → juge LLM)",
-            "text": "Correspondance exacte des codes → recherche dans l'arbre ICD-10 (parents et enfants) → similarité sémantique BERT (seuils 0,80/0,90) → juge LLM gemini-2.5-pro pour les cas ambigus."
+            "text": "Correspondance exacte des codes médicaux → taxonomie ICD-10 → similarité sémantique BERT → juge LLM indépendant pour les cas ambigus."
           }
         },
         "metrics": {
@@ -286,23 +298,27 @@
           "descriptionEu": "Tous ces chiffres décrivent le comportement technique des modèles d'IA dans des banques de cas standardisés (benchmarks). Ils n'équivalent pas à des taux de succès clinique chez les patients réels et ne constituent pas une évaluation de conformité du produit. Cet outil ne fournit pas de diagnostics médicaux ni de recommandations de traitement. Il est destiné uniquement à vous aider à organiser les informations que vous discuterez avec un professionnel de santé. Vous devriez toujours consulter un professionnel médical qualifié pour obtenir un diagnostic et un traitement appropriés."
         },
         "benchmark2026": {
-          "title": "4. Benchmark définitif contre DeepRare — Nature 2025 (avril 2026)",
+          "title": "Résultats · septembre 2026",
           "description": "Après avoir garanti la qualité du jeu de données et automatisé l'évaluation, en 2026 nous avons comparé DxGPT directement avec l'état de l'art scientifique : l'article DeepRare (Nature, 2025), le premier système d'IA spécialisé dans les maladies rares évalué publiquement sur les mêmes benchmarks internationaux.",
           "dataset": {
             "title": "Jeu de données propre et publiable",
             "description": "Nous avons éliminé les fuites de labels et le boilerplate synthétique, créant all_256_clean : 256 cas cliniques réels passant 4 contrôles qualité indépendants (0 % de fuite, 0 % de boilerplate). C'est la première baseline auditable de DxGPT sur du texte narratif clinique libre."
           },
           "hpo": {
-            "title": "6 jeux de données HPO de l'article DeepRare (3 017 cas)",
-            "description": "Nous avons évalué 10+ modèles sur RAMEDIS (624 cas), LIRICAL (370), HMS — Harvard Medical School (88), MME (40), MyGene2 — Harvard Dataverse (146) et DDD/Gene2Phenotype (1 749 cas) — le plus grand jeu de données de maladies génétiques rares évalué à ce jour. Métrique directement comparable avec l'article : Recall@K."
+            "title": "Voir les résultats sur les maladies rares · 3 017 cas",
+            "description": "Résultats du modèle actuel sur six jeux de données de maladies rares"
           },
           "results": {
-            "title": "Découverte principale : gemini-3-pro-preview domine dans les maladies rares",
+            "title": "Voir la comparaison complète des modèles",
             "description": "gemini-3-pro-preview remporte les 6/6 jeux de données en Recall@1, surpassant tous les modèles évalués. Sur le jeu de données le plus robuste statistiquement (DDD, 1 749 cas) : R@1 = 70,3 % et R@3 = 97,6 % — le diagnostic correct apparaît dans les 3 premières suggestions dans pratiquement tous les cas. En texte narratif clinique (all_256_clean, 256 cas) : avg_position = 1,299 avec 98,1 % de succès, tout en étant 3× plus rapide que gemini-2.5-pro."
           },
           "deeprare": {
-            "title": "Comparaison avec l'article de Nature",
+            "title": "Comparaison des modèles sur HMS · 88 cas",
             "description": "La baseline GPT-4 non spécialisée de l'article obtient ~25–35 % R@1. DxGPT avec gemini-3-pro-preview atteint 54–77 % selon le jeu de données, dépassant la baseline de +35–45 points de pourcentage sans aucun fine-tuning spécifique aux maladies rares. Le système DeepRare (avec fine-tuning spécialisé) obtient ~74 % sur MyGene2 — DxGPT généraliste atteint 61 %."
+          },
+          "multimodal": {
+            "title": "Évaluation avec images",
+            "description": "Lors d'une première évaluation de 100 cas cliniques accompagnés de leurs images, Terra a placé le diagnostic de référence en première position dans 67 % des cas, parmi les trois premières options dans 82 % et dans la liste dans 84 %."
           },
           "reference": "📊 Résultats complets, méthodologie et configuration auditables sur :",
           "repository": "Référentiel DxGPT-Bench-Lab",
@@ -312,17 +328,17 @@
           "pillWins": "🏆 6/6 jeux de données remportés",
           "statRecall1Ddd": "Recall@1 · DDD (1 749 cas)",
           "statRecall3Ddd": "Recall@3 · DDD · diagnostic dans le top-3",
-          "statAvgPos": "Avg position · texte narratif clinique",
-          "statSuccessRate": "Success rate · all_256_clean",
-          "trackATitle": "📋 Piste A — Texte narratif clinique (all_256_clean · 256 cas)",
-          "trackASubtitle": "Juge : gemini-2.5-pro · avg_position = rang moyen du diagnostic correct (plus bas = mieux)",
+          "statAvgPos": "Diagnostic correct en première position",
+          "statSuccessRate": "Cas où le diagnostic correct figure parmi les hypothèses proposées",
+          "trackATitle": "Comparaison des modèles",
+          "trackASubtitle": "Tous les modèles ont reçu les mêmes 256 cas narratifs — antécédents, symptômes et évolution — et ont été évalués selon la même méthode.",
           "trackACallout": "Ce track évalue la capacité du modèle sur des cas cliniques réels en texte libre (historique, symptômes, évolution). C'est le format le plus proche de l'utilisation réelle de DxGPT en production.",
-          "avgPosChartCaption": "Position moyenne (avg_position) · Plus bas = mieux · all_256_clean · 256 cas · Juge gemini-2.5-pro",
-          "thRank": "Rang",
+          "avgPosChartCaption": "Diagnostic correct en première position · échelle élargie de 55 % à 65 % pour distinguer les petits écarts",
+          "thRank": "Position",
           "thModel": "Modèle",
-          "thAvgPos": "Avg position ↓",
-          "thCoverage": "Coverage",
-          "thSecPerCase": "~s/cas",
+          "thAvgPos": "Position moyenne",
+          "thCoverage": "Inclus dans la liste",
+          "thSecPerCase": "Temps par cas",
           "thNotes": "Notes",
           "rowNoteBestQuality": "Meilleure qualité absolue",
           "rowNoteG3Equal": "Même qualité texte · meilleur sur HPO · 3× plus rapide",
@@ -338,9 +354,9 @@
           "rowNoteG5Mini": "⚠️ Lent · qualité inférieure à gpt-4o",
           "trackBTitle": "🧬 Piste B — Jeux HPO · Comparaison DeepRare (Nature 2025)",
           "trackBSubtitle": "Entrée : liste de symptômes HPO (sans texte narratif). Même méthodologie que l'article DeepRare. gemini-3-pro-preview gagne sur les 6/6 jeux.",
-          "headingR1": "📊 Recall@1 — Diagnostic correct en première position",
-          "headingR3": "📊 Recall@3 — Diagnostic correct dans le top-3",
-          "headingR5": "📊 Recall@5 — Diagnostic correct dans le top-5",
+          "headingR1": "Première position",
+          "headingR3": "Parmi les 3 premiers",
+          "headingR5": "Parmi les 5 premiers",
           "headingR5Aside": "(les modèles convergent — écarts moindres)",
           "thDataset": "Jeu de données",
           "thCases": "Cas",
@@ -373,74 +389,74 @@
     },
     "clinicalValidation": {
       "title": "Étude de validation clinique",
-      "description": "DxGPT a été validé contre des médecins dans une étude clinique complète menée par l'Hôpital Sant Joan de Déu. Les résultats démontrent que DxGPT atteint une précision diagnostique comparable à celle des cliniciens experts. Cette recherche a été publiée en preprint et est actuellement en cours d'examen par les pairs.",
+      "description": "DxGPT a été évalué face à des médecins dans une étude clinique menée avec l'Hôpital Sant Joan de Déu. Dans cette étude, avec le système alors disponible, il a obtenu une précision diagnostique comparable à celle de cliniciens experts. La recherche est publiée en preprint.",
       "descriptionEu": "DxGPT a été validé dans une étude clinique complète menée par l'Hôpital Sant Joan de Déu. Les résultats démontrent la capacité de l'outil à organiser les informations d'une manière comparable à celle des cliniciens experts. Cette recherche a été publiée en preprint et est actuellement en cours d'examen par les pairs. N'oubliez pas que cet outil ne fournit pas de diagnostics médicaux ni ne remplace la consultation avec un professionnel de santé.",
       "validated": "Cliniquement validé",
       "hospital": "Hôpital Sant Joan de Déu",
       "accuracy": "Précision de niveau expert",
-      "research": "Recherche évaluée par les pairs",
+      "research": "Étude clinique publiée",
       "studyLink": "Lire l'étude complète"
     },
     "trust": {
-      "title": "Notre pacte de confiance et de sécurité",
-      "intro": "La confiance est le fondement de la médecine. Chez DxGPT, la protection des données cliniques et la conformité réglementaire ne sont pas une réflexion après coup, mais le cœur de notre design. Nous opérons avec une transparence radicale pour que les professionnels et les systèmes de santé puissent utiliser notre outil en toute tranquillité d'esprit.",
+      "title": "Engagement, confidentialité et cadre réglementaire",
+      "intro": "DxGPT est développé comme un outil d'aide clinique en amélioration continue. Nous appliquons l'anonymisation avant l'analyse et adaptons le déploiement, la conservation des journaux et les contrôles de sécurité aux exigences de chaque environnement de soins.",
       "protection": {
-        "title": "Comment nous protégeons chaque requête : Un processus sans conservation des données pour les informations personnelles",
-        "intro": "Notre flux de travail est conçu pour maximiser l'utilité clinique et minimiser le risque d'exposition des données à zéro.",
+        "title": "Comment nous protégeons l'information clinique",
+        "intro": "Le flux vise à minimiser les données personnelles traitées et à les protéger tout au long du processus.",
         "anonymization": {
           "title": "Entrée de données et anonymisation automatique",
-          "description": "Les informations personnelles identifiables (PII) comme les noms, adresses ou identifiants sont automatiquement détectées et supprimées avant le traitement par le modèle d'IA, garantissant l'utilisation uniquement de données cliniques anonymes."
+          "description": "Les identifiants personnels, tels que noms, adresses ou numéros de dossier, sont détectés et supprimés avant l'envoi de l'information au modèle."
         },
         "memory": {
-          "title": "Traitement en mémoire",
-          "description": "L'analyse diagnostique est effectuée en temps réel et en mémoire, sans stockage de données cliniques ou personnelles des patients sur les serveurs.",
+          "title": "Traitement protégé",
+          "description": "L'analyse s'effectue sur des informations anonymisées. Le traitement et la conservation des journaux sont configurés selon l'environnement de soins et sa politique applicable.",
           "descriptionEu": "L'analyse d'informations est effectuée en temps réel et en mémoire, sans stockage de données cliniques ou personnelles des patients sur les serveurs."
         },
         "retraining": {
-          "title": "Interdiction de la reconnaissance",
-          "description": "Les données cliniques anonymes des requêtes ne sont jamais utilisées pour reconnaître ou améliorer les modèles d'IA, évitant ainsi l'apprentissage involontaire de données sensibles."
+          "title": "Pas d'entraînement à partir des requêtes",
+          "description": "Les requêtes des utilisateurs ne sont pas utilisées pour entraîner des modèles d'IA."
         },
         "footprint": {
-          "title": "Pas de trace",
-          "description": "Une fois une réponse générée, toutes les informations personnelles identifiables sont complètement supprimées, laissant aucun enregistrement du cas clinique personnel sur la plateforme."
+          "title": "Minimisation des données",
+          "description": "Le traitement des informations identifiables est limité au minimum nécessaire pour fournir le service."
         }
       },
       "governance": {
         "title": "Gestion des données",
-        "intro": "Le tableau ci-dessous résume le engagement de DxGPT pour la sécurité et les bonnes pratiques de confidentialité pour les équipes d'intégration technique et de conformité réglementaire.",
+        "intro": "Synthèse des contrôles de protection et de gouvernance appliqués au service.",
         "feature": "Fonctionnalité / Politique",
         "commitment": "Engagement de DxGPT",
         "processing": "Emplacement du traitement des données",
-        "processingValue": "Exclusif dans les centres de données de l'Union européenne (Microsoft Azure)",
+        "processingValue": "Dans les déploiements européens, dans des centres de données de l'Union européenne (Microsoft Azure)",
         "storage": "Stockage des données patient",
-        "storageValue": "Politique de zéro conservation (aucune PHI stockée)",
+        "storageValue": "Selon la politique de conservation du déploiement et de l'environnement de soins",
         "anonymization": "Anonymisation des données",
-        "anonymizationValue": "Automatique et proactive (PII identifiés et supprimés)",
+        "anonymizationValue": "Automatique avant l'analyse (PII détectées et supprimées)",
         "training": "Utilisation des données pour le formation",
         "trainingValue": "Strictement interdit (les données soumises par l'utilisateur ne sont jamais utilisées pour former les modèles d'IA)",
         "encryption": "Chiffrement des données",
-        "encryptionValue": "De bout en bout (toutes les données chiffrées en transit et au repos)",
+        "encryptionValue": "Chiffrement en transit et au repos dans les services qui le prennent en charge",
         "compliance": "Principale conformité",
-        "complianceValue": "RGPD (UE), HIPAA (USA), EU AI Act (Alignement en cours)",
+        "complianceValue": "RGPD et exigences applicables selon le déploiement ; alignement avec l'EU AI Act en cours",
         "agreements": "Accords avec les partenaires",
-        "agreementsValue": "Accords sur les partenaires commerciaux (BAA) disponibles",
+        "agreementsValue": "Examinés selon le projet et le prestataire de soins",
         "audit": "Journaux d'audit",
-        "auditValue": "Activité système enregistrée pour surveiller la sécurité et l'intégrité (sans stockage de PHI)"
+        "auditValue": "Activité technique enregistrée pour surveiller la sécurité et l'intégrité"
       },
       "regulatory": {
         "title": "Notre cadre réglementaire",
         "intro": "DxGPT a une expérience extensive dans les environnements réglementaires de la santé numérique et s'aligne sur des normes mondiales exigeantes.",
         "gdpr": {
           "title": "RGPD (Règlement général sur la protection des données)",
-          "description": "Compliance parfaite avec les principes de droit, de transparence, de minimisation des données et de limitation des buts, avec un traitement exclusif pour la souveraineté des données."
+          "description": "Nous concevons les déploiements européens pour appliquer les principes de licéité, de transparence, de minimisation des données et de limitation des finalités du RGPD."
         },
         "hipaa": {
           "title": "HIPAA (Health Insurance Portability and Accountability Act)",
-          "description": "Notre architecture respecte les garanties techniques, physiques et administratives requises par la Règle de Sécurité HIPAA, nous permettant de signer des BAA avec des entités couvertes aux États-Unis."
+          "description": "Les projets destinés à des organisations américaines sont examinés au regard des exigences contractuelles et techniques applicables, y compris HIPAA le cas échéant."
         },
         "aiact": {
           "title": "EU AI Act",
-          "description": "Nous travaillons activement vers un alignement complet avec l'Acte IA de l'Union Européenne. Nous collaborons avec des experts et des autorités réglementaires pour s'assurer que DxGPT réponde aux plus hauts standards de gestion des risques, gouvernance des données, transparence et robustesse, nous positionnant à l'avant-garde de l'IA responsable en santé."
+          "description": "Nous travaillons à un alignement progressif avec le règlement européen sur l'IA, en portant attention à la gestion des risques, à la gouvernance des données, à la transparence et à la robustesse."
         }
       }
     }
@@ -664,14 +680,14 @@
     "Proposed diagnoses": "Diagnostics proposés",
     "Proposed diagnosesEu": "Domaines d'évaluation clinique possibles",
     "disclaimerEu": "Cet outil ne fournit pas de diagnostics médicaux ni de recommandations de traitement.\n\nIl est conçu uniquement pour vous aider à organiser les informations que vous discuterez avec un professionnel de santé.",
-    "Click on the disease to see more options": "Cliquez sur la maladie pour voir plus d'options. Par exemple, faites un diagnostic différentiel.",
+    "Click on the disease to see more options": "Cliquez sur une maladie pour plus d'informations",
     "Candidate diagnosis": "Diagnostic candidat",
     "Candidate diagnosisEu": "Domaines d'évaluation clinique possibles",
     "Order does not imply probabilityEu": "Note: L'ordre de présentation n'implique pas une probabilité plus élevée de précision.",
     "Patient text entered": "Texte du patient saisi",
     "advise": "Veuillez noter que les diagnostics suggérés sont générés à l'aide d'un modèle d'intelligence artificielle avancé basé sur un langage et peuvent contenir des erreurs.",
     "adviseEu": "Veuillez noter que ces informations sont générées à l'aide d'un modèle d'intelligence artificielle avancé basé sur un langage et peuvent contenir des erreurs. Cet outil ne fournit pas de diagnostics médicaux.",
-    "Not satisfied with the results?": "Vous n'êtes pas satisfait des résultats ?",
+    "Not satisfied with the results?": "Ces résultats ne vous convainquent pas ?",
     "Not satisfied with the results?Eu": "Voulez-vous mieux préparer les informations pour votre médecin ?",
     "Improve patient description": "Répondre aux questions guidées",
     "Improve patient descriptionEu": "Répondre aux questions guidées",
@@ -899,7 +915,7 @@
     "q5": "Pourquoi pensez-vous que ce patient a cette maladie ?",
     "q6": "Quels tests génétiques seraient appropriés?",
     "recommended diagnosis test": "Quel est le test de diagnostic recommandé pour chacune de ces maladies ?",
-    "Indicates the quality of the result": "Aidez-nous à nous améliorer, indiquez la qualité du résultat",
+    "Indicates the quality of the result": "Ces résultats vous ont-ils été utiles ?",
     "Point3.1": "Pas satisfait des résultats?",
     "Point3.1Eu": "Voulez-vous mieux préparer les informations pour votre médecin?",
     "Point3.2": "Essayez notre mode avancé en utilisant le bouton bleu sous la liste.",
@@ -929,7 +945,12 @@
     "title": "Entrez une brève description du patient et DxGPT suggérera des hypothèses diagnostiques possibles",
     "titleEu": "Entrez une description de vos symptômes et DxGPT vous aidera à préparer la conversation avec votre professionnel de santé",
     "subtitleEu": "Nous générerons une liste de lignes d'évaluation possibles pour que vous puissiez en discuter avec votre médecin.\n\nCe n'est pas un diagnostic médical et ne remplace pas une consultation en personne.",
-    "titleBeta": "Obtenez une aide au diagnostic et des informations médicales en quelques secondes",
+    "titleBeta": "Posez une question médicale et obtenez une réponse pédagogique",
+    "questions_link": "Vous avez une question médicale ?",
+    "questions_link_cta": "Questions médicales",
+    "questions_footnote": "Pour une question médicale générale :",
+    "redirect_to_questions": "Cela ressemble à une question médicale, pas à une description de patient. Ouvrez-le dans Questions médicales.",
+    "redirect_confirm": "Ouvrir Questions médicales",
     "p1.title": "Exemples",
     "p1.subtitle": "Cliquez sur le texte pour l'utiliser comme exemple",
     "p1.1": "Le patient est âgé de treize mois. Première crise focale à trois mois. Multiples crises tonico-cloniques. Convulsions fébriles. Un status epilepticus à huit mois.",
@@ -1269,6 +1290,7 @@
       "urology": "Urologie",
       "gynecologyAndObstetrics": "Gynécologie et obstétrique",
       "ophthalmology": "Ophtalmologie",
+      "optometry": "Optométrie",
       "otolaryngology": "Oto-rhino-laryngologie",
       "radiology": "Radiologie",
       "emergencyMedicine": "Médecine d'urgence",
