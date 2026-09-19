@@ -20,7 +20,7 @@ import { AnalyticsService } from 'app/shared/services/analytics.service';
 import { UuidService } from 'app/shared/services/uuid.service';
 import { LangService } from 'app/shared/services/lang.service';
 import { IframeParams, IframeParamsService } from 'app/shared/services/iframe-params.service';
-import { MedicalAnswerData } from '../medical-info-modal/medical-answer.model';
+import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
 
 @Component({
     selector: 'app-beta-page',
@@ -43,8 +43,6 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     textareaPlaceholder = '';
     iframeParams: IframeParams = {};
     isInIframe = false;
-    medicalAnswer?: MedicalAnswerData;
-    viewMode: 'question' | 'answer' = 'question';
 
     private readonly subscriptions = new Subscription();
     private activeRequest?: Subscription;
@@ -421,7 +419,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
 
         if (response?.medicalAnswer) {
             this.showMedicalAnswer(response);
-            this.lauchEvent('Medical answer displayed inline');
+            this.lauchEvent('Medical answer displayed in popup');
             return;
         }
 
@@ -430,43 +428,51 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
 
     private showMedicalAnswer(content: any): void {
-        this.medicalAnswer = {
-            question: content.question || this.submittedQuestion,
-            content: content.medicalAnswer,
-            sonarData: content.sonarData,
-            model: content.model || this.model,
-            selectedFiles: [],
-            detectedLang: content.detectedLang || this.lang
-        };
-        this.viewMode = 'answer';
-        setTimeout(() => {
-            document.getElementById('medical-answer')?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+        const modalRef = this.modalService.open(MedicalInfoModalComponent, {
+            size: 'xl',
+            backdrop: 'static',
+            keyboard: false,
+            centered: true,
+            scrollable: true,
+            ariaLabelledBy: 'medical-answer-title',
+            windowClass: 'medical-info-modal medical-info-modal--questions'
         });
+        modalRef.componentInstance.content = content.medicalAnswer;
+        modalRef.componentInstance.sonarData = content.sonarData;
+        modalRef.componentInstance.title = content.question || this.submittedQuestion;
+        modalRef.componentInstance.model = content.model || this.model;
+        modalRef.componentInstance.selectedFiles = [];
+        modalRef.componentInstance.detectedLang = content.detectedLang || this.lang;
+        modalRef.componentInstance.showQuestionActions = true;
+
+        modalRef.result.then(
+            action => action === 'new'
+                ? this.startNewQuestion()
+                : this.editCurrentQuestion(),
+            () => this.restoreQuestionInput()
+        );
     }
 
-    editCurrentQuestion(): void {
-        this.viewMode = 'question';
+    private editCurrentQuestion(): void {
         this.lauchEvent('Medical answer - Edit question');
-        setTimeout(() => {
-            this.resizeTextArea();
-            this.scrollToInput();
-        });
+        this.restoreQuestionInput();
     }
 
-    startNewQuestion(): void {
+    private startNewQuestion(): void {
         this.medicalTextOriginal = '';
         this.medicalTextEng = '';
         this.submittedQuestion = '';
-        this.medicalAnswer = undefined;
-        this.viewMode = 'question';
         this.lauchEvent('Medical answer - New question');
+        this.restoreQuestionInput(true);
+    }
+
+    private restoreQuestionInput(restartPlaceholder = false): void {
         setTimeout(() => {
             this.resizeTextArea();
             this.scrollToInput();
-            this.startTypingAnimation();
+            if (restartPlaceholder) {
+                this.startTypingAnimation();
+            }
         });
     }
 

@@ -1,15 +1,40 @@
 <div class="modal-header">
-  <h4 class="modal-title" title="{{ title }}">
+  <h4 id="medical-answer-title" class="modal-title" title="{{ title }}">
     <i class="fas fa-info-circle text-white me-2"></i>
     {{ title }}
   </h4>
-  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  <button
+    type="button"
+    class="btn-close"
+    [attr.aria-label]="closeButtonText"
+    [title]="closeButtonText"
+    (click)="activeModal.dismiss()">
+  </button>
 </div>
 <div class="modal-body">
   <app-medical-answer-view [answer]="answer"></app-medical-answer-view>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
-    {{ closeButtonText }}
-  </button>
+  <ng-container *ngIf="showQuestionActions; else closeAction">
+    <button
+      type="button"
+      class="modal-action modal-action--secondary"
+      (click)="activeModal.close('edit')">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+      {{ 'beta.edit_question' | translate }}
+    </button>
+    <button
+      type="button"
+      class="modal-action modal-action--primary"
+      (click)="activeModal.close('new')">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      {{ 'beta.new_question' | translate }}
+    </button>
+  </ng-container>
+
+  <ng-template #closeAction>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+      {{ closeButtonText }}
+    </button>
+  </ng-template>
 </div> 

@@ -16,6 +16,7 @@ export class MedicalInfoModalComponent implements OnInit {
   @Input() model = '';
   @Input() selectedFiles: Array<{ name?: string }> = [];
   @Input() detectedLang = '';
+  @Input() showQuestionActions = false;
 
   answer!: MedicalAnswerData;
   closeButtonText = '';
