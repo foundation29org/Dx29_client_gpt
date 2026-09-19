@@ -56,7 +56,7 @@
   h5,
   h6 {
     margin: 1.4rem 0 0.75rem;
-    color: var(--primary-color);
+    color: var(--secondary-hover);
     font-size: 1.2rem;
     font-weight: 650;
     line-height: 1.3;
@@ -92,7 +92,7 @@
   }
 
   a {
-    color: var(--accent-color);
+    color: var(--secondary-hover);
     overflow-wrap: anywhere;
     text-underline-offset: 0.15em;
   }
@@ -121,7 +121,7 @@
 
   code {
     padding: 0.15rem 0.35rem;
-    color: var(--accent-color);
+    color: var(--secondary-hover);
     background: #f4f5f7;
     border-radius: 4px;
   }
@@ -139,8 +139,8 @@
     font-size: 0.9em;
     font-weight: 650;
     text-decoration: none;
-    background: color-mix(in srgb, var(--accent-color) 6%, transparent);
-    border: 1px solid color-mix(in srgb, var(--accent-color) 30%, transparent);
+    background: color-mix(in srgb, var(--secondary-color) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--secondary-color) 30%, transparent);
     border-radius: 4px;
   }
 }
@@ -207,7 +207,7 @@
   justify-content: space-between;
   width: 100%;
   padding: 0.85rem 1rem;
-  color: var(--primary-color, #1a1a2e);
+  color: var(--secondary-hover);
   font-size: 1rem;
   font-weight: 650;
   text-align: left;
@@ -223,7 +223,7 @@
   }
 
   &:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--accent-color) 20%, transparent);
+    outline: 3px solid color-mix(in srgb, var(--secondary-color) 20%, transparent);
     outline-offset: 2px;
   }
 
@@ -241,7 +241,7 @@
   font-size: 0.76rem;
   line-height: 1.4;
   text-align: center;
-  background: var(--accent-color);
+  background: var(--secondary-color);
   border-radius: 999px;
 }
 
@@ -279,12 +279,12 @@
   color: #fff;
   font-size: 0.78rem;
   font-weight: 650;
-  background: var(--accent-color);
+  background: var(--secondary-color);
   border-radius: 4px;
 }
 
 .reference-title {
-  color: var(--primary-color);
+  color: var(--secondary-hover);
   font-weight: 600;
   overflow-wrap: anywhere;
 }
@@ -315,7 +315,7 @@
   }
 
   a {
-    color: var(--accent-color);
+    color: var(--secondary-hover);
     overflow-wrap: anywhere;
     text-underline-offset: 0.15em;
   }
