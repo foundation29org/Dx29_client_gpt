@@ -79,7 +79,13 @@ export class MedicalAnswerViewComponent implements OnChanges {
     }
 
     event.preventDefault();
-    const referenceNumber = Number(target.getAttribute('data-ref'));
+    const referenceTarget = target.getAttribute('href') || '';
+    const referenceMatch = referenceTarget.match(/^#medical-reference-(\d+)$/);
+    if (!referenceMatch) {
+      return;
+    }
+
+    const referenceNumber = Number(referenceMatch[1]);
     this.referencesExpanded = true;
     setTimeout(() => this.highlightReference(referenceNumber), 100);
   }
@@ -213,14 +219,44 @@ export class MedicalAnswerViewComponent implements OnChanges {
   }
 
   private formatReferences(references: any[]): MedicalAnswerReference[] {
-    return references.map((reference, index) => ({
-      number: index + 1,
-      title: reference.title || reference.url,
-      url: reference.url,
-      date: reference.date || '',
-      snippet: reference.snippet || '',
-      source: reference.source || ''
-    }));
+    return references.map((reference, index) => {
+      const snippet = reference.snippet || '';
+      return {
+        number: index + 1,
+        title: reference.title || reference.url,
+        url: reference.url,
+        date: reference.date || '',
+        snippet,
+        snippetHtml: this.renderReferenceSnippet(snippet),
+        source: reference.source || ''
+      };
+    });
+  }
+
+  private renderReferenceSnippet(snippet: string): string {
+    if (!snippet) {
+      return '';
+    }
+
+    const normalizedSnippet = snippet
+      .replace(/\r?\n+/g, ' ')
+      .replace(/(^|\s)#{1,6}\s*/g, '$1')
+      .replace(/\^([^^]+)\^/g, '$1')
+      .replace(/\[(\*\*[^*]+\*\*)\]/g, '$1')
+      .replace(/\*{3,}/g, '**')
+      .replace(/\*{1,2}\s*\+\s*\*{1,2}/g, ' ')
+      .replace(/\*{2}\s+\*{2}/g, ' ')
+      .replace(/\|+/g, ' · ')
+      .replace(/(?:\s*·\s*){2,}/g, ' · ')
+      .replace(/\s*·\s*/g, ' · ')
+      .replace(/\s+/g, ' ')
+      .replace(/^(?:\s*·\s*)+|(?:\s*·\s*)+$/g, '')
+      .trim();
+    const parsedSnippet = marked.parseInline(normalizedSnippet);
+
+    return typeof parsedSnippet === 'string'
+      ? parsedSnippet
+      : this.escapeHtmlAttribute(snippet);
   }
 
   private normalizeListItemHeadings(htmlContent: string): string {
@@ -255,7 +291,7 @@ export class MedicalAnswerViewComponent implements OnChanges {
 
       const safeTitle = this.escapeHtmlAttribute(reference.title);
       return `<a href="#medical-reference-${referenceNumber}" `
-        + `class="reference-link" data-ref="${referenceNumber}" title="${safeTitle}">`
+        + `class="reference-link" title="${safeTitle}">`
         + `[${referenceNumber}]</a>`;
     });
   }

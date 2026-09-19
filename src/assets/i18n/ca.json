@@ -1456,7 +1456,7 @@
     "only_patient_description": "El text d'entrada ha de ser únicament una descripció del pacient (edat, gènere, símptomes i quan van començar). No incloguis preguntes, informació sobre malalties ni tractaments. Aquesta eina és només per a ajuda al diagnòstic."
   },
   "medicalInfoModal": {
-    "disclaimerText": "Aquesta resposta té finalitats educatives, pot contenir errors i no substitueix el consell d'un professional sanitari.",
+    "disclaimerText": "Aquesta resposta ha estat generada per intel·ligència artificial amb finalitats educatives, pot contenir errors i no substitueix el consell d'un professional sanitari.",
     "aiGeneratedWarning": "<strong>Nota:</strong> Aquest text ha estat generat per intel·ligència artificial i pot contenir errors.",
     "references": "Referències",
     "feedbackTitle": "Comentaris sobre la resposta mèdica",

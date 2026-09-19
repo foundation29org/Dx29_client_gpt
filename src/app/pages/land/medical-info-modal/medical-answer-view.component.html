@@ -84,14 +84,11 @@
           {{ reference.source }}
         </span>
       </div>
-      <p class="reference-snippet" *ngIf="reference.snippet">
-        {{ reference.snippet }}
+      <p
+        *ngIf="reference.snippet"
+        class="reference-snippet"
+        [innerHTML]="reference.snippetHtml">
       </p>
     </article>
   </div>
 </section>
-
-<div
-  class="ai-warning"
-  [innerHTML]="'medicalInfoModal.aiGeneratedWarning' | translate">
-</div>

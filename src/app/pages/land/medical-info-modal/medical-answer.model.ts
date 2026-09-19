@@ -13,5 +13,6 @@ export interface MedicalAnswerReference {
   url: string;
   date: string;
   snippet: string;
+  snippetHtml: string;
   source: string;
 }

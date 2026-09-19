@@ -1456,7 +1456,7 @@
     "only_patient_description": "O texto de entrada deve ser apenas uma descrição do paciente (idade, sexo, sintomas e quando começaram). Não inclua perguntas, informações sobre doenças ou tratamentos. Esta ferramenta serve apenas para assistência diagnóstica."
   },
   "medicalInfoModal": {
-    "disclaimerText": "Esta resposta tem fins educativos, pode conter erros e não substitui o aconselhamento de um profissional de saúde.",
+    "disclaimerText": "Esta resposta foi gerada por inteligência artificial para fins educativos, pode conter erros e não substitui o aconselhamento de um profissional de saúde.",
     "aiGeneratedWarning": "<strong>Nota:</strong> Este texto foi gerado por inteligência artificial e pode conter erros.",
     "references": "Referências",
     "feedbackTitle": "Feedback sobre resposta médica",

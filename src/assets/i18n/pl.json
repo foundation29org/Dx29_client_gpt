@@ -1456,7 +1456,7 @@
     "only_patient_description": "Tekst wejściowy powinien zawierać wyłącznie opis pacjenta (wiek, płeć, objawy i czas ich wystąpienia). Nie należy dodawać pytań, informacji o chorobach ani leczeniu. To narzędzie służy wyłącznie do wspomagania diagnostyki."
   },
   "medicalInfoModal": {
-    "disclaimerText": "Ta odpowiedź ma charakter edukacyjny, może zawierać błędy i nie zastępuje profesjonalnej porady medycznej.",
+    "disclaimerText": "Ta odpowiedź została wygenerowana przez sztuczną inteligencję w celach edukacyjnych, może zawierać błędy i nie zastępuje profesjonalnej porady medycznej.",
     "aiGeneratedWarning": "<strong>Uwaga:</strong> Ten tekst został wygenerowany przez sztuczną inteligencję i może zawierać błędy.",
     "references": "Bibliografia",
     "feedbackTitle": "Opinia o odpowiedzi medycznej",
