@@ -439,7 +439,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         });
         modalRef.componentInstance.content = content.medicalAnswer;
         modalRef.componentInstance.sonarData = content.sonarData;
-        modalRef.componentInstance.title = content.question || this.submittedQuestion;
+        modalRef.componentInstance.title = this.submittedQuestion || content.question;
         modalRef.componentInstance.model = content.model || this.model;
         modalRef.componentInstance.selectedFiles = [];
         modalRef.componentInstance.detectedLang = content.detectedLang || this.lang;

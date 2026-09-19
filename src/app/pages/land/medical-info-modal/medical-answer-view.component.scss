@@ -197,16 +197,62 @@
 }
 
 .references-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.references-toggle {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.85rem 1rem;
   color: var(--primary-color, #1a1a2e);
-  font-size: 1.15rem;
+  font-size: 1rem;
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+  background: #f7f8fa;
+  border: 1px solid #dfe3e8;
+  border-radius: 9px;
+  transition: background 150ms ease, border-color 150ms ease;
+
+  &:hover {
+    background: #f0f2f5;
+    border-color: #c8ced6;
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(179, 0, 0, 0.2);
+    outline-offset: 2px;
+  }
+
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+}
+
+.references-count {
+  min-width: 1.7rem;
+  padding: 0.1rem 0.42rem;
+  color: #fff;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  text-align: center;
+  background: var(--accent-color, #b30000);
+  border-radius: 999px;
 }
 
 .references-list {
   display: grid;
   gap: 0.85rem;
+  max-height: 28rem;
+  padding-right: 0.35rem;
+  margin-top: 0.85rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .reference-item {

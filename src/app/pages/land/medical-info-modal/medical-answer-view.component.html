@@ -35,10 +35,30 @@
 
 <section class="references-section" *ngIf="hasReferences()">
   <h3 class="references-title">
-    <i class="fas fa-book me-2"></i>
-    {{ 'medicalInfoModal.references' | translate }}
+    <button
+      type="button"
+      class="references-toggle"
+      [attr.aria-expanded]="referencesExpanded"
+      aria-controls="medical-references-list"
+      [attr.aria-label]="('medicalInfoModal.references' | translate) + ' (' + references.length + ')'"
+      (click)="toggleReferences()">
+      <span class="references-toggle__label">
+        <i class="fas fa-book" aria-hidden="true"></i>
+        {{ 'medicalInfoModal.references' | translate }}
+        <span class="references-count">{{ references.length }}</span>
+      </span>
+      <i
+        class="fas"
+        [class.fa-chevron-down]="!referencesExpanded"
+        [class.fa-chevron-up]="referencesExpanded"
+        aria-hidden="true">
+      </i>
+    </button>
   </h3>
-  <div class="references-list">
+  <div
+    *ngIf="referencesExpanded"
+    id="medical-references-list"
+    class="references-list">
     <article
       *ngFor="let reference of references; trackBy: trackByReference"
       class="reference-item"

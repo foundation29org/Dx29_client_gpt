@@ -16,6 +16,7 @@ export class MedicalAnswerViewComponent implements OnChanges {
 
   htmlContent = '';
   references: MedicalAnswerReference[] = [];
+  referencesExpanded = false;
 
   private processingVersion = 0;
 
@@ -67,20 +68,28 @@ export class MedicalAnswerViewComponent implements OnChanges {
     return reference.number || index;
   }
 
+  toggleReferences(): void {
+    this.referencesExpanded = !this.referencesExpanded;
+  }
+
   onContentClick(event: Event): void {
-    const target = event.target as HTMLElement;
-    if (!target.classList.contains('reference-link')) {
+    const target = (event.target as HTMLElement).closest<HTMLAnchorElement>('.reference-link');
+    if (!target) {
       return;
     }
 
+    event.preventDefault();
     const referenceNumber = Number(target.getAttribute('data-ref'));
+    this.referencesExpanded = true;
     setTimeout(() => this.highlightReference(referenceNumber), 100);
   }
 
   private async processAnswer(): Promise<void> {
     const version = ++this.processingVersion;
+    this.referencesExpanded = false;
     const sonarData = this.parseSonarData(this.answer.sonarData);
-    const normalizedContent = this.buildReferences(this.answer.content || '', sonarData);
+    const answerContent = this.removeGeneratedReferenceSection(this.answer.content || '');
+    const normalizedContent = this.buildReferences(answerContent, sonarData);
 
     try {
       marked.setOptions({ breaks: true, gfm: true });
@@ -99,6 +108,32 @@ export class MedicalAnswerViewComponent implements OnChanges {
         this.htmlContent = this.answer.content || '';
       }
     }
+  }
+
+  private removeGeneratedReferenceSection(markdown: string): string {
+    const referenceSectionLabels = [
+      'references?',
+      'sources?',
+      'bibliography',
+      'referencias?',
+      'fuentes',
+      'referències',
+      'références',
+      'referências',
+      'quellen',
+      'literatur',
+      'źródła',
+      'bibliografia',
+      'источники',
+      'джерела',
+      'संदर्भ'
+    ].join('|');
+    const referenceHeading = new RegExp(
+      `^#{1,6}\\s*(?:${referenceSectionLabels})(?:\\s*\\([^)]*\\))?\\s*$`,
+      'im'
+    );
+    const match = referenceHeading.exec(markdown);
+    return match ? markdown.slice(0, match.index).trimEnd() : markdown;
   }
 
   private parseSonarData(rawData: unknown): any {
@@ -219,7 +254,7 @@ export class MedicalAnswerViewComponent implements OnChanges {
       }
 
       const safeTitle = this.escapeHtmlAttribute(reference.title);
-      return `<a href="${reference.url}" target="_blank" rel="noopener noreferrer" `
+      return `<a href="#medical-reference-${referenceNumber}" `
         + `class="reference-link" data-ref="${referenceNumber}" title="${safeTitle}">`
         + `[${referenceNumber}]</a>`;
     });
@@ -229,7 +264,7 @@ export class MedicalAnswerViewComponent implements OnChanges {
     return htmlContent.replace(
       /<a\s+([^>]*?)href\s*=\s*["']([^"']+)["']([^>]*?)>/gi,
       (match, beforeHref, href, afterHref) => {
-        if (/target\s*=\s*["']_blank["']/i.test(match)) {
+        if (href.startsWith('#') || /target\s*=\s*["']_blank["']/i.test(match)) {
           return match;
         }
         return `<a ${beforeHref}href="${href}"${afterHref} `
