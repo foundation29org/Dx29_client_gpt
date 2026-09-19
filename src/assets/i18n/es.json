@@ -43,6 +43,10 @@
     "files_unsupported_format": "archivo(s) con formato no soportado. Formatos válidos: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
     "upload_limits": "Límite: {{maxMB}} MB totales, máx. {{maxDocs}} documentos y {{maxImages}} imágenes.",
     "upload_usage": "Usado: {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} imágenes, {{usedMB}}/{{maxMB}} MB.",
+    "independent_context": "Cada pregunta se procesa por separado. Las respuestas anteriores no se envían al modelo.",
+    "answer_title": "Respuesta médica",
+    "edit_question": "Modificar pregunta",
+    "new_question": "Nueva pregunta",
     "disclaimer": "<p><strong>Preguntas médicas</strong> es un experimento de investigación de Fundación 29. Usa inteligencia artificial de propósito general para responder consultas médicas con fines educativos. No genera diagnósticos, no está cubierta por la cualificación de dispositivo médico y no sustituye el consejo de un profesional sanitario.</p><p>Las respuestas pueden contener errores o estar desactualizadas. Cuando haya fuentes, aparecerán en la consulta para que puedas revisarlas; una fuente no garantiza que la información sea correcta, completa o aplicable a un caso concreto. El uso es por cuenta y riesgo del usuario y Fundación 29 no se hace responsable de las consecuencias o daños que puedan derivarse de su uso.</p><p>Al utilizar esta herramienta, reconoces que has leído y comprendido estas limitaciones y cualquier riesgo asociado al uso de una herramienta basada en inteligencia artificial.</p>"
   },
   "footer": {
@@ -1452,7 +1456,7 @@
     "only_patient_description": "El texto de entrada debe ser únicamente una descripción del paciente (edad, género, síntomas y cuándo comenzaron). No incluyas preguntas, información sobre enfermedades ni tratamientos. Esta herramienta es solo para ayuda al diagnóstico."
   },
   "medicalInfoModal": {
-    "disclaimerText": "Esta herramienta está diseñada principalmente para <strong>ayudar en el diagnóstico</strong>. Las respuestas a consultas médicas generales son solo con fines educativos y deben ser evaluadas críticamente. No sustituyen el consejo médico profesional.",
+    "disclaimerText": "Esta respuesta ha sido generada por inteligencia artificial con fines educativos, puede contener errores y no sustituye el consejo de un profesional sanitario.",
     "aiGeneratedWarning": "<strong>Nota:</strong> Este texto ha sido generado por inteligencia artificial y puede contener errores.",
     "references": "Referencias",
     "feedbackTitle": "Feedback de la respuesta médica",

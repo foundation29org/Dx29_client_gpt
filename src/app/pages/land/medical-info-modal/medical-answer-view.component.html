@@ -1,0 +1,94 @@
+<div class="disclaimer-alert">
+  <div class="disclaimer-header">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    <strong>{{ 'permalink.medicalDisclaimerTitle' | translate }}</strong>
+  </div>
+  <div
+    class="disclaimer-content"
+    [innerHTML]="'medicalInfoModal.disclaimerText' | translate">
+  </div>
+</div>
+
+<div
+  class="medical-content"
+  [innerHTML]="htmlContent"
+  (click)="onContentClick($event)">
+</div>
+
+<div class="answer-feedback">
+  <span>{{ 'medicalInfoModal.wasHelpful' | translate }}</span>
+  <button
+    type="button"
+    class="feedback-button feedback-button--positive"
+    [title]="'medicalInfoModal.voteup' | translate"
+    (click)="openMedicalFeedback('up')">
+    <i class="fa fa-thumbs-up"></i>
+  </button>
+  <button
+    type="button"
+    class="feedback-button feedback-button--negative"
+    [title]="'medicalInfoModal.votedown' | translate"
+    (click)="openMedicalFeedback('down')">
+    <i class="fa fa-thumbs-down"></i>
+  </button>
+</div>
+
+<section class="references-section" *ngIf="hasReferences()">
+  <h3 class="references-title">
+    <button
+      type="button"
+      class="references-toggle"
+      [attr.aria-expanded]="referencesExpanded"
+      aria-controls="medical-references-list"
+      [attr.aria-label]="('medicalInfoModal.references' | translate) + ' (' + references.length + ')'"
+      (click)="toggleReferences()">
+      <span class="references-toggle__label">
+        <i class="fas fa-book" aria-hidden="true"></i>
+        {{ 'medicalInfoModal.references' | translate }}
+        <span class="references-count">{{ references.length }}</span>
+      </span>
+      <i
+        class="fas"
+        [class.fa-chevron-down]="!referencesExpanded"
+        [class.fa-chevron-up]="referencesExpanded"
+        aria-hidden="true">
+      </i>
+    </button>
+  </h3>
+  <div
+    *ngIf="referencesExpanded"
+    id="medical-references-list"
+    class="references-list">
+    <article
+      *ngFor="let reference of references; trackBy: trackByReference"
+      class="reference-item"
+      [id]="'medical-reference-' + reference.number">
+      <div class="reference-header">
+        <span class="reference-number">[{{ reference.number }}]</span>
+        <a
+          class="reference-title"
+          [href]="reference.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          [title]="reference.title">
+          {{ reference.title }}
+        </a>
+      </div>
+      <div class="reference-meta" *ngIf="reference.date || reference.source">
+        <span class="reference-date" *ngIf="reference.date">
+          <i class="fas fa-calendar-alt me-1"></i>
+          {{ reference.date }}
+        </span>
+        <span class="reference-source" *ngIf="reference.source">
+          <i class="fas fa-globe me-1"></i>
+          {{ reference.source }}
+        </span>
+      </div>
+      <p
+        *ngIf="reference.snippet"
+        class="reference-snippet"
+        [innerHTML]="reference.snippetHtml">
+      </p>
+    </article>
+  </div>
+</section>

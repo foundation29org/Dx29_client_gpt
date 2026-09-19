@@ -59,6 +59,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     private isWebSocketConnected = false;
     private readonly startedAt = Date.now();
     private readonly myuuid: string;
+    private submittedQuestion = '';
 
     constructor(
         public translate: TranslateService,
@@ -294,7 +295,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
 
     private async submitMedicalQuestion(): Promise<void> {
-        this.medicalTextEng = this.medicalTextOriginal;
+        this.submittedQuestion = this.medicalTextOriginal.trim();
+        this.medicalTextEng = this.submittedQuestion;
         this.callingAI = true;
         this.lauchEvent('Medical question started');
         Swal.close();
@@ -310,7 +312,9 @@ export class BetaPageComponent implements OnInit, OnDestroy {
 
         const lang = this.isValidLanguage(this.lang) ? this.lang : 'en';
         const value = {
-            description: this.medicalTextEng,
+            // Every request is intentionally self-contained. Neither the previous
+            // answer nor any earlier question is sent to the model.
+            description: this.submittedQuestion,
             diseases_list: '',
             myuuid: this.myuuid,
             lang,
@@ -414,8 +418,8 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }
 
         if (response?.medicalAnswer) {
-            this.showMedicalInfoModal(response);
-            this.lauchEvent('Medical Info Modal');
+            this.showMedicalAnswer(response);
+            this.lauchEvent('Medical answer displayed in popup');
             return;
         }
 
@@ -423,20 +427,53 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         this.lauchEvent('only_medical_question Modal');
     }
 
-    private showMedicalInfoModal(content: any): void {
+    private showMedicalAnswer(content: any): void {
         const modalRef = this.modalService.open(MedicalInfoModalComponent, {
-            size: 'lg',
+            size: 'xl',
             backdrop: 'static',
             keyboard: false,
             centered: true,
-            windowClass: 'medical-info-modal'
+            scrollable: true,
+            ariaLabelledBy: 'medical-answer-title',
+            windowClass: 'medical-info-modal medical-info-modal--questions'
         });
         modalRef.componentInstance.content = content.medicalAnswer;
         modalRef.componentInstance.sonarData = content.sonarData;
-        modalRef.componentInstance.title = content.question;
-        modalRef.componentInstance.model = content.model;
+        modalRef.componentInstance.title = this.submittedQuestion || content.question;
+        modalRef.componentInstance.model = content.model || this.model;
         modalRef.componentInstance.selectedFiles = [];
-        modalRef.componentInstance.detectedLang = content.detectedLang;
+        modalRef.componentInstance.detectedLang = content.detectedLang || this.lang;
+        modalRef.componentInstance.showQuestionActions = true;
+
+        modalRef.result.then(
+            action => action === 'new'
+                ? this.startNewQuestion()
+                : this.editCurrentQuestion(),
+            () => this.restoreQuestionInput()
+        );
+    }
+
+    private editCurrentQuestion(): void {
+        this.lauchEvent('Medical answer - Edit question');
+        this.restoreQuestionInput();
+    }
+
+    private startNewQuestion(): void {
+        this.medicalTextOriginal = '';
+        this.medicalTextEng = '';
+        this.submittedQuestion = '';
+        this.lauchEvent('Medical answer - New question');
+        this.restoreQuestionInput(true);
+    }
+
+    private restoreQuestionInput(restartPlaceholder = false): void {
+        setTimeout(() => {
+            this.resizeTextArea();
+            this.scrollToInput();
+            if (restartPlaceholder) {
+                this.startTypingAnimation();
+            }
+        });
     }
 
     private showWrongPageRedirect(): void {

@@ -43,6 +43,10 @@
     "files_unsupported_format": "fitxer(s) amb format no suportat. Formats vàlids: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
     "upload_limits": "Límit: {{maxMB}} MB totals, màx. {{maxDocs}} documents i {{maxImages}} imatges.",
     "upload_usage": "Usat: {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} imatges, {{usedMB}}/{{maxMB}} MB.",
+    "independent_context": "Cada pregunta es processa per separat. Les respostes anteriors no s'envien al model.",
+    "answer_title": "Resposta mèdica",
+    "edit_question": "Modificar pregunta",
+    "new_question": "Nova pregunta",
     "disclaimer": "<p><strong>Preguntes mèdiques</strong> és un experiment de recerca de Fundación 29. Usa intel·ligència artificial de propòsit general per respondre consultes mèdiques amb finalitats educatives. No genera diagnòstics, no està coberta per la qualificació de dispositiu mèdic i no substitueix el consell d'un professional sanitari.</p><p>Les respostes poden contenir errors o estar desactualitzades. Quan hi hagi fonts, apareixeran a la consulta perquè les puguis revisar; una font no garanteix que la informació sigui correcta, completa o aplicable a un cas concret. L'ús és per compte i risc de l'usuari i Fundación 29 no es fa responsable de les conseqüències o danys que se'n puguin derivar.</p><p>En utilitzar aquesta eina, reconeixes que has llegit i comprès aquestes limitacions i qualsevol risc associat a l'ús d'una eina basada en intel·ligència artificial.</p>"
   },
   "footer": {
@@ -1452,7 +1456,7 @@
     "only_patient_description": "El text d'entrada ha de ser únicament una descripció del pacient (edat, gènere, símptomes i quan van començar). No incloguis preguntes, informació sobre malalties ni tractaments. Aquesta eina és només per a ajuda al diagnòstic."
   },
   "medicalInfoModal": {
-    "disclaimerText": "Aquesta eina està dissenyada principalment per a <strong>ajudar en el diagnòstic</strong>. Les respostes a consultes mèdiques generals són només amb finalitats educatives i s'han d'avaluar críticament. No substitueixen el consell mèdic professional.",
+    "disclaimerText": "Aquesta resposta ha estat generada per intel·ligència artificial amb finalitats educatives, pot contenir errors i no substitueix el consell d'un professional sanitari.",
     "aiGeneratedWarning": "<strong>Nota:</strong> Aquest text ha estat generat per intel·ligència artificial i pot contenir errors.",
     "references": "Referències",
     "feedbackTitle": "Comentaris sobre la resposta mèdica",

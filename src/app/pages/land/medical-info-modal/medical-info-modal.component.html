@@ -1,69 +1,40 @@
 <div class="modal-header">
-  <h4 class="modal-title" title="{{ title }}">
+  <h4 id="medical-answer-title" class="modal-title" title="{{ title }}">
     <i class="fas fa-info-circle text-white me-2"></i>
     {{ title }}
   </h4>
-  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  <button
+    type="button"
+    class="btn-close"
+    [attr.aria-label]="closeButtonText"
+    [title]="closeButtonText"
+    (click)="activeModal.dismiss()">
+  </button>
 </div>
 <div class="modal-body">
-  <!-- Disclaimer Alert -->
-  <div class="disclaimer-alert">
-    <div class="disclaimer-header">
-      <i class="fas fa-exclamation-triangle text-warning me-2"></i>
-      <strong>{{ 'permalink.medicalDisclaimerTitle' | translate }}</strong>
-    </div>
-    <div class="disclaimer-content" [innerHTML]="'medicalInfoModal.disclaimerText' | translate "></div>
-  </div>
-  
-  <!-- Medical Content -->
-  <div class="medical-content" [innerHTML]="htmlContent" (click)="onContentClick($event)"></div>
-
-  <!-- Feedback CTA -->
-  <div class="mt-3 d-flex align-items-center gap-2">
-    <span class="me-2">{{ 'medicalInfoModal.wasHelpful' | translate }}</span>
-    <button class="btn btn-outline-success" title="{{ 'medicalInfoModal.voteup' | translate }}" (click)="openMedicalFeedback('up')">
-      <i class="fa fa-thumbs-up"></i>
-    </button>
-    <button class="btn btn-outline-danger" title="{{ 'medicalInfoModal.votedown' | translate }}" (click)="openMedicalFeedback('down')">
-      <i class="fa fa-thumbs-down"></i>
-    </button>
-  </div>
-
-  <!-- References Section -->
-  <div class="references-section" *ngIf="hasReferences()">
-    <h4 class="references-title">
-      <i class="fas fa-book text-primary me-2"></i>
-      {{ 'medicalInfoModal.references' | translate }}
-    </h4>
-    <div class="references-list">
-      <div class="reference-item" *ngFor="let ref of getFormattedReferences(); trackBy: trackByReference">
-        <div class="reference-header">
-          <span class="reference-number">[{{ ref.number }}]</span>
-          <a [href]="ref.url" target="_blank" class="reference-title" [title]="ref.title">
-            {{ ref.title }}
-          </a>
-        </div>
-        <div class="reference-meta" *ngIf="ref.date">
-          <span class="reference-date">
-            <i class="fas fa-calendar-alt me-1"></i>
-            {{ ref.date }}
-          </span>
-          <span class="reference-source" *ngIf="ref.source">
-            <i class="fas fa-globe me-1"></i>
-            {{ ref.source }}
-          </span>
-        </div>
-        <div class="reference-snippet" *ngIf="ref.snippet">
-          {{ ref.snippet }}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ai-warning" [innerHTML]="'medicalInfoModal.aiGeneratedWarning' | translate"></div>
+  <app-medical-answer-view [answer]="answer"></app-medical-answer-view>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
-    {{ closeButtonText }}
-  </button>
+  <ng-container *ngIf="showQuestionActions; else closeAction">
+    <button
+      type="button"
+      class="modal-action modal-action--secondary"
+      (click)="activeModal.close('edit')">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+      {{ 'beta.edit_question' | translate }}
+    </button>
+    <button
+      type="button"
+      class="modal-action modal-action--primary"
+      (click)="activeModal.close('new')">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      {{ 'beta.new_question' | translate }}
+    </button>
+  </ng-container>
+
+  <ng-template #closeAction>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+      {{ closeButtonText }}
+    </button>
+  </ng-template>
 </div> 

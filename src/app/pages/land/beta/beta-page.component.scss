@@ -163,6 +163,18 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
+.context-isolation-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  max-width: 44rem;
+  margin: 0.85rem auto 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
 .hero-questions-link {
   margin: 0.75rem 0 0;
   color: rgba(255, 255, 255, 0.55);
@@ -381,6 +393,11 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   .chips-and-counter-row {
     justify-content: flex-start;
+    text-align: left;
+  }
+
+  .context-isolation-note {
+    align-items: flex-start;
     text-align: left;
   }
 }

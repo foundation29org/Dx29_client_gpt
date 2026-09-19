@@ -43,6 +43,10 @@
     "files_unsupported_format": "pliki z nieobsługiwanym formatem. Prawidłowe formaty: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
     "upload_limits": "Limit: {{maxMB}} MB łącznie, maks. {{maxDocs}} dokumentów i {{maxImages}} obrazów.",
     "upload_usage": "Użyto: {{docs}}/{{maxDocs}} dok., {{images}}/{{maxImages}} obrazy, {{usedMB}}/{{maxMB}} MB.",
+    "independent_context": "Każde pytanie jest przetwarzane oddzielnie. Poprzednie odpowiedzi nie są wysyłane do modelu.",
+    "answer_title": "Odpowiedź medyczna",
+    "edit_question": "Edytuj pytanie",
+    "new_question": "Nowe pytanie",
     "disclaimer": "<p><strong>Pytania medyczne</strong> to eksperyment badawczy Foundation 29. Używa sztucznej inteligencji ogólnego przeznaczenia do odpowiadania na pytania medyczne w celach edukacyjnych. Nie stawia diagnoz, nie jest objęte kwalifikacją wyrobu medycznego i nie zastępuje porady wykwalifikowanego specjalisty.</p><p>Odpowiedzi mogą zawierać błędy lub być nieaktualne. Jeśli są źródła, pojawią się w konsultacji, aby można je było sprawdzić; źródło nie gwarantuje, że informacja jest poprawna, kompletna lub ma zastosowanie do konkretnego przypadku. Korzystanie odbywa się na własne ryzyko użytkownika, a Foundation 29 nie ponosi odpowiedzialności za skutki lub szkody, które mogą z tego wyniknąć.</p><p>Korzystając z tego narzędzia, potwierdzasz, że przeczytałeś i zrozumiałeś te ograniczenia oraz wszelkie ryzyka związane z użyciem narzędzia opartego na sztucznej inteligencji.</p>"
   },
   "footer": {
@@ -1452,7 +1456,7 @@
     "only_patient_description": "Tekst wejściowy powinien zawierać wyłącznie opis pacjenta (wiek, płeć, objawy i czas ich wystąpienia). Nie należy dodawać pytań, informacji o chorobach ani leczeniu. To narzędzie służy wyłącznie do wspomagania diagnostyki."
   },
   "medicalInfoModal": {
-    "disclaimerText": "To narzędzie jest zaprojektowane głównie w celu <strong>wspomagania diagnostyki</strong>. Odpowiedzi na ogólne pytania medyczne są dostarczane wyłącznie w celach edukacyjnych i powinny być dokładnie oceniane. Nie mogą one zastępować profesjonalnego poradnictwa medycznego.",
+    "disclaimerText": "Ta odpowiedź została wygenerowana przez sztuczną inteligencję w celach edukacyjnych, może zawierać błędy i nie zastępuje profesjonalnej porady medycznej.",
     "aiGeneratedWarning": "<strong>Uwaga:</strong> Ten tekst został wygenerowany przez sztuczną inteligencję i może zawierać błędy.",
     "references": "Bibliografia",
     "feedbackTitle": "Opinia o odpowiedzi medycznej",

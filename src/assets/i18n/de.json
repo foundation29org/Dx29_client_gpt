@@ -43,6 +43,10 @@
     "files_unsupported_format": "Datei(en) mit nicht unterstütztem Format. Gültige Formate: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
     "upload_limits": "Limit: {{maxMB}} MB gesamt, max. {{maxDocs}} Dokumente und {{maxImages}} Bilder.",
     "upload_usage": "Verwendet: {{docs}}/{{maxDocs}} Dok., {{images}}/{{maxImages}} Bilder, {{usedMB}}/{{maxMB}} MB.",
+    "independent_context": "Jede Frage wird separat verarbeitet. Frühere Antworten werden nicht an das Modell gesendet.",
+    "answer_title": "Medizinische Antwort",
+    "edit_question": "Frage bearbeiten",
+    "new_question": "Neue Frage",
     "disclaimer": "<p><strong>Medizinische Fragen</strong> ist ein Forschungsexperiment der Foundation 29. Es verwendet eine Allzweck-KI, um medizinische Anfragen zu Bildungszwecken zu beantworten. Es stellt keine Diagnosen, fällt nicht unter die Medizinproduktequalifizierung und ersetzt keine professionelle medizinische Beratung.</p><p>Antworten können Fehler enthalten oder veraltet sein. Sofern Quellen verfügbar sind, erscheinen sie in der Auskunft, damit Sie sie prüfen können; eine Quelle garantiert nicht, dass die Information korrekt, vollständig oder auf einen konkreten Fall anwendbar ist. Die Nutzung erfolgt auf eigenes Risiko des Nutzers, und Foundation 29 übernimmt keine Haftung für Folgen oder Schäden, die sich daraus ergeben können.</p><p>Mit der Nutzung dieses Tools bestätigen Sie, dass Sie diese Einschränkungen und die mit einer KI-basierten Anwendung verbundenen Risiken gelesen und verstanden haben.</p>"
   },
   "footer": {
@@ -1452,7 +1456,7 @@
     "only_patient_description": "Der eingegebene Text darf nur eine Beschreibung des Patienten enthalten (Alter, Geschlecht, Symptome und Beginn der Symptome). Bitte keine Fragen, Informationen zu Krankheiten oder Behandlungen eingeben. Dieses Tool dient ausschließlich der Diagnoseunterstützung."
   },
   "medicalInfoModal": {
-    "disclaimerText": "Diese Anwendung ist für die Unterstützung bei der Diagnose von Patienten gedacht. Um Ihnen eine hilfreiche Antwort zu geben, haben wir Ihre Frage verarbeitet. Denken Sie daran, dass diese Informationen nicht als Ersatz für professionelle medizinische Beratung dienen.",
+    "disclaimerText": "Diese Antwort wurde von künstlicher Intelligenz zu Bildungszwecken erstellt, kann Fehler enthalten und ersetzt keine professionelle medizinische Beratung.",
     "aiGeneratedWarning": "<strong>Hinweis:</strong> Dieser Text wurde von künstlicher Intelligenz generiert und kann Fehler enthalten.",
     "references": "Referenzen",
     "feedbackTitle": "Feedback zur medizinischen Antwort",
