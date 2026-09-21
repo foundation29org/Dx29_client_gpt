@@ -619,6 +619,8 @@
     "No": "Non",
     "Warning": "Avertissement",
     "error try again": "Une erreur s'est produite, veuillez réessayer",
+    "imageAssetExpired": "Une ou plusieurs images ont expiré ou ne sont plus disponibles. Supprimez-les ou importez-les à nouveau.",
+    "documentPartialFailure": "Certains documents n'ont pas pu être traités : {{files}}. La recherche continue avec les autres.",
     "error edit patient description": "Si le problème persiste, editez la description du patient",
     "entervalidemail": "Veuillez saisir une adresse e-mail valide!",
     "required": "Ce champ est obligatoire",

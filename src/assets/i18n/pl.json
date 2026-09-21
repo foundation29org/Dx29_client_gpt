@@ -619,6 +619,8 @@
     "No": "Nie",
     "Warning": "Ostrzeżenie",
     "error try again": "Wystąpił błąd, proszę spróbować ponownie",
+    "imageAssetExpired": "Co najmniej jeden obraz wygasł lub nie jest już dostępny. Usuń go lub prześlij ponownie.",
+    "documentPartialFailure": "Nie udało się przetworzyć niektórych dokumentów: {{files}}. Wyszukiwanie jest kontynuowane z pozostałymi.",
     "error edit patient description": "Jeśli problem będzie się powtarzał, zedytuj opis pacjenta",
     "entervalidemail": "Proszę podać prawidłowy adres e-mail!",
     "required": "To pole jest wymagane",

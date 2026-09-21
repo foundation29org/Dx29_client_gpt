@@ -23,6 +23,15 @@ import { environment } from 'environments/environment';
 import { DIAGNOSTIC_GUIDANCE_QUESTIONS } from 'app/shared/models/diagnostic-guidance-question';
 declare let gtag: any;
 
+interface MultimodalImageReference {
+    name: string;
+    assetId?: string;
+    size?: number;
+    url?: string;
+    sasExpiresAt?: string;
+    expiresAt?: string;
+}
+
 @Component({
     selector: 'app-undiagnosed-page',
     templateUrl: './undiagnosed-page.component.html',
@@ -139,6 +148,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     generatingPDF: boolean = false;
 
     selectedFiles: File[] = [];
+    private uploadedFileKeys = new Set<string>();
     summary: string = '';
     details: any = null;
     inferredProfile: any = null;
@@ -146,10 +156,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     isDragOver = false;
 
     filesAnalyzed = false;
-    filesModifiedAfterAnalysis = false; // Nueva propiedad para rastrear modificaciones
+    filesModifiedAfterAnalysis = false;
+    failedDocumentNames: string[] = [];
     
-    // Propiedad para almacenar las URLs de las imágenes de la respuesta del API
-    currentImageUrls: any[] = [];
+    // El servidor devuelve assetId (reutilizar) y url (miniatura 24 h).
+    currentImageUrls: MultimodalImageReference[] = [];
     descriptionImageOnly: string = '';
 
     // Propiedades para WebSocket/PubSub
@@ -174,6 +185,61 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     get selectedTotalMB(): number {
         const bytes = (this.selectedFiles || []).reduce((acc: number, f: File) => acc + (f.size || 0), 0);
         return Math.round((bytes / (1024 * 1024)) * 10) / 10;
+    }
+
+    private getImageReferencePayload(): { assetIds: string[]; imageUrls: MultimodalImageReference[] } {
+        return {
+            assetIds: this.currentImageUrls
+                .map(image => image.assetId)
+                .filter((assetId): assetId is string => !!assetId),
+            imageUrls: this.currentImageUrls.filter(image => !image.assetId && !!image.url)
+        };
+    }
+
+    private getFileKey(file: File): string {
+        return `${file.name}:${file.size}:${file.lastModified}`;
+    }
+
+    private resetExpiredImageAssets(): void {
+        this.currentImageUrls = [];
+        this.selectedFiles
+            .filter(file => UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type))
+            .forEach(file => this.uploadedFileKeys.delete(this.getFileKey(file)));
+        this.filesAnalyzed = false;
+        this.filesModifiedAfterAnalysis = true;
+    }
+
+    private reportFailedDocuments(documents: unknown): void {
+        this.failedDocumentNames = Array.isArray(documents)
+            ? documents
+                .filter((document: { status?: string; name?: string }) =>
+                    document?.status === 'failed' && !!document.name
+                )
+                .map((document: { name: string }) => document.name)
+            : [];
+
+        if (this.failedDocumentNames.length === 0) {
+            return;
+        }
+
+        const htmlContainer = Swal.getHtmlContainer();
+        if (!htmlContainer || htmlContainer.querySelector('#partial-document-warning')) {
+            return;
+        }
+
+        const warning = this.renderer.createElement('div');
+        this.renderer.setAttribute(warning, 'id', 'partial-document-warning');
+        this.renderer.setAttribute(warning, 'role', 'alert');
+        this.renderer.addClass(warning, 'alert');
+        this.renderer.addClass(warning, 'alert-warning');
+        this.renderer.addClass(warning, 'mt-3');
+        this.renderer.addClass(warning, 'mb-0');
+        this.renderer.addClass(warning, 'text-start');
+        const message = this.translate.instant('generics.documentPartialFailure', {
+            files: this.failedDocumentNames.join(', ')
+        });
+        this.renderer.appendChild(warning, this.renderer.createText(message));
+        this.renderer.appendChild(htmlContainer, warning);
     }
 
     constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, private intentEnrichmentService: IntentEnrichmentService, @Inject(PLATFORM_ID) private platformId: Object) {
@@ -356,12 +422,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.filesAnalyzed = false;
         this.filesModifiedAfterAnalysis = false;
         this.selectedFiles = [];
+        this.uploadedFileKeys.clear();
+        this.failedDocumentNames = [];
     }
 
     async newPatient() {
         this.medicalTextOriginal = '';
         this.currentImageUrls = []; // Limpiar las URLs de las imágenes
         this.descriptionImageOnly = '';
+        this.uploadedFileKeys.clear();
         this.goPrevious();
     }
 
@@ -799,6 +868,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.showErrorCall1 = false;
         this.currentImageUrls = []; // Limpiar las URLs de las imágenes
         this.descriptionImageOnly = '';
+        this.uploadedFileKeys.clear();
         document.getElementById("textarea1").setAttribute("style", "height:50px;overflow-y:hidden; width: 100%;");
         this.resizeTextArea();
     }
@@ -1044,6 +1114,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             console.warn('Invalid lang value detected, using fallback "en":', this.lang);
         }
         
+        const imageReferences = this.getImageReferencePayload();
         var value = { 
             description: this.medicalTextEng, 
             diseases_list: '', 
@@ -1055,12 +1126,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             model: this.model,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
-            imageUrls: [],
+            assetIds: imageReferences.assetIds,
+            imageUrls: imageReferences.imageUrls,
             forceDiagnosis: this.forceDiagnosisNext === true
         };
         this.forceDiagnosisNext = false;
         if(this.currentImageUrls.length > 0){
-            value.imageUrls = this.currentImageUrls;
             if(this.descriptionImageOnly != '' && value.description == ''){
                 value.description = this.descriptionImageOnly;
             }else if (this.descriptionImageOnly != '' && value.description != ''){
@@ -1230,7 +1301,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         // Si el error tiene la estructura error.error
         else if (err.error) {
-            if (err.error.error && err.error.error.code === 'content_filter') {
+            if (
+                err.error.code === 'INVALID_ASSET_REFERENCE' ||
+                err.error.code === 'INVALID_IMAGE_URL'
+            ) {
+                this.resetExpiredImageAssets();
+                msgError = this.translate.instant('generics.imageAssetExpired');
+            } else if (err.error.error && err.error.error.code === 'content_filter') {
                 msgError = this.translate.instant('generics.sorry cant anwser1');
             } else if (err.error.type === 'invalid_request_error') {
                 if (err.error.code === 'string_above_max_length') {
@@ -1637,10 +1714,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.medicalTextOriginal = this.descriptionImageOnly;
         }
 
-        var value = { questionType, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, timezone: this.timezone, detectedLang: this.detectedLang, imageUrls: [] };
+        const imageReferences = this.getImageReferencePayload();
+        var value = {
+            questionType,
+            disease: selectedDiseaseEn,
+            medicalDescription: this.medicalTextEng,
+            myuuid: this.myuuid,
+            timezone: this.timezone,
+            detectedLang: this.detectedLang,
+            assetIds: imageReferences.assetIds,
+            imageUrls: imageReferences.imageUrls
+        };
 
         if(this.currentImageUrls.length > 0){
-            value.imageUrls = this.currentImageUrls;
             if(this.descriptionImageOnly != '' && value.medicalDescription == ''){
                 value.medicalDescription = this.descriptionImageOnly;
             }else if (this.descriptionImageOnly != '' && value.medicalDescription != ''){
@@ -1687,7 +1773,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }, (err) => {
                 console.log(err);
                 let msgError = '';
-                if(err && err.error && err.error.message){
+                if (
+                    err?.error?.code === 'INVALID_ASSET_REFERENCE' ||
+                    err?.error?.code === 'INVALID_IMAGE_URL'
+                ) {
+                    this.resetExpiredImageAssets();
+                    msgError = this.translate.instant('generics.imageAssetExpired');
+                } else if(err && err.error && err.error.message){
                     switch(err.error.message) {
                         case 'Invalid question type':
                             msgError = this.translate.instant("generics.errorQuestionType");
@@ -2411,9 +2503,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         const selectedFileIndex = this.selectedFiles.findIndex(file =>
             UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type) &&
-            file.name === removedImage.name
+            file.name === removedImage.name &&
+            (removedImage.size === undefined || file.size === removedImage.size)
         );
         if (selectedFileIndex >= 0) {
+            this.uploadedFileKeys.delete(this.getFileKey(this.selectedFiles[selectedFileIndex]));
             this.selectedFiles.splice(selectedFileIndex, 1);
         }
 
@@ -3097,6 +3191,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     removeFile(index: number) {
         const removedFile = this.selectedFiles[index];
+        if (removedFile) {
+            this.uploadedFileKeys.delete(this.getFileKey(removedFile));
+            const associatedImageIndex = this.currentImageUrls.findIndex(
+                image => image.name === removedFile.name &&
+                    (image.size === undefined || image.size === removedFile.size)
+            );
+            if (associatedImageIndex >= 0) {
+                this.currentImageUrls.splice(associatedImageIndex, 1);
+            }
+        }
         this.selectedFiles.splice(index, 1);
         if (this.selectedFiles.length === 0) {
             this.filesAnalyzed = false;
@@ -3108,6 +3212,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async analyzeMultimodal() {
+        this.failedDocumentNames = [];
         // Mostrar spinner con Swals
         Swal.close();
         Swal.fire({
@@ -3133,11 +3238,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callingAI = true;
         const formData = new FormData();
         formData.append('text', this.medicalTextOriginal || '');
+        const imageReferences = this.getImageReferencePayload();
+        formData.append('assetIds', JSON.stringify(imageReferences.assetIds));
+        const filesSubmitted = this.selectedFiles.filter(
+            file => !this.uploadedFileKeys.has(this.getFileKey(file))
+        );
         // Permitir hasta 5 documentos y 5 imágenes según backend
         // Usar las constantes de la clase para consistencia
         let docCount = 0;
         let imgCount = 0;
-        for (const file of this.selectedFiles) {
+        for (const file of filesSubmitted) {
             if (docCount < 5 && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(file.type)) {
                 formData.append('document', file);
                 docCount++;
@@ -3212,6 +3322,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.apiDx29ServerService.analyzeMultimodal(formData).subscribe(
             (res: any) => {
                 console.log(res);
+                this.reportFailedDocuments(res.documents);
                 this.handledDiagnoseResponse(res, formData);
                 if(res.description && res.isImageOnly == false){
                     this.resultAnonymized = res.description;
@@ -3226,6 +3337,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 if(res.imageUrls && Array.isArray(res.imageUrls)){
                     this.currentImageUrls = res.imageUrls;
                 }
+                const uploadedImages = filesSubmitted.filter(file =>
+                    UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)
+                );
+                const returnedNewImages = (this.currentImageUrls || [])
+                    .slice(-uploadedImages.length);
+                uploadedImages.forEach((file, index) => {
+                    if (returnedNewImages[index]?.assetId) {
+                        this.uploadedFileKeys.add(this.getFileKey(file));
+                    }
+                });
+                this.filesAnalyzed = true;
+                this.filesModifiedAfterAnalysis = false;
             },
             (err: any) => this.handleAiError(err)
         );
@@ -3278,7 +3401,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const isSupportedDoc = (f: File) => f.type && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(f.type);
         const currentImages = this.selectedFiles.filter(isSupportedImage).length;
         const currentDocs = this.selectedFiles.filter(isSupportedDoc).length;
-        const currentTotalBytes = this.selectedFiles.reduce((acc, f) => acc + f.size, 0);
+        const currentTotalBytes = this.selectedFiles
+            .filter(file => !this.uploadedFileKeys.has(this.getFileKey(file)))
+            .reduce((acc, f) => acc + f.size, 0);
 
         let addedImages = 0;
         let addedDocs = 0;

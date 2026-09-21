@@ -89,6 +89,10 @@
           </div>
         </div>
       </div>
+      <div *ngIf="failedDocumentNames.length" class="alert alert-warning mt-3 mb-3" role="alert" style="text-align: left;">
+        <i class="fa fa-exclamation-triangle me-2" aria-hidden="true"></i>
+        {{ 'generics.documentPartialFailure' | translate:{ files: failedDocumentNames.join(', ') } }}
+      </div>
       <!-- Banner de revisión después del análisis, ahora encima de la caja de texto -->
       <div *ngIf="selectedFiles.length > 0 && filesAnalyzed && summary" class="alert alert-success mt-3 mb-3" role="alert" style="text-align: left;">
         <div class="d-flex align-items-start">
@@ -202,6 +206,10 @@
             </div>
             <div *ngIf="isEuMode()" class="results-header__eu-disclaimer">
               <i class="fa fa-exclamation-triangle me-2"></i>{{'diagnosis.disclaimerEu' | translate }}
+            </div>
+            <div class="results-header__advice" *ngIf="failedDocumentNames.length">
+              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+              <span>{{ 'generics.documentPartialFailure' | translate:{ files: failedDocumentNames.join(', ') } }}</span>
             </div>
             <div class="results-header__advice" *ngIf="topRelatedConditions.length>0">
               <i class="fa fa-info-circle" aria-hidden="true"></i>
