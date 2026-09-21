@@ -2199,13 +2199,14 @@ body {
 }
 
 .edit-image-card {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.6rem;
   background: #f9fafb;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 2.25rem 0.5rem 0.75rem;
   max-width: 260px;
 }
 
@@ -2224,6 +2225,30 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.edit-image-remove {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.edit-image-remove:hover,
+.edit-image-remove:focus-visible {
+  background: #fee2e2;
+  color: #b91c1c;
+  outline: none;
 }
 
 /* ============================================================

@@ -13,6 +13,8 @@ export type IntentGateChoice = 'ask' | 'questions' | 'continue' | 'edit' | 'uplo
 export class IntentGateModalComponent {
     @Input() mode: IntentGateMode = 'enrich';
     @Input() reason = '';
+    @Input() hasUploadedImages = false;
+    @Input() hasPatientDescription = true;
 
     constructor(public activeModal: NgbActiveModal) {}
 
@@ -28,18 +30,36 @@ export class IntentGateModalComponent {
         return this.reason === 'missing_patient_data';
     }
 
+    get hasImageContext(): boolean {
+        return this.hasUploadedImages && !this.isExplain;
+    }
+
     get canContinue(): boolean {
         // The classifier suggests a path. It must never block differential diagnosis.
         return true;
     }
 
     get canAskQuestions(): boolean {
-        return !this.isNonMedical;
+        if (this.hasImageContext && !this.hasPatientDescription) {
+            return false;
+        }
+        return this.hasImageContext || !this.isNonMedical;
+    }
+
+    get canUpload(): boolean {
+        return !this.isExplain && !this.hasImageContext;
+    }
+
+    get recommendAddingDetails(): boolean {
+        return this.hasImageContext && !this.hasPatientDescription;
     }
 
     get titleKey(): string {
         if (this.isExplain) {
             return 'land.enrichment.ask_title';
+        }
+        if (this.hasImageContext) {
+            return 'land.enrichment.image_title';
         }
         if (this.isNonMedical) {
             return 'land.enrichment.non_medical_title';
@@ -54,6 +74,9 @@ export class IntentGateModalComponent {
         if (this.isExplain) {
             return 'land.enrichment.ask_description';
         }
+        if (this.hasImageContext) {
+            return 'land.enrichment.image_description';
+        }
         if (this.isNonMedical) {
             return 'land.enrichment.non_medical_description';
         }
@@ -61,6 +84,30 @@ export class IntentGateModalComponent {
             return 'land.enrichment.missing_description';
         }
         return 'land.enrichment.description';
+    }
+
+    get continueLabelKey(): string {
+        return this.hasImageContext
+            ? 'land.enrichment.image_continue'
+            : 'land.enrichment.continue';
+    }
+
+    get continueHintKey(): string {
+        return this.hasImageContext
+            ? 'land.enrichment.image_continue_hint'
+            : 'land.enrichment.continue_hint';
+    }
+
+    get editLabelKey(): string {
+        return this.hasImageContext
+            ? 'land.enrichment.image_edit'
+            : 'land.enrichment.edit';
+    }
+
+    get editHintKey(): string {
+        return this.hasImageContext
+            ? 'land.enrichment.image_edit_hint'
+            : 'land.enrichment.edit_hint';
     }
 
     choose(choice: IntentGateChoice): void {

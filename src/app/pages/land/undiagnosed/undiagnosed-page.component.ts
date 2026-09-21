@@ -1341,7 +1341,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.dismissLoadingSwal();
         this.lauchEvent(`Intent enrichment - ${reason || 'unknown'}`);
 
-        const choice = await this.intentEnrichmentService.chooseNextStep(reason);
+        const choice = await this.intentEnrichmentService.chooseNextStep(
+            reason,
+            this.currentImageUrls.length > 0,
+            this.medicalTextOriginal.trim().length >= 10
+        );
         await this.applyIntentChoice(choice, reason);
     }
 
@@ -2314,7 +2318,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async checkText() {
         this.showErrorCall1 = false;
-        if (this.callingAI || this.editmedicalText.length < 15) {
+        const hasAssociatedImages = this.currentImageUrls.length > 0;
+        if (this.callingAI || (!hasAssociatedImages && this.editmedicalText.length < 15)) {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
             if (this.editmedicalText.length > 0) {
@@ -2394,6 +2399,29 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.medicalTextOriginal = this.editmedicalText;
             this.finishEditDescription();
         }
+    }
+
+    removeAssociatedImage(index: number) {
+        const removedImage = this.currentImageUrls[index];
+        if (!removedImage) {
+            return;
+        }
+
+        this.currentImageUrls.splice(index, 1);
+
+        const selectedFileIndex = this.selectedFiles.findIndex(file =>
+            UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type) &&
+            file.name === removedImage.name
+        );
+        if (selectedFileIndex >= 0) {
+            this.selectedFiles.splice(selectedFileIndex, 1);
+        }
+
+        if (this.currentImageUrls.length === 0) {
+            this.descriptionImageOnly = '';
+        }
+        this.filesModifiedAfterAnalysis = true;
+        this.lauchEvent(`Associated image removed: ${removedImage.name || 'unknown'}`);
     }
 
     finishEditDescription() {

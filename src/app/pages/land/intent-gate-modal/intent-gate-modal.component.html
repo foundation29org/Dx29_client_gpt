@@ -1,7 +1,10 @@
 <div class="intent-gate">
   <div class="intent-gate__header">
     <div class="intent-gate__header-icon">
-      <i class="fa" [class.fa-stethoscope]="!isExplain" [class.fa-comments]="isExplain"></i>
+      <i class="fa"
+        [class.fa-stethoscope]="!isExplain && !hasImageContext"
+        [class.fa-comments]="isExplain"
+        [class.fa-image]="hasImageContext"></i>
     </div>
     <div>
       <h4 class="intent-gate__title">{{ titleKey | translate }}</h4>
@@ -34,8 +37,8 @@
     <button *ngIf="canContinue" type="button" class="intent-option" (click)="choose('continue')">
       <span class="intent-option__icon"><i class="fa fa-play"></i></span>
       <span class="intent-option__copy">
-        <span class="intent-option__label">{{ 'land.enrichment.continue' | translate }}</span>
-        <span class="intent-option__hint">{{ 'land.enrichment.continue_hint' | translate }}</span>
+        <span class="intent-option__label">{{ continueLabelKey | translate }}</span>
+        <span class="intent-option__hint">{{ continueHintKey | translate }}</span>
       </span>
     </button>
 
@@ -47,15 +50,20 @@
       </span>
     </button>
 
-    <button type="button" class="intent-option" (click)="choose('edit')">
+    <button type="button" class="intent-option"
+      [class.intent-option--primary]="recommendAddingDetails"
+      (click)="choose('edit')">
       <span class="intent-option__icon"><i class="fa fa-pencil"></i></span>
       <span class="intent-option__copy">
-        <span class="intent-option__label">{{ 'land.enrichment.edit' | translate }}</span>
-        <span class="intent-option__hint">{{ 'land.enrichment.edit_hint' | translate }}</span>
+        <span class="intent-option__label">{{ editLabelKey | translate }}</span>
+        <span class="intent-option__hint">{{ editHintKey | translate }}</span>
+      </span>
+      <span *ngIf="recommendAddingDetails" class="intent-option__badge">
+        {{ 'land.enrichment.recommended' | translate }}
       </span>
     </button>
 
-    <button *ngIf="!isExplain" type="button" class="intent-option" (click)="choose('upload')">
+    <button *ngIf="canUpload" type="button" class="intent-option" (click)="choose('upload')">
       <span class="intent-option__icon"><i class="fa fa-upload"></i></span>
       <span class="intent-option__copy">
         <span class="intent-option__label">{{ 'land.enrichment.upload' | translate }}</span>

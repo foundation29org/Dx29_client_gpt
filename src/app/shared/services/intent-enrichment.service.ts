@@ -10,15 +10,24 @@ import {
 export class IntentEnrichmentService {
     constructor(private modalService: NgbModal) {}
 
-    chooseNextStep(reason: string): Promise<IntentGateChoice | null> {
-        return this.openGate('enrich', reason);
+    chooseNextStep(
+        reason: string,
+        hasUploadedImages = false,
+        hasPatientDescription = true
+    ): Promise<IntentGateChoice | null> {
+        return this.openGate('enrich', reason, hasUploadedImages, hasPatientDescription);
     }
 
     chooseExplainRedirect(): Promise<IntentGateChoice | null> {
         return this.openGate('explain');
     }
 
-    private async openGate(mode: IntentGateMode, reason = ''): Promise<IntentGateChoice | null> {
+    private async openGate(
+        mode: IntentGateMode,
+        reason = '',
+        hasUploadedImages = false,
+        hasPatientDescription = true
+    ): Promise<IntentGateChoice | null> {
         const modalRef = this.modalService.open(IntentGateModalComponent, {
             size: 'md',
             centered: true,
@@ -28,6 +37,8 @@ export class IntentEnrichmentService {
         });
         modalRef.componentInstance.mode = mode;
         modalRef.componentInstance.reason = reason || '';
+        modalRef.componentInstance.hasUploadedImages = hasUploadedImages;
+        modalRef.componentInstance.hasPatientDescription = hasPatientDescription;
 
         try {
             return await modalRef.result;

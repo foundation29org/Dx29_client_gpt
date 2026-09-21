@@ -37,10 +37,13 @@
           </button>
           <span *ngIf="!selectedFiles.length" class="chip-add-text d-none d-md-inline ms-1">{{'diagnosis.Upload document or image' | translate}}</span>
           <ng-container *ngFor="let file of selectedFiles; let i = index">
-            <span class="file-chip">
+            <span class="file-chip" [title]="file.name">
               <i class="fa me-1" [class.fa-file-text-o]="!file.type.startsWith('image/')" [class.fa-file-image-o]="file.type.startsWith('image/')"></i>
               <span class="file-chip-name">{{ file.name }}</span>
-              <button type="button" class="chip-btn-remove" (click)="removeFile(i)"><i class="fa fa-times"></i></button>
+              <button type="button" class="chip-btn-remove" (click)="removeFile(i)"
+                [attr.aria-label]="('generics.Remove' | translate) + ': ' + file.name">
+                <i class="fa fa-times"></i>
+              </button>
             </span>
           </ng-container>
         </div>
@@ -80,8 +83,8 @@
                 <li>{{'land.multimodalInfo.instruction2' | translate}}</li>
                 <li>{{'land.multimodalInfo.instruction3' | translate}}</li>
                 <li>{{'land.multimodalInfo.instruction4' | translate}}</li>
+                <li>{{'land.multimodalInfo.instruction5' | translate}}</li>
               </ul>
-              <p class="mb-0"><em>{{'land.multimodalInfo.feedback' | translate}}</em></p>
             </div>
           </div>
         </div>
@@ -688,11 +691,17 @@
         <i class="fas fa-image me-2"></i>{{'diagnosis.Associated image' | translate}}
       </p>
       <div class="edit-images-grid">
-        <div *ngFor="let imageUrl of currentImageUrls" class="edit-image-card">
+        <div *ngFor="let imageUrl of currentImageUrls; let i = index" class="edit-image-card"
+          [title]="imageUrl.name || 'Medical image'">
           <img [src]="imageUrl.url" 
                [alt]="imageUrl.name || 'Medical image'" 
                class="edit-image-thumb">
           <span class="edit-image-name">{{ imageUrl.name || 'Medical image' }}</span>
+          <button type="button" class="edit-image-remove" (click)="removeAssociatedImage(i)"
+            [attr.aria-label]="('generics.Remove' | translate) + ': ' + (imageUrl.name || 'Medical image')"
+            [title]="'generics.Remove' | translate">
+            <i class="fa fa-times"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -700,8 +709,8 @@
   <div class="followup-footer">
     <button type="button" class="followup-skip-btn" (click)="closeModal();">{{'generics.Cancel' | translate }}</button>
     <button type="button" class="btn-search-hero" (click)="checkText()"
-      [attr.title]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
-      [attr.aria-label]="(editmedicalText.length<15) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
+      [attr.title]="(editmedicalText.length<15 && currentImageUrls.length===0) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
+      [attr.aria-label]="(editmedicalText.length<15 && currentImageUrls.length===0) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
       [disabled]="callingAI">
       <i class="fa fa-refresh"></i>
       {{'land.Recalculate' | translate }}
