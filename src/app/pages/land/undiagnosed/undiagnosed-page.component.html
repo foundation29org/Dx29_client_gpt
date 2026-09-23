@@ -713,8 +713,8 @@
   <div class="followup-footer">
     <button type="button" class="followup-skip-btn" (click)="closeModal();">{{'generics.Cancel' | translate }}</button>
     <button type="button" class="btn-search-hero" (click)="checkText()"
-      [attr.title]="(editmedicalText.length<15 && currentImages.length===0) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
-      [attr.aria-label]="(editmedicalText.length<15 && currentImages.length===0) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
+      [attr.title]="(editmedicalText.length<15 && !hasDiagnosticImages) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
+      [attr.aria-label]="(editmedicalText.length<15 && !hasDiagnosticImages) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
       [disabled]="callingAI">
       <i class="fa fa-refresh"></i>
       {{'land.Recalculate' | translate }}

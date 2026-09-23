@@ -217,6 +217,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             .reduce((acc: number, file: File) => acc + (file.size || 0), 0);
         return Math.round((bytes / (1024 * 1024)) * 10) / 10;
     }
+    // currentImages también lista las imágenes convertidas a texto
+    // (diagnosticUse: false); esas no llegan al modelo. El servidor solo crea
+    // uploadId si al menos una imagen va a visión.
+    get hasDiagnosticImages(): boolean {
+        return !!this.currentUploadId;
+    }
 
     private clearUploadReference(): void {
         this.discardUploadOnServer(this.currentUploadId);
@@ -1374,7 +1380,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             forceDiagnosis: this.forceDiagnosisNext === true
         };
         this.forceDiagnosisNext = false;
-        if(this.currentImages.length > 0){
+        if(this.hasDiagnosticImages){
             if(this.descriptionImageOnly != '' && value.description == ''){
                 value.description = this.descriptionImageOnly;
             }else if (this.descriptionImageOnly != '' && value.description != ''){
@@ -1674,7 +1680,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         const choice = await this.intentEnrichmentService.chooseNextStep(
             reason,
-            this.currentImages.length > 0,
+            this.hasDiagnosticImages,
             this.medicalTextOriginal.trim().length >= 10
         );
         await this.applyIntentChoice(choice, reason);
@@ -1964,7 +1970,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         this.lauchEvent(infoOptionEvent);
 
-        if(this.currentImages.length > 0 && this.descriptionImageOnly != '' && this.medicalTextOriginal == ''){
+        if(this.hasDiagnosticImages && this.descriptionImageOnly != '' && this.medicalTextOriginal == ''){
             this.medicalTextOriginal = this.descriptionImageOnly;
         }
 
@@ -1978,7 +1984,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             uploadId: this.currentUploadId || undefined
         };
 
-        if(this.currentImages.length > 0){
+        if(this.hasDiagnosticImages){
             if(this.descriptionImageOnly != '' && value.medicalDescription == ''){
                 value.medicalDescription = this.descriptionImageOnly;
             }else if (this.descriptionImageOnly != '' && value.medicalDescription != ''){
@@ -2651,8 +2657,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async checkText() {
         this.showErrorCall1 = false;
-        const hasAssociatedImages = this.currentImages.length > 0;
-        if (this.callingAI || (!hasAssociatedImages && this.editmedicalText.length < 15)) {
+        if (this.callingAI || (!this.hasDiagnosticImages && this.editmedicalText.length < 15)) {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
             if (this.editmedicalText.length > 0) {
