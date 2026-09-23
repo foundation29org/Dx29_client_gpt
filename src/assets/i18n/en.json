@@ -40,9 +40,11 @@
     "files_limit_docs": "document(s) not added: maximum 5.",
     "files_limit_total": "Total size exceeded (20MB). Reduce or remove files.",
     "files_duplicates": "duplicate file(s) ignored.",
-    "files_unsupported_format": "file(s) with unsupported format. Valid formats: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
+    "files_unsupported_format": "file(s) with unsupported format. Valid formats: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP.",
     "upload_limits": "Limit: {{maxMB}} MB total, max {{maxDocs}} documents and {{maxImages}} images.",
-    "upload_usage": "Used: {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} images, {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "Selected: {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} images; pending upload: {{usedMB}}/{{maxMB}} MB.",
+    "image_text_only": "Text only",
+    "image_text_extracted": "Text extracted from this image; the image itself is not sent to the AI model",
     "independent_context": "Each question is processed separately. Previous answers are not sent to the model.",
     "answer_title": "Medical answer",
     "edit_question": "Edit question",
@@ -674,6 +676,7 @@
   },
   "progress": {
     "connecting": "Connecting...",
+    "prepare_images": "Preparing images...",
     "translating": "Translating description...",
     "extract_documents": "Extracting documents...",
     "summarize_input": "Generating medical summary...",
@@ -681,7 +684,8 @@
     "analyzing": "Analyzing symptoms with AI...",
     "getting_details": "Getting diagnosis details...",
     "anonymizing": "Anonymizing personal information...",
-    "finalizing": "Finalizing diagnosis..."
+    "finalizing": "Finalizing diagnosis...",
+    "processing": "Processing..."
   },
   "diagnosis": {
     "Proposed diagnoses": "Proposed diagnoses",
@@ -742,10 +746,7 @@
     "Pending analysis": "Pending analysis",
     "Analyze files and search": "Analyze files and search",
     "Analyze uploaded files and search for diagnoses": "Analyze uploaded files and search for diagnoses",
-    "Re-analyze files": "Re-analyze files",
-    "Re-analyze": "Re-analyze",
-    "Analysis completed": "Analysis completed",
-    "Files modified - re-analyze needed": "Files modified - re-analyze needed"
+    "Analysis completed": "Analysis completed"
   },
   "policy": {
     "title": "Privacy policy",

@@ -40,9 +40,11 @@
     "files_limit_docs": "документ(ов) не добавлено: максимум 5.",
     "files_limit_total": "Превышен общий размер (20MB). Уменьшите или удалите файлы.",
     "files_duplicates": "дублированные файлы проигнорированы.",
-    "files_unsupported_format": "файлы с неподдерживаемым форматом. Допустимые форматы: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
+    "files_unsupported_format": "файлы с неподдерживаемым форматом. Допустимые форматы: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP.",
     "upload_limits": "Лимит: {{maxMB}} МБ всего, макс. {{maxDocs}} документов и {{maxImages}} изображений.",
-    "upload_usage": "Использовано: {{docs}}/{{maxDocs}} док., {{images}}/{{maxImages}} изобр., {{usedMB}}/{{maxMB}} МБ.",
+    "upload_usage": "Выбрано: {{docs}}/{{maxDocs}} документов, {{images}}/{{maxImages}} изображений; ожидает загрузки: {{usedMB}}/{{maxMB}} МБ.",
+    "image_text_only": "Только текст",
+    "image_text_extracted": "Из этого изображения извлечён текст; само изображение не отправляется модели ИИ",
     "independent_context": "Каждый вопрос обрабатывается отдельно. Предыдущие ответы не отправляются модели.",
     "answer_title": "Медицинский ответ",
     "edit_question": "Изменить вопрос",
@@ -674,6 +676,7 @@
   },
   "progress": {
     "connecting": "Подключение...",
+    "prepare_images": "Подготовка изображений...",
     "translating": "Перевод...",
     "extract_documents": "Извлечение документов...",
     "summarize_input": "Формирование медицинского резюме...",
@@ -681,7 +684,8 @@
     "analyzing": "Анализ...",
     "getting_details": "Получение деталей...",
     "anonymizing": "Анонимизация...",
-    "finalizing": "Завершение..."
+    "finalizing": "Завершение...",
+    "processing": "Обработка..."
   },
   "diagnosis": {
     "Proposed diagnoses": "Предлагаемые диагнозы",
@@ -742,10 +746,7 @@
     "Pending analysis": "Ожидает анализа",
     "Analyze files and search": "Анализировать файлы и искать",
     "Analyze uploaded files and search for diagnoses": "Анализировать загруженные файлы и искать диагнозы",
-    "Re-analyze files": "Анализировать файлы снова",
-    "Re-analyze": "Анализировать снова",
-    "Analysis completed": "Анализ завершен",
-    "Files modified - re-analyze needed": "Файлы изменены - необходим повторный анализ"
+    "Analysis completed": "Анализ завершен"
   },
   "policy": {
     "title": "Политика конфиденциальности",

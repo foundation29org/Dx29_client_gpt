@@ -320,8 +320,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             lang,
             timezone: this.timezone,
             model: this.model,
-            iframeParams: this.filterIframeParams(this.iframeParams),
-            imageUrls: []
+            iframeParams: this.filterIframeParams(this.iframeParams)
         };
 
         this.activeRequest = this.apiDx29ServerService.ask(value).subscribe({

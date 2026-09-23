@@ -40,9 +40,11 @@
     "files_limit_docs": "Dokument(e) nicht hinzugefügt: Maximum 5.",
     "files_limit_total": "Gesamtgröße überschritten (20MB). Reduzieren oder entfernen Sie Dateien.",
     "files_duplicates": "Doppelte Datei(en) ignoriert.",
-    "files_unsupported_format": "Datei(en) mit nicht unterstütztem Format. Gültige Formate: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
+    "files_unsupported_format": "Datei(en) mit nicht unterstütztem Format. Gültige Formate: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP.",
     "upload_limits": "Limit: {{maxMB}} MB gesamt, max. {{maxDocs}} Dokumente und {{maxImages}} Bilder.",
-    "upload_usage": "Verwendet: {{docs}}/{{maxDocs}} Dok., {{images}}/{{maxImages}} Bilder, {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "Ausgewählt: {{docs}}/{{maxDocs}} Dokumente, {{images}}/{{maxImages}} Bilder; ausstehender Upload: {{usedMB}}/{{maxMB}} MB.",
+    "image_text_only": "Nur Text",
+    "image_text_extracted": "Text aus diesem Bild extrahiert; das Bild selbst wird nicht an das KI-Modell gesendet",
     "independent_context": "Jede Frage wird separat verarbeitet. Frühere Antworten werden nicht an das Modell gesendet.",
     "answer_title": "Medizinische Antwort",
     "edit_question": "Frage bearbeiten",
@@ -674,6 +676,7 @@
   },
   "progress": {
     "connecting": "Verbinden...",
+    "prepare_images": "Bilder werden vorbereitet...",
     "translating": "Beschreibung übersetzen...",
     "extract_documents": "Dokumente extrahieren...",
     "summarize_input": "Medizinische Zusammenfassung wird erstellt...",
@@ -681,7 +684,8 @@
     "analyzing": "Symptome mit KI analysieren...",
     "getting_details": "Diagnose-Details abrufen...",
     "anonymizing": "Persönliche Informationen anonymisieren...",
-    "finalizing": "Diagnose abschließen..."
+    "finalizing": "Diagnose abschließen...",
+    "processing": "Verarbeitung..."
   },
   "diagnosis": {
     "Proposed diagnoses": "Vorgeschlagene Diagnosen",
@@ -742,10 +746,7 @@
     "Pending analysis": "Wird analysiert",
     "Analyze files and search": "Dateien analysieren und suchen",
     "Analyze uploaded files and search for diagnoses": "Dateien hochladen und suchen",
-    "Re-analyze files": "Dateien erneut analysieren",
-    "Re-analyze": "Erneut analysieren",
-    "Analysis completed": "Analyse abgeschlossen",
-    "Files modified - re-analyze needed": "Dateien modifiziert - erneut analysieren erforderlich"
+    "Analysis completed": "Analyse abgeschlossen"
   },
   "policy": {
     "title": "Datenschutzrichtlinie",

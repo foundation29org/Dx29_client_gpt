@@ -40,9 +40,11 @@
     "files_limit_docs": "document(s) no afegit(s): màxim 5.",
     "files_limit_total": "Mida total excedida (20MB). Redueix o elimina fitxers.",
     "files_duplicates": "fitxer(s) duplicat(s) ignorat(s).",
-    "files_unsupported_format": "fitxer(s) amb format no suportat. Formats vàlids: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
+    "files_unsupported_format": "fitxer(s) amb format no suportat. Formats vàlids: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP.",
     "upload_limits": "Límit: {{maxMB}} MB totals, màx. {{maxDocs}} documents i {{maxImages}} imatges.",
-    "upload_usage": "Usat: {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} imatges, {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "Seleccionats: {{docs}}/{{maxDocs}} documents, {{images}}/{{maxImages}} imatges; càrrega pendent: {{usedMB}}/{{maxMB}} MB.",
+    "image_text_only": "Només text",
+    "image_text_extracted": "Text extret d'aquesta imatge; la imatge no s'envia al model d'IA",
     "independent_context": "Cada pregunta es processa per separat. Les respostes anteriors no s'envien al model.",
     "answer_title": "Resposta mèdica",
     "edit_question": "Modificar pregunta",
@@ -674,6 +676,7 @@
   },
   "progress": {
     "connecting": "Connectant...",
+    "prepare_images": "Preparant imatges...",
     "translating": "Traduint descripció...",
     "extract_documents": "Extraient documents...",
     "summarize_input": "Generant resum mèdic...",
@@ -681,7 +684,8 @@
     "analyzing": "Analitzant símptomes amb IA...",
     "getting_details": "Obtenint detalls del diagnòstic...",
     "anonymizing": "Anonimitzant informació personal...",
-    "finalizing": "Finalitzant diagnòstic..."
+    "finalizing": "Finalitzant diagnòstic...",
+    "processing": "Processant..."
   },
   "diagnosis": {
     "Proposed diagnoses": "Diagnòstics proposats",
@@ -742,10 +746,7 @@
     "Pending analysis": "Pendent d'anàlisi",
     "Analyze files and search": "Analitzar fitxers i cercar",
     "Analyze uploaded files and search for diagnoses": "Analitzar fitxers pujats i cercar diagnòstics",
-    "Re-analyze files": "Re-analitzar fitxers",
-    "Re-analyze": "Re-analitzar",
-    "Analysis completed": "Anàlisi completada",
-    "Files modified - re-analyze needed": "Fitxers modificats - re-anàlisi necessària"
+    "Analysis completed": "Anàlisi completada"
   },
   "policy": {
     "title": "Política de privacitat",

@@ -40,7 +40,15 @@
             <span class="file-chip" [title]="file.name">
               <i class="fa me-1" [class.fa-file-text-o]="!file.type.startsWith('image/')" [class.fa-file-image-o]="file.type.startsWith('image/')"></i>
               <span class="file-chip-name">{{ file.name }}</span>
+              <i class="fa ms-1 file-chip-status"
+                [ngClass]="[getFileStatusIcon(file), 'file-chip-status--' + getFileProcessingStatus(file)]"
+                [title]="getFileStatusLabel(file)"
+                aria-hidden="true"></i>
+              <span class="visually-hidden" role="status" aria-live="polite">
+                {{ getFileStatusLabel(file) }}
+              </span>
               <button type="button" class="chip-btn-remove" (click)="removeFile(i)"
+                [disabled]="callingAI"
                 [attr.aria-label]="('generics.Remove' | translate) + ': ' + file.name">
                 <i class="fa fa-times"></i>
               </button>
@@ -57,11 +65,11 @@
           </span>
         </div>
         <div class="hero-meta hero-meta--inline" *ngIf="selectedFiles.length && countCharacters(medicalTextOriginal) < 2000">
-          {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
+          {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: multimodalUploadLimits.maxDocuments, images: selectedImagesCount, maxImages: multimodalUploadLimits.maxImages, usedMB: selectedTotalMB, maxMB: multimodalUploadLimits.maxTotalMB } }}
         </div>
       </div>
       <div class="hero-meta" *ngIf="selectedFiles.length && countCharacters(medicalTextOriginal) >= 2000">
-        {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: 5, images: selectedImagesCount, maxImages: 5, usedMB: selectedTotalMB, maxMB: 20 } }}
+        {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: multimodalUploadLimits.maxDocuments, images: selectedImagesCount, maxImages: multimodalUploadLimits.maxImages, usedMB: selectedTotalMB, maxMB: multimodalUploadLimits.maxTotalMB } }}
       </div>
       <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary mt-3 mb-3" role="alert" style="text-align: left;">
         <div class="d-flex align-items-start">
@@ -136,16 +144,6 @@
           <i *ngIf="callingAI" class="fa fa-spinner fa-spin"></i>
           <i *ngIf="!callingAI" class="fa fa-search"></i>
           {{'land.Search' | translate }}
-        </button>
-        
-        <button *ngIf="selectedFiles.length > 0 && filesAnalyzed && filesModifiedAfterAnalysis && !modeFunctionality" 
-                class="btn btn-outline-warning btn-lg ms-2" 
-                (click)="reanalyzeFiles()" 
-                [disabled]="callingAI"
-                title="{{'diagnosis.Files modified - re-analyze needed' | translate}}"
-                aria-label="{{'diagnosis.Files modified - re-analyze needed' | translate}}">
-          <i class="fa fa-exclamation-triangle me-2"></i>
-          {{'diagnosis.Re-analyze' | translate}}
         </button>
       </div>
     </div>
@@ -694,31 +692,29 @@
       </div>
     </div>
 
-    <div *ngIf="currentImageUrls && currentImageUrls.length > 0" class="edit-images-section">
+    <!-- Sin miniaturas: el servidor no expone URLs. Las imágenes quedan
+         congeladas tras el análisis; para cambiarlas hay que empezar de nuevo. -->
+    <div *ngIf="currentImages.length > 0" class="edit-images-section">
       <p class="disease-section-label mb-2">
         <i class="fas fa-image me-2"></i>{{'diagnosis.Associated image' | translate}}
       </p>
-      <div class="edit-images-grid">
-        <div *ngFor="let imageUrl of currentImageUrls; let i = index" class="edit-image-card"
-          [title]="imageUrl.name || 'Medical image'">
-          <img [src]="imageUrl.url" 
-               [alt]="imageUrl.name || 'Medical image'" 
-               class="edit-image-thumb">
-          <span class="edit-image-name">{{ imageUrl.name || 'Medical image' }}</span>
-          <button type="button" class="edit-image-remove" (click)="removeAssociatedImage(i)"
-            [attr.aria-label]="('generics.Remove' | translate) + ': ' + (imageUrl.name || 'Medical image')"
-            [title]="'generics.Remove' | translate">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-      </div>
+      <ul class="edit-images-list">
+        <li *ngFor="let image of currentImages" class="edit-image-item" [title]="image.name || 'Medical image'">
+          <i class="fa fa-file-image-o me-1" aria-hidden="true"></i>
+          <span class="edit-image-name">{{ image.name || 'Medical image' }}</span>
+          <span *ngIf="image.diagnosticUse === false" class="edit-image-badge"
+            [title]="'beta.image_text_extracted' | translate">
+            <i class="fa fa-file-text-o me-1" aria-hidden="true"></i>{{ 'beta.image_text_only' | translate }}
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="followup-footer">
     <button type="button" class="followup-skip-btn" (click)="closeModal();">{{'generics.Cancel' | translate }}</button>
     <button type="button" class="btn-search-hero" (click)="checkText()"
-      [attr.title]="(editmedicalText.length<15 && currentImageUrls.length===0) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
-      [attr.aria-label]="(editmedicalText.length<15 && currentImageUrls.length===0) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
+      [attr.title]="(editmedicalText.length<15 && currentImages.length===0) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
+      [attr.aria-label]="(editmedicalText.length<15 && currentImages.length===0) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
       [disabled]="callingAI">
       <i class="fa fa-refresh"></i>
       {{'land.Recalculate' | translate }}

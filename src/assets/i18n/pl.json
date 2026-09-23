@@ -40,9 +40,11 @@
     "files_limit_docs": "dokument(ów) nie dodano: maksymalnie 5.",
     "files_limit_total": "Przekroczono całkowity rozmiar (20MB). Zmniejsz lub usuń pliki.",
     "files_duplicates": "zduplikowane pliki zignorowane.",
-    "files_unsupported_format": "pliki z nieobsługiwanym formatem. Prawidłowe formaty: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
+    "files_unsupported_format": "pliki z nieobsługiwanym formatem. Prawidłowe formaty: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP.",
     "upload_limits": "Limit: {{maxMB}} MB łącznie, maks. {{maxDocs}} dokumentów i {{maxImages}} obrazów.",
-    "upload_usage": "Użyto: {{docs}}/{{maxDocs}} dok., {{images}}/{{maxImages}} obrazy, {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "Wybrano: {{docs}}/{{maxDocs}} dokumentów, {{images}}/{{maxImages}} obrazów; oczekujące przesyłanie: {{usedMB}}/{{maxMB}} MB.",
+    "image_text_only": "Tylko tekst",
+    "image_text_extracted": "Tekst wyodrębniony z tego obrazu; sam obraz nie jest wysyłany do modelu AI",
     "independent_context": "Każde pytanie jest przetwarzane oddzielnie. Poprzednie odpowiedzi nie są wysyłane do modelu.",
     "answer_title": "Odpowiedź medyczna",
     "edit_question": "Edytuj pytanie",
@@ -674,6 +676,7 @@
   },
   "progress": {
     "connecting": "Łączenie...",
+    "prepare_images": "Przygotowywanie obrazów...",
     "translating": "Tłumaczenie...",
     "extract_documents": "Wyodrębnianie dokumentów...",
     "summarize_input": "Tworzenie podsumowania medycznego...",
@@ -681,7 +684,8 @@
     "analyzing": "Analiza...",
     "getting_details": "Pobieranie szczegółów...",
     "anonymizing": "Anonimizacja...",
-    "finalizing": "Finalizacja..."
+    "finalizing": "Finalizacja...",
+    "processing": "Przetwarzanie..."
   },
   "diagnosis": {
     "Proposed diagnoses": "Proponowane diagnozy",
@@ -742,10 +746,7 @@
     "Pending analysis": "Oczekujące analizy",
     "Analyze files and search": "Analizuj pliki i wyszukuj",
     "Analyze uploaded files and search for diagnoses": "Analizuj przesłane pliki i wyszukuj diagnozy",
-    "Re-analyze files": "Ponownie analizuj pliki",
-    "Re-analyze": "Ponownie analizuj",
-    "Analysis completed": "Analiza zakończona",
-    "Files modified - re-analyze needed": "Pliki zmodyfikowane - ponowne analizowanie wymagane"
+    "Analysis completed": "Analiza zakończona"
   },
   "policy": {
     "title": "Polityka prywatności",

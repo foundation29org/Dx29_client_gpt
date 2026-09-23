@@ -40,9 +40,11 @@
     "files_limit_docs": "दस्तावेज़ नहीं जोड़े गए: अधिकतम 5।",
     "files_limit_total": "कुल आकार सीमा से अधिक है (20MB)। फ़ाइलें कम करें या हटाएं।",
     "files_duplicates": "डुप्लिकेट फ़ाइल(ें) अनदेखी की गईं।",
-    "files_unsupported_format": "असमर्थित फ़ॉर्मेट वाली फ़ाइल(ें)। मान्य फ़ॉर्मेट: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF।",
+    "files_unsupported_format": "असमर्थित फ़ॉर्मेट वाली फ़ाइल(ें)। मान्य फ़ॉर्मेट: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP।",
     "upload_limits": "सीमा: कुल {{maxMB}} MB, अधिकतम {{maxDocs}} दस्तावेज़ और {{maxImages}} छवियां।",
-    "upload_usage": "उपयोग: {{docs}}/{{maxDocs}} दस्तावेज़, {{images}}/{{maxImages}} छवियां, {{usedMB}}/{{maxMB}} MB।",
+    "upload_usage": "चयनित: {{docs}}/{{maxDocs}} दस्तावेज़, {{images}}/{{maxImages}} छवियाँ; लंबित अपलोड: {{usedMB}}/{{maxMB}} MB।",
+    "image_text_only": "केवल पाठ",
+    "image_text_extracted": "इस छवि से पाठ निकाला गया; छवि स्वयं AI मॉडल को नहीं भेजी जाती",
     "independent_context": "हर प्रश्न को अलग से संसाधित किया जाता है। पिछले उत्तर मॉडल को नहीं भेजे जाते।",
     "answer_title": "चिकित्सा उत्तर",
     "edit_question": "प्रश्न संपादित करें",
@@ -674,6 +676,7 @@
   },
   "progress": {
     "connecting": "कनेक्ट किया जा रहा है...",
+    "prepare_images": "छवियाँ तैयार की जा रही हैं...",
     "translating": "विवरण का अनुवाद किया जा रहा है...",
     "extract_documents": "दस्तावेज निकाले जा रहे हैं...",
     "summarize_input": "चिकित्सकीय सारांश बनाया जा रहा है...",
@@ -681,7 +684,8 @@
     "analyzing": "AI से लक्षणों का विश्लेषण किया जा रहा है...",
     "getting_details": "निदान विवरण प्राप्त किए जा रहे हैं...",
     "anonymizing": "व्यक्तिगत जानकारी को अनाम किया जा रहा है...",
-    "finalizing": "निदान अंतिम रूप दिया जा रहा है..."
+    "finalizing": "निदान अंतिम रूप दिया जा रहा है...",
+    "processing": "प्रक्रिया जारी है..."
   },
   "diagnosis": {
     "Proposed diagnoses": "प्रस्तावित निदान",
@@ -742,10 +746,7 @@
     "Pending analysis": "विश्लेषण लंबित",
     "Analyze files and search": "फाइलों का विश्लेषण करें और खोजें",
     "Analyze uploaded files and search for diagnoses": "अपलोड की गई फाइलों का विश्लेषण करें और निदान खोजें",
-    "Re-analyze files": "फाइलों का पुनः विश्लेषण करें",
-    "Re-analyze": "पुनः विश्लेषण करें",
-    "Analysis completed": "विश्लेषण पूरा हुआ",
-    "Files modified - re-analyze needed": "फाइलें संशोधित हुईं - पुनः विश्लेषण आवश्यक है"
+    "Analysis completed": "विश्लेषण पूरा हुआ"
   },
   "policy": {
     "title": "गोपनीयता नीति",

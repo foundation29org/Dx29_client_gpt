@@ -23,14 +23,22 @@ import { environment } from 'environments/environment';
 import { DIAGNOSTIC_GUIDANCE_QUESTIONS } from 'app/shared/models/diagnostic-guidance-question';
 declare let gtag: any;
 
+// Imagen procesada por /medical/analyze. El servidor nunca devuelve URLs:
+// la única referencia es el uploadId, común a todas las imágenes del análisis.
+// Las imágenes documentales (routing ocr_text) no se guardan: su texto ya va
+// en la descripción y llegan con uploadId/index a null.
 interface MultimodalImageReference {
+    uploadId: string | null;
+    index: number | null;
     name: string;
-    assetId?: string;
     size?: number;
-    url?: string;
-    sasExpiresAt?: string;
-    expiresAt?: string;
+    mimeType?: string;
+    // false para imágenes documentales ya convertidas a texto por V1.
+    diagnosticUse?: boolean;
+    routing?: 'vision' | 'ocr_text';
 }
+
+type MultimodalFileStatus = 'pending' | 'processing' | 'completed' | 'warning' | 'error';
 
 @Component({
     selector: 'app-undiagnosed-page',
@@ -43,6 +51,13 @@ interface MultimodalImageReference {
 export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     // Keep in sync with Server/controllers/all/multimodalInput.js
+    readonly multimodalUploadLimits = Object.freeze({
+        maxDocuments: 5,
+        maxImages: 5,
+        maxTotalBytes: 20 * 1024 * 1024,
+        maxTotalMB: 20
+    });
+
     private static readonly SUPPORTED_DOC_TYPES = [
         'application/pdf',
         'application/msword',
@@ -58,6 +73,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         'image/tiff',
         'image/bmp',
         'image/webp'
+    ];
+
+    // El resto de fallbackReason del servidor acaban en visión, que es el
+    // desenlace correcto para una imagen médica: no son avisos.
+    private static readonly IMAGE_WARNING_REASONS = [
+        'classification_failed',
+        'ocr_failed'
     ];
 
     private subscription: Subscription = new Subscription();
@@ -148,7 +170,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     generatingPDF: boolean = false;
 
     selectedFiles: File[] = [];
-    private uploadedFileKeys = new Set<string>();
     summary: string = '';
     details: any = null;
     inferredProfile: any = null;
@@ -156,11 +177,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     isDragOver = false;
 
     filesAnalyzed = false;
-    filesModifiedAfterAnalysis = false;
     failedDocumentNames: string[] = [];
+    private fileProcessingStatuses = new Map<string, MultimodalFileStatus>();
+    private multimodalRequestSubscription: Subscription | null = null;
+    private multimodalPreprocessingCompleted = false;
+    private activeMultimodalRun = 0;
+    lastMultimodalCorrelationId = '';
     
-    // El servidor devuelve assetId (reutilizar) y url (miniatura 24 h).
-    currentImageUrls: MultimodalImageReference[] = [];
+    // Referencia a las imágenes del último análisis. Se reenvía tal cual a
+    // /diagnose y /disease/info; el servidor decide cuáles llegan al modelo.
+    // Cualquier cambio en los ficheros la invalida: el siguiente análisis
+    // parte de cero y crea un uploadId nuevo.
+    currentUploadId: string | null = null;
+    currentImages: MultimodalImageReference[] = [];
     descriptionImageOnly: string = '';
 
     // Propiedades para WebSocket/PubSub
@@ -183,30 +212,187 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return (this.selectedFiles || []).filter(f => f.type && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(f.type)).length;
     }
     get selectedTotalMB(): number {
-        const bytes = (this.selectedFiles || []).reduce((acc: number, f: File) => acc + (f.size || 0), 0);
+        const bytes = (this.selectedFiles || [])
+            .reduce((acc: number, file: File) => acc + (file.size || 0), 0);
         return Math.round((bytes / (1024 * 1024)) * 10) / 10;
     }
 
-    private getImageReferencePayload(): { assetIds: string[]; imageUrls: MultimodalImageReference[] } {
-        return {
-            assetIds: this.currentImageUrls
-                .map(image => image.assetId)
-                .filter((assetId): assetId is string => !!assetId),
-            imageUrls: this.currentImageUrls.filter(image => !image.assetId && !!image.url)
-        };
+    private clearUploadReference(): void {
+        this.discardUploadOnServer(this.currentUploadId);
+        this.currentUploadId = null;
+        this.currentImages = [];
+        this.descriptionImageOnly = '';
+    }
+
+    // Borrado activo de las imágenes en cuanto dejan de referenciarse (nuevo
+    // paciente, cambio de ficheros, nuevo análisis). Best effort: si la llamada
+    // falla o el usuario cierra la pestaña, blobCleanup las borra a las 24 h.
+    // No se añade a `this.subscription` para que destruir el componente no
+    // cancele la petición a medias.
+    private discardUploadOnServer(uploadId: string | null): void {
+        if (!uploadId || !this.myuuid) {
+            return;
+        }
+        this.apiDx29ServerService.deleteUpload(uploadId, this.myuuid).subscribe({
+            next: () => this.lauchEvent('Upload deleted'),
+            error: () => undefined
+        });
+    }
+
+    // Tras un análisis el conjunto de ficheros queda congelado: añadir o quitar
+    // uno obliga a repetir el análisis completo con un uploadId nuevo.
+    private invalidateAnalysis(): void {
+        this.filesAnalyzed = false;
+        this.clearUploadReference();
     }
 
     private getFileKey(file: File): string {
         return `${file.name}:${file.size}:${file.lastModified}`;
     }
 
-    private resetExpiredImageAssets(): void {
-        this.currentImageUrls = [];
+    private getFileResultKey(
+        name: string,
+        size: number | undefined,
+        isImage: boolean
+    ): string | null {
+        return Number.isFinite(size)
+            ? `${isImage ? 'image' : 'document'}:${name}:${size}`
+            : null;
+    }
+
+    getFileProcessingStatus(file: File): MultimodalFileStatus {
+        return this.fileProcessingStatuses.get(this.getFileKey(file)) || 'pending';
+    }
+
+    getFileStatusIcon(file: File): string {
+        const icons: Record<MultimodalFileStatus, string> = {
+            pending: 'fa-clock-o',
+            processing: 'fa-spinner fa-spin',
+            completed: 'fa-check-circle',
+            warning: 'fa-exclamation-triangle',
+            error: 'fa-times-circle'
+        };
+        return icons[this.getFileProcessingStatus(file)];
+    }
+
+    getFileStatusLabel(file: File): string {
+        const status = this.getFileProcessingStatus(file);
+        const labels: Record<MultimodalFileStatus, [string, string]> = {
+            pending: ['generics.Waiting', 'Pending'],
+            processing: ['progress.processing', 'Processing...'],
+            completed: ['diagnosis.Analysis completed', 'Completed'],
+            warning: ['generics.Warning', 'Warning'],
+            error: ['generics.error try again', 'Failed']
+        };
+        return this.translatedProgressMessage(...labels[status]);
+    }
+
+    private setAllFileStatuses(status: MultimodalFileStatus): void {
+        this.selectedFiles.forEach(file =>
+            this.fileProcessingStatuses.set(this.getFileKey(file), status)
+        );
+    }
+
+    private cancelMultimodalRun(runId: number): void {
+        if (runId !== this.activeMultimodalRun) {
+            return;
+        }
+        const shouldResetStatuses = !this.multimodalPreprocessingCompleted;
+        this.activeMultimodalRun += 1;
+        this.multimodalRequestSubscription?.unsubscribe();
+        this.multimodalRequestSubscription = null;
+        if (this.webSocket) {
+            this.webSocket.close();
+            this.webSocket = null;
+        }
+        this.isWebSocketConnected = false;
+        this.callingAI = false;
+        if (shouldResetStatuses) {
+            this.setAllFileStatuses('pending');
+        }
+    }
+
+    private applyFileProcessingResults(response: any): void {
+        const resultByKey = new Map<string, MultimodalFileStatus>();
+        const fallbackByName = new Map<string, MultimodalFileStatus[]>();
+        const addResult = (
+            name: string,
+            size: number | undefined,
+            isImage: boolean,
+            status: MultimodalFileStatus
+        ) => {
+            const key = this.getFileResultKey(name, size, isImage);
+            if (key) {
+                resultByKey.set(key, status);
+            }
+            const fallbackKey = `${isImage ? 'image' : 'document'}:${name}`;
+            const statuses = fallbackByName.get(fallbackKey) || [];
+            statuses.push(status);
+            fallbackByName.set(fallbackKey, statuses);
+        };
+
+        (Array.isArray(response?.documents) ? response.documents : [])
+            .forEach((document: {
+                name?: string;
+                size?: number;
+                status?: string;
+            }) => {
+                if (document.name) {
+                    addResult(
+                        document.name,
+                        document.size,
+                        false,
+                        document.status === 'succeeded' ? 'completed' : 'error'
+                    );
+                }
+            });
+        (Array.isArray(response?.imageRouting) ? response.imageRouting : [])
+            .forEach((image: {
+                name?: string;
+                size?: number;
+                fallbackReason?: string;
+            }) => {
+                if (image.name) {
+                    addResult(
+                        image.name,
+                        image.size,
+                        true,
+                        UndiagnosedPageComponent.IMAGE_WARNING_REASONS
+                            .includes(image.fallbackReason)
+                            ? 'warning'
+                            : 'completed'
+                    );
+                }
+            });
+
+        this.selectedFiles.forEach(file => {
+            const isImage =
+                UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type);
+            const exactKey = this.getFileResultKey(
+                file.name,
+                file.size,
+                isImage
+            );
+            const fallbackKey =
+                `${isImage ? 'image' : 'document'}:${file.name}`;
+            const fallbackStatuses = fallbackByName.get(fallbackKey) || [];
+            const status = (exactKey ? resultByKey.get(exactKey) : undefined) ||
+                fallbackStatuses.shift();
+            // Sin resultado no inventamos un aviso: se conserva lo que hubiera.
+            if (status) {
+                this.fileProcessingStatuses.set(this.getFileKey(file), status);
+            }
+        });
+    }
+
+    // El servidor ya no encuentra la subida (24 h): hay que volver a analizar.
+    private resetExpiredUpload(): void {
         this.selectedFiles
             .filter(file => UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type))
-            .forEach(file => this.uploadedFileKeys.delete(this.getFileKey(file)));
-        this.filesAnalyzed = false;
-        this.filesModifiedAfterAnalysis = true;
+            .forEach(file => {
+                this.fileProcessingStatuses.set(this.getFileKey(file), 'pending');
+            });
+        this.invalidateAnalysis();
     }
 
     private reportFailedDocuments(documents: unknown): void {
@@ -420,17 +606,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
         this.filesAnalyzed = false;
-        this.filesModifiedAfterAnalysis = false;
         this.selectedFiles = [];
-        this.uploadedFileKeys.clear();
+        this.fileProcessingStatuses.clear();
         this.failedDocumentNames = [];
+        this.lastMultimodalCorrelationId = '';
     }
 
     async newPatient() {
         this.medicalTextOriginal = '';
-        this.currentImageUrls = []; // Limpiar las URLs de las imágenes
-        this.descriptionImageOnly = '';
-        this.uploadedFileKeys.clear();
+        this.clearUploadReference();
         this.goPrevious();
     }
 
@@ -678,6 +862,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.activeMultimodalRun += 1;
+        this.multimodalRequestSubscription?.unsubscribe();
+        this.multimodalRequestSubscription = null;
         this.cancelQueueStatusCheck();
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
@@ -704,8 +891,21 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     // Métodos para WebSocket/PubSub
-    private async connectWebSocket(): Promise<void> {
+    private async connectWebSocket(
+        expectedMultimodalRun?: number
+    ): Promise<void> {
         return new Promise(async (resolve, reject) => {
+            // La promesa tiene que resolverse siempre: si el socket se descarta
+            // al cancelar, el await de analyzeMultimodal quedaría colgado.
+            let settled = false;
+            const failConnection = (error: Error) => {
+                if (settled) {
+                    return;
+                }
+                settled = true;
+                reject(error);
+            };
+
             try {
                 // Cerrar conexión existente si la hay
                 if (this.webSocket) {
@@ -715,41 +915,64 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     
                 // Obtener token de conexión
                 const response = await this.apiDx29ServerService.negotiatePubSub(this.myuuid).toPromise();
+                if (
+                    expectedMultimodalRun !== undefined &&
+                    expectedMultimodalRun !== this.activeMultimodalRun
+                ) {
+                    failConnection(new Error('Multimodal analysis cancelled'));
+                    return;
+                }
                 const { url } = response as any;
     
                 // Crear conexión WebSocket
-                this.webSocket = new WebSocket(url);
+                const socket = new WebSocket(url);
+                this.webSocket = socket;
     
-                this.webSocket.onopen = () => {
+                socket.onopen = () => {
+                    if (this.webSocket !== socket) {
+                        socket.close();
+                        failConnection(new Error('Multimodal analysis cancelled'));
+                        return;
+                    }
                     console.log('WebSocket connected');
                     this.isWebSocketConnected = true;
+                    settled = true;
                     resolve();
                 };
     
-                this.webSocket.onmessage = (event) => {
+                socket.onmessage = (event) => {
+                    if (this.webSocket !== socket) {
+                        return;
+                    }
                     this.handleWebSocketMessage(event);
                 };
     
-                this.webSocket.onerror = (error) => {
+                socket.onerror = (error) => {
                     console.error('WebSocket error:', error);
-                    this.isWebSocketConnected = false;
-                    reject(error);
+                    if (this.webSocket === socket) {
+                        this.isWebSocketConnected = false;
+                    }
+                    failConnection(new Error('WebSocket connection failed'));
                 };
     
-                this.webSocket.onclose = (event) => {
+                socket.onclose = (event) => {
                     console.log('WebSocket disconnected', event.code, event.reason);
-                    this.isWebSocketConnected = false;
+                    if (this.webSocket === socket) {
+                        this.isWebSocketConnected = false;
+                    }
+                    failConnection(new Error('WebSocket connection closed'));
                 };
     
                 // Timeout si no se conecta en 10 segundos (aumentado para Azure)
-                setTimeout(() => {
-                    if (!this.isWebSocketConnected) {
-                        reject(new Error('WebSocket connection timeout'));
-                    }
-                }, 10000); // Azure Web PubSub puede tardar un poco más
+                setTimeout(
+                    () => failConnection(new Error('WebSocket connection timeout')),
+                    10000
+                ); // Azure Web PubSub puede tardar un poco más
     
             } catch (error) {
-                reject(error);
+                failConnection(
+                    error instanceof Error ? error : new Error(String(error))
+                );
             }
         });
     }
@@ -769,6 +992,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.webSocket?.close();
                     this.webSocket = null;
                     this.processAiSuccess(message.data, null);
+                    this.lastMultimodalCorrelationId = '';
                     break;
                     
                 case 'error':
@@ -790,20 +1014,27 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    private translatedProgressMessage(key: string, fallback: string): string {
+        const translated = this.translate.instant(key);
+        return translated && translated !== key ? translated : fallback;
+    }
+
     private getProgressMessage(phase: string): string {
-        const messages = {
-            'connection': this.translate.instant('progress.connecting') || 'Connecting...',
-            'extract_documents': this.translate.instant('progress.extract_documents') || 'Extracting documents...',
-            'summarize_input': this.translate.instant('progress.summarize_input') || 'Generating medical summary...',
-            'translation': this.translate.instant('progress.translating') || 'Translating description...',
-            'medical_question': this.translate.instant('progress.medical_question') || 'Asking medical questions...',
-            'ai_processing': this.translate.instant('progress.analyzing') || 'Analyzing symptoms with AI...',
-            'ai_details': this.translate.instant('progress.getting_details') || 'Getting diagnosis details...',
-            'anonymization': this.translate.instant('progress.anonymizing') || 'Anonymizing personal information...',
-            'finalizing': this.translate.instant('progress.finalizing') || 'Finalizing diagnosis...'
+        const messages: Record<string, string> = {
+            'connection': this.translatedProgressMessage('progress.connecting', 'Connecting...'),
+            'extract_documents': this.translatedProgressMessage('progress.extract_documents', 'Extracting documents...'),
+            'classify_images': this.translatedProgressMessage('progress.prepare_images', 'Preparing images...'),
+            'summarize_input': this.translatedProgressMessage('progress.summarize_input', 'Generating medical summary...'),
+            'translation': this.translatedProgressMessage('progress.translating', 'Translating description...'),
+            'medical_question': this.translatedProgressMessage('progress.medical_question', 'Asking medical questions...'),
+            'ai_processing': this.translatedProgressMessage('progress.analyzing', 'Analyzing symptoms with AI...'),
+            'ai_details': this.translatedProgressMessage('progress.getting_details', 'Getting diagnosis details...'),
+            'anonymization': this.translatedProgressMessage('progress.anonymizing', 'Anonymizing personal information...'),
+            'finalizing': this.translatedProgressMessage('progress.finalizing', 'Finalizing diagnosis...')
         };
         
-        return messages[phase] || phase; // fallback al mensaje original
+        return messages[phase] ||
+            this.translatedProgressMessage('progress.processing', 'Processing...');
     }
 
     private updateWebSocketProgress(progress: number, message: string, phase?: string) {
@@ -842,7 +1073,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             // Error genérico cuando no hay información específica
             msgError = this.translate.instant("generics.error try again");
         }
-        
+        const correlationId = this.getSafeCorrelationId(
+            error?.correlationId || this.lastMultimodalCorrelationId
+        );
+        if (correlationId) {
+            msgError += `<br><small>ID: ${correlationId}</small>`;
+        }
+        this.lastMultimodalCorrelationId = '';
+        if (this.multimodalRequestSubscription) {
+            this.multimodalRequestSubscription.unsubscribe();
+            this.multimodalRequestSubscription = null;
+            this.activeMultimodalRun += 1;
+            // Si el preprocesado ya había terminado, el fallo es del
+            // diagnóstico y los archivos conservan su resultado real.
+            if (!this.multimodalPreprocessingCompleted) {
+                this.setAllFileStatuses('error');
+            }
+        }
         this.showError(msgError, error);
         this.callingAI = false;
     }
@@ -866,9 +1113,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.differentialTextTranslated = '';
         this.copyMedicalText = '';
         this.showErrorCall1 = false;
-        this.currentImageUrls = []; // Limpiar las URLs de las imágenes
-        this.descriptionImageOnly = '';
-        this.uploadedFileKeys.clear();
+        this.clearUploadReference();
         document.getElementById("textarea1").setAttribute("style", "height:50px;overflow-y:hidden; width: 100%;");
         this.resizeTextArea();
     }
@@ -1114,7 +1359,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             console.warn('Invalid lang value detected, using fallback "en":', this.lang);
         }
         
-        const imageReferences = this.getImageReferencePayload();
         var value = { 
             description: this.medicalTextEng, 
             diseases_list: '', 
@@ -1126,12 +1370,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             model: this.model,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
-            assetIds: imageReferences.assetIds,
-            imageUrls: imageReferences.imageUrls,
+            uploadId: this.currentUploadId || undefined,
             forceDiagnosis: this.forceDiagnosisNext === true
         };
         this.forceDiagnosisNext = false;
-        if(this.currentImageUrls.length > 0){
+        if(this.currentImages.length > 0){
             if(this.descriptionImageOnly != '' && value.description == ''){
                 value.description = this.descriptionImageOnly;
             }else if (this.descriptionImageOnly != '' && value.description != ''){
@@ -1290,9 +1533,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    private getSafeCorrelationId(value: unknown): string {
+        return typeof value === 'string' &&
+            /^[A-Za-z0-9._:-]{1,128}$/.test(value)
+            ? value
+            : '';
+    }
+
     handleAiError(err: any) {
-        console.log(err);
-        
         let msgError = '';
         
         // Si el error es un objeto con la propiedad result
@@ -1301,11 +1549,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         // Si el error tiene la estructura error.error
         else if (err.error) {
-            if (
-                err.error.code === 'INVALID_ASSET_REFERENCE' ||
-                err.error.code === 'INVALID_IMAGE_URL'
-            ) {
-                this.resetExpiredImageAssets();
+            if (err.error.code === 'INVALID_UPLOAD_REFERENCE') {
+                this.resetExpiredUpload();
                 msgError = this.translate.instant('generics.imageAssetExpired');
             } else if (err.error.error && err.error.error.code === 'content_filter') {
                 msgError = this.translate.instant('generics.sorry cant anwser1');
@@ -1334,6 +1579,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (!msgError) {
             msgError = this.translate.instant('generics.error try again');
         }
+        const correlationId = this.getSafeCorrelationId(
+            err?.error?.correlationId ||
+            err?.correlationId ||
+            this.lastMultimodalCorrelationId
+        );
+        if (correlationId) {
+            msgError += `<br><small>ID: ${correlationId}</small>`;
+        }
+        this.lastMultimodalCorrelationId = '';
     
         this.showError(msgError, err);
         this.callingAI = false;
@@ -1420,7 +1674,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         const choice = await this.intentEnrichmentService.chooseNextStep(
             reason,
-            this.currentImageUrls.length > 0,
+            this.currentImages.length > 0,
             this.medicalTextOriginal.trim().length >= 10
         );
         await this.applyIntentChoice(choice, reason);
@@ -1710,11 +1964,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         this.lauchEvent(infoOptionEvent);
 
-        if(this.currentImageUrls.length > 0 && this.descriptionImageOnly != '' && this.medicalTextOriginal == ''){
+        if(this.currentImages.length > 0 && this.descriptionImageOnly != '' && this.medicalTextOriginal == ''){
             this.medicalTextOriginal = this.descriptionImageOnly;
         }
 
-        const imageReferences = this.getImageReferencePayload();
         var value = {
             questionType,
             disease: selectedDiseaseEn,
@@ -1722,11 +1975,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             myuuid: this.myuuid,
             timezone: this.timezone,
             detectedLang: this.detectedLang,
-            assetIds: imageReferences.assetIds,
-            imageUrls: imageReferences.imageUrls
+            uploadId: this.currentUploadId || undefined
         };
 
-        if(this.currentImageUrls.length > 0){
+        if(this.currentImages.length > 0){
             if(this.descriptionImageOnly != '' && value.medicalDescription == ''){
                 value.medicalDescription = this.descriptionImageOnly;
             }else if (this.descriptionImageOnly != '' && value.medicalDescription != ''){
@@ -1773,11 +2025,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }, (err) => {
                 console.log(err);
                 let msgError = '';
-                if (
-                    err?.error?.code === 'INVALID_ASSET_REFERENCE' ||
-                    err?.error?.code === 'INVALID_IMAGE_URL'
-                ) {
-                    this.resetExpiredImageAssets();
+                if (err?.error?.code === 'INVALID_UPLOAD_REFERENCE') {
+                    this.resetExpiredUpload();
                     msgError = this.translate.instant('generics.imageAssetExpired');
                 } else if(err && err.error && err.error.message){
                     switch(err.error.message) {
@@ -2410,7 +2659,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async checkText() {
         this.showErrorCall1 = false;
-        const hasAssociatedImages = this.currentImageUrls.length > 0;
+        const hasAssociatedImages = this.currentImages.length > 0;
         if (this.callingAI || (!hasAssociatedImages && this.editmedicalText.length < 15)) {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
@@ -2491,31 +2740,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.medicalTextOriginal = this.editmedicalText;
             this.finishEditDescription();
         }
-    }
-
-    removeAssociatedImage(index: number) {
-        const removedImage = this.currentImageUrls[index];
-        if (!removedImage) {
-            return;
-        }
-
-        this.currentImageUrls.splice(index, 1);
-
-        const selectedFileIndex = this.selectedFiles.findIndex(file =>
-            UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type) &&
-            file.name === removedImage.name &&
-            (removedImage.size === undefined || file.size === removedImage.size)
-        );
-        if (selectedFileIndex >= 0) {
-            this.uploadedFileKeys.delete(this.getFileKey(this.selectedFiles[selectedFileIndex]));
-            this.selectedFiles.splice(selectedFileIndex, 1);
-        }
-
-        if (this.currentImageUrls.length === 0) {
-            this.descriptionImageOnly = '';
-        }
-        this.filesModifiedAfterAnalysis = true;
-        this.lauchEvent(`Associated image removed: ${removedImage.name || 'unknown'}`);
     }
 
     finishEditDescription() {
@@ -3182,7 +3406,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     onFilesSelected(event: any) {
-        console.log(event);
         if (event.target.files && event.target.files.length > 0) {
             const newFiles = Array.from(event.target.files) as File[];
             this.validateAndAddFiles(newFiles);
@@ -3190,29 +3413,30 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     removeFile(index: number) {
+        if (this.callingAI) {
+            return;
+        }
         const removedFile = this.selectedFiles[index];
         if (removedFile) {
-            this.uploadedFileKeys.delete(this.getFileKey(removedFile));
-            const associatedImageIndex = this.currentImageUrls.findIndex(
-                image => image.name === removedFile.name &&
-                    (image.size === undefined || image.size === removedFile.size)
-            );
-            if (associatedImageIndex >= 0) {
-                this.currentImageUrls.splice(associatedImageIndex, 1);
-            }
+            this.fileProcessingStatuses.delete(this.getFileKey(removedFile));
         }
         this.selectedFiles.splice(index, 1);
-        if (this.selectedFiles.length === 0) {
-            this.filesAnalyzed = false;
-            this.filesModifiedAfterAnalysis = false; // Resetear si no hay archivos
-        } else {
-            this.filesModifiedAfterAnalysis = true; // Marcar como modificado
-        }
-        this.lauchEvent('File removed: ' + (removedFile ? removedFile.name : 'unknown'));
+        this.invalidateAnalysis();
+        this.lauchEvent(
+            removedFile?.type?.startsWith('image/')
+                ? 'Image file removed'
+                : 'Document file removed'
+        );
     }
 
     async analyzeMultimodal() {
+        this.multimodalRequestSubscription?.unsubscribe();
+        this.multimodalRequestSubscription = null;
+        this.multimodalPreprocessingCompleted = false;
+        const runId = ++this.activeMultimodalRun;
         this.failedDocumentNames = [];
+        this.lastMultimodalCorrelationId = '';
+        this.setAllFileStatuses('processing');
         // Mostrar spinner con Swals
         Swal.close();
         Swal.fire({
@@ -3225,39 +3449,43 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             cancelButtonText: this.translate.instant("generics.Cancel"),
             allowOutsideClick: false,
             allowEscapeKey: false
-        }).then(function (event) {
+        }).then((event) => {
             if (event.dismiss == Swal.DismissReason.cancel) {
-                this.callingAI = false;
-                this.subscription.unsubscribe();
-                this.subscription = new Subscription();
+                this.cancelMultimodalRun(runId);
                 this.lauchEvent('User cancelled multimodal analysis');
             }
-        }.bind(this));
+        });
 
         this.lauchEvent('Analyze multimodal started');
         this.callingAI = true;
         const formData = new FormData();
         formData.append('text', this.medicalTextOriginal || '');
-        const imageReferences = this.getImageReferencePayload();
-        formData.append('assetIds', JSON.stringify(imageReferences.assetIds));
-        const filesSubmitted = this.selectedFiles.filter(
-            file => !this.uploadedFileKeys.has(this.getFileKey(file))
-        );
+        // Cada análisis parte de cero: se envían todos los ficheros y el
+        // servidor crea un uploadId nuevo. No se reutiliza nada del anterior.
+        this.clearUploadReference();
+        const filesSubmitted = this.selectedFiles;
         // Permitir hasta 5 documentos y 5 imágenes según backend
         // Usar las constantes de la clase para consistencia
         let docCount = 0;
         let imgCount = 0;
         for (const file of filesSubmitted) {
-            if (docCount < 5 && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(file.type)) {
+            if (
+                docCount < this.multimodalUploadLimits.maxDocuments &&
+                UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(file.type)
+            ) {
                 formData.append('document', file);
                 docCount++;
-                this.lauchEvent('Document file added: ' + file.name);
-            } else if (imgCount < 5 && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)) {
+            } else if (
+                imgCount < this.multimodalUploadLimits.maxImages &&
+                UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)
+            ) {
                 formData.append('image', file);
                 imgCount++;
-                this.lauchEvent('Image file added: ' + file.name);
             }
-            if (docCount >= 5 && imgCount >= 5) break;
+            if (
+                docCount >= this.multimodalUploadLimits.maxDocuments &&
+                imgCount >= this.multimodalUploadLimits.maxImages
+            ) break;
         }
         formData.append('lang', this.lang || 'es');
 
@@ -3270,10 +3498,24 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
 
         try {
-            await this.connectWebSocket();
+            await this.connectWebSocket(runId);
         } catch (error) {
+            if (runId !== this.activeMultimodalRun) {
+                return;
+            }
             console.error('Error connecting WebSocket:', error);
+            this.setAllFileStatuses('error');
+            this.callingAI = false;
+            if (this.webSocket) {
+                this.webSocket.close();
+                this.webSocket = null;
+            }
+            this.isWebSocketConnected = false;
+            this.activeMultimodalRun += 1;
             this.showError(this.translate.instant("generics.error try again"), error);
+            return;
+        }
+        if (runId !== this.activeMultimodalRun) {
             return;
         }
         
@@ -3301,27 +3543,31 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             customClass: {
                 popup: 'dxgpt-modal-loading'
             }
-        }).then(function (event) {
+        }).then((event) => {
             if (event.dismiss == Swal.DismissReason.cancel) {
-                this.callingAI = false;
-                this.subscription.unsubscribe();
-                this.subscription = new Subscription();
-                if (this.webSocket) {
-                    this.webSocket.close();
-                    this.webSocket = null;
-                }
+                this.cancelMultimodalRun(runId);
+                this.lauchEvent('User cancelled multimodal analysis');
             }
-        }.bind(this));
+        });
 
         // Inicializar progreso para WebSocket
         setTimeout(() => {
-            this.updateWebSocketProgress(0, 'Conectando...', 'connection');
+            if (runId === this.activeMultimodalRun) {
+                this.updateWebSocketProgress(0, 'Conectando...', 'connection');
+            }
         }, 100);
 
         this.callingAI = true;
-        this.apiDx29ServerService.analyzeMultimodal(formData).subscribe(
+        this.multimodalRequestSubscription =
+            this.apiDx29ServerService.analyzeMultimodal(formData).subscribe(
             (res: any) => {
-                console.log(res);
+                if (runId !== this.activeMultimodalRun) {
+                    return;
+                }
+                this.multimodalRequestSubscription = null;
+                this.multimodalPreprocessingCompleted = true;
+                this.lastMultimodalCorrelationId = res?.correlationId || '';
+                this.applyFileProcessingResults(res);
                 this.reportFailedDocuments(res.documents);
                 this.handledDiagnoseResponse(res, formData);
                 if(res.description && res.isImageOnly == false){
@@ -3333,24 +3579,26 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 if(res.description && res.isImageOnly == true){
                     this.descriptionImageOnly = res.description;
                 }
-                // Capturar las URLs de las imágenes de la respuesta
-                if(res.imageUrls && Array.isArray(res.imageUrls)){
-                    this.currentImageUrls = res.imageUrls;
-                }
-                const uploadedImages = filesSubmitted.filter(file =>
-                    UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)
-                );
-                const returnedNewImages = (this.currentImageUrls || [])
-                    .slice(-uploadedImages.length);
-                uploadedImages.forEach((file, index) => {
-                    if (returnedNewImages[index]?.assetId) {
-                        this.uploadedFileKeys.add(this.getFileKey(file));
-                    }
-                });
+                // uploadId es null si no se subió ninguna imagen. El servidor
+                // decide en cada llamada qué imágenes de la subida van al modelo.
+                this.currentUploadId = typeof res.uploadId === 'string' ? res.uploadId : null;
+                this.currentImages = Array.isArray(res.images) ? res.images : [];
                 this.filesAnalyzed = true;
-                this.filesModifiedAfterAnalysis = false;
             },
-            (err: any) => this.handleAiError(err)
+            (err: any) => {
+                if (runId !== this.activeMultimodalRun) {
+                    return;
+                }
+                this.multimodalRequestSubscription = null;
+                this.setAllFileStatuses('error');
+                if (this.webSocket) {
+                    this.webSocket.close();
+                    this.webSocket = null;
+                }
+                this.isWebSocketConnected = false;
+                this.activeMultimodalRun += 1;
+                this.handleAiError(err);
+            }
         );
     }
 
@@ -3371,6 +3619,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         event.stopPropagation();
         this.isDragOver = false;
 
+        if (this.callingAI) {
+            return;
+        }
         const files = event.dataTransfer?.files;
         if (files && files.length > 0) {
             const newFiles = Array.from(files) as File[];
@@ -3392,18 +3643,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
      * Evita duplicados por nombre y tamaño. Muestra avisos si hay descartes.
      */
      private validateAndAddFiles(newFiles: File[]): void {
-        const MAX_TOTAL_BYTES = 20 * 1024 * 1024;
-        const MAX_DOCS = 5;
-        const MAX_IMAGES = 5;
+        const MAX_TOTAL_BYTES = this.multimodalUploadLimits.maxTotalBytes;
+        const MAX_DOCS = this.multimodalUploadLimits.maxDocuments;
+        const MAX_IMAGES = this.multimodalUploadLimits.maxImages;
 
         // Estado actual usando las constantes de la clase
         const isSupportedImage = (f: File) => f.type && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(f.type);
         const isSupportedDoc = (f: File) => f.type && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(f.type);
         const currentImages = this.selectedFiles.filter(isSupportedImage).length;
         const currentDocs = this.selectedFiles.filter(isSupportedDoc).length;
-        const currentTotalBytes = this.selectedFiles
-            .filter(file => !this.uploadedFileKeys.has(this.getFileKey(file)))
-            .reduce((acc, f) => acc + f.size, 0);
+        const currentTotalBytes = this.selectedFiles.reduce((acc, f) => acc + f.size, 0);
 
         let addedImages = 0;
         let addedDocs = 0;
@@ -3452,9 +3701,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         if (accepted.length > 0) {
             this.selectedFiles.push(...accepted);
-            this.filesAnalyzed = false;
-            this.filesModifiedAfterAnalysis = true;
-            this.lauchEvent('Files added: ' + accepted.map(f => f.name).join(', '));
+            accepted.forEach(file =>
+                this.fileProcessingStatuses.set(this.getFileKey(file), 'pending')
+            );
+            this.invalidateAnalysis();
+            this.lauchEvent(
+                `Files added: ${addedDocs} document(s), ${addedImages} image(s)`
+            );
         }
 
         if (rejected.length > 0) {
@@ -3505,14 +3758,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         return this.translate.instant('land.Search');
     }
-        
-    reanalyzeFiles() {
-        this.filesAnalyzed = false;
-        this.lauchEvent('Reanalyze files clicked');
-        this.analyzeMultimodal();
-    }
-        
-    
 
     getButtonTitle(): string {
         if (this.callingAI) {

@@ -40,9 +40,11 @@
     "files_limit_docs": "documento(s) no añadidos: máximo 5.",
     "files_limit_total": "Tamaño total excedido (20MB). Reduce o elimina archivos.",
     "files_duplicates": "archivo(s) duplicado(s) ignorados.",
-    "files_unsupported_format": "archivo(s) con formato no soportado. Formatos válidos: PDF, DOCX, XLSX, PPTX, HTML, TXT, JPEG, PNG, BMP, TIFF, HEIF.",
+    "files_unsupported_format": "archivo(s) con formato no soportado. Formatos válidos: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP.",
     "upload_limits": "Límite: {{maxMB}} MB totales, máx. {{maxDocs}} documentos y {{maxImages}} imágenes.",
-    "upload_usage": "Usado: {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} imágenes, {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "Seleccionados: {{docs}}/{{maxDocs}} documentos, {{images}}/{{maxImages}} imágenes; carga pendiente: {{usedMB}}/{{maxMB}} MB.",
+    "image_text_only": "Solo texto",
+    "image_text_extracted": "Texto extraído de esta imagen; la imagen no se envía al modelo de IA",
     "independent_context": "Cada pregunta se procesa por separado. Las respuestas anteriores no se envían al modelo.",
     "answer_title": "Respuesta médica",
     "edit_question": "Modificar pregunta",
@@ -674,6 +676,7 @@
   },
   "progress": {
     "connecting": "Conectando...",
+    "prepare_images": "Preparando imágenes...",
     "translating": "Traduciendo descripción...",
     "extract_documents": "Extrayendo documentos...",
     "summarize_input": "Generando resumen médico...",
@@ -681,7 +684,8 @@
     "analyzing": "Analizando síntomas con IA...",
     "getting_details": "Obteniendo detalles del diagnóstico...",
     "anonymizing": "Anonimizando información personal...",
-    "finalizing": "Finalizando diagnóstico..."
+    "finalizing": "Finalizando diagnóstico...",
+    "processing": "Procesando..."
   },
   "diagnosis": {
     "Proposed diagnoses": "Diagnósticos propuestos",
@@ -742,10 +746,7 @@
     "Pending analysis": "Pendiente de análisis",
     "Analyze files and search": "Analizar archivos y buscar",
     "Analyze uploaded files and search for diagnoses": "Analizar archivos subidos y buscar diagnósticos",
-    "Re-analyze files": "Re-analizar archivos",
-    "Re-analyze": "Re-analizar",
-    "Analysis completed": "Análisis completado",
-    "Files modified - re-analyze needed": "Archivos modificados - re-análisis necesario"
+    "Analysis completed": "Análisis completado"
   },
   "policy": {
     "title": "Política de privacidad",
