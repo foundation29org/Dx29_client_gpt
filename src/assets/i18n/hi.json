@@ -40,7 +40,7 @@
     "files_limit_docs": "दस्तावेज़ नहीं जोड़े गए: अधिकतम 5।",
     "files_limit_total": "कुल आकार सीमा से अधिक है (20MB)। फ़ाइलें कम करें या हटाएं।",
     "files_duplicates": "डुप्लिकेट फ़ाइल(ें) अनदेखी की गईं।",
-    "files_unsupported_format": "असमर्थित फ़ॉर्मेट वाली फ़ाइल(ें)। मान्य फ़ॉर्मेट: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP।",
+    "files_unsupported_format": "असमर्थित फ़ॉर्मेट वाली फ़ाइल(ें)। मान्य फ़ॉर्मेट: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP।",
     "upload_limits": "सीमा: कुल {{maxMB}} MB, अधिकतम {{maxDocs}} दस्तावेज़ और {{maxImages}} छवियां।",
     "upload_usage": "चयनित: {{docs}}/{{maxDocs}} दस्तावेज़, {{images}}/{{maxImages}} छवियाँ; लंबित अपलोड: {{usedMB}}/{{maxMB}} MB।",
     "image_text_only": "केवल पाठ",

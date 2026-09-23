@@ -40,7 +40,7 @@
     "files_limit_docs": "документ(ів) не додано: максимум 5.",
     "files_limit_total": "Перевищено загальний розмір (20MB). Зменшіть або видаліть файли.",
     "files_duplicates": "дубліковані файли проігноровано.",
-    "files_unsupported_format": "файли з непідтримуваним форматом. Допустимі формати: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP.",
+    "files_unsupported_format": "файли з непідтримуваним форматом. Допустимі формати: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
     "upload_limits": "Ліміт: {{maxMB}} МБ загалом, макс. {{maxDocs}} документів і {{maxImages}} зображень.",
     "upload_usage": "Вибрано: {{docs}}/{{maxDocs}} документів, {{images}}/{{maxImages}} зображень; очікує завантаження: {{usedMB}}/{{maxMB}} МБ.",
     "image_text_only": "Лише текст",

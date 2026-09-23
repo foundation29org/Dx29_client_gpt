@@ -40,7 +40,7 @@
     "files_limit_docs": "Dokument(e) nicht hinzugefügt: Maximum 5.",
     "files_limit_total": "Gesamtgröße überschritten (20MB). Reduzieren oder entfernen Sie Dateien.",
     "files_duplicates": "Doppelte Datei(en) ignoriert.",
-    "files_unsupported_format": "Datei(en) mit nicht unterstütztem Format. Gültige Formate: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP.",
+    "files_unsupported_format": "Datei(en) mit nicht unterstütztem Format. Gültige Formate: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
     "upload_limits": "Limit: {{maxMB}} MB gesamt, max. {{maxDocs}} Dokumente und {{maxImages}} Bilder.",
     "upload_usage": "Ausgewählt: {{docs}}/{{maxDocs}} Dokumente, {{images}}/{{maxImages}} Bilder; ausstehender Upload: {{usedMB}}/{{maxMB}} MB.",
     "image_text_only": "Nur Text",

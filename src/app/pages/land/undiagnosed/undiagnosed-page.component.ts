@@ -70,8 +70,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private static readonly SUPPORTED_IMAGE_TYPES = [
         'image/jpeg',
         'image/png',
-        'image/tiff',
-        'image/bmp',
         'image/webp'
     ];
 
@@ -181,6 +179,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private fileProcessingStatuses = new Map<string, MultimodalFileStatus>();
     private multimodalRequestSubscription: Subscription | null = null;
     private multimodalPreprocessingCompleted = false;
+    // /medical/analyze responde en cuanto acepta los ficheros; hasta que llega
+    // el mensaje 'preprocessing' por el WebSocket el análisis sigue en curso.
+    private awaitingMultimodalPreprocessing = false;
     private activeMultimodalRun = 0;
     lastMultimodalCorrelationId = '';
     
@@ -301,6 +302,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.activeMultimodalRun += 1;
         this.multimodalRequestSubscription?.unsubscribe();
         this.multimodalRequestSubscription = null;
+        this.awaitingMultimodalPreprocessing = false;
         if (this.webSocket) {
             this.webSocket.close();
             this.webSocket = null;
@@ -985,6 +987,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 case 'progress':
                     this.updateWebSocketProgress(message.percentage, message.message, message.step);
                     break;
+
+                case 'preprocessing':
+                    this.applyMultimodalPreprocessing(message.data || {});
+                    break;
                     
                 case 'result':
                     // Resultado final recibido via WebSocket
@@ -1080,9 +1086,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             msgError += `<br><small>ID: ${correlationId}</small>`;
         }
         this.lastMultimodalCorrelationId = '';
-        if (this.multimodalRequestSubscription) {
-            this.multimodalRequestSubscription.unsubscribe();
+        if (this.multimodalRequestSubscription || this.awaitingMultimodalPreprocessing) {
+            this.multimodalRequestSubscription?.unsubscribe();
             this.multimodalRequestSubscription = null;
+            this.awaitingMultimodalPreprocessing = false;
             this.activeMultimodalRun += 1;
             // Si el preprocesado ya había terminado, el fallo es del
             // diagnóstico y los archivos conservan su resultado real.
@@ -3558,38 +3565,24 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }, 100);
 
         this.callingAI = true;
+        this.awaitingMultimodalPreprocessing = true;
         this.multimodalRequestSubscription =
             this.apiDx29ServerService.analyzeMultimodal(formData).subscribe(
             (res: any) => {
                 if (runId !== this.activeMultimodalRun) {
                     return;
                 }
+                // El servidor solo confirma que ha aceptado los ficheros. El
+                // resultado del preprocesado llega por el WebSocket.
                 this.multimodalRequestSubscription = null;
-                this.multimodalPreprocessingCompleted = true;
                 this.lastMultimodalCorrelationId = res?.correlationId || '';
-                this.applyFileProcessingResults(res);
-                this.reportFailedDocuments(res.documents);
-                this.handledDiagnoseResponse(res, formData);
-                if(res.description && res.isImageOnly == false){
-                    this.resultAnonymized = res.description;
-                    this.copyResultAnonymized = res.description;
-                    this.medicalTextOriginal = this.copyResultAnonymized;
-                    this.medicalTextEng = this.copyResultAnonymized;
-                }
-                if(res.description && res.isImageOnly == true){
-                    this.descriptionImageOnly = res.description;
-                }
-                // uploadId es null si no se subió ninguna imagen. El servidor
-                // decide en cada llamada qué imágenes de la subida van al modelo.
-                this.currentUploadId = typeof res.uploadId === 'string' ? res.uploadId : null;
-                this.currentImages = Array.isArray(res.images) ? res.images : [];
-                this.filesAnalyzed = true;
             },
             (err: any) => {
                 if (runId !== this.activeMultimodalRun) {
                     return;
                 }
                 this.multimodalRequestSubscription = null;
+                this.awaitingMultimodalPreprocessing = false;
                 this.setAllFileStatuses('error');
                 if (this.webSocket) {
                     this.webSocket.close();
@@ -3600,6 +3593,32 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.handleAiError(err);
             }
         );
+    }
+
+    private applyMultimodalPreprocessing(res: any) {
+        if (!this.awaitingMultimodalPreprocessing) {
+            return;
+        }
+        this.awaitingMultimodalPreprocessing = false;
+        this.multimodalPreprocessingCompleted = true;
+        this.lastMultimodalCorrelationId = res?.correlationId || '';
+        this.applyFileProcessingResults(res);
+        this.reportFailedDocuments(res.documents);
+        this.handledDiagnoseResponse(res, null);
+        if(res.description && res.isImageOnly == false){
+            this.resultAnonymized = res.description;
+            this.copyResultAnonymized = res.description;
+            this.medicalTextOriginal = this.copyResultAnonymized;
+            this.medicalTextEng = this.copyResultAnonymized;
+        }
+        if(res.description && res.isImageOnly == true){
+            this.descriptionImageOnly = res.description;
+        }
+        // uploadId es null si no se subió ninguna imagen. El servidor
+        // decide en cada llamada qué imágenes de la subida van al modelo.
+        this.currentUploadId = typeof res.uploadId === 'string' ? res.uploadId : null;
+        this.currentImages = Array.isArray(res.images) ? res.images : [];
+        this.filesAnalyzed = true;
     }
 
     onDragOver(event: DragEvent) {
@@ -3639,7 +3658,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
      * Valida y añade archivos respetando límites de backend y formatos soportados por Azure Document Intelligence:
      * - Tamaño total máximo: 20 MB (documentos + imágenes)
      * - Máximo 5 imágenes y 5 documentos
-     * - Formatos soportados: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, TIFF, BMP, WEBP
+     * - Formatos soportados: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP
      * Evita duplicados por nombre y tamaño. Muestra avisos si hay descartes.
      */
      private validateAndAddFiles(newFiles: File[]): void {

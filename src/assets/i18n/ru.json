@@ -40,7 +40,7 @@
     "files_limit_docs": "документ(ов) не добавлено: максимум 5.",
     "files_limit_total": "Превышен общий размер (20MB). Уменьшите или удалите файлы.",
     "files_duplicates": "дублированные файлы проигнорированы.",
-    "files_unsupported_format": "файлы с неподдерживаемым форматом. Допустимые форматы: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP.",
+    "files_unsupported_format": "файлы с неподдерживаемым форматом. Допустимые форматы: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
     "upload_limits": "Лимит: {{maxMB}} МБ всего, макс. {{maxDocs}} документов и {{maxImages}} изображений.",
     "upload_usage": "Выбрано: {{docs}}/{{maxDocs}} документов, {{images}}/{{maxImages}} изображений; ожидает загрузки: {{usedMB}}/{{maxMB}} МБ.",
     "image_text_only": "Только текст",

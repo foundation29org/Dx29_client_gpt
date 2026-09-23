@@ -40,7 +40,7 @@
     "files_limit_docs": "document(s) no afegit(s): màxim 5.",
     "files_limit_total": "Mida total excedida (20MB). Redueix o elimina fitxers.",
     "files_duplicates": "fitxer(s) duplicat(s) ignorat(s).",
-    "files_unsupported_format": "fitxer(s) amb format no suportat. Formats vàlids: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, BMP, TIFF, WEBP.",
+    "files_unsupported_format": "fitxer(s) amb format no suportat. Formats vàlids: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
     "upload_limits": "Límit: {{maxMB}} MB totals, màx. {{maxDocs}} documents i {{maxImages}} imatges.",
     "upload_usage": "Seleccionats: {{docs}}/{{maxDocs}} documents, {{images}}/{{maxImages}} imatges; càrrega pendent: {{usedMB}}/{{maxMB}} MB.",
     "image_text_only": "Només text",
