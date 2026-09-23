@@ -36,7 +36,12 @@
                   </a>
               </li>
               <li class="nav-item me-2">
-                <a class="nav-link" [ngClass]="(!isFoundation29Page)?'black':'nav-active'" routerLink="/foundation29" (click)="lauchEvent('Page - Foundation 29')" [attr.aria-label]="'foundation29.hero.title' | translate">
+                <a class="nav-link black"
+                   href="https://foundation29.org"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   (click)="lauchEvent('Page - Foundation 29')"
+                   [attr.aria-label]="'foundation29.hero.title' | translate">
                     <i class="fa fa-hand-holding-heart me-2 d-xl-none nav-link-icon"></i>
                     <span>{{'foundation29.hero.title' | translate }}</span>
                 </a>

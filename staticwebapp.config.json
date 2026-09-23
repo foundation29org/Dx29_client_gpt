@@ -18,7 +18,8 @@
     },
     {
       "route": "/foundation29",
-      "rewrite": "/foundation29/index.html"
+      "redirect": "https://foundation29.org",
+      "statusCode": 301
     },
     {
       "route": "/faq",

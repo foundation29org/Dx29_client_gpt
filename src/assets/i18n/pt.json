@@ -622,6 +622,7 @@
     "Warning": "Aviso",
     "error try again": "Ocorreu um erro, tente novamente",
     "imageAssetExpired": "Uma ou mais imagens expiraram ou já não estão disponíveis. Remova-as ou carregue-as novamente.",
+    "inputTooLarge": "Os documentos contêm demasiado texto para serem analisados. Carregue menos documentos ou apenas as páginas relevantes.",
     "documentPartialFailure": "Não foi possível processar alguns documentos: {{files}}. A pesquisa continua com os restantes.",
     "error edit patient description": "Se o problema persistir, edite a descrição do paciente",
     "entervalidemail": "Por favor insira um e-mail válido!",

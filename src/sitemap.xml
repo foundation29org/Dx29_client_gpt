@@ -35,13 +35,6 @@
   </url>
 
   <url>
-    <loc>https://dxgpt.app/foundation29</loc>
-    <lastmod>2026-09-15T00:00:00+00:00</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
-  <url>
     <loc>https://dxgpt.app/reports</loc>
     <lastmod>2026-09-15T00:00:00+00:00</lastmod>
     <priority>0.60</priority>

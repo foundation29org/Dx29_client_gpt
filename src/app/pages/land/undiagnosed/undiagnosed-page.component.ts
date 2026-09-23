@@ -1064,21 +1064,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     private handleWebSocketError(error: any) {
         console.error('WebSocket error:', error);
-        let msgError = '';
-        
-        // Verificar que error existe y es un objeto válido
-        if (error && typeof error === 'object' && error.type) {
-            if (error.type === 'PROCESSING_ERROR') {
-                msgError = this.translate.instant("generics.error try again");
-            } else if (error.type === 'QUEUE_PROCESSING_ERROR') {
-                msgError = this.translate.instant("generics.error try again");
-            } else {
-                msgError = this.translate.instant("generics.error try again");
-            }
-        } else {
-            // Error genérico cuando no hay información específica
-            msgError = this.translate.instant("generics.error try again");
-        }
+        const messageKeyByType: Record<string, string> = {
+            DESCRIPTION_TOO_SHORT: 'generics.minDescriptionLength',
+            INVALID_DIAGNOSE_INPUT: 'generics.Invalid request format or content',
+            SUMMARY_INPUT_REJECTED: 'generics.Invalid request format or content',
+            INPUT_TOO_LARGE: 'generics.inputTooLarge'
+        };
+        let msgError = this.translate.instant(
+            messageKeyByType[error?.type] || 'generics.error try again'
+        );
         const correlationId = this.getSafeCorrelationId(
             error?.correlationId || this.lastMultimodalCorrelationId
         );

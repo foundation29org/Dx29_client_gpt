@@ -622,6 +622,7 @@
     "Warning": "Warnung",
     "error try again": "Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut",
     "imageAssetExpired": "Ein oder mehrere Bilder sind abgelaufen oder nicht mehr verfügbar. Entfernen Sie sie oder laden Sie sie erneut hoch.",
+    "inputTooLarge": "Die Dokumente enthalten zu viel Text für die Analyse. Laden Sie weniger Dokumente oder nur die relevanten Seiten hoch.",
     "documentPartialFailure": "Einige Dokumente konnten nicht verarbeitet werden: {{files}}. Die Suche wird mit den übrigen fortgesetzt.",
     "error edit patient description": "Falls das Problem weiterhin besteht, bearbeiten Sie die Patientenbeschreibung",
     "entervalidemail": "Bitte geben Sie eine gültige E-Mail-Adresse ein!",
