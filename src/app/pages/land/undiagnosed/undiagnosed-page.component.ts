@@ -756,8 +756,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         reverseButtons: true
                     }).then((result) => {
                         if (result.value) {
-                            this.restartInitVars();
-                            this.currentStep = 1;
+                            this.newPatient();
                             setTimeout(() => {
                                 this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
                                 this.startTypingAnimation();
@@ -2104,14 +2103,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.answerAI = '';
         this.loadingAnswerAI = false;
         this.symptomsDifferencial = [];
-    }
-
-    restartInitVars() {
-        this.medicalTextOriginal = '';
-        this.copyMedicalText = '';
-        this.topRelatedConditions = [];
-        // Notificar que ya no hay diagnósticos activos
-        this.eventsService.broadcast('hasDiagnostics', false);
     }
 
     showMoreInfoDiseasePopup(diseaseIndex, contentInfoDisease) {
