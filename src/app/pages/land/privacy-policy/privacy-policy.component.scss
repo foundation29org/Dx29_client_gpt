@@ -112,6 +112,22 @@
     }
   }
   
+  .policy-heading {
+    color: #2c3e50;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    
+    @media (max-width: 768px) {
+      font-size: 0.95rem;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+    }
+  }
+  
   ul {
     margin-bottom: 1.5rem;
     

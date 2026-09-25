@@ -1590,5 +1590,42 @@
       "description": "Contactez-nous pour implémenter DxGPT dans votre organisation",
       "contact_us": "Contactez-nous"
     }
+  },
+  "a11y": {
+    "Skip to main content": "Aller au contenu principal",
+    "Language": "Langue",
+    "Patient description": "Description du patient",
+    "Opens in a new tab": "s'ouvre dans un nouvel onglet",
+    "Useful result": "Résultat utile",
+    "Not useful result": "Résultat non utile",
+    "Results ready": "{{count}} hypothèses diagnostiques trouvées.",
+    "Your question": "Votre question",
+    "Main navigation": "Navigation principale",
+    "Open menu": "Ouvrir le menu",
+    "Close menu": "Fermer le menu",
+    "Home logo": "{{app}}, aller à l'accueil",
+    "Foundation 29 website": "Site web de Foundation 29",
+    "Refresh data": "Actualiser les données",
+    "Previous testimonial": "Témoignage précédent",
+    "Next testimonial": "Témoignage suivant",
+    "Pause testimonials": "Mettre en pause les témoignages",
+    "Rated 5 out of 5 stars": "Note : 5 étoiles sur 5",
+    "Copy link": "Copier le lien"
+  },
+  "voice": {
+    "Start dictation": "Démarrer la dictée vocale",
+    "Stop dictation": "Arrêter la dictée vocale",
+    "Dictation started": "Dictée démarrée. Parlez maintenant.",
+    "Transcribing": "Transcription…",
+    "Dictation added": "Texte dicté ajouté. Vérifiez-le avant de lancer la recherche.",
+    "errors": {
+      "not-supported": "Votre navigateur ne prend pas en charge la dictée vocale.",
+      "permission-denied": "L'accès au microphone est bloqué. Autorisez-le dans les paramètres du navigateur.",
+      "no-microphone": "Aucun microphone détecté.",
+      "network": "Connexion au service vocal perdue. Veuillez réessayer.",
+      "service-unavailable": "La dictée vocale n'est pas disponible pour le moment.",
+      "unknown": "La dictée vocale n'a pas pu démarrer. Veuillez réessayer.",
+      "no-speech": "Aucune voix n'a été détectée. Veuillez réessayer."
+    }
   }
 }

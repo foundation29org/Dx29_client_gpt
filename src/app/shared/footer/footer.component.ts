@@ -178,6 +178,7 @@ openModalPolicy() {
 openModalCookies() {
   let ngbModalOptions: NgbModalOptions = {
       keyboard: true,
+      ariaLabelledBy: 'cookiesModalTitle',
       windowClass: 'ModalClass-sm'// xl, lg, sm
   };
   this.modalService.open(CookiesPageComponent, ngbModalOptions);
@@ -189,6 +190,7 @@ async openModal(panel) {
   let ngbModalOptions: NgbModalOptions = {
     backdrop : 'static',
       keyboard: false,
+      ariaLabelledBy: 'termsform-modal-title',
       windowClass: 'ModalClass-sm'// xl, lg, sm
   };
   this.modalReference2 = this.modalService.open(panel, ngbModalOptions);
@@ -269,7 +271,8 @@ private openSendMsgModal(mode: 'clinicalData' | 'datasets' | 'subscribe' | 'cont
     size: 'lg',
     centered: true,
     backdrop: 'static',
-    keyboard: false
+    keyboard: false,
+    ariaLabelledBy: 'footer-send-msg-title'
   });
 }
 

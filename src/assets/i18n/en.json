@@ -635,7 +635,7 @@
     "Cancel": "Cancel",
     "Save": "Save",
     "Send": "Send",
-    "Next": "Siguiente",
+    "Next": "Next",
     "Close": "Close",
     "More information": "Explore this hypothesis",
     "Show details": "Show details",
@@ -1589,6 +1589,43 @@
       "title": "Ready to get started?",
       "description": "Contact us to implement DxGPT in your organization",
       "contact_us": "Contact us"
+    }
+  },
+  "a11y": {
+    "Skip to main content": "Skip to main content",
+    "Language": "Language",
+    "Patient description": "Patient description",
+    "Opens in a new tab": "opens in a new tab",
+    "Useful result": "Useful result",
+    "Not useful result": "Not useful result",
+    "Results ready": "{{count}} diagnostic hypotheses found.",
+    "Your question": "Your question",
+    "Main navigation": "Main navigation",
+    "Open menu": "Open menu",
+    "Close menu": "Close menu",
+    "Home logo": "{{app}}, go to home page",
+    "Foundation 29 website": "Foundation 29 website",
+    "Refresh data": "Refresh data",
+    "Previous testimonial": "Previous testimonial",
+    "Next testimonial": "Next testimonial",
+    "Pause testimonials": "Pause testimonials",
+    "Rated 5 out of 5 stars": "Rated 5 out of 5 stars",
+    "Copy link": "Copy link"
+  },
+  "voice": {
+    "Start dictation": "Start voice dictation",
+    "Stop dictation": "Stop voice dictation",
+    "Dictation started": "Dictation started. Speak now.",
+    "Transcribing": "Transcribing…",
+    "Dictation added": "Dictated text added. Review it before searching.",
+    "errors": {
+      "not-supported": "Your browser does not support voice dictation.",
+      "permission-denied": "Microphone access is blocked. Allow it in your browser settings.",
+      "no-microphone": "No microphone was found.",
+      "network": "Lost connection to the speech service. Please try again.",
+      "service-unavailable": "Voice dictation is not available right now.",
+      "unknown": "Voice dictation could not start. Please try again.",
+      "no-speech": "No speech was detected. Please try again."
     }
   }
 }

@@ -28,6 +28,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DictationButtonComponent } from 'app/shared/components/dictation-button/dictation-button.component';
 
 @NgModule({
     exports: [
@@ -45,7 +46,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         PipeModule,
         SharedModule,
         MatProgressBarModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        DictationButtonComponent
     ],
     declarations: [
         ReportsPageComponent,

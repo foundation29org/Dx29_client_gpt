@@ -1590,5 +1590,42 @@
       "description": "अपने संगठन में DxGPT लागू करने के लिए हमसे संपर्क करें",
       "contact_us": "हमसे संपर्क करें"
     }
+  },
+  "a11y": {
+    "Skip to main content": "मुख्य सामग्री पर जाएँ",
+    "Language": "भाषा",
+    "Patient description": "रोगी का विवरण",
+    "Opens in a new tab": "नए टैब में खुलता है",
+    "Useful result": "उपयोगी परिणाम",
+    "Not useful result": "अनुपयोगी परिणाम",
+    "Results ready": "{{count}} नैदानिक परिकल्पनाएँ मिलीं।",
+    "Your question": "आपका प्रश्न",
+    "Main navigation": "मुख्य नेविगेशन",
+    "Open menu": "मेनू खोलें",
+    "Close menu": "मेनू बंद करें",
+    "Home logo": "{{app}}, होम पेज पर जाएँ",
+    "Foundation 29 website": "Foundation 29 की वेबसाइट",
+    "Refresh data": "डेटा रीफ़्रेश करें",
+    "Previous testimonial": "पिछला प्रशंसापत्र",
+    "Next testimonial": "अगला प्रशंसापत्र",
+    "Pause testimonials": "प्रशंसापत्र रोकें",
+    "Rated 5 out of 5 stars": "रेटिंग: 5 में से 5 सितारे",
+    "Copy link": "लिंक कॉपी करें"
+  },
+  "voice": {
+    "Start dictation": "आवाज़ से लिखना शुरू करें",
+    "Stop dictation": "आवाज़ से लिखना बंद करें",
+    "Dictation started": "आवाज़ से लिखना शुरू हुआ। अब बोलें।",
+    "Transcribing": "लिप्यंतरण हो रहा है…",
+    "Dictation added": "बोला गया पाठ जोड़ दिया गया। खोजने से पहले इसकी जाँच करें।",
+    "errors": {
+      "not-supported": "आपका ब्राउज़र आवाज़ से लिखने का समर्थन नहीं करता।",
+      "permission-denied": "माइक्रोफ़ोन की अनुमति अवरुद्ध है। ब्राउज़र सेटिंग्स में इसे अनुमति दें।",
+      "no-microphone": "कोई माइक्रोफ़ोन नहीं मिला।",
+      "network": "वॉइस सेवा से कनेक्शन टूट गया। फिर से प्रयास करें।",
+      "service-unavailable": "आवाज़ से लिखना अभी उपलब्ध नहीं है।",
+      "unknown": "आवाज़ से लिखना शुरू नहीं हो सका। फिर से प्रयास करें।",
+      "no-speech": "कोई आवाज़ नहीं मिली। फिर से प्रयास करें।"
+    }
   }
 }

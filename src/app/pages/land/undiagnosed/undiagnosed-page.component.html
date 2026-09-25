@@ -1,4 +1,5 @@
 <a id="initsteps" class="anchorSteps"></a>
+<div class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{{ a11yStatusMessage }}</div>
 <div class="p-2 vertical-center background-dark">
   <section *ngIf="currentStep == 1" class="col-12 d-flex flex-column hero-section">
     <div>
@@ -16,13 +17,19 @@
       <div class="search-container">
         <div class="search" [class.drag-over]="isDragOver"
              (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+          <label for="textarea1" class="visually-hidden">{{'a11y.Patient description' | translate}}</label>
+          <span id="textarea1-hint" class="visually-hidden">{{'land.Placeholder help' | translate}}</span>
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
             [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" [attr.placeholder]="textareaPlaceholder"
-            (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
-            [readonly]="callingAI"></textarea>
+            aria-describedby="textarea1-hint" [attr.aria-busy]="callingAI"
+            (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (focus)="focusTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
+            [readonly]="callingAI || dictating"></textarea>
+            <app-dictation-button [text]="medicalTextOriginal" [disabled]="callingAI"
+              (textChange)="medicalTextOriginal = $event; resizeTextArea()"
+              (dictatingChange)="dictating = $event; $event && lauchEvent('Dictation - Start')"></app-dictation-button>
             <div *ngIf="isDragOver" class="drag-overlay">
               <div class="drag-overlay-content">
-                <em class="fa fa-upload fa-3x mb-3"></em>
+                <em class="fa fa-upload fa-3x mb-3" aria-hidden="true"></em>
                 <p>{{'land.dropzone' | translate}}</p>
               </div>
             </div>
@@ -32,13 +39,13 @@
         <div class="file-chips-row">
           <button type="button" class="chip-btn-add" [disabled]="callingAI" (click)="triggerFileInput(fileInput)"
             title="{{'diagnosis.Upload document or image' | translate}}" aria-label="{{'diagnosis.Upload document or image' | translate}}">
-            <input #fileInput type="file" multiple (change)="onFilesSelected($event)" accept=".pdf,.doc,.docx,.xlsx,.txt,image/jpeg,image/png,image/webp"/>
-            <i class="fa fa-plus"></i>
+            <input #fileInput type="file" multiple tabindex="-1" aria-hidden="true" (change)="onFilesSelected($event)" accept=".pdf,.doc,.docx,.xlsx,.txt,image/jpeg,image/png,image/webp"/>
+            <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
           <span *ngIf="!selectedFiles.length" class="chip-add-text d-none d-md-inline ms-1">{{'diagnosis.Upload document or image' | translate}}</span>
           <ng-container *ngFor="let file of selectedFiles; let i = index">
             <span class="file-chip" [title]="file.name">
-              <i class="fa me-1" [class.fa-file-text-o]="!file.type.startsWith('image/')" [class.fa-file-image-o]="file.type.startsWith('image/')"></i>
+              <i class="fa me-1" aria-hidden="true" [class.fa-file-text-o]="!file.type.startsWith('image/')" [class.fa-file-image-o]="file.type.startsWith('image/')"></i>
               <span class="file-chip-name">{{ file.name }}</span>
               <i class="fa ms-1 file-chip-status"
                 [ngClass]="[getFileStatusIcon(file), 'file-chip-status--' + getFileProcessingStatus(file)]"
@@ -50,7 +57,7 @@
               <button type="button" class="chip-btn-remove" (click)="removeFile(i)"
                 [disabled]="callingAI"
                 [attr.aria-label]="('generics.Remove' | translate) + ': ' + file.name">
-                <i class="fa fa-times"></i>
+                <i class="fa fa-times" aria-hidden="true"></i>
               </button>
             </span>
           </ng-container>
@@ -73,7 +80,7 @@
       </div>
       <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary mt-3 mb-3" role="alert" style="text-align: left;">
         <div class="d-flex align-items-start">
-          <i class="fa fa-info-circle me-2 mt-1"></i>
+          <i class="fa fa-info-circle me-2 mt-1" aria-hidden="true"></i>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center justify-content-between">
               <span>{{'land.multimodalInfo.short' | translate}}</span>
@@ -81,7 +88,7 @@
                 [attr.aria-expanded]="showMultimodalDetails"
                 [attr.aria-label]="(showMultimodalDetails ? 'generics.Hide details' : 'generics.Show details') | translate"
                 [title]="(showMultimodalDetails ? 'generics.Hide details' : 'generics.Show details') | translate">
-                <i class="fa" [class.fa-chevron-down]="!showMultimodalDetails" [class.fa-chevron-up]="showMultimodalDetails"></i>
+                <i class="fa" aria-hidden="true" [class.fa-chevron-down]="!showMultimodalDetails" [class.fa-chevron-up]="showMultimodalDetails"></i>
               </button>
             </div>
             <!-- Primera capa del art. 13 RGPD: tiene que verse antes de enviar, sin desplegar. -->
@@ -113,7 +120,7 @@
       <!-- Banner de revisión después del análisis, ahora encima de la caja de texto -->
       <div *ngIf="selectedFiles.length > 0 && filesAnalyzed && summary" class="alert alert-success mt-3 mb-3" role="alert" style="text-align: left;">
         <div class="d-flex align-items-start">
-          <i class="fa fa-check-circle fa-2x me-3 mt-1"></i>
+          <i class="fa fa-check-circle fa-2x me-3 mt-1" aria-hidden="true"></i>
           <div>
             <h5 class="alert-heading mb-2">{{'diagnosis.Analysis completed' | translate}}</h5>
             <p class="mb-2">{{'diagnosis.We have processed your inputs' | translate}}</p>
@@ -126,11 +133,10 @@
         <button *ngIf="selectedFiles.length > 0 && !filesAnalyzed" 
                 class="btn-search-hero" 
                 (click)="analyzeMultimodal()" 
-                [disabled]="callingAI"
-                [attr.title]="'diagnosis.Analyze uploaded files and search for diagnoses' | translate"
-                [attr.aria-label]="'diagnosis.Analyze uploaded files and search for diagnoses' | translate">
-          <i *ngIf="callingAI" class="fa fa-spinner fa-spin"></i>
-          <i *ngIf="!callingAI" class="fa fa-search-plus"></i>
+                [disabled]="callingAI || dictating"
+                [attr.title]="'diagnosis.Analyze uploaded files and search for diagnoses' | translate">
+          <i *ngIf="callingAI" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          <i *ngIf="!callingAI" class="fa fa-search-plus" aria-hidden="true"></i>
           {{'diagnosis.Analyze files and search' | translate}}
         </button>
 
@@ -138,20 +144,18 @@
                 class="btn-search-hero" 
                 (click)="checkPopup(contentIntro)"
                 [attr.title]="getButtonTitle()"
-                [attr.aria-label]="getButtonTitle()"
-                [disabled]="callingAI">
-          <i *ngIf="callingAI" class="fa fa-spinner fa-spin"></i>
-          <i *ngIf="!callingAI" class="fa fa-search"></i>
+                [disabled]="callingAI || dictating">
+          <i *ngIf="callingAI" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          <i *ngIf="!callingAI" class="fa fa-search" aria-hidden="true"></i>
           {{'land.Search' | translate }}
         </button>
         <button *ngIf="(selectedFiles.length === 0 || filesAnalyzed) && modeFunctionality" 
                 class="btn-search-hero" 
                 (click)="handleERResponse(contentFollowUpQuestions)"
                 [attr.title]="getButtonTitle()"
-                [attr.aria-label]="getButtonTitle()"
-                [disabled]="callingAI">
-          <i *ngIf="callingAI" class="fa fa-spinner fa-spin"></i>
-          <i *ngIf="!callingAI" class="fa fa-search"></i>
+                [disabled]="callingAI || dictating">
+          <i *ngIf="callingAI" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          <i *ngIf="!callingAI" class="fa fa-search" aria-hidden="true"></i>
           {{'land.Search' | translate }}
         </button>
       </div>
@@ -171,8 +175,8 @@
     <div
       class="mt-4 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
       <button type="button" class="quick-start-pill" (click)="showContentInfoAPP(contentInfoAPP)"
-     [attr.title]="getLiteral('land.Getting started')" [attr.aria-label]="getLiteral('land.Getting started')">
-        <i class="fa fa-lightbulb-o"></i>
+     [attr.title]="getLiteral('land.Getting started')">
+        <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
         {{'land.Getting started' | translate }}
       </button>
       <p class="hero-questions-note" *ngIf="shouldShowQuestionsPage">
@@ -186,15 +190,15 @@
     <div class="row">
       <div class="results-actions" *ngIf="topRelatedConditions.length>0">
         <button type="button" class="results-action-btn results-action-btn--primary" (click)="openDescripModal(contentEditDescription)">
-          <i class="fa fa-pencil"></i>
+          <i class="fa fa-pencil" aria-hidden="true"></i>
           {{'land.Edit description' | translate }}
         </button>
         <button type="button" class="results-action-btn results-action-btn--secondary" (click)="newPatient()">
-          <i class="fa fa-plus-circle"></i>
+          <i class="fa fa-plus-circle" aria-hidden="true"></i>
           {{'land.New patient' | translate }}
         </button>
         <button *ngIf="hasAnonymize" type="button" class="results-action-btn results-action-btn--secondary" (click)="openAnonymize(contentviewDoc)">
-          <i class="fa-solid fa-user-shield"></i>
+          <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
           {{'diagnosis.View anonymized text' | translate }}
         </button>
       </div>
@@ -203,16 +207,16 @@
           <!-- Results header -->
           <div class="results-header">
             <div class="results-header__top">
-              <h4 class="results-header__title">
+              <h1 id="results-title" class="results-header__title" tabindex="-1">
                 <span *ngIf="!isEuMode()">{{'diagnosis.Proposed diagnoses' | translate }}</span>
                 <span *ngIf="isEuMode()">{{'diagnosis.Proposed diagnosesEu' | translate }}</span>
-              </h4>
+              </h1>
               <p class="results-header__hint">
                 {{'diagnosis.Click on the disease to see more options' | translate }}
               </p>
             </div>
             <div *ngIf="isEuMode()" class="results-header__eu-disclaimer">
-              <i class="fa fa-exclamation-triangle me-2"></i>{{'diagnosis.disclaimerEu' | translate }}
+              <i class="fa fa-exclamation-triangle me-2" aria-hidden="true"></i>{{'diagnosis.disclaimerEu' | translate }}
             </div>
             <div class="results-header__advice" *ngIf="failedDocumentNames.length">
               <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -232,38 +236,38 @@
           <!-- Early refinement: keep the full feedback block below the results too -->
           <div class="results-refinement-top" *ngIf="topRelatedConditions.length>0">
             <div class="results-refinement-top__copy">
-              <h4 class="results-refinement-top__title">
+              <h2 class="results-refinement-top__title">
                 <span *ngIf="!isEuMode()">{{'diagnosis.Not satisfied with the results?' | translate }}</span>
                 <span *ngIf="isEuMode()">{{'diagnosis.Not satisfied with the results?Eu' | translate }}</span>
-              </h4>
+              </h2>
               <p *ngIf="!isEuMode()" class="results-refinement-top__description">
                 {{'land.followup.modal.description' | translate }}
               </p>
             </div>
-            <button class="results-action-btn results-action-btn--primary"
+            <button type="button" class="results-action-btn results-action-btn--primary"
               (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
-              <i class="fa fa-comments"></i>
+              <i class="fa fa-comments" aria-hidden="true"></i>
               <span *ngIf="!isEuMode()">{{'diagnosis.Improve patient description' | translate }}</span>
               <span *ngIf="isEuMode()">{{'diagnosis.Improve patient descriptionEu' | translate }}</span>
             </button>
           </div>
 
           <!-- Disease cards -->
-          <div class="disease-results" *ngIf="topRelatedConditions.length>0">
-            <div *ngFor="let disease of topRelatedConditions; let i = index"
+          <ul class="disease-results" *ngIf="topRelatedConditions.length>0">
+            <li *ngFor="let disease of topRelatedConditions; let i = index"
                  class="disease-card"
                  [id]="'disease-card-' + i"
                  (click)="showMoreInfoDiseasePopup(i, contentInfoDisease);lauchEvent('ShowMoreInfoDiseasePopup');">
               <div class="disease-card__header">
                 <span class="disease-card__rank" *ngIf="!isEuMode()">{{i + 1}}</span>
                 <div class="disease-card__title-group">
-                  <h3 class="disease-card__name">{{disease.name}}</h3>
+                  <h2 class="disease-card__name" [id]="'disease-name-' + i">{{disease.name}}</h2>
                   <p class="disease-card__description">{{disease.description}}</p>
                 </div>
               </div>
               <div class="disease-card__symptoms">
                 <div class="disease-card__symptom-group disease-card__symptom-group--match">
-                  <span class="disease-card__symptom-icon"><i class="fa fa-check"></i></span>
+                  <span class="disease-card__symptom-icon" aria-hidden="true"><i class="fa fa-check"></i></span>
                   <p class="disease-card__symptom-text">
                     <strong *ngIf="!isEuMode()">{{'diagnosis.Matching symptoms' | translate}}:</strong>
                     <strong *ngIf="isEuMode()">{{'diagnosis.Matching symptomsEu' | translate}}:</strong>
@@ -271,7 +275,7 @@
                   </p>
                 </div>
                 <div class="disease-card__symptom-group disease-card__symptom-group--mismatch">
-                  <span class="disease-card__symptom-icon"><i class="fa fa-times"></i></span>
+                  <span class="disease-card__symptom-icon" aria-hidden="true"><i class="fa fa-times"></i></span>
                   <p class="disease-card__symptom-text">
                     <strong *ngIf="!isEuMode()">{{'diagnosis.Non-matching symptoms' | translate}}:</strong>
                     <strong *ngIf="isEuMode()">{{'diagnosis.Non-matching symptomsEu' | translate}}:</strong>
@@ -281,17 +285,20 @@
               </div>
               <div class="disease-card__footer">
                 <div *ngIf="disease.name !== '' && disease.url !== ''" class="disease-card__sponsor">
-                  <a class="disease-card__sponsor-link" [href]="disease.url" target="_blank"
+                  <a class="disease-card__sponsor-link" [href]="disease.url" target="_blank" rel="noopener"
                      (click)="$event.stopPropagation()">
-                    {{'diagnosis.SponsorMsg' | translate}} <i class="ms-1 ft-external-link"></i>
+                    {{'diagnosis.SponsorMsg' | translate}} <i class="ms-1 ft-external-link" aria-hidden="true"></i>
+                    <span class="visually-hidden">({{'a11y.Opens in a new tab' | translate}})</span>
                   </a>
                 </div>
-                <span class="disease-card__more-link">
-                  {{'generics.More information' | translate}} <i class="fa fa-arrow-right ms-1"></i>
-                </span>
+                <button type="button" class="disease-card__more-link"
+                  [attr.aria-describedby]="'disease-name-' + i"
+                  (click)="$event.stopPropagation(); showMoreInfoDiseasePopup(i, contentInfoDisease); lauchEvent('ShowMoreInfoDiseasePopup');">
+                  {{'generics.More information' | translate}} <i class="fa fa-arrow-right ms-1" aria-hidden="true"></i>
+                </button>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
 
           <span *ngIf="topRelatedConditions.length==0">
             <p>{{'land.nofound' | translate }}</p>
@@ -299,15 +306,15 @@
 
           <!-- Bottom actions: Load more + Export -->
           <div class="results-bottom-actions" *ngIf="topRelatedConditions.length>0">
-            <button *ngIf="diseaseListEn.length < 20 && getDiseaseListTextLength() < 1000"
+            <button *ngIf="diseaseListEn.length < 20 && getDiseaseListTextLength() < 1000" type="button"
               class="results-action-btn results-action-btn--primary" (click)="loadMore()">
-              <i class="fa fa-plus"></i>{{'land.Load more' | translate }}
+              <i class="fa fa-plus" aria-hidden="true"></i>{{'land.Load more' | translate }}
             </button>
-            <button class="results-action-btn results-action-btn--secondary"
+            <button type="button" class="results-action-btn results-action-btn--secondary"
               [attr.title]="getLiteral('land.Export and share options')"
-              [attr.aria-label]="getLiteral('land.Export and share options')"
+              aria-haspopup="dialog"
               (click)="showExportOptions(contentExportOptions)">
-              <i class="fa fa-download"></i>{{'land.Export and share' | translate }}
+              <i class="fa fa-download" aria-hidden="true"></i>{{'land.Export and share' | translate }}
             </button>
           </div>
         </div>
@@ -315,35 +322,40 @@
         <!-- Result feedback and refinement -->
         <div class="results-feedback" *ngIf="topRelatedConditions.length>0">
           <div class="results-feedback__group">
-            <h4 class="results-feedback__title">{{'land.Indicates the quality of the result' | translate }}</h4>
-            <div class="results-feedback__actions">
+            <h2 class="results-feedback__title" id="vote-title">{{'land.Indicates the quality of the result' | translate }}</h2>
+            <div class="results-feedback__actions" role="group" aria-labelledby="vote-title">
               <ng-container *ngIf="!sendingVote; else loadingSpinner">
-                <button class="vote-btn vote-btn--up" (click)="vote('up')"
-                  [disabled]="sendingVote || callingAnonymize" title="Vote up">
-                  <i class="fa fa-thumbs-up"></i>
+                <button type="button" class="vote-btn vote-btn--up" (click)="vote('up')"
+                  [disabled]="sendingVote || callingAnonymize"
+                  [attr.title]="'a11y.Useful result' | translate" [attr.aria-label]="'a11y.Useful result' | translate">
+                  <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                 </button>
-                <button class="vote-btn vote-btn--down" (click)="vote('down')"
-                  [disabled]="sendingVote || callingAnonymize" title="Vote down">
-                  <i class="fa fa-thumbs-down"></i>
+                <button type="button" class="vote-btn vote-btn--down" (click)="vote('down')"
+                  [disabled]="sendingVote || callingAnonymize"
+                  [attr.title]="'a11y.Not useful result' | translate" [attr.aria-label]="'a11y.Not useful result' | translate">
+                  <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                 </button>
               </ng-container>
               <ng-template #loadingSpinner>
-                <span class="results-feedback__loading"><i class="fa fa-spinner fa-spin fa-fw"></i></span>
+                <span class="results-feedback__loading" role="status">
+                  <i class="fa fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+                  <span class="visually-hidden">{{'generics.Please wait' | translate}}</span>
+                </span>
               </ng-template>
             </div>
           </div>
           <div class="results-feedback__divider" aria-hidden="true"></div>
           <div class="results-feedback__group">
             <div class="results-feedback__copy">
-              <h4 class="results-feedback__title">
+              <h2 class="results-feedback__title">
                 <span *ngIf="!isEuMode()">{{'diagnosis.Not satisfied with the results?' | translate }}</span>
                 <span *ngIf="isEuMode()">{{'diagnosis.Not satisfied with the results?Eu' | translate }}</span>
-              </h4>
+              </h2>
               <p *ngIf="!isEuMode()" class="results-feedback__description">{{'land.followup.modal.description' | translate }}</p>
             </div>
             <div class="results-feedback__actions">
-              <button class="results-action-btn results-action-btn--primary" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
-                <i class="fa fa-comments"></i><span *ngIf="!isEuMode()">{{'diagnosis.Improve patient description' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Improve patient descriptionEu' | translate }}</span>
+              <button type="button" class="results-action-btn results-action-btn--primary" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
+                <i class="fa fa-comments" aria-hidden="true"></i><span *ngIf="!isEuMode()">{{'diagnosis.Improve patient description' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Improve patient descriptionEu' | translate }}</span>
               </button>
             </div>
           </div>
@@ -358,6 +370,7 @@
                rel="noopener noreferrer"
                (click)="trackDonateClick('results')">
               {{ 'land.supportDxGPT.link' | translate }} <i class="fa fa-external-link ms-1" aria-hidden="true"></i>
+              <span class="visually-hidden">({{'a11y.Opens in a new tab' | translate}})</span>
             </a>
           </p>
         </div>
@@ -475,54 +488,57 @@
 <ng-template #contentInfoDisease let-c="close" let-d="dismiss" appendTo="body">
   <div class="modal-header disease-modal-header">
     <div class="d-flex align-items-center gap-2">
-      <div class="disease-icon-badge">
+      <div class="disease-icon-badge" aria-hidden="true">
         <i class="fa fa-stethoscope"></i>
       </div>
-      <h4 class="disease-modal-title mb-0">{{ selectedDisease }}</h4>
+      <h2 id="disease-modal-title" class="disease-modal-title h4 mb-0">{{ selectedDisease }}</h2>
     </div>
-    <button type="button" class="btn-close" title="Close" (click)="closeDiseaseUndiagnosed()"></button>
+    <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" [attr.title]="'generics.Close' | translate" (click)="closeDiseaseUndiagnosed()"></button>
   </div>
   <div class="modal-body disease-modal-body">
     <div class="disease-questions-grid">
-      <button *ngFor="let question of questions"
+      <button *ngFor="let question of questions" type="button"
         class="disease-question-btn"
         [class.active]="selectedQuestion === question.question"
         [class.primary]="question.primary"
+        [attr.aria-pressed]="selectedQuestion === question.question"
         (click)="showQuestion(question)"
         [disabled]="loadingAnswerAI" 
         title="{{question.question | translate}}">
-        <i class="fa {{question.icon}} disease-question-icon"></i>
+        <i class="fa {{question.icon}} disease-question-icon" aria-hidden="true"></i>
         <span>{{question.question | translate}}</span>
-        <i class="fa fa-chevron-right disease-question-arrow"></i>
+        <i class="fa fa-chevron-right disease-question-arrow" aria-hidden="true"></i>
       </button>
     </div>
 
-    <div *ngIf="loadingAnswerAI" class="disease-answer-zone">
-      <div class="disease-loading">
-        <div class="spinner-border spinner-border-sm disease-loading-spinner me-2" role="status"></div>
-        <span>{{'land.diagnosticGuidance.loading' | translate }}</span>
-        <span class="disease-cancel-link ms-3" (click)="cancelCallQuestion();">{{'generics.Cancel' | translate }}</span>
+    <div aria-live="polite">
+      <div *ngIf="loadingAnswerAI" class="disease-answer-zone">
+        <div class="disease-loading">
+          <div class="spinner-border spinner-border-sm disease-loading-spinner me-2" aria-hidden="true"></div>
+          <span>{{'land.diagnosticGuidance.loading' | translate }}</span>
+          <button type="button" class="disease-cancel-link ms-3" (click)="cancelCallQuestion();">{{'generics.Cancel' | translate }}</button>
+        </div>
       </div>
-    </div>
 
-    <div *ngIf="!loadingAnswerAI && answerAI!==''" class="disease-answer-zone">
-      <div class="disease-answer-header">
-        <i class="fa fa-comment-o me-2"></i>
-        <strong>{{selectedQuestion | translate}}</strong>
-      </div>
-      <div class="disease-answer-content" [innerHTML]="answerAI"></div>
-      <div *ngIf="selectedQuestion === 'land.q5'" class="disease-answer-actions">
-        <button type="button" class="disease-guidance-action"
-          (click)="openHypothesisFollowUp(contentFollowUpQuestions)">
-          <i class="fa fa-comments"></i>
-          {{'land.diagnosticGuidance.completeInformation' | translate }}
-        </button>
+      <div *ngIf="!loadingAnswerAI && answerAI!==''" class="disease-answer-zone">
+        <div class="disease-answer-header">
+          <i class="fa fa-comment-o me-2" aria-hidden="true"></i>
+          <strong>{{selectedQuestion | translate}}</strong>
+        </div>
+        <div class="disease-answer-content" [innerHTML]="answerAI"></div>
+        <div *ngIf="selectedQuestion === 'land.q5'" class="disease-answer-actions">
+          <button type="button" class="disease-guidance-action"
+            (click)="openHypothesisFollowUp(contentFollowUpQuestions)">
+            <i class="fa fa-comments" aria-hidden="true"></i>
+            {{'land.diagnosticGuidance.completeInformation' | translate }}
+          </button>
+        </div>
       </div>
     </div>
 
     <div *ngIf="!loadingAnswerAI && symptomsDifferencial.length > 0" class="disease-symptoms-zone">
       <div class="disease-symptoms-heading">
-        <i class="fa fa-list-ul disease-symptoms-heading-icon"></i>
+        <i class="fa fa-list-ul disease-symptoms-heading-icon" aria-hidden="true"></i>
         <div>
           <strong>{{'land.diagnosticGuidance.refineTitle' | translate }}</strong>
           <span>{{'land.diagnosticGuidance.refineHint' | translate }}</span>
@@ -539,7 +555,7 @@
       <div class="text-center mt-3">
         <button type="button" class="btn-search-hero" (click)="recalculateDifferencial()"
           [disabled]="loadingAnswerAI">
-          <i class="fa fa-refresh"></i>
+          <i class="fa fa-refresh" aria-hidden="true"></i>
           {{'land.diagnosticGuidance.update' | translate }}
         </button>
       </div>
@@ -557,13 +573,13 @@
   <a id="topmodal"></a>
   <div class="disclaimer-modal">
     <div class="disclaimer-header">
-      <div class="disclaimer-icon">
+      <div class="disclaimer-icon" aria-hidden="true">
         <i class="fa fa-shield"></i>
       </div>
-      <button type="button" class="btn-close" title="Close" (click)="dismissDisclaimer()"></button>
+      <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" [attr.title]="'generics.Close' | translate" (click)="dismissDisclaimer()"></button>
     </div>
     <div class="disclaimer-body">
-      <div class="disclaimer-content" [innerHTML]="(isEuMode() ? 'land.disclaimerEu' : 'land.disclaimer') | translate"></div>
+      <div id="disclaimer-content" class="disclaimer-content" [innerHTML]="(isEuMode() ? 'land.disclaimerEu' : 'land.disclaimer') | translate"></div>
       <div class="disclaimer-check">
         <mat-checkbox class="example-margin" [(ngModel)]="terms2" (change)="changeTerm($event)">
           <label>
@@ -574,7 +590,7 @@
     </div>
     <div class="disclaimer-footer">
       <button type="button" class="btn-search-hero" (click)="closePopup();">
-        <i class="fa fa-check me-1"></i>
+        <i class="fa fa-check me-1" aria-hidden="true"></i>
         {{'land.acceptLimitations' | translate }}
       </button>
     </div>
@@ -584,41 +600,41 @@
 <ng-template #contentInfoAPP let-c="close" let-d="dismiss" appendTo="body">
   <div class="infoapp-header">
     <div class="d-flex align-items-center gap-2">
-      <div class="infoapp-icon-badge">
+      <div class="infoapp-icon-badge" aria-hidden="true">
         <i class="fas fa-lightbulb"></i>
       </div>
-      <h4 class="followup-title mb-0">{{'land.Getting started' | translate }}</h4>
+      <h2 id="infoapp-title" class="followup-title h4 mb-0">{{'land.Getting started' | translate }}</h2>
     </div>
-    <button type="button" class="btn-close" title="Close" (click)="closeDiseaseUndiagnosed()"></button>
+    <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" [attr.title]="'generics.Close' | translate" (click)="closeDiseaseUndiagnosed()"></button>
   </div>
   <div class="infoapp-body">
     <div class="infoapp-columns">
       <!-- Ejemplos -->
       <div class="infoapp-column">
-        <div class="infoapp-col-icon infoapp-col-icon--examples">
+        <div class="infoapp-col-icon infoapp-col-icon--examples" aria-hidden="true">
           <i class="fas fa-gear"></i>
         </div>
-        <h5 class="infoapp-col-title">{{'land.p1.title' | translate }}</h5>
+        <h3 class="infoapp-col-title h5">{{'land.p1.title' | translate }}</h3>
         <p class="infoapp-col-subtitle">{{'land.p1.subtitle' | translate }}</p>
-        <div class="infoapp-example-card" (click)="copyText('opt1');lauchEvent('Copy sample 1');">
+        <button type="button" class="infoapp-example-card" (click)="copyText('opt1');lauchEvent('Copy sample 1');">
           <span>{{'land.p1.1' | translate }}</span>
-          <i class="fa fa-arrow-right infoapp-arrow"></i>
-        </div>
-        <div class="infoapp-example-card" (click)="copyText('opt2');lauchEvent('Copy sample 2');">
+          <i class="fa fa-arrow-right infoapp-arrow" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="infoapp-example-card" (click)="copyText('opt2');lauchEvent('Copy sample 2');">
           <span>{{'land.p1.2' | translate }}</span>
-          <i class="fa fa-arrow-right infoapp-arrow"></i>
-        </div>
+          <i class="fa fa-arrow-right infoapp-arrow" aria-hidden="true"></i>
+        </button>
       </div>
 
       <!-- Capacidades -->
       <div class="infoapp-column">
-        <div class="infoapp-col-icon infoapp-col-icon--capabilities">
+        <div class="infoapp-col-icon infoapp-col-icon--capabilities" aria-hidden="true">
           <i class="fa fa-rocket"></i>
         </div>
-        <h5 class="infoapp-col-title">
+        <h3 class="infoapp-col-title h5">
           <span *ngIf="!isEuMode()">{{'land.p2.title' | translate }}</span>
           <span *ngIf="isEuMode()">{{'land.p2.titleEu' | translate }}</span>
-        </h5>
+        </h3>
         <p class="infoapp-col-subtitle">
           <span *ngIf="!isEuMode()">{{'land.p2.subtitle' | translate }}</span>
           <span *ngIf="isEuMode()">{{'land.p2.subtitleEu' | translate }}</span>
@@ -642,10 +658,10 @@
 
       <!-- Limitaciones -->
       <div class="infoapp-column">
-        <div class="infoapp-col-icon infoapp-col-icon--limitations">
+        <div class="infoapp-col-icon infoapp-col-icon--limitations" aria-hidden="true">
           <i class="fa fa-exclamation-triangle"></i>
         </div>
-        <h5 class="infoapp-col-title">{{'land.p3.title' | translate }}</h5>
+        <h3 class="infoapp-col-title h5">{{'land.p3.title' | translate }}</h3>
         <p class="infoapp-col-subtitle">{{'land.p3.subtitle' | translate }}</p>
         <div class="infoapp-warning-card">
           <i class="fa fa-info-circle infoapp-warn-icon"></i>
@@ -662,19 +678,19 @@
 <ng-template #contentviewDoc id="contentviewDoc" let-c="close" let-d="dismiss" appendTo="body">
   <div class="followup-header">
     <div class="d-flex align-items-center gap-2">
-      <div class="followup-icon-badge" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">
+      <div class="followup-icon-badge" style="background: linear-gradient(135deg, #6366f1, #4f46e5);" aria-hidden="true">
         <i class="fa fa-shield"></i>
       </div>
-      <h4 class="followup-title mb-0">{{'diagnosis.Anonymized text' | translate }}</h4>
+      <h2 id="anonymized-title" class="followup-title h4 mb-0">{{'diagnosis.Anonymized text' | translate }}</h2>
     </div>
-    <button type="button" class="btn-close" title="Close" (click)="closeModal();"></button>
+    <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" [attr.title]="'generics.Close' | translate" (click)="closeModal();"></button>
   </div>
   <div class="followup-body">
     <div *ngIf="resultAnonymized.length >= 1" class="anon-text-card">
       <div class="anon-text-content" [innerHTML]="resultAnonymized | safe: 'html'"></div>
     </div>
     <div *ngIf="resultAnonymized.length < 1" class="followup-empty">
-      <i class="fa fa-file-text-o"></i>
+      <i class="fa fa-file-text-o" aria-hidden="true"></i>
       <p>{{'home.placeholderError' | translate }}</p>
     </div>
   </div>
@@ -682,19 +698,20 @@
 <ng-template #contentEditDescription let-c="close" let-d="dismiss" appendTo="body">
   <div class="followup-header">
     <div class="d-flex align-items-center gap-2">
-      <div class="followup-icon-badge">
+      <div class="followup-icon-badge" aria-hidden="true">
         <i class="fa fa-pencil"></i>
       </div>
-      <h4 class="followup-title mb-0">{{'land.Edit description' | translate }}</h4>
+      <h2 id="edit-description-title" class="followup-title h4 mb-0">{{'land.Edit description' | translate }}</h2>
     </div>
-    <button type="button" class="btn-close" title="Close" (click)="closeModal();"></button>
+    <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" [attr.title]="'generics.Close' | translate" (click)="closeModal();"></button>
   </div>
   <div class="followup-body">
     <div class="followup-question-card">
       <textarea #autoajustable2 id="textareaedit" rows="4" type="text" class="followup-textarea data-hj-allow"
         [(ngModel)]="editmedicalText" name="editmedicalText" [attr.placeholder]="textareaPlaceholder"
+        aria-labelledby="edit-description-title" aria-describedby="edit-char-count"
         (input)="autoResize($event)" (click)="focusTextArea()" (blur)="restorePlaceholder()"></textarea>
-      <div class="edit-char-count">
+      <div class="edit-char-count" id="edit-char-count">
         <span [class.text-danger]="countCharacters(editmedicalText) > 8000" 
               [class.text-warning]="countCharacters(editmedicalText) > 3000 && countCharacters(editmedicalText) <= 8000">
           {{ countCharacters(editmedicalText) }} {{'generics.characters' | translate}}
@@ -709,7 +726,7 @@
          congeladas tras el análisis; para cambiarlas hay que empezar de nuevo. -->
     <div *ngIf="currentImages.length > 0" class="edit-images-section">
       <p class="disease-section-label mb-2">
-        <i class="fas fa-image me-2"></i>{{'diagnosis.Associated image' | translate}}
+        <i class="fas fa-image me-2" aria-hidden="true"></i>{{'diagnosis.Associated image' | translate}}
       </p>
       <ul class="edit-images-list">
         <li *ngFor="let image of currentImages" class="edit-image-item" [title]="image.name || 'Medical image'">
@@ -727,9 +744,8 @@
     <button type="button" class="followup-skip-btn" (click)="closeModal();">{{'generics.Cancel' | translate }}</button>
     <button type="button" class="btn-search-hero" (click)="checkText()"
       [attr.title]="(editmedicalText.length<15 && !hasDiagnosticImages) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
-      [attr.aria-label]="(editmedicalText.length<15 && !hasDiagnosticImages) ? getLiteral('land.placeholderError') : getLiteral('land.Recalculate')"
       [disabled]="callingAI">
-      <i class="fa fa-refresh"></i>
+      <i class="fa fa-refresh" aria-hidden="true"></i>
       {{'land.Recalculate' | translate }}
     </button>
   </div>
@@ -739,20 +755,20 @@
 <ng-template #contentFollowUpQuestions let-c="close" let-d="dismiss">
   <div class="followup-header">
     <div class="d-flex align-items-center gap-2">
-      <div class="followup-icon-badge">
+      <div class="followup-icon-badge" aria-hidden="true">
         <i class="fa fa-comments"></i>
       </div>
-      <h4 class="followup-title mb-0">
+      <h2 id="followup-title" class="followup-title h4 mb-0">
         {{ (hypothesisFollowUpDisease ? 'land.diagnosticGuidance.followUpTitle' : 'land.followup.modal.title') | translate }}
-      </h4>
+      </h2>
     </div>
-    <button type="button" class="btn-close" aria-label="Close" (click)="skipFollowUpQuestions()"></button>
+    <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" [attr.title]="'generics.Close' | translate" (click)="skipFollowUpQuestions()"></button>
   </div>
 
-  <div class="followup-body">
-    <div *ngIf="loadingFollowUpQuestions" class="followup-loading">
-      <div class="followup-loading-icon">
-        <div class="spinner-border text-primary" role="status"></div>
+  <div class="followup-body" [attr.aria-busy]="loadingFollowUpQuestions">
+    <div *ngIf="loadingFollowUpQuestions" class="followup-loading" role="status">
+      <div class="followup-loading-icon" aria-hidden="true">
+        <div class="spinner-border text-primary"></div>
       </div>
       <p class="followup-loading-text">{{ 'land.followup.modal.loading' | translate }}</p>
     </div>
@@ -763,11 +779,12 @@
       </p>
       
       <div *ngFor="let question of followUpQuestions; let i = index" class="followup-question-card">
-        <label class="followup-question-label">
+        <label class="followup-question-label" [attr.for]="'followup-answer-' + i">
           <span class="followup-question-number">{{ i + 1 }}</span>
           {{ question }}
         </label>
         <textarea 
+          [id]="'followup-answer-' + i"
           class="followup-textarea" 
           rows="2" 
           [placeholder]="(hypothesisFollowUpDisease ? 'land.diagnosticGuidance.answerPlaceholder' : 'land.followup.modal.answer_placeholder') | translate"
@@ -777,7 +794,7 @@
       </div>
       
       <div class="followup-empty" *ngIf="followUpQuestions.length === 0">
-        <i class="fa fa-info-circle me-2"></i>
+        <i class="fa fa-info-circle me-2" aria-hidden="true"></i>
         {{ 'land.followup.modal.no_questions' | translate }}
       </div>
     </div>
@@ -793,11 +810,11 @@
       [disabled]="!hasAnswers() || processingFollowUpAnswers" 
       (click)="processFollowUpAnswers()">
       <span *ngIf="!processingFollowUpAnswers">
-        <i class="fa fa-paper-plane"></i>
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
         {{ (hypothesisFollowUpDisease ? 'land.diagnosticGuidance.followUpSubmit' : 'land.followup.modal.submit') | translate }}
       </span>
       <span *ngIf="processingFollowUpAnswers">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
         {{ 'land.followup.modal.processing' | translate }}
       </span>
     </button>
@@ -808,33 +825,33 @@
 <ng-template #contentExportOptions let-c="close" let-d="dismiss" appendTo="body">
   <div class="followup-header">
     <div class="d-flex align-items-center gap-2">
-      <div class="followup-icon-badge">
+      <div class="followup-icon-badge" aria-hidden="true">
         <i class="fa fa-download"></i>
       </div>
-      <h4 class="followup-title mb-0">{{'land.Export and share options' | translate }}</h4>
+      <h2 id="export-title" class="followup-title h4 mb-0">{{'land.Export and share options' | translate }}</h2>
     </div>
-    <button type="button" class="btn-close" aria-label="Close" (click)="closeExportModal()"></button>
+    <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" [attr.title]="'generics.Close' | translate" (click)="closeExportModal()"></button>
   </div>
   <div class="followup-body">
     <p class="mb-3" style="color: #6b7280; font-size: 0.95rem;">{{'land.Choose an option' | translate}}:</p>
     <div class="d-grid gap-2">
       <button class="export-option-btn" type="button" (click)="handleCopyFromModal()">
-        <i class="fa fa-clipboard"></i>
+        <i class="fa fa-clipboard" aria-hidden="true"></i>
         <span>{{'land.Copy results' | translate }}</span>
       </button>
       <button class="export-option-btn" type="button"
         [disabled]="callingAnonymize || generatingPDF"
         (click)="handleDownloadFromModal()">
-        <i *ngIf="!generatingPDF" class="fa fa-download"></i>
-        <i *ngIf="generatingPDF" class="fa fa-spinner fa-spin"></i>
+        <i *ngIf="!generatingPDF" class="fa fa-download" aria-hidden="true"></i>
+        <i *ngIf="generatingPDF" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
         <span *ngIf="!generatingPDF">{{'land.Download results' | translate }}</span>
         <span *ngIf="generatingPDF">{{'land.Generating PDF' | translate }}...</span>
       </button>
       <button class="export-option-btn" type="button"
         [disabled]="creatingPermalink"
         (click)="handleShareFromModal()">
-        <i *ngIf="!creatingPermalink" class="fa-solid fa-share"></i>
-        <i *ngIf="creatingPermalink" class="fa fa-spinner fa-spin"></i>
+        <i *ngIf="!creatingPermalink" class="fa-solid fa-share" aria-hidden="true"></i>
+        <i *ngIf="creatingPermalink" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
         <span *ngIf="!creatingPermalink">{{'permalink.Share results' | translate }}</span>
         <span *ngIf="creatingPermalink">{{'permalink.Creating permalink' | translate }}...</span>
       </button>
@@ -848,6 +865,7 @@
            rel="noopener noreferrer"
            (click)="trackDonateClick('export')">
           {{ 'land.supportDxGPT.link' | translate }} <i class="fa fa-external-link ms-1" aria-hidden="true"></i>
+          <span class="visually-hidden">({{'a11y.Opens in a new tab' | translate}})</span>
         </a>
       </p>
     </div>

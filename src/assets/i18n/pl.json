@@ -1590,5 +1590,42 @@
       "description": "Skontaktuj się z nami, aby wdrożyć DxGPT w swojej organizacji",
       "contact_us": "Skontaktuj się z nami"
     }
+  },
+  "a11y": {
+    "Skip to main content": "Przejdź do treści głównej",
+    "Language": "Język",
+    "Patient description": "Opis pacjenta",
+    "Opens in a new tab": "otwiera się w nowej karcie",
+    "Useful result": "Przydatny wynik",
+    "Not useful result": "Nieprzydatny wynik",
+    "Results ready": "Znaleziono hipotezy diagnostyczne: {{count}}.",
+    "Your question": "Twoje pytanie",
+    "Main navigation": "Nawigacja główna",
+    "Open menu": "Otwórz menu",
+    "Close menu": "Zamknij menu",
+    "Home logo": "{{app}}, przejdź do strony głównej",
+    "Foundation 29 website": "Strona Foundation 29",
+    "Refresh data": "Odśwież dane",
+    "Previous testimonial": "Poprzednia opinia",
+    "Next testimonial": "Następna opinia",
+    "Pause testimonials": "Wstrzymaj opinie",
+    "Rated 5 out of 5 stars": "Ocena: 5 na 5 gwiazdek",
+    "Copy link": "Kopiuj link"
+  },
+  "voice": {
+    "Start dictation": "Rozpocznij dyktowanie głosowe",
+    "Stop dictation": "Zatrzymaj dyktowanie głosowe",
+    "Dictation started": "Dyktowanie rozpoczęte. Mów teraz.",
+    "Transcribing": "Transkrypcja…",
+    "Dictation added": "Dodano podyktowany tekst. Sprawdź go przed wyszukiwaniem.",
+    "errors": {
+      "not-supported": "Twoja przeglądarka nie obsługuje dyktowania głosowego.",
+      "permission-denied": "Dostęp do mikrofonu jest zablokowany. Zezwól na niego w ustawieniach przeglądarki.",
+      "no-microphone": "Nie znaleziono mikrofonu.",
+      "network": "Utracono połączenie z usługą mowy. Spróbuj ponownie.",
+      "service-unavailable": "Dyktowanie głosowe jest obecnie niedostępne.",
+      "unknown": "Nie udało się uruchomić dyktowania głosowego. Spróbuj ponownie.",
+      "no-speech": "Nie wykryto mowy. Spróbuj ponownie."
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnDestroy, PLATFORM_ID, ViewChild, TemplateRef } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnDestroy, PLATFORM_ID, ViewChild, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -47,6 +47,8 @@ export class NavbarD29Component implements OnDestroy {
   
   // Referencia al template del modal
   @ViewChild('sendMsgModal') sendMsgModal!: TemplateRef<any>;
+  @ViewChild('menuToggle') menuToggle?: ElementRef<HTMLButtonElement>;
+  @ViewChild('menuClose') menuClose?: ElementRef<HTMLButtonElement>;
   
   // Modo del modal
   modalMode: 'clinicalData' | 'datasets' | 'subscribe' | 'contact' = 'contact';
@@ -57,7 +59,7 @@ export class NavbarD29Component implements OnDestroy {
     private router: Router, 
     private inj: Injector, 
     public insightsService: InsightsService,
-    private brandingService: BrandingService,
+    public brandingService: BrandingService,
     private modalService: NgbModal,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
@@ -399,11 +401,26 @@ export class NavbarD29Component implements OnDestroy {
     );
   }
   toggleMenu() {
-    this.isMenuExpanded = !this.isMenuExpanded;
+    if (this.isMenuExpanded) {
+      this.closeMenu(true);
+      return;
+    }
+    this.isMenuExpanded = true;
+    // The close button only becomes focusable once the drawer is rendered.
+    setTimeout(() => this.menuClose?.nativeElement.focus());
   }
 
-  closeMenu() {
+  closeMenu(returnFocus = false) {
+    if (!this.isMenuExpanded) return;
     this.isMenuExpanded = false;
+    if (returnFocus) {
+      this.menuToggle?.nativeElement.focus();
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape() {
+    this.closeMenu(true);
   }
 
    @HostListener('document:click', ['$event'])
@@ -449,7 +466,8 @@ export class NavbarD29Component implements OnDestroy {
       size: 'lg',
       centered: true,
       backdrop: 'static',
-      keyboard: false
+      keyboard: false,
+      ariaLabelledBy: 'send-msg-modal-title'
     });
   }
 

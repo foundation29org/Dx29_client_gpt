@@ -30,7 +30,6 @@
   filter: invert(1);
 
   &:focus-visible {
-    outline: 0;
     box-shadow: 0 0 0 3px color-mix(in srgb, #fff 40%, transparent);
   }
 }

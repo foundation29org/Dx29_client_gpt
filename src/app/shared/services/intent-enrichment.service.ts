@@ -33,6 +33,7 @@ export class IntentEnrichmentService {
             centered: true,
             backdrop: 'static',
             keyboard: true,
+            ariaLabelledBy: 'intent-gate-title',
             windowClass: 'intent-gate-window'
         });
         modalRef.componentInstance.mode = mode;

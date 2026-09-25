@@ -1590,5 +1590,42 @@
       "description": "Kontaktieren Sie uns, um DxGPT in Ihrer Organisation zu implementieren",
       "contact_us": "Kontaktieren Sie uns"
     }
+  },
+  "a11y": {
+    "Skip to main content": "Zum Hauptinhalt springen",
+    "Language": "Sprache",
+    "Patient description": "Patientenbeschreibung",
+    "Opens in a new tab": "öffnet in einem neuen Tab",
+    "Useful result": "Hilfreiches Ergebnis",
+    "Not useful result": "Nicht hilfreiches Ergebnis",
+    "Results ready": "{{count}} diagnostische Hypothesen gefunden.",
+    "Your question": "Ihre Frage",
+    "Main navigation": "Hauptnavigation",
+    "Open menu": "Menü öffnen",
+    "Close menu": "Menü schließen",
+    "Home logo": "{{app}}, zur Startseite",
+    "Foundation 29 website": "Website von Foundation 29",
+    "Refresh data": "Daten aktualisieren",
+    "Previous testimonial": "Vorheriges Testimonial",
+    "Next testimonial": "Nächstes Testimonial",
+    "Pause testimonials": "Testimonials anhalten",
+    "Rated 5 out of 5 stars": "Bewertung: 5 von 5 Sternen",
+    "Copy link": "Link kopieren"
+  },
+  "voice": {
+    "Start dictation": "Sprachdiktat starten",
+    "Stop dictation": "Sprachdiktat beenden",
+    "Dictation started": "Diktat gestartet. Sprechen Sie jetzt.",
+    "Transcribing": "Wird transkribiert…",
+    "Dictation added": "Diktierter Text eingefügt. Prüfen Sie ihn vor der Suche.",
+    "errors": {
+      "not-supported": "Ihr Browser unterstützt kein Sprachdiktat.",
+      "permission-denied": "Der Mikrofonzugriff ist blockiert. Erlauben Sie ihn in den Browsereinstellungen.",
+      "no-microphone": "Kein Mikrofon gefunden.",
+      "network": "Verbindung zum Sprachdienst verloren. Bitte erneut versuchen.",
+      "service-unavailable": "Das Sprachdiktat ist derzeit nicht verfügbar.",
+      "unknown": "Das Sprachdiktat konnte nicht gestartet werden. Bitte erneut versuchen.",
+      "no-speech": "Es wurde keine Sprache erkannt. Bitte erneut versuchen."
+    }
   }
 }

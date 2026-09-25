@@ -1,0 +1,92 @@
+// Sits in the bottom-right corner of a white text field, clear of the resize grip.
+:host {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 0.6rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  max-width: calc(100% - 2.5rem);
+}
+
+.dictation-btn {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  color: #4b5563;
+  background: #fff;
+  border: 1.5px solid #d1d5db;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    color: #111827;
+    background: #f3f4f6;
+    border-color: #9ca3af;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.dictation-btn--recording {
+  color: #fff;
+  background: #dc2626;
+  border-color: #dc2626;
+
+  &:hover:not(:disabled) {
+    color: #fff;
+    background: #b91c1c;
+    border-color: #b91c1c;
+  }
+}
+
+.dictation-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  color: #4b5563;
+  background: #fff;
+  border-radius: 999px;
+}
+
+.dictation-status--recording {
+  color: #b91c1c;
+}
+
+.dictation-status__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #dc2626;
+  animation: dictationPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes dictationPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+.dictation-error {
+  margin: 0;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  text-align: right;
+  color: #b91c1c;
+  background: #fff;
+  border-radius: 8px;
+}

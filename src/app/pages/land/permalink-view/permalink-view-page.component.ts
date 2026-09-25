@@ -166,11 +166,11 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
       title: this.translate.instant('permalink.Share results'),
       html: `
         <div style="text-align: left;">
-          <p><strong>${this.translate.instant('permalink.Link created')}</strong></p>
+          <p id="permalinkInputLabel"><strong>${this.translate.instant('permalink.Link created')}</strong></p>
           <div class="input-group mb-3">
-            <input type="text" id="permalinkInput" class="form-control" value="${permalinkUrl}" readonly style="font-size: 0.9rem;">
-            <button class="btn btn-outline-secondary" type="button" id="copyPermalinkBtn">
-              <i class="fa fa-copy"></i>
+            <input type="text" id="permalinkInput" class="form-control" value="${permalinkUrl}" readonly aria-labelledby="permalinkInputLabel" style="font-size: 0.9rem;">
+            <button class="btn btn-outline-secondary" type="button" id="copyPermalinkBtn" aria-label="${this.translate.instant('a11y.Copy link')}" title="${this.translate.instant('a11y.Copy link')}">
+              <i class="fa fa-copy" aria-hidden="true"></i>
             </button>
           </div>
           <p class="text-muted" style="font-size: 0.85rem;">${this.translate.instant('permalink.Copy and share')}</p>
@@ -192,7 +192,7 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
               
               // Feedback visual
               const originalHtml = copyBtn.innerHTML;
-              copyBtn.innerHTML = '<i class="fa fa-check"></i>';
+              copyBtn.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>';
               copyBtn.classList.add('btn-success');
               copyBtn.classList.remove('btn-outline-secondary');
               

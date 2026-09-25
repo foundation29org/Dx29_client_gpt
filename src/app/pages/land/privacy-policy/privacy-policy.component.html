@@ -5,7 +5,7 @@
     <div class="hero-content">
       <h1 class="hero-title">{{'policy.title' | translate }}</h1>
       <div class="hero-actions">
-        <button class="btn-version-toggle" (click)="toggleShortVersion()">
+        <button type="button" class="btn-version-toggle" (click)="toggleShortVersion()">
           {{ isShortVersion ? ('policyShort.fullVersion' | translate) : ('policyShort.shortVersion' | translate) }}
         </button>
       </div>
@@ -21,33 +21,33 @@
       <p><strong>{{ 'policy.p1' | translate }}</strong></p>
       <p>{{ 'policy.lastUpdated' | translate }}</p>
     
-      <p class="mt-4"><strong>{{ 'policy.p2.1' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policy.p2.1' | translate }}</h2>
       <p>{{ 'policy.p2.2' | translate }}</p>
       <p>{{ 'policy.p2.3' | translate }}</p>
       <p>{{ 'policy.p2.4' | translate }}</p>
-      <p><strong>{{ 'policy.p2.5' | translate }}</strong></p>
+      <h3 class="policy-heading">{{ 'policy.p2.5' | translate }}</h3>
       <p>{{ 'policy.p2.6' | translate }}</p>
     
-      <p class="mt-4"><strong>{{ 'policy.p3.1' | translate }}</strong></p>
-      <p><strong>{{ 'policy.p3.2' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policy.p3.1' | translate }}</h2>
+      <h3 class="policy-heading">{{ 'policy.p3.2' | translate }}</h3>
       <ul>
         <li><p>{{ 'policy.p3.3' | translate }}</p></li>
         <li><p>{{ 'policy.p3.4' | translate }}</p></li>
       </ul>
-      <p><strong>{{ 'policy.p3.5' | translate }}</strong></p>
+      <h3 class="policy-heading">{{ 'policy.p3.5' | translate }}</h3>
       <ul>
         <li><p>{{ 'policy.p3.6' | translate }}</p></li>
       </ul>
-      <p><strong>{{ 'policy.p3.7' | translate }}</strong></p>
+      <h3 class="policy-heading">{{ 'policy.p3.7' | translate }}</h3>
       <ul>
         <li><p>{{ 'policy.p3.8' | translate }}</p></li>
         <li><p>{{ 'policy.p3.9' | translate }}</p></li>
       </ul>
-      <p class="mt-4"><strong>{{ 'policy.p4.1' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policy.p4.1' | translate }}</h2>
       <table class="table table-bordered">
         <tr>
-          <th>{{ 'policy.p4.2' | translate }}</th>
-          <th>{{ 'policy.p4.3' | translate }}</th>
+          <th scope="col">{{ 'policy.p4.2' | translate }}</th>
+          <th scope="col">{{ 'policy.p4.3' | translate }}</th>
         </tr>
         <tr>
           <td>{{ 'policy.p4.4' | translate }}</td>
@@ -67,7 +67,7 @@
         </tr>
       </table>
     
-      <p class="mt-4"><strong>{{ 'policy.p5.1' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policy.p5.1' | translate }}</h2>
       <ul>
         <li><p>{{ 'policy.p5.2' | translate }}</p></li>
         <li><p>{{ 'policy.p5.3' | translate }}</p></li>
@@ -77,7 +77,7 @@
       <p>{{ 'policy.p5.6' | translate }}</p>
       <p>{{ 'policy.p5.7' | translate }}</p>
     
-      <p class="mt-4"><strong>{{ 'policy.p6.1' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policy.p6.1' | translate }}</h2>
       <ul>
         <li><p>{{ 'policy.p6.2' | translate }}</p></li>
         <li><p>{{ 'policy.p6.3' | translate }}</p></li>
@@ -87,7 +87,7 @@
         <li><p>{{ 'policy.p6.7' | translate }}</p></li>
       </ul>
     
-      <p class="mt-4"><strong>{{ 'policy.p7.1' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policy.p7.1' | translate }}</h2>
       <ul>
         <li><p>{{ 'policy.p7.2' | translate }}</p></li>
         <li><p>{{ 'policy.p7.3' | translate }}</p></li>
@@ -95,14 +95,14 @@
         <li><p>{{ 'policy.p7.4' | translate }}</p></li>
       </ul>
     
-      <p class="mt-4"><strong>{{ 'policy.p8.1' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policy.p8.1' | translate }}</h2>
       <ul>
         <li><p>{{ 'policy.p8.2' | translate }}</p></li>
         <li><p>{{ 'policy.p8.3' | translate }}</p></li>
         <li><p>{{ 'policy.p8.4' | translate }}</p></li>
       </ul>
     
-      <p class="mt-4"><strong>{{ 'policy.p9.1' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policy.p9.1' | translate }}</h2>
       <p>{{ 'policy.p9.2' | translate }}</p>
       <ul>
         <li><p>{{ 'policy.p9.3' | translate }}</p></li>
@@ -115,14 +115,14 @@
         <li><p>{{ 'policy.p9.10' | translate }}</p></li>
       </ul>
     
-      <p class="mt-4"><strong>{{ 'policy.p10.1' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policy.p10.1' | translate }}</h2>
       <p>{{ 'policy.p10.2' | translate }}</p>
       <p>{{ 'policy.p10.3' | translate }}</p>
     
-      <p><strong>{{ 'policy.p11.1' | translate }}</strong></p>
+      <h2 class="policy-heading">{{ 'policy.p11.1' | translate }}</h2>
       <p>{{ 'policy.p11.2' | translate }}</p>
     
-      <p><strong>{{ 'policy.p12.1' | translate }}</strong></p>
+      <h2 class="policy-heading">{{ 'policy.p12.1' | translate }}</h2>
       <ul>
         <li><p>{{ 'policy.p12.2' | translate }}</p></li>
         <li><p>{{ 'policy.p12.3' | translate }}</p></li>
@@ -133,53 +133,53 @@
       <p class="mt-4 mb-4">{{ 'policy.Foundation 29' | translate }}</p>
     </div>
       <div class="policy-body" *ngIf="isShortVersion">
-      <p><strong>{{ 'policyShort.p1' | translate }}</strong></p>
+      <h2 class="policy-heading">{{ 'policyShort.p1' | translate }}</h2>
       <p>{{ 'policyShort.p1.1' | translate }}</p>
       <p>{{ 'policyShort.p1.2' | translate }}</p>
       <p>{{ 'policyShort.p1.3' | translate }}</p>
       <p>{{ 'policyShort.p1.4' | translate }}</p>
 
-      <p class="mt-4"><strong>{{ 'policyShort.p2' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policyShort.p2' | translate }}</h2>
       <ul>
         <li><p>{{ 'policyShort.p2.1' | translate }}</p></li>
         <li><p>{{ 'policyShort.p2.2' | translate }}</p></li>
         <li><p>{{ 'policyShort.p2.3' | translate }}</p></li>
       </ul>
 
-      <p class="mt-4"><strong>{{ 'policyShort.p3' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policyShort.p3' | translate }}</h2>
       <ul>
         <li><p>{{ 'policyShort.p3.1' | translate }}</p></li>
         <li><p>{{ 'policyShort.p3.2' | translate }}</p></li>
         <li><p>{{ 'policyShort.p3.3' | translate }}</p></li>
       </ul>
 
-      <p class="mt-4"><strong>{{ 'policyShort.p4' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policyShort.p4' | translate }}</h2>
       <ul>
         <li><p>{{ 'policyShort.p4.1' | translate }}</p></li>
         <li><p>{{ 'policyShort.p4.2' | translate }}</p></li>
         <li><p>{{ 'policyShort.p4.3' | translate }}</p></li>
       </ul>
 
-      <p class="mt-4"><strong>{{ 'policyShort.p5' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policyShort.p5' | translate }}</h2>
       <ul>
         <li><p>{{ 'policyShort.p5.1' | translate }}</p></li>
         <li><p>{{ 'policyShort.p5.2' | translate }}</p></li>
         <li><p>{{ 'policyShort.p5.3' | translate }}</p></li>
       </ul>
 
-      <p class="mt-4"><strong>{{ 'policyShort.p6' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policyShort.p6' | translate }}</h2>
       <ul>
         <li><p>{{ 'policyShort.p6.1' | translate }}</p></li>
         <li><p>{{ 'policyShort.p6.2' | translate }}</p></li>
       </ul>
 
-      <p class="mt-4"><strong>{{ 'policyShort.p7' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policyShort.p7' | translate }}</h2>
       <ul>
         <li><p>{{ 'policyShort.p7.1' | translate }}</p></li>
         <li><p>{{ 'policyShort.p7.2' | translate }}</p></li>
       </ul>
 
-      <p class="mt-4"><strong>{{ 'policyShort.p8' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policyShort.p8' | translate }}</h2>
       <p>{{ 'policyShort.p8.1' | translate }}</p>
       <ul>
         <li><p>{{ 'policyShort.p8.2' | translate }}</p></li>
@@ -190,10 +190,10 @@
         <li><p>{{ 'policyShort.p8.7' | translate }}</p></li>
       </ul>
 
-      <p class="mt-4"><strong>{{ 'policyShort.p9' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policyShort.p9' | translate }}</h2>
       <p>{{ 'policyShort.p9.1' | translate }}</p>
 
-      <p class="mt-4"><strong>{{ 'policyShort.p10' | translate }}</strong></p>
+      <h2 class="policy-heading mt-4">{{ 'policyShort.p10' | translate }}</h2>
       <p>{{ 'policyShort.p10.1' | translate }}</p>
       </div>
     </div>

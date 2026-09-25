@@ -1590,5 +1590,42 @@
       "description": "Contacta con nosotros para implementar DxGPT en tu organización",
       "contact_us": "Contáctanos"
     }
+  },
+  "a11y": {
+    "Skip to main content": "Salta al contingut principal",
+    "Language": "Idioma",
+    "Patient description": "Descripció del pacient",
+    "Opens in a new tab": "s'obre en una pestanya nova",
+    "Useful result": "Resultat útil",
+    "Not useful result": "Resultat no útil",
+    "Results ready": "S'han trobat {{count}} hipòtesis diagnòstiques.",
+    "Your question": "La teva pregunta",
+    "Main navigation": "Navegació principal",
+    "Open menu": "Obre el menú",
+    "Close menu": "Tanca el menú",
+    "Home logo": "{{app}}, ves a l'inici",
+    "Foundation 29 website": "Web de Foundation 29",
+    "Refresh data": "Actualitza les dades",
+    "Previous testimonial": "Testimoni anterior",
+    "Next testimonial": "Testimoni següent",
+    "Pause testimonials": "Pausa els testimonis",
+    "Rated 5 out of 5 stars": "Valoració: 5 de 5 estrelles",
+    "Copy link": "Copia l'enllaç"
+  },
+  "voice": {
+    "Start dictation": "Inicia el dictat per veu",
+    "Stop dictation": "Atura el dictat per veu",
+    "Dictation started": "Dictat iniciat. Parla ara.",
+    "Transcribing": "Transcrivint…",
+    "Dictation added": "Text dictat afegit. Revisa’l abans de cercar.",
+    "errors": {
+      "not-supported": "El teu navegador no permet el dictat per veu.",
+      "permission-denied": "No hi ha permís per fer servir el micròfon. Activa'l a la configuració del navegador.",
+      "no-microphone": "No s'ha trobat cap micròfon.",
+      "network": "S'ha perdut la connexió amb el servei de veu. Torna-ho a provar.",
+      "service-unavailable": "El dictat per veu no està disponible ara mateix.",
+      "unknown": "No s'ha pogut iniciar el dictat per veu. Torna-ho a provar.",
+      "no-speech": "No s'ha detectat veu. Torna-ho a provar."
+    }
   }
 }

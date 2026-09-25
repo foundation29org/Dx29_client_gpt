@@ -1,37 +1,39 @@
 <!-- Navbar (Header) Starts -->
-<nav class="navbar navbar-expand-xl navbar-light bg-faded damemarger custom-navbar">
+<nav class="navbar navbar-expand-xl navbar-light bg-faded damemarger custom-navbar" [attr.aria-label]="'a11y.Main navigation' | translate">
   <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMenu()">
-          <span class="navbar-toggler-icon"></span>
+      <button #menuToggle class="navbar-toggler" type="button"
+              aria-controls="navbarSupportedContent" [attr.aria-expanded]="isMenuExpanded" [attr.aria-label]="'a11y.Open menu' | translate" (click)="toggleMenu()">
+          <span class="navbar-toggler-icon" aria-hidden="true"></span>
       </button>
       <div class="d-none d-xl-block">
           <span class="navbar-header-logos">
-              <img *ngIf="isHomePage" class="logo-header pointer" [src]="headerLogo" width="140" height="37" fetchpriority="high" alt="DxGPT - AI-powered medical diagnosis" (click)="lauchEvent('Logo');goBackEvent();"/>
-              <img *ngIf="!isHomePage" class="logo-header pointer" [src]="headerLogo" width="140" height="37" fetchpriority="high" alt="DxGPT - AI-powered medical diagnosis" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
+              <a class="logo-link" routerLink="/." (click)="lauchEvent('Logo'); isHomePage && goBackEvent();" [attr.aria-current]="isHomePage ? 'page' : null">
+                  <img class="logo-header" [src]="headerLogo" width="140" height="37" fetchpriority="high" [attr.alt]="'a11y.Home logo' | translate:{ app: brandingService.getAppName() }"/>
+              </a>
           </span>
       </div>
       <div class="d-block">
-        <div class="d-sm-block d-xl-none pointer">
-          <img *ngIf="isHomePage" class="mt-1 logo-header pointer" [src]="headerLogo" width="140" height="37" fetchpriority="high" alt="DxGPT - AI-powered medical diagnosis" (click)="lauchEvent('Logo');goBackEvent();"/>
-          <img *ngIf="!isHomePage" class="mt-1 logo-header pointer" [src]="headerLogo" width="140" height="37" fetchpriority="high" alt="DxGPT - AI-powered medical diagnosis" routerLink="/." (click)="lauchEvent('Logo');" style="cursor: pointer;"/>
+        <div class="d-sm-block d-xl-none">
+          <a class="logo-link" routerLink="/." (click)="lauchEvent('Logo'); isHomePage && goBackEvent();" [attr.aria-current]="isHomePage ? 'page' : null">
+              <img class="mt-1 logo-header" [src]="headerLogo" width="140" height="37" fetchpriority="high" [attr.alt]="'a11y.Home logo' | translate:{ app: brandingService.getAppName() }"/>
+          </a>
       </div>
-        <div class="mobile-menu-backdrop d-xl-none" *ngIf="isMenuExpanded" (click)="toggleMenu()"></div>
+        <div class="mobile-menu-backdrop d-xl-none" *ngIf="isMenuExpanded" aria-hidden="true" (click)="toggleMenu()"></div>
         <div [class.collapse]="!isMenuExpanded" [class.show]="isMenuExpanded" class="navbar-collapse" id="navbarSupportedContent">
           <div class="mobile-menu-header d-xl-none">
-            <img class="mobile-menu-logo" [src]="headerLogo" width="112" height="30" alt="DxGPT">
-            <button class="close-menu-btn" (click)="toggleMenu()" aria-label="Close menu"><i class="fa fa-times"></i></button>
+            <img class="mobile-menu-logo" [src]="headerLogo" width="112" height="30" alt="">
+            <button #menuClose type="button" class="close-menu-btn" (click)="closeMenu(true)" [attr.aria-label]="'a11y.Close menu' | translate"><i class="fa fa-times" aria-hidden="true"></i></button>
           </div>
           <ul class="navbar-nav m-r-0 menu-items">
               <li class="nav-item me-2">
-                  <a class="nav-link" [ngClass]="(!isHomePage)?'black':'nav-active'" routerLink="/." (click)="lauchEvent('Page - Home'); goBackEvent();" [attr.aria-label]="'menu.Dashboard' | translate">
-                      <i class="fa fa-house me-2 d-xl-none nav-link-icon"></i>
+                  <a class="nav-link" [ngClass]="(!isHomePage)?'black':'nav-active'" routerLink="/." (click)="lauchEvent('Page - Home'); goBackEvent();" [attr.aria-current]="isHomePage ? 'page' : null">
+                      <i class="fa fa-house me-2 d-xl-none nav-link-icon" aria-hidden="true"></i>
                       <span>{{'menu.Dashboard' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2">
-                  <a class="nav-link" [ngClass]="(!isAboutPage)?'black':'nav-active'" routerLink="/aboutus" (click)="lauchEvent('Page - About us')" [attr.aria-label]="'menu.About us' | translate">
-                      <i class="fa fa-circle-info me-2 d-xl-none nav-link-icon"></i>
+                  <a class="nav-link" [ngClass]="(!isAboutPage)?'black':'nav-active'" routerLink="/aboutus" (click)="lauchEvent('Page - About us')" [attr.aria-current]="isAboutPage ? 'page' : null">
+                      <i class="fa fa-circle-info me-2 d-xl-none nav-link-icon" aria-hidden="true"></i>
                       <span>{{'menu.About us' | translate }}</span>
                   </a>
               </li>
@@ -40,41 +42,41 @@
                    href="https://foundation29.org"
                    target="_blank"
                    rel="noopener noreferrer"
-                   (click)="lauchEvent('Page - Foundation 29')"
-                   [attr.aria-label]="'foundation29.hero.title' | translate">
-                    <i class="fa fa-hand-holding-heart me-2 d-xl-none nav-link-icon"></i>
+                   (click)="lauchEvent('Page - Foundation 29')">
+                    <i class="fa fa-hand-holding-heart me-2 d-xl-none nav-link-icon" aria-hidden="true"></i>
                     <span>{{'foundation29.hero.title' | translate }}</span>
+                    <span class="visually-hidden"> ({{'a11y.Opens in a new tab' | translate}})</span>
                 </a>
               </li>
               <li class="nav-item me-2" *ngIf="shouldShowDonate">
-                  <a class="nav-link" [ngClass]="(!isIntegrationPage)?'black':'nav-active'" routerLink="/integration" (click)="lauchEvent('Page - Integration')" [attr.aria-label]="'integration.title' | translate">
-                      <i class="fa fa-plug me-2 d-xl-none nav-link-icon"></i>
+                  <a class="nav-link" [ngClass]="(!isIntegrationPage)?'black':'nav-active'" routerLink="/integration" (click)="lauchEvent('Page - Integration')" [attr.aria-current]="isIntegrationPage ? 'page' : null">
+                      <i class="fa fa-plug me-2 d-xl-none nav-link-icon" aria-hidden="true"></i>
                       <span>{{'integration.title' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2" *ngIf="shouldShowDonate">
-                  <a class="nav-link" [ngClass]="(!isCollaborationPage)?'black':'nav-active'" routerLink="/collaboration" (click)="lauchEvent('Page - Collaboration')" [attr.aria-label]="'menu.Collaboration' | translate">
-                      <i class="fa fa-handshake me-2 d-xl-none nav-link-icon"></i>
+                  <a class="nav-link" [ngClass]="(!isCollaborationPage)?'black':'nav-active'" routerLink="/collaboration" (click)="lauchEvent('Page - Collaboration')" [attr.aria-current]="isCollaborationPage ? 'page' : null">
+                      <i class="fa fa-handshake me-2 d-xl-none nav-link-icon" aria-hidden="true"></i>
                       <span>{{'menu.Collaboration' | translate }}</span>
                   </a>
               </li>
               <li class="nav-item me-2">
-                  <a class="nav-link" [ngClass]="(!isFaqPage)?'black':'nav-active'" routerLink="/faq" (click)="lauchEvent('Page - FAQ')" [attr.aria-label]="'land.faqs.title' | translate">
-                      <i class="fa fa-circle-question me-2 d-xl-none nav-link-icon"></i>
+                  <a class="nav-link" [ngClass]="(!isFaqPage)?'black':'nav-active'" routerLink="/faq" (click)="lauchEvent('Page - FAQ')" [attr.aria-current]="isFaqPage ? 'page' : null">
+                      <i class="fa fa-circle-question me-2 d-xl-none nav-link-icon" aria-hidden="true"></i>
                       <span>FAQs</span>
                   </a>
               </li>
               <!--privacy-policy-->
               <li class="nav-item me-2">
-                  <a class="nav-link" [ngClass]="(!isPrivacyPolicyPage)?'black':'nav-active'" routerLink="/privacy-policy" (click)="lauchEvent('Page - Privacy policy')" [attr.aria-label]="'menu.Privacy' | translate">
-                      <i class="fa fa-shield me-2 d-xl-none nav-link-icon"></i>
+                  <a class="nav-link" [ngClass]="(!isPrivacyPolicyPage)?'black':'nav-active'" routerLink="/privacy-policy" (click)="lauchEvent('Page - Privacy policy')" [attr.aria-current]="isPrivacyPolicyPage ? 'page' : null">
+                      <i class="fa fa-shield me-2 d-xl-none nav-link-icon" aria-hidden="true"></i>
                       <span>{{'menu.Privacy' | translate }}</span>
                   </a>
               </li>
               <!--statistics-->
               <li class="nav-item me-2 d-xl-none d-block" *ngIf="shouldShowDonate">
-                  <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'nav-active'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')" [attr.aria-label]="'menu.Statistics' | translate">
-                      <i class="fa fa-chart-line me-2 d-xl-none nav-link-icon"></i>
+                  <a class="nav-link" [ngClass]="(!isReportsPage)?'black':'nav-active'" routerLink="/reports" (click)="lauchEvent('Page - Usage statistics')" [attr.aria-current]="isReportsPage ? 'page' : null">
+                      <i class="fa fa-chart-line me-2 d-xl-none nav-link-icon" aria-hidden="true"></i>
                       <span>{{'menu.Statistics' | translate }}</span>
                   </a>
               </li>
@@ -82,8 +84,9 @@
                   <a class="nav-link questions-nav" [ngClass]="isBetaPage ? 'nav-active' : 'black'"
                      routerLink="/beta"
                      (click)="lauchEvent('Page - Medical questions')"
-                     [attr.aria-label]="'menu.Medical questions' | translate">
-                      <i class="fa fa-comment-medical me-2 d-xl-none nav-link-icon"></i>
+                     [attr.aria-current]="isBetaPage ? 'page' : null"
+                     [attr.title]="'menu.Medical questions' | translate">
+                      <i class="fa fa-comment-medical me-2 d-xl-none nav-link-icon" aria-hidden="true"></i>
                       <span>{{'menu.Questions' | translate }}</span>
                       <span class="questions-experimental">{{'menu.Exp' | translate }}</span>
                   </a>
@@ -97,13 +100,13 @@
           <div id="navbarSupportedContent2">
               <ul class="navbar-nav m-r-0">
                   <li class="nav-item me-2" ngbDropdown display="dynamic" placement="bottom-right">
-                      <a class="position-relative colorlink" id="dropdownLang" ngbDropdownToggle role="button" aria-haspopup="true" aria-expanded="false" [attr.aria-label]="'Select language: ' + currentLang">
+                      <button type="button" class="position-relative colorlink lang-toggle" id="dropdownLang" ngbDropdownToggle [attr.aria-label]="('a11y.Language' | translate) + ': ' + currentLang">
                           <u>{{currentLang}}</u>
-                      </a>
+                      </button>
                       <div ngbDropdownMenu aria-labelledby="dropdownLang" class="dropdownLang">
-                          <a *ngFor="let lang of langs" class="dropdown-item py-1 lang" href="#" (click)="ChangeLanguage(lang.code); $event.preventDefault()" [attr.aria-label]="'Change language to ' + lang.name">
+                          <button *ngFor="let lang of langs" type="button" ngbDropdownItem class="dropdown-item py-1 lang" (click)="ChangeLanguage(lang.code)" [attr.lang]="lang.code" [attr.aria-current]="lang.code === currentLang ? 'true' : null">
                               <span>{{lang.name}}</span>
-                          </a>
+                          </button>
                       </div>
                   </li>
               </ul>
@@ -116,10 +119,8 @@
 <!-- Template para el modal dinámico -->
 <ng-template #sendMsgModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">{{ getModalTitle() }}</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <h2 class="modal-title h4" id="send-msg-modal-title">{{ getModalTitle() }}</h2>
+    <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" (click)="closeModal()"></button>
   </div>
   <div class="modal-body p-0">
     <app-send-msg [mode]="modalMode" (closeModalEvent)="closeModal()"></app-send-msg>

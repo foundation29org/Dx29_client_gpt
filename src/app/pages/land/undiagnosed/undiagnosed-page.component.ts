@@ -130,6 +130,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     terms2: boolean = false;
     model: string = 'gpt56terra';
     
+    // Texto de la región aria-live (WCAG 4.1.3)
+    a11yStatusMessage: string = '';
+    private a11yFocusTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    dictating: boolean = false;
+
     // Propiedad para manejar el placeholder
     textareaPlaceholder: string = '';
     private fullPlaceholderText: string = ''; // Almacena el texto completo del placeholder
@@ -881,6 +887,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         // Limpiar el intervalo de typing
         if (this.typingInterval) {
             clearInterval(this.typingInterval);
+        }
+        if (this.a11yFocusTimeout) {
+            clearTimeout(this.a11yFocusTimeout);
         }
         
         // Limpiar WebSocket
@@ -1687,6 +1696,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             backdrop: 'static',
             keyboard: false,
             centered: true,
+            ariaLabelledBy: 'medical-answer-title',
             windowClass: 'medical-info-modal'
         });
         modalRef.componentInstance.content = content.medicalAnswer;
@@ -1844,6 +1854,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.eventsService.broadcast('hasDiagnostics', true);
         this.callingAI = false;
         Swal.close();
+        this.announceResults(parseChoices.length, !appendedFromLoadMore);
         //window.scrollTo(0, 0);
         
         this.lauchEvent("Search Disease");
@@ -2099,7 +2110,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.lauchEvent(nameEvent);
         let ngbModalOptions: NgbModalOptions = {
             keyboard: true,
-            windowClass: 'ModalClass-lg'// xl, lg, sm
+            windowClass: 'ModalClass-lg',// xl, lg, sm
+            ariaLabelledBy: 'disease-modal-title'
         };
         if (this.modalReference != undefined) {
             this.modalReference.close();
@@ -2272,7 +2284,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             backdrop: 'static',
             keyboard: false,
             size: 'md',
-            centered: true
+            centered: true,
+            ariaLabelledBy: 'export-title'
         };
         this.modalReference = this.modalService.open(contentExportOptions, ngbModalOptions);
     }
@@ -2437,6 +2450,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     let ngbModalOptions: NgbModalOptions = {
                         backdrop: 'static',
                         keyboard: false,
+                        ariaLabelledBy: 'feedback-modal-title',
                         windowClass: 'ModalClass-lg'// xl, lg, sm
                     };
                     this.modalReference = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
@@ -2517,7 +2531,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var nameEvent = 'showContentInfoAPP';
         this.lauchEvent(nameEvent);
         let ngbModalOptions: NgbModalOptions = {
-            windowClass: 'ModalClass-lg'// xl, lg, sm
+            windowClass: 'ModalClass-lg',// xl, lg, sm
+            ariaLabelledBy: 'infoapp-title'
         };
         if (this.modalReference != undefined) {
             this.modalReference.close();
@@ -2588,7 +2603,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     openAnonymize(contentviewDoc) {
         let ngbModalOptions: NgbModalOptions = {
             keyboard: false,
-            windowClass: 'ModalClass-sm' // xl, lg, sm
+            windowClass: 'ModalClass-sm', // xl, lg, sm
+            ariaLabelledBy: 'anonymized-title'
         };
         if (this.modalReference != undefined) {
             this.modalReference.close();
@@ -2607,7 +2623,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     async openDescripModal(panel) {
         let ngbModalOptions: NgbModalOptions = {
             keyboard: true,
-            windowClass: 'ModalClass-lg'// xl, lg, sm
+            windowClass: 'ModalClass-lg',// xl, lg, sm
+            ariaLabelledBy: 'edit-description-title'
         };
         this.editmedicalText = this.medicalTextOriginal;
         this.modalReference = this.modalService.open(panel, ngbModalOptions);
@@ -2768,7 +2785,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             let ngbModalOptions: NgbModalOptions = {
                 backdrop: 'static',
                 keyboard: false,
-                windowClass: 'ModalClass-lg'
+                windowClass: 'ModalClass-lg',
+                ariaLabelledBy: 'followup-title'
             };
             
             this.loadingFollowUpQuestions = true;
@@ -2794,7 +2812,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const ngbModalOptions: NgbModalOptions = {
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'ModalClass-lg'
+            windowClass: 'ModalClass-lg',
+            ariaLabelledBy: 'followup-title'
         };
 
         if (this.modalReference != undefined) {
@@ -2835,7 +2854,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             let ngbModalOptions: NgbModalOptions = {
                 backdrop: 'static',
                 keyboard: false,
-                windowClass: 'ModalClass-lg'
+                windowClass: 'ModalClass-lg',
+                ariaLabelledBy: 'followup-title'
             };
             
             this.loadingFollowUpQuestions = true;
@@ -3769,6 +3789,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         
         return this.translate.instant('land.Search');
+    }
+
+    // Swal.close() returns focus to the (now removed) search button after its
+    // close animation, so the heading focus has to land after it.
+    private announceResults(count: number, moveFocus: boolean): void {
+        if (!isPlatformBrowser(this.platformId)) return;
+        this.a11yStatusMessage = '';
+        if (this.a11yFocusTimeout) {
+            clearTimeout(this.a11yFocusTimeout);
+        }
+        this.a11yFocusTimeout = setTimeout(() => {
+            this.a11yFocusTimeout = null;
+            this.a11yStatusMessage = this.translate.instant('a11y.Results ready', { count });
+            if (moveFocus) {
+                document.getElementById('results-title')?.focus();
+            }
+        }, 400);
     }
 
     /**

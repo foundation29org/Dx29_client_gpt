@@ -1,6 +1,6 @@
 <div class="disclaimer-alert">
   <div class="disclaimer-header">
-    <i class="fas fa-exclamation-triangle me-2"></i>
+    <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
     <strong>{{ 'permalink.medicalDisclaimerTitle' | translate }}</strong>
   </div>
   <div
@@ -21,15 +21,17 @@
     type="button"
     class="feedback-button feedback-button--positive"
     [title]="'medicalInfoModal.voteup' | translate"
+    [attr.aria-label]="'medicalInfoModal.voteup' | translate"
     (click)="openMedicalFeedback('up')">
-    <i class="fa fa-thumbs-up"></i>
+    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
   </button>
   <button
     type="button"
     class="feedback-button feedback-button--negative"
     [title]="'medicalInfoModal.votedown' | translate"
+    [attr.aria-label]="'medicalInfoModal.votedown' | translate"
     (click)="openMedicalFeedback('down')">
-    <i class="fa fa-thumbs-down"></i>
+    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
   </button>
 </div>
 
@@ -72,15 +74,16 @@
           rel="noopener noreferrer"
           [title]="reference.title">
           {{ reference.title }}
+          <span class="visually-hidden">({{ 'a11y.Opens in a new tab' | translate }})</span>
         </a>
       </div>
       <div class="reference-meta" *ngIf="reference.date || reference.source">
         <span class="reference-date" *ngIf="reference.date">
-          <i class="fas fa-calendar-alt me-1"></i>
+          <i class="fas fa-calendar-alt me-1" aria-hidden="true"></i>
           {{ reference.date }}
         </span>
         <span class="reference-source" *ngIf="reference.source">
-          <i class="fas fa-globe me-1"></i>
+          <i class="fas fa-globe me-1" aria-hidden="true"></i>
           {{ reference.source }}
         </span>
       </div>

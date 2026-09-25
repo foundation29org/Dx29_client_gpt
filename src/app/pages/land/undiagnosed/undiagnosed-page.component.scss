@@ -135,7 +135,6 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     color: #fff;
     background: rgba(255, 255, 255, 0.12);
     border-color: rgba(255, 255, 255, 0.5);
-    outline: none;
   }
 }
 
@@ -217,7 +216,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     max-width: 20rem;
     font-size: 0.82rem;
     line-height: 1.4;
-    color: #7b8492;
+    color: #5f6773;
     text-align: right;
 
   }
@@ -246,7 +245,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   &__description {
     margin: 0.2rem 0 0;
-    color: #737c89;
+    color: #5f6773;
     font-size: 0.8rem;
     line-height: 1.4;
   }
@@ -347,7 +346,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     max-width: 22rem;
     font-size: 0.82rem;
     line-height: 1.4;
-    color: #737c89;
+    color: #5f6773;
   }
 
   &__actions {
@@ -662,17 +661,11 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
-/* Animaciones para el placeholder ============================= */
-@keyframes placeholderFade {
-  0%, 100% { opacity: 0.6; }
-  50%      { opacity: 0.3; }
-}
-
 /* ÁREA DE TEXTO =============================================== */
 .searchTerm {
   width: 100%;
-  min-height: 150px;
-  padding: 1.1rem 1.35rem;
+  min-height: calc(150px + 2.15rem);
+  padding: 1.1rem 1.35rem 3.25rem;
   border: 1.5px solid rgba(0, 0, 0, 0.08);
   border-radius: calc(#{$radius-lg} - 6px);
   background: #fff;
@@ -688,10 +681,8 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   cursor: text;
 
   &::placeholder {
-    color: #9ca3af;
+    color: #6b7280;
     opacity: 1;
-    animation: placeholderFade 3s ease-in-out infinite;
-    transition: opacity $duration ease;
   }
 
   &::-webkit-scrollbar { width: 6px; }
@@ -707,7 +698,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08), 0 4px 20px rgba(0, 0, 0, 0.06);
     outline: none;
 
-    &::placeholder { opacity: 0.4; animation: none; }
+    &::placeholder { opacity: 0.7; }
   }
 
   &:hover:not(:focus) {
@@ -882,7 +873,7 @@ section {
 
 .infoapp-col-subtitle {
   font-size: 0.88rem;
-  color: #9ca3af;
+  color: #6b7280;
   margin: 0 0 0.5rem;
   line-height: 1.35;
 }
@@ -895,8 +886,10 @@ section {
   gap: 0.5rem;
   background: var(--primary-color, #1f232e);
   color: #fff;
+  border: 0;
   border-radius: 10px;
   padding: 0.65rem 0.85rem;
+  font-family: inherit;
   font-size: 0.88rem;
   line-height: 1.4;
   text-align: left;
@@ -1099,7 +1092,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin: 0;
   padding: 1.25rem 1.75rem;
+  list-style: none;
 }
 
 @media (max-width: 576px) {
@@ -1252,6 +1247,9 @@ body {
     display: inline-flex;
     align-items: center;
     margin-left: auto;
+    padding: 0.25rem 0;
+    background: none;
+    border: 0;
     font-size: 0.88rem;
     font-weight: 600;
     color: var(--accent-color, #4f8cff);
@@ -1419,9 +1417,9 @@ body {
   flex: 1 1 auto;
 }
 .chip-btn-add {
-  border: 1.5px dashed rgba(255, 255, 255, 0.3);
+  border: 1.5px dashed rgba(255, 255, 255, 0.55);
   background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.85);
   border-radius: 10px;
   width: 36px;
   height: 36px;
@@ -1433,7 +1431,6 @@ body {
   transition: all $duration ease;
   position: relative;
   padding: 0;
-  outline: none;
 }
 .chip-btn-add input[type="file"] {
   display: none;
@@ -1528,7 +1525,7 @@ body {
   position: absolute;
   right: 0;
   top: 0;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.75);
 }
 @media (max-width: 600px) {
   .chips-and-counter-row {
@@ -1551,7 +1548,7 @@ body {
 
 .hero-meta {
   font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.72);
   letter-spacing: 0.01em;
 }
 .hero-meta--inline {
@@ -1578,16 +1575,16 @@ body {
 .hero-questions-note {
   margin: 0.85rem 0 0;
   font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.72);
 
   a {
-    color: rgba(255, 255, 255, 0.62);
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: underline;
     text-underline-offset: 0.14em;
 
     &:hover,
     &:focus-visible {
-      color: rgba(255, 255, 255, 0.88);
+      color: #fff;
     }
   }
 }
@@ -1611,7 +1608,7 @@ body {
   font-size: 0.95rem;
   vertical-align: middle;
   user-select: none;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.75);
 }
 @media (max-width: 768px) {
   .chip-add-text {
@@ -1799,6 +1796,9 @@ body {
 }
 
 .disease-cancel-link {
+  padding: 0;
+  background: none;
+  border: 0;
   color: var(--accent-color, #B30000);
   cursor: pointer;
   font-size: 0.88rem;

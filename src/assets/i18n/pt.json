@@ -1590,5 +1590,42 @@
       "description": "Contate-nos para implementar DxGPT em sua organização",
       "contact_us": "Contacte-nos"
     }
+  },
+  "a11y": {
+    "Skip to main content": "Saltar para o conteúdo principal",
+    "Language": "Idioma",
+    "Patient description": "Descrição do paciente",
+    "Opens in a new tab": "abre num novo separador",
+    "Useful result": "Resultado útil",
+    "Not useful result": "Resultado não útil",
+    "Results ready": "Foram encontradas {{count}} hipóteses diagnósticas.",
+    "Your question": "A sua pergunta",
+    "Main navigation": "Navegação principal",
+    "Open menu": "Abrir menu",
+    "Close menu": "Fechar menu",
+    "Home logo": "{{app}}, ir para o início",
+    "Foundation 29 website": "Site da Foundation 29",
+    "Refresh data": "Atualizar dados",
+    "Previous testimonial": "Testemunho anterior",
+    "Next testimonial": "Próximo testemunho",
+    "Pause testimonials": "Pausar testemunhos",
+    "Rated 5 out of 5 stars": "Avaliação: 5 de 5 estrelas",
+    "Copy link": "Copiar link"
+  },
+  "voice": {
+    "Start dictation": "Iniciar ditado por voz",
+    "Stop dictation": "Parar ditado por voz",
+    "Dictation started": "Ditado iniciado. Fale agora.",
+    "Transcribing": "A transcrever…",
+    "Dictation added": "Texto ditado adicionado. Reveja-o antes de pesquisar.",
+    "errors": {
+      "not-supported": "O seu navegador não permite o ditado por voz.",
+      "permission-denied": "O acesso ao microfone está bloqueado. Permita-o nas definições do navegador.",
+      "no-microphone": "Não foi encontrado nenhum microfone.",
+      "network": "Perdeu-se a ligação ao serviço de voz. Tente novamente.",
+      "service-unavailable": "O ditado por voz não está disponível de momento.",
+      "unknown": "Não foi possível iniciar o ditado por voz. Tente novamente.",
+      "no-speech": "Não foi detetada voz. Tente novamente."
+    }
   }
 }

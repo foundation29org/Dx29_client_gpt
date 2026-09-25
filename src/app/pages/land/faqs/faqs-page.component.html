@@ -16,124 +16,22 @@
     <div class="content-section">
       <div class="faqs-container">
         
-        <!-- FAQ Item 1 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(1)">
-            <h3 class="faq-title">{{'land.faqs.q1' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[1]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[1]">
-            <p>{{'land.faqs.a1' | translate }}</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 2 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(2)">
-            <h3 class="faq-title">{{'land.faqs.q2' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[2]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[2]">
-            <p>{{'land.faqs.a2' | translate }}</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 3 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(3)">
-            <h3 class="faq-title">{{'land.faqs.q3' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[3]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[3]">
-            <p>{{'land.faqs.a3' | translate }}</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 4 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(4)">
-            <h3 class="faq-title">{{'land.faqs.q4' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[4]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[4]">
-            <p>{{'land.faqs.a4' | translate }}</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 5 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(5)">
-            <h3 class="faq-title">{{'land.faqs.q5' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[5]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[5]">
-            <p>{{'land.faqs.a5' | translate }}</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 6 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(6)">
-            <h3 class="faq-title">{{'land.faqs.q6' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[6]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[6]">
-            <p>{{'land.faqs.a6' | translate }}</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 7 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(7)">
-            <h3 class="faq-title">{{'land.faqs.q7' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[7]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[7]">
-            <p>{{'land.faqs.a7' | translate }}</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 8 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(8)">
-            <h3 class="faq-title">{{'land.faqs.q8' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[8]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[8]">
-            <p>{{'land.faqs.a8' | translate }}</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 9 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(9)">
-            <h3 class="faq-title">{{'land.faqs.q9' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[9]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[9]">
-            <p>{{'land.faqs.a9' | translate }}</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 10 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(10)">
-            <h3 class="faq-title">{{'land.faqs.q10' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[10]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[10]">
-            <p>{{'land.faqs.a10' | translate }}</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 11 -->
-        <div class="faq-item">
-          <div class="faq-question" (click)="toggleFaq(11)">
-            <h3 class="faq-title">{{'land.faqs.q11' | translate }}</h3>
-            <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[11]"></i>
-          </div>
-          <div class="faq-answer" [class.expanded]="expandedFaqs[11]">
-            <p>{{'land.faqs.a11' | translate }}</p>
+        <div class="faq-item" *ngFor="let faq of faqNumbers">
+          <h2 class="faq-heading">
+            <button type="button"
+                    class="faq-question"
+                    [id]="'faq-question-' + faq"
+                    [attr.aria-expanded]="!!expandedFaqs[faq]"
+                    [attr.aria-controls]="'faq-answer-' + faq"
+                    (click)="toggleFaq(faq)">
+              <span class="faq-title">{{'land.faqs.q' + faq | translate }}</span>
+              <i class="fas fa-chevron-down faq-icon" [class.rotated]="expandedFaqs[faq]" aria-hidden="true"></i>
+            </button>
+          </h2>
+          <div class="faq-answer"
+               [id]="'faq-answer-' + faq"
+               [class.expanded]="expandedFaqs[faq]">
+            <p>{{'land.faqs.a' + faq | translate }}</p>
           </div>
         </div>
 

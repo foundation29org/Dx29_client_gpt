@@ -67,12 +67,12 @@ p {
         padding: 1.25rem;
     }
 
-    h6 {
+    h6, .h6 {
         margin-bottom: 0.5rem;
         font-weight: 500;
     }
 
-    h3 {
+    h3, .h3 {
         margin-bottom: 0.5rem;
         font-size: 1.5rem;
     }
@@ -88,7 +88,7 @@ p {
 }
 
 .bg-success {
-    background-color: #28a745;
+    background-color: #1e7e34;
     color: white;
 }
 
@@ -108,11 +108,11 @@ p {
 }
 
 .text-success {
-    color: #28a745 !important;
+    color: #1e7e34 !important;
 }
 
 .text-warning {
-    color: #ffc107 !important;
+    color: #8a6100 !important;
 }
 
 .text-danger {

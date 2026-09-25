@@ -24,6 +24,16 @@ export class LandPageLayoutComponent {
   ) {
   }
 
+  // With <base href="/">, a bare "#main-content" href would navigate to the home route.
+  skipToMain(event: Event) {
+    event.preventDefault();
+    const main = this.document.getElementById('main-content');
+    if (main) {
+      main.focus();
+      main.scrollIntoView();
+    }
+  }
+
   scrollToTop() {
     window.scroll({
       top: 0,

@@ -7,7 +7,7 @@
 
       <div class="beta-warning mb-3 mt-4">
         <div class="alert alert-warning d-inline-flex align-items-center" role="alert">
-          <i class="fas fa-flask me-2"></i>
+          <i class="fas fa-flask me-2" aria-hidden="true"></i>
           <span>
             <strong>{{ 'beta.warning_title' | translate }}</strong>
             — {{ 'beta.warning_medical' | translate }}
@@ -19,7 +19,7 @@
             [attr.aria-expanded]="showBetaDetails"
             [attr.aria-label]="'beta.info_button_label' | translate"
             [title]="'beta.info_button_label' | translate">
-            <i class="fa fa-info-circle"></i>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
           </button>
         </div>
         <div class="beta-details" *ngIf="showBetaDetails">
@@ -32,6 +32,7 @@
     <div class="col-sm-12 offset-md-1 col-md-10 offset-lg-1 col-lg-10 text-center">
       <div class="search-container">
         <div class="search">
+          <label for="textarea1" class="visually-hidden">{{ 'a11y.Your question' | translate }}</label>
           <textarea
             #autoajustable
             id="textarea1"
@@ -43,7 +44,11 @@
             (input)="resizeTextArea()"
             (click)="focusTextArea()"
             (blur)="restorePlaceholder()"
-            [readonly]="callingAI"></textarea>
+            [attr.aria-busy]="callingAI"
+            [readonly]="callingAI || dictating"></textarea>
+          <app-dictation-button [text]="medicalTextOriginal" [disabled]="callingAI"
+            (textChange)="medicalTextOriginal = $event; resizeTextArea()"
+            (dictatingChange)="dictating = $event; $event && lauchEvent('Dictation - Start')"></app-dictation-button>
         </div>
       </div>
 
@@ -53,7 +58,7 @@
           class="hint-chip"
           (click)="useExample('question')"
           [title]="'beta.example_question' | translate">
-          <i class="fa fa-question-circle me-1"></i>
+          <i class="fa fa-question-circle me-1" aria-hidden="true"></i>
           {{ 'beta.example_question_short' | translate }}
         </button>
       </div>
@@ -72,13 +77,13 @@
 
       <div class="col-12 text-center">
         <button
+          type="button"
           class="btn-search-hero"
           (click)="checkPopup(contentIntro)"
           [attr.title]="getButtonTitle()"
-          [attr.aria-label]="getButtonTitle()"
-          [disabled]="callingAI">
-          <i *ngIf="callingAI" class="fa fa-spinner fa-spin"></i>
-          <i *ngIf="!callingAI" class="fa fa-search"></i>
+          [disabled]="callingAI || dictating">
+          <i *ngIf="callingAI" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          <i *ngIf="!callingAI" class="fa fa-search" aria-hidden="true"></i>
           {{ 'beta.search' | translate }}
         </button>
       </div>
@@ -104,6 +109,8 @@
   id="hiddenCheckPopupButton"
   type="button"
   class="visually-hidden"
+  tabindex="-1"
+  aria-hidden="true"
   (click)="checkPopup(contentIntro)">
 </button>
 
@@ -118,17 +125,18 @@
   <div class="disclaimer-modal">
     <div class="disclaimer-header">
       <div class="disclaimer-icon">
-        <i class="fa fa-shield"></i>
+        <i class="fa fa-shield" aria-hidden="true"></i>
       </div>
       <button
         type="button"
         class="btn-close"
-        title="Close"
+        [attr.aria-label]="'generics.Close' | translate"
+        [attr.title]="'generics.Close' | translate"
         (click)="dismissDisclaimer()">
       </button>
     </div>
     <div class="disclaimer-body">
-      <div class="disclaimer-content" [innerHTML]="'beta.disclaimer' | translate"></div>
+      <div id="beta-disclaimer-content" class="disclaimer-content" [innerHTML]="'beta.disclaimer' | translate"></div>
       <div class="disclaimer-check">
         <mat-checkbox [(ngModel)]="terms2" (change)="changeTerm($event)">
           <label>
@@ -139,7 +147,7 @@
     </div>
     <div class="disclaimer-footer">
       <button type="button" class="btn-search-hero" (click)="closePopup()">
-        <i class="fa fa-check me-1"></i>
+        <i class="fa fa-check me-1" aria-hidden="true"></i>
         {{ 'land.acceptLimitations' | translate }}
       </button>
     </div>

@@ -2,14 +2,14 @@
 <div class="feedback-modal">
   <div class="feedback-modal__header">
     <div class="feedback-modal__header-icon">
-      <i class="fa fa-comment-dots"></i>
+      <i class="fa fa-comment-dots" aria-hidden="true"></i>
     </div>
     <div>
-      <h4 class="feedback-modal__title">{{'feedback.t1' | translate }}</h4>
+      <h2 id="feedback-modal-title" class="feedback-modal__title">{{'feedback.t1' | translate }}</h2>
       <p class="feedback-modal__subtitle">{{'feedback.subt1' | translate }}</p>
     </div>
-    <button class="feedback-modal__close" (click)="activeModal.close('Close click');" aria-label="Close">
-      <i class="fa fa-times"></i>
+    <button type="button" class="feedback-modal__close" (click)="activeModal.close('Close click');" [attr.aria-label]="'generics.Close' | translate">
+      <i class="fa fa-times" aria-hidden="true"></i>
     </button>
   </div>
 
@@ -17,19 +17,19 @@
     <form [formGroup]="formulario" (ngSubmit)="sendFeedback()">
 
       <div class="feedback-rating-row">
-        <p class="feedback-rating-row__label">{{'feedback.q1' | translate }}</p>
-        <ngb-rating formControlName="pregunta1" max="5" class="feedback-rating-row__stars"></ngb-rating>
+        <p id="feedback-q1-label" class="feedback-rating-row__label">{{'feedback.q1' | translate }}</p>
+        <ngb-rating formControlName="pregunta1" max="5" class="feedback-rating-row__stars" aria-labelledby="feedback-q1-label"></ngb-rating>
       </div>
 
       <div class="feedback-rating-row">
-        <p class="feedback-rating-row__label">{{'feedback.q2' | translate }}</p>
-        <ngb-rating formControlName="pregunta2" max="5" class="feedback-rating-row__stars"></ngb-rating>
+        <p id="feedback-q2-label" class="feedback-rating-row__label">{{'feedback.q2' | translate }}</p>
+        <ngb-rating formControlName="pregunta2" max="5" class="feedback-rating-row__stars" aria-labelledby="feedback-q2-label"></ngb-rating>
       </div>
 
       <div class="feedback-section">
-        <p class="feedback-section__label">{{'feedback.userType' | translate }}</p>
+        <p id="feedback-usertype-label" class="feedback-section__label">{{'feedback.userType' | translate }}</p>
         <div class="feedback-radio-group">
-          <mat-radio-group formControlName="userType">
+          <mat-radio-group formControlName="userType" aria-labelledby="feedback-usertype-label" aria-required="true">
             <mat-radio-button class="feedback-radio" value="professional">{{'feedback.professional' | translate }}</mat-radio-button>
             <mat-radio-button class="feedback-radio" value="patient">{{'feedback.patient' | translate }}</mat-radio-button>
             <mat-radio-button class="feedback-radio" value="caregiver">{{'feedback.caregiver' | translate }}</mat-radio-button>
@@ -39,14 +39,16 @@
       </div>
 
       <div class="feedback-section" *ngIf="formulario.get('userType')?.value === 'professional'">
-        <p class="feedback-section__label">{{'feedback.specialty' | translate }}</p>
-        <p class="feedback-section__hint" *ngIf="suggestionAppliedBySystem">
+        <p id="feedback-specialty-label" class="feedback-section__label">{{'feedback.specialty' | translate }}</p>
+        <p id="feedback-specialty-hint" class="feedback-section__hint" *ngIf="suggestionAppliedBySystem">
           {{'feedback.suggestionAutofilled' | translate}}
         </p>
         <select
           formControlName="healthcareSpecialty"
           name="healthcareSpecialty"
           class="feedback-input"
+          aria-labelledby="feedback-specialty-label"
+          [attr.aria-describedby]="suggestionAppliedBySystem ? 'feedback-specialty-hint' : null"
         >
           <option value="">{{'feedback.specialtyPlaceholder' | translate }}</option>
           <option *ngFor="let specialty of localizedHealthcareSpecialtyOptions" [value]="specialty.value">
@@ -66,20 +68,20 @@
       </div>
 
       <div class="feedback-section">
-        <p class="feedback-section__label">{{'feedback.q3' | translate }} <span class="feedback-section__optional">({{'generics.Optional' | translate }})</span></p>
-        <textarea id="moreFunct" name="moreFunct" maxlength="2000" formControlName="moreFunct" rows="3" class="feedback-textarea" (input)="onInput($event, 'moreFunct')"></textarea>
-        <span class="feedback-char-count">{{ moreFunctLength }} / 2000</span>
+        <label for="moreFunct" class="feedback-section__label">{{'feedback.q3' | translate }} <span class="feedback-section__optional">({{'generics.Optional' | translate }})</span></label>
+        <textarea id="moreFunct" name="moreFunct" maxlength="2000" formControlName="moreFunct" rows="3" class="feedback-textarea" aria-describedby="moreFunct-count" (input)="onInput($event, 'moreFunct')"></textarea>
+        <span id="moreFunct-count" class="feedback-char-count">{{ moreFunctLength }} / 2000</span>
       </div>
 
       <div class="feedback-section">
-        <p class="feedback-section__label">{{'feedback.commment' | translate }} <span class="feedback-section__optional">({{'generics.Optional' | translate }})</span></p>
-        <textarea id="freeText" name="freeText" maxlength="2000" formControlName="freeText" rows="3" class="feedback-textarea" (input)="onInput($event, 'freeText')"></textarea>
-        <span class="feedback-char-count">{{ freeTextLength }} / 2000</span>
+        <label for="freeText" class="feedback-section__label">{{'feedback.commment' | translate }} <span class="feedback-section__optional">({{'generics.Optional' | translate }})</span></label>
+        <textarea id="freeText" name="freeText" maxlength="2000" formControlName="freeText" rows="3" class="feedback-textarea" aria-describedby="freeText-count" (input)="onInput($event, 'freeText')"></textarea>
+        <span id="freeText-count" class="feedback-char-count">{{ freeTextLength }} / 2000</span>
       </div>
 
       <div class="feedback-section">
-        <p class="feedback-section__label">{{'feedback.emailquestion' | translate }} <span class="feedback-section__optional">({{'generics.Optional' | translate }})</span></p>
-        <input type="email" formControlName="email" name="email" class="feedback-input" placeholder="{{'generics.Email' | translate }}" autocomplete="email">
+        <label for="feedback-email" class="feedback-section__label">{{'feedback.emailquestion' | translate }} <span class="feedback-section__optional">({{'generics.Optional' | translate }})</span></label>
+        <input id="feedback-email" type="email" formControlName="email" name="email" class="feedback-input" placeholder="{{'generics.Email' | translate }}" autocomplete="email">
       </div>
 
       <div class="feedback-check">
@@ -92,8 +94,8 @@
         <button type="button" class="feedback-btn feedback-btn--secondary" (click)="activeModal.close('Close click');">{{'generics.Close' | translate }}</button>
         <button type="submit" class="feedback-btn feedback-btn--primary">{{'generics.Send' | translate }}</button>
       </div>
-      <div class="feedback-modal__footer" *ngIf="sending">
-        <span><i class="fa fa-spinner fa-spin fa-2x"></i></span>
+      <div class="feedback-modal__footer" *ngIf="sending" role="status">
+        <span><i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i><span class="visually-hidden">{{'generics.Please wait' | translate}}</span></span>
       </div>
 
     </form>

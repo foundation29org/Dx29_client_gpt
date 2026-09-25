@@ -7,28 +7,34 @@
     <form class="modal-form" (ngSubmit)="sendMsg()" #f="ngForm">
       <div class="form-fields">
         <div class="form-group-custom">
-          <label class="form-label">{{'generics.Name' | translate }} *</label>
+          <label class="form-label" for="userName">{{'generics.Name' | translate }} <span aria-hidden="true">*</span></label>
           <input type="text" class="form-input" name="userName" id="userName"
-            placeholder="{{'generics.Name' | translate }}" ngModel required #userName="ngModel" autocomplete="name">
-          <small class="form-error"
+            placeholder="{{'generics.Name' | translate }}" ngModel required #userName="ngModel" autocomplete="name"
+            [attr.aria-invalid]="!userName.valid && (userName.dirty || userName.touched) ? 'true' : null"
+            [attr.aria-describedby]="!userName.valid && (userName.dirty || userName.touched) ? 'userName-error' : null">
+          <small class="form-error" id="userName-error" role="alert"
             *ngIf="!userName.valid && (userName.dirty || userName.touched)">{{'generics.required' | translate }}</small>
         </div>
         
         <div class="form-group-custom">
-          <label class="form-label">{{'generics.Email' | translate }} *</label>
+          <label class="form-label" for="email">{{'generics.Email' | translate }} <span aria-hidden="true">*</span></label>
           <input type="email" class="form-input" name="email" id="email"
-            placeholder="tu@email.com" ngModel required email #email="ngModel" autocomplete="email">
-          <small class="form-error"
+            placeholder="tu@email.com" ngModel required email #email="ngModel" autocomplete="email"
+            [attr.aria-invalid]="!email.valid && (email.dirty || email.touched) ? 'true' : null"
+            [attr.aria-describedby]="!email.valid && (email.dirty || email.touched) ? 'email-error' : null">
+          <small class="form-error" id="email-error" role="alert"
             *ngIf="!email.valid && (email.dirty || email.touched)">{{'generics.entervalidemail' | translate }}</small>
         </div>
         
         <div class="form-group-custom">
-          <label class="form-label">{{'support.Message' | translate }} *</label>
+          <label class="form-label" for="textarea1">{{'support.Message' | translate }} <span aria-hidden="true">*</span></label>
           <textarea maxlength="2000" name="description" id="textarea1" rows="4"
             placeholder="{{'support.Message' | translate }}" class="form-textarea" ngModel
-            required #description="ngModel" (input)="autoResize($event)"></textarea>
-          <div class="char-counter">{{ descriptionLength }} / 2000</div>
-          <small class="form-error"
+            required #description="ngModel" (input)="autoResize($event)"
+            [attr.aria-invalid]="!description.valid && (description.dirty || description.touched) ? 'true' : null"
+            [attr.aria-describedby]="!description.valid && (description.dirty || description.touched) ? 'textarea1-count textarea1-error' : 'textarea1-count'"></textarea>
+          <div class="char-counter" id="textarea1-count">{{ descriptionLength }} / 2000</div>
+          <small class="form-error" id="textarea1-error" role="alert"
             *ngIf="!description.valid && (description.dirty || description.touched)">{{'generics.required' | translate }}</small>
         </div>
 
@@ -42,11 +48,14 @@
           </div>
           
           <div class="terms-section">
-            <label class="checkbox-label">
-              <input type="checkbox" name="terms" ngModel #terms="ngModel" id="terms" required [(ngModel)]="acceptTerms" class="checkbox-input">
-              <span class="checkbox-text">{{'termsform.accept' | translate }} <a href="javascript:;" (click)="openModal2(termsModal)" class="terms-link">{{'termsform.terms' | translate }}</a></span>
-            </label>
-            <small class="form-error" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
+            <div class="checkbox-label">
+              <input type="checkbox" name="terms" ngModel #terms="ngModel" id="terms" required [(ngModel)]="acceptTerms" class="checkbox-input"
+                aria-labelledby="terms-accept-label terms-open-link"
+                [attr.aria-invalid]="!terms.valid && showErrorForm ? 'true' : null"
+                [attr.aria-describedby]="!terms.valid && showErrorForm ? 'terms-error' : null">
+              <span class="checkbox-text"><label for="terms" id="terms-accept-label" class="terms-accept-label">{{'termsform.accept' | translate }}</label> <button type="button" id="terms-open-link" (click)="openModal2(termsModal)" class="terms-link">{{'termsform.terms' | translate }}</button></span>
+            </div>
+            <small class="form-error" id="terms-error" role="alert" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
           </div>
         </div>
         
@@ -58,8 +67,9 @@
           <button *ngIf="f.valid" class="btn-submit" type="submit">{{'support.Send' | translate }}</button>
           <button *ngIf="!f.valid" class="btn-submit" type="button" (click)="submitInvalidForm()">{{'support.Send' | translate }}</button>
         </div>
-        <div *ngIf="sending" class="loading-section">
-          <i class="fa fa-spinner fa-spin fa-2x"></i>
+        <div *ngIf="sending" class="loading-section" role="status">
+          <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
+          <span class="visually-hidden">{{'generics.Please wait' | translate }}</span>
         </div>
       </div>
     </form>
