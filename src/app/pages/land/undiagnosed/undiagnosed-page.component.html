@@ -84,6 +84,11 @@
                 <i class="fa" [class.fa-chevron-down]="!showMultimodalDetails" [class.fa-chevron-up]="showMultimodalDetails"></i>
               </button>
             </div>
+            <!-- Primera capa del art. 13 RGPD: tiene que verse antes de enviar, sin desplegar. -->
+            <small *ngIf="selectedImagesCount > 0" class="d-block mt-1">
+              {{'land.multimodalInfo.retention' | translate}}
+              <a routerLink="/privacy-policy" target="_blank" rel="noopener">{{'menu.Privacy' | translate}}</a>
+            </small>
             <div *ngIf="showMultimodalDetails" class="mt-2">
               <p class="mb-2"><strong>{{'land.multimodalInfo.instructions' | translate}}</strong></p>
               <ul class="mb-2">

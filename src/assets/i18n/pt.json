@@ -417,7 +417,7 @@
         "memory": {
           "title": "Processamento protegido",
           "description": "A análise realiza-se sobre informação anonimizada. O tratamento e a conservação de registos configuram-se segundo o ambiente assistencial e a respetiva política aplicável.",
-          "descriptionEu": "A análise das informações é realizada em tempo real e na memória, sem que dados clínicos ou pessoais dos pacientes sejam armazenados em servidores."
+          "descriptionEu": "A análise é realizada em tempo real e em memória. Apenas as imagens que carrega são guardadas, encriptadas, durante um máximo de 24 h para poderem ser analisadas."
         },
         "retraining": {
           "title": "Sem treino com consultas",
@@ -792,7 +792,7 @@
     "p6.1": "5. Segurança e armazenamento de dados",
     "p6.2": "A criptografia em trânsito e em repouso protege todos os canais de dados.",
     "p6.3": "Um sistema de detecção baseado em IA identifica automaticamente identificadores pessoais e os substitui por asteriscos (***) antes do armazenamento.",
-    "p6.4": "Nenhum dado de saúde desmascarado é gravado no disco; o processamento ocorre apenas na memória volátil.",
+    "p6.4": "A informação de saúde é processada em memória. A única exceção são as imagens que carrega: são guardadas encriptadas, sem anonimização, durante um máximo de 24 h para poderem ser analisadas, e depois eliminadas.",
     "p6.5": "As medidas técnicas e organizacionais seguem as normas ISO 27001 e NIST SP 800-88.",
     "p6.6": "O acesso é limitado ao pessoal autorizado sob estrita confidencialidade.",
     "p6.7": "Conformidade com HIPAA – DxGPT está em conformidade com HIPAA (Regras de Privacidade, Segurança e Notificação de Violação) e executa Acordos de Parceria Comercial (BAAs). Consulte o Apêndice A para salvaguardas detalhadas.",
@@ -800,9 +800,10 @@
     "p7.2": "Os dados de uso agregados e anônimos são retidos por no máximo cinco anos antes da exclusão irreversível.",
     "p7.3": "Os tickets de suporte e os registros contratuais são armazenados por até cinco anos para cumprir os requisitos contábeis e legais.",
     "p7.4": "Você pode solicitar a exclusão antecipada onde o GDPR permitir (consulte a seção 8).",
+    "p7.5": "Imagens carregadas para análise: máximo de 24 h, ou até começar um novo caso.",
     "p8.1": "7. Transferências internacionais",
     "p8.2": "Sempre que possível, os seus dados são processados ​​na região geográfica mais próxima de você para minimizar a latência e respeitar a jurisdição local.",
-    "p8.3": "Para utilizadores localizados no Espaço Económico Europeu (EEE), todos os dados pessoais são armazenados e processados ​​exclusivamente em servidores localizados fisicamente na União Europeia.",
+    "p8.3": "Para os utilizadores localizados no Espaço Económico Europeu (EEE), os dados são armazenados e processados em servidores localizados na União Europeia. Se o serviço de IA europeu não estiver disponível, o pedido pode ser processado num centro de dados da Microsoft Azure nos Estados Unidos, com as garantias descritas no ponto seguinte.",
     "p8.4": "Quando o processamento ocorre fora do EEE, contamos com Cláusulas Contratuais Padrão (SCCs) ou decisões de adequação para garantir um nível adequado de proteção (Art. 46 do RGPD). À luz da decisão Schrems II do TJUE, também implementamos medidas técnicas e organizacionais suplementares, tais como encriptação de ponta a ponta, controlos de acesso rigorosos e registos de auditoria detalhados para minimizar o risco de acesso ilegal do governo.",
     "p9.1": "8. Os seus direitos ao abrigo do RGPD",
     "p9.2": "Você tem o direito de:",
@@ -911,6 +912,7 @@
     "swal3Multimodal": "Depois de concluído, revise o texto gerado e clique em pesquisar para continuar.",
     "multimodalInfo": {
       "short": "Analisaremos em conjunto a sua descrição e os ficheiros carregados.",
+      "retention": "As imagens são guardadas encriptadas apenas para as analisar e são eliminadas automaticamente ao fim de 24 h, ou antes se começar um novo caso. Os documentos não são guardados.",
       "title": "Recurso em teste",
       "description": "Esta funcionalidade de processamento de documentos e imagens está em fase experimental. Seu feedback é muito importante para melhorá-lo.",
       "instructions": "Para melhores resultados:",

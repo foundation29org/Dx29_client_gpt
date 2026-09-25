@@ -417,7 +417,7 @@
         "memory": {
           "title": "Chronione przetwarzanie",
           "description": "Analiza odbywa się na informacji zanonimizowanej. Przetwarzanie i przechowywanie rejestrów konfiguruje się według środowiska opieki i obowiązującej w nim polityki.",
-          "descriptionEu": "Analiza informacji jest wykonywana w czasie rzeczywistym i w pamięci, bez przechowywania danych klinicznych ani osobowych danych pacjenta na serwerach."
+          "descriptionEu": "Analiza odbywa się w czasie rzeczywistym i w pamięci. Przechowywane są tylko przesłane przez Ciebie obrazy, w postaci zaszyfrowanej, maksymalnie przez 24 godziny, aby można je było przeanalizować."
         },
         "retraining": {
           "title": "Bez trenowania na zapytaniach",
@@ -792,7 +792,7 @@
     "p6.1": "5. Bezpieczeństwo i przechowywanie danych",
     "p6.2": "Szyfrowanie podczas przesyłania i w spoczynku chroni wszystkie kanały danych.",
     "p6.3": "System wykrywania oparty na AI automatycznie identyfikuje osobiste identyfikatory i zastępuje je gwiazdkami (***) przed przechowywaniem.",
-    "p6.4": "Niezamaskowane dane zdrowotne nigdy nie są zapisywane na dysku; przetwarzanie odbywa się tylko w pamięci ulotnej.",
+    "p6.4": "Informacje o zdrowiu są przetwarzane w pamięci. Jedynym wyjątkiem są przesłane przez Ciebie obrazy: są przechowywane w postaci zaszyfrowanej, bez anonimizacji, maksymalnie przez 24 godziny, aby można je było przeanalizować, a następnie usuwane.",
     "p6.5": "Środki techniczne i organizacyjne są zgodne ze standardami ISO 27001 i NIST SP 800-88.",
     "p6.6": "Dostęp jest ograniczony do upoważnionego personelu pod ścisłą poufnością.",
     "p6.7": "Zgodność z HIPAA — DxGPT jest zgodny z HIPAA (Zasady prywatności, bezpieczeństwa i powiadamiania o naruszeniach) i realizuje Umowy z Partnerami Biznesowymi (BAA). Zobacz Załącznik A, aby poznać szczegółowe zabezpieczenia.",
@@ -800,9 +800,10 @@
     "p7.2": "Zagregowane, anonimowe dane użytkowania są przechowywane nie dłużej niż 5 lat przed nieodwracalnym usunięciem.",
     "p7.3": "Zgłoszenia do działu pomocy i dokumenty umowne są przechowywane do 5 lat w celu spełnienia wymogów księgowych i prawnych.",
     "p7.4": "Możesz poprosić o wcześniejsze usunięcie, gdy RODO na to pozwala (patrz sekcja 8).",
+    "p7.5": "Obrazy przesłane do analizy: maksymalnie 24 godziny lub do rozpoczęcia nowego przypadku.",
     "p8.1": "7. Transfery międzynarodowe",
     "p8.2": "Gdy tylko to możliwe, Twoje dane są przetwarzane w regionie geograficznym najbliższym Tobie, aby zminimalizować opóźnienia i respektować lokalną jurysdykcję.",
-    "p8.3": "W przypadku użytkowników zlokalizowanych w Europejskim Obszarze Gospodarczym (EOG), wszystkie dane osobowe są przechowywane i przetwarzane wyłącznie na serwerach fizycznie zlokalizowanych w Unii Europejskiej.",
+    "p8.3": "W przypadku użytkowników z Europejskiego Obszaru Gospodarczego (EOG) dane są przechowywane i przetwarzane na serwerach znajdujących się w Unii Europejskiej. Jeśli europejska usługa AI jest niedostępna, zapytanie może zostać przetworzone w centrum danych Microsoft Azure w Stanach Zjednoczonych, z zabezpieczeniami opisanymi w następnym punkcie.",
     "p8.4": "W przypadku przetwarzania poza EOG, opieramy się na Standardowych Klauzulach Umownych (SCC) lub decyzjach o adekwatności, aby zapewnić odpowiedni poziom ochrony (Art. 46 RODO). W świetle decyzji TSUE Schrems II, wdrażamy również dodatkowe środki techniczne i organizacyjne, takie jak szyfrowanie end-to-end, ścisłą kontrolę dostępu i szczegółowe rejestrowanie audytu, aby zminimalizować ryzyko bezprawnego dostępu rządowego.",
     "p9.1": "8. Twoje prawa na mocy RODO",
     "p9.2": "Masz prawo do:",
@@ -911,6 +912,7 @@
     "swal3Multimodal": "Po zakończeniu sprawdź wygenerowany tekst i kliknij przycisk Szukaj, aby kontynuować.",
     "multimodalInfo": {
       "short": "Przeanalizujemy razem Twój opis i przesłane pliki.",
+      "retention": "Obrazy są przechowywane w postaci zaszyfrowanej wyłącznie w celu ich analizy i usuwane automatycznie po 24 godzinach lub wcześniej, jeśli rozpoczniesz nowy przypadek. Dokumenty nie są przechowywane.",
       "title": "Funkcjonalność w fazie testowej",
       "description": "Ta funkcjonalność do przetwarzania dokumentów i obrazów jest w fazie testowej. Twoja opinia jest bardzo ważna, aby ją ulepszyć.",
       "instructions": "Aby uzyskać lepsze wyniki:",

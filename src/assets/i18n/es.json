@@ -417,7 +417,7 @@
         "memory": {
           "title": "Procesamiento protegido",
           "description": "El análisis se realiza sobre información anonimizada. El tratamiento y la conservación de registros se configuran según el entorno asistencial y su política aplicable.",
-          "descriptionEu": "El análisis de información se realiza en tiempo real y en memoria, sin almacenar datos clínicos o personales del paciente en servidores."
+          "descriptionEu": "El análisis se realiza en tiempo real y en memoria. Solo las imágenes que subes se guardan, cifradas, un máximo de 24 h para poder analizarlas."
         },
         "retraining": {
           "title": "Sin entrenamiento con consultas",
@@ -792,7 +792,7 @@
     "p6.1": "5. Seguridad y almacenamiento de datos",
     "p6.2": "Todos los canales de datos están protegidos mediante cifrado en tránsito y en reposo.",
     "p6.3": "Un sistema basado en inteligencia artificial detecta automáticamente los identificadores personales y los reemplaza por asteriscos (***) antes del almacenamiento.",
-    "p6.4": "Nunca se escribe en disco información de salud sin enmascarar; el procesamiento ocurre solo en memoria volátil.",
+    "p6.4": "La información de salud se procesa en memoria. La única excepción son las imágenes que subes: se guardan cifradas, sin anonimizar, un máximo de 24 h para poder analizarlas, y después se borran.",
     "p6.5": "Se aplican medidas técnicas y organizativas conforme a las normas ISO 27001 y NIST SP 800-88.",
     "p6.6": "El acceso está restringido únicamente a personal autorizado bajo estricta confidencialidad.",
     "p6.7": "Cumplimiento de HIPAA, DxGPT cumple con HIPAA (reglas de privacidad, seguridad y notificación de incidentes) y firma acuerdos de asociación comercial (BAAs). Ver el apéndice A para más detalles.",
@@ -800,9 +800,10 @@
     "p7.2": "Los datos de uso anonimizados y agregados se conservan por un máximo de 5 años antes de ser eliminados de forma irreversible.",
     "p7.3": "Las consultas de soporte y registros contractuales se almacenan hasta 5 años para cumplir requisitos contables y legales.",
     "p7.4": "Puedes solicitar su eliminación anticipada cuando lo permita el RGPD (ver sección 8).",
+    "p7.5": "Imágenes subidas para el análisis: máximo 24 h, o hasta que empieces un caso nuevo.",
     "p8.1": "7. Transferencias internacionales",
     "p8.2": "Siempre que sea posible, tus datos se procesan en la región geográfica más cercana para minimizar la latencia y respetar la jurisdicción local.",
-    "p8.3": "Para los usuarios ubicados en el Espacio Económico Europeo (EEE), todos los datos personales se almacenan y procesan exclusivamente en servidores ubicados físicamente dentro de la Unión Europea.",
+    "p8.3": "Para los usuarios ubicados en el Espacio Económico Europeo (EEE), los datos se almacenan y procesan en servidores ubicados dentro de la Unión Europea. Si el servicio de IA europeo no está disponible, la consulta puede procesarse en un centro de datos de Microsoft Azure en Estados Unidos, con las garantías descritas en el punto siguiente.",
     "p8.4": "Cuando el procesamiento se realiza fuera del EEE, confiamos en las cláusulas contractuales tipo (SCC) o decisiones de adecuación para garantizar un nivel adecuado de protección (art. 46 del RGPD). A la luz de la sentencia Schrems II del TJUE, también implementamos medidas técnicas y organizativas suplementarias como cifrado de extremo a extremo, controles de acceso estrictos y registros de auditoría detallados para minimizar el riesgo de acceso gubernamental no autorizado.",
     "p9.1": "8. Tus derechos bajo el RGPD",
     "p9.2": "Tienes derecho a:",
@@ -911,6 +912,7 @@
     "swal3Multimodal": "Una vez completado, revisa el texto generado y pulsa en buscar para continuar.",
     "multimodalInfo": {
       "short": "Analizaremos conjuntamente tu descripción y los archivos subidos.",
+      "retention": "Las imágenes se guardan cifradas solo para analizarlas y se borran automáticamente a las 24 h, o antes si empiezas otro caso. Los documentos no se guardan.",
       "title": "Funcionalidad en pruebas",
       "description": "Esta funcionalidad para procesar documentos e imágenes está en fase experimental. Tu feedback es muy importante para mejorarla.",
       "instructions": "Para obtener mejores resultados:",

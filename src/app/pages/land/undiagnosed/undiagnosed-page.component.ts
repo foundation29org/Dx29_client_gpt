@@ -3463,6 +3463,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         formData.append('myuuid', this.myuuid || '');
         formData.append('timezone', this.timezone || '');
+        const iframeParams = this.filterIframeParams(this.iframeParams);
+        if (Object.keys(iframeParams).length > 0) {
+            formData.append('iframeParams', JSON.stringify(iframeParams));
+        }
 
         Swal.close();
         

@@ -417,7 +417,7 @@
         "memory": {
           "title": "Protected processing",
           "description": "Analysis is performed on anonymized information. Processing and record retention are configured according to the care setting and its applicable policy.",
-          "descriptionEu": "Information analysis is performed in real-time and in memory, with no clinical or personal patient data stored on servers."
+          "descriptionEu": "Analysis is performed in real time and in memory. Only the images you upload are stored, encrypted, for up to 24 hours so they can be analyzed."
         },
         "retraining": {
           "title": "No training on queries",
@@ -792,7 +792,7 @@
     "p6.1": "5. Data security and storage",
     "p6.2": "Encryption in transit and at rest protects all data channels.",
     "p6.3": "An AI-based detection system automatically identifies personal identifiers and replaces them with asterisks (***) before storage.",
-    "p6.4": "No unmasked health data is ever written to disk; processing occurs only in volatile memory.",
+    "p6.4": "Health information is processed in memory. The only exception is the images you upload: they are stored encrypted, not anonymized, for up to 24 hours so they can be analyzed, and are then deleted.",
     "p6.5": "Technical and organisational measures follow ISO 27001 and NIST SP 800-88 standards.",
     "p6.6": "Access is limited to authorised personnel under strict confidentiality.",
     "p6.7": "HIPAA compliance — DxGPT complies with HIPAA (Privacy, Security, and Breach Notification Rules) and executes Business Associate Agreements (BAAs). See Appendix A for detailed safeguards.",
@@ -800,9 +800,10 @@
     "p7.2": "Aggregated, anonymous usage data is retained for no longer than 5 years before irreversible deletion.",
     "p7.3": "Support tickets and contractual records are stored for up to 5 years to comply with accounting and legal requirements.",
     "p7.4": "You may request earlier deletion where GDPR permits (see section 8).",
+    "p7.5": "Images uploaded for analysis: up to 24 hours, or until you start a new case.",
     "p8.1": "7. International transfers",
     "p8.2": "Whenever possible, your data is processed in the geographic region closest to you to minimise latency and respect local jurisdiction.",
-    "p8.3": "For users located in the European Economic Area (EEA), all personal data is stored and processed exclusively on servers physically located within the European Union.",
+    "p8.3": "For users located in the European Economic Area (EEA), data is stored and processed on servers located within the European Union. If the European AI service is unavailable, the request may be processed in a Microsoft Azure data center in the United States, with the safeguards described in the next point.",
     "p8.4": "Where processing occurs outside the EEA, we rely on Standard Contractual Clauses (SCCs) or adequacy decisions to ensure an adequate level of protection (Art. 46 GDPR). In light of the CJEU Schrems II decision, we also implement supplementary technical and organisational measures such as end-to-end encryption, strict access controls, and detailed audit logging to minimise the risk of unlawful government access.",
     "p9.1": "8. Your rights under the GDPR",
     "p9.2": "You have the right to:",
@@ -911,6 +912,7 @@
     "swal3Multimodal": "Once completed, review the generated text and click search to continue.",
     "multimodalInfo": {
       "short": "We'll analyze your description and uploaded files together.",
+      "retention": "Images are stored encrypted only to analyze them and are deleted automatically after 24 hours, or earlier if you start a new case. Documents are not stored.",
       "title": "Feature in testing",
       "description": "This functionality for processing documents and images is in experimental phase. Your feedback is very important to improve it.",
       "instructions": "For better results:",

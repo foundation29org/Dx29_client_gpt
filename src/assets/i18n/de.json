@@ -417,7 +417,7 @@
         "memory": {
           "title": "Geschützte Verarbeitung",
           "description": "Die Analyse erfolgt auf anonymisierten Informationen. Verarbeitung und Aufbewahrung von Protokollen werden nach der Versorgungsumgebung und ihrer geltenden Richtlinie konfiguriert.",
-          "descriptionEu": "Die Informationsanalyse wird in Echtzeit und im Speicher durchgeführt. Wir speichern keine klinischen oder persönlichen Patientendaten auf unseren Servern."
+          "descriptionEu": "Die Analyse erfolgt in Echtzeit und im Arbeitsspeicher. Nur die Bilder, die Sie hochladen, werden verschlüsselt bis zu 24 Stunden gespeichert, damit sie analysiert werden können."
         },
         "retraining": {
           "title": "Kein Training mit Anfragen",
@@ -792,7 +792,7 @@
     "p6.1": "5. Datensicherheit und -speicherung",
     "p6.2": "Verschlüsselung während der Übertragung und im Ruhezustand schützt alle Datenkanäle.",
     "p6.3": "Ein KI-basiertes Erkennungssystem identifiziert automatisch persönliche Identifikatoren und ersetzt sie vor der Speicherung durch Sternchen (***).",
-    "p6.4": "Unmaskierte Gesundheitsdaten werden niemals auf Festplatte geschrieben; die Verarbeitung erfolgt nur im flüchtigen Speicher.",
+    "p6.4": "Gesundheitsinformationen werden im Arbeitsspeicher verarbeitet. Die einzige Ausnahme sind die Bilder, die Sie hochladen: Sie werden verschlüsselt und nicht anonymisiert bis zu 24 Stunden gespeichert, damit sie analysiert werden können, und danach gelöscht.",
     "p6.5": "Technische und organisatorische Maßnahmen folgen den Standards ISO 27001 und NIST SP 800-88.",
     "p6.6": "Der Zugriff ist auf autorisiertes Personal unter strenger Vertraulichkeit beschränkt.",
     "p6.7": "HIPAA-Compliance — DxGPT entspricht HIPAA (Datenschutz-, Sicherheits- und Benachrichtigungsregeln bei Datenpannen) und schließt Business Associate Agreements (BAAs) ab. Siehe Anhang A für detaillierte Schutzmaßnahmen.",
@@ -800,9 +800,10 @@
     "p7.2": "Aggregierte, anonyme Nutzungsdaten werden nicht länger als 5 Jahre aufbewahrt, bevor sie unwiderruflich gelöscht werden.",
     "p7.3": "Support-Tickets und vertragliche Aufzeichnungen werden bis zu 5 Jahre aufbewahrt, um Buchhaltungs- und gesetzlichen Anforderungen zu entsprechen.",
     "p7.4": "Sie können eine frühere Löschung beantragen, wo die DSGVO dies zulässt (siehe Abschnitt 8).",
+    "p7.5": "Zur Analyse hochgeladene Bilder: bis zu 24 Stunden oder bis Sie einen neuen Fall beginnen.",
     "p8.1": "7. Internationale Übertragungen",
     "p8.2": "Wann immer möglich, werden Ihre Daten in der geografischen Region verarbeitet, die Ihnen am nächsten liegt, um die Latenz zu minimieren und die lokale Jurisdiktion zu respektieren.",
-    "p8.3": "Für Benutzer, die sich im Europäischen Wirtschaftsraum (EWR) befinden, werden alle personenbezogenen Daten ausschließlich auf Servern gespeichert und verarbeitet, die physisch innerhalb der Europäischen Union liegen.",
+    "p8.3": "Für Nutzer im Europäischen Wirtschaftsraum (EWR) werden die Daten auf Servern innerhalb der Europäischen Union gespeichert und verarbeitet. Ist der europäische KI-Dienst nicht verfügbar, kann die Anfrage in einem Microsoft-Azure-Rechenzentrum in den Vereinigten Staaten verarbeitet werden, mit den im nächsten Punkt beschriebenen Garantien.",
     "p8.4": "Wenn die Verarbeitung außerhalb des EWR erfolgt, verlassen wir uns auf Standardvertragsklauseln (SCCs) oder Angemessenheitsbeschlüsse, um ein angemessenes Schutzniveau zu gewährleisten (Art. 46 DSGVO). Im Lichte der CJEU Schrems II-Entscheidung implementieren wir auch zusätzliche technische und organisatorische Maßnahmen wie Ende-zu-Ende-Verschlüsselung, strikte Zugangskontrollen und detaillierte Audit-Protokollierung, um das Risiko unrechtmäßigen Regierungszugriffs zu minimieren.",
     "p9.1": "8. Ihre Rechte gemäß der DSGVO",
     "p9.2": "Sie haben das Recht auf:",
@@ -911,6 +912,7 @@
     "swal3Multimodal": "Sobald dies abgeschlossen ist, überprüfen Sie den generierten Text und klicken Sie auf Suchen, um fortzufahren.",
     "multimodalInfo": {
       "short": "Wir analysieren Ihre Beschreibung und die hochgeladenen Dateien gemeinsam.",
+      "retention": "Bilder werden nur zur Analyse verschlüsselt gespeichert und nach 24 Stunden automatisch gelöscht, oder früher, wenn Sie einen neuen Fall beginnen. Dokumente werden nicht gespeichert.",
       "title": "Funktionalität in Test",
       "description": "Diese Funktionalität für die Verarbeitung von Dokumenten und Bildern ist in der experimentellen Phase. Ihr Feedback ist sehr wichtig, um es zu verbessern.",
       "instructions": "Für bessere Ergebnisse:",

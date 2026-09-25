@@ -417,7 +417,7 @@
         "memory": {
           "title": "Processament protegit",
           "description": "L'anàlisi es realitza sobre informació anonimitzada. El tractament i la conservació de registres es configuren segons l'entorn assistencial i la seva política aplicable.",
-          "descriptionEu": "L'anàlisi d'informació es realitza en temps real i en memòria, sense emmagatzemar dades clíniques o personals del pacient en servidors."
+          "descriptionEu": "L’anàlisi es fa en temps real i en memòria. Només les imatges que puges es desen, xifrades, un màxim de 24 h per poder analitzar-les."
         },
         "retraining": {
           "title": "Sense entrenament amb consultes",
@@ -792,7 +792,7 @@
     "p6.1": "5. Seguretat i emmagatzematge de dades",
     "p6.2": "Tots els canals de dades estan protegits mitjançant xifrat en trànsit i en repòs.",
     "p6.3": "Un sistema basat en intel·ligència artificial detecta automàticament els identificadors personals i els reemplaça per asteriscs (***) abans de l'emmagatzematge.",
-    "p6.4": "Mai s'escriu en disc informació de salut sense enmascarar; el processament ocorre només en memòria volàtil.",
+    "p6.4": "La informació de salut es processa en memòria. L’única excepció són les imatges que puges: es desen xifrades, sense anonimitzar, un màxim de 24 h per poder analitzar-les, i després s’esborren.",
     "p6.5": "S'apliquen mesures tècniques i organitzatives conforme a les normes ISO 27001 i NIST SP 800-88.",
     "p6.6": "L'accés està restringit únicament a personal autoritzat sota estricta confidencialitat.",
     "p6.7": "Compliment de HIPAA, DxGPT compleix amb HIPAA (regles de privacitat, seguretat i notificació d'incidents) i signa acords d'associació comercial (BAAs). Veure l'apèndix A per a més detalls.",
@@ -800,9 +800,10 @@
     "p7.2": "Les dades d'ús anonimitzades i agregades es conserven per un màxim de 5 anys abans de ser eliminades de forma irreversible.",
     "p7.3": "Les consultes de suport i registres contractuals s'emmagatzemen fins a 5 anys per complir requisits comptables i legals.",
     "p7.4": "Pots sol·licitar la seva eliminació anticipada quan ho permeti el RGPD (veure secció 8).",
+    "p7.5": "Imatges pujades per a l’anàlisi: màxim 24 h, o fins que comencis un cas nou.",
     "p8.1": "7. Transferències internacionals",
     "p8.2": "Sempre que sigui possible, les teves dades es processen a la regió geogràfica més propera per minimitzar la latència i respectar la jurisdicció local.",
-    "p8.3": "Per als usuaris ubicats a l'Espai Econòmic Europeu (EEE), totes les dades personals s'emmagatzemen i processen exclusivament en servidors ubicats físicament dins de la Unió Europea.",
+    "p8.3": "Per als usuaris ubicats a l’Espai Econòmic Europeu (EEE), les dades s’emmagatzemen i es processen en servidors ubicats dins de la Unió Europea. Si el servei d’IA europeu no està disponible, la consulta es pot processar en un centre de dades de Microsoft Azure als Estats Units, amb les garanties descrites al punt següent.",
     "p8.4": "Quan el processament es realitza fora de l'EEE, confiem en les clàusules contractuals tipus (SCC) o decisions d'adequació per garantir un nivell adequat de protecció (art. 46 del RGPD). A la llum de la sentència Schrems II del TJUE, també implementem mesures tècniques i organitzatives suplementàries com xifrat d'extrem a extrem, controls d'accés estrictes i registres d'auditoria detallats per minimitzar el risc d'accés governamental no autoritzat.",
     "p9.1": "8. Els teus drets sota el RGPD",
     "p9.2": "Tens dret a:",
@@ -911,6 +912,7 @@
     "swal3Multimodal": "Un cop completat, revisa el text generat i prem en cercar per continuar.",
     "multimodalInfo": {
       "short": "Analitzarem conjuntament la teva descripció i els fitxers pujats.",
+      "retention": "Les imatges es desen xifrades només per analitzar-les i s’esborren automàticament a les 24 h, o abans si comences un altre cas. Els documents no es desen.",
       "title": "Funcionalitat en proves",
       "description": "Aquesta funcionalitat per processar documents i imatges està en fase experimental. El teu feedback és molt important per millorar-la.",
       "instructions": "Per obtenir millors resultats:",

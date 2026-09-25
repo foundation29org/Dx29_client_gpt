@@ -417,7 +417,7 @@
         "memory": {
           "title": "Traitement protégé",
           "description": "L'analyse s'effectue sur des informations anonymisées. Le traitement et la conservation des journaux sont configurés selon l'environnement de soins et sa politique applicable.",
-          "descriptionEu": "L'analyse d'informations est effectuée en temps réel et en mémoire, sans stockage de données cliniques ou personnelles des patients sur les serveurs."
+          "descriptionEu": "L’analyse est effectuée en temps réel et en mémoire. Seules les images que vous importez sont conservées, chiffrées, pendant 24 h au maximum afin de pouvoir les analyser."
         },
         "retraining": {
           "title": "Pas d'entraînement à partir des requêtes",
@@ -792,7 +792,7 @@
     "p6.1": "5. Sécurité et stockage des données",
     "p6.2": "Toutes les données sont protégées par un chiffrement en transit et au repos.",
     "p6.3": "Un système basé sur l’intelligence artificielle identifie automatiquement les identifiants personnels et les remplace par des astérisques (***) avant stockage.",
-    "p6.4": "Aucune donnée de santé non masquée n’est jamais enregistrée sur disque ; le traitement s’effectue uniquement en mémoire volatile.",
+    "p6.4": "Les informations de santé sont traitées en mémoire. La seule exception concerne les images que vous importez : elles sont conservées chiffrées, non anonymisées, pendant 24 h au maximum afin de pouvoir les analyser, puis supprimées.",
     "p6.5": "Des mesures techniques et organisationnelles conformes aux normes ISO 27001 et NIST SP 800-88 sont mises en œuvre.",
     "p6.6": "L’accès est strictement réservé au personnel autorisé soumis à des obligations de confidentialité.",
     "p6.7": "Conformité HIPAA — DxGPT respecte la HIPAA (règles de confidentialité, de sécurité et de notification des violations) et conclut des accords de partenariat (BAA) avec chaque prestataire traitant des PHI. Voir l’annexe A pour plus de détails.",
@@ -800,9 +800,10 @@
     "p7.2": "Les données d’utilisation anonymisées et agrégées sont conservées pour une durée maximale de 5 ans avant suppression irréversible.",
     "p7.3": "Les tickets de support et les documents contractuels sont conservés jusqu’à 5 ans pour respecter les obligations comptables et légales.",
     "p7.4": "Vous pouvez demander leur suppression anticipée si le RGPD le permet (voir section 8).",
+    "p7.5": "Images importées pour l’analyse : 24 h au maximum, ou jusqu’à ce que vous commenciez un nouveau cas.",
     "p8.1": "7. Transferts internationaux",
     "p8.2": "Dans la mesure du possible, vos données sont traitées dans la région géographique la plus proche afin de minimiser la latence et de respecter la juridiction locale.",
-    "p8.3": "Pour les utilisateurs situés dans l’Espace économique européen (EEE), toutes les données personnelles sont stockées et traitées exclusivement sur des serveurs situés physiquement dans l’Union européenne.",
+    "p8.3": "Pour les utilisateurs situés dans l’Espace économique européen (EEE), les données sont stockées et traitées sur des serveurs situés dans l’Union européenne. Si le service d’IA européen n’est pas disponible, la demande peut être traitée dans un centre de données Microsoft Azure aux États-Unis, avec les garanties décrites au point suivant.",
     "p8.4": "Lorsque le traitement a lieu en dehors de l’EEE, nous utilisons les clauses contractuelles types (SCC) ou des décisions d’adéquation pour garantir un niveau de protection suffisant (art. 46 du RGPD). À la lumière de l’arrêt Schrems II de la CJUE, nous mettons également en œuvre des mesures techniques et organisationnelles supplémentaires comme le chiffrement de bout en bout, des contrôles d’accès stricts et des journaux d’audit détaillés afin de minimiser le risque d’accès gouvernemental non autorisé.",
     "p9.1": "8. Vos droits selon le RGPD",
     "p9.2": "Vous avez le droit de :",
@@ -911,6 +912,7 @@
     "swal3Multimodal": "Une fois terminé, examinez le texte généré et cliquez sur rechercher pour continuer.",
     "multimodalInfo": {
       "short": "Nous analyserons ensemble votre description et les fichiers importés.",
+      "retention": "Les images sont conservées chiffrées uniquement pour les analyser et sont supprimées automatiquement au bout de 24 h, ou plus tôt si vous commencez un nouveau cas. Les documents ne sont pas conservés.",
       "title": "Fonctionnalité en test",
       "description": "Cette fonctionnalité pour traiter des documents et des images est en phase expérimentale. Votre retour est très important pour l'améliorer.",
       "instructions": "Pour de meilleurs résultats :",
