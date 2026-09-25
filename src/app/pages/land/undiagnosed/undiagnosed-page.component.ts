@@ -35,7 +35,7 @@ interface MultimodalImageReference {
     mimeType?: string;
     // false para imágenes documentales ya convertidas a texto por V1.
     diagnosticUse?: boolean;
-    routing?: 'vision' | 'ocr_text';
+    routing?: 'vision' | 'ocr_text' | 'not_medical';
 }
 
 type MultimodalFileStatus = 'pending' | 'processing' | 'completed' | 'warning' | 'error';
@@ -175,6 +175,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     filesAnalyzed = false;
     failedDocumentNames: string[] = [];
+    notMedicalImageNames: string[] = [];
     private fileProcessingStatuses = new Map<string, MultimodalFileStatus>();
     private multimodalRequestSubscription: Subscription | null = null;
     private multimodalPreprocessingCompleted = false;
@@ -355,6 +356,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             .forEach((image: {
                 name?: string;
                 size?: number;
+                route?: string;
                 fallbackReason?: string;
             }) => {
                 if (image.name) {
@@ -362,8 +364,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         image.name,
                         image.size,
                         true,
-                        UndiagnosedPageComponent.IMAGE_WARNING_REASONS
-                            .includes(image.fallbackReason)
+                        image.route === 'not_medical' ||
+                            UndiagnosedPageComponent.IMAGE_WARNING_REASONS
+                                .includes(image.fallbackReason)
                             ? 'warning'
                             : 'completed'
                     );
@@ -614,6 +617,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.selectedFiles = [];
         this.fileProcessingStatuses.clear();
         this.failedDocumentNames = [];
+        this.notMedicalImageNames = [];
         this.lastMultimodalCorrelationId = '';
     }
 
@@ -1071,7 +1075,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             INVALID_DIAGNOSE_INPUT: 'generics.Invalid request format or content',
             SUMMARY_INPUT_REJECTED: 'generics.Invalid request format or content',
             INPUT_TOO_LARGE: 'generics.inputTooLarge',
-            NO_DOCUMENT: 'generics.documentUnreadable'
+            NO_DOCUMENT: 'generics.documentUnreadable',
+            NO_MEDICAL_IMAGE: 'generics.imageNotMedical'
         };
         let msgError = this.translate.instant(
             messageKeyByType[error?.type] || 'generics.error try again'
@@ -1124,7 +1129,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async checkPopup(contentIntro) {
         this.showErrorCall1 = false;
-        if (this.callingAI || this.medicalTextOriginal.length < 15) {
+        if (this.callingAI || (!this.hasDiagnosticImages && this.medicalTextOriginal.length < 15)) {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
             if (this.medicalTextOriginal.length > 0) {
@@ -3407,6 +3412,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.multimodalPreprocessingCompleted = false;
         const runId = ++this.activeMultimodalRun;
         this.failedDocumentNames = [];
+        this.notMedicalImageNames = [];
         this.lastMultimodalCorrelationId = '';
         this.setAllFileStatuses('processing');
         // Mostrar spinner con Swals
@@ -3573,6 +3579,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.lastMultimodalCorrelationId = res?.correlationId || '';
         this.applyFileProcessingResults(res);
         this.reportFailedDocuments(res.documents);
+        this.notMedicalImageNames = (Array.isArray(res.imageRouting) ? res.imageRouting : [])
+            .filter((image: { route?: string; name?: string }) =>
+                image?.route === 'not_medical' && !!image.name
+            )
+            .map((image: { name: string }) => image.name);
         this.handledDiagnoseResponse(res, null);
         if(res.description && res.isImageOnly == false){
             this.resultAnonymized = res.description;
@@ -3749,7 +3760,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             return this.translate.instant('generics.Please wait');
         }
         
-        if (this.medicalTextOriginal.length < 5) {
+        if (!this.hasDiagnosticImages && this.medicalTextOriginal.length < 5) {
             return this.translate.instant('land.placeholderError');
         }
         
