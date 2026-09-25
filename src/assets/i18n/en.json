@@ -624,6 +624,7 @@
     "error try again": "An error has occurred, please try again",
     "imageAssetExpired": "One or more images have expired or are no longer available. Remove them or upload them again.",
     "inputTooLarge": "The documents contain too much text to analyze. Upload fewer documents or only the relevant pages.",
+    "documentUnreadable": "We could not read the document. Try a PDF or DOCX file, or paste the text.",
     "documentPartialFailure": "Some documents could not be processed: {{files}}. The search continues with the rest.",
     "error edit patient description": "If the problem persists, edit the patient description",
     "entervalidemail": "Please enter a valid email!",

@@ -624,6 +624,7 @@
     "error try again": "Wystąpił błąd, proszę spróbować ponownie",
     "imageAssetExpired": "Co najmniej jeden obraz wygasł lub nie jest już dostępny. Usuń go lub prześlij ponownie.",
     "inputTooLarge": "Dokumenty zawierają zbyt dużo tekstu do analizy. Prześlij mniej dokumentów lub tylko odpowiednie strony.",
+    "documentUnreadable": "Nie udało się odczytać dokumentu. Spróbuj pliku PDF lub DOCX albo wklej tekst.",
     "documentPartialFailure": "Nie udało się przetworzyć niektórych dokumentów: {{files}}. Wyszukiwanie jest kontynuowane z pozostałymi.",
     "error edit patient description": "Jeśli problem będzie się powtarzał, zedytuj opis pacjenta",
     "entervalidemail": "Proszę podać prawidłowy adres e-mail!",

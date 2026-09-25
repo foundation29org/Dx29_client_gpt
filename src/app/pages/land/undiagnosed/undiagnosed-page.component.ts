@@ -62,7 +62,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         'application/pdf',
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/vnd.ms-excel',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'text/plain'
     ];
@@ -191,7 +190,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     // parte de cero y crea un uploadId nuevo.
     currentUploadId: string | null = null;
     currentImages: MultimodalImageReference[] = [];
-    descriptionImageOnly: string = '';
 
     // Propiedades para WebSocket/PubSub
     private webSocket: WebSocket | null = null;
@@ -228,7 +226,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.discardUploadOnServer(this.currentUploadId);
         this.currentUploadId = null;
         this.currentImages = [];
-        this.descriptionImageOnly = '';
     }
 
     // Borrado activo de las imágenes en cuanto dejan de referenciarse (nuevo
@@ -1073,7 +1070,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             DESCRIPTION_TOO_SHORT: 'generics.minDescriptionLength',
             INVALID_DIAGNOSE_INPUT: 'generics.Invalid request format or content',
             SUMMARY_INPUT_REJECTED: 'generics.Invalid request format or content',
-            INPUT_TOO_LARGE: 'generics.inputTooLarge'
+            INPUT_TOO_LARGE: 'generics.inputTooLarge',
+            NO_DOCUMENT: 'generics.documentUnreadable'
         };
         let msgError = this.translate.instant(
             messageKeyByType[error?.type] || 'generics.error try again'
@@ -1380,16 +1378,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             forceDiagnosis: this.forceDiagnosisNext === true
         };
         this.forceDiagnosisNext = false;
-        if(this.hasDiagnosticImages){
-            if(this.descriptionImageOnly != '' && value.description == ''){
-                value.description = this.descriptionImageOnly;
-            }else if (this.descriptionImageOnly != '' && value.description != ''){
-                if(!value.description.includes(this.descriptionImageOnly)){
-                    value.description = value.description + ' ' + this.descriptionImageOnly;
-                }
-            }            
-        }
-        
+
         if (this.loadMoreDiseases) {
             value.diseases_list = this.diseaseListText;
         }
@@ -1970,10 +1959,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         this.lauchEvent(infoOptionEvent);
 
-        if(this.hasDiagnosticImages && this.descriptionImageOnly != '' && this.medicalTextOriginal == ''){
-            this.medicalTextOriginal = this.descriptionImageOnly;
-        }
-
         var value = {
             questionType,
             disease: selectedDiseaseEn,
@@ -1983,16 +1968,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             detectedLang: this.detectedLang,
             uploadId: this.currentUploadId || undefined
         };
-
-        if(this.hasDiagnosticImages){
-            if(this.descriptionImageOnly != '' && value.medicalDescription == ''){
-                value.medicalDescription = this.descriptionImageOnly;
-            }else if (this.descriptionImageOnly != '' && value.medicalDescription != ''){
-                if(!value.medicalDescription.includes(this.descriptionImageOnly)){
-                    value.medicalDescription = value.medicalDescription + ' ' + this.descriptionImageOnly;
-                }
-            }            
-        }
         this.subscription.add(this.apiDx29ServerService.callInfoDisease(value)
             .subscribe((res: any) => {
                 if (res.result === 'success') {
@@ -3600,9 +3575,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.copyResultAnonymized = res.description;
             this.medicalTextOriginal = this.copyResultAnonymized;
             this.medicalTextEng = this.copyResultAnonymized;
-        }
-        if(res.description && res.isImageOnly == true){
-            this.descriptionImageOnly = res.description;
         }
         // uploadId es null si no se subió ninguna imagen. El servidor
         // decide en cada llamada qué imágenes de la subida van al modelo.

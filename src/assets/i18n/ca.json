@@ -624,6 +624,7 @@
     "error try again": "S'ha produït un error, intenta de nou",
     "imageAssetExpired": "Una o diverses imatges han caducat o ja no estan disponibles. Elimina-les o torna-les a pujar.",
     "inputTooLarge": "Els documents contenen massa text per analitzar-los. Puja menys documents o només les pàgines rellevants.",
+    "documentUnreadable": "No hem pogut llegir el document. Prova amb un PDF o DOCX, o enganxa el text.",
     "documentPartialFailure": "No s'han pogut processar alguns documents: {{files}}. La cerca continua amb la resta.",
     "error edit patient description": "Si el problema persisteix, edita la descripció del pacient",
     "entervalidemail": "Si us plau introdueix una adreça de correu electrònic vàlida!",
