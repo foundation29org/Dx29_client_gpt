@@ -2909,7 +2909,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             lang: this.lang,
             timezone: this.timezone,
             mode: focusDisease ? 'hypothesis' : 'general',
-            detectedLanguage: focusDisease ? this.detectedLang : undefined
+            detectedLanguage: focusDisease ? this.detectedLang : undefined,
+            uploadId: this.currentUploadId || undefined
         };
         
         this.subscription.add(
@@ -2999,7 +3000,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             lang: this.lang,
             timezone: this.timezone,
             mode: isHypothesisFollowUp ? 'hypothesis' : 'general',
-            detectedLanguage: isHypothesisFollowUp ? this.detectedLang : undefined
+            detectedLanguage: isHypothesisFollowUp ? this.detectedLang : undefined,
+            uploadId: this.currentUploadId || undefined
         };
         if(this.modeFunctionality && this.medicalTextEng ==''){
             value.description = this.medicalTextOriginal;
