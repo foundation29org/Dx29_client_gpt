@@ -62,7 +62,7 @@ const routes: Routes = [
         component: Foundation29Component,
         data: {
           title: 'foundation29.hero.title',
-          ...SEO_ROUTES['/foundation29']
+          robots: 'noindex, nofollow'
         }
       },
       {

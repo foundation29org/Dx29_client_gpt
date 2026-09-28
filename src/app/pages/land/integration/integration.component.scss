@@ -148,7 +148,7 @@
 
   .card-description {
     font-size: 1rem;
-    color: #64748b;
+    color: #475569;
     margin-bottom: 1.5rem;
     line-height: 1.6;
     word-wrap: break-word;
@@ -275,9 +275,8 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       }
 
-      &:focus {
+      &:focus:not(:focus-visible) {
         outline: none;
-        box-shadow: 0 0 0 3px rgba(var(--primary-color), 0.3);
       }
 
       i {
@@ -352,7 +351,7 @@
         }
 
         .api-status {
-          color: #f59e0b;
+          color: #92400e;
           font-weight: 600;
           font-size: 0.875rem;
           padding: 0.5rem 1rem;
@@ -584,7 +583,7 @@
       }
     }
 
-    h4 {
+    h3 {
       font-size: 1.25rem;
       font-weight: 600;
       color: #1e293b;

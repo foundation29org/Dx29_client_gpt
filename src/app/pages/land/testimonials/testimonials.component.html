@@ -1,82 +1,90 @@
 <div class="container pt-5 pb-5">
-  <h2 class="text-center mb-0 white">{{ 'testimonials.title' | translate }}</h2>
+  <h2 id="testimonialsTitle" class="text-center mb-0 white">{{ 'testimonials.title' | translate }}</h2>
   <div id="testimonialsCarousel" 
        class="carousel slide" 
        data-bs-ride="carousel"
        role="region"
-       aria-roledescription="carousel">
-    <div class="carousel-inner">
+       aria-labelledby="testimonialsTitle">
+    <div class="carousel-inner" [attr.aria-live]="paused ? 'polite' : 'off'">
       <div class="carousel-item active" role="group">
         <div class="testimonial">
           <div class="rating-container">
-            <span id="rating1" class="visually-hidden">Valoración 5 de 5 estrellas</span>
+            <span class="visually-hidden">{{ 'a11y.Rated 5 out of 5 stars' | translate }}</span>
             <ngb-rating [max]="5" 
                        class="my-rating mb-2" 
                        [rate]="5" 
                        [readonly]="true" 
-                       aria-labelledby="rating1">
+                       [tabindex]="-1"
+                       aria-hidden="true">
             </ngb-rating>
           </div>
           <p>"{{ 'testimonials.testi1' | translate }}"</p>
           <p class="mb-3"><strong>- {{ 'testimonials.Julio Mayol' | translate }}</strong></p>
         </div>
       </div>
-      <div class="carousel-item">
+      <div class="carousel-item" role="group">
         <div class="testimonial">
           <div class="rating-container">
-            <span id="rating2" class="visually-hidden">Valoración 5 de 5 estrellas</span>
-            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-labelledby="rating2"></ngb-rating>
+            <span class="visually-hidden">{{ 'a11y.Rated 5 out of 5 stars' | translate }}</span>
+            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" [tabindex]="-1" aria-hidden="true"></ngb-rating>
           </div>
           <p>"{{ 'testimonials.testi2' | translate }}"</p>
           <p class="mb-3"><strong>- {{ 'testimonials.Juanjo Ríos' | translate }}</strong></p>
         </div>
       </div>
-      <div class="carousel-item">
+      <div class="carousel-item" role="group">
         <div class="testimonial">
           <div class="rating-container">
-            <span id="rating3" class="visually-hidden">Valoración 5 de 5 estrellas</span>
-            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-labelledby="rating3"></ngb-rating>
+            <span class="visually-hidden">{{ 'a11y.Rated 5 out of 5 stars' | translate }}</span>
+            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" [tabindex]="-1" aria-hidden="true"></ngb-rating>
           </div>
           <p>"{{ 'testimonials.testi3' | translate }}"</p>
           <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
         </div>
       </div>
-      <div class="carousel-item">
+      <div class="carousel-item" role="group">
         <div class="testimonial">
           <div class="rating-container">
-            <span id="rating4" class="visually-hidden">Valoración 5 de 5 estrellas</span>
-            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-labelledby="rating4"></ngb-rating>
+            <span class="visually-hidden">{{ 'a11y.Rated 5 out of 5 stars' | translate }}</span>
+            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" [tabindex]="-1" aria-hidden="true"></ngb-rating>
           </div>
           <p>"{{ 'testimonials.testi4' | translate }}"</p>
           <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
         </div>
       </div>
-      <div class="carousel-item">
+      <div class="carousel-item" role="group">
         <div class="testimonial">
           <div class="rating-container">
-            <span id="rating5" class="visually-hidden">Valoración 5 de 5 estrellas</span>
-            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" aria-labelledby="rating5"></ngb-rating>
+            <span class="visually-hidden">{{ 'a11y.Rated 5 out of 5 stars' | translate }}</span>
+            <ngb-rating [max]="5" class="my-rating mb-2" [rate]="5" [readonly]="true" [tabindex]="-1" aria-hidden="true"></ngb-rating>
           </div>
           <p>"{{ 'testimonials.testi5' | translate }}"</p>
           <p class="mb-3"><strong>- {{ 'testimonials.Anonymous' | translate }}</strong></p>
         </div>
       </div>
     </div>
+    <div class="carousel-pause-container">
+      <button type="button"
+              class="carousel-pause"
+              [attr.aria-pressed]="paused"
+              (click)="togglePause()">
+        <i class="fa" [ngClass]="paused ? 'fa-play' : 'fa-pause'" aria-hidden="true"></i>
+        <span class="visually-hidden">{{ 'a11y.Pause testimonials' | translate }}</span>
+      </button>
+    </div>
     <button class="carousel-control-prev" 
             type="button" 
             data-bs-target="#testimonialsCarousel" 
-            data-bs-slide="prev"
-            aria-label="Previous">
+            data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">{{ 'generics.Previous' | translate }}</span>
+      <span class="visually-hidden">{{ 'a11y.Previous testimonial' | translate }}</span>
     </button>
     <button class="carousel-control-next" 
             type="button" 
             data-bs-target="#testimonialsCarousel" 
-            data-bs-slide="next"
-            aria-label="Next">
+            data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">{{ 'generics.Next' | translate }}</span>
+      <span class="visually-hidden">{{ 'a11y.Next testimonial' | translate }}</span>
     </button>
   </div>
 </div>

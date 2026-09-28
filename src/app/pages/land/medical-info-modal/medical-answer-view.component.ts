@@ -46,7 +46,8 @@ export class MedicalAnswerViewComponent implements OnChanges {
       size: 'md',
       backdrop: 'static',
       keyboard: false,
-      centered: true
+      centered: true,
+      ariaLabelledBy: 'medical-answer-feedback-title'
     });
     modalRef.componentInstance.question = this.answer.question;
     modalRef.componentInstance.initialVote = vote;

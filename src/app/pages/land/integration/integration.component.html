@@ -66,7 +66,7 @@
           
           <div class="deployment-examples">
             <h4>{{ 'integration.deployment_models.saas_multi_tenant.used_by' | translate }}</h4>
-            <button class="btn-contact" (click)="openContactModal()" [attr.aria-label]="'footer.Contact us' | translate">
+            <button type="button" class="btn-contact" (click)="openContactModal()">
               <i class="fas fa-envelope" aria-hidden="true"></i>
               {{'footer.Contact us' | translate }}
             </button>
@@ -110,6 +110,7 @@
                 <span>{{ 'integration.deployment_models.direct_api' | translate }}</span>
                 <a href="https://pricing.dxgpt.app/" target="_blank" rel="noopener noreferrer" class="api-link">
                   {{ 'integration.deployment_models.view_plans' | translate }}
+                  <span class="visually-hidden">({{'a11y.Opens in a new tab' | translate}})</span>
                 </a>
               </div>
               <div class="api-option">
@@ -300,28 +301,28 @@
           <div class="use-case-icon">
             <i class="fas fa-stethoscope" aria-hidden="true"></i>
           </div>
-          <h4>{{ 'integration.use_cases.primary_care' | translate }}</h4>
+          <h3>{{ 'integration.use_cases.primary_care' | translate }}</h3>
           <p>{{ 'integration.use_cases.primary_care_description' | translate }}</p>
         </div>
         <div class="use-case-item">
           <div class="use-case-icon">
             <i class="fas fa-ambulance" aria-hidden="true"></i>
           </div>
-          <h4>{{ 'integration.use_cases.emergency' | translate }}</h4>
+          <h3>{{ 'integration.use_cases.emergency' | translate }}</h3>
           <p>{{ 'integration.use_cases.emergency_description' | translate }}</p>
         </div>
         <div class="use-case-item">
           <div class="use-case-icon">
             <i class="fas fa-heartbeat" aria-hidden="true"></i>
           </div>
-          <h4>{{ 'integration.use_cases.specialties' | translate }}</h4>
+          <h3>{{ 'integration.use_cases.specialties' | translate }}</h3>
           <p>{{ 'integration.use_cases.specialties_description' | translate }}</p>
         </div>
         <div class="use-case-item">
           <div class="use-case-icon">
             <i class="fas fa-microscope" aria-hidden="true"></i>
           </div>
-          <h4>{{ 'integration.use_cases.research' | translate }}</h4>
+          <h3>{{ 'integration.use_cases.research' | translate }}</h3>
           <p>{{ 'integration.use_cases.research_description' | translate }}</p>
         </div>
       </div>
@@ -376,7 +377,7 @@
       <h2 class="cta-title">{{ 'integration.cta.title' | translate }}</h2>
       <p class="cta-description">{{ 'integration.cta.description' | translate }}</p>
       <div class="cta-buttons">
-        <button (click)="openContactModal()" class="btn btn-outline">{{ 'integration.cta.contact_us' | translate }}</button>
+        <button type="button" (click)="openContactModal()" class="btn btn-outline">{{ 'integration.cta.contact_us' | translate }}</button>
       </div>
     </div>
   </div>
@@ -385,8 +386,8 @@
 <!-- Send Message Modal -->
 <ng-template #sendMsgModal let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title">{{ getModalTitle() }}</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
+      <h4 class="modal-title" id="integration-modal-title">{{ getModalTitle() | translate }}</h4>
+      <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>

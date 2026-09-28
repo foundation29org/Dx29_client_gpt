@@ -35,6 +35,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     medicalTextOriginal = '';
     medicalTextEng = '';
     callingAI = false;
+    dictating = false;
     showBetaDetails = false;
     terms2 = false;
     lang = 'en';
@@ -281,6 +282,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         const options: NgbModalOptions = {
             backdrop: 'static',
             keyboard: false,
+            ariaDescribedBy: 'beta-disclaimer-content',
             windowClass: 'ModalClass-sm'
         };
         this.modalReference = this.modalService.open(content, options);
@@ -320,8 +322,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             lang,
             timezone: this.timezone,
             model: this.model,
-            iframeParams: this.filterIframeParams(this.iframeParams),
-            imageUrls: []
+            iframeParams: this.filterIframeParams(this.iframeParams)
         };
 
         this.activeRequest = this.apiDx29ServerService.ask(value).subscribe({

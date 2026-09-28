@@ -8,11 +8,11 @@
       <!-- Call to Action Buttons -->
       <div class="hero-actions">
         <a class="btn-secondary" href="/aboutus#evaluation">
-          <i class="fas fa-chart-line"></i>
+          <i class="fas fa-chart-line" aria-hidden="true"></i>
           {{'aboutUs.hero.evidenceButton' | translate }}
         </a>
         <a class="btn-primary" href="/aboutus#clinical-validation">
-          <i class="fas fa-shield-heart"></i>
+          <i class="fas fa-shield-heart" aria-hidden="true"></i>
           {{'aboutUs.hero.clinicalEvidenceButton' | translate }}
         </a>
       </div>
@@ -20,15 +20,15 @@
       <!-- Feature Highlights -->
       <div class="feature-highlights">
         <div class="highlight-item">
-          <i class="fas fa-folder-open"></i>
+          <i class="fas fa-folder-open" aria-hidden="true"></i>
           <span><span *ngIf="!isEuMode()">{{'aboutUs.hero.highlight1' | translate }}</span><span *ngIf="isEuMode()">{{'aboutUs.hero.highlight1Eu' | translate }}</span></span>
         </div>
         <div class="highlight-item">
-          <i class="fas fa-shield-heart"></i>
+          <i class="fas fa-shield-heart" aria-hidden="true"></i>
           <span>{{'aboutUs.hero.highlight2' | translate }}</span>
         </div>
         <div class="highlight-item">
-          <i class="fas fa-hospital"></i>
+          <i class="fas fa-hospital" aria-hidden="true"></i>
           <span>{{'aboutUs.hero.highlight3' | translate }}</span>
         </div>
       </div>
@@ -59,31 +59,31 @@
 
       <div class="benefits-grid">
         <div class="benefit-card">
-          <div class="benefit-icon"><i class="fas fa-clock"></i></div>
+          <div class="benefit-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
           <h3 class="benefit-title">{{'aboutUs.benefits.time.title' | translate }}</h3>
           <p class="benefit-text">{{'aboutUs.benefits.time.description' | translate }}</p>
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon"><i class="fas fa-list-check"></i></div>
+          <div class="benefit-icon"><i class="fas fa-list-check" aria-hidden="true"></i></div>
           <h3 class="benefit-title">{{'aboutUs.benefits.standardize.title' | translate }}</h3>
           <p class="benefit-text">{{'aboutUs.benefits.standardize.description' | translate }}</p>
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon"><i class="fas fa-microscope"></i></div>
+          <div class="benefit-icon"><i class="fas fa-microscope" aria-hidden="true"></i></div>
           <h3 class="benefit-title">{{'aboutUs.benefits.clarity.title' | translate }}</h3>
           <p class="benefit-text">{{'aboutUs.benefits.clarity.description' | translate }}</p>
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon"><i class="fas fa-brain"></i></div>
+          <div class="benefit-icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
           <h3 class="benefit-title">{{'aboutUs.benefits.safety.title' | translate }}</h3>
           <p class="benefit-text">{{'aboutUs.benefits.safety.description' | translate }}</p>
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon"><i class="fas fa-comments"></i></div>
+          <div class="benefit-icon"><i class="fas fa-comments" aria-hidden="true"></i></div>
           <h3 class="benefit-title">{{'aboutUs.benefits.tool.title' | translate }}</h3>
           <p class="benefit-text">{{'aboutUs.benefits.tool.description' | translate }}</p>
         </div>
@@ -161,8 +161,8 @@
             <p class="methodology-metrics__title">{{ 'aboutUs.evaluation.methodology.metrics.title' | translate }}</p>
             <table>
               <tr>
-                <th>{{ 'aboutUs.evaluation.methodology.metrics.thMetric' | translate }}</th>
-                <th>{{ 'aboutUs.evaluation.methodology.metrics.thDescription' | translate }}</th>
+                <th scope="col">{{ 'aboutUs.evaluation.methodology.metrics.thMetric' | translate }}</th>
+                <th scope="col">{{ 'aboutUs.evaluation.methodology.metrics.thDescription' | translate }}</th>
               </tr>
               <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.avgPosition' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.avgPositionDesc' | translate }}</td></tr>
               <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall1' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.recall1Desc' | translate }}</td></tr>
@@ -201,7 +201,7 @@
             <div class="bench-chart-card">
               <div class="bench-chart-caption">{{ 'aboutUs.evaluation.evolution.benchmark2026.avgPosChartCaption' | translate }}</div>
               <div class="bench-chart-canvas-wrapper">
-                <canvas #trackAChart></canvas>
+                <canvas #trackAChart role="img" [attr.aria-label]="'aboutUs.evaluation.evolution.benchmark2026.avgPosChartCaption' | translate"></canvas>
               </div>
             </div>
 
@@ -212,14 +212,14 @@
               <table class="bench-table bench-table--ranking">
               <thead>
                 <tr>
-                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thRank' | translate }}</th>
-                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thModel' | translate }}</th>
-                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
-                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
-                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
-                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
-                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
-                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thSecPerCase' | translate }}</th>
+                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thRank' | translate }}</th>
+                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thModel' | translate }}</th>
+                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
+                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
+                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
+                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
+                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
+                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thSecPerCase' | translate }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -350,13 +350,13 @@
             <table class="bench-table">
               <thead>
                 <tr>
-                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thDataset' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCases' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
+                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thDataset' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCases' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -411,12 +411,12 @@
             <table class="bench-table">
               <thead>
                 <tr>
-                  <th>{{ 'aboutUs.evaluation.evolution.benchmark2026.thModel' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
-                  <th class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
+                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thModel' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -439,14 +439,16 @@
           <div class="references-section" style="margin-top: 1rem;">
             <p class="subsection-text">
               {{'aboutUs.evaluation.evolution.benchmark2026.reference' | translate }}
-              <a href="https://github.com/foundation29org/dxgpt-bench-lab" target="_blank" class="reference-link">
-                <i class="fas fa-external-link-alt"></i> {{'aboutUs.evaluation.evolution.benchmark2026.repository' | translate }}
+              <a href="https://github.com/foundation29org/dxgpt-bench-lab" target="_blank" rel="noopener noreferrer" class="reference-link">
+                <i class="fas fa-external-link-alt" aria-hidden="true"></i> {{'aboutUs.evaluation.evolution.benchmark2026.repository' | translate }}
+                <span class="visually-hidden">({{'a11y.Opens in a new tab' | translate}})</span>
               </a>
             </p>
             <p class="subsection-text" style="margin-top: 0.5rem; margin-bottom: 2rem;">
               {{ 'aboutUs.evaluation.evolution.benchmark2026.paperLine' | translate }}
-              <a href="https://www.nature.com/articles/s41586-025-10097-9" target="_blank" class="reference-link">
-                <i class="fas fa-external-link-alt"></i> {{ 'aboutUs.evaluation.evolution.benchmark2026.deepRareLink' | translate }}
+              <a href="https://www.nature.com/articles/s41586-025-10097-9" target="_blank" rel="noopener noreferrer" class="reference-link">
+                <i class="fas fa-external-link-alt" aria-hidden="true"></i> {{ 'aboutUs.evaluation.evolution.benchmark2026.deepRareLink' | translate }}
+                <span class="visually-hidden">({{'a11y.Opens in a new tab' | translate}})</span>
               </a>
             </p>
           </div>
@@ -463,7 +465,7 @@
     <div id="clinical-validation" class="clinical-validation-section">
       <div class="validation-header">
         <div class="validation-badge">
-          <i class="fas fa-check-circle"></i>
+          <i class="fas fa-check-circle" aria-hidden="true"></i>
           <span>{{'aboutUs.clinicalValidation.validated' | translate }}</span>
         </div>
         <h2 class="validation-title">{{'aboutUs.clinicalValidation.title' | translate }}</h2>
@@ -475,22 +477,23 @@
 
       <div class="validation-highlights">
         <div class="highlight-item">
-          <i class="fas fa-hospital"></i>
+          <i class="fas fa-hospital" aria-hidden="true"></i>
           <span>{{'aboutUs.clinicalValidation.hospital' | translate }}</span>
         </div>
         <div class="highlight-item">
-          <i class="fas fa-chart-line"></i>
+          <i class="fas fa-chart-line" aria-hidden="true"></i>
           <span>{{'aboutUs.clinicalValidation.accuracy' | translate }}</span>
         </div>
         <div class="highlight-item">
-          <i class="fas fa-microscope"></i>
+          <i class="fas fa-microscope" aria-hidden="true"></i>
           <span>{{'aboutUs.clinicalValidation.research' | translate }}</span>
         </div>
       </div>
 
-      <a href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1" target="_blank" rel="noopener" class="study-link">
-        <i class="fas fa-external-link-alt"></i>
+      <a href="https://www.medrxiv.org/content/10.1101/2024.07.23.24310847v1" target="_blank" rel="noopener noreferrer" class="study-link">
+        <i class="fas fa-external-link-alt" aria-hidden="true"></i>
         {{'aboutUs.clinicalValidation.studyLink' | translate }}
+        <span class="visually-hidden">({{'a11y.Opens in a new tab' | translate}})</span>
       </a>
     </div>
     
@@ -528,42 +531,42 @@
         <summary>{{'aboutUs.trust.governance.title' | translate }}</summary>
         <div class="trust-details__content">
           <p class="subsection-text">{{'aboutUs.trust.governance.intro' | translate }}</p>
-          <div class="governance-table">
-            <div class="table-row header">
-              <div class="table-cell">{{'aboutUs.trust.governance.feature' | translate }}</div>
-              <div class="table-cell">{{'aboutUs.trust.governance.commitment' | translate }}</div>
+          <div class="governance-table" role="table" [attr.aria-label]="'aboutUs.trust.governance.title' | translate">
+            <div class="table-row header" role="row">
+              <div class="table-cell" role="columnheader">{{'aboutUs.trust.governance.feature' | translate }}</div>
+              <div class="table-cell" role="columnheader">{{'aboutUs.trust.governance.commitment' | translate }}</div>
             </div>
-            <div class="table-row">
-              <div class="table-cell">{{'aboutUs.trust.governance.processing' | translate }}</div>
-              <div class="table-cell">{{'aboutUs.trust.governance.processingValue' | translate }}</div>
+            <div class="table-row" role="row">
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.processing' | translate }}</div>
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.processingValue' | translate }}</div>
             </div>
-            <div class="table-row">
-              <div class="table-cell">{{'aboutUs.trust.governance.storage' | translate }}</div>
-              <div class="table-cell">{{'aboutUs.trust.governance.storageValue' | translate }}</div>
+            <div class="table-row" role="row">
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.storage' | translate }}</div>
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.storageValue' | translate }}</div>
             </div>
-            <div class="table-row">
-              <div class="table-cell">{{'aboutUs.trust.governance.anonymization' | translate }}</div>
-              <div class="table-cell">{{'aboutUs.trust.governance.anonymizationValue' | translate }}</div>
+            <div class="table-row" role="row">
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.anonymization' | translate }}</div>
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.anonymizationValue' | translate }}</div>
             </div>
-            <div class="table-row">
-              <div class="table-cell">{{'aboutUs.trust.governance.training' | translate }}</div>
-              <div class="table-cell">{{'aboutUs.trust.governance.trainingValue' | translate }}</div>
+            <div class="table-row" role="row">
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.training' | translate }}</div>
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.trainingValue' | translate }}</div>
             </div>
-            <div class="table-row">
-              <div class="table-cell">{{'aboutUs.trust.governance.encryption' | translate }}</div>
-              <div class="table-cell">{{'aboutUs.trust.governance.encryptionValue' | translate }}</div>
+            <div class="table-row" role="row">
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.encryption' | translate }}</div>
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.encryptionValue' | translate }}</div>
             </div>
-            <div class="table-row">
-              <div class="table-cell">{{'aboutUs.trust.governance.compliance' | translate }}</div>
-              <div class="table-cell">{{'aboutUs.trust.governance.complianceValue' | translate }}</div>
+            <div class="table-row" role="row">
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.compliance' | translate }}</div>
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.complianceValue' | translate }}</div>
             </div>
-            <div class="table-row">
-              <div class="table-cell">{{'aboutUs.trust.governance.agreements' | translate }}</div>
-              <div class="table-cell">{{'aboutUs.trust.governance.agreementsValue' | translate }}</div>
+            <div class="table-row" role="row">
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.agreements' | translate }}</div>
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.agreementsValue' | translate }}</div>
             </div>
-            <div class="table-row">
-              <div class="table-cell">{{'aboutUs.trust.governance.audit' | translate }}</div>
-              <div class="table-cell">{{'aboutUs.trust.governance.auditValue' | translate }}</div>
+            <div class="table-row" role="row">
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.audit' | translate }}</div>
+              <div class="table-cell" role="cell">{{'aboutUs.trust.governance.auditValue' | translate }}</div>
             </div>
           </div>
         </div>

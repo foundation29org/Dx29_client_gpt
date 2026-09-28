@@ -190,7 +190,8 @@ lauchEvent(category) {
       let ngbModalOptions: NgbModalOptions = {
         backdrop : 'static',
           keyboard: false,
-          windowClass: 'ModalClass-sm'// xl, lg, sm
+          windowClass: 'ModalClass-sm',// xl, lg, sm
+          ariaLabelledBy: 'termsform-modal-title'
       };
       this.modalReference = this.modalService.open(panel, ngbModalOptions);
       await this.delay(400);

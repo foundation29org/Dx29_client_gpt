@@ -44,6 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private hasDiagnostics: boolean = false;
   private touchGuardEnabled: boolean = false;
   private statusChangeSubscription?: Subscription;
+  private langChangeSubscription?: Subscription;
   private cookieInitializedSubscription?: Subscription;
   private cookieConsentInitialized: boolean = false;
   private cookieConsentPopupInitialized: boolean = false;
@@ -266,6 +267,9 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.setDocumentLang(this.translate.currentLang || this.translate.getDefaultLang());
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(({ lang }) => this.setDocumentLang(lang));
+
     const initialUrl = this.request?.url ||
       (isBrowser ? this.document.location.pathname : this.router.url);
     this.applySeoConfig(getSeoForUrl(initialUrl));
@@ -457,7 +461,15 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.cookieInitializedSubscription) {
       this.cookieInitializedSubscription.unsubscribe();
     }
+    this.langChangeSubscription?.unsubscribe();
     this.updateTouchGuard(false);
+  }
+
+  // WCAG 3.1.1: screen readers pick pronunciation from <html lang>.
+  private setDocumentLang(lang: string | undefined): void {
+    if (lang) {
+      this.document.documentElement.setAttribute('lang', lang);
+    }
   }
 
   /**

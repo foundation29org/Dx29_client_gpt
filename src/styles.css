@@ -1,3 +1,48 @@
+/* ===== Accesibilidad (WCAG 2.1 AA) ===== */
+/* #3b82f6 keeps >= 3:1 against both white and the dark background (1.4.11). */
+:root {
+  --focus-ring-color: #3b82f6;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus-ring-color) !important;
+  outline-offset: 2px !important;
+}
+
+main:focus,
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  padding: 0.75rem 1.25rem;
+  background: #fff;
+  color: #1a1a2e !important;
+  font-weight: 600;
+  border-radius: 0 0 8px 0;
+  transform: translateY(-120%);
+  transition: transform 150ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .form-group {
   margin-bottom: 1rem;
 }
@@ -31,7 +76,6 @@
   background-color: #ffffff !important;
   border-color: var(--primary-color, #253146) !important;
   color: var(--primary-color, #253146) !important;
-  outline: none !important;
   box-shadow: none !important;
 }
 

@@ -1,20 +1,19 @@
 <div class="permalink-view-container">
   <!-- Loading State -->
-  <div *ngIf="isLoading" class="loading-container">
-    <div class="spinner-border" role="status">
-      <span class="sr-only">{{ 'permalink.loading' | translate }}</span>
-    </div>
+  <div *ngIf="isLoading" class="loading-container" role="status">
+    <div class="spinner-border" aria-hidden="true"></div>
     <p class="mt-3">{{ 'permalink.loading' | translate }}</p>
   </div>
 
   <!-- Error State -->
   <div *ngIf="hasError" class="error-container">
     <div class="alert alert-danger" role="alert">
-      <i class="fa fa-exclamation-triangle"></i>
+      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
       <strong>{{ 'permalink.error' | translate }}</strong> {{ errorMessage }}
     </div>
-    <button class="btn btn-primary" (click)="goHome()">
-      <i class="fa fa-home"></i> {{ 'permalink.newAnalysis' | translate }}
+    <button type="button" class="btn btn-primary" (click)="goHome()">
+      <i class="fa fa-home" aria-hidden="true"></i> {{ 'permalink.newAnalysis' | translate }}
+      <span class="visually-hidden">({{ 'a11y.Opens in a new tab' | translate }})</span>
     </button>
   </div>
 
@@ -31,23 +30,24 @@
         </div>
         <div class="col-md-12 col-lg-7 text-center text-md-end">
           <div class="action-buttons">
-            <button class="btn btn-light btn-action me-2" 
+            <button type="button" class="btn btn-light btn-action me-2" 
               [class.disabled]="generatingPDF"
               [disabled]="generatingPDF"
               [attr.title]="generatingPDF ? ('generics.Please wait' | translate) : ('land.Download results' | translate)"
               (click)="!generatingPDF && downloadResults()">
-              <i *ngIf="!generatingPDF" class="fa fa-download"></i>
-              <i *ngIf="generatingPDF" class="fa fa-spinner fa-spin"></i>
+              <i *ngIf="!generatingPDF" class="fa fa-download" aria-hidden="true"></i>
+              <i *ngIf="generatingPDF" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
               <span class="btn-text" *ngIf="!generatingPDF">{{ 'land.Download results' | translate }}</span>
               <span class="btn-text" *ngIf="generatingPDF">{{ 'land.Generating PDF' | translate }}...</span>
             </button>
-            <button class="btn btn-light btn-action me-2" (click)="sharePermalink()" title="{{ 'permalink.share' | translate }}">
-              <i class="fa fa-share-alt"></i>
+            <button type="button" class="btn btn-light btn-action me-2" (click)="sharePermalink()" title="{{ 'permalink.share' | translate }}">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
               <span class="btn-text">{{ 'permalink.share' | translate }}</span>
             </button>
-            <button class="btn btn-warning btn-action" (click)="goHome()">
-              <i class="fa fa-home"></i>
+            <button type="button" class="btn btn-warning btn-action" (click)="goHome()">
+              <i class="fa fa-home" aria-hidden="true"></i>
               <span class="btn-text">{{ 'permalink.newAnalysis' | translate }}</span>
+              <span class="visually-hidden">({{ 'a11y.Opens in a new tab' | translate }})</span>
             </button>
           </div>
         </div>
@@ -59,13 +59,13 @@
       <div class="row">
         <div class="col-sm-6">
           <small class="text-muted">
-            <i class="fa fa-calendar"></i> 
+            <i class="fa fa-calendar" aria-hidden="true"></i> 
             {{ 'permalink.generated' | translate }} {{ formatDate(createdDate) }}
           </small>
         </div>
         <div class="d-none d-sm-inline col-sm-6 text-end">
           <small class="text-muted permalink-id">
-            <i class="fa fa-link"></i> 
+            <i class="fa fa-link" aria-hidden="true"></i> 
             <span class="d-none d-sm-inline">{{ 'permalink.id' | translate }}</span>
             <span class="permalink-id-text">{{ permalinkId | slice:0:20 }}{{ permalinkId.length > 20 ? '...' : '' }}</span>
           </small>
@@ -76,10 +76,10 @@
     <!-- Patient Description -->
     <div class="card mb-4">
       <div class="card-header">
-        <h4 class="card-title mb-0">
-          <i class="fa fa-file-text"></i>
+        <h2 class="card-title mb-0 h4">
+          <i class="fa fa-file-text" aria-hidden="true"></i>
           {{ 'permalink.patientDescription' | translate }}
-        </h4>
+        </h2>
       </div>
       <div class="card-body">
         <div class="patient-description">
@@ -87,7 +87,7 @@
         </div>
         <div *ngIf="anonymizedDescription && anonymizedDescription !== medicalDescription" class="mt-3">
           <small class="text-muted">
-            <i class="fa fa-shield-alt"></i>
+            <i class="fa fa-shield-alt" aria-hidden="true"></i>
             {{ 'permalink.anonInfo' | translate }}
           </small>
         </div>
@@ -97,46 +97,49 @@
     <!-- Diagnoses Results -->
     <div class="card mb-4">
       <div class="card-header">
-        <h4 class="card-title mb-0">
-          <i class="fa fa-stethoscope text-success"></i>
+        <h2 class="card-title mb-0 h4">
+          <i class="fa fa-stethoscope text-success" aria-hidden="true"></i>
           <span *ngIf="!isEuMode()">{{ 'permalink.suggestedDiagnoses' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.suggestedDiagnosesEu' | translate }}</span>
-        </h4>
+        </h2>
         <small class="text-muted" *ngIf="!isEuMode()">{{ 'permalink.orderedByRelevance' | translate }}</small>
         <small class="text-muted" *ngIf="isEuMode()">{{ 'diagnosis.Order does not imply probabilityEu' | translate }}</small>
       </div>
       <div class="card-body">
         <div *ngIf="diagnoses.length === 0" class="text-center text-muted py-4">
-          <i class="fa fa-info-circle fa-2x mb-3"></i>
+          <i class="fa fa-info-circle fa-2x mb-3" aria-hidden="true"></i>
           <p>{{ 'permalink.noDiagnoses' | translate }}</p>
         </div>
 
-        <div *ngFor="let diagnosis of diagnoses; let i = index" class="diagnosis-item">
-          <div class="diagnosis-header">
-            <div class="diagnosis-number" *ngIf="!isEuMode()">{{ i + 1 }}</div>
-            <div class="diagnosis-info">
-              <h5 class="diagnosis-name">{{ diagnosis.name }}</h5>
-              <div class="diagnosis-description" [innerHTML]="diagnosis.content"></div>
+        <ul class="diagnosis-list" *ngIf="diagnoses.length > 0">
+          <li *ngFor="let diagnosis of diagnoses; let i = index" class="diagnosis-item">
+            <div class="diagnosis-header">
+              <div class="diagnosis-number" *ngIf="!isEuMode()">{{ i + 1 }}</div>
+              <div class="diagnosis-info">
+                <h3 class="diagnosis-name">{{ diagnosis.name }}</h3>
+                <div class="diagnosis-description" [innerHTML]="diagnosis.content"></div>
+              </div>
             </div>
-          </div>
 
-          <!-- Additional Info/URL -->
-          <div *ngIf="diagnosis.url" class="additional-info">
-            <a [href]="diagnosis.url" target="_blank" class="btn btn-sm btn-outline-info">
-              <i class="fa fa-external-link"></i>
-              {{ 'permalink.moreInfoDisease' | translate }}
-            </a>
-          </div>
-        </div>
+            <!-- Additional Info/URL -->
+            <div *ngIf="diagnosis.url" class="additional-info">
+              <a [href]="diagnosis.url" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-info">
+                <i class="fa fa-external-link" aria-hidden="true"></i>
+                {{ 'permalink.moreInfoDisease' | translate }}
+                <span class="visually-hidden">: {{ diagnosis.name }} ({{ 'a11y.Opens in a new tab' | translate }})</span>
+              </a>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
 
     <!-- Disclaimer -->
     <div class="card border-warning">
       <div class="card-header bg-warning text-dark">
-        <h5 class="card-title mb-0">
-          <i class="fa fa-exclamation-triangle"></i>
+        <h2 class="card-title mb-0 h5">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
           <span *ngIf="!isEuMode()">{{ 'permalink.medicalDisclaimerTitle' | translate }}</span><span *ngIf="isEuMode()">{{ 'permalink.medicalDisclaimerTitleEu' | translate }}</span>
-        </h5>
+        </h2>
       </div>
       <div class="card-body">
         <div class="disclaimer-content">
@@ -161,6 +164,7 @@
            rel="noopener noreferrer"
            (click)="trackDonateClick()">
           {{ 'land.supportDxGPT.link' | translate }} <i class="fa fa-external-link ms-1" aria-hidden="true"></i>
+          <span class="visually-hidden">({{ 'a11y.Opens in a new tab' | translate }})</span>
         </a>
       </p>
     </div>
@@ -173,8 +177,10 @@
             <strong>{{ brandingConfig?.displayName || 'DxGPT' }}</strong> - {{ 'permalink.developedBy' | translate }}
             <a class="pointer underline" 
                [href]="brandingConfig?.links?.foundation || 'https://www.foundation29.org'" 
-               target="_blank">
+               target="_blank"
+               rel="noopener noreferrer">
                Fundación 29
+               <span class="visually-hidden">({{ 'a11y.Opens in a new tab' | translate }})</span>
             </a>
           </p>
           <small class="text-muted">
@@ -184,7 +190,7 @@
         <div class="col-md-4 text-end">
           <img *ngIf="brandingConfig?.logos?.f29Dark" 
                [src]="brandingConfig.logos.f29Dark" 
-               [alt]="brandingConfig?.displayName || 'DxGPT'" 
+               alt="Fundación 29" 
                class="footer-logo" 
                style="height: 30px; width: auto;">
           <small class="text-muted d-block mt-2">
