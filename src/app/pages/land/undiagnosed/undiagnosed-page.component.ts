@@ -2766,7 +2766,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     // Nuevos métodos para la funcionalidad de preguntas de seguimiento
     
     async handleFollowUpResponse(contentFollowUp?, contentEditDescription?) {
-        if(this.medicalTextOriginal == ''){
+        if(this.medicalTextOriginal == '' && !this.hasDiagnosticImages){
             // Mostrar Swal invitando a editar la descripción
             Swal.fire({
                 title: this.isEuMode() ? this.translate.instant('diagnosis.Improve patient descriptionEu') : this.translate.instant('diagnosis.Improve patient description'),
