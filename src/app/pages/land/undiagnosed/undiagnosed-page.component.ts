@@ -633,6 +633,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.goPrevious();
     }
 
+    confirmNewPatient(): void {
+        const config = this.brandingService.getBrandingConfig();
+        Swal.fire({
+            title: this.translate.instant('land.Leaving report title'),
+            text: this.translate.instant('land.Leaving report message'),
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: config?.colors.primary || '#B30000',
+            cancelButtonColor: '#B0B6BB',
+            confirmButtonText: this.translate.instant('land.Start over'),
+            cancelButtonText: this.translate.instant('land.Stay on report'),
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                this.newPatient();
+            }
+        });
+    }
+
     getElapsedSeconds() {
         var endDate = Date.now();
         var seconds = (endDate - this._startTime) / 1000;
