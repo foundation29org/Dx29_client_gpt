@@ -629,6 +629,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async newPatient() {
         this.medicalTextOriginal = '';
+        this.medicalTextEng = '';
+        this.resultAnonymized = '';
+        this.copyResultAnonymized = '';
+        this.hasAnonymize = false;
         this.clearUploadReference();
         this.goPrevious();
     }
