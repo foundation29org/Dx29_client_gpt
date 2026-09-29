@@ -14,7 +14,6 @@ export class IntentGateModalComponent {
     @Input() mode: IntentGateMode = 'enrich';
     @Input() reason = '';
     @Input() hasUploadedImages = false;
-    @Input() hasPatientDescription = true;
 
     constructor(public activeModal: NgbActiveModal) {}
 
@@ -40,18 +39,11 @@ export class IntentGateModalComponent {
     }
 
     get canAskQuestions(): boolean {
-        if (this.hasImageContext && !this.hasPatientDescription) {
-            return false;
-        }
         return this.hasImageContext || !this.isNonMedical;
     }
 
     get canUpload(): boolean {
         return !this.isExplain && !this.hasImageContext;
-    }
-
-    get recommendAddingDetails(): boolean {
-        return this.hasImageContext && !this.hasPatientDescription;
     }
 
     get titleKey(): string {
@@ -84,6 +76,12 @@ export class IntentGateModalComponent {
             return 'land.enrichment.missing_description';
         }
         return 'land.enrichment.description';
+    }
+
+    get askHintKey(): string {
+        return this.hasUploadedImages
+            ? 'land.enrichment.ask_open_hint_images'
+            : 'land.enrichment.ask_open_hint';
     }
 
     get continueLabelKey(): string {

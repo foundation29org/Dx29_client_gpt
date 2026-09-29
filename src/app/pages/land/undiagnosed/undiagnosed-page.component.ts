@@ -1702,8 +1702,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         const choice = await this.intentEnrichmentService.chooseNextStep(
             reason,
-            this.hasDiagnosticImages,
-            this.medicalTextOriginal.trim().length >= 10
+            this.hasDiagnosticImages
         );
         await this.applyIntentChoice(choice, reason);
     }
@@ -1744,7 +1743,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const text = this.medicalTextOriginal;
         this.dismissLoadingSwal();
         if (target === 'questions') {
-            this.intentEnrichmentService.chooseExplainRedirect().then((choice) => {
+            this.intentEnrichmentService.chooseExplainRedirect(this.hasDiagnosticImages).then((choice) => {
                 this.applyIntentChoice(choice, 'explain');
             });
             return;
@@ -2894,13 +2893,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async generateERQuestions() {
         // Llamar a la API para generar preguntas de seguimiento
-        const value = { 
-            description: this.medicalTextOriginal, 
-            myuuid: this.myuuid, 
+        const value = {
+            description: this.medicalTextOriginal,
+            myuuid: this.myuuid,
             lang: this.lang,
-            timezone: this.timezone 
+            timezone: this.timezone,
+            uploadId: this.currentUploadId || undefined
         };
-        
+
         this.subscription.add(
             this.apiDx29ServerService.generateERQuestions(value).subscribe(
                 (res: any) => {

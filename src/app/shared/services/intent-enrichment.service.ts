@@ -12,21 +12,19 @@ export class IntentEnrichmentService {
 
     chooseNextStep(
         reason: string,
-        hasUploadedImages = false,
-        hasPatientDescription = true
+        hasUploadedImages = false
     ): Promise<IntentGateChoice | null> {
-        return this.openGate('enrich', reason, hasUploadedImages, hasPatientDescription);
+        return this.openGate('enrich', reason, hasUploadedImages);
     }
 
-    chooseExplainRedirect(): Promise<IntentGateChoice | null> {
-        return this.openGate('explain');
+    chooseExplainRedirect(hasUploadedImages = false): Promise<IntentGateChoice | null> {
+        return this.openGate('explain', '', hasUploadedImages);
     }
 
     private async openGate(
         mode: IntentGateMode,
         reason = '',
-        hasUploadedImages = false,
-        hasPatientDescription = true
+        hasUploadedImages = false
     ): Promise<IntentGateChoice | null> {
         const modalRef = this.modalService.open(IntentGateModalComponent, {
             size: 'md',
@@ -39,7 +37,6 @@ export class IntentEnrichmentService {
         modalRef.componentInstance.mode = mode;
         modalRef.componentInstance.reason = reason || '';
         modalRef.componentInstance.hasUploadedImages = hasUploadedImages;
-        modalRef.componentInstance.hasPatientDescription = hasPatientDescription;
 
         try {
             return await modalRef.result;

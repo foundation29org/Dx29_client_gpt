@@ -1004,7 +1004,8 @@
       "ask_title": "To wygląda na pytanie medyczne",
       "ask_description": "To wygląda bardziej na pytanie medyczne niż na opis pacjenta. Możesz otworzyć Pytania medyczne, kontynuować diagnostykę różnicową albo dodać więcej danych klinicznych.",
       "ask_open": "Otwórz Pytania medyczne",
-      "ask_open_hint": "Przeniesiemy ten tekst na stronę odpowiedzi edukacyjnych."
+      "ask_open_hint": "Przeniesiemy ten tekst na stronę odpowiedzi edukacyjnych.",
+      "ask_open_hint_images": "Przeniesiemy tylko tekst. Pytania medyczne nie korzystają z dołączonych obrazów."
     },
     "p1.title": "Przykłady",
     "p1.subtitle": "Kliknij na tekst, aby użyć go jako przykładu",

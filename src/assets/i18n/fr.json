@@ -1004,7 +1004,8 @@
       "ask_title": "Cela ressemble à une question médicale",
       "ask_description": "Cela ressemble davantage à une question médicale qu'à un cas patient. Vous pouvez ouvrir Questions médicales, poursuivre un différentiel, ou ajouter plus de détail clinique.",
       "ask_open": "Ouvrir Questions médicales",
-      "ask_open_hint": "Nous emmènerons ce texte vers la page de réponses pédagogiques."
+      "ask_open_hint": "Nous emmènerons ce texte vers la page de réponses pédagogiques.",
+      "ask_open_hint_images": "Nous emmènerons uniquement le texte. Questions médicales n'utilise pas les images jointes."
     },
     "p1.title": "Exemples",
     "p1.subtitle": "Cliquez sur le texte pour l'utiliser comme exemple",

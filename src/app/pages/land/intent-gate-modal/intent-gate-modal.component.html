@@ -20,7 +20,7 @@
       <span class="intent-option__icon"><i class="fa fa-comments" aria-hidden="true"></i></span>
       <span class="intent-option__copy">
         <span class="intent-option__label">{{ 'land.enrichment.ask_open' | translate }}</span>
-        <span class="intent-option__hint">{{ 'land.enrichment.ask_open_hint' | translate }}</span>
+        <span class="intent-option__hint">{{ askHintKey | translate }}</span>
       </span>
       <span class="intent-option__badge">{{ 'land.enrichment.recommended' | translate }}</span>
     </button>
@@ -50,16 +50,11 @@
       </span>
     </button>
 
-    <button type="button" class="intent-option"
-      [class.intent-option--primary]="recommendAddingDetails"
-      (click)="choose('edit')">
+    <button type="button" class="intent-option" (click)="choose('edit')">
       <span class="intent-option__icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
       <span class="intent-option__copy">
         <span class="intent-option__label">{{ editLabelKey | translate }}</span>
         <span class="intent-option__hint">{{ editHintKey | translate }}</span>
-      </span>
-      <span *ngIf="recommendAddingDetails" class="intent-option__badge">
-        {{ 'land.enrichment.recommended' | translate }}
       </span>
     </button>
 

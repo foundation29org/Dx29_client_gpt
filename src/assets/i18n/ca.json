@@ -1004,7 +1004,8 @@
       "ask_title": "Això sembla una pregunta mèdica",
       "ask_description": "Això sembla una pregunta mèdica més que un cas de pacient. Pots obrir Preguntes mèdiques, continuar amb un diferencial o afegir més detall clínic.",
       "ask_open": "Obrir Preguntes mèdiques",
-      "ask_open_hint": "Portarem aquest text a la pàgina de respostes educatives."
+      "ask_open_hint": "Portarem aquest text a la pàgina de respostes educatives.",
+      "ask_open_hint_images": "Portarem només el text. Preguntes mèdiques no fa servir les imatges adjuntes."
     },
     "p1.title": "Exemples",
     "p1.subtitle": "Prem en el text per usar-lo com a exemple",
