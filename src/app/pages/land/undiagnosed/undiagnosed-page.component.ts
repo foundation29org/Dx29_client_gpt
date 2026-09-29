@@ -201,6 +201,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     // Propiedades para WebSocket/PubSub
     private webSocket: WebSocket | null = null;
     private isWebSocketConnected: boolean = false;
+    // El diálogo pone «Conectando…» a los 100 ms. Si el servidor ya ha
+    // mandado progreso, ese timeout no debe devolver la barra a 0.
+    private serverProgressReceived = false;
 
     // Propiedades para parámetros de iframe
     iframeParams: IframeParams = {};
@@ -1032,10 +1035,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             
             switch (message.type) {
                 case 'progress':
+                    this.serverProgressReceived = true;
                     this.updateWebSocketProgress(message.percentage, message.message, message.step);
                     break;
 
                 case 'preprocessing':
+                    this.serverProgressReceived = true;
                     this.applyMultimodalPreprocessing(message.data || {});
                     break;
                     
@@ -1396,8 +1401,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }.bind(this));
 
         // Inicializar progreso para WebSocket
+        this.serverProgressReceived = false;
         setTimeout(() => {
-            this.updateWebSocketProgress(0, 'Conectando...', 'connection');
+            if (!this.serverProgressReceived) {
+                this.updateWebSocketProgress(0, 'Conectando...', 'connection');
+            }
         }, 100);
 
         this.callingAI = true;
@@ -3587,8 +3595,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         });
 
         // Inicializar progreso para WebSocket
+        this.serverProgressReceived = false;
         setTimeout(() => {
-            if (runId === this.activeMultimodalRun) {
+            if (runId === this.activeMultimodalRun && !this.serverProgressReceived) {
                 this.updateWebSocketProgress(0, 'Conectando...', 'connection');
             }
         }, 100);
