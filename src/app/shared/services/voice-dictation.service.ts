@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'environments/environment';
+import { UuidService } from './uuid.service';
 
 // Codes map to i18n keys under "voice.errors.*".
 export type DictationErrorCode = 'not-supported' | 'permission-denied' | 'no-microphone' | 'no-speech' | 'network' | 'service-unavailable' | 'unknown';
@@ -34,7 +35,7 @@ export class VoiceDictationService {
   private chunks: Blob[] = [];
   private startedAt = 0;
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) platformId: Object) {
+  constructor(private http: HttpClient, private uuidService: UuidService, @Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
@@ -85,10 +86,12 @@ export class VoiceDictationService {
 
     const form = new FormData();
     if (languageHint) form.append('language', languageHint);
+    form.append('myuuid', this.uuidService.getUuid());
+    form.append('timezone', Intl.DateTimeFormat().resolvedOptions().timeZone || '');
     form.append('audio', audio, 'dictation');
     let text = '';
     try {
-      const response = await firstValueFrom(this.http.post<{ text: string }>(`${environment.api}/speech/transcribe`, form));
+      const response = await firstValueFrom(this.http.post<{ text: string }>(`${environment.api}/internal/speech/transcribe`, form));
       text = (response?.text || '').trim();
     } catch (error: any) {
       throw new DictationError(error?.status === 0 ? 'network' : 'service-unavailable');
