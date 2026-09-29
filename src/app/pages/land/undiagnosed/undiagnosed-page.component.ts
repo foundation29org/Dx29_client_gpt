@@ -1425,7 +1425,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             timezone: this.timezone, 
             countryName: this.myCountry,
             countryCode: this.myCountryCode,
-            model: this.model,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
             uploadId: this.currentUploadId || undefined,
@@ -1741,7 +1740,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.content = content.medicalAnswer;
         modalRef.componentInstance.sonarData = content.sonarData;
         modalRef.componentInstance.title = content.question;
-        modalRef.componentInstance.model = content.model;
+        modalRef.componentInstance.model = this.model;
         modalRef.componentInstance.selectedFiles = this.selectedFiles;
         modalRef.componentInstance.detectedLang = content.detectedLang;
     }

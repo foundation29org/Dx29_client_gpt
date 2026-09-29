@@ -321,7 +321,6 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             myuuid: this.myuuid,
             lang,
             timezone: this.timezone,
-            model: this.model,
             iframeParams: this.filterIframeParams(this.iframeParams)
         };
 
@@ -441,7 +440,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.content = content.medicalAnswer;
         modalRef.componentInstance.sonarData = content.sonarData;
         modalRef.componentInstance.title = this.submittedQuestion || content.question;
-        modalRef.componentInstance.model = content.model || this.model;
+        modalRef.componentInstance.model = this.model;
         modalRef.componentInstance.selectedFiles = [];
         modalRef.componentInstance.detectedLang = content.detectedLang || this.lang;
         modalRef.componentInstance.showQuestionActions = true;
