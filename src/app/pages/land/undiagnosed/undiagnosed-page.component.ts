@@ -633,6 +633,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.resultAnonymized = '';
         this.copyResultAnonymized = '';
         this.hasAnonymize = false;
+        this.loadMoreDiseases = false;
+        this.diseaseListEn = [];
+        this.diseaseListText = '';
+        this.inferredProfile = null;
+        this.forceDiagnosisNext = false;
+        this.followUpQuestions = [];
+        this.followUpAnswers = {};
+        this.showFollowUpQuestions = false;
+        this.hypothesisFollowUpDisease = '';
         this.clearUploadReference();
         this.goPrevious();
     }
