@@ -52,6 +52,7 @@ export class FeedbackPageComponent implements OnDestroy {
       { value: 'Neurology', i18nKey: 'neurology' },
       { value: 'Neurosurgery', i18nKey: 'neurosurgery' },
       { value: 'Ophthalmology', i18nKey: 'ophthalmology' },
+      { value: 'Optometry', i18nKey: 'optometry' },
       { value: 'Orthopedic Surgery and Traumatology', i18nKey: 'orthopedicSurgeryAndTraumatology' },
       { value: 'Otolaryngology', i18nKey: 'otolaryngology' },
       { value: 'Pediatrics', i18nKey: 'pediatrics' },

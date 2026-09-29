@@ -53,7 +53,7 @@
   border-radius: 8px;
   border: none;
   background: #f3f4f6;
-  color: #9ca3af;
+  color: #6b7280;
   font-size: 0.88rem;
   cursor: pointer;
   transition: background 200ms ease, color 200ms ease;
@@ -102,10 +102,6 @@
   line-height: 1;
 }
 
-:host ::ng-deep ngb-rating:focus-visible {
-  outline: none;
-}
-
 /* ============================================================
    SECTIONS
    ============================================================ */
@@ -113,6 +109,7 @@
   margin-top: 1rem;
 
   &__label {
+    display: block;
     margin: 0 0 0.4rem 0;
     font-size: 0.95rem;
     font-weight: 600;
@@ -121,7 +118,7 @@
 
   &__optional {
     font-weight: 400;
-    color: #9ca3af;
+    color: #6b7280;
     font-size: 0.88rem;
   }
 
@@ -154,7 +151,7 @@
 }
 
 ::ng-deep .feedback-radio .mat-radio-outer-circle {
-  border-color: #d1d5db;
+  border-color: #6b7280;
 }
 
 ::ng-deep .feedback-radio.mat-radio-checked .mat-radio-outer-circle {
@@ -191,13 +188,12 @@
   font-size: 0.95rem;
   color: #374151;
   background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #868e96;
   border-radius: 10px;
   resize: vertical;
   transition: border-color 200ms ease, box-shadow 200ms ease;
 
   &:focus {
-    outline: none;
     border-color: var(--accent-color, #4f8cff);
     box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.1);
     background: #fff;
@@ -210,12 +206,11 @@
   font-size: 0.95rem;
   color: #374151;
   background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #868e96;
   border-radius: 10px;
   transition: border-color 200ms ease, box-shadow 200ms ease;
 
   &:focus {
-    outline: none;
     border-color: var(--accent-color, #4f8cff);
     box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.1);
     background: #fff;
@@ -226,7 +221,7 @@
   display: block;
   margin-top: 0.25rem;
   font-size: 0.8rem;
-  color: #9ca3af;
+  color: #6b7280;
   text-align: right;
 }
 
@@ -248,7 +243,7 @@
 }
 
 ::ng-deep .feedback-check .mat-checkbox-frame {
-  border-color: #d1d5db;
+  border-color: #6b7280;
 }
 
 ::ng-deep .feedback-check .mat-checkbox-checked .mat-checkbox-background {

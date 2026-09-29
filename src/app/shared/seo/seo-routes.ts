@@ -33,11 +33,6 @@ export const SEO_ROUTES: Record<string, SeoRouteConfig> = {
     seoDescription: 'Explore API and deployment options for integrating DxGPT diagnostic support into healthcare systems and clinical workflows.',
     canonicalPath: '/integration'
   },
-  '/foundation29': {
-    seoTitle: 'Foundation29 | The Nonprofit behind DxGPT',
-    seoDescription: 'Meet Foundation29, the nonprofit organization developing DxGPT to improve access to diagnostic support for common, complex, and rare diseases.',
-    canonicalPath: '/foundation29'
-  },
   '/faq': {
     seoTitle: 'DxGPT Frequently Asked Questions',
     seoDescription: 'Find answers about how DxGPT works, who can use it, privacy, supported languages, safety limitations, and its role in diagnostic support.',

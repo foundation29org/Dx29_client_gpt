@@ -11,6 +11,12 @@
   cursor: pointer; 
 }
 
+.logo-link {
+  display: inline-block;
+  line-height: 0;
+  border-radius: 6px;
+}
+
 .custom-navbar{
   min-height: 4.3rem;
 }
@@ -27,6 +33,15 @@ i{
 
 .donate-link.show .dropdown-toggle::after {
   transform: rotate(180deg);
+}
+
+.lang-toggle {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
 }
 
 /* Animación de rotación para el dropdown de idiomas */
@@ -112,6 +127,25 @@ i{
 
 .donate-a{
   width: 120px;
+}
+
+.questions-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  white-space: nowrap;
+}
+
+.questions-experimental {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #6b5200;
+  background: #ffe08a;
+  border-radius: 999px;
+  padding: 0.08rem 0.32rem;
+  line-height: 1.2;
 }
 
 .beta-a{
@@ -239,7 +273,8 @@ i{
     box-shadow: 12px 0 40px rgba(0, 0, 0, 0.22);
     z-index: 10001;
     transform: translateX(-100%);
-    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    visibility: hidden;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.32s;
     overflow-y: auto;
     pointer-events: none;
     box-sizing: border-box;
@@ -247,6 +282,8 @@ i{
 
   .navbar-collapse.show {
     transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s;
     pointer-events: auto;
   }
 
@@ -320,9 +357,9 @@ i{
   }
 
   .navbar-nav.menu-items .nav-link.nav-active {
-    background: rgba(var(--accent-color-rgb, 179, 0, 0), 0.09);
+    background: color-mix(in srgb, var(--accent-color) 12%, transparent);
     border-bottom: none !important;
-    color: var(--accent-color, #B30000) !important;
+    color: var(--secondary-hover) !important;
     font-weight: 700;
   }
 
@@ -343,8 +380,8 @@ i{
   }
 
   .nav-link.nav-active .nav-link-icon {
-    color: #fff;
-    background: var(--accent-color, #B30000);
+    color: var(--secondary-hover);
+    background: color-mix(in srgb, var(--secondary-color) 12%, transparent);
   }
 
   .donate-link .donate-a {
@@ -355,6 +392,7 @@ i{
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
+  .questions-link,
   .beta-link {
     margin-top: 10px;
     padding: 16px 0 0;
@@ -519,7 +557,7 @@ i{
 
 /* Clase para el estado activo del navbar usando el color accent del tenant */
 .nav-active {
-  color: var(--accent-color) !important;
+  color: var(--secondary-hover) !important;
   font-weight: 700 !important;
   border-bottom: 2px solid var(--accent-color) !important;
 }

@@ -23,12 +23,13 @@ export class IntegrationComponent implements OnInit {
       size: 'lg',
       centered: true,
       backdrop: 'static',
-      keyboard: false
+      keyboard: false,
+      ariaLabelledBy: 'integration-modal-title'
     });
   }
 
    getModalTitle(): string {
-    return 'Contact us';
+    return 'footer.Contact us';
   }
 
   closeModal(): void {

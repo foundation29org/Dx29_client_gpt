@@ -30,7 +30,15 @@ getInfoLocation() {
 }
 
 diagnose(info: any) {
-    return this.http.post(environment.api + '/diagnose', info)
+    return this.postDiagnoseOrAsk('/diagnose', info);
+}
+
+ask(info: any) {
+    return this.postDiagnoseOrAsk('/ask', info);
+}
+
+private postDiagnoseOrAsk(path: string, info: any) {
+    return this.http.post(environment.api + path, info)
       .pipe(
         map((res: any) => {
           if (res.result === 'queued') {
@@ -168,6 +176,14 @@ diagnose(info: any) {
 
   analyzeMultimodal(formData: FormData): Observable<any> {
     return this.http.post(environment.api + '/medical/analyze', formData);
+  }
+
+  // Borra las imágenes de un análisis antes de que caduquen (24 h). El myuuid
+  // forma parte de la ruta del blob en el servidor: sin él no se borra nada.
+  deleteUpload(uploadId: string, myuuid: string): Observable<any> {
+    return this.http.delete(environment.api + '/medical/upload/' + encodeURIComponent(uploadId), {
+      body: { myuuid }
+    });
   }
 
   // Método para negociar conexión WebSocket con Azure Web PubSub

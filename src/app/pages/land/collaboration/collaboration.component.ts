@@ -28,7 +28,8 @@ export class CollaborationComponent implements OnInit {
       size: 'lg',
       centered: true,
       backdrop: 'static',
-      keyboard: false
+      keyboard: false,
+      ariaLabelledBy: 'collaboration-modal-title'
     });
   }
 
@@ -39,6 +40,6 @@ export class CollaborationComponent implements OnInit {
   }
 
   getModalTitle(): string {
-    return 'Contact us';
+    return 'footer.Contact us';
   }
 }

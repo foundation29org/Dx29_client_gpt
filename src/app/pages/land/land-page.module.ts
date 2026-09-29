@@ -7,7 +7,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReportsPageComponent } from "./reports/reports-page.component";
 import { UndiagnosedPageComponent } from "./undiagnosed/undiagnosed-page.component";
 import { MedicalInfoModalComponent } from "./medical-info-modal/medical-info-modal.component";
+import { MedicalAnswerViewComponent } from "./medical-info-modal/medical-answer-view.component";
 import { MedicalAnswerFeedbackComponent } from "./medical-answer-feedback/medical-answer-feedback.component";
+import { IntentGateModalComponent } from "./intent-gate-modal/intent-gate-modal.component";
 import { FeedbackPageComponent } from "./feedback/feedback-page.component";
 import { PrivacyPolicyPageComponent } from "./privacy-policy/privacy-policy.component";
 import { CookiesPageComponent } from "./cookies/cookies.component";
@@ -26,6 +28,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DictationButtonComponent } from 'app/shared/components/dictation-button/dictation-button.component';
 
 @NgModule({
     exports: [
@@ -43,13 +46,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         PipeModule,
         SharedModule,
         MatProgressBarModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        DictationButtonComponent
     ],
     declarations: [
         ReportsPageComponent,
         UndiagnosedPageComponent,
         MedicalInfoModalComponent,
+        MedicalAnswerViewComponent,
         MedicalAnswerFeedbackComponent,
+        IntentGateModalComponent,
         FeedbackPageComponent,
         PrivacyPolicyPageComponent,
         CookiesPageComponent,

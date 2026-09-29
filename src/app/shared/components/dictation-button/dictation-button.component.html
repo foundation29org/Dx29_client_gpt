@@ -1,0 +1,18 @@
+<ng-container *ngIf="supported">
+  <p *ngIf="error" [id]="errorId" class="dictation-error" role="alert">{{ error }}</p>
+  <span *ngIf="state === 'recording'" class="dictation-status dictation-status--recording" aria-hidden="true">
+    <span class="dictation-status__dot"></span>{{ elapsedLabel }}
+  </span>
+  <span *ngIf="state === 'transcribing'" class="dictation-status" aria-hidden="true">{{ 'voice.Transcribing' | translate }}</span>
+  <button type="button" class="dictation-btn" [class.dictation-btn--recording]="state === 'recording'"
+    [disabled]="state === 'transcribing' || (disabled && state === 'idle')"
+    [attr.aria-busy]="state === 'starting' || state === 'transcribing'"
+    [attr.aria-describedby]="error ? errorId : null"
+    [attr.title]="(state === 'recording' || state === 'starting' ? 'voice.Stop dictation' : 'voice.Start dictation') | translate"
+    [attr.aria-label]="(state === 'recording' || state === 'starting' ? 'voice.Stop dictation' : 'voice.Start dictation') | translate"
+    (click)="toggle()">
+    <i class="fa" aria-hidden="true"
+      [ngClass]="state === 'starting' || state === 'transcribing' ? 'fa-spinner fa-spin' : (state === 'recording' ? 'fa-stop' : 'fa-microphone')"></i>
+  </button>
+  <span class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{{ statusMessage }}</span>
+</ng-container>

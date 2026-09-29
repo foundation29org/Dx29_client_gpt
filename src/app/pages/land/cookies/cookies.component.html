@@ -1,12 +1,12 @@
 <a id="initpopup" class="anchorSteps"></a>
 <div *ngIf="!isDirectRoute()" class="modal-header">
-  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close('Close click')">
+  <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" (click)="activeModal.close('Close click')">
   </button>
 </div>
 <div class="row" [ngClass]="(!isDirectRoute())?'':'card mt-0'">
   <section [ngClass]="(!isDirectRoute())?'col-md-12':'offset-md-2 col-md-8'">
     <div class="modal-header mt-2">
-      <h4 class="modal-title">{{'cookies.title' | translate }}</h4>
+      <h1 id="cookiesModalTitle" class="modal-title h4">{{'cookies.title' | translate }}</h1>
     </div>
   <div class="modal-body">
     <div class="px-3">
@@ -14,25 +14,25 @@
         <div class="row">
           <div class="col-sm-12">
             <!-- 1. Introduction -->
-            <h6 class="pt-2 text-bold-600">{{'cookies.t1' | translate }}</h6>
+            <h2 class="h6 pt-2 text-bold-600">{{'cookies.t1' | translate }}</h2>
             <p [innerHTML]="'cookies.p1.1' | translate "></p>
             <p>{{'cookies.p1.2' | translate }}</p>
             
             <!-- 2. Consent model (EU vs International) -->
-            <h6 class="pt-2 text-bold-600">{{'cookies.t2' | translate }}</h6>
+            <h2 class="h6 pt-2 text-bold-600">{{'cookies.t2' | translate }}</h2>
             <p [innerHTML]="'cookies.p2.1' | translate "></p>
             <p [innerHTML]="'cookies.p2.2' | translate "></p>
             
             <!-- 3. What are cookies? -->
-            <h6 class="pt-2 text-bold-600">{{'cookies.t3' | translate }}</h6>
+            <h2 class="h6 pt-2 text-bold-600">{{'cookies.t3' | translate }}</h2>
             <p>{{'cookies.p3.1' | translate }}</p>
             
             <!-- 4. Types of cookies -->
-            <h6 class="pt-2 text-bold-600">{{'cookies.t4' | translate }}</h6>
+            <h2 class="h6 pt-2 text-bold-600">{{'cookies.t4' | translate }}</h2>
             <p>{{'cookies.p4.1' | translate }}</p>
             
             <!-- 5. Cookie details -->
-            <h6 class="pt-2 text-bold-600">{{'cookies.t5' | translate }}</h6>
+            <h2 class="h6 pt-2 text-bold-600">{{'cookies.t5' | translate }}</h2>
             <p [innerHTML]="'cookies.p5.1' | translate "></p>
             <p [innerHTML]="'cookies.p5.2' | translate "></p>
             <ul>
@@ -42,39 +42,39 @@
             <p>{{'cookies.p5.3' | translate }}</p>
             
             <!-- 6. Managing preferences -->
-            <h6 class="pt-2 text-bold-600">{{'cookies.t6' | translate }}</h6>
+            <h2 class="h6 pt-2 text-bold-600">{{'cookies.t6' | translate }}</h2>
             <p>{{'cookies.p6.1' | translate }}</p>
             <ul class="mt-2">
               <li>
-                <a class="underline" href="https://support.google.com/chrome/answer/95647?hl={{lang}}" target="_blank">Google Chrome</a>
+                <a class="underline" href="https://support.google.com/chrome/answer/95647?hl={{lang}}" target="_blank" rel="noopener noreferrer">Google Chrome<span class="visually-hidden"> ({{'a11y.Opens in a new tab' | translate}})</span></a>
               </li>
               <li>
-                <a class="underline" href="https://support.microsoft.com/{{lang}}/microsoft-edge/eliminar-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank">Microsoft Edge</a>
+                <a class="underline" href="https://support.microsoft.com/{{lang}}/microsoft-edge/eliminar-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer">Microsoft Edge<span class="visually-hidden"> ({{'a11y.Opens in a new tab' | translate}})</span></a>
               </li>
               <li>
                 <a class="underline" *ngIf="lang=='es'"
                   href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias"
-                  target="_blank">Mozilla Firefox</a>
+                  target="_blank" rel="noopener noreferrer">Mozilla Firefox<span class="visually-hidden"> ({{'a11y.Opens in a new tab' | translate}})</span></a>
                 <a class="underline" *ngIf="lang!='es'"
                   href="https://support.mozilla.org/en-US/kb/block-websites-storing-cookies-site-data-firefox"
-                  target="_blank">Mozilla Firefox</a>
+                  target="_blank" rel="noopener noreferrer">Mozilla Firefox<span class="visually-hidden"> ({{'a11y.Opens in a new tab' | translate}})</span></a>
               </li>
               <li>
                 <span *ngIf="lang=='es'">
-                  <a class="underline" href="https://support.apple.com/es-es/HT201265" target="_blank">Safari (iOS)</a>
+                  <a class="underline" href="https://support.apple.com/es-es/HT201265" target="_blank" rel="noopener noreferrer">Safari (iOS)<span class="visually-hidden"> ({{'a11y.Opens in a new tab' | translate}})</span></a>
                   &nbsp;|&nbsp;
-                  <a class="underline" href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank">Safari (Mac)</a>
+                  <a class="underline" href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer">Safari (Mac)<span class="visually-hidden"> ({{'a11y.Opens in a new tab' | translate}})</span></a>
                 </span>
                 <span *ngIf="lang!='es'">
-                  <a class="underline" href="https://support.apple.com/en-us/HT201265" target="_blank">Safari (iOS)</a>
+                  <a class="underline" href="https://support.apple.com/en-us/HT201265" target="_blank" rel="noopener noreferrer">Safari (iOS)<span class="visually-hidden"> ({{'a11y.Opens in a new tab' | translate}})</span></a>
                   &nbsp;|&nbsp;
-                  <a class="underline" href="https://support.apple.com/guide/safari/sfri11471/mac" target="_blank">Safari (Mac)</a>
+                  <a class="underline" href="https://support.apple.com/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer">Safari (Mac)<span class="visually-hidden"> ({{'a11y.Opens in a new tab' | translate}})</span></a>
                 </span>
               </li>
             </ul>
             
             <!-- 7. Your rights -->
-            <h6 class="pt-2 text-bold-600">{{'cookies.t7' | translate }}</h6>
+            <h2 class="h6 pt-2 text-bold-600">{{'cookies.t7' | translate }}</h2>
             <p>{{'cookies.p7.1' | translate }}</p>
             <ul>
               <li>{{'cookies.p7.2' | translate }}</li>
@@ -83,7 +83,7 @@
             </ul>
             
             <!-- 8. Updates -->
-            <h6 class="pt-2 text-bold-600">{{'cookies.t8' | translate }}</h6>
+            <h2 class="h6 pt-2 text-bold-600">{{'cookies.t8' | translate }}</h2>
             <p>{{'cookies.p8.1' | translate }}</p>
           </div>
         </div>
@@ -93,5 +93,5 @@
   </section>
 </div>
 <div *ngIf="!isDirectRoute()" class="modal-footer">
-  <button class="btn btn-info" (click)="activeModal.close('Close click')">{{'generics.Close' | translate }}</button>
+  <button type="button" class="btn btn-info" (click)="activeModal.close('Close click')">{{'generics.Close' | translate }}</button>
 </div>

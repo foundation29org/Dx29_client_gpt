@@ -57,17 +57,29 @@
   li {
     margin-bottom: 0.75rem;
     
-    a {
+    a,
+    .footer-link-btn {
       color: white;
       text-decoration: none;
       font-size: 0.95rem;
       transition: color 0.2s ease;
       
       &:hover {
-        color: var(--accent-color);
+        color: white;
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
       }
     }
   }
+}
+
+.footer-link-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .footer-logo{
@@ -377,9 +389,15 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
     
     &:hover {
-      color: var(--accent-color);
+      color: white;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
     }
     
     &::after {
@@ -411,6 +429,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      width: 100%;
       transition: background-color 0.2s ease;
       
       &:hover {

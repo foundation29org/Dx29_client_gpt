@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { BrandingService } from 'app/shared/services/branding.service';
+
+const FOUNDATION29_URL = 'https://foundation29.org';
 
 @Component({
     selector: 'app-foundation29',
@@ -10,12 +10,9 @@ import { BrandingService } from 'app/shared/services/branding.service';
 })
 export class Foundation29Component implements OnInit {
 
-  constructor(
-    public translate: TranslateService,
-    public brandingService: BrandingService
-  ) { }
-
   ngOnInit(): void {
-    // Inicialización del componente
+    if (typeof window !== 'undefined') {
+      window.location.replace(FOUNDATION29_URL);
+    }
   }
 }

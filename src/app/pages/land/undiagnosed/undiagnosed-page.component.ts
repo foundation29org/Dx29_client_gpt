@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { EventsService } from 'app/shared/services/events.service';
@@ -18,8 +18,27 @@ import { LangService } from 'app/shared/services/lang.service';
 import { BrandingService } from 'app/shared/services/branding.service';
 import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
 import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
+import { IntentEnrichmentService } from 'app/shared/services/intent-enrichment.service';
 import { environment } from 'environments/environment';
+import { DIAGNOSTIC_GUIDANCE_QUESTIONS } from 'app/shared/models/diagnostic-guidance-question';
 declare let gtag: any;
+
+// Imagen procesada por /medical/analyze. El servidor nunca devuelve URLs:
+// la única referencia es el uploadId, común a todas las imágenes del análisis.
+// Las imágenes documentales (routing ocr_text) no se guardan: su texto ya va
+// en la descripción y llegan con uploadId/index a null.
+interface MultimodalImageReference {
+    uploadId: string | null;
+    index: number | null;
+    name: string;
+    size?: number;
+    mimeType?: string;
+    // false para imágenes documentales ya convertidas a texto por V1.
+    diagnosticUse?: boolean;
+    routing?: 'vision' | 'ocr_text' | 'not_medical';
+}
+
+type MultimodalFileStatus = 'pending' | 'processing' | 'completed' | 'warning' | 'error';
 
 @Component({
     selector: 'app-undiagnosed-page',
@@ -32,11 +51,17 @@ declare let gtag: any;
 export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     // Keep in sync with Server/controllers/all/multimodalInput.js
+    readonly multimodalUploadLimits = Object.freeze({
+        maxDocuments: 5,
+        maxImages: 5,
+        maxTotalBytes: 20 * 1024 * 1024,
+        maxTotalMB: 20
+    });
+
     private static readonly SUPPORTED_DOC_TYPES = [
         'application/pdf',
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/vnd.ms-excel',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'text/plain'
     ];
@@ -44,9 +69,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private static readonly SUPPORTED_IMAGE_TYPES = [
         'image/jpeg',
         'image/png',
-        'image/tiff',
-        'image/bmp',
         'image/webp'
+    ];
+
+    // El resto de fallbackReason del servidor acaban en visión, que es el
+    // desenlace correcto para una imagen médica: no son avisos.
+    private static readonly IMAGE_WARNING_REASONS = [
+        'classification_failed',
+        'ocr_failed'
     ];
 
     private subscription: Subscription = new Subscription();
@@ -71,6 +101,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     showErrorCall1: boolean = false;
     showErrorCall2: boolean = false;
     callingAI: boolean = false;
+    private forceDiagnosisNext = false;
     loadingAnswerAI: boolean = false;
     selectedDisease: string = '';
     options: any = {};
@@ -97,12 +128,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     myCountryCode: string = '';
     countriesList: any[] = [];
     terms2: boolean = false;
-    model: string = 'gpt54mini';
-    defaultModel: string = 'gpt54mini';
-    advancedModel: string = 'o3';
-    previousModel: string = 'gpt54mini'; // Modelo anterior para restaurar en caso de error
-    imageModel: string = 'gpt5';
+    model: string = 'gpt56terra';
     
+    // Texto de la región aria-live (WCAG 4.1.3)
+    a11yStatusMessage: string = '';
+    private a11yFocusTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    dictating: boolean = false;
+
     // Propiedad para manejar el placeholder
     textareaPlaceholder: string = '';
     private fullPlaceholderText: string = ''; // Almacena el texto completo del placeholder
@@ -115,9 +148,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     followUpAnswers: any = {};
     loadingFollowUpQuestions: boolean = false;
     processingFollowUpAnswers: boolean = false;
+    hypothesisFollowUpDisease: string = '';
 
     @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
     @ViewChild('autoajustable', { static: false }) mainTextArea: ElementRef;
+    @ViewChild('fileInput', { static: false }) mainFileInput!: ElementRef<HTMLInputElement>;
+    @ViewChild('contentFollowUpQuestions', { static: false }) contentFollowUpQuestions!: TemplateRef<any>;
     @ViewChild('textareaedit') textareaEdit: ElementRef;
 
     private queueStatusTimeout: any;
@@ -144,11 +180,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     isDragOver = false;
 
     filesAnalyzed = false;
-    filesModifiedAfterAnalysis = false; // Nueva propiedad para rastrear modificaciones
+    failedDocumentNames: string[] = [];
+    notMedicalImageNames: string[] = [];
+    private fileProcessingStatuses = new Map<string, MultimodalFileStatus>();
+    private multimodalRequestSubscription: Subscription | null = null;
+    private multimodalPreprocessingCompleted = false;
+    // /medical/analyze responde en cuanto acepta los ficheros; hasta que llega
+    // el mensaje 'preprocessing' por el WebSocket el análisis sigue en curso.
+    private awaitingMultimodalPreprocessing = false;
+    private activeMultimodalRun = 0;
+    lastMultimodalCorrelationId = '';
     
-    // Propiedad para almacenar las URLs de las imágenes de la respuesta del API
-    currentImageUrls: any[] = [];
-    descriptionImageOnly: string = '';
+    // Referencia a las imágenes del último análisis. Se reenvía tal cual a
+    // /diagnose y /disease/info; el servidor decide cuáles llegan al modelo.
+    // Cualquier cambio en los ficheros la invalida: el siguiente análisis
+    // parte de cero y crea un uploadId nuevo.
+    currentUploadId: string | null = null;
+    currentImages: MultimodalImageReference[] = [];
 
     // Propiedades para WebSocket/PubSub
     private webSocket: WebSocket | null = null;
@@ -159,9 +207,242 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     isInIframe: boolean = false;
 
     shouldShowDonate: boolean = false;
+    shouldShowQuestionsPage: boolean = false;
+    showMultimodalDetails: boolean = false;
     donateLink: string = 'https://foundation29.org/donate?amount=25&utm_source=dxgpt#widget';
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, @Inject(PLATFORM_ID) private platformId: Object) {
+    get selectedImagesCount(): number {
+        return (this.selectedFiles || []).filter(f => f.type && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(f.type)).length;
+    }
+    get selectedDocsCount(): number {
+        return (this.selectedFiles || []).filter(f => f.type && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(f.type)).length;
+    }
+    get selectedTotalMB(): number {
+        const bytes = (this.selectedFiles || [])
+            .reduce((acc: number, file: File) => acc + (file.size || 0), 0);
+        return Math.round((bytes / (1024 * 1024)) * 10) / 10;
+    }
+    // currentImages también lista las imágenes convertidas a texto
+    // (diagnosticUse: false); esas no llegan al modelo. El servidor solo crea
+    // uploadId si al menos una imagen va a visión.
+    get hasDiagnosticImages(): boolean {
+        return !!this.currentUploadId;
+    }
+
+    private clearUploadReference(): void {
+        this.discardUploadOnServer(this.currentUploadId);
+        this.currentUploadId = null;
+        this.currentImages = [];
+    }
+
+    // Borrado activo de las imágenes en cuanto dejan de referenciarse (nuevo
+    // paciente, cambio de ficheros, nuevo análisis). Best effort: si la llamada
+    // falla o el usuario cierra la pestaña, blobCleanup las borra a las 24 h.
+    // No se añade a `this.subscription` para que destruir el componente no
+    // cancele la petición a medias.
+    private discardUploadOnServer(uploadId: string | null): void {
+        if (!uploadId || !this.myuuid) {
+            return;
+        }
+        this.apiDx29ServerService.deleteUpload(uploadId, this.myuuid).subscribe({
+            next: () => this.lauchEvent('Upload deleted'),
+            error: () => undefined
+        });
+    }
+
+    // Tras un análisis el conjunto de ficheros queda congelado: añadir o quitar
+    // uno obliga a repetir el análisis completo con un uploadId nuevo.
+    private invalidateAnalysis(): void {
+        this.filesAnalyzed = false;
+        this.clearUploadReference();
+    }
+
+    private getFileKey(file: File): string {
+        return `${file.name}:${file.size}:${file.lastModified}`;
+    }
+
+    private getFileResultKey(
+        name: string,
+        size: number | undefined,
+        isImage: boolean
+    ): string | null {
+        return Number.isFinite(size)
+            ? `${isImage ? 'image' : 'document'}:${name}:${size}`
+            : null;
+    }
+
+    getFileProcessingStatus(file: File): MultimodalFileStatus {
+        return this.fileProcessingStatuses.get(this.getFileKey(file)) || 'pending';
+    }
+
+    getFileStatusIcon(file: File): string {
+        const icons: Record<MultimodalFileStatus, string> = {
+            pending: 'fa-clock-o',
+            processing: 'fa-spinner fa-spin',
+            completed: 'fa-check-circle',
+            warning: 'fa-exclamation-triangle',
+            error: 'fa-times-circle'
+        };
+        return icons[this.getFileProcessingStatus(file)];
+    }
+
+    getFileStatusLabel(file: File): string {
+        const status = this.getFileProcessingStatus(file);
+        const labels: Record<MultimodalFileStatus, [string, string]> = {
+            pending: ['generics.Waiting', 'Pending'],
+            processing: ['progress.processing', 'Processing...'],
+            completed: ['diagnosis.Analysis completed', 'Completed'],
+            warning: ['generics.Warning', 'Warning'],
+            error: ['generics.error try again', 'Failed']
+        };
+        return this.translatedProgressMessage(...labels[status]);
+    }
+
+    private setAllFileStatuses(status: MultimodalFileStatus): void {
+        this.selectedFiles.forEach(file =>
+            this.fileProcessingStatuses.set(this.getFileKey(file), status)
+        );
+    }
+
+    private cancelMultimodalRun(runId: number): void {
+        if (runId !== this.activeMultimodalRun) {
+            return;
+        }
+        const shouldResetStatuses = !this.multimodalPreprocessingCompleted;
+        this.activeMultimodalRun += 1;
+        this.multimodalRequestSubscription?.unsubscribe();
+        this.multimodalRequestSubscription = null;
+        this.awaitingMultimodalPreprocessing = false;
+        if (this.webSocket) {
+            this.webSocket.close();
+            this.webSocket = null;
+        }
+        this.isWebSocketConnected = false;
+        this.callingAI = false;
+        if (shouldResetStatuses) {
+            this.setAllFileStatuses('pending');
+        }
+    }
+
+    private applyFileProcessingResults(response: any): void {
+        const resultByKey = new Map<string, MultimodalFileStatus>();
+        const fallbackByName = new Map<string, MultimodalFileStatus[]>();
+        const addResult = (
+            name: string,
+            size: number | undefined,
+            isImage: boolean,
+            status: MultimodalFileStatus
+        ) => {
+            const key = this.getFileResultKey(name, size, isImage);
+            if (key) {
+                resultByKey.set(key, status);
+            }
+            const fallbackKey = `${isImage ? 'image' : 'document'}:${name}`;
+            const statuses = fallbackByName.get(fallbackKey) || [];
+            statuses.push(status);
+            fallbackByName.set(fallbackKey, statuses);
+        };
+
+        (Array.isArray(response?.documents) ? response.documents : [])
+            .forEach((document: {
+                name?: string;
+                size?: number;
+                status?: string;
+            }) => {
+                if (document.name) {
+                    addResult(
+                        document.name,
+                        document.size,
+                        false,
+                        document.status === 'succeeded' ? 'completed' : 'error'
+                    );
+                }
+            });
+        (Array.isArray(response?.imageRouting) ? response.imageRouting : [])
+            .forEach((image: {
+                name?: string;
+                size?: number;
+                route?: string;
+                fallbackReason?: string;
+            }) => {
+                if (image.name) {
+                    addResult(
+                        image.name,
+                        image.size,
+                        true,
+                        image.route === 'not_medical' ||
+                            UndiagnosedPageComponent.IMAGE_WARNING_REASONS
+                                .includes(image.fallbackReason)
+                            ? 'warning'
+                            : 'completed'
+                    );
+                }
+            });
+
+        this.selectedFiles.forEach(file => {
+            const isImage =
+                UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type);
+            const exactKey = this.getFileResultKey(
+                file.name,
+                file.size,
+                isImage
+            );
+            const fallbackKey =
+                `${isImage ? 'image' : 'document'}:${file.name}`;
+            const fallbackStatuses = fallbackByName.get(fallbackKey) || [];
+            const status = (exactKey ? resultByKey.get(exactKey) : undefined) ||
+                fallbackStatuses.shift();
+            // Sin resultado no inventamos un aviso: se conserva lo que hubiera.
+            if (status) {
+                this.fileProcessingStatuses.set(this.getFileKey(file), status);
+            }
+        });
+    }
+
+    // El servidor ya no encuentra la subida (24 h): hay que volver a analizar.
+    private resetExpiredUpload(): void {
+        this.selectedFiles
+            .filter(file => UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type))
+            .forEach(file => {
+                this.fileProcessingStatuses.set(this.getFileKey(file), 'pending');
+            });
+        this.invalidateAnalysis();
+    }
+
+    private reportFailedDocuments(documents: unknown): void {
+        this.failedDocumentNames = Array.isArray(documents)
+            ? documents
+                .filter((document: { status?: string; name?: string }) =>
+                    document?.status === 'failed' && !!document.name
+                )
+                .map((document: { name: string }) => document.name)
+            : [];
+
+        if (this.failedDocumentNames.length === 0) {
+            return;
+        }
+
+        const htmlContainer = Swal.getHtmlContainer();
+        if (!htmlContainer || htmlContainer.querySelector('#partial-document-warning')) {
+            return;
+        }
+
+        const warning = this.renderer.createElement('div');
+        this.renderer.setAttribute(warning, 'id', 'partial-document-warning');
+        this.renderer.setAttribute(warning, 'role', 'alert');
+        this.renderer.addClass(warning, 'alert');
+        this.renderer.addClass(warning, 'alert-warning');
+        this.renderer.addClass(warning, 'mt-3');
+        this.renderer.addClass(warning, 'mb-0');
+        this.renderer.addClass(warning, 'text-start');
+        const message = this.translate.instant('generics.documentPartialFailure', {
+            files: this.failedDocumentNames.join(', ')
+        });
+        this.renderer.appendChild(warning, this.renderer.createText(message));
+        this.renderer.appendChild(htmlContainer, warning);
+    }
+
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, private intentEnrichmentService: IntentEnrichmentService, @Inject(PLATFORM_ID) private platformId: Object) {
         this.initialize();
     }
 
@@ -331,8 +612,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async goPrevious() {
-        this.model = this.defaultModel;
-        this.previousModel = this.defaultModel; // Resetear también previousModel al volver al inicio
         this.topRelatedConditions = [];
         this.currentStep = 1;
         // Notificar que ya no hay diagnósticos activos
@@ -341,15 +620,36 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
         this.clearText();
         this.filesAnalyzed = false;
-        this.filesModifiedAfterAnalysis = false;
         this.selectedFiles = [];
+        this.fileProcessingStatuses.clear();
+        this.failedDocumentNames = [];
+        this.notMedicalImageNames = [];
+        this.lastMultimodalCorrelationId = '';
     }
 
     async newPatient() {
         this.medicalTextOriginal = '';
-        this.currentImageUrls = []; // Limpiar las URLs de las imágenes
-        this.descriptionImageOnly = '';
+        this.clearUploadReference();
         this.goPrevious();
+    }
+
+    confirmNewPatient(): void {
+        const config = this.brandingService.getBrandingConfig();
+        Swal.fire({
+            title: this.translate.instant('land.Leaving report title'),
+            text: this.translate.instant('land.Leaving report message'),
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: config?.colors.primary || '#B30000',
+            cancelButtonColor: '#B0B6BB',
+            confirmButtonText: this.translate.instant('land.Start over'),
+            cancelButtonText: this.translate.instant('land.Stay on report'),
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                this.newPatient();
+            }
+        });
     }
 
     getElapsedSeconds() {
@@ -365,6 +665,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private updateDonateVisibility(): void {
         this.shouldShowDonate = this.brandingService.shouldShowResultsDonate();
         this.donateLink = this.brandingService.getDonateLink() || this.donateLink;
+        const config = this.brandingService.getBrandingConfig();
+        this.shouldShowQuestionsPage = config?.links?.beta === true;
     }
 
     lauchEvent(category) {
@@ -446,7 +748,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (isPlatformBrowser(this.platformId)) {
             setTimeout(() => {
                 this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
-                this.startTypingAnimation();
+                if (this.consumePendingInput()) {
+                    this.resizeTextArea();
+                } else {
+                    this.startTypingAnimation();
+                }
             }, 200);
         }
     }
@@ -456,15 +762,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.symtpmsLabel = res;
         });
         
-        // Todas las preguntas disponibles para todas las versiones
-        this.questions = [
-            { id: 1, question: 'land.q1' },
-            { id: 2, question: 'land.q2' },
-            { id: 3, question: 'land.q3' },
-            { id: 4, question: 'land.q4' },
-            { id: 5, question: 'land.q5' },
-            { id: 6, question: 'land.q6' }
-        ];
+        this.questions = DIAGNOSTIC_GUIDANCE_QUESTIONS;
         this.options = { id: 1, value: this.translate.instant("land.option1"), label: this.translate.instant("land.labelopt1"), description: this.translate.instant("land.descriptionopt1") };
     }
 
@@ -490,8 +788,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         reverseButtons: true
                     }).then((result) => {
                         if (result.value) {
-                            this.restartInitVars();
-                            this.currentStep = 1;
+                            this.newPatient();
                             setTimeout(() => {
                                 this.fullPlaceholderText = this.translate.instant('land.Placeholder help');
                                 this.startTypingAnimation();
@@ -598,6 +895,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.activeMultimodalRun += 1;
+        this.multimodalRequestSubscription?.unsubscribe();
+        this.multimodalRequestSubscription = null;
         this.cancelQueueStatusCheck();
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
@@ -606,6 +906,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         // Limpiar el intervalo de typing
         if (this.typingInterval) {
             clearInterval(this.typingInterval);
+        }
+        if (this.a11yFocusTimeout) {
+            clearTimeout(this.a11yFocusTimeout);
         }
         
         // Limpiar WebSocket
@@ -624,8 +927,21 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     // Métodos para WebSocket/PubSub
-    private async connectWebSocket(): Promise<void> {
+    private async connectWebSocket(
+        expectedMultimodalRun?: number
+    ): Promise<void> {
         return new Promise(async (resolve, reject) => {
+            // La promesa tiene que resolverse siempre: si el socket se descarta
+            // al cancelar, el await de analyzeMultimodal quedaría colgado.
+            let settled = false;
+            const failConnection = (error: Error) => {
+                if (settled) {
+                    return;
+                }
+                settled = true;
+                reject(error);
+            };
+
             try {
                 // Cerrar conexión existente si la hay
                 if (this.webSocket) {
@@ -635,41 +951,64 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     
                 // Obtener token de conexión
                 const response = await this.apiDx29ServerService.negotiatePubSub(this.myuuid).toPromise();
+                if (
+                    expectedMultimodalRun !== undefined &&
+                    expectedMultimodalRun !== this.activeMultimodalRun
+                ) {
+                    failConnection(new Error('Multimodal analysis cancelled'));
+                    return;
+                }
                 const { url } = response as any;
     
                 // Crear conexión WebSocket
-                this.webSocket = new WebSocket(url);
+                const socket = new WebSocket(url);
+                this.webSocket = socket;
     
-                this.webSocket.onopen = () => {
+                socket.onopen = () => {
+                    if (this.webSocket !== socket) {
+                        socket.close();
+                        failConnection(new Error('Multimodal analysis cancelled'));
+                        return;
+                    }
                     console.log('WebSocket connected');
                     this.isWebSocketConnected = true;
+                    settled = true;
                     resolve();
                 };
     
-                this.webSocket.onmessage = (event) => {
+                socket.onmessage = (event) => {
+                    if (this.webSocket !== socket) {
+                        return;
+                    }
                     this.handleWebSocketMessage(event);
                 };
     
-                this.webSocket.onerror = (error) => {
+                socket.onerror = (error) => {
                     console.error('WebSocket error:', error);
-                    this.isWebSocketConnected = false;
-                    reject(error);
+                    if (this.webSocket === socket) {
+                        this.isWebSocketConnected = false;
+                    }
+                    failConnection(new Error('WebSocket connection failed'));
                 };
     
-                this.webSocket.onclose = (event) => {
+                socket.onclose = (event) => {
                     console.log('WebSocket disconnected', event.code, event.reason);
-                    this.isWebSocketConnected = false;
+                    if (this.webSocket === socket) {
+                        this.isWebSocketConnected = false;
+                    }
+                    failConnection(new Error('WebSocket connection closed'));
                 };
     
                 // Timeout si no se conecta en 10 segundos (aumentado para Azure)
-                setTimeout(() => {
-                    if (!this.isWebSocketConnected) {
-                        reject(new Error('WebSocket connection timeout'));
-                    }
-                }, 10000); // Azure Web PubSub puede tardar un poco más
+                setTimeout(
+                    () => failConnection(new Error('WebSocket connection timeout')),
+                    10000
+                ); // Azure Web PubSub puede tardar un poco más
     
             } catch (error) {
-                reject(error);
+                failConnection(
+                    error instanceof Error ? error : new Error(String(error))
+                );
             }
         });
     }
@@ -682,6 +1021,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 case 'progress':
                     this.updateWebSocketProgress(message.percentage, message.message, message.step);
                     break;
+
+                case 'preprocessing':
+                    this.applyMultimodalPreprocessing(message.data || {});
+                    break;
                     
                 case 'result':
                     // Resultado final recibido via WebSocket
@@ -689,6 +1032,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.webSocket?.close();
                     this.webSocket = null;
                     this.processAiSuccess(message.data, null);
+                    this.lastMultimodalCorrelationId = '';
                     break;
                     
                 case 'error':
@@ -710,20 +1054,27 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    private translatedProgressMessage(key: string, fallback: string): string {
+        const translated = this.translate.instant(key);
+        return translated && translated !== key ? translated : fallback;
+    }
+
     private getProgressMessage(phase: string): string {
-        const messages = {
-            'connection': this.translate.instant('progress.connecting') || 'Connecting...',
-            'extract_documents': this.translate.instant('progress.extract_documents') || 'Extracting documents...',
-            'summarize_input': this.translate.instant('progress.summarize_input') || 'Generating medical summary...',
-            'translation': this.translate.instant('progress.translating') || 'Translating description...',
-            'medical_question': this.translate.instant('progress.medical_question') || 'Asking medical questions...',
-            'ai_processing': this.translate.instant('progress.analyzing') || 'Analyzing symptoms with AI...',
-            'ai_details': this.translate.instant('progress.getting_details') || 'Getting diagnosis details...',
-            'anonymization': this.translate.instant('progress.anonymizing') || 'Anonymizing personal information...',
-            'finalizing': this.translate.instant('progress.finalizing') || 'Finalizing diagnosis...'
+        const messages: Record<string, string> = {
+            'connection': this.translatedProgressMessage('progress.connecting', 'Connecting...'),
+            'extract_documents': this.translatedProgressMessage('progress.extract_documents', 'Extracting documents...'),
+            'classify_images': this.translatedProgressMessage('progress.prepare_images', 'Preparing images...'),
+            'summarize_input': this.translatedProgressMessage('progress.summarize_input', 'Generating medical summary...'),
+            'translation': this.translatedProgressMessage('progress.translating', 'Translating description...'),
+            'medical_question': this.translatedProgressMessage('progress.medical_question', 'Asking medical questions...'),
+            'ai_processing': this.translatedProgressMessage('progress.analyzing', 'Analyzing symptoms with AI...'),
+            'ai_details': this.translatedProgressMessage('progress.getting_details', 'Getting diagnosis details...'),
+            'anonymization': this.translatedProgressMessage('progress.anonymizing', 'Anonymizing personal information...'),
+            'finalizing': this.translatedProgressMessage('progress.finalizing', 'Finalizing diagnosis...')
         };
         
-        return messages[phase] || phase; // fallback al mensaje original
+        return messages[phase] ||
+            this.translatedProgressMessage('progress.processing', 'Processing...');
     }
 
     private updateWebSocketProgress(progress: number, message: string, phase?: string) {
@@ -747,27 +1098,35 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     private handleWebSocketError(error: any) {
         console.error('WebSocket error:', error);
-        let msgError = '';
-        
-        // Verificar que error existe y es un objeto válido
-        if (error && typeof error === 'object' && error.type) {
-            if (error.type === 'PROCESSING_ERROR') {
-                msgError = this.translate.instant("generics.error try again");
-            } else if (error.type === 'QUEUE_PROCESSING_ERROR') {
-                msgError = this.translate.instant("generics.error try again");
-            } else {
-                msgError = this.translate.instant("generics.error try again");
+        const messageKeyByType: Record<string, string> = {
+            DESCRIPTION_TOO_SHORT: 'generics.minDescriptionLength',
+            INVALID_DIAGNOSE_INPUT: 'generics.Invalid request format or content',
+            SUMMARY_INPUT_REJECTED: 'generics.Invalid request format or content',
+            INPUT_TOO_LARGE: 'generics.inputTooLarge',
+            NO_DOCUMENT: 'generics.documentUnreadable',
+            NO_MEDICAL_IMAGE: 'generics.imageNotMedical'
+        };
+        let msgError = this.translate.instant(
+            messageKeyByType[error?.type] || 'generics.error try again'
+        );
+        const correlationId = this.getSafeCorrelationId(
+            error?.correlationId || this.lastMultimodalCorrelationId
+        );
+        if (correlationId) {
+            msgError += `<br><small>ID: ${correlationId}</small>`;
+        }
+        this.lastMultimodalCorrelationId = '';
+        if (this.multimodalRequestSubscription || this.awaitingMultimodalPreprocessing) {
+            this.multimodalRequestSubscription?.unsubscribe();
+            this.multimodalRequestSubscription = null;
+            this.awaitingMultimodalPreprocessing = false;
+            this.activeMultimodalRun += 1;
+            // Si el preprocesado ya había terminado, el fallo es del
+            // diagnóstico y los archivos conservan su resultado real.
+            if (!this.multimodalPreprocessingCompleted) {
+                this.setAllFileStatuses('error');
             }
-        } else {
-            // Error genérico cuando no hay información específica
-            msgError = this.translate.instant("generics.error try again");
         }
-        
-        // Restaurar el modelo anterior en caso de error
-        if (this.previousModel) {
-            this.model = this.previousModel;
-        }
-        
         this.showError(msgError, error);
         this.callingAI = false;
     }
@@ -791,15 +1150,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.differentialTextTranslated = '';
         this.copyMedicalText = '';
         this.showErrorCall1 = false;
-        this.currentImageUrls = []; // Limpiar las URLs de las imágenes
-        this.descriptionImageOnly = '';
+        this.clearUploadReference();
         document.getElementById("textarea1").setAttribute("style", "height:50px;overflow-y:hidden; width: 100%;");
         this.resizeTextArea();
     }
 
     async checkPopup(contentIntro) {
         this.showErrorCall1 = false;
-        if (this.callingAI || this.medicalTextOriginal.length < 15) {
+        if (this.callingAI || (!this.hasDiagnosticImages && this.medicalTextOriginal.length < 15)) {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
             if (this.medicalTextOriginal.length > 0) {
@@ -888,10 +1246,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    dismissDisclaimer() {
+        this.terms2 = false;
+        localStorage.setItem('hideIntroLogins', 'false');
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+        }
+    }
+
     closePopup() {
         this.preparingcallAI('step1');
         if (this.modalReference != undefined) {
             this.modalReference.close();
+            this.modalReference = undefined;
         }
     }
 
@@ -925,7 +1293,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     continuePreparingcallAI(step) {
         if (step == 'step4') {
-            this.callAI(this.defaultModel);
+            this.callAI();
         } else {
             Swal.fire({
                 title: this.translate.instant("generics.Please wait"),
@@ -936,7 +1304,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }).then((result) => {
 
             });
-            this.callAI(this.defaultModel);
+            this.callAI();
         }
 
     }
@@ -960,31 +1328,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return filteredParams;
     }
 
-    async callAI(stringModel: string) {
+    async callAI() {
         Swal.close();
         if(this.topRelatedConditions.length == 0){
             this.lauchEvent('diagnosis_started');
         }
-        // Determinar el modelo a usar
-        let modelToUse = stringModel;
-        //this.model = modelToUse;
-        // NO cambiar this.model aquí - se cambiará solo cuando la llamada sea exitosa
-        // Esto permite restaurar el modelo anterior si hay error o cancelación
-        // Siempre usar WebSocket para mejor UX y prepararse para detección de intención
-        // Esto evita problemas cuando el backend detecta automáticamente que debe usar o3
+        // Siempre usar WebSocket para mejorar la UX.
         const shouldUseWebSocket = true;
-        
-        //console.log(`Model: ${modelToUse}, shouldUseWebSocket: ${shouldUseWebSocket}`);
         
         if (shouldUseWebSocket) {
             try {
                 await this.connectWebSocket();
             } catch (error) {
                 console.error('Error connecting WebSocket:', error);
-                // Restaurar el modelo anterior en caso de error de conexión
-                if (this.previousModel) {
-                    this.model = this.previousModel;
-                }
                 this.showError(this.translate.instant("generics.error try again"), error);
                 this.callingAI = false;
                 return;
@@ -1016,10 +1372,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         }).then(function (event) {
             if (event.dismiss == Swal.DismissReason.cancel) {
-                // Restaurar el modelo anterior si el usuario cancela
-                if (this.previousModel) {
-                    this.model = this.previousModel;
-                }
                 this.callingAI = false;
                 this.subscription.unsubscribe();
                 this.subscription = new Subscription();
@@ -1052,23 +1404,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             timezone: this.timezone, 
             countryName: this.myCountry,
             countryCode: this.myCountryCode,
-            model: modelToUse,
+            model: this.model,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
-            imageUrls: []
+            uploadId: this.currentUploadId || undefined,
+            forceDiagnosis: this.forceDiagnosisNext === true
         };
-        if(this.currentImageUrls.length > 0){
-            value.imageUrls = this.currentImageUrls;
-            value.model = this.imageModel;
-            if(this.descriptionImageOnly != '' && value.description == ''){
-                value.description = this.descriptionImageOnly;
-            }else if (this.descriptionImageOnly != '' && value.description != ''){
-                if(!value.description.includes(this.descriptionImageOnly)){
-                    value.description = value.description + ' ' + this.descriptionImageOnly;
-                }
-            }            
-        }
-        
+        this.forceDiagnosisNext = false;
+
         if (this.loadMoreDiseases) {
             value.diseases_list = this.diseaseListText;
         }
@@ -1077,28 +1420,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             (res: any) => this.handledDiagnoseResponse(res, value),
             (err: any) => this.handleAiError(err)
         );
-    }
-
-    callAdvancedModel(){
-        this.lauchEvent('callAdvancedModel' );
-        // Guardar el modelo actual antes de cambiarlo
-        this.previousModel = this.model;
-        this.callingAI = true;
-        this.medicalTextEng = this.medicalTextOriginal;
-        this.differentialTextOriginal = '';
-        this.differentialTextTranslated = '';
-        this.callAI(this.advancedModel);
-    }
-
-    callFastModel(){
-        this.lauchEvent('callFastModel');
-        // Guardar el modelo actual antes de cambiarlo
-        this.previousModel = this.model;
-        this.callingAI = true;
-        this.medicalTextEng = this.medicalTextOriginal;
-        this.differentialTextOriginal = '';
-        this.differentialTextTranslated = '';
-        this.callAI(this.defaultModel);
     }
 
     handledDiagnoseResponse(res: any, value: any) {
@@ -1240,9 +1561,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    private getSafeCorrelationId(value: unknown): string {
+        return typeof value === 'string' &&
+            /^[A-Za-z0-9._:-]{1,128}$/.test(value)
+            ? value
+            : '';
+    }
+
     handleAiError(err: any) {
-        console.log(err);
-        
         let msgError = '';
         
         // Si el error es un objeto con la propiedad result
@@ -1251,7 +1577,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         // Si el error tiene la estructura error.error
         else if (err.error) {
-            if (err.error.error && err.error.error.code === 'content_filter') {
+            if (err.error.code === 'INVALID_UPLOAD_REFERENCE') {
+                this.resetExpiredUpload();
+                msgError = this.translate.instant('generics.imageAssetExpired');
+            } else if (err.error.error && err.error.error.code === 'content_filter') {
                 msgError = this.translate.instant('generics.sorry cant anwser1');
             } else if (err.error.type === 'invalid_request_error') {
                 if (err.error.code === 'string_above_max_length') {
@@ -1278,12 +1607,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (!msgError) {
             msgError = this.translate.instant('generics.error try again');
         }
-    
-        // Restaurar el modelo anterior en caso de error
-        if (this.previousModel) {
-            this.model = this.previousModel;
+        const correlationId = this.getSafeCorrelationId(
+            err?.error?.correlationId ||
+            err?.correlationId ||
+            this.lastMultimodalCorrelationId
+        );
+        if (correlationId) {
+            msgError += `<br><small>ID: ${correlationId}</small>`;
         }
-        
+        this.lastMultimodalCorrelationId = '';
+    
         this.showError(msgError, err);
         this.callingAI = false;
     }
@@ -1319,14 +1652,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     processAiSuccess(data: any, value: any) {
-        // Establecer el modelo solo cuando la llamada sea exitosa
-        if(data.model && data.model == this.advancedModel){
-            this.model = this.advancedModel;
-        }else{
-            this.model = this.defaultModel;
-        }
-        // Limpiar previousModel ya que el cambio fue exitoso
-        this.previousModel = null;
         this.cancelQueueStatusCheck();
         if (this.countdownInterval) {
             clearInterval(this.countdownInterval);
@@ -1348,17 +1673,38 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.setDiseaseListEn(parseChoices0);
                 this.continuecallAI(parseChoices0);
             }else{
-                if(data.medicalAnswer){
+                if(data.suggestedPage === 'questions'){
+                    this.showWrongPageRedirect('questions');
+                    this.lauchEvent("Redirect to medical questions");
+                }else if(data.medicalAnswer){
                     this.callingAI = false;
                     this.showMedicalInfoModal(data);
                     this.lauchEvent("Medical Info Modal");
+                }else if(data.intentAction === 'enrich'){
+                    this.showIntentEnrichment(data.intentReason);
                 }else{
-                    this.showError(this.translate.instant("undiagnosed.only_patient_description"), null);
-                    this.callingAI = false;
-                    this.lauchEvent("only_patient_description Modal");
+                    this.showIntentEnrichment(data.intentReason || 'insufficient_patient_context');
                 }
             }
         }
+    }
+
+    private dismissLoadingSwal(): void {
+        Swal.close();
+        document.querySelector('.swal2-container')?.remove();
+        document.body.classList.remove('swal2-shown', 'swal2-height-auto');
+    }
+
+    private async showIntentEnrichment(reason: string): Promise<void> {
+        this.callingAI = false;
+        this.dismissLoadingSwal();
+        this.lauchEvent(`Intent enrichment - ${reason || 'unknown'}`);
+
+        const choice = await this.intentEnrichmentService.chooseNextStep(
+            reason,
+            this.hasDiagnosticImages
+        );
+        await this.applyIntentChoice(choice, reason);
     }
 
     showMedicalInfoModal(content: any) {
@@ -1368,6 +1714,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             backdrop: 'static',
             keyboard: false,
             centered: true,
+            ariaLabelledBy: 'medical-answer-title',
             windowClass: 'medical-info-modal'
         });
         modalRef.componentInstance.content = content.medicalAnswer;
@@ -1376,6 +1723,88 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.model = content.model;
         modalRef.componentInstance.selectedFiles = this.selectedFiles;
         modalRef.componentInstance.detectedLang = content.detectedLang;
+    }
+
+    private consumePendingInput(): boolean {
+        if (!isPlatformBrowser(this.platformId)) {
+            return false;
+        }
+        const pending = sessionStorage.getItem('dxgpt.pendingPageInput');
+        if (!pending) {
+            return false;
+        }
+        sessionStorage.removeItem('dxgpt.pendingPageInput');
+        this.medicalTextOriginal = pending;
+        return true;
+    }
+
+    showWrongPageRedirect(target: 'questions' | 'home'): void {
+        this.callingAI = false;
+        const text = this.medicalTextOriginal;
+        this.dismissLoadingSwal();
+        if (target === 'questions') {
+            this.intentEnrichmentService.chooseExplainRedirect(this.hasDiagnosticImages).then((choice) => {
+                this.applyIntentChoice(choice, 'explain');
+            });
+            return;
+        }
+
+        const msgKey = 'beta.redirect_to_diagnosis';
+        const btnKey = 'beta.redirect_confirm';
+        Swal.fire({
+            icon: 'info',
+            html: this.translate.instant(msgKey),
+            showCancelButton: true,
+            confirmButtonText: this.translate.instant(btnKey),
+            cancelButtonText: this.translate.instant('generics.Cancel'),
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.goToRedirectPage('home', text);
+            }
+        });
+    }
+
+    private async applyIntentChoice(choice: string | null, reason: string): Promise<void> {
+        if (choice === 'ask') {
+            this.goToRedirectPage('questions', this.medicalTextOriginal);
+            return;
+        }
+
+        if (choice === 'questions') {
+            this.followUpQuestions = [];
+            this.followUpAnswers = {};
+            this.processingFollowUpAnswers = false;
+            this.medicalTextEng = this.medicalTextOriginal;
+            await this.handleERResponse(this.contentFollowUpQuestions);
+            return;
+        }
+
+        if (choice === 'continue') {
+            this.forceDiagnosisNext = true;
+            this.lauchEvent(`Intent continue - ${reason || 'unknown'}`);
+            await this.callAI();
+            return;
+        }
+
+        if (choice === 'upload') {
+            this.mainFileInput?.nativeElement.click();
+            return;
+        }
+
+        if (choice === 'edit') {
+            setTimeout(() => {
+                this.mainTextArea?.nativeElement.focus();
+                this.resizeTextArea();
+            });
+        }
+    }
+
+    private goToRedirectPage(target: 'questions' | 'home', text: string): void {
+        if (isPlatformBrowser(this.platformId) && text) {
+            sessionStorage.setItem('dxgpt.pendingPageInput', text);
+        }
+        this.router.navigate([target === 'questions' ? '/beta' : '/']);
     }
 
     includesElement(array, string) {
@@ -1415,6 +1844,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
          this.topRelatedConditions = [];
         }
 
+        const appendedFromLoadMore = this.loadMoreDiseases;
         const indexDisease = this.topRelatedConditions.length;
         const isEu = this.isEuMode();
         parseChoices.forEach((disease, i) => {
@@ -1442,6 +1872,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.eventsService.broadcast('hasDiagnostics', true);
         this.callingAI = false;
         Swal.close();
+        this.announceResults(parseChoices.length, !appendedFromLoadMore);
         //window.scrollTo(0, 0);
         
         this.lauchEvent("Search Disease");
@@ -1466,7 +1897,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.lauchEvent("Multimodal" + this.selectedFiles.length);
         }
         await this.delay(200);
-        this.scrollTo();
+        if (appendedFromLoadMore) {
+            this.scrollToFirstNewDisease(indexDisease);
+        } else {
+            this.scrollTo();
+        }
     }
 
     setDiseaseListEn(text) {
@@ -1481,7 +1916,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var diseases = this.diseaseListEn.map(disease => '+' + disease).join(', ');
         this.diseaseListText = diseases;
         this.loadMoreDiseases = true;
-        this.callAI(this.model);
+        this.callAI();
     }
 
     getDiseaseListTextLength(): number {
@@ -1495,6 +1930,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     async scrollTo() {
         await this.delay(400);
         document.getElementById('initsteps').scrollIntoView({ behavior: "smooth" });
+    }
+
+    async scrollToFirstNewDisease(index: number) {
+        await this.delay(200);
+        const firstNew = document.getElementById('disease-card-' + index);
+        if (firstNew) {
+            firstNew.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
     cancelCallQuestion() {
@@ -1514,16 +1957,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             'Diagnosis Test',
             'Differential Diagnosis',
             'Why Diagnosis',
-            'Genetic Tests'
+            'Genetic Tests',
+            'Compare Alternatives'
         ];
         return events[index] || '';
     }
 
-    showQuestion(question, index) {
+    showQuestion(question) {
         this.symptomsDifferencial = [];
         this.answerAI = '';
         this.loadingAnswerAI = true;
         this.selectedQuestion = question.question;
+        const questionType = question.questionType;
         var selectedDiseaseEn = this.diseaseListEn[this.selectedInfoDiseaseIndex];
         /*let index2 = selectedDiseaseEn.indexOf('.');
         if (index2 != -1) {
@@ -1531,7 +1976,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             selectedDiseaseEn = temp[1];
         }*/
 
-        let infoOptionEvent = this.getInfoOptionEvent(index);
+        let infoOptionEvent = this.getInfoOptionEvent(questionType);
         if(this.hasIframeParams()){
             if(this.iframeParams.centro){
                 infoOptionEvent += " centro: " + this.iframeParams.centro;
@@ -1548,22 +1993,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         this.lauchEvent(infoOptionEvent);
 
-        if(this.currentImageUrls.length > 0 && this.descriptionImageOnly != '' && this.medicalTextOriginal == ''){
-            this.medicalTextOriginal = this.descriptionImageOnly;
-        }
-
-        var value = { questionType: index, disease: selectedDiseaseEn, medicalDescription: this.medicalTextEng,myuuid: this.myuuid, timezone: this.timezone, detectedLang: this.detectedLang, imageUrls: [] };
-
-        if(this.currentImageUrls.length > 0){
-            value.imageUrls = this.currentImageUrls;
-            if(this.descriptionImageOnly != '' && value.medicalDescription == ''){
-                value.medicalDescription = this.descriptionImageOnly;
-            }else if (this.descriptionImageOnly != '' && value.medicalDescription != ''){
-                if(!value.medicalDescription.includes(this.descriptionImageOnly)){
-                    value.medicalDescription = value.medicalDescription + ' ' + this.descriptionImageOnly;
-                }
-            }            
-        }
+        var value = {
+            questionType,
+            disease: selectedDiseaseEn,
+            medicalDescription: this.medicalTextEng,
+            myuuid: this.myuuid,
+            timezone: this.timezone,
+            detectedLang: this.detectedLang,
+            uploadId: this.currentUploadId || undefined
+        };
         this.subscription.add(this.apiDx29ServerService.callInfoDisease(value)
             .subscribe((res: any) => {
                 if (res.result === 'success') {
@@ -1602,7 +2040,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }, (err) => {
                 console.log(err);
                 let msgError = '';
-                if(err && err.error && err.error.message){
+                if (err?.error?.code === 'INVALID_UPLOAD_REFERENCE') {
+                    this.resetExpiredUpload();
+                    msgError = this.translate.instant('generics.imageAssetExpired');
+                } else if(err && err.error && err.error.message){
                     switch(err.error.message) {
                         case 'Invalid question type':
                             msgError = this.translate.instant("generics.errorQuestionType");
@@ -1679,14 +2120,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.symptomsDifferencial = [];
     }
 
-    restartInitVars() {
-        this.medicalTextOriginal = '';
-        this.copyMedicalText = '';
-        this.topRelatedConditions = [];
-        // Notificar que ya no hay diagnósticos activos
-        this.eventsService.broadcast('hasDiagnostics', false);
-    }
-
     showMoreInfoDiseasePopup(diseaseIndex, contentInfoDisease) {
         this.answerAI = '';
         this.symptomsDifferencial = [];
@@ -1695,7 +2128,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.lauchEvent(nameEvent);
         let ngbModalOptions: NgbModalOptions = {
             keyboard: true,
-            windowClass: 'ModalClass-lg'// xl, lg, sm
+            windowClass: 'ModalClass-lg',// xl, lg, sm
+            ariaLabelledBy: 'disease-modal-title'
         };
         if (this.modalReference != undefined) {
             this.modalReference.close();
@@ -1868,7 +2302,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             backdrop: 'static',
             keyboard: false,
             size: 'md',
-            centered: true
+            centered: true,
+            ariaLabelledBy: 'export-title'
         };
         this.modalReference = this.modalService.open(contentExportOptions, ngbModalOptions);
     }
@@ -2033,6 +2468,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     let ngbModalOptions: NgbModalOptions = {
                         backdrop: 'static',
                         keyboard: false,
+                        ariaLabelledBy: 'feedback-modal-title',
                         windowClass: 'ModalClass-lg'// xl, lg, sm
                     };
                     this.modalReference = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
@@ -2113,7 +2549,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         var nameEvent = 'showContentInfoAPP';
         this.lauchEvent(nameEvent);
         let ngbModalOptions: NgbModalOptions = {
-            windowClass: 'ModalClass-lg'// xl, lg, sm
+            windowClass: 'ModalClass-lg',// xl, lg, sm
+            ariaLabelledBy: 'infoapp-title'
         };
         if (this.modalReference != undefined) {
             this.modalReference.close();
@@ -2184,7 +2621,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     openAnonymize(contentviewDoc) {
         let ngbModalOptions: NgbModalOptions = {
             keyboard: false,
-            windowClass: 'ModalClass-sm' // xl, lg, sm
+            windowClass: 'ModalClass-sm', // xl, lg, sm
+            ariaLabelledBy: 'anonymized-title'
         };
         if (this.modalReference != undefined) {
             this.modalReference.close();
@@ -2203,7 +2641,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     async openDescripModal(panel) {
         let ngbModalOptions: NgbModalOptions = {
             keyboard: true,
-            windowClass: 'ModalClass-lg'// xl, lg, sm
+            windowClass: 'ModalClass-lg',// xl, lg, sm
+            ariaLabelledBy: 'edit-description-title'
         };
         this.editmedicalText = this.medicalTextOriginal;
         this.modalReference = this.modalService.open(panel, ngbModalOptions);
@@ -2233,7 +2672,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async checkText() {
         this.showErrorCall1 = false;
-        if (this.callingAI || this.editmedicalText.length < 15) {
+        if (this.callingAI || (!this.hasDiagnosticImages && this.editmedicalText.length < 15)) {
             this.showErrorCall1 = true;
             let text = this.translate.instant("land.required");
             if (this.editmedicalText.length > 0) {
@@ -2319,14 +2758,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.medicalTextEng = this.medicalTextOriginal;
         this.differentialTextOriginal = '';
         this.differentialTextTranslated = '';
-        this.callAI(this.model);
+        this.callAI();
     }
 
 
     // Nuevos métodos para la funcionalidad de preguntas de seguimiento
     
     async handleFollowUpResponse(contentFollowUp?, contentEditDescription?) {
-        if(this.medicalTextOriginal == ''){
+        if(this.medicalTextOriginal == '' && !this.hasDiagnosticImages){
             // Mostrar Swal invitando a editar la descripción
             Swal.fire({
                 title: this.isEuMode() ? this.translate.instant('diagnosis.Improve patient descriptionEu') : this.translate.instant('diagnosis.Improve patient description'),
@@ -2364,7 +2803,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             let ngbModalOptions: NgbModalOptions = {
                 backdrop: 'static',
                 keyboard: false,
-                windowClass: 'ModalClass-lg'
+                windowClass: 'ModalClass-lg',
+                ariaLabelledBy: 'followup-title'
             };
             
             this.loadingFollowUpQuestions = true;
@@ -2378,6 +2818,28 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             // Generar preguntas de seguimiento basadas en la descripción actual
             await this.generateFollowUpQuestions();
         }
+    }
+
+    async openHypothesisFollowUp(contentFollowUp) {
+        this.hypothesisFollowUpDisease = this.selectedDisease;
+        this.followUpQuestions = [];
+        this.followUpAnswers = {};
+        this.loadingFollowUpQuestions = true;
+        this.lauchEvent("Hypothesis FollowUp - Open");
+
+        const ngbModalOptions: NgbModalOptions = {
+            backdrop: 'static',
+            keyboard: false,
+            windowClass: 'ModalClass-lg',
+            ariaLabelledBy: 'followup-title'
+        };
+
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+        }
+
+        this.modalReference = this.modalService.open(contentFollowUp, ngbModalOptions);
+        await this.generateFollowUpQuestions(this.hypothesisFollowUpDisease);
     }
 
     changeModeFunctionality(){
@@ -2410,7 +2872,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             let ngbModalOptions: NgbModalOptions = {
                 backdrop: 'static',
                 keyboard: false,
-                windowClass: 'ModalClass-lg'
+                windowClass: 'ModalClass-lg',
+                ariaLabelledBy: 'followup-title'
             };
             
             this.loadingFollowUpQuestions = true;
@@ -2430,13 +2893,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async generateERQuestions() {
         // Llamar a la API para generar preguntas de seguimiento
-        const value = { 
-            description: this.medicalTextOriginal, 
-            myuuid: this.myuuid, 
+        const value = {
+            description: this.medicalTextOriginal,
+            myuuid: this.myuuid,
             lang: this.lang,
-            timezone: this.timezone 
+            timezone: this.timezone,
+            uploadId: this.currentUploadId || undefined
         };
-        
+
         this.subscription.add(
             this.apiDx29ServerService.generateERQuestions(value).subscribe(
                 (res: any) => {
@@ -2455,14 +2919,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         );
     }
     
-    async generateFollowUpQuestions() {
+    async generateFollowUpQuestions(focusDisease: string = '') {
         // Llamar a la API para generar preguntas de seguimiento
         const value = { 
-            description: this.medicalTextEng, 
-            diseases: this.diseaseListEn.slice(0, 5).join(', '), 
+            description: focusDisease ? (this.medicalTextOriginal || this.medicalTextEng) : this.medicalTextEng,
+            diseases: focusDisease || this.diseaseListEn.slice(0, 5).join(', '),
             myuuid: this.myuuid,
             lang: this.lang,
-            timezone: this.timezone 
+            timezone: this.timezone,
+            mode: focusDisease ? 'hypothesis' : 'general',
+            detectedLanguage: focusDisease ? this.detectedLang : undefined,
+            uploadId: this.currentUploadId || undefined
         };
         
         this.subscription.add(
@@ -2494,6 +2961,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (this.modalReference != undefined) {
             this.modalReference.close();
         }
+        this.hypothesisFollowUpDisease = '';
     }
     
     updateFollowUpAnswer(questionIndex: number, answer: string) {
@@ -2501,7 +2969,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
     
     hasAnswers(): boolean {
-        return Object.keys(this.followUpAnswers).length > 0;
+        return Object.values(this.followUpAnswers).some(
+            (answer) => typeof answer === 'string' && answer.trim().length > 0
+        );
     }
     
     async processFollowUpAnswers() {
@@ -2539,13 +3009,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
         }
         
+        const isHypothesisFollowUp = this.hypothesisFollowUpDisease !== '';
+
         // Llamar a la API para procesar las respuestas y actualizar la descripción
         const value = { 
-            description: this.medicalTextEng, 
+            description: isHypothesisFollowUp ? (this.medicalTextOriginal || this.medicalTextEng) : this.medicalTextEng,
             answers: answeredQuestions,
             myuuid: this.myuuid,
             lang: this.lang,
-            timezone: this.timezone 
+            timezone: this.timezone,
+            mode: isHypothesisFollowUp ? 'hypothesis' : 'general',
+            detectedLanguage: isHypothesisFollowUp ? this.detectedLang : undefined,
+            uploadId: this.currentUploadId || undefined
         };
         if(this.modeFunctionality && this.medicalTextEng ==''){
             value.description = this.medicalTextOriginal;
@@ -2567,9 +3042,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                         
                         // Realizar una nueva búsqueda con la descripción actualizada
                         this.processingFollowUpAnswers = false;
-                        this.callAI(this.model);
+                        this.hypothesisFollowUpDisease = '';
+                        this.callAI();
                         
-                        this.lauchEvent("FollowUp - Descripción actualizada");
+                        this.lauchEvent(isHypothesisFollowUp ? "Hypothesis FollowUp - Updated" : "FollowUp - Descripción actualizada");
                     } else {
                         this.handleProcessFollowUpAnswersError(res);
                     }
@@ -2595,7 +3071,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (this.modalReference != undefined) {
             this.modalReference.close();
         }
-        this.lauchEvent("FollowUp - Omitir preguntas");
+        const eventName = this.hypothesisFollowUpDisease ? "Hypothesis FollowUp - Skip" : "FollowUp - Omitir preguntas";
+        this.hypothesisFollowUpDisease = '';
+        this.lauchEvent(eventName);
     }
 
     callAIForSummary(option: string) {
@@ -2946,7 +3424,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     onFilesSelected(event: any) {
-        console.log(event);
         if (event.target.files && event.target.files.length > 0) {
             const newFiles = Array.from(event.target.files) as File[];
             this.validateAndAddFiles(newFiles);
@@ -2954,18 +3431,31 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     removeFile(index: number) {
-        const removedFile = this.selectedFiles[index];
-        this.selectedFiles.splice(index, 1);
-        if (this.selectedFiles.length === 0) {
-            this.filesAnalyzed = false;
-            this.filesModifiedAfterAnalysis = false; // Resetear si no hay archivos
-        } else {
-            this.filesModifiedAfterAnalysis = true; // Marcar como modificado
+        if (this.callingAI) {
+            return;
         }
-        this.lauchEvent('File removed: ' + (removedFile ? removedFile.name : 'unknown'));
+        const removedFile = this.selectedFiles[index];
+        if (removedFile) {
+            this.fileProcessingStatuses.delete(this.getFileKey(removedFile));
+        }
+        this.selectedFiles.splice(index, 1);
+        this.invalidateAnalysis();
+        this.lauchEvent(
+            removedFile?.type?.startsWith('image/')
+                ? 'Image file removed'
+                : 'Document file removed'
+        );
     }
 
     async analyzeMultimodal() {
+        this.multimodalRequestSubscription?.unsubscribe();
+        this.multimodalRequestSubscription = null;
+        this.multimodalPreprocessingCompleted = false;
+        const runId = ++this.activeMultimodalRun;
+        this.failedDocumentNames = [];
+        this.notMedicalImageNames = [];
+        this.lastMultimodalCorrelationId = '';
+        this.setAllFileStatuses('processing');
         // Mostrar spinner con Swals
         Swal.close();
         Swal.fire({
@@ -2978,39 +3468,52 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             cancelButtonText: this.translate.instant("generics.Cancel"),
             allowOutsideClick: false,
             allowEscapeKey: false
-        }).then(function (event) {
+        }).then((event) => {
             if (event.dismiss == Swal.DismissReason.cancel) {
-                this.callingAI = false;
-                this.subscription.unsubscribe();
-                this.subscription = new Subscription();
+                this.cancelMultimodalRun(runId);
                 this.lauchEvent('User cancelled multimodal analysis');
             }
-        }.bind(this));
+        });
 
         this.lauchEvent('Analyze multimodal started');
         this.callingAI = true;
         const formData = new FormData();
         formData.append('text', this.medicalTextOriginal || '');
+        // Cada análisis parte de cero: se envían todos los ficheros y el
+        // servidor crea un uploadId nuevo. No se reutiliza nada del anterior.
+        this.clearUploadReference();
+        const filesSubmitted = this.selectedFiles;
         // Permitir hasta 5 documentos y 5 imágenes según backend
         // Usar las constantes de la clase para consistencia
         let docCount = 0;
         let imgCount = 0;
-        for (const file of this.selectedFiles) {
-            if (docCount < 5 && UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(file.type)) {
+        for (const file of filesSubmitted) {
+            if (
+                docCount < this.multimodalUploadLimits.maxDocuments &&
+                UndiagnosedPageComponent.SUPPORTED_DOC_TYPES.includes(file.type)
+            ) {
                 formData.append('document', file);
                 docCount++;
-                this.lauchEvent('Document file added: ' + file.name);
-            } else if (imgCount < 5 && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)) {
+            } else if (
+                imgCount < this.multimodalUploadLimits.maxImages &&
+                UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(file.type)
+            ) {
                 formData.append('image', file);
                 imgCount++;
-                this.lauchEvent('Image file added: ' + file.name);
             }
-            if (docCount >= 5 && imgCount >= 5) break;
+            if (
+                docCount >= this.multimodalUploadLimits.maxDocuments &&
+                imgCount >= this.multimodalUploadLimits.maxImages
+            ) break;
         }
         formData.append('lang', this.lang || 'es');
 
         formData.append('myuuid', this.myuuid || '');
         formData.append('timezone', this.timezone || '');
+        const iframeParams = this.filterIframeParams(this.iframeParams);
+        if (Object.keys(iframeParams).length > 0) {
+            formData.append('iframeParams', JSON.stringify(iframeParams));
+        }
 
         Swal.close();
         
@@ -3018,10 +3521,24 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
 
         try {
-            await this.connectWebSocket();
+            await this.connectWebSocket(runId);
         } catch (error) {
+            if (runId !== this.activeMultimodalRun) {
+                return;
+            }
             console.error('Error connecting WebSocket:', error);
+            this.setAllFileStatuses('error');
+            this.callingAI = false;
+            if (this.webSocket) {
+                this.webSocket.close();
+                this.webSocket = null;
+            }
+            this.isWebSocketConnected = false;
+            this.activeMultimodalRun += 1;
             this.showError(this.translate.instant("generics.error try again"), error);
+            return;
+        }
+        if (runId !== this.activeMultimodalRun) {
             return;
         }
         
@@ -3049,44 +3566,77 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             customClass: {
                 popup: 'dxgpt-modal-loading'
             }
-        }).then(function (event) {
+        }).then((event) => {
             if (event.dismiss == Swal.DismissReason.cancel) {
-                this.callingAI = false;
-                this.subscription.unsubscribe();
-                this.subscription = new Subscription();
+                this.cancelMultimodalRun(runId);
+                this.lauchEvent('User cancelled multimodal analysis');
+            }
+        });
+
+        // Inicializar progreso para WebSocket
+        setTimeout(() => {
+            if (runId === this.activeMultimodalRun) {
+                this.updateWebSocketProgress(0, 'Conectando...', 'connection');
+            }
+        }, 100);
+
+        this.callingAI = true;
+        this.awaitingMultimodalPreprocessing = true;
+        this.multimodalRequestSubscription =
+            this.apiDx29ServerService.analyzeMultimodal(formData).subscribe(
+            (res: any) => {
+                if (runId !== this.activeMultimodalRun) {
+                    return;
+                }
+                // El servidor solo confirma que ha aceptado los ficheros. El
+                // resultado del preprocesado llega por el WebSocket.
+                this.multimodalRequestSubscription = null;
+                this.lastMultimodalCorrelationId = res?.correlationId || '';
+            },
+            (err: any) => {
+                if (runId !== this.activeMultimodalRun) {
+                    return;
+                }
+                this.multimodalRequestSubscription = null;
+                this.awaitingMultimodalPreprocessing = false;
+                this.setAllFileStatuses('error');
                 if (this.webSocket) {
                     this.webSocket.close();
                     this.webSocket = null;
                 }
+                this.isWebSocketConnected = false;
+                this.activeMultimodalRun += 1;
+                this.handleAiError(err);
             }
-        }.bind(this));
-
-        // Inicializar progreso para WebSocket
-        setTimeout(() => {
-            this.updateWebSocketProgress(0, 'Conectando...', 'connection');
-        }, 100);
-
-        this.callingAI = true;
-        this.apiDx29ServerService.analyzeMultimodal(formData).subscribe(
-            (res: any) => {
-                console.log(res);
-                this.handledDiagnoseResponse(res, formData);
-                if(res.description && res.isImageOnly == false){
-                    this.resultAnonymized = res.description;
-                    this.copyResultAnonymized = res.description;
-                    this.medicalTextOriginal = this.copyResultAnonymized;
-                    this.medicalTextEng = this.copyResultAnonymized;
-                }
-                if(res.description && res.isImageOnly == true){
-                    this.descriptionImageOnly = res.description;
-                }
-                // Capturar las URLs de las imágenes de la respuesta
-                if(res.imageUrls && Array.isArray(res.imageUrls)){
-                    this.currentImageUrls = res.imageUrls;
-                }
-            },
-            (err: any) => this.handleAiError(err)
         );
+    }
+
+    private applyMultimodalPreprocessing(res: any) {
+        if (!this.awaitingMultimodalPreprocessing) {
+            return;
+        }
+        this.awaitingMultimodalPreprocessing = false;
+        this.multimodalPreprocessingCompleted = true;
+        this.lastMultimodalCorrelationId = res?.correlationId || '';
+        this.applyFileProcessingResults(res);
+        this.reportFailedDocuments(res.documents);
+        this.notMedicalImageNames = (Array.isArray(res.imageRouting) ? res.imageRouting : [])
+            .filter((image: { route?: string; name?: string }) =>
+                image?.route === 'not_medical' && !!image.name
+            )
+            .map((image: { name: string }) => image.name);
+        this.handledDiagnoseResponse(res, null);
+        if(res.description && res.isImageOnly == false){
+            this.resultAnonymized = res.description;
+            this.copyResultAnonymized = res.description;
+            this.medicalTextOriginal = this.copyResultAnonymized;
+            this.medicalTextEng = this.copyResultAnonymized;
+        }
+        // uploadId es null si no se subió ninguna imagen. El servidor
+        // decide en cada llamada qué imágenes de la subida van al modelo.
+        this.currentUploadId = typeof res.uploadId === 'string' ? res.uploadId : null;
+        this.currentImages = Array.isArray(res.images) ? res.images : [];
+        this.filesAnalyzed = true;
     }
 
     onDragOver(event: DragEvent) {
@@ -3106,6 +3656,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         event.stopPropagation();
         this.isDragOver = false;
 
+        if (this.callingAI) {
+            return;
+        }
         const files = event.dataTransfer?.files;
         if (files && files.length > 0) {
             const newFiles = Array.from(files) as File[];
@@ -3123,13 +3676,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
      * Valida y añade archivos respetando límites de backend y formatos soportados por Azure Document Intelligence:
      * - Tamaño total máximo: 20 MB (documentos + imágenes)
      * - Máximo 5 imágenes y 5 documentos
-     * - Formatos soportados: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, TIFF, BMP, WEBP
+     * - Formatos soportados: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP
      * Evita duplicados por nombre y tamaño. Muestra avisos si hay descartes.
      */
      private validateAndAddFiles(newFiles: File[]): void {
-        const MAX_TOTAL_BYTES = 20 * 1024 * 1024;
-        const MAX_DOCS = 5;
-        const MAX_IMAGES = 5;
+        const MAX_TOTAL_BYTES = this.multimodalUploadLimits.maxTotalBytes;
+        const MAX_DOCS = this.multimodalUploadLimits.maxDocuments;
+        const MAX_IMAGES = this.multimodalUploadLimits.maxImages;
 
         // Estado actual usando las constantes de la clase
         const isSupportedImage = (f: File) => f.type && UndiagnosedPageComponent.SUPPORTED_IMAGE_TYPES.includes(f.type);
@@ -3185,9 +3738,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         if (accepted.length > 0) {
             this.selectedFiles.push(...accepted);
-            this.filesAnalyzed = false;
-            this.filesModifiedAfterAnalysis = true;
-            this.lauchEvent('Files added: ' + accepted.map(f => f.name).join(', '));
+            accepted.forEach(file =>
+                this.fileProcessingStatuses.set(this.getFileKey(file), 'pending')
+            );
+            this.invalidateAnalysis();
+            this.lauchEvent(
+                `Files added: ${addedDocs} document(s), ${addedImages} image(s)`
+            );
         }
 
         if (rejected.length > 0) {
@@ -3238,21 +3795,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         return this.translate.instant('land.Search');
     }
-        
-    reanalyzeFiles() {
-        this.filesAnalyzed = false;
-        this.lauchEvent('Reanalyze files clicked');
-        this.analyzeMultimodal();
-    }
-        
-    
 
     getButtonTitle(): string {
         if (this.callingAI) {
             return this.translate.instant('generics.Please wait');
         }
         
-        if (this.medicalTextOriginal.length < 5) {
+        if (!this.hasDiagnosticImages && this.medicalTextOriginal.length < 5) {
             return this.translate.instant('land.placeholderError');
         }
         
@@ -3261,6 +3810,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         
         return this.translate.instant('land.Search');
+    }
+
+    // Swal.close() returns focus to the (now removed) search button after its
+    // close animation, so the heading focus has to land after it.
+    private announceResults(count: number, moveFocus: boolean): void {
+        if (!isPlatformBrowser(this.platformId)) return;
+        this.a11yStatusMessage = '';
+        if (this.a11yFocusTimeout) {
+            clearTimeout(this.a11yFocusTimeout);
+        }
+        this.a11yFocusTimeout = setTimeout(() => {
+            this.a11yFocusTimeout = null;
+            this.a11yStatusMessage = this.translate.instant('a11y.Results ready', { count });
+            if (moveFocus) {
+                document.getElementById('results-title')?.focus();
+            }
+        }, 400);
     }
 
     /**

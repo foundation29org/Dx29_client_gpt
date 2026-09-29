@@ -1,0 +1,47 @@
+import { Injectable } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+    IntentGateChoice,
+    IntentGateModalComponent,
+    IntentGateMode
+} from 'app/pages/land/intent-gate-modal/intent-gate-modal.component';
+
+@Injectable({ providedIn: 'root' })
+export class IntentEnrichmentService {
+    constructor(private modalService: NgbModal) {}
+
+    chooseNextStep(
+        reason: string,
+        hasUploadedImages = false
+    ): Promise<IntentGateChoice | null> {
+        return this.openGate('enrich', reason, hasUploadedImages);
+    }
+
+    chooseExplainRedirect(hasUploadedImages = false): Promise<IntentGateChoice | null> {
+        return this.openGate('explain', '', hasUploadedImages);
+    }
+
+    private async openGate(
+        mode: IntentGateMode,
+        reason = '',
+        hasUploadedImages = false
+    ): Promise<IntentGateChoice | null> {
+        const modalRef = this.modalService.open(IntentGateModalComponent, {
+            size: 'md',
+            centered: true,
+            backdrop: 'static',
+            keyboard: true,
+            ariaLabelledBy: 'intent-gate-title',
+            windowClass: 'intent-gate-window'
+        });
+        modalRef.componentInstance.mode = mode;
+        modalRef.componentInstance.reason = reason || '';
+        modalRef.componentInstance.hasUploadedImages = hasUploadedImages;
+
+        try {
+            return await modalRef.result;
+        } catch {
+            return null;
+        }
+    }
+}

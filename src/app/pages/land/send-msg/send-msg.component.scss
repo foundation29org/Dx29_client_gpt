@@ -62,20 +62,19 @@
 .form-textarea {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid #e9ecef;
+  border: 2px solid #868e96;
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.2s ease;
   background: white;
   
   &:focus {
-    outline: none;
     border-color: var(--accent-color);
     box-shadow: 0 0 0 3px rgba(179, 0, 0, 0.1);
   }
   
   &::placeholder {
-    color: #adb5bd;
+    color: #6b7280;
   }
 }
 
@@ -93,7 +92,7 @@
 }
 
 .form-error {
-  color: #dc3545;
+  color: #b02a37;
   font-size: 0.85rem;
   margin-top: 4px;
 }
@@ -177,9 +176,20 @@
   flex: 1;
 }
 
+.terms-accept-label {
+  cursor: pointer;
+  margin: 0;
+}
+
 .terms-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: inherit;
   color: var(--accent-color);
   text-decoration: underline;
+  cursor: pointer;
   
   &:hover {
     text-decoration: none;
@@ -203,7 +213,7 @@
   background: #f8f9fa;
   border: 2px solid #e9ecef;
   border-radius: 8px;
-  color: #6c757d;
+  color: #5f6773;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;

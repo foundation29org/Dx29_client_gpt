@@ -10,6 +10,7 @@ import { BrandingService } from 'app/shared/services/branding.service';
 })
 
 export class FaqsPageComponent implements OnInit {
+    readonly faqNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     expandedFaqs: { [key: number]: boolean } = {};
 
     constructor( 

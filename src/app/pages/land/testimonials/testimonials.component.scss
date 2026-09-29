@@ -59,6 +59,26 @@
   transition: transform .6s ease-in-out;
 }
 
+.carousel-pause-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.carousel-pause {
+  position: relative;
+  z-index: 2;
+  background: none;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  font: inherit;
+  color: var(--text-color, #fff);
+  cursor: pointer;
+}
+
 @media (max-width: 380px) {
   .centerdiv {
     clear: both;

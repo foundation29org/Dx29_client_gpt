@@ -1,8 +1,8 @@
 <div class="modal-header">
-  <h4 class="modal-title">
+  <h2 id="medical-answer-feedback-title" class="modal-title h4">
     {{ 'medicalInfoModal.feedbackTitle' | translate: { default: 'Feedback de la respuesta médica' } }}
-  </h4>
-  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </h2>
+  <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" (click)="activeModal.dismiss()"></button>
   
 </div>
 <div class="modal-body">
@@ -13,25 +13,26 @@
 
   <form [formGroup]="form">
     <div class="mb-3">
-      <label class="form-label">{{ 'medicalInfoModal.wasHelpful'| translate}}</label>
-      <div class="d-flex gap-2">
-        <button type="button" class="btn" [ngClass]="form.value.helpful === true ? 'btn-success' : 'btn-outline-success'" (click)="form.patchValue({ helpful: true })">
-          <i class="fa fa-thumbs-up"></i>
+      <div id="medical-answer-feedback-helpful-label" class="form-label">{{ 'medicalInfoModal.wasHelpful'| translate}}</div>
+      <div class="d-flex gap-2" role="group" aria-labelledby="medical-answer-feedback-helpful-label">
+        <button type="button" class="btn" [ngClass]="form.value.helpful === true ? 'btn-success' : 'btn-outline-success'" (click)="form.patchValue({ helpful: true })" [attr.aria-pressed]="form.value.helpful === true" [attr.aria-label]="'generics.Yes' | translate">
+          <i class="fa fa-thumbs-up" aria-hidden="true"></i>
         </button>
-        <button type="button" class="btn" [ngClass]="form.value.helpful === false ? 'btn-danger' : 'btn-outline-danger'" (click)="form.patchValue({ helpful: false })">
-          <i class="fa fa-thumbs-down"></i>
+        <button type="button" class="btn" [ngClass]="form.value.helpful === false ? 'btn-danger' : 'btn-outline-danger'" (click)="form.patchValue({ helpful: false })" [attr.aria-pressed]="form.value.helpful === false" [attr.aria-label]="'generics.No' | translate">
+          <i class="fa fa-thumbs-down" aria-hidden="true"></i>
         </button>
       </div>
     </div>
 
     <div class="mb-3">
-      <label class="form-label">{{ 'medicalInfoModal.comments' | translate}}</label>
-      <textarea class="form-control" rows="4" formControlName="comments" placeholder="{{ 'medicalInfoModal.commentsPlaceholder' | translate: { default: '¿Qué mejorarías o qué fue útil?' } }}"></textarea>
+      <label class="form-label" for="medical-answer-feedback-comments">{{ 'medicalInfoModal.comments' | translate}}</label>
+      <textarea id="medical-answer-feedback-comments" class="form-control" rows="4" formControlName="comments" placeholder="{{ 'medicalInfoModal.commentsPlaceholder' | translate: { default: '¿Qué mejorarías o qué fue útil?' } }}"></textarea>
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Email ({{ 'generics.Optional' | translate }})</label>
-      <input type="email" class="form-control" formControlName="email" placeholder="name@example.com"/>
+      <label class="form-label" for="medical-answer-feedback-email">{{ 'generics.Email' | translate }} ({{ 'generics.Optional' | translate }})</label>
+      <input id="medical-answer-feedback-email" type="email" class="form-control" formControlName="email" placeholder="name@example.com" autocomplete="email"
+        [attr.aria-invalid]="form.get('email')?.invalid && form.get('email')?.touched ? 'true' : null"/>
     </div>
   </form>
 </div>
