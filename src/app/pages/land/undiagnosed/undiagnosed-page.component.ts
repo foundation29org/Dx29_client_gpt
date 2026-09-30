@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { EventsService } from 'app/shared/services/events.service';
 import Swal from 'sweetalert2';
@@ -78,6 +78,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         'classification_failed',
         'ocr_failed'
     ];
+
+    // Tope de descripción de /diagnose, /questions/followup y /disease/info.
+    private static readonly MAX_DESCRIPTION_CHARS = 8000;
 
     private subscription: Subscription = new Subscription();
     medicalTextOriginal: string = '';
@@ -1281,7 +1284,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    preparingcallAI(step) {
+    async preparingcallAI(step) {
         this.callingAI = true;
         if (step == 'step4') {
             const cleanDifferentialText = this.differentialTextOriginal.trim();
@@ -1296,8 +1299,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 return `${baseTextTrimmed}${separator}${newText}`;
             };
     
-            this.copyMedicalText = concatenateText(this.copyMedicalText, cleanTranslatedText);
-            this.medicalTextOriginal = concatenateText(this.medicalTextOriginal, cleanDifferentialText);
+            const nextCopy = concatenateText(this.copyMedicalText, cleanTranslatedText);
+            const nextOriginal = concatenateText(this.medicalTextOriginal, cleanDifferentialText);
+            const fitted = await this.fitDescription(nextCopy);
+            if (fitted === null) {
+                this.callingAI = false;
+                this.differentialTextOriginal = '';
+                this.differentialTextTranslated = '';
+                return;
+            }
+            this.copyMedicalText = fitted;
+            this.medicalTextOriginal = fitted === nextCopy ? nextOriginal : fitted;
             this.medicalTextEng = this.copyMedicalText;
         } else {
             this.medicalTextEng = this.medicalTextOriginal;
@@ -1348,6 +1360,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async callAI() {
         Swal.close();
+        if (this.countCharacters(this.medicalTextEng || '') > UndiagnosedPageComponent.MAX_DESCRIPTION_CHARS) {
+            this.callingAI = false;
+            const fitted = await this.fitDescription(this.medicalTextEng);
+            if (fitted === null) {
+                return;
+            }
+            this.medicalTextOriginal = fitted;
+            this.medicalTextEng = fitted;
+            this.callingAI = true;
+            Swal.close();
+        }
         if(this.topRelatedConditions.length == 0){
             this.lauchEvent('diagnosis_started');
         }
@@ -2731,12 +2754,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     allowOutsideClick: false
                 }).then(async (result) => {
                     if (result.isConfirmed) {
-                        this.closeModal();
-                        this.medicalTextOriginal = this.editmedicalText;
-                        this.finishEditDescription();
-                    } else if (result.isDenied) {
                         this.callAIForSummary('edit');
-                    } else if (result.isDismissed) {
+                    } else {
                         await this.delay(400);
                         document.getElementById('textareaedit').scrollIntoView({ behavior: "smooth" });
                     }
@@ -3049,11 +3068,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         this.subscription.add(
             this.apiDx29ServerService.processFollowUpAnswers(value).subscribe(
-                (res: any) => {
+                async (res: any) => {
                     if (res.result === 'success' && res.data && res.data.updatedDescription) {
+                        const updatedDescription = await this.fitDescription(res.data.updatedDescription);
+                        if (updatedDescription === null) {
+                            this.processingFollowUpAnswers = false;
+                            return;
+                        }
                         // Actualizar la descripción con la información adicional
-                        this.medicalTextOriginal = res.data.updatedDescription;
-                        this.medicalTextEng = res.data.updatedDescription;
+                        this.medicalTextOriginal = updatedDescription;
+                        this.medicalTextEng = updatedDescription;
                         
                         // Cerrar el modal
                         if (this.modalReference != undefined) {
@@ -3094,6 +3118,52 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const eventName = this.hypothesisFollowUpDisease ? "Hypothesis FollowUp - Skip" : "FollowUp - Omitir preguntas";
         this.hypothesisFollowUpDisease = '';
         this.lauchEvent(eventName);
+    }
+
+    // Las respuestas del follow-up y «Recalcular diferencial» alargan la
+    // descripción sin pasar por checkPopup. Devuelve null si el usuario cancela.
+    private async fitDescription(text: string): Promise<string | null> {
+        const max = UndiagnosedPageComponent.MAX_DESCRIPTION_CHARS;
+        if (this.countCharacters(text) <= max) {
+            return text;
+        }
+        this.lauchEvent('Description too long after update');
+        const choice = await Swal.fire({
+            title: this.translate.instant("generics.textTooLongMax"),
+            html: this.translate.instant("generics.textTooLongMaxMessage") + '<br><br>' + this.translate.instant("generics.aiSummaryWarning"),
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: this.translate.instant("generics.ShortenWithAI"),
+            cancelButtonText: this.translate.instant("generics.Cancel"),
+            allowOutsideClick: false
+        });
+        if (!choice.isConfirmed) {
+            return null;
+        }
+
+        Swal.fire({
+            title: this.translate.instant("generics.Please wait"),
+            html: this.translate.instant("generics.summarizingText"),
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        });
+        try {
+            const res: any = await firstValueFrom(this.apiDx29ServerService.summarizeText({
+                description: text,
+                myuuid: this.myuuid,
+                lang: this.lang,
+                timezone: this.timezone
+            }));
+            const summary = res?.result === 'success' ? (res.data?.summary || '') : '';
+            if (summary && this.countCharacters(summary) <= max) {
+                return summary;
+            }
+            this.showError(this.translate.instant("generics.error try again"), res);
+        } catch (err) {
+            this.showError(this.translate.instant("generics.error try again"), err);
+        }
+        return null;
     }
 
     callAIForSummary(option: string) {
