@@ -1948,8 +1948,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     setDiseaseListEn(text) {
+        // Solo se descartan nombres vacíos. El filtro antiguo `length > 3` venía de cuando el modelo
+        // devolvía texto libre partido por "$" y había que tirar fragmentos basura; con JSON
+        // estructurado solo excluía diagnósticos legítimos cortos (MS, SLE, IBS...), que además
+        // desalineaban esta lista respecto a topRelatedConditions y "cargar más" los volvía a sugerir.
         text.forEach(item => {
-            if (item.diagnosis && item.diagnosis.length > 3) {
+            if (typeof item.diagnosis === 'string' && item.diagnosis.trim()) {
                 this.diseaseListEn.push(item.diagnosis);
             }
         });
@@ -2012,12 +2016,24 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.loadingAnswerAI = true;
         this.selectedQuestion = question.question;
         const questionType = question.questionType;
-        var selectedDiseaseEn = this.diseaseListEn[this.selectedInfoDiseaseIndex];
+        // Se lee de topRelatedConditions: es la lista que pinta la UI y de la que sale el índice.
+        // diseaseListEn es una segunda lista que solo coincide en posiciones mientras nada la filtre
+        // (antes descartaba diagnósticos de ≤3 caracteres y el índice apuntaba a otra enfermedad).
+        var selectedDiseaseEn = this.topRelatedConditions[this.selectedInfoDiseaseIndex]?.name;
         /*let index2 = selectedDiseaseEn.indexOf('.');
         if (index2 != -1) {
             var temp = selectedDiseaseEn.split(".");
             selectedDiseaseEn = temp[1];
         }*/
+
+        // Red de seguridad: sin enfermedad (índice fuera de rango) el servidor solo puede
+        // responder 400, así que no se hace la llamada y queda un evento para medirlo.
+        if (!selectedDiseaseEn) {
+            this.loadingAnswerAI = false;
+            this.lauchEvent('Info Disease - no disease selected');
+            this.showError(this.translate.instant("generics.error try again"), null);
+            return;
+        }
 
         let infoOptionEvent = this.getInfoOptionEvent(questionType);
         if(this.hasIframeParams()){
