@@ -116,11 +116,12 @@ export class MedicalAnswerFeedbackComponent {
 
   ngOnDestroy() {
     // Auto-enviar feedback mínimo si el usuario cierra sin enviar
-    if (!this.submitted) {
+    // Sin voto no hay nada que guardar: el servidor exige `helpful` booleano y respondería 400.
+    if (!this.submitted && this.form.value.helpful !== null) {
       const minimal = {
         type: 'medical_answer',
         minimal: true,
-        helpful: this.form.value.helpful === null ? null : !!this.form.value.helpful,
+        helpful: !!this.form.value.helpful,
         question: this.question,
         model: this.model,
         detectedLang: this.detectedLang || 'unknown',
