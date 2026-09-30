@@ -126,6 +126,20 @@ export class InsightsService {
       this.initialize();
     }
 
+    // Un 4xx del servidor es la petición rechazada, no un fallo de la app: como
+    // excepción dispara "errors dxgpt". 401/403 sí apuntan a configuración rota.
+    const httpError = exception as { name?: string; status?: number; url?: string | null; error?: any };
+    if (httpError?.name === 'HttpErrorResponse' && typeof httpError.status === 'number'
+      && httpError.status >= 400 && httpError.status < 500
+      && httpError.status !== 401 && httpError.status !== 403) {
+      this.trackEvent('HttpRequestRejected', {
+        status: httpError.status,
+        url: httpError.url || '',
+        message: typeof httpError.error?.message === 'string' ? httpError.error.message : ''
+      });
+      return;
+    }
+
     let stringException;
     if (typeof exception === 'string') {
       stringException = exception;
