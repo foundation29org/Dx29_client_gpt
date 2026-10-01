@@ -690,7 +690,9 @@
     "getting_details": "Diagnose-Details abrufen...",
     "anonymizing": "Persönliche Informationen anonymisieren...",
     "finalizing": "Diagnose abschließen...",
-    "processing": "Verarbeitung..."
+    "processing": "Verarbeitung...",
+    "uploading": "Dateien werden hochgeladen... {{percent}} % ({{loaded}} / {{total}} MB)",
+    "upload_slow_warning": "Der Upload kann bei mobilen Verbindungen etwas dauern. Lassen Sie dieses Fenster geöffnet."
   },
   "diagnosis": {
     "Proposed diagnoses": "Vorgeschlagene Diagnosen",

@@ -690,7 +690,9 @@
     "getting_details": "Obtenint detalls del diagnòstic...",
     "anonymizing": "Anonimitzant informació personal...",
     "finalizing": "Finalitzant diagnòstic...",
-    "processing": "Processant..."
+    "processing": "Processant...",
+    "uploading": "Pujant fitxers... {{percent}} % ({{loaded}} / {{total}} MB)",
+    "upload_slow_warning": "La pujada pot trigar amb connexions mòbils; mantén aquesta finestra oberta."
   },
   "diagnosis": {
     "Proposed diagnoses": "Diagnòstics proposats",

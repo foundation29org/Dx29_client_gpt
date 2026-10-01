@@ -690,7 +690,9 @@
     "getting_details": "Getting diagnosis details...",
     "anonymizing": "Anonymizing personal information...",
     "finalizing": "Finalizing diagnosis...",
-    "processing": "Processing..."
+    "processing": "Processing...",
+    "uploading": "Uploading files... {{percent}}% ({{loaded}} / {{total}} MB)",
+    "upload_slow_warning": "Uploading may take a while on mobile connections. Keep this window open."
   },
   "diagnosis": {
     "Proposed diagnoses": "Proposed diagnoses",

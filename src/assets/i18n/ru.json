@@ -690,7 +690,9 @@
     "getting_details": "Получение деталей...",
     "anonymizing": "Анонимизация...",
     "finalizing": "Завершение...",
-    "processing": "Обработка..."
+    "processing": "Обработка...",
+    "uploading": "Загрузка файлов... {{percent}}% ({{loaded}} / {{total}} МБ)",
+    "upload_slow_warning": "При мобильном соединении загрузка может занять время; не закрывайте это окно."
   },
   "diagnosis": {
     "Proposed diagnoses": "Предлагаемые диагнозы",

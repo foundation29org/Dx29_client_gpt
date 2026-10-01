@@ -690,7 +690,9 @@
     "getting_details": "Récupération des détails...",
     "anonymizing": "Anonymisation...",
     "finalizing": "Finalisation...",
-    "processing": "Traitement..."
+    "processing": "Traitement...",
+    "uploading": "Envoi des fichiers... {{percent}} % ({{loaded}} / {{total}} Mo)",
+    "upload_slow_warning": "L'envoi peut prendre du temps avec une connexion mobile ; gardez cette fenêtre ouverte."
   },
   "diagnosis": {
     "Proposed diagnoses": "Diagnostics proposés",
