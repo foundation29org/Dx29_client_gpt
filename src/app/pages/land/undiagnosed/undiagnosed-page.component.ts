@@ -1161,6 +1161,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             INVALID_DIAGNOSE_INPUT: 'generics.Invalid request format or content',
             SUMMARY_INPUT_REJECTED: 'generics.Invalid request format or content',
             INPUT_TOO_LARGE: 'generics.inputTooLarge',
+            DOCUMENT_PAGE_LIMIT_EXCEEDED: 'generics.documentPageLimitExceeded',
             NO_DOCUMENT: 'generics.documentUnreadable',
             NO_MEDICAL_IMAGE: 'generics.imageNotMedical'
         };

@@ -624,6 +624,7 @@
     "error try again": "Ocorreu um erro, tente novamente",
     "imageAssetExpired": "Uma ou mais imagens expiraram ou já não estão disponíveis. Remova-as ou carregue-as novamente.",
     "inputTooLarge": "Os documentos contêm demasiado texto para serem analisados. Carregue menos documentos ou apenas as páginas relevantes.",
+    "documentPageLimitExceeded": "Os documentos excedem o limite total de 100 páginas. Carregue menos documentos ou apenas as páginas relevantes.",
     "documentUnreadable": "Não foi possível ler o documento. Experimente um ficheiro PDF ou DOCX, ou cole o texto.",
     "imageNotMedical": "A imagem não parece médica. Envie uma imagem clínica (radiografia, foto da lesão, relatório...) ou descreva o caso.",
     "imageNotMedicalIgnored": "Estas imagens não parecem médicas e não foram usadas: {{files}}.",

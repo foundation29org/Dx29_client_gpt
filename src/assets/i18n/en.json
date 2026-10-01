@@ -624,6 +624,7 @@
     "error try again": "An error has occurred, please try again",
     "imageAssetExpired": "One or more images have expired or are no longer available. Remove them or upload them again.",
     "inputTooLarge": "The documents contain too much text to analyze. Upload fewer documents or only the relevant pages.",
+    "documentPageLimitExceeded": "The documents exceed the limit of 100 pages in total. Upload fewer documents or only the relevant pages.",
     "documentUnreadable": "We could not read the document. Try a PDF or DOCX file, or paste the text.",
     "imageNotMedical": "The image does not look like a medical image. Upload a clinical image (X-ray, photo of the lesion, report...) or describe the case.",
     "imageNotMedicalIgnored": "These images do not look medical and were not used: {{files}}.",

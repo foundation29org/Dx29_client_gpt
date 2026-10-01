@@ -624,6 +624,7 @@
     "error try again": "S'ha produït un error, intenta de nou",
     "imageAssetExpired": "Una o diverses imatges han caducat o ja no estan disponibles. Elimina-les o torna-les a pujar.",
     "inputTooLarge": "Els documents contenen massa text per analitzar-los. Puja menys documents o només les pàgines rellevants.",
+    "documentPageLimitExceeded": "Els documents superen el límit de 100 pàgines en total. Puja menys documents o només les pàgines rellevants.",
     "documentUnreadable": "No hem pogut llegir el document. Prova amb un PDF o DOCX, o enganxa el text.",
     "imageNotMedical": "La imatge no sembla mèdica. Puja una imatge clínica (radiografia, foto de la lesió, informe...) o descriu el cas.",
     "imageNotMedicalIgnored": "Aquestes imatges no semblen mèdiques i no s'han fet servir: {{files}}.",
