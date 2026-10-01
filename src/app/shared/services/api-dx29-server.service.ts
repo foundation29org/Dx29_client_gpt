@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { Observable, throwError } from 'rxjs';
@@ -174,8 +174,13 @@ private postDiagnoseOrAsk(path: string, info: any) {
       );
   }
 
-  analyzeMultimodal(formData: FormData): Observable<any> {
-    return this.http.post(environment.api + '/medical/analyze', formData);
+  // Devuelve los eventos HTTP (no solo la respuesta) para poder mostrar el
+  // progreso de la subida: una foto de varios MB por móvil tarda decenas de segundos.
+  analyzeMultimodal(formData: FormData): Observable<HttpEvent<any>> {
+    return this.http.post<any>(environment.api + '/medical/analyze', formData, {
+      observe: 'events',
+      reportProgress: true
+    });
   }
 
   // Borra las imágenes de un análisis antes de que caduquen (24 h). El myuuid

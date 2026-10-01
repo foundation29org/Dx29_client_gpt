@@ -624,6 +624,7 @@
     "error try again": "Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut",
     "imageAssetExpired": "Ein oder mehrere Bilder sind abgelaufen oder nicht mehr verfügbar. Entfernen Sie sie oder laden Sie sie erneut hoch.",
     "inputTooLarge": "Die Dokumente enthalten zu viel Text für die Analyse. Laden Sie weniger Dokumente oder nur die relevanten Seiten hoch.",
+    "documentPageLimitExceeded": "Die Dokumente überschreiten insgesamt das Limit von 100 Seiten. Laden Sie weniger Dokumente oder nur die relevanten Seiten hoch.",
     "documentUnreadable": "Das Dokument konnte nicht gelesen werden. Versuchen Sie eine PDF- oder DOCX-Datei oder fügen Sie den Text ein.",
     "imageNotMedical": "Das Bild scheint kein medizinisches Bild zu sein. Laden Sie ein klinisches Bild hoch (Röntgenbild, Foto der Läsion, Befund...) oder beschreiben Sie den Fall.",
     "imageNotMedicalIgnored": "Diese Bilder scheinen nicht medizinisch zu sein und wurden nicht verwendet: {{files}}.",
@@ -690,7 +691,9 @@
     "getting_details": "Diagnose-Details abrufen...",
     "anonymizing": "Persönliche Informationen anonymisieren...",
     "finalizing": "Diagnose abschließen...",
-    "processing": "Verarbeitung..."
+    "processing": "Verarbeitung...",
+    "uploading": "Dateien werden hochgeladen... {{percent}} % ({{loaded}} / {{total}} MB)",
+    "upload_slow_warning": "Der Upload kann bei mobilen Verbindungen etwas dauern. Lassen Sie dieses Fenster geöffnet."
   },
   "diagnosis": {
     "Proposed diagnoses": "Vorgeschlagene Diagnosen",

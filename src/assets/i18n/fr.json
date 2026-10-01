@@ -624,6 +624,7 @@
     "error try again": "Une erreur s'est produite, veuillez réessayer",
     "imageAssetExpired": "Une ou plusieurs images ont expiré ou ne sont plus disponibles. Supprimez-les ou importez-les à nouveau.",
     "inputTooLarge": "Les documents contiennent trop de texte pour être analysés. Importez moins de documents ou uniquement les pages pertinentes.",
+    "documentPageLimitExceeded": "Les documents dépassent la limite totale de 100 pages. Importez moins de documents ou uniquement les pages pertinentes.",
     "documentUnreadable": "Nous n'avons pas pu lire le document. Essayez un fichier PDF ou DOCX, ou collez le texte.",
     "imageNotMedical": "L'image ne semble pas médicale. Téléversez une image clinique (radiographie, photo de la lésion, compte rendu...) ou décrivez le cas.",
     "imageNotMedicalIgnored": "Ces images ne semblent pas médicales et n'ont pas été utilisées : {{files}}.",
@@ -690,7 +691,9 @@
     "getting_details": "Récupération des détails...",
     "anonymizing": "Anonymisation...",
     "finalizing": "Finalisation...",
-    "processing": "Traitement..."
+    "processing": "Traitement...",
+    "uploading": "Envoi des fichiers... {{percent}} % ({{loaded}} / {{total}} Mo)",
+    "upload_slow_warning": "L'envoi peut prendre du temps avec une connexion mobile ; gardez cette fenêtre ouverte."
   },
   "diagnosis": {
     "Proposed diagnoses": "Diagnostics proposés",

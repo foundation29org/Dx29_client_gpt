@@ -7,7 +7,7 @@ import { EventsService } from 'app/shared/services/events.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpEvent, HttpEventType } from "@angular/common/http";
 import { ApiDx29ServerService } from 'app/shared/services/api-dx29-server.service';
 import { Clipboard } from "@angular/cdk/clipboard"
 import { InsightsService } from 'app/shared/services/azureInsights.service';
@@ -65,6 +65,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'text/plain'
     ];
+
+    // Por encima de este peso total, la subida por red móvil puede tardar
+    // decenas de segundos: se avisa de que no hay que cerrar la ventana.
+    private static readonly SLOW_UPLOAD_WARNING_BYTES = 6 * 1024 * 1024;
 
     private static readonly SUPPORTED_IMAGE_TYPES = [
         'image/jpeg',
@@ -1098,6 +1102,39 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.translatedProgressMessage('progress.processing', 'Processing...');
     }
 
+    // Progreso de la subida de ficheros. Va en su propia línea y no en la barra
+    // principal: la barra la gobierna el servidor y solo empieza cuando la
+    // subida ha terminado.
+    private showUploadProgress(loaded: number, total?: number): void {
+        const line = document.getElementById('upload-progress');
+        if (!line || !total) {
+            return;
+        }
+        if (loaded >= total) {
+            this.hideUploadProgress();
+            return;
+        }
+        const toMB = (bytes: number) => (bytes / (1024 * 1024)).toFixed(1);
+        const params = {
+            percent: Math.floor((loaded / total) * 100),
+            loaded: toMB(loaded),
+            total: toMB(total)
+        };
+        const translated = this.translate.instant('progress.uploading', params);
+        line.textContent = translated && translated !== 'progress.uploading'
+            ? translated
+            : `Uploading files... ${params.percent}% (${params.loaded} / ${params.total} MB)`;
+        line.style.display = 'block';
+    }
+
+    private hideUploadProgress(): void {
+        const line = document.getElementById('upload-progress');
+        if (line) {
+            line.style.display = 'none';
+        }
+        document.getElementById('upload-slow-warning')?.remove();
+    }
+
     private updateWebSocketProgress(progress: number, message: string, phase?: string) {
         const displayMessage = phase ? this.getProgressMessage(phase) : message;
         
@@ -1124,6 +1161,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             INVALID_DIAGNOSE_INPUT: 'generics.Invalid request format or content',
             SUMMARY_INPUT_REJECTED: 'generics.Invalid request format or content',
             INPUT_TOO_LARGE: 'generics.inputTooLarge',
+            DOCUMENT_PAGE_LIMIT_EXCEEDED: 'generics.documentPageLimitExceeded',
             NO_DOCUMENT: 'generics.documentUnreadable',
             NO_MEDICAL_IMAGE: 'generics.imageNotMedical'
         };
@@ -3649,6 +3687,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         
 
+        const uploadBytes = filesSubmitted.reduce((total, file) => total + (file.size || 0), 0);
         const htmlContent = '<p>' + this.translate.instant("land.swal") + '</p>' + 
           '<p>' + this.translate.instant("land.swal2") + '</p>' + 
           '<p>' + this.translate.instant("land.swal3") + '</p>' + 
@@ -3660,6 +3699,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             <div style="margin-top: 6px; font-size: 12px; color: #b0b6bb; text-align: right; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
               <span id="progress-percentage">5%</span>
             </div>
+            <div id="upload-progress" style="display: none; margin-top: 10px; font-size: 13px; color: #43e97b; text-align: left; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;"></div>
+            ${uploadBytes > UndiagnosedPageComponent.SLOW_UPLOAD_WARNING_BYTES
+              ? `<div id="upload-slow-warning" style="margin-top: 10px; font-size: 13px; color: #f5c26b; text-align: left; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">${this.translatedProgressMessage('progress.upload_slow_warning', 'Uploading may take a while on mobile connections. Keep this window open.')}</div>`
+              : ''}
           </div>`;
 
         Swal.fire({
@@ -3691,10 +3734,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.awaitingMultimodalPreprocessing = true;
         this.multimodalRequestSubscription =
             this.apiDx29ServerService.analyzeMultimodal(formData).subscribe(
-            (res: any) => {
+            (event: HttpEvent<any>) => {
                 if (runId !== this.activeMultimodalRun) {
                     return;
                 }
+                if (event.type === HttpEventType.UploadProgress) {
+                    this.showUploadProgress(event.loaded, event.total);
+                    return;
+                }
+                if (event.type !== HttpEventType.Response) {
+                    return;
+                }
+                this.hideUploadProgress();
+                const res = event.body;
                 // El servidor solo confirma que ha aceptado los ficheros. El
                 // resultado del preprocesado llega por el WebSocket.
                 this.multimodalRequestSubscription = null;
