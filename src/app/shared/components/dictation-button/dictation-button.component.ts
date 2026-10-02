@@ -85,7 +85,7 @@ export class DictationButtonComponent implements OnInit, OnChanges, OnDestroy {
     this.error = '';
     this.setState('starting');
     try {
-      await this.dictation.start();
+      await this.dictation.start(this.translate.currentLang);
     } catch (error) {
       this.fail(error);
       return;
@@ -104,7 +104,7 @@ export class DictationButtonComponent implements OnInit, OnChanges, OnDestroy {
     this.setState('transcribing');
     this.statusMessage = this.translate.instant('voice.Transcribing');
     try {
-      const spoken = await this.dictation.stop(this.translate.currentLang);
+      const spoken = await this.dictation.stop();
       const base = (this.text || '').trim();
       this.textChange.emit(base ? `${base} ${spoken}` : spoken);
       this.statusMessage = this.translate.instant('voice.Dictation added');
