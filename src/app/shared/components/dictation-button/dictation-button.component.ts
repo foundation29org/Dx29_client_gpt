@@ -6,7 +6,7 @@ import { InsightsService } from 'app/shared/services/azureInsights.service';
 
 type DictationState = 'idle' | 'starting' | 'recording' | 'transcribing';
 
-const EXPECTED_ERRORS: DictationErrorCode[] = ['permission-denied', 'no-microphone', 'no-speech'];
+const EXPECTED_ERRORS: DictationErrorCode[] = ['permission-denied', 'no-microphone', 'no-speech', 'unreadable-audio'];
 
 let nextId = 0;
 

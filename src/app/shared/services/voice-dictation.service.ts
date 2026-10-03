@@ -7,7 +7,7 @@ import { UuidService } from './uuid.service';
 import { AudioLevelMeter, SilenceTracker, shouldCutSegment } from './dictation-segmenter';
 
 // Codes map to i18n keys under "voice.errors.*".
-export type DictationErrorCode = 'not-supported' | 'permission-denied' | 'no-microphone' | 'no-speech' | 'network' | 'service-unavailable' | 'unknown';
+export type DictationErrorCode = 'not-supported' | 'permission-denied' | 'no-microphone' | 'no-speech' | 'unreadable-audio' | 'network' | 'service-unavailable' | 'unknown';
 
 export class DictationError extends Error {
   constructor(public readonly code: DictationErrorCode) {
@@ -135,9 +135,20 @@ export class VoiceDictationService {
 
     const transcriptions = this.transcriptions;
     this.transcriptions = [];
-    const texts = await Promise.all(transcriptions);
+    // A segment the Server cannot decode (typically a few seconds at the end) must not throw away
+    // the minutes already transcribed. Any other failure still fails the dictation.
+    const texts: string[] = [];
+    let skippedUnreadable = false;
+    for (const transcription of transcriptions) {
+      try {
+        texts.push(await transcription);
+      } catch (error) {
+        if (!(error instanceof DictationError && error.code === 'unreadable-audio')) throw error;
+        skippedUnreadable = true;
+      }
+    }
     const text = texts.filter(Boolean).join(' ').trim();
-    if (!text) throw new DictationError('no-speech');
+    if (!text) throw new DictationError(skippedUnreadable ? 'unreadable-audio' : 'no-speech');
     return text;
   }
 
@@ -225,7 +236,8 @@ export class VoiceDictationService {
         const status = error instanceof HttpErrorResponse ? error.status : -1;
         const retryable = status === 0 || status === 429 || status >= 500;
         if (!retryable || attempt >= MAX_UPLOAD_ATTEMPTS) {
-          throw new DictationError(status === 0 ? 'network' : 'service-unavailable');
+          // 400: the Server could not decode this recording. Sending it again would not change that.
+          throw new DictationError(status === 0 ? 'network' : status === 400 ? 'unreadable-audio' : 'service-unavailable');
         }
         await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS * attempt));
       }
