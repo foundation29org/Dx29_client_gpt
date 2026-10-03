@@ -1629,7 +1629,8 @@
       "network": "Utracono połączenie z usługą mowy. Spróbuj ponownie.",
       "service-unavailable": "Dyktowanie głosowe jest obecnie niedostępne.",
       "unknown": "Nie udało się uruchomić dyktowania głosowego. Spróbuj ponownie.",
-      "no-speech": "Nie wykryto mowy. Spróbuj ponownie."
+      "no-speech": "Nie wykryto mowy. Spróbuj ponownie.",
+      "unreadable-audio": "Nie udało się odczytać nagrania. Spróbuj ponownie."
     }
   }
 }
