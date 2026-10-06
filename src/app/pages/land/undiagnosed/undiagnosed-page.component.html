@@ -22,7 +22,7 @@
           <textarea #autoajustable id="textarea1" type="text" class="autoajustable searchTerm data-hj-allow"
             [(ngModel)]="medicalTextOriginal" name="medicalTextOriginal" [attr.placeholder]="textareaPlaceholder"
             aria-describedby="textarea1-hint" [attr.aria-busy]="callingAI"
-            (ngModelChange)="resizeTextArea()" (input)="resizeTextArea()" (focus)="focusTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
+            (ngModelChange)="resizeTextArea()" (input)="resizeTextArea(); onMainTextInput($any($event.target).value)" (focus)="focusTextArea()" (click)="focusTextArea()" (blur)="restorePlaceholder()"
             [readonly]="callingAI || dictating"></textarea>
             <app-dictation-button [text]="medicalTextOriginal" [disabled]="callingAI"
               (textChange)="medicalTextOriginal = $event; resizeTextArea()"

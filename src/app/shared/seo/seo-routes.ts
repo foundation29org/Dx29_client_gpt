@@ -7,15 +7,15 @@ export interface SeoRouteConfig {
 
 export const DEFAULT_SEO: SeoRouteConfig = {
   seoTitle: 'DxGPT: Free AI Diagnostic Support for Complex & Rare Diseases',
-  seoDescription: 'Free AI diagnostic support by Foundation29. Structure symptoms and clinical histories into possible differential diagnosis hypotheses for professional review. GDPR compliant.',
+  seoDescription: 'Free AI diagnostic support by Foundation29. Turn symptoms, medical reports or images into differential diagnosis hypotheses for professional review.',
   canonicalPath: '/'
 };
 
 export const SEO_ROUTES: Record<string, SeoRouteConfig> = {
   '/': DEFAULT_SEO,
   '/beta': {
-    seoTitle: 'DxGPT Beta: Experimental Medical AI Features',
-    seoDescription: 'Test experimental DxGPT features for working with clinical descriptions, medical questions, reports, and images.',
+    seoTitle: 'DxGPT Beta: Experimental Medical Questions',
+    seoDescription: 'Try the experimental DxGPT feature for general medical questions. For diagnostic support from symptoms, reports or images, use the main DxGPT tool.',
     canonicalPath: '/beta'
   },
   '/aboutus': {
