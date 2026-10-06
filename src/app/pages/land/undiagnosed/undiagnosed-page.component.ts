@@ -109,6 +109,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     showErrorCall2: boolean = false;
     callingAI: boolean = false;
     private forceDiagnosisNext = false;
+    // Primera interacción por visita: permite localizar dónde se pierde el visitante antes de enviar.
+    private focusEventSent = false;
+    private firstTextEventSent = false;
     loadingAnswerAI: boolean = false;
     selectedDisease: string = '';
     options: any = {};
@@ -1761,6 +1764,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.callingAI = false;
                     this.showMedicalInfoModal(data);
                     this.lauchEvent("Medical Info Modal");
+                }else if(data.intentAction === 'go'){
+                    // El servidor decidió diagnosticar pero no devolvió diagnósticos (la respuesta de la
+                    // IA no se pudo generar o interpretar). No es falta de contexto: se muestra un error.
+                    this.lauchEvent('Diagnosis empty result');
+                    this.showError(
+                        this.translate.instant("generics.error try again") + '<br><br>' +
+                        this.translate.instant("generics.error edit patient description"),
+                        null
+                    );
+                    this.callingAI = false;
                 }else if(data.intentAction === 'enrich'){
                     this.showIntentEnrichment(data.intentReason);
                 }else{
@@ -1780,6 +1793,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.callingAI = false;
         this.dismissLoadingSwal();
         this.lauchEvent(`Intent enrichment - ${reason || 'unknown'}`);
+        if (this.hasDiagnosticImages) {
+            // Permite saber cuántos avisos del filtro aparecen con imágenes adjuntas.
+            this.lauchEvent('Intent gate - with images');
+        }
 
         const choice = await this.intentEnrichmentService.chooseNextStep(
             reason,
@@ -1846,7 +1863,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         });
     }
 
+    // Nombres de evento de GA4 limitados a 40 caracteres: se usan códigos cortos.
+    private shortIntentReason(reason: string): string {
+        switch (reason) {
+            case 'insufficient_patient_context': return 'insuff';
+            case 'missing_patient_data': return 'missing';
+            case 'non_medical': return 'nonmed';
+            case 'explain': return 'explain';
+            default: return 'other';
+        }
+    }
+
     private async applyIntentChoice(choice: string | null, reason: string): Promise<void> {
+        this.lauchEvent(`Intent choice - ${choice ?? 'dismissed'} - ${this.shortIntentReason(reason)}`);
         if (choice === 'ask') {
             this.goToRedirectPage('questions', this.medicalTextOriginal);
             return;
@@ -3558,6 +3587,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             clearInterval(this.typingInterval);
         }
         this.textareaPlaceholder = '';
+        if (!this.focusEventSent) {
+            this.focusEventSent = true;
+            this.lauchEvent('Input - focus');
+        }
+    }
+
+    onMainTextInput(value: string): void {
+        if (!this.firstTextEventSent && (value || '').trim().length > 0) {
+            this.firstTextEventSent = true;
+            this.lauchEvent('Input - first text');
+        }
     }
 
     restorePlaceholder() {

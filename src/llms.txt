@@ -1,19 +1,22 @@
 # DxGPT
 
-> Free AI-powered diagnostic decision support developed by Foundation29, a nonprofit organization.
+> Free medical AI for diagnostic decision support developed by Foundation29, a nonprofit organization.
 
-DxGPT helps patients and healthcare professionals structure symptom descriptions
-and clinical histories into possible differential diagnosis hypotheses. Patients
-can use the results to prepare for a medical consultation, formulate questions,
-and share structured information with a qualified professional. DxGPT supports
-common, complex, and rare disease cases worldwide.
+DxGPT helps patients and healthcare professionals turn symptom descriptions,
+clinical histories, and uploaded documents or images into possible differential
+diagnosis hypotheses. Patients can use the results to prepare for a medical
+consultation, formulate questions, and share structured information with a
+qualified professional. DxGPT supports common, complex, and rare disease cases
+worldwide.
 
-The professional version of DxGPT is in the process of becoming a medical
-device. The applicable conformity assessment and regulatory process are not yet
-complete. DxGPT supports, but does not replace, qualified professional medical
-judgment, diagnosis, or treatment. It is not intended for medical emergencies.
-Users should consult qualified healthcare professionals for diagnosis and
-treatment.
+DxGPT is not an AI doctor. The professional version of DxGPT has been
+classified as medical device software for diagnostic support (Class IIa under
+Rule 11 of Annex VIII of Regulation (EU) 2017/745), based on the information
+submitted to AEMPS. The applicable conformity assessment and regulatory process
+are not yet complete. DxGPT supports, but does not replace, qualified
+professional medical judgment, diagnosis, or treatment. It is not intended for
+medical emergencies. Users should consult qualified healthcare professionals for
+diagnosis and treatment.
 
 DxGPT accepts descriptions in multiple languages, automatically anonymizes
 sensitive details, and is designed around privacy and European data-protection
@@ -23,7 +26,7 @@ indexed, or used for training.
 ## How DxGPT works
 
 1. A user describes symptoms and relevant clinical history in their preferred
-   language.
+   language, by typing, dictating by voice, or uploading a document or image.
 2. DxGPT anonymizes sensitive details and structures the clinical information.
 3. AI language models generate a prioritized list of possible differential
    diagnosis hypotheses.
@@ -42,7 +45,9 @@ indexed, or used for training.
 
 ## Core capabilities
 
-- Multilingual clinical descriptions.
+- Multilingual clinical descriptions, with voice dictation.
+- Document and image upload to describe a case.
+- Checks whether a description is complete enough before generating results.
 - Diagnostic support for common, complex, and rare disease cases.
 - Differential diagnosis hypotheses and follow-up questions.
 - Consultation preparation and shareable results.
@@ -69,5 +74,5 @@ indexed, or used for training.
 
 ## Citation
 
-- [DxGPT](https://dxgpt.app/): DxGPT by Foundation29 — free AI-powered diagnostic decision support for common, complex, and rare diseases.
+- [DxGPT](https://dxgpt.app/): DxGPT by Foundation29 — free medical AI for diagnostic decision support in common, complex, and rare diseases.
 
