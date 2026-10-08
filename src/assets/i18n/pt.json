@@ -42,7 +42,7 @@
     "files_duplicates": "ficheiro(s) duplicado (s) ignorado (s).",
     "files_unsupported_format": "ficheiro(s) com formato não suportado. Formatos válidos: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
     "upload_limits": "Limite: {{maxMB}} MB no total, máximo de {{maxDocs}} documentos e {{maxImages}} imagens.",
-    "upload_usage": "Selecionados: {{docs}}/{{maxDocs}} documentos, {{images}}/{{maxImages}} imagens; carregamento pendente: {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "{{docs}}/{{maxDocs}} documentos · {{images}}/{{maxImages}} imagens · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Apenas texto",
     "image_text_extracted": "Texto extraído desta imagem; a imagem não é enviada ao modelo de IA",
     "independent_context": "Cada pergunta é processada separadamente. As respostas anteriores não são enviadas ao modelo.",
@@ -898,7 +898,7 @@
     "Recommendations": "Para obter melhores resultados, indique quando e por que você acha que os sintomas apareceram",
     "Search": "Procurar",
     "Need help": "Precisar de ajuda?",
-    "Getting started": "Início rápido",
+    "Help": "Ajuda",
     "dropzone": "Solte arquivos para fazer upload",
     "Made with love by": "Feito com ❤️ por",
     "required": "Forneça detalhes do paciente (idade, sexo, sintomas) e quando eles começaram. Exemplo: Mulher, 42 anos, fortes dores de cabeça há 3 meses, tontura, histórico familiar de enxaqueca.",
@@ -916,16 +916,12 @@
     "swal2Multimodal": "Estamos extraindo e analisando o conteúdo de seus documentos e imagens.",
     "swal3Multimodal": "Depois de concluído, revise o texto gerado e clique em pesquisar para continuar.",
     "multimodalInfo": {
-      "short": "Analisaremos em conjunto a sua descrição e os ficheiros carregados.",
       "retention": "As imagens são guardadas encriptadas apenas para as analisar e são eliminadas automaticamente ao fim de 24 h, ou antes se começar um novo caso. Os documentos não são guardados.",
       "title": "Recurso em teste",
       "description": "Esta funcionalidade de processamento de documentos e imagens está em fase experimental. Seu feedback é muito importante para melhorá-lo.",
       "instructions": "Para melhores resultados:",
-      "instruction1": "Carregue o documento original (PDF, Word, Excel ou TXT) quando disponível. Use capturas apenas se não tiver o original",
-      "instruction2": "Inclua apenas ficheiros do mesmo paciente e caso clínico",
-      "instruction3": "Adicione uma breve descrição com idade, sexo se relevante, sintomas principais e quando começaram",
-      "instruction4": "Para imagens médicas, indique a região do corpo e o motivo do exame quando conhecidos",
-      "instruction5": "Para perguntas médicas gerais, utilize Ask"
+      "tipOriginal": "Carregue o documento original (PDF, Word, Excel ou TXT) quando disponível. Use capturas apenas se não tiver o original",
+      "tipDescription": "Adicione uma breve descrição: idade, sexo se relevante, sintomas principais, quando começaram, região do corpo e motivo do exame"
     },
     "q1": "Principais características clínicas",
     "q2": "Visão geral da doença",
@@ -1008,7 +1004,7 @@
       "ask_description": "Isto parece uma pergunta médica mais do que um caso de paciente. Pode abrir Perguntas médicas, continuar com um diferencial ou acrescentar mais detalhe clínico.",
       "ask_open": "Abrir Perguntas médicas",
       "ask_open_hint": "Levaremos este texto para a página de respostas educativas.",
-      "ask_open_hint_images": "Levaremos apenas o texto. Perguntas médicas não usa as imagens anexadas."
+      "ask_open_hint_images": "Levaremos apenas o texto. As perguntas médicas não usam as imagens anexadas."
     },
     "p1.title": "Exemplos",
     "p1.subtitle": "Clique no texto para usá-lo como exemplo",
@@ -1615,6 +1611,25 @@
     "Pause testimonials": "Pausar testemunhos",
     "Rated 5 out of 5 stars": "Avaliação: 5 de 5 estrelas",
     "Copy link": "Copiar link"
+  },
+  "country": {
+    "banner": "Resultados adaptados: {{country}}",
+    "unset": "País não indicado",
+    "change": "Alterar",
+    "set": "Indicar país",
+    "why": "Porque é que importa?",
+    "ask": {
+      "title": "Onde está o paciente?",
+      "text": "Algumas doenças são muito mais frequentes em certos países. Selecione onde o paciente vive para adaptar os resultados.",
+      "placeholder": "Selecione um país",
+      "required": "Selecione um país ou continue sem país",
+      "confirm": "Confirmar",
+      "skip": "Continuar sem país"
+    },
+    "info": {
+      "title": "Porque é que o país importa?",
+      "body": "<p>Algumas doenças, como a malária, a dengue ou a tuberculose, são muito mais frequentes em certas partes do mundo, por isso o país onde o paciente vive altera quais os diagnósticos mais prováveis.</p><p>O DxGPT tem isto em conta ao propor diagnósticos. Estimamos o país a partir do fuso horário e do idioma do seu navegador, nunca a partir do seu endereço IP, e pode alterá-lo a qualquer momento.</p><p>Indique o país onde o paciente vive ou se encontra. Se viajou recentemente, mencione-o na descrição.</p>"
+    }
   },
   "voice": {
     "Start dictation": "Iniciar ditado por voz",

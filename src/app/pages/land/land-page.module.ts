@@ -29,6 +29,7 @@ import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DictationButtonComponent } from 'app/shared/components/dictation-button/dictation-button.component';
+import { CountryContextComponent } from 'app/shared/components/country-context/country-context.component';
 
 @NgModule({
     exports: [
@@ -47,7 +48,8 @@ import { DictationButtonComponent } from 'app/shared/components/dictation-button
         SharedModule,
         MatProgressBarModule,
         MatProgressSpinnerModule,
-        DictationButtonComponent
+        DictationButtonComponent,
+        CountryContextComponent
     ],
     declarations: [
         ReportsPageComponent,

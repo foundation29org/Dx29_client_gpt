@@ -42,7 +42,7 @@
     "files_duplicates": "Doppelte Datei(en) ignoriert.",
     "files_unsupported_format": "Datei(en) mit nicht unterstütztem Format. Gültige Formate: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
     "upload_limits": "Limit: {{maxMB}} MB gesamt, max. {{maxDocs}} Dokumente und {{maxImages}} Bilder.",
-    "upload_usage": "Ausgewählt: {{docs}}/{{maxDocs}} Dokumente, {{images}}/{{maxImages}} Bilder; ausstehender Upload: {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "{{docs}}/{{maxDocs}} Dokumente · {{images}}/{{maxImages}} Bilder · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Nur Text",
     "image_text_extracted": "Text aus diesem Bild extrahiert; das Bild selbst wird nicht an das KI-Modell gesendet",
     "independent_context": "Jede Frage wird separat verarbeitet. Frühere Antworten werden nicht an das Modell gesendet.",
@@ -898,7 +898,7 @@
     "Recommendations": "Für beste Ergebnisse geben Sie an, wann und warum die Symptome aufgetreten sind",
     "Search": "Suchen",
     "Need help": "Hilfe benötigt?",
-    "Getting started": "Schnellstart",
+    "Help": "Hilfe",
     "dropzone": "Dateien zum Hochladen hier ablegen",
     "Made with love by": "Mit ❤️ gemacht von",
     "required": "Bitte geben Sie die Patientendaten (Alter, Geschlecht, Symptome) und deren Beginn an. Beispiel: Frau, 42 Jahre alt, seit 3 Monaten starke Kopfschmerzen, Schwindel, Migräne in der Familie.",
@@ -916,16 +916,12 @@
     "swal2Multimodal": "Wir extrahieren und analysieren den Inhalt Ihrer Dokumente und Bilder.",
     "swal3Multimodal": "Sobald dies abgeschlossen ist, überprüfen Sie den generierten Text und klicken Sie auf Suchen, um fortzufahren.",
     "multimodalInfo": {
-      "short": "Wir analysieren Ihre Beschreibung und die hochgeladenen Dateien gemeinsam.",
       "retention": "Bilder werden nur zur Analyse verschlüsselt gespeichert und nach 24 Stunden automatisch gelöscht, oder früher, wenn Sie einen neuen Fall beginnen. Dokumente werden nicht gespeichert.",
       "title": "Funktionalität in Test",
       "description": "Diese Funktionalität für die Verarbeitung von Dokumenten und Bildern ist in der experimentellen Phase. Ihr Feedback ist sehr wichtig, um es zu verbessern.",
       "instructions": "Für bessere Ergebnisse:",
-      "instruction1": "Laden Sie nach Möglichkeit das Originaldokument (PDF, Word, Excel oder TXT) hoch. Verwenden Sie Screenshots nur, wenn das Original nicht verfügbar ist",
-      "instruction2": "Fügen Sie nur Dateien desselben Patienten und klinischen Falls hinzu",
-      "instruction3": "Ergänzen Sie eine kurze Beschreibung mit Alter, relevantem Geschlecht, Hauptsymptomen und deren Beginn",
-      "instruction4": "Geben Sie bei medizinischen Bildern nach Möglichkeit Körperregion und Untersuchungsgrund an",
-      "instruction5": "Verwenden Sie Ask für allgemeine medizinische Fragen"
+      "tipOriginal": "Laden Sie nach Möglichkeit das Originaldokument (PDF, Word, Excel oder TXT) hoch. Verwenden Sie Screenshots nur, wenn das Original nicht verfügbar ist",
+      "tipDescription": "Ergänzen Sie eine kurze Beschreibung: Alter, Geschlecht falls relevant, Hauptsymptome, deren Beginn, Körperregion und Untersuchungsgrund"
     },
     "q1": "Klinische Hauptmerkmale",
     "q2": "Krankheitsüberblick",
@@ -994,7 +990,7 @@
       "image_continue": "Mit den hochgeladenen Bildern fortfahren",
       "image_continue_hint": "Die Bilder ohne zusätzliche Beschreibung als klinischen Kontext verwenden.",
       "image_edit": "Patientendaten ergänzen",
-      "image_edit_hint": "Ergänzen Sie Alter, Geschlecht, Symptome, Beginn und Untersuchungsgrund, soweit bekannt.",
+      "image_edit_hint": "Ergänzen Sie Alter, Geschlecht, Symptome, deren Beginn und den Untersuchungsgrund, soweit bekannt.",
       "questions": "Geführte Fragen beantworten",
       "questions_hint": "Wir fragen nach Verlauf, Begleitsymptomen und fehlenden Befunden.",
       "continue": "Mit dieser Beschreibung fortfahren",
@@ -1008,7 +1004,7 @@
       "ask_description": "Das wirkt eher wie eine medizinische Frage als wie ein Patientenfall. Sie können Medizinische Fragen öffnen, mit einer Differenzialdiagnose fortfahren oder weitere klinische Angaben ergänzen.",
       "ask_open": "Medizinische Fragen öffnen",
       "ask_open_hint": "Wir übernehmen diesen Text auf die Seite für informative Antworten.",
-      "ask_open_hint_images": "Wir übernehmen nur den Text. Medizinische Fragen verwendet die angehängten Bilder nicht."
+      "ask_open_hint_images": "Wir übernehmen nur den Text. Medizinische Fragen verwenden die angehängten Bilder nicht."
     },
     "p1.title": "Beispiele",
     "p1.subtitle": "Klicken Sie auf den Text, um ihn als Beispiel zu verwenden",
@@ -1615,6 +1611,25 @@
     "Pause testimonials": "Testimonials anhalten",
     "Rated 5 out of 5 stars": "Bewertung: 5 von 5 Sternen",
     "Copy link": "Link kopieren"
+  },
+  "country": {
+    "banner": "Ergebnisse angepasst an {{country}}",
+    "unset": "Land nicht angegeben",
+    "change": "Ändern",
+    "set": "Land angeben",
+    "why": "Warum ist das wichtig?",
+    "ask": {
+      "title": "Wo befindet sich der Patient?",
+      "text": "Manche Erkrankungen sind in bestimmten Ländern deutlich häufiger. Wählen Sie, wo der Patient lebt, um die Ergebnisse anzupassen.",
+      "placeholder": "Land auswählen",
+      "required": "Wählen Sie ein Land oder fahren Sie ohne Angabe fort",
+      "confirm": "Bestätigen",
+      "skip": "Ohne Land fortfahren"
+    },
+    "info": {
+      "title": "Warum ist das Land wichtig?",
+      "body": "<p>Manche Krankheiten, etwa Malaria, Dengue oder Tuberkulose, sind in bestimmten Teilen der Welt viel häufiger. Das Land, in dem der Patient lebt, verändert daher, welche Diagnosen am wahrscheinlichsten sind.</p><p>DxGPT berücksichtigt dies bei den Diagnosevorschlägen. Wir schätzen das Land anhand der Zeitzone und der Sprache Ihres Browsers, niemals anhand Ihrer IP-Adresse, und Sie können es jederzeit ändern.</p><p>Geben Sie das Land an, in dem der Patient lebt oder sich gerade aufhält. Falls der Patient kürzlich gereist ist, erwähnen Sie das in der Beschreibung.</p>"
+    }
   },
   "voice": {
     "Start dictation": "Sprachdiktat starten",

@@ -42,7 +42,7 @@
     "files_duplicates": "archivo(s) duplicado(s) ignorados.",
     "files_unsupported_format": "archivo(s) con formato no soportado. Formatos válidos: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
     "upload_limits": "Límite: {{maxMB}} MB totales, máx. {{maxDocs}} documentos y {{maxImages}} imágenes.",
-    "upload_usage": "Seleccionados: {{docs}}/{{maxDocs}} documentos, {{images}}/{{maxImages}} imágenes; carga pendiente: {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "{{docs}}/{{maxDocs}} documentos · {{images}}/{{maxImages}} imágenes · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Solo texto",
     "image_text_extracted": "Texto extraído de esta imagen; la imagen no se envía al modelo de IA",
     "independent_context": "Cada pregunta se procesa por separado. Las respuestas anteriores no se envían al modelo.",
@@ -622,9 +622,9 @@
     "No": "No",
     "Warning": "Aviso",
     "error try again": "Se ha producido un error, intente de nuevo",
-    "imageAssetExpired": "Una o varias imágenes han caducado o ya no están disponibles. Elimínelas o vuelva a subirlas.",
-    "inputTooLarge": "Los documentos contienen demasiado texto para analizarlos. Suba menos documentos o solo las páginas relevantes.",
-    "documentPageLimitExceeded": "Los documentos superan el límite de 100 páginas en total. Suba menos documentos o solo las páginas relevantes.",
+    "imageAssetExpired": "Una o varias imágenes han caducado o ya no están disponibles. Elimínalas o vuelve a subirlas.",
+    "inputTooLarge": "Los documentos contienen demasiado texto para analizarlos. Sube menos documentos o solo las páginas relevantes.",
+    "documentPageLimitExceeded": "Los documentos superan el límite de 100 páginas en total. Sube menos documentos o solo las páginas relevantes.",
     "documentUnreadable": "No hemos podido leer el documento. Prueba con un PDF o DOCX, o pega el texto.",
     "imageNotMedical": "La imagen no parece médica. Sube una imagen clínica (radiografía, foto de la lesión, informe...) o describe el caso.",
     "imageNotMedicalIgnored": "Estas imágenes no parecen médicas y no se han usado: {{files}}.",
@@ -898,7 +898,7 @@
     "Recommendations": "Para obtener mejores resultados, indica cuándo y por qué cree que aparecieron los síntomas",
     "Search": "Buscar",
     "Need help": "¿Necesitas ayuda?",
-    "Getting started": "Guía rápida",
+    "Help": "Ayuda",
     "dropzone": "Suelta los archivos para subirlos",
     "Made with love by": "Hecho con ❤️ por",
     "required": "Por favor proporciona detalles del paciente (edad, género, síntomas) y cuándo comenzaron. Ejemplo: Mujer, 42 años, dolores de cabeza severos durante 3 meses, mareos, antecedentes familiares de migrañas.",
@@ -916,16 +916,12 @@
     "swal2Multimodal": "Estamos extrayendo y analizando el contenido de tus documentos e imágenes.",
     "swal3Multimodal": "Una vez completado, revisa el texto generado y pulsa en buscar para continuar.",
     "multimodalInfo": {
-      "short": "Analizaremos conjuntamente tu descripción y los archivos subidos.",
       "retention": "Las imágenes se guardan cifradas solo para analizarlas y se borran automáticamente a las 24 h, o antes si empiezas otro caso. Los documentos no se guardan.",
       "title": "Funcionalidad en pruebas",
       "description": "Esta funcionalidad para procesar documentos e imágenes está en fase experimental. Tu feedback es muy importante para mejorarla.",
       "instructions": "Para obtener mejores resultados:",
-      "instruction1": "Sube el documento original (PDF, Word, Excel o TXT) cuando esté disponible. Usa capturas solo si no tienes el original",
-      "instruction2": "Incluye únicamente archivos del mismo paciente y caso clínico",
-      "instruction3": "Añade una breve descripción con edad, sexo si es relevante, síntomas principales y cuándo comenzaron",
-      "instruction4": "Para imágenes médicas, indica la zona del cuerpo y el motivo del estudio cuando se conozcan",
-      "instruction5": "Para preguntas médicas generales, utiliza Ask"
+      "tipOriginal": "Sube el documento original (PDF, Word, Excel o TXT) cuando esté disponible. Usa capturas solo si no tienes el original",
+      "tipDescription": "Añade una breve descripción: edad, sexo si es relevante, síntomas principales, cuándo comenzaron, zona del cuerpo y motivo del estudio"
     },
     "q1": "Características clínicas clave",
     "q2": "Resumen de la enfermedad",
@@ -1008,7 +1004,7 @@
       "ask_description": "Esto parece una pregunta médica más que un caso de paciente. Puedes abrir Preguntas médicas, continuar con un diferencial, o añadir más detalle clínico.",
       "ask_open": "Abrir Preguntas médicas",
       "ask_open_hint": "Llevaremos este texto a la página de respuestas educativas.",
-      "ask_open_hint_images": "Llevaremos solo el texto. Preguntas médicas no usa las imágenes adjuntas."
+      "ask_open_hint_images": "Llevaremos solo el texto. Las preguntas médicas no usan las imágenes adjuntas."
     },
     "p1.title": "Ejemplos",
     "p1.subtitle": "Pulsa en el texto para usarlo como ejemplo",
@@ -1615,6 +1611,25 @@
     "Pause testimonials": "Pausar testimonios",
     "Rated 5 out of 5 stars": "Valoración: 5 de 5 estrellas",
     "Copy link": "Copiar enlace"
+  },
+  "country": {
+    "banner": "Resultados adaptados a {{country}}",
+    "unset": "País no indicado",
+    "change": "Cambiar",
+    "set": "Indicar país",
+    "why": "¿Por qué es importante?",
+    "ask": {
+      "title": "¿Dónde está el paciente?",
+      "text": "Algunas enfermedades son mucho más frecuentes en ciertos países. Selecciona dónde vive el paciente para adaptar los resultados.",
+      "placeholder": "Selecciona un país",
+      "required": "Selecciona un país o continúa sin indicarlo",
+      "confirm": "Confirmar",
+      "skip": "Continuar sin país"
+    },
+    "info": {
+      "title": "¿Por qué importa el país?",
+      "body": "<p>Algunas enfermedades, como la malaria, el dengue o la tuberculosis, son mucho más frecuentes en ciertas partes del mundo, así que el país donde vive el paciente cambia qué diagnósticos son más probables.</p><p>DxGPT lo tiene en cuenta al proponer diagnósticos. Estimamos el país a partir de la zona horaria y el idioma de tu navegador, nunca a partir de tu dirección IP, y puedes cambiarlo en cualquier momento.</p><p>Indica el país donde vive o se encuentra el paciente. Si ha viajado recientemente, menciónalo en la descripción.</p>"
+    }
   },
   "voice": {
     "Start dictation": "Iniciar dictado por voz",

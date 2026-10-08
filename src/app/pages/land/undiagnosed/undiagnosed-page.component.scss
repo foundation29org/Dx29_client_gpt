@@ -110,35 +110,6 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ============================================================
-   QUICK START – pill estilizado
-   ============================================================ */
-.quick-start-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.42rem 1.15rem;
-  font-size: 0.88rem;
-  font-weight: 600;
-  line-height: 1.2;
-  color: rgba(255, 255, 255, 0.82);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 100px;
-  cursor: pointer;
-  transition: background $duration ease, border-color $duration ease, color $duration ease;
-  animation: heroFadeIn 0.8s $ease-out-expo 0.55s both;
-
-  i, em { font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); }
-
-  &:hover,
-  &:focus-visible {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.5);
-  }
-}
-
-/* ============================================================
    TRANSICIÓN ENTRE STEPS
    ============================================================ */
 @keyframes stepSlideIn {
@@ -169,7 +140,8 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
   }
 
   &__title {
@@ -211,14 +183,11 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     }
   }
 
-  &__hint {
-    margin: 0;
-    max-width: 20rem;
-    font-size: 0.82rem;
-    line-height: 1.4;
+  // Country the results are tuned for. The panel is light inside a dark section,
+  // so the colour has to be set here instead of inherited.
+  &__country {
     color: #5f6773;
-    text-align: right;
-
+    --country-context-justify: flex-end;
   }
 }
 
@@ -413,9 +382,8 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
       font-size: 1.1rem;
     }
 
-    &__hint {
-      max-width: none;
-      text-align: left;
+    &__country {
+      --country-context-justify: flex-start;
     }
   }
 
@@ -592,6 +560,10 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     width: 100%;
     justify-content: center;
     padding-inline: 0.7rem;
+    // Long labels (e.g. German) wrap instead of overflowing the grid cell.
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
   }
 }
 
@@ -1315,7 +1287,6 @@ body {
   .search-container { padding: 4px; border-radius: 18px; }
   .searchTerm { border-radius: 14px; }
   .btn-search-hero { width: 100%; justify-content: center; padding: 0.7rem 1.2rem; font-size: 0.95rem; }
-  .quick-start-pill { font-size: 0.85rem; padding: 0.45rem 1.2rem; }
 
   .inputSearch{
     width: 87vw;
@@ -1530,6 +1501,7 @@ body {
 @media (max-width: 600px) {
   .chips-and-counter-row {
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 0.2rem;
@@ -1551,59 +1523,76 @@ body {
   color: rgba(255, 255, 255, 0.72);
   letter-spacing: 0.01em;
 }
+// Sits next to the file chips. It must be able to shrink and wrap: with a nowrap
+// text the row overflowed and the page scrolled sideways.
+// Notice shown once files are attached (first layer of the upload information).
+.multimodal-notice {
+  margin: 1rem 0;
+  text-align: left;
+}
+@media (max-width: 575px) {
+  // Tighter on phones so the search button stays closer to the fold.
+  .multimodal-notice {
+    margin: 0.5rem 0;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.92rem;
+  }
+}
+
 .hero-meta--inline {
-  flex-shrink: 0;
+  flex: 0 1 22rem;
+  min-width: 0;
   margin: 0 0.2rem 0 1rem;
   text-align: right;
-  white-space: nowrap;
 }
-.hero-questions-link {
-  margin: 0.75rem 0 0;
-  font-size: 0.92rem;
-  color: rgba(255, 255, 255, 0.55);
-
-  a {
-    color: rgba(255, 255, 255, 0.82);
-    text-decoration: underline;
-    text-underline-offset: 0.15em;
-
-    span {
-      font-weight: 600;
-    }
+@media (max-width: 600px) {
+  // Own line under the chips instead of squeezing next to them.
+  .hero-meta--inline {
+    flex-basis: 100%;
+    margin: 0 0 0.35rem;
+    text-align: left;
   }
 }
-.hero-questions-note {
-  margin: 0.85rem 0 0;
-  font-size: 0.82rem;
+// Secondary row under the search: help and the link to the questions page.
+// Same quiet weight as the country line above, so the button stays the only focus.
+.hero-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem 0.6rem;
+  // Close to the country line (same group); the help button's own padding adds the rest.
+  margin: 0.55rem 0 0;
+  font-size: 0.88rem;
   color: rgba(255, 255, 255, 0.72);
+  animation: heroFadeIn 0.8s $ease-out-expo 0.55s both;
 
-  a {
+  a,
+  &__help span {
     color: rgba(255, 255, 255, 0.9);
     text-decoration: underline;
-    text-underline-offset: 0.14em;
+    text-underline-offset: 0.15em;
+  }
 
-    &:hover,
-    &:focus-visible {
-      color: #fff;
-    }
+  a:hover,
+  a:focus-visible,
+  &__help:hover span,
+  &__help:focus-visible span {
+    color: #fff;
+  }
+
+  // Padding enlarges the tap target (small underlined text is hard to hit on a phone).
+  &__help {
+    padding: 0.3rem 0.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    border: 0;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+
+    i { margin-right: 0.35rem; opacity: 0.8; }
   }
 }
-.beta-info-btn {
-  border: none;
-  background: transparent;
-  color: inherit;
-  opacity: 0.75;
-  padding: 0 0.15rem;
-  line-height: 1;
-  cursor: pointer;
-  flex-shrink: 0;
-
-  &:hover,
-  &:focus-visible {
-    opacity: 1;
-  }
-}
-
 .chip-add-text {
   font-size: 0.95rem;
   vertical-align: middle;

@@ -287,6 +287,30 @@ a:focus
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
   transition: background 0.2s;
 }
+/* Dropdown inside the dark popup (country picker): the default text is dark grey. */
+.swal2-select,
+.swal2-select option {
+  background-color: #1b1e25 !important;
+  color: #f2f4f8 !important;
+}
+
+.swal2-select {
+  border-color: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* Optional choice: it must not look like a destructive action. */
+.swal2-deny.swal2-deny--quiet {
+  background: transparent !important;
+  color: #e0e0e0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+.swal2-deny.swal2-deny--quiet:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
 .swal2-cancel:hover {
   background: rgba(255, 255, 255, 0.22) !important;
 }

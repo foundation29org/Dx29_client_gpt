@@ -20,6 +20,7 @@ import { AnalyticsService } from 'app/shared/services/analytics.service';
 import { UuidService } from 'app/shared/services/uuid.service';
 import { LangService } from 'app/shared/services/lang.service';
 import { IframeParams, IframeParamsService } from 'app/shared/services/iframe-params.service';
+import { CountryContextService } from 'app/shared/services/country-context.service';
 import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
 
 @Component({
@@ -72,6 +73,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         private readonly router: Router,
         private readonly uuidService: UuidService,
         private readonly iframeParamsService: IframeParamsService,
+        private readonly countryContext: CountryContextService,
         @Inject(PLATFORM_ID) private readonly platformId: Object
     ) {
         this.myuuid = this.uuidService.getUuid();
@@ -87,6 +89,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         if (isPlatformBrowser(this.platformId)) {
             this.lauchEvent('Init Page');
             this.loadTimezone();
+            void this.countryContext.ready();
             this.isInIframe = this.iframeParamsService.getIsInIframe();
             this.analyticsService.trackPageView('Medical Questions Page', {
                 isInIframe: this.isInIframe
@@ -321,6 +324,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             myuuid: this.myuuid,
             lang,
             timezone: this.timezone,
+            countryCode: this.countryContext.code || undefined,
             iframeParams: this.filterIframeParams(this.iframeParams)
         };
 

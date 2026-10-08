@@ -42,7 +42,7 @@
     "files_duplicates": "duplicate file(s) ignored.",
     "files_unsupported_format": "file(s) with unsupported format. Valid formats: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
     "upload_limits": "Limit: {{maxMB}} MB total, max {{maxDocs}} documents and {{maxImages}} images.",
-    "upload_usage": "Selected: {{docs}}/{{maxDocs}} docs, {{images}}/{{maxImages}} images; pending upload: {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "{{docs}}/{{maxDocs}} docs · {{images}}/{{maxImages}} images · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Text only",
     "image_text_extracted": "Text extracted from this image; the image itself is not sent to the AI model",
     "independent_context": "Each question is processed separately. Previous answers are not sent to the model.",
@@ -898,7 +898,7 @@
     "Recommendations": "For best results, indicate when and why you think the symptoms appeared",
     "Search": "Search",
     "Need help": "Need help?",
-    "Getting started": "Quick start",
+    "Help": "Help",
     "dropzone": "Drop files to upload",
     "Made with love by": "Made with ❤️ by",
     "required": "Please provide patient details (age, gender, symptoms) and when they began. Example: Female, 42 years old, severe headaches for 3 months, dizziness, family history of migraines.",
@@ -916,16 +916,12 @@
     "swal2Multimodal": "We are extracting and analyzing the content of your documents and images.",
     "swal3Multimodal": "Once completed, review the generated text and click search to continue.",
     "multimodalInfo": {
-      "short": "We'll analyze your description and uploaded files together.",
       "retention": "Images are stored encrypted only to analyze them and are deleted automatically after 24 hours, or earlier if you start a new case. Documents are not stored.",
       "title": "Feature in testing",
       "description": "This functionality for processing documents and images is in experimental phase. Your feedback is very important to improve it.",
       "instructions": "For better results:",
-      "instruction1": "Upload the original document (PDF, Word, Excel or TXT) when available. Use screenshots only if you don't have the original",
-      "instruction2": "Include only files from the same patient and clinical case",
-      "instruction3": "Add a brief description with age, sex if relevant, main symptoms, and when they started",
-      "instruction4": "For medical images, include the body area and reason for the study when known",
-      "instruction5": "For general medical questions, use Ask"
+      "tipOriginal": "Upload the original document (PDF, Word, Excel or TXT) when available. Use screenshots only if you don't have the original",
+      "tipDescription": "Add a brief description: age, sex if relevant, main symptoms, when they started, body area and reason for the study"
     },
     "q1": "Key clinical features",
     "q2": "Condition overview",
@@ -1008,7 +1004,7 @@
       "ask_description": "This looks like a medical question rather than a patient case. You can open Medical questions, continue with a differential, or add more clinical detail.",
       "ask_open": "Open Medical questions",
       "ask_open_hint": "We'll take this text to the educational answers page.",
-      "ask_open_hint_images": "We'll take this text only. Medical questions doesn't use the attached images."
+      "ask_open_hint_images": "We'll take this text only. Medical questions do not use the attached images."
     },
     "p1.title": "Examples",
     "p1.subtitle": "Click on the text to use it as an example",
@@ -1615,6 +1611,25 @@
     "Pause testimonials": "Pause testimonials",
     "Rated 5 out of 5 stars": "Rated 5 out of 5 stars",
     "Copy link": "Copy link"
+  },
+  "country": {
+    "banner": "Results adapted to {{country}}",
+    "unset": "Country not set",
+    "change": "Change",
+    "set": "Set country",
+    "why": "Why does this matter?",
+    "ask": {
+      "title": "Where is the patient?",
+      "text": "Some conditions are much more common in certain countries. Select where the patient lives to adapt the results.",
+      "placeholder": "Select a country",
+      "required": "Select a country or continue without one",
+      "confirm": "Confirm",
+      "skip": "Continue without country"
+    },
+    "info": {
+      "title": "Why does the country matter?",
+      "body": "<p>Some diseases, such as malaria, dengue or tuberculosis, are far more common in some parts of the world, so the country where the patient lives changes which diagnoses are most likely.</p><p>DxGPT takes this into account when it proposes diagnoses. We estimate the country from your browser's time zone and language, never from your IP address, and you can change it at any time.</p><p>Enter the country where the patient lives or currently is. If the patient has recently travelled, mention it in the description.</p>"
+    }
   },
   "voice": {
     "Start dictation": "Start voice dictation",
