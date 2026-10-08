@@ -19,6 +19,7 @@ import { BrandingService } from 'app/shared/services/branding.service';
 import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
 import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
 import { IntentEnrichmentService } from 'app/shared/services/intent-enrichment.service';
+import { CountryContextService } from 'app/shared/services/country-context.service';
 import { environment } from 'environments/environment';
 import { DIAGNOSTIC_GUIDANCE_QUESTIONS } from 'app/shared/models/diagnostic-guidance-question';
 declare let gtag: any;
@@ -69,6 +70,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     // Por encima de este peso total, la subida por red móvil puede tardar
     // decenas de segundos: se avisa de que no hay que cerrar la ventana.
     private static readonly SLOW_UPLOAD_WARNING_BYTES = 6 * 1024 * 1024;
+
+    // Fracción del peso máximo a partir de la cual se muestra el contador de subida.
+    private static readonly UPLOAD_COUNTER_THRESHOLD = 0.75;
 
     private static readonly SUPPORTED_IMAGE_TYPES = [
         'image/jpeg',
@@ -134,9 +138,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     resultAnonymized: string = '';
     copyResultAnonymized: string = '';
     timezone: string = '';
-    myCountry: string = '';
-    myCountryCode: string = '';
-    countriesList: any[] = [];
     terms2: boolean = false;
     model: string = 'gpt56terra';
     
@@ -221,7 +222,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     shouldShowDonate: boolean = false;
     shouldShowQuestionsPage: boolean = false;
-    showMultimodalDetails: boolean = false;
     donateLink: string = 'https://foundation29.org/donate?amount=25&utm_source=dxgpt#widget';
 
     get selectedImagesCount(): number {
@@ -234,6 +234,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const bytes = (this.selectedFiles || [])
             .reduce((acc: number, file: File) => acc + (file.size || 0), 0);
         return Math.round((bytes / (1024 * 1024)) * 10) / 10;
+    }
+    // Los límites ya se aplican al añadir archivos (validateAndAddFiles): el
+    // contador solo aporta cuando falta poco para llegar a ellos.
+    get nearUploadLimit(): boolean {
+        const limits = this.multimodalUploadLimits;
+        return this.selectedDocsCount >= limits.maxDocuments - 1
+            || this.selectedImagesCount >= limits.maxImages - 1
+            || this.selectedTotalMB >= limits.maxTotalMB * UndiagnosedPageComponent.UPLOAD_COUNTER_THRESHOLD;
     }
     // currentImages también lista las imágenes convertidas a texto
     // (diagnosticUse: false); esas no llegan al modelo. El servidor solo crea
@@ -455,7 +463,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.renderer.appendChild(htmlContainer, warning);
     }
 
-    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, private intentEnrichmentService: IntentEnrichmentService, @Inject(PLATFORM_ID) private platformId: Object) {
+    constructor(private http: HttpClient, public translate: TranslateService, private modalService: NgbModal, private apiDx29ServerService: ApiDx29ServerService, private clipboard: Clipboard, private eventsService: EventsService, public insightsService: InsightsService, private analyticsService: AnalyticsService, private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private uuidService: UuidService, private brandingService: BrandingService, private iframeParamsService: IframeParamsService, private intentEnrichmentService: IntentEnrichmentService, public countryContext: CountryContextService, @Inject(PLATFORM_ID) private platformId: Object) {
         this.initialize();
     }
 
@@ -485,11 +493,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     loadingIP() {
+        void this.countryContext.ready();
         this.subscription.add(this.apiDx29ServerService.getInfoLocation()
             .subscribe((res: any) => {
                 if (res.timezone) {
                     this.timezone = res.timezone;
-                    this.getInfoLocationFromTimezone();
                 } else {
                     this.insightsService.trackException(res);
                 }
@@ -497,121 +505,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 console.log(err);
                 this.insightsService.trackException(err);
             }));
-    }
-
-    private normalizeCountryName(value: string): string {
-        return (value || '')
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase()
-            .trim();
-    }
-
-    private normalizeCountryCode(code: string): string {
-        const legacyCodeMap: { [key: string]: string } = {
-            FX: 'FR',
-            UK: 'GB',
-            SU: 'RU',
-            YU: 'RS',
-            TP: 'TL',
-            DY: 'BJ',
-            HV: 'BF'
-        };
-
-        const normalized = (code || '').toUpperCase().trim();
-        return legacyCodeMap[normalized] || normalized;
-    }
-
-    private findCountryByName(name: string): any | null {
-        if (!name) return null;
-
-        const normalizedName = this.normalizeCountryName(name);
-        return this.countriesList.find(country =>
-            this.normalizeCountryName(this.normalizeCountryCode(country.code)) === normalizedName ||
-            this.normalizeCountryName(country.name) === normalizedName ||
-            this.normalizeCountryName(country.nameEn) === normalizedName
-        ) || null;
-    }
-
-    private getCountryFromTimeZone(resolvedOptions?: Intl.ResolvedDateTimeFormatOptions): any | null {
-        const timezone = resolvedOptions || Intl.DateTimeFormat().resolvedOptions();
-        const timeZone = timezone.timeZone || '';
-        if (!timeZone) return null;
-
-        const exactMatch = this.countriesList.find(country =>
-            Array.isArray(country.timezones) && country.timezones.includes(timeZone)
-        );
-        if (exactMatch) return exactMatch;
-
-        const normalizedTimeZone = this.normalizeCountryName(timeZone);
-        return this.countriesList.find(country =>
-            Array.isArray(country.timezones) &&
-            country.timezones.some(zone => this.normalizeCountryName(zone) === normalizedTimeZone)
-        ) || null;
-    }
-
-    private getCountryFromLocale(): any | null {
-        const resolved = Intl.DateTimeFormat().resolvedOptions();
-        const byTimeZone = this.getCountryFromTimeZone(resolved);
-        if (byTimeZone) return byTimeZone;
-
-        const localeCandidates = [
-            navigator.language,
-            ...(navigator.languages || []),
-            resolved.locale
-        ].filter((value, index, self) => !!value && self.indexOf(value) === index);
-
-        for (const locale of localeCandidates) {
-            const region = (locale.split('-')[1] || '').toUpperCase();
-            if (!region) continue;
-
-            const byCode = this.countriesList.find(country =>
-                this.normalizeCountryCode(country.code) === this.normalizeCountryCode(region)
-            );
-            if (byCode) return byCode;
-
-            try {
-                const regionName = new Intl.DisplayNames(['en'], { type: 'region' }).of(region);
-                const byRegionName = this.findCountryByName(regionName || '');
-                if (byRegionName) return byRegionName;
-            } catch {
-                // Ignore browser/platform support differences and continue fallback chain.
-            }
-        }
-
-        return null;
-    }
-
-    getInfoLocationFromTimezone() {
-        this.loadCountries().then(() => {
-            const country = this.getCountryFromLocale();
-            if (country) {
-                this.myCountry = country.name;
-                this.myCountryCode = country.code;
-            }
-        }).catch((error) => {
-            console.log('Error obteniendo ubicación desde timezone:', error);
-        });
-    }
-
-    loadCountries(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            if (this.countriesList.length > 0) {
-                resolve();
-                return;
-            }
-
-            this.http.get<any[]>('assets/jsons/countries.json').subscribe(
-                (data) => {
-                    this.countriesList = data.sort((a, b) => a.name.localeCompare(b.name));
-                    resolve();
-                },
-                (error) => {
-                    console.error('Error loading countries:', error);
-                    reject(error);
-                }
-            );
-        });
     }
 
     loadSponsors() {
@@ -1325,7 +1218,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    // Without a reliable country the user is asked once and may continue without one.
+    // Embedded integrations (iframe) run unattended and are never interrupted.
+    private async confirmCountry(): Promise<boolean> {
+        await this.countryContext.ready();
+        if (!this.countryContext.needsConfirmation || this.hasIframeParams()) {
+            return true;
+        }
+        return (await this.countryContext.ask('search')) !== 'cancelled';
+    }
+
+    onCountryChanged() {
+        this.lauchEvent('Country changed');
+        this.callAI();
+    }
+
     async preparingcallAI(step) {
+        if (step != 'step4' && !(await this.confirmCountry())) {
+            return;
+        }
         this.callingAI = true;
         if (step == 'step4') {
             const cleanDifferentialText = this.differentialTextOriginal.trim();
@@ -1487,8 +1398,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             myuuid: this.myuuid, 
             lang: langValue, 
             timezone: this.timezone, 
-            countryName: this.myCountry,
-            countryCode: this.myCountryCode,
+            countryName: this.countryContext.englishName,
+            countryCode: this.countryContext.code,
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
             uploadId: this.currentUploadId || undefined,
@@ -2985,6 +2896,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async handleERResponse(contentFollowUp?) {
+        if (!(await this.confirmCountry())) {
+            return;
+        }
         this.showFollowUpQuestions = false;
         
         // Si el usuario no encuentra relevantes los diagnósticos, generamos preguntas de seguimiento
@@ -3020,6 +2934,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             myuuid: this.myuuid,
             lang: this.lang,
             timezone: this.timezone,
+            countryCode: this.countryContext.code || undefined,
             uploadId: this.currentUploadId || undefined
         };
 
@@ -3051,6 +2966,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             timezone: this.timezone,
             mode: focusDisease ? 'hypothesis' : 'general',
             detectedLanguage: focusDisease ? this.detectedLang : undefined,
+            countryCode: this.countryContext.code || undefined,
             uploadId: this.currentUploadId || undefined
         };
         
@@ -3632,6 +3548,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async analyzeMultimodal() {
+        if (!(await this.confirmCountry())) {
+            return;
+        }
         this.multimodalRequestSubscription?.unsubscribe();
         this.multimodalRequestSubscription = null;
         this.multimodalPreprocessingCompleted = false;
@@ -3694,6 +3613,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         formData.append('myuuid', this.myuuid || '');
         formData.append('timezone', this.timezone || '');
+        if (this.countryContext.code) {
+            formData.append('countryCode', this.countryContext.code);
+        }
         const iframeParams = this.filterIframeParams(this.iframeParams);
         if (Object.keys(iframeParams).length > 0) {
             formData.append('iframeParams', JSON.stringify(iframeParams));

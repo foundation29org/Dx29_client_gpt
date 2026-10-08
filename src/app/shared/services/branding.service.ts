@@ -1,8 +1,8 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, firstValueFrom, of } from 'rxjs';
+import { catchError, filter, map, tap, timeout } from 'rxjs/operators';
 import { TenantDetectorService } from './tenant-detector.service';
 
 export interface BrandingConfig {
@@ -11,6 +11,8 @@ export interface BrandingConfig {
   description: string;
   euMode?: boolean;
   IS_SELF_HOSTED?: boolean;
+  /** ISO 3166-1 alpha-2. Set when every patient of the tenant lives in one country: it is then used without asking. */
+  patientCountry?: string;
   colors: {
     primary: string;
     secondary: string;
@@ -298,6 +300,20 @@ export class BrandingService {
    */
   isEuMode(): boolean {
     return this.getConfigValue<boolean>('euMode') === true;
+  }
+
+  /**
+   * Resolves with the tenant config once loaded, or null if it does not load in time
+   * (callers must keep working without it).
+   */
+  whenLoaded(timeoutMs = 3000): Promise<BrandingConfig | null> {
+    return firstValueFrom(
+      this.brandingConfig$.pipe(
+        filter((config): config is BrandingConfig => config !== null),
+        timeout(timeoutMs),
+        catchError(() => of(null))
+      )
+    );
   }
 
   /**

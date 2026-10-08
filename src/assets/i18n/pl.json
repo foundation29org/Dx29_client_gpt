@@ -42,7 +42,7 @@
     "files_duplicates": "zduplikowane pliki zignorowane.",
     "files_unsupported_format": "pliki z nieobsługiwanym formatem. Prawidłowe formaty: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
     "upload_limits": "Limit: {{maxMB}} MB łącznie, maks. {{maxDocs}} dokumentów i {{maxImages}} obrazów.",
-    "upload_usage": "Wybrano: {{docs}}/{{maxDocs}} dokumentów, {{images}}/{{maxImages}} obrazów; oczekujące przesyłanie: {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "{{docs}}/{{maxDocs}} dokumentów · {{images}}/{{maxImages}} obrazów · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Tylko tekst",
     "image_text_extracted": "Tekst wyodrębniony z tego obrazu; sam obraz nie jest wysyłany do modelu AI",
     "independent_context": "Każde pytanie jest przetwarzane oddzielnie. Poprzednie odpowiedzi nie są wysyłane do modelu.",
@@ -622,7 +622,7 @@
     "No": "Nie",
     "Warning": "Ostrzeżenie",
     "error try again": "Wystąpił błąd, proszę spróbować ponownie",
-    "imageAssetExpired": "Co najmniej jeden obraz wygasł lub nie jest już dostępny. Usuń go lub prześlij ponownie.",
+    "imageAssetExpired": "Niektóre obrazy wygasły lub nie są już dostępne. Usuń je lub prześlij je ponownie.",
     "inputTooLarge": "Dokumenty zawierają zbyt dużo tekstu do analizy. Prześlij mniej dokumentów lub tylko odpowiednie strony.",
     "documentPageLimitExceeded": "Dokumenty przekraczają łączny limit 100 stron. Prześlij mniej dokumentów lub tylko odpowiednie strony.",
     "documentUnreadable": "Nie udało się odczytać dokumentu. Spróbuj pliku PDF lub DOCX albo wklej tekst.",
@@ -898,7 +898,7 @@
     "Recommendations": "Dla najlepszych wyników wskaż, kiedy i dlaczego Twoim zdaniem pojawiły się objawy",
     "Search": "Szukaj",
     "Need help": "Potrzebujesz pomocy?",
-    "Getting started": "Szybki start",
+    "Help": "Pomoc",
     "dropzone": "Upuść pliki, aby je przesłać",
     "Made with love by": "Stworzone z ❤️ przez",
     "required": "Proszę podać dane pacjenta (wiek, płeć, objawy) i datę rozpoczęcia leczenia. Przykład: Kobieta, 42 lata, silne bóle głowy od 3 miesięcy, zawroty głowy, rodzinne występowanie migren.",
@@ -916,16 +916,12 @@
     "swal2Multimodal": "Wyodrębniamy i analizujemy zawartość Twoich dokumentów i obrazów.",
     "swal3Multimodal": "Po zakończeniu sprawdź wygenerowany tekst i kliknij przycisk Szukaj, aby kontynuować.",
     "multimodalInfo": {
-      "short": "Przeanalizujemy razem Twój opis i przesłane pliki.",
       "retention": "Obrazy są przechowywane w postaci zaszyfrowanej wyłącznie w celu ich analizy i usuwane automatycznie po 24 godzinach lub wcześniej, jeśli rozpoczniesz nowy przypadek. Dokumenty nie są przechowywane.",
       "title": "Funkcjonalność w fazie testowej",
       "description": "Ta funkcjonalność do przetwarzania dokumentów i obrazów jest w fazie testowej. Twoja opinia jest bardzo ważna, aby ją ulepszyć.",
       "instructions": "Aby uzyskać lepsze wyniki:",
-      "instruction1": "Jeśli to możliwe, prześlij oryginalny dokument (PDF, Word, Excel lub TXT). Używaj zrzutów ekranu tylko wtedy, gdy nie masz oryginału",
-      "instruction2": "Dołączaj wyłącznie pliki dotyczące tego samego pacjenta i przypadku klinicznego",
-      "instruction3": "Dodaj krótki opis z wiekiem, płcią, jeśli ma znaczenie, głównymi objawami i czasem ich wystąpienia",
-      "instruction4": "W przypadku obrazów medycznych podaj obszar ciała i powód badania, jeśli są znane",
-      "instruction5": "W przypadku ogólnych pytań medycznych użyj Ask"
+      "tipOriginal": "Jeśli to możliwe, prześlij oryginalny dokument (PDF, Word, Excel lub TXT). Używaj zrzutów ekranu tylko wtedy, gdy nie masz oryginału",
+      "tipDescription": "Dodaj krótki opis: wiek, płeć (jeśli ma znaczenie), główne objawy, czas ich wystąpienia, obszar ciała i powód badania"
     },
     "q1": "Kluczowe cechy kliniczne",
     "q2": "Opis choroby",
@@ -1615,6 +1611,25 @@
     "Pause testimonials": "Wstrzymaj opinie",
     "Rated 5 out of 5 stars": "Ocena: 5 na 5 gwiazdek",
     "Copy link": "Kopiuj link"
+  },
+  "country": {
+    "banner": "Wyniki dostosowane do: {{country}}",
+    "unset": "Nie podano kraju",
+    "change": "Zmień",
+    "set": "Podaj kraj",
+    "why": "Dlaczego to ważne?",
+    "ask": {
+      "title": "Gdzie przebywa pacjent?",
+      "text": "Niektóre choroby są znacznie częstsze w określonych krajach. Wybierz, gdzie mieszka pacjent, aby dostosować wyniki.",
+      "placeholder": "Wybierz kraj",
+      "required": "Wybierz kraj albo kontynuuj bez podawania kraju",
+      "confirm": "Potwierdź",
+      "skip": "Kontynuuj bez kraju"
+    },
+    "info": {
+      "title": "Dlaczego kraj ma znaczenie?",
+      "body": "<p>Niektóre choroby, takie jak malaria, denga czy gruźlica, są znacznie częstsze w pewnych częściach świata, dlatego kraj, w którym mieszka pacjent, zmienia to, które rozpoznania są najbardziej prawdopodobne.</p><p>DxGPT uwzględnia to, proponując rozpoznania. Kraj szacujemy na podstawie strefy czasowej i języka przeglądarki, nigdy na podstawie adresu IP, i możesz go zmienić w dowolnej chwili.</p><p>Podaj kraj, w którym pacjent mieszka lub aktualnie przebywa. Jeśli niedawno podróżował, wspomnij o tym w opisie.</p>"
+    }
   },
   "voice": {
     "Start dictation": "Rozpocznij dyktowanie głosowe",

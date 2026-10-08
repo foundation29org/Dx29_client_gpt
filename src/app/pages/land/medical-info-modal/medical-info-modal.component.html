@@ -16,6 +16,10 @@
 </div>
 <div class="modal-footer">
   <ng-container *ngIf="showQuestionActions; else closeAction">
+    <p class="modal-note">
+      <i class="fa fa-shield me-1" aria-hidden="true"></i>
+      {{ 'beta.independent_context' | translate }}
+    </p>
     <button
       type="button"
       class="modal-action modal-action--secondary"

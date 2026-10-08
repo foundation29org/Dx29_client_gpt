@@ -1,0 +1,48 @@
+:host {
+  display: block;
+}
+
+.country-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: var(--country-context-justify, center);
+  gap: 0.35rem 0.5rem;
+  margin: 0;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+  // Inherits the colour of the host section: it sits on the dark start screen
+  // and inside the light results panel.
+  color: inherit;
+  opacity: 0.85;
+}
+
+.country-context__link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    opacity: 1;
+    text-decoration-thickness: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+// Icon-only: the text lives in aria-label/title, so the line stays short on narrow screens.
+.country-context__info {
+  padding: 0.1rem 0.2rem;
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+}

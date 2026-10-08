@@ -71,41 +71,27 @@
             </span>
           </span>
         </div>
-        <div class="hero-meta hero-meta--inline" *ngIf="selectedFiles.length && countCharacters(medicalTextOriginal) < 2000">
+        <div class="hero-meta hero-meta--inline" *ngIf="selectedFiles.length && nearUploadLimit && countCharacters(medicalTextOriginal) < 2000">
           {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: multimodalUploadLimits.maxDocuments, images: selectedImagesCount, maxImages: multimodalUploadLimits.maxImages, usedMB: selectedTotalMB, maxMB: multimodalUploadLimits.maxTotalMB } }}
         </div>
       </div>
-      <div class="hero-meta" *ngIf="selectedFiles.length && countCharacters(medicalTextOriginal) >= 2000">
+      <div class="hero-meta" *ngIf="selectedFiles.length && nearUploadLimit && countCharacters(medicalTextOriginal) >= 2000">
         {{ 'beta.upload_usage' | translate:{ docs: selectedDocsCount, maxDocs: multimodalUploadLimits.maxDocuments, images: selectedImagesCount, maxImages: multimodalUploadLimits.maxImages, usedMB: selectedTotalMB, maxMB: multimodalUploadLimits.maxTotalMB } }}
       </div>
-      <div *ngIf="selectedFiles.length > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary mt-3 mb-3" role="alert" style="text-align: left;">
+      <!-- Only with images: documents carry their own context. Retention is the first GDPR layer (art. 13), so it is never folded. -->
+      <div *ngIf="selectedImagesCount > 0 && !(filesAnalyzed && summary)" class="alert alert-info alert-brand-primary multimodal-notice" role="alert">
         <div class="d-flex align-items-start">
           <i class="fa fa-info-circle me-2 mt-1" aria-hidden="true"></i>
           <div class="flex-grow-1">
-            <div class="d-flex align-items-center justify-content-between">
-              <span>{{'land.multimodalInfo.short' | translate}}</span>
-              <button type="button" class="beta-info-btn ms-2" (click)="showMultimodalDetails = !showMultimodalDetails"
-                [attr.aria-expanded]="showMultimodalDetails"
-                [attr.aria-label]="(showMultimodalDetails ? 'generics.Hide details' : 'generics.Show details') | translate"
-                [title]="(showMultimodalDetails ? 'generics.Hide details' : 'generics.Show details') | translate">
-                <i class="fa" aria-hidden="true" [class.fa-chevron-down]="!showMultimodalDetails" [class.fa-chevron-up]="showMultimodalDetails"></i>
-              </button>
-            </div>
-            <!-- Primera capa del art. 13 RGPD: tiene que verse antes de enviar, sin desplegar. -->
-            <small *ngIf="selectedImagesCount > 0" class="d-block mt-1">
+            <p class="mb-1"><strong>{{'land.multimodalInfo.instructions' | translate}}</strong></p>
+            <ul class="mb-2">
+              <li>{{'land.multimodalInfo.tipDescription' | translate}}</li>
+              <li>{{'land.multimodalInfo.tipOriginal' | translate}}</li>
+            </ul>
+            <small class="d-block">
               {{'land.multimodalInfo.retention' | translate}}
               <a routerLink="/privacy-policy" target="_blank" rel="noopener">{{'menu.Privacy' | translate}}</a>
             </small>
-            <div *ngIf="showMultimodalDetails" class="mt-2">
-              <p class="mb-2"><strong>{{'land.multimodalInfo.instructions' | translate}}</strong></p>
-              <ul class="mb-2">
-                <li>{{'land.multimodalInfo.instruction1' | translate}}</li>
-                <li>{{'land.multimodalInfo.instruction2' | translate}}</li>
-                <li>{{'land.multimodalInfo.instruction3' | translate}}</li>
-                <li>{{'land.multimodalInfo.instruction4' | translate}}</li>
-                <li>{{'land.multimodalInfo.instruction5' | translate}}</li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
@@ -129,7 +115,7 @@
         </div>
       </div>
 
-      <div class="col-12 text-center mt-4">
+      <div class="col-12 text-center mt-4 mb-4">
         <button *ngIf="selectedFiles.length > 0 && !filesAnalyzed" 
                 class="btn-search-hero" 
                 (click)="analyzeMultimodal()" 
@@ -158,6 +144,23 @@
           <i *ngIf="!callingAI" class="fa fa-search" aria-hidden="true"></i>
           {{'land.Search' | translate }}
         </button>
+        <!-- Under the button: secondary info must not push the main action down. -->
+        <app-country-context class="hero-meta d-block mt-3" [disabled]="callingAI"></app-country-context>
+        <!-- One quiet row: help (examples, what it does, limits) and the other tool. -->
+        <p class="hero-secondary">
+          <button type="button" class="hero-secondary__help" (click)="showContentInfoAPP(contentInfoAPP)"
+            [attr.title]="getLiteral('land.Help')">
+            <i class="fa fa-question-circle" aria-hidden="true"></i>
+            <span>{{'land.Help' | translate }}</span>
+          </button>
+          <ng-container *ngIf="shouldShowQuestionsPage">
+            <span class="hero-secondary__dot" aria-hidden="true">·</span>
+            <span class="hero-secondary__ask">
+              {{'land.questions_footnote' | translate}}
+              <a routerLink="/beta" (click)="lauchEvent('Home - Open medical questions')">{{'menu.Questions' | translate}}</a>
+            </span>
+          </ng-container>
+        </p>
       </div>
     </div>
     <!--<div *ngIf="summary" class="mt-4">
@@ -172,18 +175,6 @@
         </ul>
       </div>
     </div>-->
-    <div
-      class="mt-4 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 justify-content-center align-items-center text-center mb-4">
-      <button type="button" class="quick-start-pill" (click)="showContentInfoAPP(contentInfoAPP)"
-     [attr.title]="getLiteral('land.Getting started')">
-        <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-        {{'land.Getting started' | translate }}
-      </button>
-      <p class="hero-questions-note" *ngIf="shouldShowQuestionsPage">
-        {{'land.questions_footnote' | translate}}
-        <a routerLink="/beta" (click)="lauchEvent('Home - Open medical questions')">{{'menu.Questions' | translate}}</a>
-      </p>
-    </div>
   </section>
   <section *ngIf="currentStep == 2" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 mb-5 mt-2 step-transition">
     <a id="step2"></a>
@@ -211,9 +202,8 @@
                 <span *ngIf="!isEuMode()">{{'diagnosis.Proposed diagnoses' | translate }}</span>
                 <span *ngIf="isEuMode()">{{'diagnosis.Proposed diagnosesEu' | translate }}</span>
               </h1>
-              <p class="results-header__hint">
-                {{'diagnosis.Click on the disease to see more options' | translate }}
-              </p>
+              <app-country-context *ngIf="topRelatedConditions.length>0" class="results-header__country"
+                [disabled]="callingAI" (changed)="onCountryChanged()"></app-country-context>
             </div>
             <div *ngIf="isEuMode()" class="results-header__eu-disclaimer">
               <i class="fa fa-exclamation-triangle me-2" aria-hidden="true"></i>{{'diagnosis.disclaimerEu' | translate }}
@@ -603,7 +593,7 @@
       <div class="infoapp-icon-badge" aria-hidden="true">
         <i class="fas fa-lightbulb"></i>
       </div>
-      <h2 id="infoapp-title" class="followup-title h4 mb-0">{{'land.Getting started' | translate }}</h2>
+      <h2 id="infoapp-title" class="followup-title h4 mb-0">{{'land.Help' | translate }}</h2>
     </div>
     <button type="button" class="btn-close" [attr.aria-label]="'generics.Close' | translate" [attr.title]="'generics.Close' | translate" (click)="closeDiseaseUndiagnosed()"></button>
   </div>

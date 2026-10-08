@@ -42,7 +42,7 @@
     "files_duplicates": "fitxer(s) duplicat(s) ignorat(s).",
     "files_unsupported_format": "fitxer(s) amb format no suportat. Formats vàlids: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
     "upload_limits": "Límit: {{maxMB}} MB totals, màx. {{maxDocs}} documents i {{maxImages}} imatges.",
-    "upload_usage": "Seleccionats: {{docs}}/{{maxDocs}} documents, {{images}}/{{maxImages}} imatges; càrrega pendent: {{usedMB}}/{{maxMB}} MB.",
+    "upload_usage": "{{docs}}/{{maxDocs}} documents · {{images}}/{{maxImages}} imatges · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Només text",
     "image_text_extracted": "Text extret d'aquesta imatge; la imatge no s'envia al model d'IA",
     "independent_context": "Cada pregunta es processa per separat. Les respostes anteriors no s'envien al model.",
@@ -898,7 +898,7 @@
     "Recommendations": "Per obtenir millors resultats, indica quan i per què creus que van aparèixer els símptomes",
     "Search": "Cercar",
     "Need help": "Necessites ajuda?",
-    "Getting started": "Guia ràpida",
+    "Help": "Ajuda",
     "dropzone": "Deixa anar els fitxers per pujar-los",
     "Made with love by": "Fet amb ❤️ per",
     "required": "Si us plau proporciona detalls del pacient (edat, gènere, símptomes) i quan van començar. Exemple: Dona, 42 anys, dolors de cap severs durant 3 mesos, marejos, antecedents familiars de migranyes.",
@@ -916,16 +916,12 @@
     "swal2Multimodal": "Estem extraient i analitzant el contingut dels teus documents i imatges.",
     "swal3Multimodal": "Un cop completat, revisa el text generat i prem en cercar per continuar.",
     "multimodalInfo": {
-      "short": "Analitzarem conjuntament la teva descripció i els fitxers pujats.",
       "retention": "Les imatges es desen xifrades només per analitzar-les i s’esborren automàticament a les 24 h, o abans si comences un altre cas. Els documents no es desen.",
       "title": "Funcionalitat en proves",
       "description": "Aquesta funcionalitat per processar documents i imatges està en fase experimental. El teu feedback és molt important per millorar-la.",
       "instructions": "Per obtenir millors resultats:",
-      "instruction1": "Puja el document original (PDF, Word, Excel o TXT) quan estigui disponible. Utilitza captures només si no tens l'original",
-      "instruction2": "Inclou únicament fitxers del mateix pacient i cas clínic",
-      "instruction3": "Afegeix una breu descripció amb edat, sexe si és rellevant, símptomes principals i quan van començar",
-      "instruction4": "Per a imatges mèdiques, indica la zona del cos i el motiu de l'estudi quan es coneguin",
-      "instruction5": "Per a preguntes mèdiques generals, utilitza Ask"
+      "tipOriginal": "Puja el document original (PDF, Word, Excel o TXT) quan estigui disponible. Utilitza captures només si no tens l'original",
+      "tipDescription": "Afegeix una breu descripció: edat, sexe si és rellevant, símptomes principals, quan van començar, zona del cos i motiu de l'estudi"
     },
     "q1": "Característiques clíniques clau",
     "q2": "Resum de la malaltia",
@@ -1008,7 +1004,7 @@
       "ask_description": "Això sembla una pregunta mèdica més que un cas de pacient. Pots obrir Preguntes mèdiques, continuar amb un diferencial o afegir més detall clínic.",
       "ask_open": "Obrir Preguntes mèdiques",
       "ask_open_hint": "Portarem aquest text a la pàgina de respostes educatives.",
-      "ask_open_hint_images": "Portarem només el text. Preguntes mèdiques no fa servir les imatges adjuntes."
+      "ask_open_hint_images": "Portarem només el text. Les preguntes mèdiques no fan servir les imatges adjuntes."
     },
     "p1.title": "Exemples",
     "p1.subtitle": "Prem en el text per usar-lo com a exemple",
@@ -1615,6 +1611,25 @@
     "Pause testimonials": "Pausa els testimonis",
     "Rated 5 out of 5 stars": "Valoració: 5 de 5 estrelles",
     "Copy link": "Copia l'enllaç"
+  },
+  "country": {
+    "banner": "Resultats adaptats a {{country}}",
+    "unset": "País no indicat",
+    "change": "Canviar",
+    "set": "Indicar país",
+    "why": "Per què és important?",
+    "ask": {
+      "title": "On és el pacient?",
+      "text": "Algunes malalties són molt més freqüents en certs països. Selecciona on viu el pacient per adaptar els resultats.",
+      "placeholder": "Selecciona un país",
+      "required": "Selecciona un país o continua sense indicar-lo",
+      "confirm": "Confirmar",
+      "skip": "Continuar sense país"
+    },
+    "info": {
+      "title": "Per què importa el país?",
+      "body": "<p>Algunes malalties, com la malària, el dengue o la tuberculosi, són molt més freqüents en certes parts del món, així que el país on viu el pacient canvia quins diagnòstics són més probables.</p><p>DxGPT ho té en compte en proposar diagnòstics. Estimem el país a partir de la zona horària i l'idioma del teu navegador, mai a partir de la teva adreça IP, i el pots canviar en qualsevol moment.</p><p>Indica el país on viu o es troba el pacient. Si ha viatjat recentment, esmenta-ho a la descripció.</p>"
+    }
   },
   "voice": {
     "Start dictation": "Inicia el dictat per veu",

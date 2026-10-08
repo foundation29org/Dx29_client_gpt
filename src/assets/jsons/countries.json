@@ -4,7 +4,8 @@
 	  "nameEn": "American Samoa",
 	  "code": "AS",
 	  "timezones": [
-		"Pacific/Pago_Pago"
+		"Pacific/Pago_Pago",
+		"Pacific/Samoa"
 	  ]
 	},
 	{
@@ -72,7 +73,14 @@
 		"America/Argentina/Mendoza",
 		"America/Argentina/San_Luis",
 		"America/Argentina/Rio_Gallegos",
-		"America/Argentina/Ushuaia"
+		"America/Argentina/Ushuaia",
+		"America/Argentina/ComodRivadavia",
+		"America/Buenos_Aires",
+		"America/Catamarca",
+		"America/Cordoba",
+		"America/Jujuy",
+		"America/Mendoza",
+		"America/Rosario"
 	  ]
 	},
 	{
@@ -100,7 +108,18 @@
 		"Australia/Adelaide",
 		"Australia/Darwin",
 		"Australia/Perth",
-		"Australia/Eucla"
+		"Australia/Eucla",
+		"Australia/ACT",
+		"Australia/Canberra",
+		"Australia/LHI",
+		"Australia/NSW",
+		"Australia/North",
+		"Australia/Queensland",
+		"Australia/South",
+		"Australia/Tasmania",
+		"Australia/Victoria",
+		"Australia/West",
+		"Australia/Yancowinna"
 	  ]
 	},
 	{
@@ -195,9 +214,7 @@
 	  "name": "Bouvet Island",
 	  "nameEn": "Bouvet Island",
 	  "code": "BV",
-	  "timezones": [
-		"Europe/Oslo"
-	  ]
+	  "timezones": []
 	},
 	{
 	  "name": "Brasil",
@@ -219,7 +236,8 @@
 		"America/Boa_Vista",
 		"America/Manaus",
 		"America/Eirunepe",
-		"America/Rio_Branco"
+		"America/Rio_Branco",
+		"America/Porto_Acre"
 	  ]
 	},
 	{
@@ -310,7 +328,8 @@
 		"America/Fort_Nelson",
 		"America/Vancouver",
 		"America/Whitehorse",
-		"America/Dawson"
+		"America/Dawson",
+		"America/Montreal"
 	  ]
 	},
 	{
@@ -391,7 +410,8 @@
 	  "nameEn": "Côte d'Ivoire",
 	  "code": "CI",
 	  "timezones": [
-		"Africa/Abidjan"
+		"Africa/Abidjan",
+		"Africa/Timbuktu"
 	  ]
 	},
 	{
@@ -440,7 +460,8 @@
 	  "code": "DE",
 	  "timezones": [
 		"Europe/Berlin",
-		"Europe/Busingen"
+		"Europe/Busingen",
+		"Atlantic/Jan_Mayen"
 	  ]
 	},
 	{
@@ -547,7 +568,8 @@
 	  "nameEn": "Faroe Islands",
 	  "code": "FO",
 	  "timezones": [
-		"Atlantic/Faroe"
+		"Atlantic/Faroe",
+		"Atlantic/Faeroe"
 	  ]
 	},
 	{
@@ -674,9 +696,7 @@
 	  "name": "Heard Island and McDonald Islands",
 	  "nameEn": "Heard Island and McDonald Islands",
 	  "code": "HM",
-	  "timezones": [
-		"Indian/Kerguelen"
-	  ]
+	  "timezones": []
 	},
 	{
 	  "name": "Honduras",
@@ -702,7 +722,8 @@
 		"Asia/Jakarta",
 		"Asia/Pontianak",
 		"Asia/Makassar",
-		"Asia/Jayapura"
+		"Asia/Jayapura",
+		"Asia/Ujung_Pandang"
 	  ]
 	},
 	{
@@ -761,7 +782,8 @@
 	  "nameEn": "Kenya",
 	  "code": "KE",
 	  "timezones": [
-		"Africa/Nairobi"
+		"Africa/Nairobi",
+		"Africa/Asmera"
 	  ]
 	},
 	{
@@ -935,7 +957,9 @@
 		"America/Ojinaga",
 		"America/Hermosillo",
 		"America/Tijuana",
-		"America/Bahia_Banderas"
+		"America/Bahia_Banderas",
+		"America/Ensenada",
+		"America/Santa_Isabel"
 	  ]
 	},
 	{
@@ -961,7 +985,8 @@
 	  "nameEn": "Moldova",
 	  "code": "MD",
 	  "timezones": [
-		"Europe/Chisinau"
+		"Europe/Chisinau",
+		"Europe/Tiraspol"
 	  ]
 	},
 	{
@@ -1008,9 +1033,7 @@
 	  "name": "Nederlandse Antillen",
 	  "nameEn": "Netherlands Antilles",
 	  "code": "AN",
-	  "timezones": [
-		"America/Curacao"
-	  ]
+	  "timezones": []
 	},
 	{
 	  "name": "New Zealand",
@@ -1018,7 +1041,8 @@
 	  "code": "NZ",
 	  "timezones": [
 		"Pacific/Auckland",
-		"Pacific/Chatham"
+		"Pacific/Chatham",
+		"Antarctica/South_Pole"
 	  ]
 	},
 	{
@@ -1115,7 +1139,8 @@
 	  "nameEn": "Panama",
 	  "code": "PA",
 	  "timezones": [
-		"America/Panama"
+		"America/Panama",
+		"America/Coral_Harbour"
 	  ]
 	},
 	{
@@ -1124,7 +1149,9 @@
 	  "code": "PG",
 	  "timezones": [
 		"Pacific/Port_Moresby",
-		"Pacific/Bougainville"
+		"Pacific/Bougainville",
+		"Pacific/Truk",
+		"Pacific/Yap"
 	  ]
 	},
 	{
@@ -1192,7 +1219,11 @@
 	  "nameEn": "Puerto Rico",
 	  "code": "PR",
 	  "timezones": [
-		"America/Puerto_Rico"
+		"America/Puerto_Rico",
+		"America/Kralendijk",
+		"America/Marigot",
+		"America/St_Barthelemy",
+		"America/Virgin"
 	  ]
 	},
 	{
@@ -1377,7 +1408,8 @@
 	  "nameEn": "Solomon Islands",
 	  "code": "SB",
 	  "timezones": [
-		"Pacific/Guadalcanal"
+		"Pacific/Guadalcanal",
+		"Pacific/Ponape"
 	  ]
 	},
 	{
@@ -1505,7 +1537,8 @@
 	  "nameEn": "Turkey",
 	  "code": "TR",
 	  "timezones": [
-		"Europe/Istanbul"
+		"Europe/Istanbul",
+		"Asia/Istanbul"
 	  ]
 	},
 	{
@@ -1513,7 +1546,8 @@
 	  "nameEn": "Turkmenistan",
 	  "code": "TM",
 	  "timezones": [
-		"Asia/Ashgabat"
+		"Asia/Ashgabat",
+		"Asia/Ashkhabad"
 	  ]
 	},
 	{
@@ -1553,7 +1587,8 @@
 	  "nameEn": "United Kingdom",
 	  "code": "GB",
 	  "timezones": [
-		"Europe/London"
+		"Europe/London",
+		"Europe/Belfast"
 	  ]
 	},
 	{
@@ -1589,7 +1624,13 @@
 		"America/Yakutat",
 		"America/Nome",
 		"America/Adak",
-		"Pacific/Honolulu"
+		"Pacific/Honolulu",
+		"America/Atka",
+		"America/Fort_Wayne",
+		"America/Indianapolis",
+		"America/Knox_IN",
+		"America/Louisville",
+		"America/Shiprock"
 	  ]
 	},
 	{
@@ -1631,7 +1672,8 @@
 	  "nameEn": "Vietnam",
 	  "code": "VN",
 	  "timezones": [
-		"Asia/Ho_Chi_Minh"
+		"Asia/Ho_Chi_Minh",
+		"Asia/Saigon"
 	  ]
 	},
 	{
@@ -1697,7 +1739,8 @@
 	  "timezones": [
 		"Asia/Ulaanbaatar",
 		"Asia/Hovd",
-		"Asia/Choibalsan"
+		"Asia/Choibalsan",
+		"Asia/Ulan_Bator"
 	  ]
 	},
 	{
@@ -1800,7 +1843,8 @@
 	  "nameEn": "Israel",
 	  "code": "IL",
 	  "timezones": [
-		"Asia/Jerusalem"
+		"Asia/Jerusalem",
+		"Asia/Tel_Aviv"
 	  ]
 	},
 	{
@@ -2001,7 +2045,8 @@
 	  "nameEn": "Nepal",
 	  "code": "NP",
 	  "timezones": [
-		"Asia/Kathmandu"
+		"Asia/Kathmandu",
+		"Asia/Katmandu"
 	  ]
 	},
 	{
@@ -2009,7 +2054,8 @@
 	  "nameEn": "India",
 	  "code": "IN",
 	  "timezones": [
-		"Asia/Kolkata"
+		"Asia/Kolkata",
+		"Asia/Calcutta"
 	  ]
 	},
 	{
@@ -2017,7 +2063,8 @@
 	  "nameEn": "Bangladesh",
 	  "code": "BD",
 	  "timezones": [
-		"Asia/Dhaka"
+		"Asia/Dhaka",
+		"Asia/Dacca"
 	  ]
 	},
 	{
@@ -2066,7 +2113,11 @@
 	  "code": "CN",
 	  "timezones": [
 		"Asia/Shanghai",
-		"Asia/Urumqi"
+		"Asia/Urumqi",
+		"Asia/Chongqing",
+		"Asia/Chungking",
+		"Asia/Harbin",
+		"Asia/Kashgar"
 	  ]
 	},
 	{
@@ -2098,7 +2149,8 @@
 	  "nameEn": "Macao",
 	  "code": "MO",
 	  "timezones": [
-		"Asia/Macau"
+		"Asia/Macau",
+		"Asia/Macao"
 	  ]
 	},
 	{
@@ -2122,7 +2174,8 @@
 	  "nameEn": "Bhutan",
 	  "code": "BT",
 	  "timezones": [
-		"Asia/Thimphu"
+		"Asia/Thimphu",
+		"Asia/Thimbu"
 	  ]
 	},
 	{
@@ -2146,7 +2199,8 @@
 	  "nameEn": "Cyprus",
 	  "code": "CY",
 	  "timezones": [
-		"Asia/Nicosia"
+		"Asia/Nicosia",
+		"Europe/Nicosia"
 	  ]
 	}
   ]

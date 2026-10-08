@@ -1,0 +1,13 @@
+<p class="country-context" *ngIf="country.loaded && !country.fixedByTenant">
+  <i class="fa fa-globe" aria-hidden="true"></i>
+  <span *ngIf="country.code; else notSet">{{ 'country.banner' | translate:{ country: country.displayName } }}</span>
+  <ng-template #notSet><span>{{ 'country.unset' | translate }}</span></ng-template>
+  <span aria-hidden="true">·</span>
+  <button type="button" class="country-context__link" [disabled]="disabled" (click)="change()">
+    {{ (country.code ? 'country.change' : 'country.set') | translate }}
+  </button>
+  <button type="button" class="country-context__link country-context__info" (click)="country.explain()"
+    [attr.aria-label]="'country.why' | translate" [title]="'country.why' | translate">
+    <i class="fa fa-info-circle" aria-hidden="true"></i>
+  </button>
+</p>

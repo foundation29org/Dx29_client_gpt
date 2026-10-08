@@ -73,6 +73,7 @@
     "name": "SALUD-GPT",
     "displayName": "SALUD-GPT",
     "description": "Servicio de IA para Aragón de Salud",
+    "patientCountry": "ES",
     "euMode": false,
     "IS_SELF_HOSTED": false,
     "colors": {

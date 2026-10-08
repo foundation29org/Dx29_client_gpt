@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <div class="col-sm-12 offset-md-1 col-md-10 offset-lg-1 col-lg-10 text-center">
+    <div class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 text-center mb-4">
       <div class="search-container">
         <div class="search">
           <label for="textarea1" class="visually-hidden">{{ 'a11y.Your question' | translate }}</label>
@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div class="hero-hint-chips mt-2">
+      <div class="hero-hint-chips mt-2 mb-3">
         <button
           type="button"
           class="hint-chip"
@@ -88,14 +88,11 @@
         </button>
       </div>
 
-      <p class="context-isolation-note">
-        <i class="fa fa-shield me-1" aria-hidden="true"></i>
-        {{ 'beta.independent_context' | translate }}
-      </p>
-    </div>
+      <app-country-context class="country-note" [disabled]="callingAI"></app-country-context>
 
-    <div class="mt-4 col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 text-center mb-4">
-      <p class="hero-questions-link">
+      <!-- Same secondary row as the home page. The "each question is independent" note lives
+           in the answer window, where the user decides whether to ask another one. -->
+      <p class="hero-secondary">
         <a routerLink="/" (click)="lauchEvent('Questions - Open diagnosis')">
           {{ 'beta.diagnosis_link' | translate }}
           <span>{{ 'beta.diagnosis_link_cta' | translate }}</span>
