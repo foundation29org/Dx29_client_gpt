@@ -836,6 +836,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.webSocket = null;
         }
         
+        // Al salir de la pagina ya no hay diagnostico que proteger (evita que el guard quede activo en otras rutas)
+        this.eventsService.broadcast('hasDiagnostics', false);
+
         // Desuscribirse de los eventos
         this.eventsService.off('changelang');
         this.eventsService.off('backEvent');

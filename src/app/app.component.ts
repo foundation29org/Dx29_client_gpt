@@ -8,7 +8,6 @@ import { Title, Meta } from '@angular/platform-browser';
 import { EventsService } from 'app/shared/services/events.service';
 import { IconsService } from 'app/shared/services/icon.service';
 
-import Swal from 'sweetalert2';
 import { UuidService } from './shared/services/uuid.service';
 import { BrandingService } from './shared/services/branding.service';
 import { AnalyticsService } from './shared/services/analytics.service';
@@ -35,14 +34,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private robotsContent: string = 'index, follow';
   private brandingDisplayName: string = 'DxGPT';
   private brandingDescription: string = 'AI-powered diagnostic assistance';
-  private startY: number = 0;
-  private startX: number = 0;
-  private scrollPosition: number = 0;
-  private ticking: boolean = false;
-  private isOpenSwal: boolean = false;
   private requiresCookieConsent: boolean = false;
-  private hasDiagnostics: boolean = false;
-  private touchGuardEnabled: boolean = false;
+  private unloadGuardEnabled: boolean = false;
   private statusChangeSubscription?: Subscription;
   private langChangeSubscription?: Subscription;
   private cookieInitializedSubscription?: Subscription;
@@ -50,8 +43,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private cookieConsentPopupInitialized: boolean = false;
   private cookieConsentScriptPromise?: Promise<void>;
   private cookieConsentConfig?: NgcCookieConsentConfig;
-  private readonly boundTouchStart = (event: TouchEvent) => this.onTouchStart(event);
-  private readonly boundTouchMove = (event: TouchEvent) => this.onTouchMove(event);
+  // Confirmacion nativa del navegador ante recarga/cierre mientras hay un diagnostico en pantalla.
+  private readonly boundBeforeUnload = (event: BeforeUnloadEvent) => {
+    event.preventDefault();
+    event.returnValue = '';
+  };
 
   constructor(
     @Inject(DOCUMENT) private document: Document, 
@@ -361,95 +357,27 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (isBrowser) {
-      window.addEventListener('scroll', this.onScroll.bind(this), true);
-    }
-
-    // Escuchar cuando hay diagnósticos activos para mostrar popup de confirmación
+    // Mientras hay diagnosticos en pantalla, una recarga (F5, menu del navegador, etc.) los borraria:
+    // se delega la confirmacion al navegador, que es la unica via fiable de bloquearla.
     this.eventsService.on('hasDiagnostics', (hasDiagnostics: boolean) => {
-      this.hasDiagnostics = hasDiagnostics;
-      this.updateTouchGuard(hasDiagnostics);
+      this.updateUnloadGuard(hasDiagnostics);
     });
   }
 
-  private onScroll() {
+  private updateUnloadGuard(shouldEnable: boolean) {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    this.scrollPosition = window.pageYOffset;
-    if (!this.ticking) {
-      window.requestAnimationFrame(() => {
-        this.ticking = false;
-      });
-      this.ticking = true;
-    }
-  }
-
-  private onTouchStart(e: TouchEvent) {
-    this.startY = e.touches[0].pageY;
-    this.startX = e.touches[0].pageX;
-  }
-
-  private updateTouchGuard(shouldEnable: boolean) {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    if (shouldEnable && !this.touchGuardEnabled) {
-      this.document.addEventListener('touchstart', this.boundTouchStart, { passive: true });
-      this.document.addEventListener('touchmove', this.boundTouchMove, { passive: false });
-      this.touchGuardEnabled = true;
+    if (shouldEnable && !this.unloadGuardEnabled) {
+      window.addEventListener('beforeunload', this.boundBeforeUnload);
+      this.unloadGuardEnabled = true;
       return;
     }
 
-    if (!shouldEnable && this.touchGuardEnabled) {
-      this.document.removeEventListener('touchstart', this.boundTouchStart);
-      this.document.removeEventListener('touchmove', this.boundTouchMove);
-      this.touchGuardEnabled = false;
+    if (!shouldEnable && this.unloadGuardEnabled) {
+      window.removeEventListener('beforeunload', this.boundBeforeUnload);
+      this.unloadGuardEnabled = false;
     }
   }
-
-  private onTouchMove(e: TouchEvent) {
-    const y = e.touches[0].pageY;
-    const x = e.touches[0].pageX;
-    
-    // Calcula la distancia y el ángulo del gesto
-    const deltaY = y - this.startY;
-    const deltaX = x - this.startX;
-    const angle = Math.abs(Math.atan2(deltaY, deltaX) * 180 / Math.PI);
-    
-    // Si el gesto es principalmente vertical (ángulo > 60°), hacia abajo y con suficiente desplazamiento
-    // Solo mostrar popup si hay diagnósticos que perder
-    if (angle > 60 && deltaY > 80 && this.scrollPosition <= 0 && this.hasDiagnostics) {
-      e.preventDefault();
-      this.ngZone.run(() => {
-        this.showReloadConfirmation();
-      });
-    }
-  }
-
-  private showReloadConfirmation() {
-    if (this.isOpenSwal) {
-      return;
-    }
-    this.isOpenSwal = true;
-    const config = this.brandingService.getBrandingConfig();
-    Swal.fire({
-      title: this.translate.instant("generics.Reload the page"),
-      text: this.translate.instant("generics.Unsaved changes will be lost"),
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#B0B6BB',
-      cancelButtonColor: config?.colors.primary || '#B30000',
-      confirmButtonText: this.translate.instant("generics.Yes, reload"),
-      cancelButtonText: this.translate.instant("generics.Cancel")
-    }).then((result) => {
-      if (result.isConfirmed) {
-        if (isPlatformBrowser(this.platformId)) {
-          window.location.reload();
-        }
-      }
-      this.isOpenSwal = false;
-    });
-  }
-
 
   ngOnDestroy() {
     if (this.subscription) {
@@ -462,7 +390,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.cookieInitializedSubscription.unsubscribe();
     }
     this.langChangeSubscription?.unsubscribe();
-    this.updateTouchGuard(false);
+    this.updateUnloadGuard(false);
   }
 
   // WCAG 3.1.1: screen readers pick pronunciation from <html lang>.
