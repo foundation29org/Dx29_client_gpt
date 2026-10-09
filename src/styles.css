@@ -1,3 +1,13 @@
+/* ===== Anti pull-to-refresh =====
+   En Android (Chrome/Samsung/Firefox) arrastrar hacia abajo estando arriba del todo
+   recarga la pagina y borra el diagnostico en curso. `none` en html y body (el que
+   actua de viewport scroller depende del navegador) lo desactiva de forma determinista.
+   Los contenedores con scroll interno ya tienen su propio `contain`. */
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
 /* ===== Accesibilidad (WCAG 2.1 AA) ===== */
 /* #3b82f6 keeps >= 3:1 against both white and the dark background (1.4.11). */
 :root {
