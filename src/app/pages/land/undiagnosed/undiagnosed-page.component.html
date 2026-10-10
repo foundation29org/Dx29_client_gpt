@@ -144,8 +144,6 @@
           <i *ngIf="!callingAI" class="fa fa-search" aria-hidden="true"></i>
           {{'land.Search' | translate }}
         </button>
-        <!-- Under the button: secondary info must not push the main action down. -->
-        <app-country-context class="hero-meta d-block mt-3" [disabled]="callingAI"></app-country-context>
         <!-- One quiet row: help (examples, what it does, limits) and the other tool. -->
         <p class="hero-secondary">
           <button type="button" class="hero-secondary__help" (click)="showContentInfoAPP(contentInfoAPP)"

@@ -1561,8 +1561,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.3rem 0.6rem;
-  // Close to the country line (same group); the help button's own padding adds the rest.
-  margin: 0.55rem 0 0;
+  // Right under the Search button; the help button's own padding adds the rest.
+  margin: 1rem 0 0;
   font-size: 0.88rem;
   color: rgba(255, 255, 255, 0.72);
   animation: heroFadeIn 0.8s $ease-out-expo 0.55s both;

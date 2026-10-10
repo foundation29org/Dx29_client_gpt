@@ -300,6 +300,10 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
 
     private async submitMedicalQuestion(): Promise<void> {
+        const unattended = Object.keys(this.iframeParams || {}).length > 0;
+        if (!(await this.countryContext.confirmBeforeSearch(unattended))) {
+            return;
+        }
         this.submittedQuestion = this.medicalTextOriginal.trim();
         this.medicalTextEng = this.submittedQuestion;
         this.callingAI = true;

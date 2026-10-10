@@ -71,6 +71,19 @@ export class CountryContextService {
         return this.loaded && this.origin !== 'skipped' && !this.code;
     }
 
+    /**
+     * Before a search: without a reliable country the user is asked once and may continue
+     * without one. Unattended runs (embedded integrations) are never interrupted.
+     * Returns false only when the user cancels the search.
+     */
+    async confirmBeforeSearch(unattended: boolean): Promise<boolean> {
+        await this.ready();
+        if (!this.needsConfirmation || unattended) {
+            return true;
+        }
+        return (await this.ask('search')) !== 'cancelled';
+    }
+
     /** Opens the country picker. `selected` also covers confirming the current one. */
     async ask(trigger: 'search' | 'change'): Promise<CountryAskResult> {
         await this.ready();

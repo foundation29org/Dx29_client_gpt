@@ -1221,14 +1221,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    // Without a reliable country the user is asked once and may continue without one.
     // Embedded integrations (iframe) run unattended and are never interrupted.
-    private async confirmCountry(): Promise<boolean> {
-        await this.countryContext.ready();
-        if (!this.countryContext.needsConfirmation || this.hasIframeParams()) {
-            return true;
-        }
-        return (await this.countryContext.ask('search')) !== 'cancelled';
+    private confirmCountry(): Promise<boolean> {
+        return this.countryContext.confirmBeforeSearch(this.hasIframeParams());
     }
 
     onCountryChanged() {
