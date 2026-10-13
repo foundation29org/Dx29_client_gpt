@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnDestroy, ViewChild, Input, OnInit, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'environments/environment';
@@ -33,10 +33,10 @@ export class SendMsgComponent implements OnDestroy, OnInit {
   email: string = '';
   showErrorForm: boolean = false;
   sending: boolean = false;
-  @ViewChild('f') mainForm: NgForm;
+  @ViewChild('f') mainForm!: NgForm;
   checkSubscribe: boolean = false;
   acceptTerms: boolean = false;
-  modalReference: NgbModalRef;
+  modalReference!: NgbModalRef;
   descriptionLength: number = 0;
   
   // Propiedades dinámicas basadas en el modo
@@ -117,7 +117,7 @@ getElapsedSeconds() {
     return seconds;
 };
 
-lauchEvent(category) {
+lauchEvent(category: string) {
   var secs = this.getElapsedSeconds();
   try {
     if (typeof gtag === 'function') {
@@ -186,7 +186,7 @@ lauchEvent(category) {
          }));
     }
 
-    async openModal2(panel) {
+    async openModal2(panel: TemplateRef<any>) {
       let ngbModalOptions: NgbModalOptions = {
         backdrop : 'static',
           keyboard: false,
@@ -195,7 +195,7 @@ lauchEvent(category) {
       };
       this.modalReference = this.modalService.open(panel, ngbModalOptions);
       await this.delay(400);
-      document.getElementById('initpopup2').scrollIntoView(true);
+      document.getElementById('initpopup2')?.scrollIntoView(true);
     }
 
     delay(ms: number) {

@@ -216,7 +216,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.cookieConsentPopupInitialized = true;
 
         if (this.ccService.hasConsented() && !this.analyticsService.hasCookieConsent()) {
-          console.log('Consentimiento de cookies existente detectado');
+          //console.log('Consentimiento de cookies existente detectado');
           this.analyticsService.setCookieConsent(true);
         }
       });
@@ -230,7 +230,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Maneja los cambios de estado del consentimiento de cookies
    */
   private handleCookieConsentChange(event: NgcStatusChangeEvent): void {
-    console.log('Cookie consent status changed:', event.status);
+    //console.log('Cookie consent status changed:', event.status);
     
     if (event.status === 'allow') {
       // Usuario aceptó las cookies - cargar analytics
@@ -252,7 +252,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // Inicializar el servicio de branding y configurar cookies cuando esté listo
     this.brandingService.brandingConfig$.subscribe(config => {
       if (config) {
-        console.log('Branding config loaded:', config.name);
+        //console.log('Branding config loaded:', config.name);
         this.brandingDisplayName = config.displayName;
         this.brandingDescription = config.description;
         this.changeMeta();

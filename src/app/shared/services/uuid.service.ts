@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
   providedIn: 'root'
 })
 export class UuidService {
-  private uuid: string;
+  private uuid!: string;
   private readonly STORAGE_KEY = 'dxgpt_session_uuid';
 
   constructor() {

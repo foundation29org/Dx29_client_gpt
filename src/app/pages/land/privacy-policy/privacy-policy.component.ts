@@ -26,8 +26,8 @@ export class PrivacyPolicyPageComponent implements OnInit {
     // Inicialización del componente
   }
 
-  goTo(url){
-    document.getElementById(url).scrollIntoView({behavior: "smooth"});
+  goTo(url: string){
+    document.getElementById(url)?.scrollIntoView({behavior: "smooth"});
   }
 
   goHome() {

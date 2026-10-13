@@ -219,7 +219,7 @@ export class BrandingService {
     const config = this.brandingConfigSubject.value;
     if (!config) return null;
     
-    return key.split('.').reduce((obj, k) => obj?.[k], config) as T;
+    return key.split('.').reduce((obj: any, k: string) => obj?.[k], config as any) as T;
   }
 
   /**

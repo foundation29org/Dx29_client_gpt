@@ -286,7 +286,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             backdrop: 'static',
             keyboard: false,
             ariaDescribedBy: 'beta-disclaimer-content',
-            windowClass: 'ModalClass-sm'
+            windowClass: 'ModalClass-sm beta-disclaimer-window'
         };
         this.modalReference = this.modalService.open(content, options);
         setTimeout(() => {

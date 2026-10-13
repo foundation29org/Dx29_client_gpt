@@ -43,7 +43,7 @@ export class NavbarD29Component implements OnDestroy {
   shouldShowBeta: boolean = false;
   
   // Referencia al modal
-  private modalRef: NgbModalRef;
+  private modalRef!: NgbModalRef;
   
   // Referencia al template del modal
   @ViewChild('sendMsgModal') sendMsgModal!: TemplateRef<any>;
@@ -191,7 +191,7 @@ export class NavbarD29Component implements OnDestroy {
     if (!langCode || langCode === 'undefined' || langCode === 'null' || langCode.trim() === '') {
       return false;
     }
-    return this.langs.some(lang => lang.code === langCode);
+    return this.langs.some((lang: { code: string }) => lang.code === langCode);
   }
 
   /**
@@ -273,7 +273,7 @@ export class NavbarD29Component implements OnDestroy {
       this.searchLangName(storedLang);
     } else {
       // No hay idioma válido en localStorage, intentar detectar del navegador
-      const browserLang: string = this.translate.getBrowserLang();
+      const browserLang: string | undefined = this.translate.getBrowserLang();
       var foundlang = false;
       if (browserLang) {
         for (let lang of this.langs) {
@@ -359,7 +359,7 @@ export class NavbarD29Component implements OnDestroy {
     eventsLang.broadcast('changelang', language);
   }
 
-  lauchEvent(category) {
+  lauchEvent(category: string) {
     if (!isPlatformBrowser(this.platformId)) return;
 
     var secs = this.getElapsedSeconds();

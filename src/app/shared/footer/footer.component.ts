@@ -26,8 +26,8 @@ export class FooterComponent{
   isResultPage: boolean = false;
   isPolicyPage: boolean = false;
   isCookiesPage: boolean = false;
-  modalReference: NgbModalRef;
-  modalReference2: NgbModalRef;
+  modalReference!: NgbModalRef;
+  modalReference2!: NgbModalRef;
   sending: boolean = false;
   msgfeedBack: string = '';
   userName: string = '';
@@ -35,8 +35,8 @@ export class FooterComponent{
   acceptTerms: boolean = false;
   showErrorForm: boolean = false;
   terms3: boolean = false;
-  @ViewChild('f') dataForm: NgForm;
-  @ViewChildren('autoajustable') textAreas: QueryList<ElementRef>;
+  @ViewChild('f') dataForm!: NgForm;
+  @ViewChildren('autoajustable') textAreas!: QueryList<ElementRef>;
   email: string = '';
   myuuid: string;
   footerLogo: string = 'assets/img/Foundation29logo.webp';
@@ -45,7 +45,7 @@ export class FooterComponent{
   // Propiedades para el modal send-msg
   @ViewChild('sendMsgModal') sendMsgModal!: TemplateRef<any>;
   modalMode: 'clinicalData' | 'datasets' | 'subscribe' | 'contact' = 'contact';
-  private modalRef: NgbModalRef;
+  private modalRef!: NgbModalRef;
 
   constructor(
     private modalService: NgbModal, 
@@ -97,7 +97,7 @@ export class FooterComponent{
     this.loadBrandingConfig();
   }
 
-  openSupport(content){
+  openSupport(content: TemplateRef<any>){
     let ngbModalOptions: NgbModalOptions = {
         keyboard: true,
         windowClass: 'ModalClass-sm'// xl, lg, sm
@@ -186,7 +186,7 @@ openModalCookies() {
 }
 
 
-async openModal(panel) {
+async openModal(panel: TemplateRef<any>) {
   let ngbModalOptions: NgbModalOptions = {
     backdrop : 'static',
       keyboard: false,
@@ -195,7 +195,7 @@ async openModal(panel) {
   };
   this.modalReference2 = this.modalService.open(panel, ngbModalOptions);
   await this.delay(400);
-  document.getElementById('initpopup2').scrollIntoView(true);
+  document.getElementById('initpopup2')?.scrollIntoView(true);
 }
 
 onTermsAccepted() {
@@ -206,7 +206,7 @@ onTermsAccepted() {
 async scrollTo() {
   await this.delay(400);
   //document.getElementById('initpopup').scrollIntoView(true);
-  document.getElementById('initpopup').scrollIntoView({ behavior: "smooth" });
+  document.getElementById('initpopup')?.scrollIntoView({ behavior: "smooth" });
 }
 
 delay(ms: number) {

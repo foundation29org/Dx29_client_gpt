@@ -18,7 +18,8 @@
       "es2016",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "strict": true
   },
   "angularCompilerOptions": {
     "preserveWhitespaces": false

@@ -71,7 +71,7 @@ export class PdfMakeService {
           ]
         },
         layout: {
-          fillColor: (rowIndex, node, columnIndex) => rowIndex === 0 ? '#f7fafd' : null,
+          fillColor: (rowIndex: number, node: any, columnIndex: number) => rowIndex === 0 ? '#f7fafd' : null,
           hLineWidth: () => 0,
           vLineWidth: () => 0,
           paddingLeft: () => 16,
