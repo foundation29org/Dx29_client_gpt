@@ -10,7 +10,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 export class IntegrationComponent implements OnInit {
   @ViewChild('sendMsgModal') sendMsgModal!: TemplateRef<any>;
   modalMode: 'clinicalData' | 'datasets' | 'subscribe' | 'contact' = 'contact';
-  private modalRef: NgbModalRef;
+  private modalRef!: NgbModalRef;
 
   constructor(private modalService: NgbModal) { }
 

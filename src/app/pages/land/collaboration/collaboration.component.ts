@@ -11,7 +11,7 @@ import { BrandingService } from 'app/shared/services/branding.service';
 export class CollaborationComponent implements OnInit {
   @ViewChild('sendMsgModal') sendMsgModal!: TemplateRef<any>;
   modalMode: 'clinicalData' | 'datasets' | 'subscribe' | 'contact' = 'contact';
-  private modalRef: NgbModalRef;
+  private modalRef!: NgbModalRef;
 
   constructor(
     public brandingService: BrandingService,

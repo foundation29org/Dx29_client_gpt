@@ -245,7 +245,9 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: 16px;
 }
 
-::ng-deep .ModalClass-sm .modal-content {
+// Solo el aviso de beta: ModalClass-sm lo usan también otros modales (p. ej. cookies)
+// que no pintan fondo propio y quedarían transparentes.
+::ng-deep .beta-disclaimer-window .modal-content {
   overflow: hidden;
   background: transparent;
   border: 0;

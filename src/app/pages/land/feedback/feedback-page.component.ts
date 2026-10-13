@@ -29,7 +29,7 @@ export class FeedbackPageComponent implements OnDestroy {
     showErrorForm: boolean = false;
     sending: boolean = false;
     terms2: boolean = false;
-    @ViewChild('f') mainForm: NgForm;
+    @ViewChild('f') mainForm!: NgForm;
     moreFunctLength: number = 0;
     freeTextLength: number = 0;
     formulario: FormGroup;
@@ -100,8 +100,8 @@ export class FeedbackPageComponent implements OnDestroy {
             terms2: new FormControl('')
           });
 
-          this.moreFunctLength = this.formulario.get('moreFunct').value.length;
-          this.freeTextLength = this.formulario.get('freeText').value.length;
+          this.moreFunctLength = this.formulario.get('moreFunct')!.value.length;
+          this.freeTextLength = this.formulario.get('freeText')!.value.length;
           this.updateHealthcareSpecialtyValidation(this.formulario.get('userType')?.value);
           const userTypeControl = this.formulario.get('userType');
           if (userTypeControl) {
@@ -140,8 +140,8 @@ export class FeedbackPageComponent implements OnDestroy {
         textarea.style.height = textarea.scrollHeight + 'px';
       }
 
-      goTo(url){
-        document.getElementById(url).scrollIntoView(true);
+      goTo(url: string){
+        document.getElementById(url)?.scrollIntoView(true);
       }
 
     getElapsedSeconds() {
@@ -150,7 +150,7 @@ export class FeedbackPageComponent implements OnDestroy {
         return seconds;
     };
 
-    lauchEvent(category) {
+    lauchEvent(category: string) {
         var secs = this.getElapsedSeconds();
         try {
           if (typeof gtag === 'function') {
@@ -343,7 +343,7 @@ export class FeedbackPageComponent implements OnDestroy {
              
            }));
         } else {
-            if (this.formulario.get('email') && this.formulario.get('email').invalid ) {
+            if (this.formulario.get('email') && this.formulario.get('email')?.invalid ) {
                 Swal.fire({
                     icon: 'error',
                     html: this.translate.instant("generics.entervalidemail"),
@@ -372,7 +372,7 @@ export class FeedbackPageComponent implements OnDestroy {
       }
 
 
-    changeTerm($event){
+    changeTerm($event: { checked: boolean }){
         if ($event.checked) {
             localStorage.setItem('showFeedbackDxGPT', 'true')
         } else {

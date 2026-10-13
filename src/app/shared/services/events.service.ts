@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { from } from 'rxjs';
+import { Subject, from, Observable } from 'rxjs';
+
+type EventHandler = (msg: any) => void;
 
 @Injectable({
     providedIn: 'root'
   })
 export class EventsService {
-  listeners: any;
-  eventsSubject: any;
-  events: any;
+  listeners: Record<string, EventHandler[]>;
+  eventsSubject: Subject<{ name: string; msg: any }>;
+  events: Observable<{ name: string; msg: any }>;
     constructor() {
         this.listeners = {};
         this.eventsSubject = new Subject();
@@ -16,7 +17,7 @@ export class EventsService {
         this.events = from(this.eventsSubject);
 
         this.events.subscribe(
-            ({name, msg}) => {
+            ({name, msg}: { name: string; msg: any }) => {
                 if (this.listeners[name]) {
                     for (const listener of this.listeners[name]) {
                         listener(msg);
@@ -25,7 +26,7 @@ export class EventsService {
             });
     }
 
-    on(name, listener) {
+    on(name: string, listener: EventHandler) {
         if (!this.listeners[name]) {
             this.listeners[name] = [];
         }
@@ -39,7 +40,7 @@ export class EventsService {
      * @param listenerToRemove Función listener para eliminar (opcional)
      * Si no se proporciona listenerToRemove, se eliminarán todos los listeners del evento
      */
-    off(name, listenerToRemove?) {
+    off(name: string, listenerToRemove?: EventHandler) {
         if (!this.listeners[name]) {
             return;
         }
@@ -52,7 +53,7 @@ export class EventsService {
 
         // Filtrar el listener específico
         this.listeners[name] = this.listeners[name].filter(
-            listener => listener !== listenerToRemove
+            (listener: EventHandler) => listener !== listenerToRemove
         );
         
         // Si no quedan listeners, eliminar la clave
@@ -61,7 +62,7 @@ export class EventsService {
         }
     }
 
-    broadcast(name, msg) {
+    broadcast(name: string, msg: any) {
         this.eventsSubject.next({
             name,
             msg

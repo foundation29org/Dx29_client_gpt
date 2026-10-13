@@ -86,7 +86,7 @@ private postDiagnoseOrAsk(path: string, info: any) {
       );
   }
 
-  generateFollowUpQuestions(value): Observable<any> {
+  generateFollowUpQuestions(value: any): Observable<any> {
     return this.http.post(environment.api + '/questions/followup', value)
       .pipe(
         map((res: any) => {
@@ -99,7 +99,7 @@ private postDiagnoseOrAsk(path: string, info: any) {
       );
   }
 
-  generateERQuestions(value): Observable<any> {
+  generateERQuestions(value: any): Observable<any> {
     return this.http.post(environment.api + '/questions/emergency', value)
       .pipe(
         map((res: any) => {
@@ -112,7 +112,7 @@ private postDiagnoseOrAsk(path: string, info: any) {
       );
   }
 
-  processFollowUpAnswers(value): Observable<any> {
+  processFollowUpAnswers(value: any): Observable<any> {
     return this.http.post(environment.api + '/patient/update', value)
       .pipe(
         map((res: any) => {

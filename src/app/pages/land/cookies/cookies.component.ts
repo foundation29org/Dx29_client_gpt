@@ -16,8 +16,8 @@ export class CookiesPageComponent {
     this.lang = this.translate.store.currentLang
   }
 
-  goTo(url){
-    document.getElementById(url).scrollIntoView({behavior: "smooth"});
+  goTo(url: string){
+    document.getElementById(url)?.scrollIntoView({behavior: "smooth"});
   }
   
   isDirectRoute(): boolean {
