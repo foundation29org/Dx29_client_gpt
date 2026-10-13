@@ -41,6 +41,7 @@
     "files_limit_total": "Total size exceeded (20MB). Reduce or remove files.",
     "files_duplicates": "duplicate file(s) ignored.",
     "files_unsupported_format": "file(s) with unsupported format. Valid formats: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
+    "files_empty": "empty file(s) (0 bytes). Choose another file.",
     "upload_limits": "Limit: {{maxMB}} MB total, max {{maxDocs}} documents and {{maxImages}} images.",
     "upload_usage": "{{docs}}/{{maxDocs}} docs · {{images}}/{{maxImages}} images · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Text only",
@@ -627,6 +628,8 @@
     "documentPageLimitExceeded": "The documents exceed the limit of 100 pages in total. Upload fewer documents or only the relevant pages.",
     "documentUnreadable": "We could not read the document. Try a PDF or DOCX file, or paste the text.",
     "imageNotMedical": "The image does not look like a medical image. Upload a clinical image (X-ray, photo of the lesion, report...) or describe the case.",
+    "fileEmpty": "One of the files is empty (0 bytes). Remove it and try again.",
+    "fileContentMismatch": "The content of one of the files does not match its format (for example, an iPhone HEIC photo renamed to .jpg). Convert it to JPG or PNG, or upload a different file.",
     "imageNotMedicalIgnored": "These images do not look medical and were not used: {{files}}.",
     "documentPartialFailure": "Some documents could not be processed: {{files}}. The search continues with the rest.",
     "error edit patient description": "If the problem persists, edit the patient description",
@@ -1645,7 +1648,8 @@
       "service-unavailable": "Voice dictation is not available right now.",
       "unknown": "Voice dictation could not start. Please try again.",
       "no-speech": "No speech was detected. Please try again.",
-      "unreadable-audio": "The recording could not be read. Please try again."
+      "unreadable-audio": "The recording could not be read. Please try again.",
+      "incomplete": "Part of the recording could not be transcribed. Review the text and dictate the missing part again."
     }
   }
 }

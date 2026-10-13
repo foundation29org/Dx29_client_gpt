@@ -41,6 +41,7 @@
     "files_limit_total": "Taille totale dépassée (20MB). Réduisez ou supprimez des fichiers.",
     "files_duplicates": "fichier(s) dupliqué(s) ignoré(s).",
     "files_unsupported_format": "fichier(s) avec format non supporté. Formats valides : PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
+    "files_empty": "fichier(s) vide(s) (0 octet). Choisissez un autre fichier.",
     "upload_limits": "Limite : {{maxMB}} Mo au total, max {{maxDocs}} documents et {{maxImages}} images.",
     "upload_usage": "{{docs}}/{{maxDocs}} documents · {{images}}/{{maxImages}} images · {{usedMB}}/{{maxMB}} Mo",
     "image_text_only": "Texte seul",
@@ -627,6 +628,8 @@
     "documentPageLimitExceeded": "Les documents dépassent la limite totale de 100 pages. Importez moins de documents ou uniquement les pages pertinentes.",
     "documentUnreadable": "Nous n'avons pas pu lire le document. Essayez un fichier PDF ou DOCX, ou collez le texte.",
     "imageNotMedical": "L'image ne semble pas médicale. Importez une image clinique (radiographie, photo de la lésion, compte rendu...) ou décrivez le cas.",
+    "fileEmpty": "L'un des fichiers est vide (0 octet). Retirez-le et réessayez.",
+    "fileContentMismatch": "Le contenu de l'un des fichiers ne correspond pas à son format (par exemple, une photo HEIC d'iPhone renommée en .jpg). Convertissez-le en JPG ou PNG, ou importez un autre fichier.",
     "imageNotMedicalIgnored": "Ces images ne semblent pas médicales et n'ont pas été utilisées : {{files}}.",
     "documentPartialFailure": "Certains documents n'ont pas pu être traités : {{files}}. La recherche continue avec les autres.",
     "error edit patient description": "Si le problème persiste, editez la description du patient",
@@ -1645,7 +1648,8 @@
       "service-unavailable": "La dictée vocale n'est pas disponible pour le moment.",
       "unknown": "La dictée vocale n'a pas pu démarrer. Veuillez réessayer.",
       "no-speech": "Aucune voix n'a été détectée. Veuillez réessayer.",
-      "unreadable-audio": "L'enregistrement n'a pas pu être lu. Veuillez réessayer."
+      "unreadable-audio": "L'enregistrement n'a pas pu être lu. Veuillez réessayer.",
+      "incomplete": "Une partie de l'enregistrement n'a pas pu être transcrite. Vérifiez le texte et redictez la partie manquante."
     }
   }
 }

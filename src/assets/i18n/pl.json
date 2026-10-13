@@ -41,6 +41,7 @@
     "files_limit_total": "Przekroczono całkowity rozmiar (20MB). Zmniejsz lub usuń pliki.",
     "files_duplicates": "zduplikowane pliki zignorowane.",
     "files_unsupported_format": "pliki z nieobsługiwanym formatem. Prawidłowe formaty: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
+    "files_empty": "pusty(e) plik(i) (0 bajtów). Wybierz inny plik.",
     "upload_limits": "Limit: {{maxMB}} MB łącznie, maks. {{maxDocs}} dokumentów i {{maxImages}} obrazów.",
     "upload_usage": "{{docs}}/{{maxDocs}} dokumentów · {{images}}/{{maxImages}} obrazów · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Tylko tekst",
@@ -627,6 +628,8 @@
     "documentPageLimitExceeded": "Dokumenty przekraczają łączny limit 100 stron. Prześlij mniej dokumentów lub tylko odpowiednie strony.",
     "documentUnreadable": "Nie udało się odczytać dokumentu. Spróbuj pliku PDF lub DOCX albo wklej tekst.",
     "imageNotMedical": "Obraz nie wygląda na medyczny. Prześlij obraz kliniczny (zdjęcie RTG, zdjęcie zmiany, wynik badania...) lub opisz przypadek.",
+    "fileEmpty": "Jeden z plików jest pusty (0 bajtów). Usuń go i spróbuj ponownie.",
+    "fileContentMismatch": "Zawartość jednego z plików nie odpowiada jego formatowi (na przykład zdjęcie HEIC z iPhone'a ze zmienionym rozszerzeniem na .jpg). Przekonwertuj je na JPG lub PNG albo prześlij inny plik.",
     "imageNotMedicalIgnored": "Te obrazy nie wyglądają na medyczne i nie zostały użyte: {{files}}.",
     "documentPartialFailure": "Nie udało się przetworzyć niektórych dokumentów: {{files}}. Wyszukiwanie jest kontynuowane z pozostałymi.",
     "error edit patient description": "Jeśli problem będzie się powtarzał, zedytuj opis pacjenta",
@@ -1645,7 +1648,8 @@
       "service-unavailable": "Dyktowanie głosowe jest obecnie niedostępne.",
       "unknown": "Nie udało się uruchomić dyktowania głosowego. Spróbuj ponownie.",
       "no-speech": "Nie wykryto mowy. Spróbuj ponownie.",
-      "unreadable-audio": "Nie udało się odczytać nagrania. Spróbuj ponownie."
+      "unreadable-audio": "Nie udało się odczytać nagrania. Spróbuj ponownie.",
+      "incomplete": "Nie udało się przepisać części nagrania. Sprawdź tekst i podyktuj brakującą część jeszcze raz."
     }
   }
 }

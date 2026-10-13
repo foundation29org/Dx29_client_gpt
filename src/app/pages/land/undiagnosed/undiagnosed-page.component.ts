@@ -70,6 +70,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     // Por encima de este peso total, la subida por red móvil puede tardar
     // decenas de segundos: se avisa de que no hay que cerrar la ventana.
     private static readonly SLOW_UPLOAD_WARNING_BYTES = 6 * 1024 * 1024;
+    // Códigos que /medical/analyze pone en cada error de `details` cuando rechaza
+    // un archivo. El servidor decide el motivo; el texto, por idioma, es nuestro.
+    private static readonly FILE_REJECTION_MESSAGE_KEYS: Readonly<Record<string, string>> = {
+        FILE_EMPTY: 'generics.fileEmpty',
+        FILE_CONTENT_MISMATCH: 'generics.fileContentMismatch'
+    };
 
     // Fracción del peso máximo a partir de la cual se muestra el contador de subida.
     private static readonly UPLOAD_COUNTER_THRESHOLD = 0.75;
@@ -1561,6 +1567,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             : '';
     }
 
+    private fileRejectionMessageKey(body: any): string | undefined {
+        const details: any[] = Array.isArray(body?.details) ? body.details : [];
+        const rejection = details.find(
+            (detail) => UndiagnosedPageComponent.FILE_REJECTION_MESSAGE_KEYS[detail?.code]
+        );
+        return rejection
+            ? UndiagnosedPageComponent.FILE_REJECTION_MESSAGE_KEYS[rejection.code]
+            : undefined;
+    }
+
     handleAiError(err: any) {
         let msgError = '';
         
@@ -1573,6 +1589,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             if (err.error.code === 'INVALID_UPLOAD_REFERENCE') {
                 this.resetExpiredUpload();
                 msgError = this.translate.instant('generics.imageAssetExpired');
+            } else if (this.fileRejectionMessageKey(err.error)) {
+                msgError = this.translate.instant(this.fileRejectionMessageKey(err.error));
             } else if (err.error.error && err.error.error.code === 'content_filter') {
                 msgError = this.translate.instant('generics.sorry cant anwser1');
             } else if (err.error.type === 'invalid_request_error') {
@@ -2008,6 +2026,24 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.loadingAnswerAI = false;
             this.lauchEvent('Info Disease - no disease selected');
             this.showError(this.translate.instant("generics.error try again"), null);
+            return;
+        }
+
+        // Estas preguntas se responden sobre el caso: sin texto y sin imágenes subidas el servidor
+        // solo puede responder 400. Pasa cuando el análisis ya no tiene su uploadId y el caso era solo
+        // imágenes. Se avisa sin llamar y queda un evento (Analytics) y una excepción (Insights, con
+        // mensaje fijo para que se agrupe) para medir cuántas veces ocurre.
+        if (question.needsCase && !this.medicalTextEng?.trim() && !this.currentUploadId) {
+            this.loadingAnswerAI = false;
+            this.lauchEvent('Info Disease - no case');
+            this.insightsService.trackException('Info Disease - no case');
+            Swal.fire({
+                icon: 'info',
+                html: this.translate.instant("land.required"),
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            });
             return;
         }
 
@@ -3814,13 +3850,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         let addedDocs = 0;
         let addedBytes = 0;
 
-        const rejected: { file: File; reason: 'limit_images' | 'limit_docs' | 'limit_total' | 'duplicate' | 'unsupported_format' }[] = [];
+        const rejected: { file: File; reason: 'limit_images' | 'limit_docs' | 'limit_total' | 'duplicate' | 'unsupported_format' | 'empty' }[] = [];
         const accepted: File[] = [];
 
         for (const file of newFiles) {
             // Evitar duplicados
             if (this.selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
                 rejected.push({ file, reason: 'duplicate' });
+                continue;
+            }
+
+            // Un archivo de 0 bytes (una descarga que falló, un adjunto vacío) no tiene nada que analizar
+            if (file.size === 0) {
+                rejected.push({ file, reason: 'empty' });
                 continue;
             }
 
@@ -3873,6 +3915,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             const overTotal = rejected.filter(r => r.reason === 'limit_total').length;
             const duplicates = rejected.filter(r => r.reason === 'duplicate').length;
             const unsupported = rejected.filter(r => r.reason === 'unsupported_format').length;
+            const empty = rejected.filter(r => r.reason === 'empty').length;
 
             let html = '';
             if (overImages) {
@@ -3889,6 +3932,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             if (unsupported) {
                 html += `• ${unsupported} ${this.translate.instant('beta.files_unsupported_format')}<br/>`;
+            }
+            if (empty) {
+                html += `• ${empty} ${this.translate.instant('beta.files_empty')}<br/>`;
             }
 
             Swal.fire({

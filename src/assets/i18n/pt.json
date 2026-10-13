@@ -41,6 +41,7 @@
     "files_limit_total": "Tamanho total excedido (20 MB). Reduza ou remova ficheiros.",
     "files_duplicates": "ficheiro(s) duplicado (s) ignorado (s).",
     "files_unsupported_format": "ficheiro(s) com formato não suportado. Formatos válidos: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
+    "files_empty": "ficheiro(s) vazio(s) (0 bytes). Escolha outro ficheiro.",
     "upload_limits": "Limite: {{maxMB}} MB no total, máximo de {{maxDocs}} documentos e {{maxImages}} imagens.",
     "upload_usage": "{{docs}}/{{maxDocs}} documentos · {{images}}/{{maxImages}} imagens · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Apenas texto",
@@ -627,6 +628,8 @@
     "documentPageLimitExceeded": "Os documentos excedem o limite total de 100 páginas. Carregue menos documentos ou apenas as páginas relevantes.",
     "documentUnreadable": "Não foi possível ler o documento. Experimente um ficheiro PDF ou DOCX, ou cole o texto.",
     "imageNotMedical": "A imagem não parece médica. Envie uma imagem clínica (radiografia, foto da lesão, relatório...) ou descreva o caso.",
+    "fileEmpty": "Um dos ficheiros está vazio (0 bytes). Remova-o e tente novamente.",
+    "fileContentMismatch": "O conteúdo de um dos ficheiros não corresponde ao seu formato (por exemplo, uma foto HEIC de iPhone com extensão .jpg). Converta-o para JPG ou PNG, ou carregue outro ficheiro.",
     "imageNotMedicalIgnored": "Estas imagens não parecem médicas e não foram usadas: {{files}}.",
     "documentPartialFailure": "Não foi possível processar alguns documentos: {{files}}. A pesquisa continua com os restantes.",
     "error edit patient description": "Se o problema persistir, edite a descrição do paciente",
@@ -1645,7 +1648,8 @@
       "service-unavailable": "O ditado por voz não está disponível de momento.",
       "unknown": "Não foi possível iniciar o ditado por voz. Tente novamente.",
       "no-speech": "Não foi detetada voz. Tente novamente.",
-      "unreadable-audio": "Não foi possível ler a gravação. Tente novamente."
+      "unreadable-audio": "Não foi possível ler a gravação. Tente novamente.",
+      "incomplete": "Não foi possível transcrever uma parte da gravação. Revise o texto e dite novamente a parte em falta."
     }
   }
 }

@@ -41,6 +41,7 @@
     "files_limit_total": "Mida total excedida (20MB). Redueix o elimina fitxers.",
     "files_duplicates": "fitxer(s) duplicat(s) ignorat(s).",
     "files_unsupported_format": "fitxer(s) amb format no suportat. Formats vàlids: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
+    "files_empty": "fitxer(s) buit(s) (0 bytes). Tria un altre fitxer.",
     "upload_limits": "Límit: {{maxMB}} MB totals, màx. {{maxDocs}} documents i {{maxImages}} imatges.",
     "upload_usage": "{{docs}}/{{maxDocs}} documents · {{images}}/{{maxImages}} imatges · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Només text",
@@ -627,6 +628,8 @@
     "documentPageLimitExceeded": "Els documents superen el límit de 100 pàgines en total. Puja menys documents o només les pàgines rellevants.",
     "documentUnreadable": "No hem pogut llegir el document. Prova amb un PDF o DOCX, o enganxa el text.",
     "imageNotMedical": "La imatge no sembla mèdica. Puja una imatge clínica (radiografia, foto de la lesió, informe...) o descriu el cas.",
+    "fileEmpty": "Un dels fitxers està buit (0 bytes). Treu-lo i torna-ho a provar.",
+    "fileContentMismatch": "El contingut d'un dels fitxers no coincideix amb el seu format (per exemple, una foto HEIC d'iPhone amb extensió .jpg). Converteix-lo a JPG o PNG, o puja un altre fitxer.",
     "imageNotMedicalIgnored": "Aquestes imatges no semblen mèdiques i no s'han fet servir: {{files}}.",
     "documentPartialFailure": "No s'han pogut processar alguns documents: {{files}}. La cerca continua amb la resta.",
     "error edit patient description": "Si el problema persisteix, edita la descripció del pacient",
@@ -1645,7 +1648,8 @@
       "service-unavailable": "El dictat per veu no està disponible ara mateix.",
       "unknown": "No s'ha pogut iniciar el dictat per veu. Torna-ho a provar.",
       "no-speech": "No s'ha detectat veu. Torna-ho a provar.",
-      "unreadable-audio": "No s'ha pogut llegir la gravació. Torna-ho a provar."
+      "unreadable-audio": "No s'ha pogut llegir la gravació. Torna-ho a provar.",
+      "incomplete": "No s'ha pogut transcriure una part de la gravació. Revisa el text i torna a dictar el que falti."
     }
   }
 }
