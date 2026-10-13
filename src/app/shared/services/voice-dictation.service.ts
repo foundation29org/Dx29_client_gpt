@@ -5,9 +5,11 @@ import { EmptyError, Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { environment } from 'environments/environment';
 import { UuidService } from './uuid.service';
 import { AudioLevelMeter, SilenceTracker, shouldCutSegment } from './dictation-segmenter';
+import { DictationResult, settleDictation, settleSegment } from './dictation-outcome';
 
-// Codes map to i18n keys under "voice.errors.*".
-export type DictationErrorCode = 'not-supported' | 'permission-denied' | 'no-microphone' | 'no-speech' | 'unreadable-audio' | 'network' | 'service-unavailable' | 'unknown';
+// Codes map to i18n keys under "voice.errors.*". 'incomplete' is never thrown: it names the
+// warning shown when the text was delivered but a part of the recording was lost.
+export type DictationErrorCode = 'not-supported' | 'permission-denied' | 'no-microphone' | 'no-speech' | 'unreadable-audio' | 'incomplete' | 'network' | 'service-unavailable' | 'unknown';
 
 export class DictationError extends Error {
   constructor(public readonly code: DictationErrorCode) {
@@ -113,8 +115,11 @@ export class VoiceDictationService {
     this.startWatcher();
   }
 
-  /** Stops recording and resolves with the transcribed text. */
-  async stop(): Promise<string> {
+  /**
+   * Stops recording and resolves with the transcribed text. `incomplete` is true when a segment
+   * was lost for good: the text of the others is still delivered, so the caller must say so.
+   */
+  async stop(): Promise<DictationResult> {
     const durationMs = Date.now() - this.startedAt;
     const last = this.current;
     this.current = null;
@@ -135,21 +140,19 @@ export class VoiceDictationService {
 
     const transcriptions = this.transcriptions;
     this.transcriptions = [];
-    // A segment the Server cannot decode (typically a few seconds at the end) must not throw away
-    // the minutes already transcribed. Any other failure still fails the dictation.
-    const texts: string[] = [];
-    let skippedUnreadable = false;
-    for (const transcription of transcriptions) {
-      try {
-        texts.push(await transcription);
-      } catch (error) {
-        if (!(error instanceof DictationError && error.code === 'unreadable-audio')) throw error;
-        skippedUnreadable = true;
-      }
+    // One failed segment must not throw away the minutes already transcribed: every segment is
+    // awaited and the text of the ones that worked is kept (see dictation-outcome.ts).
+    const outcome = settleDictation(await Promise.all(transcriptions.map(settleSegment)));
+    switch (outcome.kind) {
+      case 'text':
+        return { text: outcome.text, incomplete: outcome.incomplete };
+      case 'failed':
+        throw outcome.reason;
+      case 'unreadable':
+        throw new DictationError('unreadable-audio');
+      default:
+        throw new DictationError('no-speech');
     }
-    const text = texts.filter(Boolean).join(' ').trim();
-    if (!text) throw new DictationError(skippedUnreadable ? 'unreadable-audio' : 'no-speech');
-    return text;
   }
 
   /** Stops recording and discards the audio, including what is still being transcribed. */

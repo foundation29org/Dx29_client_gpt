@@ -104,11 +104,12 @@ export class DictationButtonComponent implements OnInit, OnChanges, OnDestroy {
     this.setState('transcribing');
     this.statusMessage = this.translate.instant('voice.Transcribing');
     try {
-      const spoken = await this.dictation.stop();
+      const { text: spoken, incomplete } = await this.dictation.stop();
       const base = (this.text || '').trim();
       this.textChange.emit(base ? `${base} ${spoken}` : spoken);
       this.statusMessage = this.translate.instant('voice.Dictation added');
       this.setState('idle');
+      if (incomplete) this.warn('incomplete');
     } catch (error) {
       this.fail(error);
     }
@@ -122,9 +123,13 @@ export class DictationButtonComponent implements OnInit, OnChanges, OnDestroy {
 
   private fail(error: unknown): void {
     this.stopTimer();
-    const code: DictationErrorCode = error instanceof DictationError ? error.code : 'unknown';
-    this.error = this.translate.instant('voice.errors.' + code);
+    this.warn(error instanceof DictationError ? error.code : 'unknown');
     this.setState('idle');
+  }
+
+  /** Shows the message for `code` and reports it, unless it is something users routinely cause. */
+  private warn(code: DictationErrorCode): void {
+    this.error = this.translate.instant('voice.errors.' + code);
     if (!EXPECTED_ERRORS.includes(code)) {
       this.insights.trackException({ message: 'Dictation error', code });
     }

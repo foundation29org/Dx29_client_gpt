@@ -41,6 +41,7 @@
     "files_limit_total": "Tamaño total excedido (20MB). Reduce o elimina archivos.",
     "files_duplicates": "archivo(s) duplicado(s) ignorados.",
     "files_unsupported_format": "archivo(s) con formato no soportado. Formatos válidos: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
+    "files_empty": "archivo(s) vacío(s) (0 bytes). Elige otro archivo.",
     "upload_limits": "Límite: {{maxMB}} MB totales, máx. {{maxDocs}} documentos y {{maxImages}} imágenes.",
     "upload_usage": "{{docs}}/{{maxDocs}} documentos · {{images}}/{{maxImages}} imágenes · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Solo texto",
@@ -627,6 +628,8 @@
     "documentPageLimitExceeded": "Los documentos superan el límite de 100 páginas en total. Sube menos documentos o solo las páginas relevantes.",
     "documentUnreadable": "No hemos podido leer el documento. Prueba con un PDF o DOCX, o pega el texto.",
     "imageNotMedical": "La imagen no parece médica. Sube una imagen clínica (radiografía, foto de la lesión, informe...) o describe el caso.",
+    "fileEmpty": "Uno de los archivos está vacío (0 bytes). Quítalo e inténtalo de nuevo.",
+    "fileContentMismatch": "El contenido de uno de los archivos no coincide con su formato (por ejemplo, una foto HEIC de iPhone con extensión .jpg). Conviértelo a JPG o PNG, o sube otro archivo.",
     "imageNotMedicalIgnored": "Estas imágenes no parecen médicas y no se han usado: {{files}}.",
     "documentPartialFailure": "No se han podido procesar algunos documentos: {{files}}. La búsqueda continúa con el resto.",
     "error edit patient description": "Si el problema persiste, edite la descripción del paciente",
@@ -1645,7 +1648,8 @@
       "service-unavailable": "El dictado por voz no está disponible ahora mismo.",
       "unknown": "No se ha podido iniciar el dictado por voz. Inténtalo de nuevo.",
       "no-speech": "No se ha detectado voz. Inténtalo de nuevo.",
-      "unreadable-audio": "No se ha podido leer la grabación. Inténtalo de nuevo."
+      "unreadable-audio": "No se ha podido leer la grabación. Inténtalo de nuevo.",
+      "incomplete": "No se ha podido transcribir una parte de la grabación. Revisa el texto y vuelve a dictar lo que falte."
     }
   }
 }

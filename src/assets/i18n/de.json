@@ -41,6 +41,7 @@
     "files_limit_total": "Gesamtgröße überschritten (20MB). Reduzieren oder entfernen Sie Dateien.",
     "files_duplicates": "Doppelte Datei(en) ignoriert.",
     "files_unsupported_format": "Datei(en) mit nicht unterstütztem Format. Gültige Formate: PDF, DOC, DOCX, XLS, XLSX, TXT, JPEG, PNG, WEBP.",
+    "files_empty": "leere Datei(en) (0 Byte). Wählen Sie eine andere Datei.",
     "upload_limits": "Limit: {{maxMB}} MB gesamt, max. {{maxDocs}} Dokumente und {{maxImages}} Bilder.",
     "upload_usage": "{{docs}}/{{maxDocs}} Dokumente · {{images}}/{{maxImages}} Bilder · {{usedMB}}/{{maxMB}} MB",
     "image_text_only": "Nur Text",
@@ -627,6 +628,8 @@
     "documentPageLimitExceeded": "Die Dokumente überschreiten insgesamt das Limit von 100 Seiten. Laden Sie weniger Dokumente oder nur die relevanten Seiten hoch.",
     "documentUnreadable": "Das Dokument konnte nicht gelesen werden. Versuchen Sie eine PDF- oder DOCX-Datei oder fügen Sie den Text ein.",
     "imageNotMedical": "Das Bild scheint kein medizinisches Bild zu sein. Laden Sie ein klinisches Bild hoch (Röntgenbild, Foto der Läsion, Befund...) oder beschreiben Sie den Fall.",
+    "fileEmpty": "Eine der Dateien ist leer (0 Byte). Entfernen Sie sie und versuchen Sie es erneut.",
+    "fileContentMismatch": "Der Inhalt einer der Dateien entspricht nicht ihrem Format (z. B. ein HEIC-Foto vom iPhone, das in .jpg umbenannt wurde). Konvertieren Sie sie in JPG oder PNG oder laden Sie eine andere Datei hoch.",
     "imageNotMedicalIgnored": "Diese Bilder scheinen nicht medizinisch zu sein und wurden nicht verwendet: {{files}}.",
     "documentPartialFailure": "Einige Dokumente konnten nicht verarbeitet werden: {{files}}. Die Suche wird mit den übrigen fortgesetzt.",
     "error edit patient description": "Falls das Problem weiterhin besteht, bearbeiten Sie die Patientenbeschreibung",
@@ -1645,7 +1648,8 @@
       "service-unavailable": "Das Sprachdiktat ist derzeit nicht verfügbar.",
       "unknown": "Das Sprachdiktat konnte nicht gestartet werden. Bitte erneut versuchen.",
       "no-speech": "Es wurde keine Sprache erkannt. Bitte erneut versuchen.",
-      "unreadable-audio": "Die Aufnahme konnte nicht gelesen werden. Bitte erneut versuchen."
+      "unreadable-audio": "Die Aufnahme konnte nicht gelesen werden. Bitte erneut versuchen.",
+      "incomplete": "Ein Teil der Aufnahme konnte nicht transkribiert werden. Bitte den Text prüfen und den fehlenden Teil erneut diktieren."
     }
   }
 }
