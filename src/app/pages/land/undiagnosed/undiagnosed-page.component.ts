@@ -1504,7 +1504,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         // Si está procesando via WebSocket (modelos largos)
         if (res.result === 'processing') {
             // No hacer nada - el resultado llegará via WebSocket
-            console.log('Processing via WebSocket. Waiting for results...');
+            //console.log('Processing via WebSocket. Waiting for results...');
             return;
         }
 
