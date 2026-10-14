@@ -114,13 +114,15 @@ export class PdfMakeService {
           ],
           margin: [0, 0, 0, 18]
         },
-        { text: this.translate.instant('diagnosis.Patient text entered'), style: 'subheader', margin: [0, 10, 0, 4] },
-        ...this.formatMultilineText(entryText, {
-          fontSize: 10,
-          color: '#555',
-          bold: false,
-          margin: [0, 0, 0, 10]
-        }),
+        ...(entryText?.trim() ? [
+          { text: this.translate.instant('diagnosis.Patient text entered'), style: 'subheader', margin: [0, 10, 0, 4] },
+          ...this.formatMultilineText(entryText, {
+            fontSize: 10,
+            color: '#555',
+            bold: false,
+            margin: [0, 0, 0, 10]
+          })
+        ] : []),
         { text: isEuMode ? this.translate.instant('diagnosis.Candidate diagnosisEu') : this.translate.instant('diagnosis.Candidate diagnosis'), style: 'subheader', margin: [0, 18, 0, 8] },
         ...(isEuMode ? [
           {
