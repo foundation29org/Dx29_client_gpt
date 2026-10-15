@@ -1317,6 +1317,21 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     async callAI() {
         Swal.close();
+        if (!this.medicalTextEng?.trim() && !this.currentUploadId) {
+            this.callingAI = false;
+            this.loadMoreDiseases = false;
+            this.forceDiagnosisNext = false;
+            this.lauchEvent('Diagnose - no case');
+            this.insightsService.trackException('Diagnose - no case');
+            Swal.fire({
+                icon: 'info',
+                html: this.translate.instant("land.required"),
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false
+            });
+            return;
+        }
         if (this.countCharacters(this.medicalTextEng || '') > UndiagnosedPageComponent.MAX_DESCRIPTION_CHARS) {
             this.callingAI = false;
             const fitted = await this.fitDescription(this.medicalTextEng);
