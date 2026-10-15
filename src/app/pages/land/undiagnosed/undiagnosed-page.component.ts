@@ -22,6 +22,12 @@ import { IntentEnrichmentService } from 'app/shared/services/intent-enrichment.s
 import { CountryContextService } from 'app/shared/services/country-context.service';
 import { environment } from 'environments/environment';
 import { DIAGNOSTIC_GUIDANCE_QUESTIONS } from 'app/shared/models/diagnostic-guidance-question';
+import {
+    compressImagesForRetry,
+    evaluateSlowImageUpload,
+    hasCompressibleImages,
+    isUploadConnectionFailure
+} from 'app/shared/utils/upload-recovery';
 declare let gtag: any;
 
 // Imagen procesada por /medical/analyze. El servidor nunca devuelve URLs:
@@ -3582,6 +3588,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (event.target.files && event.target.files.length > 0) {
             const newFiles = Array.from(event.target.files) as File[];
             this.validateAndAddFiles(newFiles);
+            event.target.value = '';
         }
     }
 
@@ -3636,7 +3643,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.lauchEvent('Analyze multimodal started');
         this.callingAI = true;
         const formData = new FormData();
+        // Los campos pequeños van antes que los ficheros: si la subida se corta a
+        // mitad, Multer ya ha leído myuuid y queda identificado en telemetría.
         formData.append('text', this.medicalTextOriginal || '');
+        formData.append('lang', this.lang || 'es');
+        formData.append('myuuid', this.myuuid || '');
+        formData.append('timezone', this.timezone || '');
+        if (this.countryContext.code) {
+            formData.append('countryCode', this.countryContext.code);
+        }
+        const iframeParams = this.filterIframeParams(this.iframeParams);
+        if (Object.keys(iframeParams).length > 0) {
+            formData.append('iframeParams', JSON.stringify(iframeParams));
+        }
         // Cada análisis parte de cero: se envían todos los ficheros y el
         // servidor crea un uploadId nuevo. No se reutiliza nada del anterior.
         this.clearUploadReference();
@@ -3663,17 +3682,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 docCount >= this.multimodalUploadLimits.maxDocuments &&
                 imgCount >= this.multimodalUploadLimits.maxImages
             ) break;
-        }
-        formData.append('lang', this.lang || 'es');
-
-        formData.append('myuuid', this.myuuid || '');
-        formData.append('timezone', this.timezone || '');
-        if (this.countryContext.code) {
-            formData.append('countryCode', this.countryContext.code);
-        }
-        const iframeParams = this.filterIframeParams(this.iframeParams);
-        if (Object.keys(iframeParams).length > 0) {
-            formData.append('iframeParams', JSON.stringify(iframeParams));
         }
 
         Swal.close();
@@ -3749,19 +3757,79 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         this.callingAI = true;
         this.awaitingMultimodalPreprocessing = true;
+        const uploadStartedAt = Date.now();
+        const canPreemptSlowImages = hasCompressibleImages(filesSubmitted);
+        let lastLoadedBytes = 0;
+        let lastProgressAt = uploadStartedAt;
+        let lastTotalBytes = uploadBytes;
+        let slowUploadTimer: any = null;
+        const clearSlowUploadTimer = () => {
+            if (slowUploadTimer) {
+                clearInterval(slowUploadTimer);
+                slowUploadTimer = null;
+            }
+        };
+        const checkSlowImagePreemption = (loaded: number, total?: number): boolean => {
+            if (runId !== this.activeMultimodalRun) {
+                return false;
+            }
+            const now = Date.now();
+            const totalBytes = total || lastTotalBytes || uploadBytes;
+            const elapsedMs = now - uploadStartedAt;
+            const stalledMs = now - lastProgressAt;
+            const evaluation = evaluateSlowImageUpload({
+                loadedBytes: loaded,
+                totalBytes,
+                elapsedMs,
+                stalledMs,
+                hasCompressible: canPreemptSlowImages
+            });
+            if (!evaluation.shouldPreempt) {
+                return false;
+            }
+            clearSlowUploadTimer();
+            this.preemptSlowMultimodalUpload(runId, {
+                elapsedMs,
+                loadedBytes: loaded,
+                totalBytes,
+                projectedSec: evaluation.projectedSec
+            });
+            return true;
+        };
+        // Comprobación periódica cada 2 s por si la subida se queda congelada en el
+        // buffer TCP (p. ej. en GPRS) y el navegador deja de emitir UploadProgress.
+        slowUploadTimer = setInterval(() => {
+            if (!this.multimodalRequestSubscription || this.serverProgressReceived) {
+                clearSlowUploadTimer();
+                return;
+            }
+            checkSlowImagePreemption(lastLoadedBytes, lastTotalBytes);
+        }, 2000);
         this.multimodalRequestSubscription =
             this.apiDx29ServerService.analyzeMultimodal(formData).subscribe(
             (event: HttpEvent<any>) => {
                 if (runId !== this.activeMultimodalRun) {
+                    clearSlowUploadTimer();
                     return;
                 }
                 if (event.type === HttpEventType.UploadProgress) {
+                    if (event.loaded > lastLoadedBytes) {
+                        lastLoadedBytes = event.loaded;
+                        lastProgressAt = Date.now();
+                    }
+                    if (event.total) {
+                        lastTotalBytes = event.total;
+                    }
+                    if (checkSlowImagePreemption(event.loaded, event.total)) {
+                        return;
+                    }
                     this.showUploadProgress(event.loaded, event.total);
                     return;
                 }
                 if (event.type !== HttpEventType.Response) {
                     return;
                 }
+                clearSlowUploadTimer();
                 this.hideUploadProgress();
                 const res = event.body;
                 // El servidor solo confirma que ha aceptado los ficheros. El
@@ -3770,6 +3838,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.lastMultimodalCorrelationId = res?.correlationId || '';
             },
             (err: any) => {
+                clearSlowUploadTimer();
                 if (runId !== this.activeMultimodalRun) {
                     return;
                 }
@@ -3782,9 +3851,87 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 }
                 this.isWebSocketConnected = false;
                 this.activeMultimodalRun += 1;
+                if (isUploadConnectionFailure(err)) {
+                    this.handleUploadConnectionFailure(err);
+                    return;
+                }
                 this.handleAiError(err);
             }
         );
+        this.multimodalRequestSubscription.add(clearSlowUploadTimer);
+    }
+
+    private preemptSlowMultimodalUpload(
+        runId: number,
+        metrics: { elapsedMs: number; loadedBytes: number; totalBytes: number; projectedSec: number }
+    ): void {
+        if (runId !== this.activeMultimodalRun) {
+            return;
+        }
+        this.activeMultimodalRun += 1;
+        this.multimodalRequestSubscription?.unsubscribe();
+        this.multimodalRequestSubscription = null;
+        this.awaitingMultimodalPreprocessing = false;
+        this.setAllFileStatuses('error');
+        if (this.webSocket) {
+            this.webSocket.close();
+            this.webSocket = null;
+        }
+        this.isWebSocketConnected = false;
+        this.lauchEvent('Multimodal upload preempted - slow connection');
+        this.insightsService.trackEvent('MultimodalUploadPreempted', {
+            myuuid: this.myuuid,
+            elapsedMs: metrics.elapsedMs,
+            loadedBytes: metrics.loadedBytes,
+            totalBytes: metrics.totalBytes,
+            projectedSec: metrics.projectedSec
+        });
+        this.handleUploadConnectionFailure(null, true);
+    }
+
+    private handleUploadConnectionFailure(err: any, alreadyTracked: boolean = false) {
+        this.callingAI = false;
+        this.lastMultimodalCorrelationId = '';
+        if (!alreadyTracked) {
+            this.lauchEvent('Multimodal upload interrupted');
+            this.insightsService.trackException(err);
+        }
+
+        const canCompress = hasCompressibleImages(this.selectedFiles);
+        let html = this.translate.instant('generics.uploadInterrupted');
+        if (canCompress) {
+            html += `<br><br>${this.translate.instant('generics.uploadInterruptedCompressHint')}`;
+        }
+
+        Swal.close();
+        Swal.fire({
+            icon: 'info',
+            html,
+            showCancelButton: canCompress,
+            showConfirmButton: true,
+            confirmButtonText: canCompress
+                ? this.translate.instant('generics.compressAndRetry')
+                : 'OK',
+            cancelButtonText: this.translate.instant('generics.Close'),
+            allowOutsideClick: false
+        }).then(async (result) => {
+            if (!canCompress || !result.isConfirmed) {
+                return;
+            }
+            const compressed = await compressImagesForRetry(this.selectedFiles);
+            this.selectedFiles = compressed.files;
+            this.fileProcessingStatuses.clear();
+            this.selectedFiles.forEach((file) => {
+                this.fileProcessingStatuses.set(this.getFileKey(file), 'pending');
+            });
+            this.lauchEvent('Multimodal retry with compressed images');
+            this.insightsService.trackEvent('MultimodalUploadCompressedRetry', {
+                myuuid: this.myuuid,
+                compressedCount: compressed.compressedCount,
+                savedBytes: compressed.savedBytes
+            });
+            this.analyzeMultimodal();
+        });
     }
 
     private applyMultimodalPreprocessing(res: any) {
