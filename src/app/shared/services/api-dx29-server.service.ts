@@ -18,13 +18,14 @@ export class ApiDx29ServerService {
 getInfoLocation() {
   return new Observable(observer => {
     try {
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone?.trim() || 'UTC';
       observer.next({ timezone });
       observer.complete();
     } catch (error) {
       console.log(error);
       this.insightsService.trackException(error);
-      observer.error(error);
+      observer.next({ timezone: 'UTC' });
+      observer.complete();
     }
   });
 }

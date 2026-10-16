@@ -40,7 +40,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     showBetaDetails = false;
     terms2 = false;
     lang = 'en';
-    timezone = '';
+    timezone = 'UTC';
     model = 'gpt56terra';
     textareaPlaceholder = '';
     iframeParams: IframeParams = {};
@@ -160,7 +160,7 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         this.subscriptions.add(
             this.apiDx29ServerService.getInfoLocation().subscribe({
                 next: (res: any) => {
-                    this.timezone = res?.timezone || '';
+                    this.timezone = res?.timezone || 'UTC';
                 },
                 error: err => this.insightsService.trackException(err)
             })

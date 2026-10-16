@@ -149,7 +149,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     tienePrisa: boolean = false;
     resultAnonymized: string = '';
     copyResultAnonymized: string = '';
-    timezone: string = '';
+    timezone: string = 'UTC';
     terms2: boolean = false;
     model: string = 'gpt56terra';
     
@@ -3648,7 +3648,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         formData.append('text', this.medicalTextOriginal || '');
         formData.append('lang', this.lang || 'es');
         formData.append('myuuid', this.myuuid || '');
-        formData.append('timezone', this.timezone || '');
+        if (this.timezone) {
+            formData.append('timezone', this.timezone);
+        }
         if (this.countryContext.code) {
             formData.append('countryCode', this.countryContext.code);
         }
