@@ -2855,7 +2855,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     // Nuevos métodos para la funcionalidad de preguntas de seguimiento
     
     async handleFollowUpResponse(contentFollowUp?: any, contentEditDescription?: any) {
-        if(this.medicalTextOriginal == '' && !this.hasDiagnosticImages){
+        if(!this.medicalTextEng?.trim() && !this.hasDiagnosticImages){
             // Mostrar Swal invitando a editar la descripción
             Swal.fire({
                 title: this.isEuMode() ? this.translate.instant('diagnosis.Improve patient descriptionEu') : this.translate.instant('diagnosis.Improve patient description'),
@@ -2910,7 +2910,31 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    private abortFollowUpWithoutCase(eventName: string): void {
+        this.loadingFollowUpQuestions = false;
+        this.processingFollowUpAnswers = false;
+        if (this.modalReference != undefined) {
+            this.modalReference.close();
+            this.modalReference = undefined;
+        }
+        this.hypothesisFollowUpDisease = '';
+        this.lauchEvent(eventName);
+        this.insightsService.trackException(eventName);
+        Swal.fire({
+            icon: 'info',
+            html: this.translate.instant("land.required"),
+            showCancelButton: false,
+            showConfirmButton: true,
+            allowOutsideClick: false
+        });
+    }
+
     async openHypothesisFollowUp(contentFollowUp: any) {
+        const description = this.medicalTextOriginal || this.medicalTextEng;
+        if (!description?.trim() && !this.currentUploadId) {
+            this.abortFollowUpWithoutCase('FollowUp - no case');
+            return;
+        }
         this.hypothesisFollowUpDisease = this.selectedDisease;
         this.followUpQuestions = [];
         this.followUpAnswers = {};
@@ -2953,6 +2977,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async handleERResponse(contentFollowUp?: any) {
+        if (!this.medicalTextOriginal?.trim() && !this.currentUploadId) {
+            this.abortFollowUpWithoutCase('ER Questions - no case');
+            return;
+        }
         if (!(await this.confirmCountry())) {
             return;
         }
@@ -2985,6 +3013,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     
 
     async generateERQuestions() {
+        if (!this.medicalTextOriginal?.trim() && !this.currentUploadId) {
+            this.abortFollowUpWithoutCase('ER Questions - no case');
+            return;
+        }
         // Llamar a la API para generar preguntas de seguimiento
         const value = {
             description: this.medicalTextOriginal,
@@ -3014,9 +3046,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
     
     async generateFollowUpQuestions(focusDisease: string = '') {
+        const description = focusDisease ? (this.medicalTextOriginal || this.medicalTextEng) : this.medicalTextEng;
+        if (!description?.trim() && !this.currentUploadId) {
+            this.abortFollowUpWithoutCase('FollowUp - no case');
+            return;
+        }
         // Llamar a la API para generar preguntas de seguimiento
         const value = { 
-            description: focusDisease ? (this.medicalTextOriginal || this.medicalTextEng) : this.medicalTextEng,
+            description,
             diseases: focusDisease || this.diseaseListEn.slice(0, 5).join(', '),
             myuuid: this.myuuid,
             lang: this.lang,
@@ -3119,6 +3156,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         };
         if(this.modeFunctionality && this.medicalTextEng ==''){
             value.description = this.medicalTextOriginal;
+        }
+        if (!value.description?.trim() && !this.currentUploadId) {
+            this.abortFollowUpWithoutCase('Process FollowUp - no case');
+            return;
         }
         
 
