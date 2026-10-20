@@ -1937,7 +1937,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         
         this.lauchEvent("Search Disease");
         if(this.hasIframeParams()){
-            console.log('iframeParams con datos:', this.iframeParams);
             if(this.iframeParams.centro){
                 this.lauchEvent("Search centro: " + this.iframeParams.centro);
             }
@@ -1948,7 +1947,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.lauchEvent("Search especialidad: " + this.iframeParams.especialidad);
             }
             if(this.iframeParams.medicalText){
-                this.lauchEvent("Search medicalText: " + this.iframeParams.medicalText);
+                this.lauchEvent("Search medicalText: [present]");
             }
         } else {
             //console.log('iframeParams vacío o sin propiedades');
@@ -2082,7 +2081,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 infoOptionEvent += " especialidad: " + this.iframeParams.especialidad;
             }
             if(this.iframeParams.medicalText){
-                infoOptionEvent += " medicalText: " + this.iframeParams.medicalText;
+                infoOptionEvent += " medicalText: [present]";
             }
         }
         this.lauchEvent(infoOptionEvent);
@@ -2117,7 +2116,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                             this.lauchEvent("Info especialidad: " + this.iframeParams.especialidad);
                         }
                         if(this.iframeParams.medicalText){
-                            this.lauchEvent("Info medicalText: " + this.iframeParams.medicalText);
+                            this.lauchEvent("Info medicalText: [present]");
                         }
                     }
                   } else {

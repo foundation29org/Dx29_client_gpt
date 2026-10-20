@@ -333,12 +333,12 @@ export class AppComponent implements OnInit, OnDestroy {
         const titulo = this.translate.instant(this.tituloEvent);
         this.changeMeta();
         
-        // Track page view con analytics
+        // Track page view con analytics (redactando parámetros sensibles de salud)
         if (isBrowser) {
           this.analyticsService.trackPageView(titulo, {
-            url: this.router.url,
+            url: this.redactSensitiveUrlParams(this.router.url),
             title: titulo,
-            fragment: fragment || null
+            fragment: fragment ? this.redactSensitiveParamString(fragment) : null
           });
         }
       })();
@@ -377,6 +377,40 @@ export class AppComponent implements OnInit, OnDestroy {
       window.removeEventListener('beforeunload', this.boundBeforeUnload);
       this.unloadGuardEnabled = false;
     }
+  }
+
+  private redactSensitiveParamString(paramString: string): string {
+    if (!paramString || (!paramString.includes('medicalText') && !paramString.includes('id_paciente'))) {
+      return paramString;
+    }
+    try {
+      const params = new URLSearchParams(paramString);
+      let modified = false;
+      for (const sensitiveKey of ['medicalText', 'id_paciente']) {
+        if (params.has(sensitiveKey)) {
+          params.set(sensitiveKey, '[redacted]');
+          modified = true;
+        }
+      }
+      return modified ? params.toString() : paramString;
+    } catch {
+      return '[redacted]';
+    }
+  }
+
+  private redactSensitiveUrlParams(rawUrl: string): string {
+    if (!rawUrl || (!rawUrl.includes('medicalText') && !rawUrl.includes('id_paciente'))) {
+      return rawUrl;
+    }
+    const hashIndex = rawUrl.indexOf('#');
+    const beforeHash = hashIndex >= 0 ? rawUrl.slice(0, hashIndex) : rawUrl;
+    const hashPart = hashIndex >= 0 ? rawUrl.slice(hashIndex + 1) : undefined;
+    const queryIndex = beforeHash.indexOf('?');
+    const pathname = queryIndex >= 0 ? beforeHash.slice(0, queryIndex) : beforeHash;
+    const queryPart = queryIndex >= 0 ? beforeHash.slice(queryIndex + 1) : undefined;
+    const safeQuery = queryPart !== undefined ? `?${this.redactSensitiveParamString(queryPart)}` : '';
+    const safeHash = hashPart !== undefined ? `#${this.redactSensitiveParamString(hashPart)}` : '';
+    return `${pathname}${safeQuery}${safeHash}`;
   }
 
   ngOnDestroy() {
