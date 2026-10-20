@@ -45,7 +45,7 @@
           <span *ngIf="!selectedFiles.length" class="chip-add-text d-none d-md-inline ms-1">{{'diagnosis.Upload document or image' | translate}}</span>
           <ng-container *ngFor="let file of selectedFiles; let i = index">
             <span class="file-chip" [title]="file.name">
-              <i class="fa me-1" aria-hidden="true" [class.fa-file-text-o]="!file.type.startsWith('image/')" [class.fa-file-image-o]="file.type.startsWith('image/')"></i>
+              <i class="fa me-1" aria-hidden="true" [class.fa-file-text]="!file.type.startsWith('image/')" [class.fa-file-image]="file.type.startsWith('image/')"></i>
               <span class="file-chip-name">{{ file.name }}</span>
               <i class="fa ms-1 file-chip-status"
                 [ngClass]="[getFileStatusIcon(file), 'file-chip-status--' + getFileProcessingStatus(file)]"
@@ -379,9 +379,50 @@
           <div class="seo-intro-grid">
             <div>
               <h2 class="seo-title">{{'land.seoBlock.title' | translate}}</h2>
-              <p class="seo-description" *ngIf="!isEuMode()">{{'land.seoBlock.descriptionP1' | translate}}</p>
-              <p class="seo-description" *ngIf="!isEuMode()">{{'land.seoBlock.descriptionP2' | translate}}</p>
-              <p class="seo-description" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEuP1' | translate}}</p>
+              <p class="seo-description seo-description--lead" *ngIf="!isEuMode()">{{'land.seoBlock.descriptionP1' | translate}}</p>
+              <p class="seo-description seo-description--lead" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEuP1' | translate}}</p>
+
+              <div class="seo-highlights-grid" *ngIf="!isEuMode()">
+                <div class="seo-highlight-card">
+                  <div class="seo-highlight-icon" aria-hidden="true"><i class="fa fa-stethoscope"></i></div>
+                  <div>
+                    <h3 class="seo-highlight-title">{{'land.seoBlock.highlight1Title' | translate}}</h3>
+                    <p class="seo-highlight-desc">{{'land.seoBlock.highlight1Desc' | translate}}</p>
+                  </div>
+                </div>
+                <div class="seo-highlight-card">
+                  <div class="seo-highlight-icon" aria-hidden="true"><i class="fa fa-file-medical"></i></div>
+                  <div>
+                    <h3 class="seo-highlight-title">{{'land.seoBlock.highlight2Title' | translate}}</h3>
+                    <p class="seo-highlight-desc">{{'land.seoBlock.highlight2Desc' | translate}}</p>
+                  </div>
+                </div>
+                <div class="seo-highlight-card">
+                  <div class="seo-highlight-icon" aria-hidden="true"><i class="fa fa-globe"></i></div>
+                  <div>
+                    <h3 class="seo-highlight-title">{{'land.seoBlock.highlight3Title' | translate}}</h3>
+                    <p class="seo-highlight-desc">{{'land.seoBlock.highlight3Desc' | translate}}</p>
+                  </div>
+                </div>
+                <div class="seo-highlight-card">
+                  <div class="seo-highlight-icon" aria-hidden="true"><i class="fa fa-shield"></i></div>
+                  <div>
+                    <h3 class="seo-highlight-title">{{'land.seoBlock.highlight4Title' | translate}}</h3>
+                    <p class="seo-highlight-desc">{{'land.seoBlock.highlight4Desc' | translate}}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="seo-ai-doctor-callout" *ngIf="!isEuMode()">
+                <div class="seo-ai-doctor-callout__badge" aria-hidden="true">
+                  <i class="fa fa-user-md"></i>
+                </div>
+                <div class="seo-ai-doctor-callout__body">
+                  <h3 class="seo-ai-doctor-callout__title">{{'land.seoBlock.aiDoctorTitle' | translate}}</h3>
+                  <p class="seo-ai-doctor-callout__text">{{'land.seoBlock.descriptionP2' | translate}}</p>
+                </div>
+              </div>
+
               <p class="seo-description" *ngIf="isEuMode()">{{'land.seoBlock.descriptionEuP2' | translate}}</p>
             </div>
           </div>
@@ -392,37 +433,61 @@
           <ol class="seo-steps-list seo-steps-grid" *ngIf="!isEuMode()">
             <li class="seo-step">
               <span class="seo-step-number">1</span>
-              {{'land.seoBlock.howItWorksStep1' | translate}}
+              <div class="seo-step-body">
+                <strong class="seo-step-title">{{'land.seoBlock.step1Title' | translate}}</strong>
+                <span class="seo-step-text">{{'land.seoBlock.howItWorksStep1' | translate}}</span>
+              </div>
             </li>
             <li class="seo-step">
               <span class="seo-step-number">2</span>
-              {{'land.seoBlock.howItWorksStep2' | translate}}
+              <div class="seo-step-body">
+                <strong class="seo-step-title">{{'land.seoBlock.step2Title' | translate}}</strong>
+                <span class="seo-step-text">{{'land.seoBlock.howItWorksStep2' | translate}}</span>
+              </div>
             </li>
             <li class="seo-step">
               <span class="seo-step-number">3</span>
-              {{'land.seoBlock.howItWorksStep3' | translate}}
+              <div class="seo-step-body">
+                <strong class="seo-step-title">{{'land.seoBlock.step3Title' | translate}}</strong>
+                <span class="seo-step-text">{{'land.seoBlock.howItWorksStep3' | translate}}</span>
+              </div>
             </li>
             <li class="seo-step">
               <span class="seo-step-number">4</span>
-              {{'land.seoBlock.howItWorksStep4' | translate}}
+              <div class="seo-step-body">
+                <strong class="seo-step-title">{{'land.seoBlock.step4Title' | translate}}</strong>
+                <span class="seo-step-text">{{'land.seoBlock.howItWorksStep4' | translate}}</span>
+              </div>
             </li>
           </ol>
           <ol class="seo-steps-list seo-steps-grid" *ngIf="isEuMode()">
             <li class="seo-step">
               <span class="seo-step-number">1</span>
-              {{'land.seoBlock.howItWorksStep1Eu' | translate}}
+              <div class="seo-step-body">
+                <strong class="seo-step-title">{{'land.seoBlock.step1TitleEu' | translate}}</strong>
+                <span class="seo-step-text">{{'land.seoBlock.howItWorksStep1Eu' | translate}}</span>
+              </div>
             </li>
             <li class="seo-step">
               <span class="seo-step-number">2</span>
-              {{'land.seoBlock.howItWorksStep2Eu' | translate}}
+              <div class="seo-step-body">
+                <strong class="seo-step-title">{{'land.seoBlock.step2TitleEu' | translate}}</strong>
+                <span class="seo-step-text">{{'land.seoBlock.howItWorksStep2Eu' | translate}}</span>
+              </div>
             </li>
             <li class="seo-step">
               <span class="seo-step-number">3</span>
-              {{'land.seoBlock.howItWorksStep3Eu' | translate}}
+              <div class="seo-step-body">
+                <strong class="seo-step-title">{{'land.seoBlock.step3TitleEu' | translate}}</strong>
+                <span class="seo-step-text">{{'land.seoBlock.howItWorksStep3Eu' | translate}}</span>
+              </div>
             </li>
             <li class="seo-step">
               <span class="seo-step-number">4</span>
-              {{'land.seoBlock.howItWorksStep4Eu' | translate}}
+              <div class="seo-step-body">
+                <strong class="seo-step-title">{{'land.seoBlock.step4TitleEu' | translate}}</strong>
+                <span class="seo-step-text">{{'land.seoBlock.howItWorksStep4Eu' | translate}}</span>
+              </div>
             </li>
           </ol>
           <p class="seo-footer" *ngIf="!isEuMode()">{{'land.seoBlock.howItWorksFooter' | translate}}</p>
@@ -678,7 +743,7 @@
       <div class="anon-text-content" [innerHTML]="resultAnonymized | safe: 'html'"></div>
     </div>
     <div *ngIf="resultAnonymized.length < 1" class="followup-empty">
-      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      <i class="fa fa-file-text" aria-hidden="true"></i>
       <p>{{'home.placeholderError' | translate }}</p>
     </div>
   </div>
@@ -718,11 +783,11 @@
       </p>
       <ul class="edit-images-list">
         <li *ngFor="let image of currentImages" class="edit-image-item" [title]="image.name || 'Medical image'">
-          <i class="fa fa-file-image-o me-1" aria-hidden="true"></i>
+          <i class="fa fa-file-image me-1" aria-hidden="true"></i>
           <span class="edit-image-name">{{ image.name || 'Medical image' }}</span>
           <span *ngIf="image.diagnosticUse === false" class="edit-image-badge"
             [title]="'beta.image_text_extracted' | translate">
-            <i class="fa fa-file-text-o me-1" aria-hidden="true"></i>{{ 'beta.image_text_only' | translate }}
+            <i class="fa fa-file-text me-1" aria-hidden="true"></i>{{ 'beta.image_text_only' | translate }}
           </span>
         </li>
       </ul>

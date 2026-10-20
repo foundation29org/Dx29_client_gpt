@@ -82,8 +82,11 @@ export class IframeParamsService {
    */
   private setupPostMessageListener(): void {
     window.addEventListener('message', (event) => {
-      // Validar origen si es necesario (por seguridad)
-      // En producción deberías validar el origen
+      // Solo aceptamos mensajes del frame que nos embebe (no de otras ventanas).
+      // No se filtra por URL del padre: el que embebe el iframe ya controla sus parámetros.
+      if (event.source !== window.parent) {
+        return;
+      }
       
       if (event.data && typeof event.data === 'object') {
         // Si el mensaje contiene parámetros
