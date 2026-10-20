@@ -2339,6 +2339,100 @@ body {
       color: #4b5563;
       margin-bottom: 1rem;
       line-height: 1.7;
+
+      &--lead {
+        font-size: 1.12rem;
+        color: #374151;
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    .seo-highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .seo-highlight-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 1rem 1.15rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    }
+
+    .seo-highlight-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--accent-color, #B30000) 10%, #ffffff);
+      color: var(--accent-color, #B30000);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      font-size: 1.05rem;
+      margin-top: 0.1rem;
+    }
+
+    .seo-highlight-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111827;
+      margin: 0 0 0.25rem 0;
+      line-height: 1.35;
+    }
+
+    .seo-highlight-desc {
+      font-size: 0.94rem;
+      color: #4b5563;
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    .seo-ai-doctor-callout {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid var(--accent-color, #B30000);
+      border-radius: 14px;
+      padding: 1.15rem 1.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-top: 0.5rem;
+
+      &__badge {
+        width: 2.35rem;
+        height: 2.35rem;
+        border-radius: 999px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        color: var(--accent-color, #B30000);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        font-size: 1.1rem;
+      }
+
+      &__title {
+        font-size: 1.04rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0 0 0.3rem 0;
+        line-height: 1.35;
+      }
+
+      &__text {
+        font-size: 0.96rem;
+        color: #475569;
+        margin: 0;
+        line-height: 1.6;
+      }
     }
     
     .seo-intro {
@@ -2349,7 +2443,7 @@ body {
     }
     
     .seo-steps-list {
-      margin: 1.5rem 0;
+      margin: 1.25rem 0;
       padding-left: 0;
       counter-reset: step-counter;
 
@@ -2363,15 +2457,35 @@ body {
         background: #ffffff;
         border: 1px solid #e5e7eb;
         border-radius: 16px;
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
         display: flex;
-        gap: 0.85rem;
-        font-size: 1.05rem;
+        align-items: flex-start;
+        gap: 0.9rem;
+        font-size: 0.98rem;
         color: #4b5563;
-        line-height: 1.7;
+        line-height: 1.55;
         list-style: none;
         margin: 0;
-        padding: 1rem;
+        padding: 1.1rem 1.2rem;
+      }
+
+      .seo-step-body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .seo-step-title {
+        color: #111827;
+        font-size: 1.02rem;
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
+      .seo-step-text {
+        color: #4b5563;
+        font-size: 0.95rem;
+        line-height: 1.55;
       }
 
       .seo-step-number {
@@ -2385,7 +2499,7 @@ body {
         height: 2rem;
         justify-content: center;
         line-height: 1;
-        margin-top: 0.1rem;
+        margin-top: 0.05rem;
         width: 2rem;
       }
     }
@@ -2414,26 +2528,26 @@ body {
       background: #ffffff;
       border: 1px solid #e5e7eb;
       border-radius: 16px;
-      padding: 1.2rem;
+      padding: 1.2rem 1.3rem;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+
+      &:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+      }
 
       h4 {
         color: #111827;
         font-size: 1.03rem;
         font-weight: 700;
         line-height: 1.35;
-        margin-bottom: 0.65rem;
+        margin-bottom: 0.55rem;
       }
 
       p {
         color: #4b5563;
-        display: -webkit-box;
-        font-size: 0.96rem;
+        font-size: 0.95rem;
         line-height: 1.6;
         margin: 0;
-        overflow: hidden;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 5;
-        line-clamp: 5;
       }
     }
 
@@ -2468,6 +2582,7 @@ body {
     
     .seo-text-content {
       .seo-intro-grid,
+      .seo-highlights-grid,
       .seo-steps-list.seo-steps-grid,
       .seo-faq-grid {
         grid-template-columns: 1fr;
