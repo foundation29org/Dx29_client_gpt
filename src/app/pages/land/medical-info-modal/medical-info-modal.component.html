@@ -1,7 +1,25 @@
 <div class="modal-header">
-  <h2 id="medical-answer-title" class="modal-title" title="{{ title }}">
-    <i class="fas fa-info-circle text-white me-2" aria-hidden="true"></i>
-    {{ title }}
+  <h2
+    id="medical-answer-title"
+    class="modal-title"
+    [class.modal-title--interactive]="isLongTitle"
+    [class.modal-title--expanded]="titleExpanded"
+    [attr.role]="isLongTitle ? 'button' : null"
+    [attr.tabindex]="isLongTitle ? 0 : null"
+    [attr.aria-expanded]="isLongTitle ? titleExpanded : null"
+    [title]="title"
+    (click)="toggleTitle()"
+    (keydown.enter)="toggleTitle()"
+    (keydown.space)="onTitleSpace($event)">
+    <i class="fas fa-info-circle text-white modal-title__icon" aria-hidden="true"></i>
+    <span class="modal-title__text">{{ title }}</span>
+    <i
+      *ngIf="isLongTitle"
+      class="fas modal-title__chevron"
+      [class.fa-chevron-down]="!titleExpanded"
+      [class.fa-chevron-up]="titleExpanded"
+      aria-hidden="true">
+    </i>
   </h2>
   <button
     type="button"

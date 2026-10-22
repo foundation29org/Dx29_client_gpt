@@ -196,7 +196,7 @@
       },
       "methodology": {
         "title": "Eine Evaluationsmethode, die wie ein Kliniker denkt",
-        "intro": "Die Genauigkeit zu messen geht über ein einfaches 'richtig' oder 'falsch' hinaus. Unser 3-level-Kaskaden-Evaluationsprozess misst, was in der klinischen Praxis wirklich wichtig ist:",
+        "intro": "Die Genauigkeit zu messen geht über ein einfaches 'richtig' oder 'falsch' hinaus. Unser 3-stufiger Kaskaden-Evaluationsprozess misst, was in der klinischen Praxis wirklich wichtig ist:",
         "verification": {
           "title": "Objektive Verifizierung",
           "description": "Vergleicht die Haupthypothese mit standardisierten medizinischen Codes (SNOMED CT, ICD-10) als die 'strikteste Validierungslinie'."
@@ -263,7 +263,7 @@
           "title": "2. Neue Bewertungsarchitektur: Pipeline PV4 (2025)",
           "description": "Um die diagnostischen Fähigkeiten von DxGPT rigoros zu messen, haben wir 2025 ein automatisiertes Bewertungsframework (Pipeline PV4) entwickelt, das jedes Modell an tausenden von klinischen Fällen mit reproduzierbaren und nachprüfbaren Ergebnissen testen kann.",
           "technical": {
-            "title": "Kaskadenbewertung (4 Schichten):",
+            "title": "Kaskadenbewertung (4 Stufen):",
             "description": "Jede generierte Diagnose durchläuft: (1) exakte Übereinstimmung medizinischer Codes (SNOMED/ICD-10/OMIM/ORPHA), (2) Suche im ICD-10-Baum (übergeordnete und verwandte Codes), (3) semantische BERT-Ähnlichkeit und (4) einen unabhängigen LLM-Richter (gemini-2.5-pro) für mehrdeutige Fälle. Diese Kaskade stellt sicher, dass klinische Synonyme und Nomenklaturvarianten das Modell nicht ungerecht bestrafen.",
             "descriptionEu": "Jede generierte Diagnose durchläuft: (1) exakte Übereinstimmung medizinischer Codes (SNOMED/ICD-10/OMIM/ORPHA), (2) Suche im ICD-10-Baum (übergeordnete und verwandte Codes), (3) semantische BERT-Ähnlichkeit und (4) einen unabhängigen LLM-Richter (gemini-2.5-pro) für mehrdeutige Fälle."
           },
@@ -306,7 +306,7 @@
           "descriptionEu": "Alle diese Zahlen beschreiben das technische Verhalten von KI-Modellen in standardisierten Fallbanken (Benchmarks). Sie entsprechen nicht klinischen Erfolgsraten bei echten Patienten und stellen keine Konformitätsbewertung des Produkts dar. Dieses Tool bietet keine medizinischen Diagnosen oder Behandlungsempfehlungen. Es ist ausschließlich dazu gedacht, Ihnen zu helfen, die Informationen zu organisieren, die Sie mit einem Gesundheitsfachmann besprechen werden. Sie sollten immer einen qualifizierten medizinischen Fachmann konsultieren, um eine angemessene Diagnose und Behandlung zu erhalten."
         },
         "benchmark2026": {
-          "title": "Ergebnisse · September 2026",
+          "title": "Ergebnisse · 22. Oktober 2026",
           "description": "Nach der Sicherstellung der Datensatzqualität und der Automatisierung der Bewertung haben wir DxGPT 2026 direkt mit dem wissenschaftlichen Stand der Technik verglichen: dem DeepRare-Artikel (Nature, 2025), dem ersten spezialisierten KI-System für seltene Erkrankungen, das öffentlich auf denselben internationalen Benchmarks bewertet wurde.",
           "dataset": {
             "title": "Bereinigter und veröffentlichbarer Datensatz",
@@ -374,7 +374,35 @@
           "casesBadgeDdd": "1.749 Fälle",
           "hpoFootnote": "✅ = endgültige Werte nach Neubewertung von Fällen mit API-503-Fehler. Bei Recall@5 konvergieren die Modelle (97–100 %) — der echte Unterschied liegt bei Recall@1 und Recall@3.",
           "paperLine": "📄 Referenzartikel:",
-          "deepRareLink": "DeepRare — Nature (2025)"
+          "deepRareLink": "DeepRare — Nature (2025)",
+          "charts": {
+            "paretoTitle": "Genauigkeit gegenüber Antwortzeit",
+            "paretoSubtitle": "Linien verbinden Denkstufen desselben Modells: längeres Nachdenken verbessert die Ersttrefferquote nicht.",
+            "optimalZone": "OPTIMALER BEREICH (HÖHERE TREFFERQUOTE · KÜRZERE WARTEZEIT)",
+            "xAxisTime": "Durchschnittliche Zeit pro Fall (Sekunden, logarithmische Skala)",
+            "legendOptimal": "Optimaler Bereich (höhere Trefferquote, kürzere Wartezeit)",
+            "legendEffort": "Denkstufen desselben Modells",
+            "legendFrontier": "Effizienzgrenze",
+            "radarTitle": "Vergleichsprofil nach Dimension",
+            "radarSubtitle": "Relative Position jedes Modells (von 1 bis 100, weiter außen ist besser). Wählen Sie aus, welche Modelle verglichen werden sollen.",
+            "axisOrder": "Priorisierung",
+            "axisSpeed": "Geschwindigkeit",
+            "pickerCount": "{{selected}} von {{total}} Modellen",
+            "pickerSearch": "Modell suchen...",
+            "presetAll": "Alle",
+            "presetTop10": "Top 10",
+            "presetEfforts": "Denkstufen",
+            "presetKey": "Ausgewählt",
+            "presetTop5": "Top 5",
+            "presetNone": "Keine",
+            "emptySelection": "Wählen Sie oben im Auswahlmenü mindestens ein Modell aus",
+            "prodBadge": "In Produktion",
+            "thDistribution": "Aufschlüsselung nach Position",
+            "segP1": "1. Platz",
+            "segP23": "2.–3. Platz",
+            "segP45": "4.–5. Platz",
+            "segP6": "6. oder später"
+          }
         }
       },
       "user": {
@@ -1001,16 +1029,24 @@
       "questions_hint": "Wir fragen nach Verlauf, Begleitsymptomen und fehlenden Befunden.",
       "continue": "Mit dieser Beschreibung fortfahren",
       "continue_hint": "Wir können trotzdem eine Differenzialdiagnose vorschlagen, sie wird aber weniger präzise sein.",
+      "continue_anyway": "Trotzdem fortfahren",
+      "continue_anyway_hint": "Wir versuchen es mit diesem Text, er beschreibt aber möglicherweise keinen klinischen Fall.",
       "edit": "Weiter bearbeiten",
       "edit_hint": "Ergänzen Sie Alter, Geschlecht, Beginn und relevante Befunde.",
       "upload": "Bericht hochladen",
       "upload_hint": "Fügen Sie einen klinischen Bericht oder ein Testergebnis hinzu.",
       "recommended": "Empfohlen",
       "ask_title": "Das wirkt wie eine medizinische Frage",
-      "ask_description": "Das wirkt eher wie eine medizinische Frage als wie ein Patientenfall. Sie können Medizinische Fragen öffnen, mit einer Differenzialdiagnose fortfahren oder weitere klinische Angaben ergänzen.",
-      "ask_open": "Medizinische Fragen öffnen",
-      "ask_open_hint": "Wir übernehmen diesen Text auf die Seite für informative Antworten.",
-      "ask_open_hint_images": "Wir übernehmen nur den Text. Medizinische Fragen verwenden die angehängten Bilder nicht."
+      "ask_description": "Wir haben in Ihrem Text eine konkrete medizinische Frage erkannt. Wählen Sie, was Sie erhalten möchten.",
+      "ask_open": "Diese medizinische Frage beantworten",
+      "ask_open_hint": "Öffnet Medizinische Fragen und startet die Anfrage mit bibliografischen Quellen.",
+      "ask_open_hint_images": "Wir übernehmen nur den Text. Medizinische Fragen verwenden die angehängten Bilder nicht.",
+      "diagnosis_section": "Wenn Sie diagnostische Unterstützung suchen",
+      "explain_continue": "Differenzialdiagnose erstellen",
+      "explain_continue_hint": "Liefert eine Liste möglicher Diagnosen; beantwortet die Frage nicht.",
+      "explain_questions": "Mit geführten Fragen präzisieren",
+      "explain_questions_hint": "Wir fragen nach Verlauf, Begleitsymptomen und fehlenden Befunden und erstellen danach die Differenzialdiagnose.",
+      "explain_edit": "Zurück und Text bearbeiten"
     },
     "p1.title": "Beispiele",
     "p1.subtitle": "Klicken Sie auf den Text, um ihn als Beispiel zu verwenden",

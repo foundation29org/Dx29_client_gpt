@@ -219,7 +219,7 @@
             "text": "O Azure Text Analytics atribui códigos ICD-10/SNOMED/OMIM/ORPHA a cada diagnóstico gerado. Permite comparar com o gold standard através de ontologias médicas."
           },
           "step3": {
-            "title": "Avaliação em camadas (SNOMED → ICD-10 → BERT → juiz LLM)",
+            "title": "Avaliação por fases (SNOMED → ICD-10 → BERT → juiz LLM)",
             "text": "Correspondência exata de códigos médicos → taxonomia ICD-10 → similaridade semântica BERT → juiz LLM independente para casos ambíguos."
           }
         },
@@ -263,7 +263,7 @@
           "title": "2. Nova arquitetura de avaliação: Pipeline PV4 (2025)",
           "description": "Para medir rigorosamente a capacidade de diagnóstico do DxGPT, desenhamos em 2025 um quadro de avaliação automatizado (pipeline PV4) capaz de testar qualquer modelo em milhares de casos clínicos com resultados reproduzíveis e auditáveis.",
           "technical": {
-            "title": "Avaliação em cascata (4 camadas):",
+            "title": "Avaliação em cascata (4 fases):",
             "description": "Cada diagnóstico gerado passa por: (1) correspondência exacta de códigos médicos (SNOMED/ICD-10/OMIM/ORPHA), (2) pesquisa na taxonomia ICD-10 (códigos ascendentes e relacionados), (3) similaridade semântica BERT e (4) um juiz LLM independente (gemini-2.5-pro) para casos ambíguos. Esta cascata garante que sinónimos clínicos e variantes de nomenclatura não penalizem injustamente o modelo.",
             "descriptionEu": "Cada diagnóstico gerado passa por: (1) correspondência exacta de códigos médicos (SNOMED/ICD-10/OMIM/ORPHA), (2) pesquisa na taxonomia ICD-10 (códigos ascendentes e relacionados), (3) similaridade semântica BERT e (4) um juiz LLM independente (gemini-2.5-pro) para casos ambíguos. Esta cascata garante que sinónimos clínicos e variantes de nomenclatura não penalizem injustamente o modelo."
           },
@@ -306,7 +306,7 @@
           "descriptionEu": "Todos estes números descrevem o comportamento técnico dos modelos de IA em bancos de casos padronizados (benchmarks). Eles não equivalem às taxas de sucesso clínico em pacientes reais nem constituem uma avaliação de conformidade do produto. Esta ferramenta não fornece diagnósticos médicos nem recomendações de tratamento. Destina-se apenas a ajudá-lo a organizar as informações que discutirá com um profissional de saúde. Você deve sempre consultar um profissional médico qualificado para obter diagnóstico e tratamento adequados."
         },
         "benchmark2026": {
-          "title": "Resultados · setembro de 2026",
+          "title": "Resultados · 22 de outubro de 2026",
           "description": "Depois de garantir a qualidade do conjunto de dados e automatizar a avaliação, em 2026 comparamos o DxGPT diretamente com o estado da arte científico: o artigo DeepRare (Nature, 2025), o primeiro sistema especializado de IA em doenças raras avaliado publicamente nos mesmos benchmarks internacionais.",
           "dataset": {
             "title": "Conjunto de dados limpo e publicável",
@@ -374,7 +374,35 @@
           "casesBadgeDdd": "1.749 casos",
           "hpoFootnote": "✅ = valores finais após reavaliação dos casos afetados por erros API 503. No Recall@5 os modelos convergem (97–100%) — o verdadeiro diferenciador é o Recall@1 e o Recall@3.",
           "paperLine": "📄 Artigo de referência:",
-          "deepRareLink": "DeepRare — Natureza (2025)"
+          "deepRareLink": "DeepRare — Natureza (2025)",
+          "charts": {
+            "paretoTitle": "Precisão versus tempo de resposta",
+            "paretoSubtitle": "As linhas ligam diferentes níveis de raciocínio de um mesmo modelo: pensar durante mais segundos não melhora o acerto inicial.",
+            "optimalZone": "ZONA ÓTIMA (MAIOR ACERTO · MENOR ESPERA)",
+            "xAxisTime": "Tempo médio por caso (segundos, escala logarítmica)",
+            "legendOptimal": "Zona ótima (maior acerto, menor espera)",
+            "legendEffort": "Níveis de raciocínio do mesmo modelo",
+            "legendFrontier": "Fronteira de eficiência",
+            "radarTitle": "Perfil comparativo por dimensão",
+            "radarSubtitle": "Posição relativa de cada modelo (de 1 a 100, mais para fora é melhor). Selecione quais modelos comparar.",
+            "axisOrder": "Priorização",
+            "axisSpeed": "Rapidez",
+            "pickerCount": "{{selected}} de {{total}} modelos",
+            "pickerSearch": "Pesquisar modelo...",
+            "presetAll": "Todos",
+            "presetTop10": "Top 10",
+            "presetEfforts": "Níveis de raciocínio",
+            "presetKey": "Destaques",
+            "presetTop5": "Top 5",
+            "presetNone": "Nenhum",
+            "emptySelection": "Selecione pelo menos um modelo na lista acima",
+            "prodBadge": "Em produção",
+            "thDistribution": "Distribuição por posição",
+            "segP1": "1.ª posição",
+            "segP23": "2.ª–3.ª posição",
+            "segP45": "4.ª–5.ª posição",
+            "segP6": "6.ª ou posterior"
+          }
         }
       },
       "user": {
@@ -1001,16 +1029,24 @@
       "questions_hint": "Perguntaremos sobre a evolução, sintomas associados e o que está ausente.",
       "continue": "Continuar com esta descrição",
       "continue_hint": "Ainda podemos sugerir um diferencial, mas será menos preciso.",
+      "continue_anyway": "Continuar mesmo assim",
+      "continue_anyway_hint": "Tentaremos com este texto, mas ele pode não descrever um caso clínico.",
       "edit": "Continuar a editar",
       "edit_hint": "Adicione idade, sexo, início e achados relevantes.",
       "upload": "Enviar um relatório",
       "upload_hint": "Anexe um relatório clínico ou um resultado de exame.",
       "recommended": "Recomendado",
       "ask_title": "Isto parece uma pergunta médica",
-      "ask_description": "Isto parece uma pergunta médica mais do que um caso de paciente. Pode abrir Perguntas médicas, continuar com um diferencial ou acrescentar mais detalhe clínico.",
-      "ask_open": "Abrir Perguntas médicas",
-      "ask_open_hint": "Levaremos este texto para a página de respostas educativas.",
-      "ask_open_hint_images": "Levaremos apenas o texto. As perguntas médicas não usam as imagens anexadas."
+      "ask_description": "Detectamos uma dúvida médica concreta no seu texto. Escolha o que deseja obter.",
+      "ask_open": "Responder a esta pergunta médica",
+      "ask_open_hint": "Abre Perguntas médicas e lança a consulta com fontes bibliográficas.",
+      "ask_open_hint_images": "Levaremos apenas o texto. As perguntas médicas não usam as imagens anexadas.",
+      "diagnosis_section": "Se procura ajuda diagnóstica",
+      "explain_continue": "Gerar diagnóstico diferencial",
+      "explain_continue_hint": "Devolve uma lista de possíveis diagnósticos; não responde à pergunta.",
+      "explain_questions": "Refinar com perguntas guiadas",
+      "explain_questions_hint": "Perguntamos sobre a evolução, os sintomas associados e o que está ausente, e depois geramos o diferencial.",
+      "explain_edit": "Voltar e editar o texto"
     },
     "p1.title": "Exemplos",
     "p1.subtitle": "Clique no texto para usá-lo como exemplo",

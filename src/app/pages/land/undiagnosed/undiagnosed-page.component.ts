@@ -1827,7 +1827,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private async applyIntentChoice(choice: string | null, reason: string): Promise<void> {
         this.lauchEvent(`Intent choice - ${choice ?? 'dismissed'} - ${this.shortIntentReason(reason)}`);
         if (choice === 'ask') {
-            this.goToRedirectPage('questions', this.medicalTextOriginal);
+            this.goToRedirectPage('questions', this.medicalTextOriginal, true);
             return;
         }
 
@@ -1860,9 +1860,15 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    private goToRedirectPage(target: 'questions' | 'home', text: string): void {
+    // autoSubmit solo se usa al elegir "responder esta pregunta": Preguntas médicas
+    // lanza la consulta al llegar (pasando por su aviso legal y sus límites de longitud).
+    private goToRedirectPage(target: 'questions' | 'home', text: string, autoSubmit = false): void {
         if (isPlatformBrowser(this.platformId) && text) {
             sessionStorage.setItem('dxgpt.pendingPageInput', text);
+            // Preguntas médicas exige 15 caracteres; si el texto es más corto solo se precarga.
+            if (autoSubmit && target === 'questions' && text.trim().length >= 15) {
+                sessionStorage.setItem('dxgpt.pendingPageAutoSubmit', '1');
+            }
         }
         this.router.navigate([target === 'questions' ? '/beta' : '/']);
     }

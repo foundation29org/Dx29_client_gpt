@@ -219,7 +219,7 @@
             "text": "Azure Text Analytics assigns ICD-10/SNOMED/OMIM/ORPHA codes to each generated diagnosis. Enables comparison with the gold standard using medical ontologies."
           },
           "step3": {
-            "title": "Layered evaluation (SNOMED → ICD-10 → BERT → LLM judge)",
+            "title": "Staged evaluation (SNOMED → ICD-10 → BERT → LLM judge)",
             "text": "Exact medical-code match → ICD-10 taxonomy → BERT semantic similarity → an independent LLM judge for ambiguous cases."
           }
         },
@@ -263,7 +263,7 @@
           "title": "2. New evaluation architecture: Pipeline PV4 (2025)",
           "description": "To rigorously measure DxGPT's diagnostic capability, we designed in 2025 an automated evaluation framework (Pipeline PV4) capable of testing any model on thousands of clinical cases with reproducible and auditable results.",
           "technical": {
-            "title": "Cascaded evaluation (4 layers):",
+            "title": "Cascaded evaluation (4 stages):",
             "description": "Each generated diagnosis goes through: (1) exact medical code matching (SNOMED/ICD-10/OMIM/ORPHA), (2) ICD-10 taxonomy search (parent and sibling codes), (3) BERT semantic similarity, and (4) an independent LLM judge (gemini-2.5-pro) for ambiguous cases. This cascade ensures that clinical synonyms and nomenclature variants do not unfairly penalize the model.",
             "descriptionEu": "Each generated diagnosis goes through: (1) exact medical code matching (SNOMED/ICD-10/OMIM/ORPHA), (2) ICD-10 taxonomy search (parent and sibling codes), (3) BERT semantic similarity, and (4) an independent LLM judge (gemini-2.5-pro) for ambiguous cases. This cascade ensures that clinical synonyms and nomenclature variants do not unfairly penalize the model."
           },
@@ -306,7 +306,7 @@
           "descriptionEu": "All these figures describe the technical behavior of AI models in standardized case banks (benchmarks). They do not equate to clinical success rates in real patients and are not a conformity assessment of the product. This tool does not provide medical diagnoses nor treatment recommendations. It is intended solely to help you organize the information you will discuss with a healthcare professional. You should always consult with a qualified medical professional to obtain appropriate diagnosis and treatment."
         },
         "benchmark2026": {
-          "title": "Results · September 2026",
+          "title": "Results · October 22, 2026",
           "description": "After ensuring dataset quality and automating evaluation, in 2026 we compared DxGPT directly against the scientific state of the art: the DeepRare paper (Nature, 2025), the first specialized rare disease AI system publicly evaluated on the same international benchmarks.",
           "dataset": {
             "title": "Clean and publishable dataset",
@@ -374,7 +374,35 @@
           "casesBadgeDdd": "1,749 cases",
           "hpoFootnote": "✅ = final values after re-evaluation of cases affected by API 503 errors. At Recall@5 models converge (97–100%) — the real differentiator is Recall@1 and Recall@3.",
           "paperLine": "📄 Reference paper:",
-          "deepRareLink": "DeepRare — Nature (2025)"
+          "deepRareLink": "DeepRare — Nature (2025)",
+          "charts": {
+            "paretoTitle": "Accuracy vs. response time",
+            "paretoSubtitle": "Lines connect reasoning levels of the same model: spending more seconds thinking does not improve initial accuracy.",
+            "optimalZone": "OPTIMAL ZONE (HIGHER ACCURACY · LOWER WAIT)",
+            "xAxisTime": "Average time per case (seconds, log scale)",
+            "legendOptimal": "Optimal zone (higher accuracy, lower wait)",
+            "legendEffort": "Reasoning levels within the same model",
+            "legendFrontier": "Efficiency frontier",
+            "radarTitle": "Comparative profile by dimension",
+            "radarSubtitle": "Relative standing of each model (1 to 100, outward is better). Select which models to overlay.",
+            "axisOrder": "Prioritization",
+            "axisSpeed": "Speed",
+            "pickerCount": "{{selected}} of {{total}} models",
+            "pickerSearch": "Search model...",
+            "presetAll": "All",
+            "presetTop10": "Top 10",
+            "presetEfforts": "Reasoning levels",
+            "presetKey": "Featured",
+            "presetTop5": "Top 5",
+            "presetNone": "None",
+            "emptySelection": "Select at least one model in the dropdown above",
+            "prodBadge": "In production",
+            "thDistribution": "Breakdown by position",
+            "segP1": "1st position",
+            "segP23": "2nd–3rd position",
+            "segP45": "4th–5th position",
+            "segP6": "6th or later"
+          }
         }
       },
       "user": {
@@ -1001,16 +1029,24 @@
       "questions_hint": "We'll ask about timing, associated symptoms, and what is absent.",
       "continue": "Continue with this description",
       "continue_hint": "We can still suggest a differential, but it will be less precise.",
+      "continue_anyway": "Continue anyway",
+      "continue_anyway_hint": "We'll try with this text, but it may not describe a clinical case.",
       "edit": "Keep editing",
       "edit_hint": "Add age, sex, onset, and relevant findings.",
       "upload": "Upload a report",
       "upload_hint": "Attach a clinical report or test result.",
       "recommended": "Recommended",
       "ask_title": "This looks like a medical question",
-      "ask_description": "This looks like a medical question rather than a patient case. You can open Medical questions, continue with a differential, or add more clinical detail.",
-      "ask_open": "Open Medical questions",
-      "ask_open_hint": "We'll take this text to the educational answers page.",
-      "ask_open_hint_images": "We'll take this text only. Medical questions do not use the attached images."
+      "ask_description": "We found a specific medical question in your text. Choose what you want to get.",
+      "ask_open": "Answer this medical question",
+      "ask_open_hint": "Opens Medical questions and runs the query with bibliographic sources.",
+      "ask_open_hint_images": "We'll take this text only. Medical questions do not use the attached images.",
+      "diagnosis_section": "If you want diagnostic help",
+      "explain_continue": "Generate differential diagnosis",
+      "explain_continue_hint": "Returns a list of possible diagnoses; it does not answer the question.",
+      "explain_questions": "Refine with guided questions",
+      "explain_questions_hint": "We'll ask about timing, associated symptoms and what is absent, then generate the differential.",
+      "explain_edit": "Go back and edit the text"
     },
     "p1.title": "Examples",
     "p1.subtitle": "Click on the text to use it as an example",

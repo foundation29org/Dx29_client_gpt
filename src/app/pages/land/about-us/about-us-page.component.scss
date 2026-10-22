@@ -1652,4 +1652,319 @@
     .bench-stat__value { font-size: 1.4rem; }
     .bench-stat__label { font-size: 0.72rem; }
   }
+
+  /* Interactive 2-column charts (Efficiency vs Accuracy + Multi-axis Radar) */
+  .bench-viz-grid {
+    display: grid;
+    grid-template-columns: 1.08fr 0.92fr;
+    gap: 18px;
+    align-items: start;
+    margin-bottom: 18px;
+
+    @media (max-width: 920px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .bench-viz-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+
+  .bench-viz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+
+  .bench-viz-title {
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: #1e3a5f;
+  }
+
+  .bench-viz-sub {
+    font-size: 0.78rem;
+    color: #64748b;
+    line-height: 1.45;
+    margin: 0 0 12px;
+  }
+
+  .bench-viz-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .bench-viz-tabs {
+    display: inline-flex;
+    background: #f1f5f9;
+    padding: 3px;
+    border-radius: 9px;
+    border: 1px solid #e2e8f0;
+    gap: 3px;
+    flex-wrap: wrap;
+  }
+
+  .bench-viz-tab {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 5px 11px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover { color: #1e293b; }
+    &.active {
+      background: #ffffff;
+      color: #1e3a5f;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    }
+  }
+
+  .bench-picker-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .bench-picker-btn {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #1e293b;
+    font-size: 0.76rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+      border-color: #94a3b8;
+      background: #f1f5f9;
+    }
+
+    .caret {
+      font-size: 0.7rem;
+      color: #64748b;
+    }
+  }
+
+  .bench-picker-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    width: 285px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+    padding: 10px;
+    z-index: 1200;
+  }
+
+  .bench-picker-search {
+    width: 100%;
+    padding: 6px 9px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 0.77rem;
+    margin-bottom: 8px;
+    outline: none;
+
+    &:focus { border-color: #2563eb; }
+  }
+
+  .bench-picker-actions {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .bench-picker-act {
+    appearance: none;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      color: #1e3a5f;
+      border-color: #cbd5e1;
+      background: #eff6ff;
+    }
+  }
+
+  .bench-picker-list {
+    max-height: 220px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .bench-picker-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: #1e293b;
+    cursor: pointer;
+    user-select: none;
+    margin: 0;
+
+    &:hover { background: #f1f5f9; }
+    input { margin: 0; cursor: pointer; }
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .sub {
+      margin-left: auto;
+      font-size: 0.71rem;
+      color: #64748b;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  .bench-svg-wrap {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .bench-svg-chart {
+    width: 100%;
+    height: auto;
+    display: block;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .bench-viz-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.74rem;
+    color: #64748b;
+    margin-top: 8px;
+    align-items: center;
+
+    &--table {
+      margin: 0 0 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+  }
+
+  .bench-th-stack {
+    min-width: 155px;
+  }
+
+  .bench-td-stack {
+    width: 170px;
+    min-width: 150px;
+  }
+
+  .bench-inline-stack {
+    width: 100%;
+    height: 13px;
+    background: #f1f5f9;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    border: 1px solid #e2e8f0;
+
+    &__seg {
+      height: 100%;
+    }
+  }
+
+  .bench-viz-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    .swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+  }
+
+  .bench-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .bench-model-chip {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid #93c5fd;
+    background: #eff6ff;
+    color: #1e3a8a;
+    font-size: 0.74rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover,
+    &.is-hovered {
+      background: #dbeafe;
+      border-color: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.18);
+    }
+    &.is-dimmed {
+      opacity: 0.45;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  }
+
+  .bench-viz-tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: rgba(15, 23, 42, 0.95);
+    color: #f8fafc;
+    padding: 9px 11px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+    z-index: 9999;
+    max-width: 280px;
+  }
 }

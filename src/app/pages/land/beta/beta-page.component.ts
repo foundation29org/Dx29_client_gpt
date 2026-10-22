@@ -117,8 +117,14 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         if (isPlatformBrowser(this.platformId)) {
             setTimeout(() => {
                 this.fullPlaceholderText = this.translate.instant('beta.placeholder');
+                // Se lee siempre (y se borra) para que un flag huérfano no lance consultas más tarde.
+                const autoSubmit = this.consumePendingAutoSubmit();
                 if (this.consumePendingInput()) {
                     this.resizeTextArea();
+                    if (autoSubmit) {
+                        // Mismo camino que el botón de buscar: aviso legal y límites incluidos.
+                        document.getElementById('hiddenCheckPopupButton')?.click();
+                    }
                 } else {
                     this.startTypingAnimation();
                 }
@@ -857,6 +863,15 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         sessionStorage.removeItem('dxgpt.pendingPageInput');
         this.medicalTextOriginal = pending;
         return true;
+    }
+
+    private consumePendingAutoSubmit(): boolean {
+        if (!isPlatformBrowser(this.platformId)) {
+            return false;
+        }
+        const pending = sessionStorage.getItem('dxgpt.pendingPageAutoSubmit') === '1';
+        sessionStorage.removeItem('dxgpt.pendingPageAutoSubmit');
+        return pending;
     }
 
     countCharacters(text: string): number {

@@ -33,6 +33,12 @@ export class IntentGateModalComponent {
         return this.hasUploadedImages && !this.isExplain;
     }
 
+    // El texto no describe un caso (o no hay datos del paciente): lo útil es completarlo,
+    // no lanzar un diferencial. Continuar sigue disponible, pero al final.
+    get editFirst(): boolean {
+        return !this.isExplain && !this.hasImageContext && (this.isNonMedical || this.isMissingData);
+    }
+
     get canContinue(): boolean {
         // The classifier suggests a path. It must never block differential diagnosis.
         return true;
@@ -85,12 +91,24 @@ export class IntentGateModalComponent {
     }
 
     get continueLabelKey(): string {
+        if (this.isExplain) {
+            return 'land.enrichment.explain_continue';
+        }
+        if (this.editFirst) {
+            return 'land.enrichment.continue_anyway';
+        }
         return this.hasImageContext
             ? 'land.enrichment.image_continue'
             : 'land.enrichment.continue';
     }
 
     get continueHintKey(): string {
+        if (this.isExplain) {
+            return 'land.enrichment.explain_continue_hint';
+        }
+        if (this.editFirst) {
+            return 'land.enrichment.continue_anyway_hint';
+        }
         return this.hasImageContext
             ? 'land.enrichment.image_continue_hint'
             : 'land.enrichment.continue_hint';

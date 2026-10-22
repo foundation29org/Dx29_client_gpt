@@ -219,7 +219,7 @@
             "text": "Azure Text Analytics assigna codis ICD-10/SNOMED/OMIM/ORPHA a cada diagnòstic generat. Permet comparar amb el gold standard mitjançant ontologies mèdiques."
           },
           "step3": {
-            "title": "Avaluació per capes (SNOMED → ICD-10 → BERT → jutge LLM)",
+            "title": "Avaluació per fases (SNOMED → ICD-10 → BERT → jutge LLM)",
             "text": "Coincidència exacta de codis mèdics → taxonomia ICD-10 → similitud semàntica BERT → jutge LLM independent per a casos ambigus."
           }
         },
@@ -263,7 +263,7 @@
           "title": "2. Nova arquitectura d'avaluació: Pipeline PV4 (2025)",
           "description": "Per mesurar rigorosament la capacitat diagnòstica de DxGPT, vam dissenyar el 2025 un marc d'avaluació automatitzat (Pipeline PV4) capaç de provar qualsevol model en milers de casos clínics amb resultats reproduïbles i auditables.",
           "technical": {
-            "title": "Avaluació en cascada (4 capes):",
+            "title": "Avaluació en cascada (4 fases):",
             "description": "Cada diagnòstic generat passa per: (1) coincidència exacta de codis mèdics (SNOMED/ICD-10/OMIM/ORPHA), (2) cerca en l'arbre ICD-10 (codis pare i germans), (3) similitud semàntica BERT i (4) un jutge LLM independent (gemini-2.5-pro) per als casos ambigus. Aquesta cascada garanteix que els sinònims clínics i les variants nomenclaturals no penalitzin injustament el model.",
             "descriptionEu": "Cada diagnòstic generat passa per: (1) coincidència exacta de codis mèdics (SNOMED/ICD-10/OMIM/ORPHA), (2) cerca en l'arbre ICD-10 (codis pare i germans), (3) similitud semàntica BERT i (4) un jutge LLM independent (gemini-2.5-pro) per als casos ambigus."
           },
@@ -306,7 +306,7 @@
           "descriptionEu": "Totes aquestes xifres descriuen el comportament tècnic dels models d'IA en bancs de casos estandarditzats (benchmarks). No equivalen a taxes d'èxit clínic en pacients reals ni constitueixen una avaluació de conformitat del producte. Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament. Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Sempre has de consultar amb un professional mèdic qualificat per obtenir un diagnòstic i tractament adequats."
         },
         "benchmark2026": {
-          "title": "Resultats · setembre de 2026",
+          "title": "Resultats · 22 d'octubre de 2026",
           "description": "Després de garantir la qualitat del conjunt de dades i automatitzar l'avaluació, el 2026 vam comparar DxGPT directament amb l'estat de l'art científic: l'article DeepRare (Nature, 2025), el primer sistema d'IA especialitzat en malalties rares avaluat públicament sobre els mateixos benchmarks internacionals.",
           "dataset": {
             "title": "Conjunt de dades net i publicable",
@@ -374,7 +374,35 @@
           "casesBadgeDdd": "1.749 casos",
           "hpoFootnote": "✅ = valors definitius després de reavaluar casos afectats per error API 503. En Recall@5 els models convergeixen (97–100%) — el diferenciador real és Recall@1 i Recall@3.",
           "paperLine": "📄 Article de referència:",
-          "deepRareLink": "DeepRare — Nature (2025)"
+          "deepRareLink": "DeepRare — Nature (2025)",
+          "charts": {
+            "paretoTitle": "Precisió enfront de temps de resposta",
+            "paretoSubtitle": "Les línies uneixen diferents nivells de raonament d'un mateix model: pensar durant més segons no millora l'encert inicial.",
+            "optimalZone": "ZONA ÒPTIMA (MÉS ENCERT · MENYS ESPERA)",
+            "xAxisTime": "Temps mitjà per cas (segons, escala logarítmica)",
+            "legendOptimal": "Zona òptima (més encert, menys espera)",
+            "legendEffort": "Nivells de raonament del mateix model",
+            "legendFrontier": "Frontera d'eficiència",
+            "radarTitle": "Perfil comparatiu per dimensió",
+            "radarSubtitle": "Posició relativa de cada model (d'1 a 100, cap enfora és millor). Selecciona quins models comparar.",
+            "axisOrder": "Priorització",
+            "axisSpeed": "Rapidesa",
+            "pickerCount": "{{selected}} de {{total}} models",
+            "pickerSearch": "Cerca un model...",
+            "presetAll": "Tots",
+            "presetTop10": "Top 10",
+            "presetEfforts": "Nivells de raonament",
+            "presetKey": "Destacats",
+            "presetTop5": "Top 5",
+            "presetNone": "Cap",
+            "emptySelection": "Selecciona almenys un model al desplegable superior",
+            "prodBadge": "En producció",
+            "thDistribution": "Desglossament per posició",
+            "segP1": "1a posició",
+            "segP23": "2a–3a posició",
+            "segP45": "4a–5a posició",
+            "segP6": "6a o posterior"
+          }
         }
       },
       "user": {
@@ -1001,16 +1029,24 @@
       "questions_hint": "Preguntarem pel temps d'evolució, símptomes associats i el que no presenta.",
       "continue": "Continuar amb aquesta descripció",
       "continue_hint": "Podem proposar un diferencial, però serà menys precís.",
+      "continue_anyway": "Continuar igualment",
+      "continue_anyway_hint": "Provarem amb aquest text, però potser no descriu un cas clínic.",
       "edit": "Continuar editant",
       "edit_hint": "Afegeix edat, sexe, inici i troballes rellevants.",
       "upload": "Pujar un informe",
       "upload_hint": "Adjunta un informe clínic o un resultat de proves.",
       "recommended": "Recomanat",
       "ask_title": "Això sembla una pregunta mèdica",
-      "ask_description": "Això sembla una pregunta mèdica més que un cas de pacient. Pots obrir Preguntes mèdiques, continuar amb un diferencial o afegir més detall clínic.",
-      "ask_open": "Obrir Preguntes mèdiques",
-      "ask_open_hint": "Portarem aquest text a la pàgina de respostes educatives.",
-      "ask_open_hint_images": "Portarem només el text. Les preguntes mèdiques no fan servir les imatges adjuntes."
+      "ask_description": "Hem detectat un dubte mèdic concret al teu text. Tria què vols obtenir.",
+      "ask_open": "Respondre aquesta pregunta mèdica",
+      "ask_open_hint": "Obre Preguntes mèdiques i llança la consulta amb fonts bibliogràfiques.",
+      "ask_open_hint_images": "Portarem només el text. Les preguntes mèdiques no fan servir les imatges adjuntes.",
+      "diagnosis_section": "Si busques ajuda diagnòstica",
+      "explain_continue": "Generar diagnòstic diferencial",
+      "explain_continue_hint": "Retorna una llista de possibles diagnòstics; no respon la pregunta.",
+      "explain_questions": "Afinar amb preguntes guiades",
+      "explain_questions_hint": "Et preguntem per l'evolució, els símptomes associats i el que no presenta, i després generem el diferencial.",
+      "explain_edit": "Tornar i editar el text"
     },
     "p1.title": "Exemples",
     "p1.subtitle": "Prem en el text per usar-lo com a exemple",
