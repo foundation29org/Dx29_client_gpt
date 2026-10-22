@@ -34,36 +34,67 @@
       <span class="intent-option__badge">{{ 'land.enrichment.recommended' | translate }}</span>
     </button>
 
-    <button *ngIf="canContinue" type="button" class="intent-option" (click)="choose('continue')">
-      <span class="intent-option__icon"><i class="fa fa-play" aria-hidden="true"></i></span>
-      <span class="intent-option__copy">
-        <span class="intent-option__label">{{ continueLabelKey | translate }}</span>
-        <span class="intent-option__hint">{{ continueHintKey | translate }}</span>
-      </span>
+    <p *ngIf="isExplain" class="intent-gate__section">{{ 'land.enrichment.diagnosis_section' | translate }}</p>
+
+    <!-- Si el texto no describe un caso (non_medical / faltan datos), lo útil es completarlo:
+         primero editar (recomendado) y subir informe; continuar queda al final. -->
+    <ng-container *ngIf="!editFirst">
+      <ng-container *ngTemplateOutlet="continueOption"></ng-container>
+
+      <button *ngIf="canAskQuestions && isExplain" type="button" class="intent-option" (click)="choose('questions')">
+        <span class="intent-option__icon"><i class="fa fa-list-ul" aria-hidden="true"></i></span>
+        <span class="intent-option__copy">
+          <span class="intent-option__label">{{ 'land.enrichment.explain_questions' | translate }}</span>
+          <span class="intent-option__hint">{{ 'land.enrichment.explain_questions_hint' | translate }}</span>
+        </span>
+      </button>
+
+      <ng-container *ngIf="!isExplain">
+        <ng-container *ngTemplateOutlet="editOption"></ng-container>
+        <ng-container *ngTemplateOutlet="uploadOption"></ng-container>
+      </ng-container>
+    </ng-container>
+
+    <button *ngIf="isExplain" type="button" class="intent-gate__back" (click)="choose('edit')">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+      {{ 'land.enrichment.explain_edit' | translate }}
     </button>
 
-    <button *ngIf="canAskQuestions && isExplain" type="button" class="intent-option" (click)="choose('questions')">
-      <span class="intent-option__icon"><i class="fa fa-list-ul" aria-hidden="true"></i></span>
-      <span class="intent-option__copy">
-        <span class="intent-option__label">{{ 'land.enrichment.questions' | translate }}</span>
-        <span class="intent-option__hint">{{ 'land.enrichment.questions_hint' | translate }}</span>
-      </span>
-    </button>
-
-    <button type="button" class="intent-option" (click)="choose('edit')">
-      <span class="intent-option__icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-      <span class="intent-option__copy">
-        <span class="intent-option__label">{{ editLabelKey | translate }}</span>
-        <span class="intent-option__hint">{{ editHintKey | translate }}</span>
-      </span>
-    </button>
-
-    <button *ngIf="canUpload" type="button" class="intent-option" (click)="choose('upload')">
-      <span class="intent-option__icon"><i class="fa fa-upload" aria-hidden="true"></i></span>
-      <span class="intent-option__copy">
-        <span class="intent-option__label">{{ 'land.enrichment.upload' | translate }}</span>
-        <span class="intent-option__hint">{{ 'land.enrichment.upload_hint' | translate }}</span>
-      </span>
-    </button>
+    <ng-container *ngIf="editFirst">
+      <ng-container *ngTemplateOutlet="editOption"></ng-container>
+      <ng-container *ngTemplateOutlet="uploadOption"></ng-container>
+      <ng-container *ngTemplateOutlet="continueOption"></ng-container>
+    </ng-container>
   </div>
 </div>
+
+<ng-template #continueOption>
+  <button *ngIf="canContinue" type="button" class="intent-option" (click)="choose('continue')">
+    <span class="intent-option__icon"><i class="fa fa-play" aria-hidden="true"></i></span>
+    <span class="intent-option__copy">
+      <span class="intent-option__label">{{ continueLabelKey | translate }}</span>
+      <span class="intent-option__hint">{{ continueHintKey | translate }}</span>
+    </span>
+  </button>
+</ng-template>
+
+<ng-template #editOption>
+  <button type="button" class="intent-option" [class.intent-option--primary]="editFirst" (click)="choose('edit')">
+    <span class="intent-option__icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+    <span class="intent-option__copy">
+      <span class="intent-option__label">{{ editLabelKey | translate }}</span>
+      <span class="intent-option__hint">{{ editHintKey | translate }}</span>
+    </span>
+    <span *ngIf="editFirst" class="intent-option__badge">{{ 'land.enrichment.recommended' | translate }}</span>
+  </button>
+</ng-template>
+
+<ng-template #uploadOption>
+  <button *ngIf="canUpload" type="button" class="intent-option" (click)="choose('upload')">
+    <span class="intent-option__icon"><i class="fa fa-upload" aria-hidden="true"></i></span>
+    <span class="intent-option__copy">
+      <span class="intent-option__label">{{ 'land.enrichment.upload' | translate }}</span>
+      <span class="intent-option__hint">{{ 'land.enrichment.upload_hint' | translate }}</span>
+    </span>
+  </button>
+</ng-template>

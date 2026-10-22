@@ -197,137 +197,273 @@
             <p class="bench-track-title">{{ 'aboutUs.evaluation.evolution.benchmark2026.trackATitle' | translate }}</p>
             <p class="bench-track-subtitle">{{ 'aboutUs.evaluation.evolution.benchmark2026.trackASubtitle' | translate }}</p>
 
-            <!-- Chart.js strict R@1 chart -->
-            <div class="bench-chart-card">
-              <div class="bench-chart-caption">{{ 'aboutUs.evaluation.evolution.benchmark2026.avgPosChartCaption' | translate }}</div>
-              <div class="bench-chart-canvas-wrapper">
-                <canvas #trackAChart role="img" [attr.aria-label]="'aboutUs.evaluation.evolution.benchmark2026.avgPosChartCaption' | translate"></canvas>
+            <!-- Interactive 2-column charts (Efficiency vs Accuracy + Multi-axis Radar) -->
+            <div class="bench-viz-grid">
+              <!-- Panel 1: Accuracy vs Response Time -->
+              <div class="bench-viz-panel" *ngIf="paretoView as pv">
+                <div class="bench-viz-header">
+                  <span class="bench-viz-title">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.paretoTitle' | translate }}</span>
+                  <div class="bench-picker-wrap" (click)="$event.stopPropagation()">
+                    <button type="button" class="bench-picker-btn" (click)="paretoMenuOpen = !paretoMenuOpen; radarMenuOpen = false">
+                      <span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.pickerCount' | translate:{ selected: paretoSelectedCount, total: models.length } }}</span>
+                      <span class="caret">▾</span>
+                    </button>
+                    <div class="bench-picker-menu" *ngIf="paretoMenuOpen">
+                      <input type="text" class="bench-picker-search" [value]="paretoSearch"
+                        (input)="paretoSearch = $any($event.target).value"
+                        [attr.placeholder]="'aboutUs.evaluation.evolution.benchmark2026.charts.pickerSearch' | translate">
+                      <div class="bench-picker-actions">
+                        <button type="button" class="bench-picker-act" (click)="setParetoPreset('all')">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.presetAll' | translate }}</button>
+                        <button type="button" class="bench-picker-act" (click)="setParetoPreset('top10')">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.presetTop10' | translate }}</button>
+                        <button type="button" class="bench-picker-act" (click)="setParetoPreset('efforts')">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.presetEfforts' | translate }}</button>
+                        <button type="button" class="bench-picker-act" (click)="setParetoPreset('none')">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.presetNone' | translate }}</button>
+                      </div>
+                      <div class="bench-picker-list">
+                        <div class="bench-picker-item" *ngFor="let m of filteredParetoModels; trackBy: trackByModelId"
+                          (click)="toggleParetoModel(m.id)">
+                          <input type="checkbox" [checked]="!!paretoSelected[m.id]"
+                            (click)="$event.stopPropagation()" (change)="toggleParetoModel(m.id)">
+                          <span class="dot" [style.background]="m.color"></span>
+                          <span>{{ m.name }}</span>
+                          <span class="sub">{{ m.r1.toFixed(1) }}%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="bench-viz-sub">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.paretoSubtitle' | translate }}</p>
+
+                <div class="bench-viz-toolbar">
+                  <div class="bench-viz-tabs">
+                    <button type="button" class="bench-viz-tab" [class.active]="paretoY === 'r1'" (click)="paretoY = 'r1'">
+                      {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}
+                    </button>
+                    <button type="button" class="bench-viz-tab" [class.active]="paretoY === 'r3'" (click)="paretoY = 'r3'">
+                      {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}
+                    </button>
+                    <button type="button" class="bench-viz-tab" [class.active]="paretoY === 'cov'" (click)="paretoY = 'cov'">
+                      {{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}
+                    </button>
+                  </div>
+                </div>
+
+                <div class="bench-svg-wrap">
+                  <svg class="bench-svg-chart" viewBox="0 0 560 365" role="img"
+                    [attr.aria-label]="'aboutUs.evaluation.evolution.benchmark2026.charts.paretoTitle' | translate">
+                    <ng-container *ngIf="pv.empty">
+                      <text x="280" y="182" text-anchor="middle" fill="#64748b" font-size="12.5">
+                        {{ 'aboutUs.evaluation.evolution.benchmark2026.charts.emptySelection' | translate }}
+                      </text>
+                    </ng-container>
+                    <ng-container *ngIf="!pv.empty">
+                      <rect [attr.x]="pv.padL" [attr.y]="pv.padT" [attr.width]="pv.plotW * 0.48" [attr.height]="pv.plotH * 0.48"
+                        fill="#ecfdf5" opacity="0.85" rx="4"></rect>
+                      <text [attr.x]="pv.padL + 8" [attr.y]="pv.padT + 15" fill="#047857" font-size="9.5" font-weight="700">
+                        {{ 'aboutUs.evaluation.evolution.benchmark2026.charts.optimalZone' | translate }}
+                      </text>
+
+                      <g *ngFor="let gy of pv.gridY">
+                        <line [attr.x1]="pv.padL" [attr.y1]="gy.y" [attr.x2]="pv.W - pv.padR" [attr.y2]="gy.y"
+                          stroke="#e2e8f0" stroke-dasharray="3,3"></line>
+                        <text [attr.x]="pv.padL - 8" [attr.y]="gy.y + 4" text-anchor="end" fill="#64748b" font-size="10.5">{{ gy.label }}</text>
+                      </g>
+
+                      <g *ngFor="let gx of pv.gridX">
+                        <line [attr.x1]="gx.x" [attr.y1]="pv.padT" [attr.x2]="gx.x" [attr.y2]="pv.H - pv.padB" stroke="#f1f5f9"></line>
+                        <text [attr.x]="gx.x" [attr.y]="pv.H - pv.padB + 16" text-anchor="middle" fill="#64748b" font-size="10.5">{{ gx.label }}</text>
+                      </g>
+
+                      <line [attr.x1]="pv.padL" [attr.y1]="pv.H - pv.padB" [attr.x2]="pv.W - pv.padR" [attr.y2]="pv.H - pv.padB"
+                        stroke="#cbd5e1" stroke-width="1.5"></line>
+                      <line [attr.x1]="pv.padL" [attr.y1]="pv.padT" [attr.x2]="pv.padL" [attr.y2]="pv.H - pv.padB"
+                        stroke="#cbd5e1" stroke-width="1.5"></line>
+
+                      <text [attr.x]="pv.padL + pv.plotW / 2" [attr.y]="pv.H - 8" text-anchor="middle" fill="#475569" font-size="11" font-weight="600">
+                        {{ 'aboutUs.evaluation.evolution.benchmark2026.charts.xAxisTime' | translate }}
+                      </text>
+                      <text [attr.transform]="'translate(14,' + (pv.padT + pv.plotH / 2) + ') rotate(-90)'" text-anchor="middle" fill="#475569" font-size="11" font-weight="600">
+                        {{ (paretoY === 'r1' ? 'aboutUs.evaluation.evolution.benchmark2026.headingR1' : (paretoY === 'r3' ? 'aboutUs.evaluation.evolution.benchmark2026.headingR3' : 'aboutUs.evaluation.evolution.benchmark2026.thCoverage')) | translate }} (%)
+                      </text>
+
+                      <path *ngFor="let fp of pv.familyPaths" [attr.d]="fp.d" fill="none" [attr.stroke]="fp.color"
+                        stroke-width="2.2" opacity="0.75"></path>
+
+                      <path *ngIf="pv.frontierPath" [attr.d]="pv.frontierPath" fill="none" stroke="#16a34a"
+                        stroke-width="2" stroke-dasharray="4,4"></path>
+
+                      <g *ngFor="let pt of pv.points">
+                        <line *ngIf="pt.showLabel && pt.leader" [attr.x1]="pt.cx" [attr.y1]="pt.cy"
+                          [attr.x2]="pt.lx" [attr.y2]="pt.ly - 3" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"></line>
+                        <circle [attr.cx]="pt.cx" [attr.cy]="pt.cy" [attr.r]="pt.r" [attr.fill]="pt.model.color"
+                          stroke="#ffffff" stroke-width="1.6" style="cursor:pointer"
+                          (mousemove)="showTooltip($event, pt.model)" (mouseleave)="hideTooltip()"></circle>
+                        <text *ngIf="pt.showLabel" [attr.x]="pt.lx" [attr.y]="pt.ly" [attr.text-anchor]="pt.anchor"
+                          fill="#1e293b" font-size="10" font-weight="700"
+                          stroke="#ffffff" stroke-width="3" paint-order="stroke" stroke-linejoin="round">{{ pt.model.short }}</text>
+                      </g>
+                    </ng-container>
+                  </svg>
+                </div>
+
+                <div class="bench-viz-legend">
+                  <span class="bench-viz-legend-item"><span class="swatch" style="background:#dcfce7;border:1px solid #86efac"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.legendOptimal' | translate }}</span>
+                  <span class="bench-viz-legend-item"><span class="swatch" style="background:#0f172a;height:3px"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.legendEffort' | translate }}</span>
+                  <span class="bench-viz-legend-item"><span class="swatch" style="background:#16a34a;height:2px"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.legendFrontier' | translate }}</span>
+                </div>
+              </div>
+
+              <!-- Panel 2: Multi-axis Radar -->
+              <div class="bench-viz-panel" *ngIf="radarView as rv">
+                <div class="bench-viz-header">
+                  <span class="bench-viz-title">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.radarTitle' | translate }}</span>
+                  <div class="bench-picker-wrap" (click)="$event.stopPropagation()">
+                    <button type="button" class="bench-picker-btn" (click)="radarMenuOpen = !radarMenuOpen; paretoMenuOpen = false">
+                      <span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.pickerCount' | translate:{ selected: radarSelectedCount, total: models.length } }}</span>
+                      <span class="caret">▾</span>
+                    </button>
+                    <div class="bench-picker-menu" *ngIf="radarMenuOpen">
+                      <input type="text" class="bench-picker-search" [value]="radarSearch"
+                        (input)="radarSearch = $any($event.target).value"
+                        [attr.placeholder]="'aboutUs.evaluation.evolution.benchmark2026.charts.pickerSearch' | translate">
+                      <div class="bench-picker-actions">
+                        <button type="button" class="bench-picker-act" (click)="setRadarPreset('default')">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.presetKey' | translate }}</button>
+                        <button type="button" class="bench-picker-act" (click)="setRadarPreset('top5')">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.presetTop5' | translate }}</button>
+                        <button type="button" class="bench-picker-act" (click)="setRadarPreset('all')">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.presetAll' | translate }}</button>
+                        <button type="button" class="bench-picker-act" (click)="setRadarPreset('none')">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.presetNone' | translate }}</button>
+                      </div>
+                      <div class="bench-picker-list">
+                        <div class="bench-picker-item" *ngFor="let m of filteredRadarModels; trackBy: trackByModelId"
+                          (mouseenter)="radarSelected[m.id] ? hoveredRadarModelId = m.id : null"
+                          (mouseleave)="hoveredRadarModelId = null"
+                          (click)="toggleRadarModel(m.id)">
+                          <input type="checkbox" [checked]="!!radarSelected[m.id]"
+                            (click)="$event.stopPropagation()" (change)="toggleRadarModel(m.id)">
+                          <span class="dot" [style.background]="m.color"></span>
+                          <span>{{ m.name }}</span>
+                          <span class="sub">{{ m.r1.toFixed(1) }}%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="bench-viz-sub">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.radarSubtitle' | translate }}</p>
+
+                <div class="bench-svg-wrap">
+                  <svg class="bench-svg-chart" viewBox="0 0 460 340" role="img"
+                    [attr.aria-label]="'aboutUs.evaluation.evolution.benchmark2026.charts.radarTitle' | translate">
+                    <g *ngFor="let ring of rv.rings">
+                      <polygon [attr.points]="ring.points" fill="none" stroke="#e2e8f0" stroke-width="1"></polygon>
+                      <text [attr.x]="rv.cx + 4" [attr.y]="ring.labelY" fill="#94a3b8" font-size="9">{{ ring.lvl }}</text>
+                    </g>
+
+                    <g *ngFor="let ax of rv.axes">
+                      <line [attr.x1]="rv.cx" [attr.y1]="rv.cy" [attr.x2]="ax.x2" [attr.y2]="ax.y2" stroke="#cbd5e1" stroke-width="1"></line>
+                      <text [attr.x]="ax.lx" [attr.y]="ax.ly" [attr.text-anchor]="ax.anchor" fill="#334155" font-size="10.5" font-weight="700">
+                        {{ ax.i18nKey | translate }}
+                      </text>
+                    </g>
+
+                    <g *ngFor="let poly of rv.polygons; trackBy: trackByPolygonModelId">
+                      <polygon [attr.points]="poly.points" [attr.fill]="poly.model.color" [attr.fill-opacity]="poly.fillOpacity"
+                        [attr.stroke]="poly.model.color" [attr.stroke-opacity]="poly.strokeOpacity" [attr.stroke-width]="poly.strokeWidth"
+                        style="pointer-events:none;transition:fill-opacity 0.15s ease,stroke-opacity 0.15s ease,stroke-width 0.15s ease"></polygon>
+                      <circle *ngFor="let v of poly.vertices" [attr.cx]="v.x" [attr.cy]="v.y" [attr.r]="poly.dotRadius"
+                        [attr.fill]="poly.model.color" [attr.fill-opacity]="poly.strokeOpacity" stroke="#ffffff" stroke-width="1.2"
+                        style="cursor:pointer;transition:r 0.15s ease,fill-opacity 0.15s ease"
+                        (mousemove)="showTooltip($event, poly.model)"
+                        (mouseleave)="hideTooltip()"></circle>
+                    </g>
+                  </svg>
+                </div>
+
+                <div class="bench-chip-list">
+                  <button type="button" class="bench-model-chip" *ngFor="let m of activeRadarModels; trackBy: trackByModelId"
+                    [class.is-hovered]="hoveredRadarModelId === m.id"
+                    [class.is-dimmed]="hoveredRadarModelId && hoveredRadarModelId !== m.id"
+                    (mouseenter)="hoveredRadarModelId = m.id"
+                    (mouseleave)="hoveredRadarModelId = null"
+                    (click)="removeRadarModel(m.id)">
+                    <span class="dot" [style.background]="m.color"></span>
+                    <span>{{ m.short }} ×</span>
+                  </button>
+                </div>
               </div>
             </div>
 
-            <!-- Ranking table -->
+            <!-- Floating Tooltip for Interactive Charts -->
+            <div class="bench-viz-tooltip" *ngIf="tooltip.visible && tooltip.model as tm"
+              [style.left.px]="tooltip.x" [style.top.px]="tooltip.y">
+              <strong>{{ tm.name }}</strong><br>
+              {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}: <b>{{ tm.r1.toFixed(1) }}%</b> ·
+              {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}: <b>{{ tm.r3.toFixed(1) }}%</b><br>
+              {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}: <b>{{ tm.r5.toFixed(1) }}%</b> ·
+              {{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}: <b>{{ tm.cov.toFixed(1) }}%</b><br>
+              {{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}: {{ tm.avgPos.toFixed(3) }} ·
+              {{ 'aboutUs.evaluation.evolution.benchmark2026.thSecPerCase' | translate }}: {{ tm.sec.toFixed(1) }}s
+            </div>
+
+            <!-- Ranking table with integrated stacked position bar -->
             <details class="bench-details">
               <summary>{{ 'aboutUs.evaluation.evolution.benchmark2026.results.title' | translate }}</summary>
-              <div class="bench-table-wrapper">
-              <table class="bench-table bench-table--ranking">
-              <thead>
-                <tr>
-                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thRank' | translate }}</th>
-                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thModel' | translate }}</th>
-                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
-                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
-                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
-                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
-                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
-                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thSecPerCase' | translate }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="bench-row--green">
-                  <td>1 ⭐</td>
-                  <td><strong>gpt-5.6-terra low</strong></td>
-                  <td><strong>63,3%</strong></td><td>80,1%</td><td>83,2%</td><td>1,404</td>
-                  <td><span class="bench-badge bench-badge--green">83,2%</span></td>
-                  <td><strong class="bench-time-good">6,9s</strong></td>
-                </tr>
-                <tr>
-                  <td>2</td><td>gpt-5.4 full</td><td>62,9%</td><td>80,9%</td><td>85,5%</td><td>1,502</td>
-                  <td><span class="bench-badge bench-badge--green">86,3%</span></td><td>~17s</td>
-                </tr>
-                <tr>
-                  <td>3</td><td><strong>grok-4.6 low</strong></td><td>62,9%</td><td>78,1%</td><td>81,6%</td><td>1,373</td>
-                  <td>81,6%</td><td>17,0s</td>
-                </tr>
-                <tr>
-                  <td>4</td><td>gpt-5.6-terra high</td><td>62,5%</td><td>80,5%</td><td>84,4%</td><td>1,477</td>
-                  <td>85,2%</td><td>~23s</td>
-                </tr>
-                <tr>
-                  <td>5</td><td>gpt-5.6-terra medium</td><td>62,5%</td><td>79,3%</td><td>84,0%</td><td>1,491</td>
-                  <td>84,4%</td><td>8,4s</td>
-                </tr>
-                <tr>
-                  <td>6</td><td>gpt-5.6-terra xhigh</td><td>62,5%</td><td>75,0%</td><td>78,9%</td><td>1,431</td>
-                  <td>79,7%</td><td>28,9s</td>
-                </tr>
-                <tr>
-                  <td>7</td><td>gpt-6-astra low</td><td>62,1%</td><td>78,5%</td><td>82,0%</td><td>1,460</td>
-                  <td>83,2%</td><td>~32,5s</td>
-                </tr>
-                <tr>
-                  <td>8</td><td><strong>gemini-3.5-flash low</strong></td><td>62,1%</td><td>75,4%</td><td>75,4%</td><td>1,223</td>
-                  <td>75,4%</td><td><strong class="bench-time-good">6,1s</strong></td>
-                </tr>
-                <tr>
-                  <td>9</td><td>gemini-3.1-pro-preview low</td><td>61,3%</td><td>74,6%</td><td>75,0%</td><td>1,240</td>
-                  <td>75,0%</td><td>9,3s</td>
-                </tr>
-                <tr>
-                  <td>10</td><td>gpt-5.6-luna high</td><td>60,9%</td><td>77,3%</td><td>82,0%</td><td>1,575</td>
-                  <td>83,6%</td><td>~7,6s</td>
-                </tr>
-                <tr>
-                  <td>11</td><td>gpt-5.6-sol medium</td><td>60,9%</td><td>76,2%</td><td>81,2%</td><td>1,540</td>
-                  <td>82,4%</td><td>12,7s</td>
-                </tr>
-                <tr>
-                  <td>12</td><td>gemini-3.8-flash low</td><td>59,8%</td><td>73,8%</td><td>77,7%</td><td>1,402</td>
-                  <td>77,7%</td><td><strong class="bench-time-good">4,4s</strong></td>
-                </tr>
-                <tr>
-                  <td>13</td><td>gemini-3-pro-preview low</td><td>59,8%</td><td>74,6%</td><td>75,0%</td><td>1,281</td>
-                  <td>75,0%</td><td>~10s</td>
-                </tr>
-                <tr>
-                  <td>14</td><td>claude-opus-5 low</td><td>59,4%</td><td>76,2%</td><td>82,8%</td><td>1,803</td>
-                  <td><span class="bench-badge bench-badge--green">87,1%</span></td><td>22,7s</td>
-                </tr>
-                <tr>
-                  <td>15</td><td>gemini-2.5-pro low</td><td>59,4%</td><td>74,2%</td><td>75,4%</td><td>1,295</td>
-                  <td>75,4%</td><td>~28s</td>
-                </tr>
-                <tr>
-                  <td>16</td><td>gemini-3-pro-preview medium</td><td>59,4%</td><td>71,1%</td><td>73,0%</td><td>1,289</td>
-                  <td>73,0%</td><td>~35s</td>
-                </tr>
-                <tr>
-                  <td>17</td><td>gpt-5.6-sol low</td><td>59,0%</td><td>73,8%</td><td>80,5%</td><td>1,527</td>
-                  <td>80,9%</td><td>14,1s</td>
-                </tr>
-                <tr>
-                  <td>18</td><td>gpt-5.4-mini low</td><td>58,2%</td><td>77,3%</td><td>79,3%</td><td>1,441</td>
-                  <td>79,7%</td><td>~5s</td>
-                </tr>
-                <tr>
-                  <td>19</td><td>gemini-3.1-flash-lite low</td><td>57,8%</td><td>74,6%</td><td>78,1%</td><td>1,445</td>
-                  <td>78,1%</td><td><strong class="bench-time-good">2,8s</strong></td>
-                </tr>
-                <tr>
-                  <td>20</td><td>gpt-4o low</td><td>57,4%</td><td>69,9%</td><td>74,6%</td><td>1,505</td>
-                  <td>75,0%</td><td>~8–10s</td>
-                </tr>
-                <tr>
-                  <td>21</td><td>gpt-5.6-luna low</td><td>57,0%</td><td>73,8%</td><td>78,5%</td><td>1,554</td>
-                  <td>79,7%</td><td>6,4s</td>
-                </tr>
-                <tr>
-                  <td>22</td><td>o3-dxgpt high</td><td>56,6%</td><td>74,2%</td><td>80,5%</td><td>1,614</td>
-                  <td>80,9%</td><td>15,9s</td>
-                </tr>
-                <tr>
-                  <td>23</td><td>gpt-5.6-luna medium</td><td>56,6%</td><td>74,2%</td><td>78,9%</td><td>1,554</td>
-                  <td>79,7%</td><td>7,8s</td>
-                </tr>
-                <tr>
-                  <td>24</td><td>gemini-2.5-flash low</td><td>56,6%</td><td>72,7%</td><td>74,2%</td><td>1,342</td>
-                  <td>74,2%</td><td>~21s</td>
-                </tr>
-                <tr>
-                  <td>25</td><td>gpt-5.6-luna xhigh</td><td>55,5%</td><td>69,5%</td><td>73,0%</td><td>1,573</td>
-                  <td>75,0%</td><td>~10,4s</td>
-                </tr>
-              </tbody>
-              </table>
+              <div class="bench-details__content">
+                <div class="bench-viz-legend bench-viz-legend--table">
+                  <span class="bench-viz-legend-item"><span class="swatch" style="background:#10b981"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.segP1' | translate }}</span>
+                  <span class="bench-viz-legend-item"><span class="swatch" style="background:#3b82f6"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.segP23' | translate }}</span>
+                  <span class="bench-viz-legend-item"><span class="swatch" style="background:#f59e0b"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.segP45' | translate }}</span>
+                  <span class="bench-viz-legend-item"><span class="swatch" style="background:#a855f7"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.segP6' | translate }}</span>
+                </div>
+                <div class="bench-table-wrapper">
+                <table class="bench-table bench-table--ranking">
+                <thead>
+                  <tr>
+                    <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thRank' | translate }}</th>
+                    <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thModel' | translate }}</th>
+                    <th scope="col" class="bench-th-stack">{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.thDistribution' | translate }}</th>
+                    <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
+                    <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
+                    <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
+                    <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
+                    <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
+                    <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thSecPerCase' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let m of models; let idx = index; trackBy: trackByModelId" [class.bench-row--green]="m.isProd">
+                    <td>{{ idx + 1 }}<ng-container *ngIf="m.isProd"> ⭐</ng-container></td>
+                    <td>
+                      <strong *ngIf="m.boldModel">{{ m.name }}</strong>
+                      <ng-container *ngIf="!m.boldModel">{{ m.name }}</ng-container>
+                      <span *ngIf="m.isProd" class="bench-badge bench-badge--green bench-badge--xsmall" style="margin-left:6px">
+                        {{ 'aboutUs.evaluation.evolution.benchmark2026.charts.prodBadge' | translate }}
+                      </span>
+                    </td>
+                    <td class="bench-td-stack" (mousemove)="showTooltip($event, m)" (mouseleave)="hideTooltip()">
+                      <div class="bench-inline-stack">
+                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p1 / 256) * 100" style="background:#10b981"></div>
+                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p23 / 256) * 100" style="background:#3b82f6"></div>
+                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p45 / 256) * 100" style="background:#f59e0b"></div>
+                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p6p / 256) * 100" style="background:#a855f7"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <strong *ngIf="idx < 2">{{ m.r1.toFixed(1).replace('.', ',') }}%</strong>
+                      <ng-container *ngIf="idx >= 2">{{ m.r1.toFixed(1).replace('.', ',') }}%</ng-container>
+                    </td>
+                    <td>{{ m.r3.toFixed(1).replace('.', ',') }}%</td>
+                    <td>{{ m.r5.toFixed(1).replace('.', ',') }}%</td>
+                    <td>{{ m.avgPos.toFixed(3).replace('.', ',') }}</td>
+                    <td>
+                      <span *ngIf="m.greenBadgeCov" class="bench-badge bench-badge--green">{{ m.cov.toFixed(1).replace('.', ',') }}%</span>
+                      <ng-container *ngIf="!m.greenBadgeCov">{{ m.cov.toFixed(1).replace('.', ',') }}%</ng-container>
+                    </td>
+                    <td>
+                      <strong *ngIf="m.fastTime" class="bench-time-good">{{ m.secDisplay }}</strong>
+                      <ng-container *ngIf="!m.fastTime">{{ m.secDisplay }}</ng-container>
+                    </td>
+                  </tr>
+                </tbody>
+                </table>
+                </div>
               </div>
             </details>
           </div>

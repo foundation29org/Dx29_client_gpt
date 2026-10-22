@@ -11,11 +11,53 @@
 }
 
 .modal-title {
-  max-width: calc(100% - 60px);
-  font-size: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  max-width: calc(100% - 48px);
+  margin: 0;
+  font-size: 1.15rem;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.35;
   overflow-wrap: anywhere;
+
+  &--interactive {
+    cursor: pointer;
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+    margin-top: 0.2rem;
+  }
+
+  &__text {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &--interactive &__text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  &--expanded &__text {
+    display: block;
+    -webkit-line-clamp: unset;
+    max-height: 7.5rem;
+    padding-right: 0.35rem;
+    overflow-y: auto;
+    font-size: 0.98rem;
+    font-weight: 500;
+  }
+
+  &__chevron {
+    flex: 0 0 auto;
+    margin-top: 0.28rem;
+    font-size: 0.85rem;
+    opacity: 0.85;
+  }
 }
 
 .modal-body {

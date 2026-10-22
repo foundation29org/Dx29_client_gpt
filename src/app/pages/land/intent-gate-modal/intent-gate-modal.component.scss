@@ -66,6 +66,17 @@
   padding: 1.15rem 1.5rem 1.5rem;
 }
 
+.intent-gate__section {
+  margin: 0.6rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid #f0f2f5;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
 .intent-option {
   display: flex;
   align-items: flex-start;
@@ -137,8 +148,40 @@
   text-transform: uppercase;
 }
 
+.intent-gate__back {
+  align-self: center;
+  margin-top: 0.25rem;
+  padding: 0.4rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 0.88rem;
+  cursor: pointer;
+
+  i {
+    margin-right: 0.35rem;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: #1a1d26;
+    text-decoration: underline;
+  }
+}
+
+// En móvil la insignia pasa a su propia línea bajo el texto (no se oculta).
 @media (max-width: 576px) {
+  .intent-option {
+    flex-wrap: wrap;
+  }
+
+  .intent-option__copy {
+    flex: 1 1 calc(100% - 34px - 0.85rem);
+  }
+
   .intent-option__badge {
-    display: none;
+    order: 3;
+    margin-top: 0;
+    margin-left: calc(34px + 0.85rem);
   }
 }

@@ -20,6 +20,26 @@ export class MedicalInfoModalComponent implements OnInit {
 
   answer!: MedicalAnswerData;
   closeButtonText = '';
+  titleExpanded = false;
+
+  get isLongTitle(): boolean {
+    return (this.title || '').trim().length > 80;
+  }
+
+  toggleTitle(): void {
+    if (!this.isLongTitle) {
+      return;
+    }
+    this.titleExpanded = !this.titleExpanded;
+  }
+
+  onTitleSpace(event: Event): void {
+    if (!this.isLongTitle) {
+      return;
+    }
+    event.preventDefault();
+    this.toggleTitle();
+  }
 
   constructor(
     public readonly activeModal: NgbActiveModal,

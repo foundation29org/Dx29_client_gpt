@@ -159,6 +159,24 @@ export class MedicalAnswerViewComponent implements OnChanges {
     }
   }
 
+  private expandCitationGroups(markdown: string, maxIndex: number): string {
+    if (!markdown || maxIndex <= 0) {
+      return markdown;
+    }
+    // Solo listas con coma o punto y coma ([1, 3]). Los rangos con guion no se
+    // expanden: un rango entre corchetes también podría ser un dato clínico.
+    return markdown.replace(
+      /\[(\d+(?:\s*[,;]\s*\d+)+)\]/g,
+      (fullMatch, inner: string) => {
+        const numbers = inner.split(/\s*[,;]\s*/).map(part => Number(part));
+        if (numbers.some(num => !(num >= 1 && num <= maxIndex))) {
+          return fullMatch;
+        }
+        return numbers.map(num => `[${num}]`).join('');
+      }
+    );
+  }
+
   private buildReferences(markdown: string, sonarData: any): string {
     const searchResults = Array.isArray(sonarData?.searchResults)
       ? sonarData.searchResults
@@ -166,14 +184,16 @@ export class MedicalAnswerViewComponent implements OnChanges {
     const citations = Array.isArray(sonarData?.citations)
       ? sonarData.citations
       : [];
-    const usedNumbers = this.extractUniqueCitationNumbers(markdown);
+    const maxIndex = Math.max(searchResults.length, citations.length);
+    const expandedMarkdown = this.expandCitationGroups(markdown, maxIndex);
+    const usedNumbers = this.extractUniqueCitationNumbers(expandedMarkdown);
 
     if (usedNumbers.length === 0) {
       const availableReferences = searchResults.length > 0
         ? searchResults.filter((result: any) => result?.url)
         : citations.map((url: string) => ({ title: url, url }));
       this.references = this.formatReferences(availableReferences);
-      return markdown;
+      return expandedMarkdown;
     }
 
     const oldToNew = new Map<number, number>();
@@ -199,7 +219,7 @@ export class MedicalAnswerViewComponent implements OnChanges {
     });
 
     this.references = this.formatReferences(pickedReferences);
-    return markdown.replace(/\[(\d+)\]/g, (_match, number) => {
+    return expandedMarkdown.replace(/\[(\d+)\]/g, (_match, number) => {
       const replacement = oldToNew.get(Number(number));
       return replacement ? `[${replacement}]` : '';
     });
