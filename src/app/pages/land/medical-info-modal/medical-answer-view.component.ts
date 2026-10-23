@@ -17,8 +17,13 @@ export class MedicalAnswerViewComponent implements OnChanges {
   htmlContent = '';
   references: MedicalAnswerReference[] = [];
   referencesExpanded = false;
+  /** Solo un extracto abierto a la vez; null = todos cerrados. */
+  expandedSnippetNumber: number | null = null;
+  /** Extracto sin tope de altura (tras “Mostrar más”). */
+  fullyExpandedSnippetNumber: number | null = null;
 
   private processingVersion = 0;
+  private readonly longSnippetChars = 500;
 
   constructor(
     private readonly modalService: NgbModal,
@@ -71,6 +76,37 @@ export class MedicalAnswerViewComponent implements OnChanges {
 
   toggleReferences(): void {
     this.referencesExpanded = !this.referencesExpanded;
+    if (!this.referencesExpanded) {
+      this.expandedSnippetNumber = null;
+      this.fullyExpandedSnippetNumber = null;
+    }
+  }
+
+  isSnippetExpanded(referenceNumber: number): boolean {
+    return this.expandedSnippetNumber === referenceNumber;
+  }
+
+  isSnippetFullyExpanded(referenceNumber: number): boolean {
+    return this.fullyExpandedSnippetNumber === referenceNumber;
+  }
+
+  isLongSnippet(reference: MedicalAnswerReference): boolean {
+    return (reference.snippet || '').length >= this.longSnippetChars;
+  }
+
+  toggleSnippet(referenceNumber: number): void {
+    if (this.expandedSnippetNumber === referenceNumber) {
+      this.expandedSnippetNumber = null;
+      this.fullyExpandedSnippetNumber = null;
+      return;
+    }
+    this.expandedSnippetNumber = referenceNumber;
+    this.fullyExpandedSnippetNumber = null;
+  }
+
+  toggleSnippetFull(referenceNumber: number): void {
+    this.fullyExpandedSnippetNumber =
+      this.fullyExpandedSnippetNumber === referenceNumber ? null : referenceNumber;
   }
 
   onContentClick(event: Event): void {
@@ -88,12 +124,16 @@ export class MedicalAnswerViewComponent implements OnChanges {
 
     const referenceNumber = Number(referenceMatch[1]);
     this.referencesExpanded = true;
+    this.expandedSnippetNumber = referenceNumber;
+    this.fullyExpandedSnippetNumber = null;
     setTimeout(() => this.highlightReference(referenceNumber), 100);
   }
 
   private async processAnswer(): Promise<void> {
     const version = ++this.processingVersion;
     this.referencesExpanded = false;
+    this.expandedSnippetNumber = null;
+    this.fullyExpandedSnippetNumber = null;
     const sonarData = this.parseSonarData(this.answer.sonarData);
     const answerContent = this.removeGeneratedReferenceSection(this.answer.content || '');
     const normalizedContent = this.buildReferences(answerContent, sonarData);
@@ -259,9 +299,113 @@ export class MedicalAnswerViewComponent implements OnChanges {
       return '';
     }
 
-    const normalizedSnippet = snippet
-      .replace(/\r?\n+/g, ' ')
-      .replace(/(^|\s)#{1,6}\s*/g, '$1')
+    // Los buscadores devuelven varios pasajes separados por líneas "..." y cada
+    // pasaje trae su propia estructura (listas, títulos, líneas cortadas por el PDF).
+    // Se muestra cada pasaje en su bloque, conservando párrafos y viñetas.
+    const excerpts: string[][] = [[]];
+    for (const rawLine of snippet.replace(/\r\n?/g, '\n').split('\n')) {
+      if (/^\s*(?:\.{3,}|…)\s*$/.test(rawLine)) {
+        if (excerpts[excerpts.length - 1].length > 0) {
+          excerpts.push([]);
+        }
+        continue;
+      }
+      excerpts[excerpts.length - 1].push(rawLine);
+    }
+
+    const renderedExcerpts = excerpts
+      .map(lines => this.renderSnippetExcerpt(lines))
+      .filter(html => html.length > 0);
+
+    return renderedExcerpts
+      .map(html => `<div class="snippet-excerpt">${html}</div>`)
+      .join('');
+  }
+
+  private renderSnippetExcerpt(lines: string[]): string {
+    type SnippetBlock = { kind: 'heading' | 'paragraph' | 'item'; text: string };
+    const blocks: SnippetBlock[] = [];
+    let current: SnippetBlock | null = null;
+    let pendingBullet = false;
+
+    const flush = () => {
+      current = null;
+    };
+    const push = (kind: SnippetBlock['kind'], text: string) => {
+      current = { kind, text };
+      blocks.push(current);
+    };
+    const endsSentence = (text: string) => /[.:;!?)\]]\s*$/.test(text);
+    const startsNewSentence = (text: string) => /^[\p{Lu}\d¿¡"“(\[]/u.test(text);
+
+    for (const rawLine of lines) {
+      const isHeading = /^\s*#{1,6}\s+\S/.test(rawLine);
+      const cleaned = this.cleanSnippetLine(rawLine);
+
+      if (!cleaned) {
+        flush();
+        pendingBullet = false;
+        continue;
+      }
+      // Viñeta sola en su línea: el texto va en la siguiente
+      if (/^[-•*–]$/.test(cleaned)) {
+        flush();
+        pendingBullet = true;
+        continue;
+      }
+      if (isHeading) {
+        pendingBullet = false;
+        push('heading', cleaned);
+        flush();
+        continue;
+      }
+      const bulletMatch = cleaned.match(/^[-•*–]\s+(.*)$/);
+      if (bulletMatch || pendingBullet) {
+        pendingBullet = false;
+        push('item', bulletMatch ? bulletMatch[1] : cleaned);
+        continue;
+      }
+      const active = current as SnippetBlock | null;
+      // La etiqueta de revisión de NICE ("**[2015, amended 2026]**") va aparte
+      const isStandaloneTag = /^\*\*\[[^\]]+\]\*\*$/.test(cleaned);
+      if (active && !isStandaloneTag && !(endsSentence(active.text) && startsNewSentence(cleaned))) {
+        // Línea cortada por el ancho del PDF: continúa el mismo párrafo o viñeta
+        active.text = `${active.text} ${cleaned}`;
+      } else {
+        push('paragraph', cleaned);
+      }
+    }
+
+    let html = '';
+    let openList = false;
+    for (const block of blocks) {
+      const inline = marked.parseInline(block.text);
+      const content = typeof inline === 'string' ? inline : this.escapeHtmlAttribute(block.text);
+      if (block.kind === 'item') {
+        if (!openList) {
+          html += '<ul>';
+          openList = true;
+        }
+        html += `<li>${content}</li>`;
+        continue;
+      }
+      if (openList) {
+        html += '</ul>';
+        openList = false;
+      }
+      html += block.kind === 'heading'
+        ? `<p class="snippet-heading"><strong>${content}</strong></p>`
+        : `<p>${content}</p>`;
+    }
+    if (openList) {
+      html += '</ul>';
+    }
+    return html;
+  }
+
+  private cleanSnippetLine(line: string): string {
+    return line
+      .replace(/^\s*#{1,6}\s*/, '')
       .replace(/\^([^^]+)\^/g, '$1')
       .replace(/\[(\*\*[^*]+\*\*)\]/g, '$1')
       .replace(/\*{3,}/g, '**')
@@ -270,14 +414,9 @@ export class MedicalAnswerViewComponent implements OnChanges {
       .replace(/\|+/g, ' · ')
       .replace(/(?:\s*·\s*){2,}/g, ' · ')
       .replace(/\s*·\s*/g, ' · ')
-      .replace(/\s+/g, ' ')
+      .replace(/[ \t]+/g, ' ')
       .replace(/^(?:\s*·\s*)+|(?:\s*·\s*)+$/g, '')
       .trim();
-    const parsedSnippet = marked.parseInline(normalizedSnippet);
-
-    return typeof parsedSnippet === 'string'
-      ? parsedSnippet
-      : this.escapeHtmlAttribute(snippet);
   }
 
   private normalizeListItemHeadings(htmlContent: string): string {
