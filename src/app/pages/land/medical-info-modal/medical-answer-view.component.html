@@ -92,7 +92,7 @@
         type="button"
         class="reference-snippet-toggle"
         [attr.aria-expanded]="isSnippetExpanded(reference.number)"
-        [attr.aria-controls]="'medical-reference-snippet-' + reference.number"
+        [attr.aria-controls]="isSnippetExpanded(reference.number) ? 'medical-reference-snippet-' + reference.number : null"
         (click)="toggleSnippet(reference.number)">
         <span>
           {{ (isSnippetExpanded(reference.number)
@@ -112,17 +112,17 @@
         <div
           [id]="'medical-reference-snippet-' + reference.number"
           class="reference-snippet"
-          [class.reference-snippet--clamped]="isLongSnippet(reference) && !isSnippetFullyExpanded(reference.number)"
           [innerHTML]="reference.snippetHtml">
         </div>
         <button
           *ngIf="isLongSnippet(reference)"
           type="button"
-          class="reference-snippet-more"
-          (click)="toggleSnippetFull(reference.number)">
-          {{ (isSnippetFullyExpanded(reference.number)
-            ? 'medicalInfoModal.showLess'
-            : 'medicalInfoModal.showMore') | translate }}
+          class="reference-snippet-close"
+          aria-expanded="true"
+          [attr.aria-controls]="'medical-reference-snippet-' + reference.number"
+          (click)="closeSnippetFromBottom(reference.number)">
+          <span>{{ 'medicalInfoModal.hideExcerpt' | translate }}</span>
+          <i class="fas fa-chevron-up" aria-hidden="true"></i>
         </button>
       </div>
     </article>

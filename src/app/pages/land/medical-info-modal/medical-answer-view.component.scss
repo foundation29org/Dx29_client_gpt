@@ -331,16 +331,12 @@
   background: #fff;
   border: 1px solid #e0e4e9;
   border-radius: 6px;
-
-  &--clamped {
-    max-height: 12rem;
-    overflow: hidden;
-    mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
-  }
 }
 
-.reference-snippet-more {
-  display: inline-block;
+.reference-snippet-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   padding: 0.35rem 0 0;
   color: var(--secondary-hover);
   font-size: 0.84rem;
@@ -396,6 +392,42 @@
     .snippet-heading:first-child {
       margin-top: 0;
     }
+
+    // Las tablas anchas (fichas técnicas) se desplazan en horizontal sin romper el modal
+    .snippet-table-wrap {
+      max-width: 100%;
+      margin: 0 0 0.5rem;
+      overflow-x: auto;
+    }
+
+    .snippet-table-wrap:last-child {
+      margin-bottom: 0;
+    }
+
+    .snippet-table {
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      line-height: 1.4;
+
+      th,
+      td {
+        padding: 0.3rem 0.5rem;
+        text-align: left;
+        vertical-align: top;
+        border: 1px solid #e0e4e9;
+      }
+
+      th {
+        color: #3c4654;
+        font-weight: 650;
+        background: #f6f8fa;
+      }
+    }
+  }
+
+  sup {
+    font-size: 0.72em;
+    line-height: 0;
   }
 
   strong {

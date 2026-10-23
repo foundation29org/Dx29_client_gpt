@@ -19,11 +19,10 @@ export class MedicalAnswerViewComponent implements OnChanges {
   referencesExpanded = false;
   /** Solo un extracto abierto a la vez; null = todos cerrados. */
   expandedSnippetNumber: number | null = null;
-  /** Extracto sin tope de altura (tras “Mostrar más”). */
-  fullyExpandedSnippetNumber: number | null = null;
 
   private processingVersion = 0;
-  private readonly longSnippetChars = 500;
+  /** A partir de aquí el extracto ocupa más que la pantalla y se repite "Ocultar" al final. */
+  private readonly longSnippetChars = 1000;
 
   constructor(
     private readonly modalService: NgbModal,
@@ -78,7 +77,6 @@ export class MedicalAnswerViewComponent implements OnChanges {
     this.referencesExpanded = !this.referencesExpanded;
     if (!this.referencesExpanded) {
       this.expandedSnippetNumber = null;
-      this.fullyExpandedSnippetNumber = null;
     }
   }
 
@@ -86,27 +84,32 @@ export class MedicalAnswerViewComponent implements OnChanges {
     return this.expandedSnippetNumber === referenceNumber;
   }
 
-  isSnippetFullyExpanded(referenceNumber: number): boolean {
-    return this.fullyExpandedSnippetNumber === referenceNumber;
-  }
-
   isLongSnippet(reference: MedicalAnswerReference): boolean {
     return (reference.snippet || '').length >= this.longSnippetChars;
   }
 
   toggleSnippet(referenceNumber: number): void {
-    if (this.expandedSnippetNumber === referenceNumber) {
-      this.expandedSnippetNumber = null;
-      this.fullyExpandedSnippetNumber = null;
-      return;
-    }
-    this.expandedSnippetNumber = referenceNumber;
-    this.fullyExpandedSnippetNumber = null;
+    this.expandedSnippetNumber =
+      this.expandedSnippetNumber === referenceNumber ? null : referenceNumber;
   }
 
-  toggleSnippetFull(referenceNumber: number): void {
-    this.fullyExpandedSnippetNumber =
-      this.fullyExpandedSnippetNumber === referenceNumber ? null : referenceNumber;
+  /**
+   * Cierre desde el final de un extracto largo: al encogerse, la referencia
+   * quedaría por encima de la vista, así que se vuelve a ella y se pasa el foco
+   * al botón de arriba (el de abajo desaparece).
+   */
+  closeSnippetFromBottom(referenceNumber: number): void {
+    this.expandedSnippetNumber = null;
+    setTimeout(() => {
+      const referenceElement = document.getElementById(`medical-reference-${referenceNumber}`);
+      if (!referenceElement) {
+        return;
+      }
+      referenceElement
+        .querySelector<HTMLButtonElement>('.reference-snippet-toggle')
+        ?.focus({ preventScroll: true });
+      referenceElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
   }
 
   onContentClick(event: Event): void {
@@ -125,7 +128,6 @@ export class MedicalAnswerViewComponent implements OnChanges {
     const referenceNumber = Number(referenceMatch[1]);
     this.referencesExpanded = true;
     this.expandedSnippetNumber = referenceNumber;
-    this.fullyExpandedSnippetNumber = null;
     setTimeout(() => this.highlightReference(referenceNumber), 100);
   }
 
@@ -133,7 +135,6 @@ export class MedicalAnswerViewComponent implements OnChanges {
     const version = ++this.processingVersion;
     this.referencesExpanded = false;
     this.expandedSnippetNumber = null;
-    this.fullyExpandedSnippetNumber = null;
     const sonarData = this.parseSonarData(this.answer.sonarData);
     const answerContent = this.removeGeneratedReferenceSection(this.answer.content || '');
     const normalizedContent = this.buildReferences(answerContent, sonarData);
@@ -303,7 +304,8 @@ export class MedicalAnswerViewComponent implements OnChanges {
     // pasaje trae su propia estructura (listas, títulos, líneas cortadas por el PDF).
     // Se muestra cada pasaje en su bloque, conservando párrafos y viñetas.
     const excerpts: string[][] = [[]];
-    for (const rawLine of snippet.replace(/\r\n?/g, '\n').split('\n')) {
+    const normalizedSnippet = this.renderSuperscripts(snippet.replace(/\r\n?/g, '\n'));
+    for (const rawLine of normalizedSnippet.split('\n')) {
       if (/^\s*(?:\.{3,}|…)\s*$/.test(rawLine)) {
         if (excerpts[excerpts.length - 1].length > 0) {
           excerpts.push([]);
@@ -317,47 +319,126 @@ export class MedicalAnswerViewComponent implements OnChanges {
       .map(lines => this.renderSnippetExcerpt(lines))
       .filter(html => html.length > 0);
 
-    return renderedExcerpts
-      .map(html => `<div class="snippet-excerpt">${html}</div>`)
-      .join('');
+    // Los enlaces de los extractos se abren en otra pestaña, como los de la respuesta
+    return this.addSafeLinkAttributes(
+      renderedExcerpts
+        .map(html => `<div class="snippet-excerpt">${html}</div>`)
+        .join('')
+    );
+  }
+
+  /**
+   * Los extractos marcan los superíndices como ^x^: notas al pie (^100^, ^a^),
+   * exponentes (10^9^/L, 10^−3^), ordinales (1^st^) o símbolos (^®^). Quitar los
+   * ^ pegaba el número al texto ("10^9^/L" → "109/L"), así que se muestran como <sup>.
+   * Se hace sobre el extracto entero porque a veces el ^ de cierre cae en la línea
+   * siguiente. Los ^^ vacíos se eliminan y un ^ suelto se deja como está.
+   */
+  private renderSuperscripts(snippet: string): string {
+    // Como mucho un salto de línea dentro: no se cruzan separadores "..." ni filas de tabla
+    return snippet.replace(/\^([^\^|\n]{0,25}(?:\n[^\^|\n]{0,25})?)\^/g, (_match, content: string) => {
+      const text = content.replace(/\s+/g, ' ').trim();
+      if (!text) {
+        return '';
+      }
+      const safeText = this.escapeHtmlAttribute(text)
+        .replace(/\*/g, '&#42;')
+        .replace(/_/g, '&#95;');
+      return `<sup>${safeText}</sup>`;
+    });
   }
 
   private renderSnippetExcerpt(lines: string[]): string {
-    type SnippetBlock = { kind: 'heading' | 'paragraph' | 'item'; text: string };
+    type TextBlock = { kind: 'heading' | 'paragraph' | 'item'; text: string };
+    type TableBlock = { kind: 'table'; rows: string[][]; headerRows: number };
+    type SnippetBlock = TextBlock | TableBlock;
     const blocks: SnippetBlock[] = [];
-    let current: SnippetBlock | null = null;
+    let current: TextBlock | null = null;
+    let currentTable: TableBlock | null = null;
     let pendingBullet = false;
+    // Número de lista solo en su línea ("1."): el texto va en la siguiente
+    let pendingNumber: string | null = null;
 
     const flush = () => {
       current = null;
     };
-    const push = (kind: SnippetBlock['kind'], text: string) => {
+    const push = (kind: TextBlock['kind'], text: string) => {
       current = { kind, text };
       blocks.push(current);
     };
-    const endsSentence = (text: string) => /[.:;!?)\]]\s*$/.test(text);
+    // Si el número no llega a tener texto detrás, se muestra solo, como antes
+    const emitPendingNumber = () => {
+      if (pendingNumber) {
+        push('paragraph', pendingNumber);
+        flush();
+        pendingNumber = null;
+      }
+    };
+    // Una nota al final ("sesión.<sup>a</sup>") no impide ver que la frase terminó
+    const endsSentence = (text: string) =>
+      /[.:;!?)\]]\s*$/.test(text.replace(/(?:\s*<sup>[^<]*<\/sup>)+\s*$/, ''));
     const startsNewSentence = (text: string) => /^[\p{Lu}\d¿¡"“(\[]/u.test(text);
 
     for (const rawLine of lines) {
+      // Fila de tabla markdown: se conserva como tabla para no mezclar las filas
+      if (/^\s*\|/.test(rawLine)) {
+        emitPendingNumber();
+        flush();
+        pendingBullet = false;
+        if (this.isTableSeparator(rawLine)) {
+          if (currentTable && currentTable.rows.length === 1) {
+            currentTable.headerRows = 1;
+          }
+          continue;
+        }
+        const cells = this.splitTableRow(rawLine);
+        if (cells.every(cell => !cell)) {
+          continue;
+        }
+        if (!currentTable) {
+          currentTable = { kind: 'table', rows: [], headerRows: 0 };
+          blocks.push(currentTable);
+        }
+        currentTable.rows.push(cells);
+        continue;
+      }
+      currentTable = null;
+
       const isHeading = /^\s*#{1,6}\s+\S/.test(rawLine);
-      const cleaned = this.cleanSnippetLine(rawLine);
+      let cleaned = this.cleanSnippetLine(rawLine);
 
       if (!cleaned) {
+        emitPendingNumber();
         flush();
         pendingBullet = false;
         continue;
       }
+      // "1.", y también subapartados de ficha técnica ("4.1.", "6.1.2."); siempre con
+      // punto final para no confundirlo con un valor decimal suelto ("4.1")
+      if (/^\d{1,2}(?:\.\d{1,2}){0,2}\.$/.test(cleaned)) {
+        emitPendingNumber();
+        flush();
+        pendingNumber = cleaned;
+        continue;
+      }
       // Viñeta sola en su línea: el texto va en la siguiente
       if (/^[-•*–]$/.test(cleaned)) {
+        emitPendingNumber();
         flush();
         pendingBullet = true;
         continue;
       }
       if (isHeading) {
+        emitPendingNumber();
         pendingBullet = false;
         push('heading', cleaned);
         flush();
         continue;
+      }
+      if (pendingNumber) {
+        cleaned = `${pendingNumber} ${cleaned}`;
+        pendingNumber = null;
+        flush();
       }
       const bulletMatch = cleaned.match(/^[-•*–]\s+(.*)$/);
       if (bulletMatch || pendingBullet) {
@@ -365,7 +446,7 @@ export class MedicalAnswerViewComponent implements OnChanges {
         push('item', bulletMatch ? bulletMatch[1] : cleaned);
         continue;
       }
-      const active = current as SnippetBlock | null;
+      const active = current as TextBlock | null;
       // La etiqueta de revisión de NICE ("**[2015, amended 2026]**") va aparte
       const isStandaloneTag = /^\*\*\[[^\]]+\]\*\*$/.test(cleaned);
       if (active && !isStandaloneTag && !(endsSentence(active.text) && startsNewSentence(cleaned))) {
@@ -375,24 +456,28 @@ export class MedicalAnswerViewComponent implements OnChanges {
         push('paragraph', cleaned);
       }
     }
+    emitPendingNumber();
 
     let html = '';
     let openList = false;
     for (const block of blocks) {
-      const inline = marked.parseInline(block.text);
-      const content = typeof inline === 'string' ? inline : this.escapeHtmlAttribute(block.text);
       if (block.kind === 'item') {
         if (!openList) {
           html += '<ul>';
           openList = true;
         }
-        html += `<li>${content}</li>`;
+        html += `<li>${this.renderSnippetInline(block.text)}</li>`;
         continue;
       }
       if (openList) {
         html += '</ul>';
         openList = false;
       }
+      if (block.kind === 'table') {
+        html += this.renderSnippetTable(block.rows, block.headerRows);
+        continue;
+      }
+      const content = this.renderSnippetInline(block.text);
       html += block.kind === 'heading'
         ? `<p class="snippet-heading"><strong>${content}</strong></p>`
         : `<p>${content}</p>`;
@@ -403,14 +488,59 @@ export class MedicalAnswerViewComponent implements OnChanges {
     return html;
   }
 
-  private cleanSnippetLine(line: string): string {
-    return line
-      .replace(/^\s*#{1,6}\s*/, '')
+  private renderSnippetInline(text: string): string {
+    const inline = marked.parseInline(text);
+    return typeof inline === 'string' ? inline : this.escapeHtmlAttribute(text);
+  }
+
+  /** Fila separadora de cabecera markdown: |--|:--:|---| */
+  private isTableSeparator(line: string): boolean {
+    const cells = this.splitTableRowRaw(line);
+    return cells.length > 0 && cells.every(cell => /^\s*:?-{2,}:?\s*$/.test(cell));
+  }
+
+  private splitTableRowRaw(line: string): string[] {
+    let row = line.trim();
+    if (row.startsWith('|')) {
+      row = row.slice(1);
+    }
+    if (row.endsWith('|')) {
+      row = row.slice(0, -1);
+    }
+    return row.split('|');
+  }
+
+  private splitTableRow(line: string): string[] {
+    return this.splitTableRowRaw(line).map(cell => this.cleanSnippetInline(cell).replace(/[ \t]+/g, ' ').trim());
+  }
+
+  private renderSnippetTable(rows: string[][], headerRows: number): string {
+    const columnCount = Math.max(...rows.map(row => row.length));
+    const renderRow = (row: string[], tag: 'th' | 'td') => {
+      // Las filas cortadas por el final del extracto se completan con celdas vacías
+      const cells = row.concat(Array(columnCount - row.length).fill(''));
+      return `<tr>${cells.map(cell => `<${tag}>${this.renderSnippetInline(cell)}</${tag}>`).join('')}</tr>`;
+    };
+    const head = rows.slice(0, headerRows).map(row => renderRow(row, 'th')).join('');
+    const body = rows.slice(headerRows).map(row => renderRow(row, 'td')).join('');
+    return '<div class="snippet-table-wrap"><table class="snippet-table">'
+      + (head ? `<thead>${head}</thead>` : '')
+      + (body ? `<tbody>${body}</tbody>` : '')
+      + '</table></div>';
+  }
+
+  /** Limpieza de marcas markdown rotas común a líneas y celdas de tabla. */
+  private cleanSnippetInline(text: string): string {
+    return text
       .replace(/\^([^^]+)\^/g, '$1')
       .replace(/\[(\*\*[^*]+\*\*)\]/g, '$1')
       .replace(/\*{3,}/g, '**')
       .replace(/\*{1,2}\s*\+\s*\*{1,2}/g, ' ')
-      .replace(/\*{2}\s+\*{2}/g, ' ')
+      .replace(/\*{2}\s+\*{2}/g, ' ');
+  }
+
+  private cleanSnippetLine(line: string): string {
+    return this.cleanSnippetInline(line.replace(/^\s*#{1,6}\s*/, ''))
       .replace(/\|+/g, ' · ')
       .replace(/(?:\s*·\s*){2,}/g, ' · ')
       .replace(/\s*·\s*/g, ' · ')
