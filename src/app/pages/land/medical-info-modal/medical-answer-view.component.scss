@@ -296,9 +296,36 @@
   font-size: 0.85rem;
 }
 
+.reference-snippet-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+  margin: 0.55rem 0 0 2.5rem;
+  color: var(--secondary-hover);
+  font-size: 0.86rem;
+  font-weight: 600;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  &:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--secondary-color) 20%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+.reference-snippet-wrap {
+  margin: 0.55rem 0 0 2.5rem;
+}
+
 .reference-snippet {
   padding: 0.65rem;
-  margin: 0.7rem 0 0 2.5rem;
   color: #525b67;
   font-size: 0.88rem;
   background: #fff;
@@ -306,7 +333,103 @@
   border-radius: 6px;
 }
 
+.reference-snippet-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0 0;
+  color: var(--secondary-hover);
+  font-size: 0.84rem;
+  font-weight: 600;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  &:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--secondary-color) 20%, transparent);
+    outline-offset: 2px;
+  }
+}
+
 :host ::ng-deep .reference-snippet {
+  .snippet-excerpt {
+    line-height: 1.55;
+
+    & + .snippet-excerpt {
+      padding-top: 0.75rem;
+      margin-top: 0.75rem;
+      border-top: 1px dashed #cfd5dc;
+    }
+
+    p {
+      margin: 0 0 0.5rem;
+    }
+
+    p:last-child,
+    ul:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+      margin: 0 0 0.5rem;
+    }
+
+    li {
+      margin-bottom: 0.25rem;
+    }
+
+    .snippet-heading {
+      margin-top: 0.6rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .snippet-heading:first-child {
+      margin-top: 0;
+    }
+
+    // Las tablas anchas (fichas técnicas) se desplazan en horizontal sin romper el modal
+    .snippet-table-wrap {
+      max-width: 100%;
+      margin: 0 0 0.5rem;
+      overflow-x: auto;
+    }
+
+    .snippet-table-wrap:last-child {
+      margin-bottom: 0;
+    }
+
+    .snippet-table {
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      line-height: 1.4;
+
+      th,
+      td {
+        padding: 0.3rem 0.5rem;
+        text-align: left;
+        vertical-align: top;
+        border: 1px solid #e0e4e9;
+      }
+
+      th {
+        color: #3c4654;
+        font-weight: 650;
+        background: #f6f8fa;
+      }
+    }
+  }
+
+  sup {
+    font-size: 0.72em;
+    line-height: 0;
+  }
+
   strong {
     color: #3c4654;
     font-weight: 650;
@@ -325,7 +448,8 @@
   }
 
   .reference-meta,
-  .reference-snippet {
+  .reference-snippet-toggle,
+  .reference-snippet-wrap {
     margin-left: 0;
   }
 }
