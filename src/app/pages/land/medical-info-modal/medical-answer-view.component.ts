@@ -4,6 +4,7 @@ import { marked } from 'marked';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { MedicalAnswerFeedbackComponent } from '../medical-answer-feedback/medical-answer-feedback.component';
 import { MedicalAnswerData, MedicalAnswerReference } from './medical-answer.model';
+import { buildReferenceTitle, referenceSourceLabel } from './medical-reference-title';
 
 @Component({
   selector: 'app-medical-answer-view',
@@ -283,14 +284,16 @@ export class MedicalAnswerViewComponent implements OnChanges {
   private formatReferences(references: any[]): MedicalAnswerReference[] {
     return references.map((reference, index) => {
       const snippet = reference.snippet || '';
+      const url = reference.url || '';
       return {
         number: index + 1,
-        title: reference.title || reference.url,
-        url: reference.url,
+        // Título legible aunque la fuente traiga migas de la URL, "[PDF]", "1 de 10"...
+        title: buildReferenceTitle(reference.title || '', url, snippet) || url,
+        url,
         date: reference.date || '',
         snippet,
         snippetHtml: this.renderReferenceSnippet(snippet),
-        source: reference.source || ''
+        source: reference.source || referenceSourceLabel(url)
       };
     });
   }
