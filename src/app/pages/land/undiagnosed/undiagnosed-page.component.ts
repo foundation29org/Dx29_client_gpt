@@ -3732,10 +3732,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             ) break;
         }
 
-        Swal.close();
-        
- 
-        
+        // El spinner sigue abierto mientras se negocia y abre el WebSocket (en redes
+        // lentas tarda varios segundos) y su botón Cancelar sigue funcionando. Si
+        // conecta, el Swal de progreso lo sustituye; si falla, lo cierra showError.
 
         try {
             await this.connectWebSocket(runId);
