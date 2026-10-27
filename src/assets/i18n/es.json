@@ -1536,6 +1536,8 @@
     "references": "Referencias",
     "showExcerpt": "Ver extracto",
     "hideExcerpt": "Ocultar extracto",
+    "citationSearching": "Buscando en el extracto lo que respalda la frase…",
+    "citationNotFound": "No hemos encontrado en este extracto un fragmento que respalde la frase citada.",
     "showMore": "Mostrar más",
     "showLess": "Mostrar menos",
     "feedbackTitle": "Feedback de la respuesta médica",

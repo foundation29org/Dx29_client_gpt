@@ -1536,6 +1536,8 @@
     "references": "Bibliografia",
     "showExcerpt": "Pokaż fragment",
     "hideExcerpt": "Ukryj fragment",
+    "citationSearching": "Szukamy we fragmencie tekstu, który potwierdza to zdanie…",
+    "citationNotFound": "W tym fragmencie nie znaleźliśmy tekstu, który potwierdza cytowane zdanie.",
     "showMore": "Pokaż więcej",
     "showLess": "Pokaż mniej",
     "feedbackTitle": "Opinia o odpowiedzi medycznej",

@@ -109,6 +109,18 @@
       <div
         *ngIf="reference.snippet && isSnippetExpanded(reference.number)"
         class="reference-snippet-wrap">
+        <p
+          *ngIf="citationLookup?.referenceNumber === reference.number && citationLookup?.state !== 'found'"
+          class="reference-citation-status"
+          role="status">
+          <ng-container *ngIf="citationLookup?.state === 'loading'">
+            <i class="fas fa-spinner fa-spin me-1" aria-hidden="true"></i>
+            {{ 'medicalInfoModal.citationSearching' | translate }}
+          </ng-container>
+          <ng-container *ngIf="citationLookup?.state === 'not_found'">
+            {{ 'medicalInfoModal.citationNotFound' | translate }}
+          </ng-container>
+        </p>
         <div
           [id]="'medical-reference-snippet-' + reference.number"
           class="reference-snippet"

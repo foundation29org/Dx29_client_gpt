@@ -1536,6 +1536,8 @@
     "references": "Referenzen",
     "showExcerpt": "Auszug anzeigen",
     "hideExcerpt": "Auszug ausblenden",
+    "citationSearching": "Suche im Auszug nach der Stelle, die den Satz belegt…",
+    "citationNotFound": "In diesem Auszug wurde keine Stelle gefunden, die den zitierten Satz belegt.",
     "showMore": "Mehr anzeigen",
     "showLess": "Weniger anzeigen",
     "feedbackTitle": "Feedback zur medizinischen Antwort",

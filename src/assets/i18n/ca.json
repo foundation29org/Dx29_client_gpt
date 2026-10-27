@@ -1536,6 +1536,8 @@
     "references": "Referències",
     "showExcerpt": "Veure extracte",
     "hideExcerpt": "Amagar extracte",
+    "citationSearching": "Cercant a l'extracte el que dona suport a la frase…",
+    "citationNotFound": "No hem trobat en aquest extracte cap fragment que doni suport a la frase citada.",
     "showMore": "Mostrar més",
     "showLess": "Mostrar menys",
     "feedbackTitle": "Comentaris sobre la resposta mèdica",

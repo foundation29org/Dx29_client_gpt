@@ -324,6 +324,13 @@
   margin: 0.55rem 0 0 2.5rem;
 }
 
+.reference-citation-status {
+  margin: 0 0 0.45rem;
+  color: #5d6673;
+  font-size: 0.84rem;
+  font-style: italic;
+}
+
 .reference-snippet {
   padding: 0.65rem;
   color: #525b67;
@@ -391,6 +398,19 @@
 
     .snippet-heading:first-child {
       margin-top: 0;
+    }
+
+    // Texto del extracto que respalda la frase de la cita pulsada
+    p.snippet-cited,
+    li.snippet-cited {
+      background: #ffe08a;
+      border-radius: 4px;
+      box-shadow: 0 0 0 3px #ffe08a;
+    }
+
+    tr.snippet-cited > td,
+    tr.snippet-cited > th {
+      background: #ffe08a;
     }
 
     // Las tablas anchas (fichas técnicas) se desplazan en horizontal sin romper el modal
