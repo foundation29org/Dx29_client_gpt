@@ -243,14 +243,12 @@
   border-radius: 999px;
 }
 
+// Sin scroll propio: con los extractos abiertos, un segundo scroll dentro del del
+// modal obligaba a desplazar dos zonas (y en móvil atrapaba el dedo en la lista).
 .references-list {
   display: grid;
   gap: 0.85rem;
-  max-height: 28rem;
-  padding-right: 0.35rem;
   margin-top: 0.85rem;
-  overflow-y: auto;
-  overscroll-behavior: contain;
 }
 
 .reference-item {
