@@ -1536,6 +1536,8 @@
     "references": "Références",
     "showExcerpt": "Voir l'extrait",
     "hideExcerpt": "Masquer l'extrait",
+    "citationSearching": "Recherche dans l'extrait du passage qui étaye la phrase…",
+    "citationNotFound": "Nous n'avons trouvé dans cet extrait aucun passage qui étaye la phrase citée.",
     "showMore": "Afficher plus",
     "showLess": "Afficher moins",
     "feedbackTitle": "Retour sur la réponse médicale",

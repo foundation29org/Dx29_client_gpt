@@ -1536,6 +1536,8 @@
     "references": "Referências",
     "showExcerpt": "Ver excerto",
     "hideExcerpt": "Ocultar excerto",
+    "citationSearching": "A procurar no excerto o que fundamenta a frase…",
+    "citationNotFound": "Não encontrámos neste excerto uma passagem que fundamente a frase citada.",
     "showMore": "Mostrar mais",
     "showLess": "Mostrar menos",
     "feedbackTitle": "Feedback sobre resposta médica",

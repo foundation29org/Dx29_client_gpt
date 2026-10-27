@@ -1536,6 +1536,8 @@
     "references": "References",
     "showExcerpt": "Show excerpt",
     "hideExcerpt": "Hide excerpt",
+    "citationSearching": "Looking for the part of the excerpt that supports the sentence…",
+    "citationNotFound": "We couldn't find a passage in this excerpt that supports the cited sentence.",
     "showMore": "Show more",
     "showLess": "Show less",
     "feedbackTitle": "Feedback on medical answer",

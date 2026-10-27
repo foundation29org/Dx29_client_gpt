@@ -130,6 +130,20 @@ private postDiagnoseOrAsk(path: string, info: any) {
     return this.http.post(environment.api + '/medical/summarize', value);
   }
 
+  /** Bloques del extracto de una fuente que respaldan la frase que la cita. */
+  findCitationSupport(value: {
+    myuuid: string;
+    timezone: string;
+    lang: string;
+    sentence: string;
+    blocks: string[];
+  }): Observable<{ result: string; data?: { blocks?: number[] } }> {
+    return this.http.post<{ result: string; data?: { blocks?: number[] } }>(
+      environment.api + '/internal/citation-support',
+      value
+    );
+  }
+
   getQueueStatus(ticketId: string, timezone: string): Observable<any> {
     const timestamp = new Date().getTime();
     return this.http.post(environment.api + '/internal/status/' + ticketId + '?t=' + timestamp, { timezone })
