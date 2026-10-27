@@ -746,12 +746,27 @@ export class MedicalAnswerViewComponent implements OnChanges, OnDestroy {
 
   /** Limpieza de marcas markdown rotas común a líneas y celdas de tabla. */
   private cleanSnippetInline(text: string): string {
-    return text
+    return this.separateJoinedSentences(text
       .replace(/\^([^^]+)\^/g, '$1')
       .replace(/\[(\*\*[^*]+\*\*)\]/g, '$1')
       .replace(/\*{3,}/g, '**')
       .replace(/\*{1,2}\s*\+\s*\*{1,2}/g, ' ')
-      .replace(/\*{2}\s+\*{2}/g, ' ');
+      .replace(/\*{2}\s+\*{2}/g, ' '));
+  }
+
+  /**
+   * Al aplanar la página, el buscador junta frases que en origen iban en líneas
+   * distintas ("cada 12 horas.Para infecciones graves"). Se separan cuando a una
+   * minúscula y un punto les sigue una palabra en mayúscula. No se tocan URLs ni
+   * correos, donde ese patrón puede ser parte de la dirección.
+   */
+  private separateJoinedSentences(text: string): string {
+    return text
+      .split(/(\s+)/)
+      .map(token => /:\/\/|^www\.|@/i.test(token)
+        ? token
+        : token.replace(/(\p{Ll})\.(?=\p{Lu}\p{Ll})/gu, '$1. '))
+      .join('');
   }
 
   private cleanSnippetLine(line: string): string {
