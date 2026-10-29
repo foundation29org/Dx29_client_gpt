@@ -100,6 +100,12 @@ export class InsightsService {
     });
   }
 
+  // Envía ya (vía beacon) lo pendiente, sin esperar al siguiente lote: tras ocultarse la página
+  // puede no haber otra oportunidad
+  flushOnPageHide() {
+    this.appInsights?.onunloadFlush();
+  }
+
   trackPageView(pageName: string, properties?: { [key: string]: any }) {
     const enhancedProperties = {
       ...properties,

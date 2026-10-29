@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { marked } from 'marked';
@@ -55,7 +55,8 @@ export class MedicalAnswerViewComponent implements OnChanges, OnDestroy {
     private readonly insightsService: InsightsService,
     private readonly apiDx29ServerService: ApiDx29ServerService,
     private readonly uuidService: UuidService,
-    private readonly translate: TranslateService
+    private readonly translate: TranslateService,
+    private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -137,6 +138,8 @@ export class MedicalAnswerViewComponent implements OnChanges, OnDestroy {
   closeSnippetFromBottom(referenceNumber: number): void {
     this.cancelCitationLookup();
     this.expandedSnippetNumber = null;
+    // Con event coalescing el timeout podría ejecutarse antes de que se pinte el extracto ya cerrado
+    this.cdr.detectChanges();
     setTimeout(() => {
       const referenceElement = document.getElementById(`medical-reference-${referenceNumber}`);
       if (!referenceElement) {
