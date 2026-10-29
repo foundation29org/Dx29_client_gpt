@@ -306,7 +306,7 @@
           "descriptionEu": "Alle diese Zahlen beschreiben das technische Verhalten von KI-Modellen in standardisierten Fallbanken (Benchmarks). Sie entsprechen nicht klinischen Erfolgsraten bei echten Patienten und stellen keine Konformitätsbewertung des Produkts dar. Dieses Tool bietet keine medizinischen Diagnosen oder Behandlungsempfehlungen. Es ist ausschließlich dazu gedacht, Ihnen zu helfen, die Informationen zu organisieren, die Sie mit einem Gesundheitsfachmann besprechen werden. Sie sollten immer einen qualifizierten medizinischen Fachmann konsultieren, um eine angemessene Diagnose und Behandlung zu erhalten."
         },
         "benchmark2026": {
-          "title": "Ergebnisse · 22. Oktober 2026",
+          "title": "Ergebnisse · 29. Oktober 2026",
           "description": "Nach der Sicherstellung der Datensatzqualität und der Automatisierung der Bewertung haben wir DxGPT 2026 direkt mit dem wissenschaftlichen Stand der Technik verglichen: dem DeepRare-Artikel (Nature, 2025), dem ersten spezialisierten KI-System für seltene Erkrankungen, das öffentlich auf denselben internationalen Benchmarks bewertet wurde.",
           "dataset": {
             "title": "Bereinigter und veröffentlichbarer Datensatz",

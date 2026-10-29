@@ -306,7 +306,7 @@
           "descriptionEu": "Wszystkie te liczby opisują techniczne zachowanie modeli AI w standaryzowanych bankach przypadków (benchmarkach). Nie są równoważne wskaźnikom sukcesu klinicznego u prawdziwych pacjentów ani nie stanowią oceny zgodności produktu. To narzędzie nie zapewnia diagnoz medycznych ani zaleceń dotyczących leczenia. Jest przeznaczone wyłącznie do pomocy w organizowaniu informacji, które omówisz z profesjonalistą zdrowotnym. Zawsze powinieneś skonsultować się z wykwalifikowanym profesjonalistą medycznym, aby uzyskać odpowiednią diagnozę i leczenie."
         },
         "benchmark2026": {
-          "title": "Wyniki · 22 października 2026",
+          "title": "Wyniki · 29 października 2026",
           "description": "Po zapewnieniu jakości zbioru danych i automatyzacji oceny, w 2026 roku porównaliśmy DxGPT bezpośrednio z naukowym stanem wiedzy: artykułem DeepRare (Nature, 2025), pierwszym specjalistycznym systemem AI dla rzadkich chorób publicznie ocenionym na tych samych międzynarodowych benchmarkach.",
           "dataset": {
             "title": "Czysty i publikowalny zbiór danych",
