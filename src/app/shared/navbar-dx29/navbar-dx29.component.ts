@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Inject, OnDestroy, PLATFORM_ID, ViewChild, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Inject, OnDestroy, PLATFORM_ID, ViewChild, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -61,6 +61,7 @@ export class NavbarD29Component implements OnDestroy {
     public insightsService: InsightsService,
     public brandingService: BrandingService,
     private modalService: NgbModal,
+    private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loadLanguages();
@@ -406,8 +407,10 @@ export class NavbarD29Component implements OnDestroy {
       return;
     }
     this.isMenuExpanded = true;
-    // The close button only becomes focusable once the drawer is rendered.
-    setTimeout(() => this.menuClose?.nativeElement.focus());
+    // The close button only becomes focusable once the drawer is rendered. With event coalescing
+    // a zero-delay timeout can run before change detection, so render the drawer explicitly first.
+    this.cdr.detectChanges();
+    this.menuClose?.nativeElement.focus();
   }
 
   closeMenu(returnFocus = false) {

@@ -11,6 +11,7 @@ import { IconsService } from 'app/shared/services/icon.service';
 import { UuidService } from './shared/services/uuid.service';
 import { BrandingService } from './shared/services/branding.service';
 import { AnalyticsService } from './shared/services/analytics.service';
+import { WebVitalsService } from './shared/services/web-vitals.service';
 import { DEFAULT_SEO, getSeoForUrl, SeoRouteConfig } from './shared/seo/seo-routes';
 
 import {
@@ -64,6 +65,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private uuidService: UuidService,
     private brandingService: BrandingService,
     private analyticsService: AnalyticsService,
+    private webVitalsService: WebVitalsService,
     @Optional() @Inject(REQUEST) private request: Request | null
   ) {
     // Inicializar el UUID al inicio de la aplicación
@@ -247,6 +249,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const isBrowser = isPlatformBrowser(this.platformId);
     if (isBrowser) {
       this.iconsService.loadIcons();
+      this.webVitalsService.start();
     }
     
     // Inicializar el servicio de branding y configurar cookies cuando esté listo
