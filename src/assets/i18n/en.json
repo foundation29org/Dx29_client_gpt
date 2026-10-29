@@ -306,7 +306,7 @@
           "descriptionEu": "All these figures describe the technical behavior of AI models in standardized case banks (benchmarks). They do not equate to clinical success rates in real patients and are not a conformity assessment of the product. This tool does not provide medical diagnoses nor treatment recommendations. It is intended solely to help you organize the information you will discuss with a healthcare professional. You should always consult with a qualified medical professional to obtain appropriate diagnosis and treatment."
         },
         "benchmark2026": {
-          "title": "Results · October 22, 2026",
+          "title": "Results · October 29, 2026",
           "description": "After ensuring dataset quality and automating evaluation, in 2026 we compared DxGPT directly against the scientific state of the art: the DeepRare paper (Nature, 2025), the first specialized rare disease AI system publicly evaluated on the same international benchmarks.",
           "dataset": {
             "title": "Clean and publishable dataset",

@@ -306,7 +306,7 @@
           "descriptionEu": "Todas estas cifras describen el comportamiento técnico de los modelos de IA en bancos de casos estandarizados (benchmarks). No equivalen a tasas de éxito clínico en pacientes reales ni constituyen una evaluación de conformidad del producto. Esta herramienta no ofrece diagnósticos médicos ni recomendaciones de tratamiento. Está pensada únicamente para ayudarte a organizar la información que comentarás con un profesional sanitario. Siempre debes consultar con un profesional médico cualificado para obtener un diagnóstico y tratamiento adecuados."
         },
         "benchmark2026": {
-          "title": "Resultados · 22 de octubre de 2026",
+          "title": "Resultados · 29 de octubre de 2026",
           "description": "Tras garantizar la calidad del dataset y automatizar la evaluación, en 2026 comparamos DxGPT directamente con el estado del arte científico: el paper DeepRare (Nature, 2025), el primer sistema de IA especializado en enfermedades raras evaluado públicamente sobre los mismos benchmarks internacionales.",
           "dataset": {
             "title": "Dataset limpio y publicable",
