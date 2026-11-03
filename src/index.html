@@ -33,8 +33,31 @@
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <!-- Preload Font Awesome fonts for better FCP -->
-  <link rel="preload" href="assets/fontawesome/webfonts/free-fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Precarga el JSON de idioma en paralelo con el JS: la app espera a tenerlo antes de pintar
+       (loadInitialLang en app.module.ts). Misma regla que LangService.resolveInitialLang -->
+  <script>
+    (function () {
+      var codes = ['de', 'en', 'es', 'fr', 'hi', 'pl', 'pt', 'ru', 'uk', 'ca'];
+      var lang = 'en';
+      try {
+        var stored = localStorage.getItem('lang');
+        var browser = ((navigator.languages && navigator.languages[0]) || navigator.language || '').split(/[-_]/)[0];
+        if (codes.indexOf(stored) !== -1) {
+          lang = stored;
+        } else {
+          for (var i = 0; i < codes.length; i++) {
+            if (browser.match(codes[i])) { lang = codes[i]; break; }
+          }
+        }
+      } catch (e) {}
+      var link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'fetch';
+      link.crossOrigin = 'anonymous';
+      link.href = 'assets/i18n/' + lang + '.json';
+      document.head.appendChild(link);
+    })();
+  </script>
 
   <!-- DNS Prefetch - Analytics se carga dinámicamente desde Angular -->
   

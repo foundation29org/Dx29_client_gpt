@@ -38,6 +38,24 @@ export class LangService {
      * y limpia el valor inválido del localStorage
      * @returns Código de idioma válido (por defecto 'en')
      */
+    /**
+     * Idioma con el que arranca la app, con la misma regla que navbar-dx29: el guardado si es válido,
+     * si no el primero de la lista que coincida con el del navegador, y si no 'en'
+     */
+    static resolveInitialLang(browserLang: string | undefined): string {
+        const storedLang = typeof localStorage !== 'undefined' ? localStorage.getItem('lang') : null;
+        if (storedLang && LangService.VALID_LANG_CODES.includes(storedLang)) {
+            return storedLang;
+        }
+        if (browserLang) {
+            const browserMatch = LangService.VALID_LANG_CODES.find(code => browserLang.match(code));
+            if (browserMatch) {
+                return browserMatch;
+            }
+        }
+        return 'en';
+    }
+
     static getValidLangFromStorage(): string {
         if (typeof localStorage === 'undefined') {
             return 'en';
