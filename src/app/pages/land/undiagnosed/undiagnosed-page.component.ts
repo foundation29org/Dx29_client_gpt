@@ -140,7 +140,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     selectedQuestion: string = '';
     email: string = '';
     loadMoreDiseases: boolean = false;
-    currentTicketId: string | null = '';
     showErrorForm: boolean = false;
     sponsors: any[] = [];
 
@@ -178,16 +177,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     @ViewChild('fileInput', { static: false }) mainFileInput!: ElementRef<HTMLInputElement>;
     @ViewChild('contentFollowUpQuestions', { static: false }) contentFollowUpQuestions!: TemplateRef<any>;
     @ViewChild('textareaedit') textareaEdit!: ElementRef;
-
-    private queueStatusTimeout: any;
-    private readonly QUEUE_CHECK_INTERVAL = 1000; // 10 segundos
-
-    // Variables para el contador
-    private startTime: number | null = null;
-    private totalWaitTime: number | null = null;
-    private countdownInterval: any;
-
-    private currentPosition: number | null = 0;
 
     modeFunctionality: boolean = false;
     private clickCounter: number = 0;
@@ -830,10 +819,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.activeMultimodalRun += 1;
         this.multimodalRequestSubscription?.unsubscribe();
         this.multimodalRequestSubscription = null;
-        this.cancelQueueStatusCheck();
-        if (this.countdownInterval) {
-            clearInterval(this.countdownInterval);
-        }
         
         // Limpiar el intervalo de typing
         if (this.typingInterval) {
@@ -1453,81 +1438,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
        
         let msgError = this.translate.instant("generics.error try again");
         
-        // Si la respuesta está en cola
-        if (res.isQueued) {
-            const queueInfo = res.queueInfo;
-            this.currentTicketId = queueInfo.ticketId;
-            this.currentPosition = queueInfo.position;
-            
-            // Iniciar el intervalo de consulta y el contador
-            this.startQueueStatusCheck();
-            this.startCountdown(queueInfo.estimatedWaitTime);
-            
-            // Obtener todas las traducciones necesarias
-            const translations = {
-                title: this.translate.instant("generics.High demand"),
-                inQueue: this.translate.instant("generics.Your request is in queue"),
-                position: this.translate.instant("generics.Position"),
-                estimatedTime: this.translate.instant("generics.Estimated wait time"),
-                minutes: this.translate.instant("generics.minutes"),
-                seconds: this.translate.instant("generics.seconds"),
-                keepOpen: this.translate.instant("generics.Please keep this window open"),
-                cancel: this.translate.instant("generics.Cancel")
-            };
-            
-            Swal.fire({
-                title: translations.title,
-                html: `
-                    <div class="queue-status-message" style="text-align: center; margin: 20px 0;">
-                        <p style="color: #666; margin: 10px 0;">${translations.inQueue}</p>
-                        <div style="background: #f3f3f3; border-radius: 10px; padding: 15px; margin: 15px 0;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                <span style="color: #666;">${translations.position}:</span>
-                                <span style="font-weight: bold; color: #333;">#${this.currentPosition}</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between;">
-                                <span style="color: #666;">${translations.estimatedTime}:</span>
-                                <span style="font-weight: bold; color: #333;">${queueInfo.estimatedWaitTime}:00</span>
-                            </div>
-                        </div>
-                        <div style="background: #e8e8e8; height: 8px; border-radius: 4px; margin: 20px 0;">
-                            <div style="background: #4CAF50; width: 0%; height: 100%; border-radius: 4px; transition: width 0.3s ease;"></div>
-                        </div>
-                        <div style="display: flex; align-items: center; justify-content: center; margin-top: 15px;">
-                            <div class="queue-spinner" style="border: 3px solid #f3f3f3; border-top: 3px solid #3498db; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>
-                            <span style="color: #666; margin-left: 10px;">${translations.keepOpen}</span>
-                        </div>
-                    </div>
-                    <style>
-                        @keyframes spin {
-                            0% { transform: rotate(0deg); }
-                            100% { transform: rotate(360deg); }
-                        }
-                    </style>
-                `,
-                showCancelButton: true,
-                showConfirmButton: false,
-                cancelButtonText: translations.cancel,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                customClass: {
-                    popup: 'queue-status-popup',
-                    cancelButton: 'queue-cancel-button'
-                }
-            }).then((result) => {
-                if (result.dismiss === Swal.DismissReason.cancel) {
-                    this.cancelQueueStatusCheck();
-                    if (this.countdownInterval) {
-                        clearInterval(this.countdownInterval);
-                    }
-                    this.callingAI = false;
-                    this.subscription.unsubscribe();
-                    this.subscription = new Subscription();
-                }
-            });
-            return;
-        }
-
         // Si está procesando via WebSocket (modelos largos)
         if (res.result === 'processing') {
             // No hacer nada - el resultado llegará via WebSocket
@@ -1703,14 +1613,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     processAiSuccess(data: any, value: any) {
-        this.cancelQueueStatusCheck();
-        if (this.countdownInterval) {
-            clearInterval(this.countdownInterval);
-        }
-        this.currentTicketId = null;
-        this.currentPosition = null;
-        this.totalWaitTime = null;
-        this.startTime = null;
         this.inferredProfile = data?.inferredProfile || data?.data?.inferredProfile || null;
         if(data.data){
             if(data.data.length > 0){
@@ -3390,213 +3292,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             msgError = this.translate.instant("generics.error try again");
         }
         this.showError(msgError, err);
-    }
-
-    private startQueueStatusCheck() {
-        this.cancelQueueStatusCheck();
-        this.checkQueueStatus(); // Llama la primera vez
-    }
-
-    private cancelQueueStatusCheck() {
-        if (this.queueStatusTimeout) {
-            clearTimeout(this.queueStatusTimeout);
-            this.queueStatusTimeout = null;
-        }
-    }
-
-    private checkQueueStatus() {
-        if (!this.currentTicketId) return;
-
-        this.subscription.add(
-            this.apiDx29ServerService.getQueueStatus(this.currentTicketId, this.timezone).subscribe(
-                (res: any) => {
-                    console.log('Queue status update:', res);
-                    // Verificar si la respuesta tiene el formato esperado
-                    if (res.result === 'success') {
-                        if (res.status === 'completed') {
-                            // La solicitud está completa
-                            //this.cancelQueueStatusCheck();
-                            if(res.data.data){
-                                this.processAiSuccess(res.data, {});
-                            }
-                            //this.processAiSuccess(res.data, {});
-                        } else if (res.status === 'processing' || res.status === 'queued') {
-                            // Actualizar la posición y reiniciar el contador si cambió
-                            if (this.currentPosition !== res.position) {
-                                console.log('Position changed from', this.currentPosition, 'to', res.position);
-                                this.currentPosition = res.position;
-                                
-                                // Solo actualizar el tiempo estimado si es menor al actual
-                                const currentEstimatedTime = this.totalWaitTime ? this.totalWaitTime / (60 * 1000) : Infinity;
-                                if (res.estimatedWaitTime < currentEstimatedTime) {
-                                    console.log('Estimated wait time improved from', currentEstimatedTime, 'to', res.estimatedWaitTime);
-                                    this.startCountdown(res.estimatedWaitTime);
-                                }
-                                
-                                // Forzar la actualización del modal
-                                this.updateQueueStatusModal(res.position, res.estimatedWaitTime);
-                            }
-                            // Programa el siguiente chequeo SOLO después de 10 segundos
-                             this.queueStatusTimeout = setTimeout(() => this.checkQueueStatus(), 10000);
-                        }
-                    } 
-                    // Manejar el caso cuando la respuesta tiene un formato diferente
-                    else if (res.result === 'queued' && res.status === 'processing') {
-                        console.log('Received direct queue status update:', res);
-                        if (this.currentPosition !== res.position) {
-                            console.log('Position changed from', this.currentPosition, 'to', res.position);
-                            this.currentPosition = res.position;
-                            
-                            // Solo actualizar el tiempo estimado si es menor al actual
-                            const currentEstimatedTime = this.totalWaitTime ? this.totalWaitTime / (60 * 1000) : Infinity;
-                            if (res.estimatedWaitTime < currentEstimatedTime) {
-                                console.log('Estimated wait time improved from', currentEstimatedTime, 'to', res.estimatedWaitTime);
-                                this.startCountdown(res.estimatedWaitTime);
-                            }
-                            
-                            // Forzar la actualización del modal
-                            this.updateQueueStatusModal(res.position, res.estimatedWaitTime);
-                        }
-                        // Programa el siguiente chequeo SOLO después de 10 segundos
-                        this.queueStatusTimeout = setTimeout(() => this.checkQueueStatus(), 10000);
-                    } else if (res.result === 'error') {
-                        // Si hay error, cancela el chequeo y muestra mensaje si quieres
-                        console.error('Error en el estado de la cola:', res.message);
-                        this.cancelQueueStatusCheck();
-                        // Aquí podrías mostrar un mensaje al usuario, por ejemplo:
-                        // this.errorMessage = res.message;
-                    }
-                },
-                (err) => {
-                    console.error('Error checking queue status:', err);
-                    this.insightsService.trackException(err);
-                    this.cancelQueueStatusCheck();
-                }
-            )
-        );
-    }
-    
-    private updateQueueStatusModal(position: number, estimatedWaitTime: number) {
-        if (!this.currentTicketId) return;
-        // Obtener todas las traducciones necesarias
-        const translations = {
-            inQueue: this.translate.instant("generics.Your request is in queue"),
-            position: this.translate.instant("generics.Position"),
-            estimatedTime: this.translate.instant("generics.Estimated wait time"),
-            minutes: this.translate.instant("generics.minutes"),
-            seconds: this.translate.instant("generics.seconds"),
-            keepOpen: this.translate.instant("generics.Please keep this window open")
-        };
-        
-        // Calcular el tiempo restante
-        const startTime = this.startTime ?? 0;
-        const totalWaitTime = this.totalWaitTime ?? 0;
-        const elapsedTime = Date.now() - startTime;
-        const remainingTime = Math.max(0, totalWaitTime - elapsedTime);
-        const progressValue = Math.min(100, ((elapsedTime / totalWaitTime) * 100));
-        
-        const remainingMinutes = Math.floor(remainingTime / (60 * 1000));
-        const remainingSeconds = Math.floor((remainingTime % (60 * 1000)) / 1000);
-        
-        // Actualizar el modal con la nueva información
-        Swal.update({
-            html: `
-                <div class="queue-status-message" style="text-align: center; margin: 20px 0;">
-                    <p style="color: #666; margin: 10px 0;">${translations.inQueue}</p>
-                    <div style="background: #f3f3f3; border-radius: 10px; padding: 15px; margin: 15px 0;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                            <span style="color: #666;">${translations.position}:</span>
-                            <span style="font-weight: bold; color: #333;">#${position}</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: #666;">${translations.estimatedTime}:</span>
-                            <span style="font-weight: bold; color: #333;">${remainingMinutes}:${remainingSeconds.toString().padStart(2, '0')}</span>
-                        </div>
-                    </div>
-                    <div style="background: #e8e8e8; height: 8px; border-radius: 4px; margin: 20px 0;">
-                        <div style="background: #4CAF50; width: ${progressValue}%; height: 100%; border-radius: 4px; transition: width 0.3s ease;"></div>
-                    </div>
-                    <div style="display: flex; align-items: center; justify-content: center; margin-top: 15px;">
-                        <div class="queue-spinner" style="border: 3px solid #f3f3f3; border-top: 3px solid #3498db; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>
-                        <span style="color: #666; margin-left: 10px;">${translations.keepOpen}</span>
-                    </div>
-                </div>
-                <style>
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
-                    }
-                </style>
-            `
-        });
-    }
-
-    private startCountdown(estimatedWaitTime: number) {
-        // Limpiar contador anterior si existe
-        if (this.countdownInterval) {
-            clearInterval(this.countdownInterval);
-        }
-
-        this.startTime = Date.now();
-        this.totalWaitTime = estimatedWaitTime * 60 * 1000; // convertir minutos a milisegundos
-
-        this.countdownInterval = setInterval(() => {
-            const startTime = this.startTime ?? 0;
-            const totalWaitTime = this.totalWaitTime ?? 0;
-            const elapsedTime = Date.now() - startTime;
-            const remainingTime = Math.max(0, totalWaitTime - elapsedTime);
-            const progressValue = Math.min(100, ((elapsedTime / totalWaitTime) * 100));
-            
-            const remainingMinutes = Math.floor(remainingTime / (60 * 1000));
-            const remainingSeconds = Math.floor((remainingTime % (60 * 1000)) / 1000);
-
-            // Obtener todas las traducciones necesarias
-            const translations = {
-                inQueue: this.translate.instant("generics.Your request is in queue"),
-                position: this.translate.instant("generics.Position"),
-                estimatedTime: this.translate.instant("generics.Estimated wait time"),
-                minutes: this.translate.instant("generics.minutes"),
-                seconds: this.translate.instant("generics.seconds"),
-                keepOpen: this.translate.instant("generics.Please keep this window open")
-            };
-
-            // Actualizar el modal con la nueva información
-            Swal.update({
-                html: `
-                    <div class="queue-status-message" style="text-align: center; margin: 20px 0;">
-                        <p style="color: #666; margin: 10px 0;">${translations.inQueue}</p>
-                        <div style="background: #f3f3f3; border-radius: 10px; padding: 15px; margin: 15px 0;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                <span style="color: #666;">${translations.position}:</span>
-                                <span style="font-weight: bold; color: #333;">#${this.currentPosition}</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between;">
-                                <span style="color: #666;">${translations.estimatedTime}:</span>
-                                <span style="font-weight: bold; color: #333;">${remainingMinutes}:${remainingSeconds.toString().padStart(2, '0')}</span>
-                            </div>
-                        </div>
-                        <div style="background: #e8e8e8; height: 8px; border-radius: 4px; margin: 20px 0;">
-                            <div style="background: #4CAF50; width: ${progressValue}%; height: 100%; border-radius: 4px; transition: width 0.3s ease;"></div>
-                        </div>
-                        <div style="display: flex; align-items: center; justify-content: center; margin-top: 15px;">
-                            <div class="queue-spinner" style="border: 3px solid #f3f3f3; border-top: 3px solid #3498db; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>
-                            <span style="color: #666; margin-left: 10px;">${translations.keepOpen}</span>
-                        </div>
-                    </div>
-                    <style>
-                        @keyframes spin {
-                            0% { transform: rotate(0deg); }
-                            100% { transform: rotate(360deg); }
-                        }
-                    </style>
-                `
-            });
-
-            // Si el tiempo ha terminado, limpiar el intervalo
-            if (remainingTime <= 0) {
-                clearInterval(this.countdownInterval);
-            }
-        }, 1000); // Actualizar cada segundo
     }
 
     // Método para iniciar la animación de typing

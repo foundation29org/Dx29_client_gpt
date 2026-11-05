@@ -13,7 +13,6 @@ export class AuthInterceptor implements HttpInterceptor {
     let headers = req.headers.set('X-Tenant-Id', environment.tenantId);
     
     // Solo agregar el header de APIM si hay una subscription key configurada
-    // (para self-hosted puede estar vacío si no usan APIM)
     if (environment.apiSubscriptionKey) {
       headers = headers.set('Ocp-Apim-Subscription-Key', environment.apiSubscriptionKey);
     }

@@ -41,16 +41,6 @@ ask(info: any) {
 private postDiagnoseOrAsk(path: string, info: any) {
     return this.http.post(environment.api + path, info)
       .pipe(
-        map((res: any) => {
-          if (res.result === 'queued') {
-            return {
-              ...res,
-              isQueued: true,
-              queueInfo: res.queueInfo
-            };
-          }
-          return res;
-        }),
         catchError((err) => {
           console.log(err);
           this.insightsService.trackException(err);
@@ -142,51 +132,6 @@ private postDiagnoseOrAsk(path: string, info: any) {
       environment.api + '/internal/citation-support',
       value
     );
-  }
-
-  getQueueStatus(ticketId: string, timezone: string): Observable<any> {
-    const timestamp = new Date().getTime();
-    return this.http.post(environment.api + '/internal/status/' + ticketId + '?t=' + timestamp, { timezone })
-      .pipe(
-        map((res: any) => {
-          return res;
-        }),
-        catchError((err) => {
-          console.log(err);
-          this.insightsService.trackException(err);
-          return throwError(() => err);
-        })
-      );
-  }
-
-  getSystemStatus(): Observable<any> {
-    const timestamp = new Date().getTime();
-    return this.http.get(environment.api + '/internal/getSystemStatus?t=' + timestamp)
-      .pipe(
-        map((res: any) => {
-          return res;
-        }),
-        catchError((err) => {
-          console.log(err);
-          this.insightsService.trackException(err);
-          return throwError(() => err);
-        })
-      );
-  }
-
-  getHealthStatus(): Observable<any> {
-    const timestamp = new Date().getTime();
-    return this.http.get(environment.api + '/internal/health?t=' + timestamp)
-      .pipe(
-        map((res: any) => {
-          return res;
-        }),
-        catchError((err) => {
-          console.log(err);
-          this.insightsService.trackException(err);
-          return throwError(() => err);
-        })
-      );
   }
 
   // Devuelve los eventos HTTP (no solo la respuesta) para poder mostrar el
