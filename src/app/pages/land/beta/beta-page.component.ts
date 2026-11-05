@@ -198,7 +198,10 @@ export class BetaPageComponent implements OnInit, OnDestroy {
                 });
             }
             message += '<br><br>' + this.translate.instant('land.recommended');
-            this.showError(message);
+            this.showValidationError(
+                message,
+                this.callingAI ? 'request_in_progress' : 'question_too_short'
+            );
             return;
         }
 
@@ -437,7 +440,10 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.showError(this.translate.instant('beta.only_medical_question'));
+        this.showValidationError(
+            this.translate.instant('beta.only_medical_question'),
+            'clinical_case_on_questions_page'
+        );
         this.lauchEvent('only_medical_question Modal');
     }
 
@@ -526,6 +532,22 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
 
     private showError(message: string, err: any = null): void {
+        this.showInfoModal(message);
+        if (err) {
+            this.insightsService.trackException(err);
+        } else {
+            this.insightsService.trackException(message);
+        }
+    }
+
+    // Un texto demasiado corto o un caso clínico en la página de preguntas no son
+    // fallos de la app: se miden como evento, no como excepción.
+    private showValidationError(message: string, reason: string): void {
+        this.showInfoModal(message);
+        this.insightsService.trackEvent('FormValidationShown', { reason });
+    }
+
+    private showInfoModal(message: string): void {
         this.finishActiveWork();
         Swal.fire({
             icon: 'info',
@@ -534,11 +556,6 @@ export class BetaPageComponent implements OnInit, OnDestroy {
             showConfirmButton: true,
             allowOutsideClick: false
         });
-        if (err) {
-            this.insightsService.trackException(err);
-        } else {
-            this.insightsService.trackException(message);
-        }
     }
 
     private summarizeQuestion(): void {

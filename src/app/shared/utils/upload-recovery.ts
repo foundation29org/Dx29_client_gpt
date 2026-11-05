@@ -1,4 +1,8 @@
 const UPLOAD_FAILURE_STATUSES = [0, 408, 502, 504];
+// SWA ("Backend call failure") y la ingress de Container Apps ("exceeded request
+// buffer limit...") responden estos códigos con texto plano. Nuestro servidor
+// siempre responde JSON, así que un cuerpo de texto es un corte de pasarela.
+const GATEWAY_TEXT_FAILURE_STATUSES = [500, 507];
 const SUPPORTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 // Por debajo de 500 KB la imagen ya es ligera; comprimirla apenas ahorra tiempo de subida.
 const COMPRESSIBLE_IMAGE_MIN_BYTES = 500 * 1024;
@@ -7,19 +11,23 @@ const JPEG_COMPRESSION_QUALITY = 0.85;
 
 // SWA corta cualquier POST a los ~45 s.
 // - En el primer intento con imágenes grandes (> 500 KB), anticipamos a los 10 s
-//   si se ha subido < 50 % y el tiempo proyectado es >= 60 s, para ofrecer
-//   comprimir sin hacerle esperar 45 s.
+//   si se ha subido < 50 % y el tiempo proyectado es >= 40 s, para ofrecer
+//   comprimir sin hacerle esperar 45 s. Con 60 s se escapaban las proyecciones
+//   de 45-60 s: 29 de los 33 cortes de octubre de 2026 (mediana: 88 % subido).
+// - Si en cualquier momento la proyección pasa de 45 s, se corta aunque vaya por
+//   más de la mitad: SWA la va a cortar igual y así no espera para nada.
 // - En el segundo intento (ya comprimido, p. ej. 0,8 MB) el buffer TCP del
 //   navegador traga ~200 KB de golpe al instante (24-30 %) y en redes como GPRS
 //   (20 Kbps) el progreso se queda congelado ahí sin avanzar. Si lleva >= 12 s
-//   sin mover ni un byte (stalledMs >= 12000) o a los 15 s proyecta >= 60 s,
+//   sin mover ni un byte (stalledMs >= 12000) o a los 15 s proyecta >= 40 s,
 //   cortamos también para mostrar el aviso.
 const MIN_PROJECTION_ELAPSED_IMAGE_MS = 10000;
 const MIN_PROJECTION_ELAPSED_GENERAL_MS = 15000;
 const STALLED_UPLOAD_TIMEOUT_MS = 12000;
 const MAX_PROGRESS_RATIO_FOR_PREEMPT = 0.5;
 const MIN_REMAINING_BYTES_FOR_PREEMPT = 128 * 1024;
-const MIN_PROJECTED_DURATION_MS = 60000;
+const MIN_PROJECTED_DURATION_MS = 40000;
+const SWA_POST_TIMEOUT_MS = 45000;
 
 // Registro de archivos que ya han pasado por la reducción: evita volver a ofrecer
 // el botón de reducir si la conexión es tan extrema (p. ej. GPRS 20 Kbps) que
@@ -69,16 +77,20 @@ export function evaluateSlowImageUpload(params: {
         return { shouldPreempt: true, projectedSec: Math.max(projected, 60) };
     }
 
-    const progressRatio = safeLoaded / totalBytes;
-    if (progressRatio >= MAX_PROGRESS_RATIO_FOR_PREEMPT) {
-        return { shouldPreempt: false, projectedSec: 0 };
-    }
-
     if (safeLoaded === 0) {
         return { shouldPreempt: true, projectedSec: 999 };
     }
 
     const projectedMs = (totalBytes / safeLoaded) * elapsedMs;
+    if (projectedMs >= SWA_POST_TIMEOUT_MS) {
+        return { shouldPreempt: true, projectedSec: Math.round(projectedMs / 1000) };
+    }
+
+    const progressRatio = safeLoaded / totalBytes;
+    if (progressRatio >= MAX_PROGRESS_RATIO_FOR_PREEMPT) {
+        return { shouldPreempt: false, projectedSec: 0 };
+    }
+
     if (projectedMs < MIN_PROJECTED_DURATION_MS) {
         return { shouldPreempt: false, projectedSec: Math.round(projectedMs / 1000) };
     }
@@ -93,6 +105,9 @@ export function evaluateSlowImageUpload(params: {
 // de una respuesta JSON { result: 'error' } emitida por nuestro servidor.
 export function isUploadConnectionFailure(err: any): boolean {
     const status = Number(err?.status);
+    if (GATEWAY_TEXT_FAILURE_STATUSES.indexOf(status) !== -1) {
+        return typeof err?.error === 'string';
+    }
     if (UPLOAD_FAILURE_STATUSES.indexOf(status) === -1) {
         return false;
     }
