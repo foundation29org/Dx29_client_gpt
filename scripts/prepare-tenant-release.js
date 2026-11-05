@@ -9,11 +9,7 @@ const TENANT_DISPLAY_NAMES = {
   'dxgpt': 'DxGPT',
   'dxeugpt': 'DxGPT',
   'salud-gpt': 'SALUD-GPT',
-  'sermas-gpt': 'SermasGPT',
-  'iasalut-ajuda-dx': 'IASalutAjudaDx',
   'SALUD-GPT': 'SALUD-GPT',
-  'SermasGPT': 'SermasGPT',
-  'IASalutAjudaDx': 'IASalutAjudaDx',
 };
 
 if (!tenant) {

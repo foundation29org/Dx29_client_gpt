@@ -43,12 +43,6 @@ export class TenantDetectorService {
       if (environment.tenantId.includes('dxgpt')) {
         return 'dxgpt';
       }
-      if (environment.tenantId.includes('sermas-gpt')) {
-        return 'sermas-gpt';
-      }
-      if (environment.tenantId.includes('iasalut-ajuda-dx')) {
-        return 'iasalut-ajuda-dx';
-      }
     }
     
     return null;
@@ -75,14 +69,8 @@ export class TenantDetectorService {
       return 'dxgpt';
     }
 
-    if (subdomain === 'sermas-gpt' || hostname.includes('sermas-gpt')) {
-      return 'sermas-gpt';
-    }
     if (subdomain === 'dxeugpt' || hostname.includes('dxeugpt')) {
       return 'dxeugpt';
-    }
-    if (subdomain === 'iasalut-ajuda-dx' || hostname.includes('iasalut-ajuda-dx')) {
-      return 'iasalut-ajuda-dx';
     }
     return null;
   }
@@ -96,10 +84,6 @@ export class TenantDetectorService {
         return 'SALUD-GPT';
       case 'dxeugpt':
         return 'DxGPT';
-      case 'sermas-gpt':
-        return 'SermasGPT';
-      case 'iasalut-ajuda-dx':
-        return 'IASalutAjudaDx';
       case 'dxgpt':
       default:
         return 'DxGPT';
@@ -113,10 +97,6 @@ export class TenantDetectorService {
     switch (tenant) {
       case 'salud-gpt':
         return 'Servicio de IA para Aragón de Salud';
-      case 'sermas-gpt':
-        return 'Servicio de IA para Madrid de Salud';
-      case 'iasalut-ajuda-dx':
-        return 'Servicio de IA para CatSalut';
       case 'dxgpt':
         return 'AI-powered diagnostic assistance';
       case 'dxeugpt':
@@ -141,22 +121,10 @@ export class TenantDetectorService {
   }
 
   /**
-   * Verifica si el tenant actual es SermasGPT
-   */
-  isSermasGpt(tenant: string): boolean {
-    return tenant === 'sermas-gpt';
-  }
-  /**
    * Verifica si el tenant actual es DxGPT EU
    */
   isDxgptEu(tenant: string): boolean {
     return tenant === 'dxeugpt';
-  }
-  /**
-   * Verifica si el tenant actual es IASalutAjudaDx
-   */
-  isIasalutAjudaDx(tenant: string): boolean {
-    return tenant === 'iasalut-ajuda-dx';
   }
   /**
    * Obtiene el tenant actual desde el environment
