@@ -10,7 +10,6 @@ export interface BrandingConfig {
   displayName: string;
   description: string;
   euMode?: boolean;
-  IS_SELF_HOSTED?: boolean;
   /** ISO 3166-1 alpha-2. Set when every patient of the tenant lives in one country: it is then used without asking. */
   patientCountry?: string;
   colors: {
@@ -314,12 +313,5 @@ export class BrandingService {
         catchError(() => of(null))
       )
     );
-  }
-
-  /**
-   * Verifica si es un tenant auto-hospedado (self-hosted)
-   */
-  isSelfHosted(): boolean {
-    return this.getConfigValue<boolean>('IS_SELF_HOSTED') === true;
   }
 } 

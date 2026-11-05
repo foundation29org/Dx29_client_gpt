@@ -4,7 +4,6 @@
     "displayName": "DxGPT",
     "description": "AI-powered diagnostic assistance",
     "euMode": false,
-    "IS_SELF_HOSTED": false,
     "colors": {
       "primary": "#253146",
       "secondary": "#B30000",
@@ -39,7 +38,6 @@
     "displayName": "DxGPT",
     "description": "AI-powered diagnostic assistance",
     "euMode": true,
-    "IS_SELF_HOSTED": false,
     "colors": {
       "primary": "#253146",
       "secondary": "#B30000",
@@ -75,7 +73,6 @@
     "description": "Servicio de IA para Aragón de Salud",
     "patientCountry": "ES",
     "euMode": false,
-    "IS_SELF_HOSTED": false,
     "colors": {
       "primary": "#e1a84c",
       "secondary": "#388E3C",
@@ -110,7 +107,6 @@
     "displayName": "SermasGPT",
     "description": "Servicio de IA para Madrid de Salud",
     "euMode": false,
-    "IS_SELF_HOSTED": false,
     "colors": {
       "primary": "#4f70c4",
       "secondary": "#3b5998",
@@ -145,7 +141,6 @@
     "displayName": "IASalutAjudaDx",
     "description": "Servicio de IA para CatSalut",
     "euMode": false,
-    "IS_SELF_HOSTED": false,
     "colors": {
       "primary": "#009fe2",
       "secondary": "#0078a8",
