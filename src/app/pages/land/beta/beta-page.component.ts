@@ -51,12 +51,6 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     private modalReference?: NgbModalRef;
     private fullPlaceholderText = '';
     private typingInterval?: ReturnType<typeof setInterval>;
-    private queueStatusTimeout?: ReturnType<typeof setTimeout>;
-    private countdownInterval?: ReturnType<typeof setInterval>;
-    private currentTicketId?: string;
-    private currentPosition?: number;
-    private queueStartedAt?: number;
-    private totalWaitTimeMs?: number;
     private webSocket: WebSocket | null = null;
     private isWebSocketConnected = false;
     private readonly startedAt = Date.now();
@@ -380,10 +374,6 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
 
     private handleAskResponse(res: any): void {
-        if (res?.isQueued) {
-            this.showQueueDialog(res.queueInfo);
-            return;
-        }
         if (res?.result === 'processing') {
             return;
         }
@@ -686,126 +676,10 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    private showQueueDialog(queueInfo: any): void {
-        this.currentTicketId = queueInfo.ticketId;
-        this.currentPosition = queueInfo.position;
-        this.startCountdown(queueInfo.estimatedWaitTime);
-        this.startQueueStatusCheck();
-
-        Swal.fire({
-            title: this.translate.instant('generics.High demand'),
-            html: this.getQueueStatusHtml(),
-            showCancelButton: true,
-            showConfirmButton: false,
-            cancelButtonText: this.translate.instant('generics.Cancel'),
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            customClass: {
-                popup: 'queue-status-popup',
-                cancelButton: 'queue-cancel-button'
-            }
-        }).then(result => {
-            if (result.dismiss === Swal.DismissReason.cancel) {
-                this.cancelActiveWork();
-                this.callingAI = false;
-            }
-        });
-    }
-
-    private startQueueStatusCheck(): void {
-        this.cancelQueueStatusCheck();
-        this.checkQueueStatus();
-    }
-
-    private checkQueueStatus(): void {
-        const ticketId = this.currentTicketId;
-        if (!ticketId) {
-            return;
-        }
-        this.subscriptions.add(
-            this.apiDx29ServerService.getQueueStatus(ticketId, this.timezone).subscribe({
-                next: (res: any) => {
-                    if (this.currentTicketId !== ticketId) {
-                        return;
-                    }
-                    if (res?.result === 'success' && res.status === 'completed') {
-                        this.processAiSuccess(res.data);
-                        return;
-                    }
-                    const isWaiting = (res?.result === 'success'
-                        && ['processing', 'queued'].includes(res.status))
-                        || (res?.result === 'queued' && res.status === 'processing');
-                    if (!isWaiting) {
-                        if (res?.result === 'error') {
-                            this.showError(this.translate.instant('generics.error try again'), res);
-                        }
-                        return;
-                    }
-                    this.currentPosition = res.position;
-                    if (res.estimatedWaitTime) {
-                        this.startCountdown(res.estimatedWaitTime);
-                    }
-                    Swal.update({ html: this.getQueueStatusHtml() });
-                    this.queueStatusTimeout = setTimeout(() => this.checkQueueStatus(), 10000);
-                },
-                error: err => {
-                    this.cancelQueueStatusCheck();
-                    this.insightsService.trackException(err);
-                }
-            })
-        );
-    }
-
-    private startCountdown(estimatedWaitTime: number): void {
-        if (this.countdownInterval) {
-            clearInterval(this.countdownInterval);
-        }
-        this.queueStartedAt = Date.now();
-        this.totalWaitTimeMs = Math.max(1, estimatedWaitTime) * 60 * 1000;
-        this.countdownInterval = setInterval(() => {
-            if (this.currentTicketId) {
-                Swal.update({ html: this.getQueueStatusHtml() });
-            }
-        }, 1000);
-    }
-
-    private getQueueStatusHtml(): string {
-        const total = this.totalWaitTimeMs || 1;
-        const elapsed = Date.now() - (this.queueStartedAt || Date.now());
-        const remaining = Math.max(0, total - elapsed);
-        const minutes = Math.floor(remaining / 60000);
-        const seconds = Math.floor((remaining % 60000) / 1000);
-        const progress = Math.min(100, (elapsed / total) * 100);
-
-        return `
-            <div class="queue-status-message">
-                <p>${this.translate.instant('generics.Your request is in queue')}</p>
-                <div class="queue-status-message__details">
-                    <span>${this.translate.instant('generics.Position')}:</span>
-                    <strong>#${this.currentPosition || '-'}</strong>
-                    <span>${this.translate.instant('generics.Estimated wait time')}:</span>
-                    <strong>${minutes}:${seconds.toString().padStart(2, '0')}</strong>
-                </div>
-                <div class="queue-status-message__track">
-                    <div style="width:${progress}%"></div>
-                </div>
-                <small>${this.translate.instant('generics.Please keep this window open')}</small>
-            </div>`;
-    }
-
     private finishActiveWork(): void {
         this.callingAI = false;
         this.activeRequest?.unsubscribe();
         this.activeRequest = undefined;
-        this.cancelQueueStatusCheck();
-        if (this.countdownInterval) {
-            clearInterval(this.countdownInterval);
-            this.countdownInterval = undefined;
-        }
-        this.currentTicketId = undefined;
-        this.currentPosition = undefined;
-        this.queueStartedAt = undefined;
-        this.totalWaitTimeMs = undefined;
         this.closeWebSocket();
         Swal.close();
     }
@@ -814,13 +688,6 @@ export class BetaPageComponent implements OnInit, OnDestroy {
         this.activeRequest?.unsubscribe();
         this.activeRequest = undefined;
         this.finishActiveWork();
-    }
-
-    private cancelQueueStatusCheck(): void {
-        if (this.queueStatusTimeout) {
-            clearTimeout(this.queueStatusTimeout);
-            this.queueStatusTimeout = undefined;
-        }
     }
 
     private closeWebSocket(): void {

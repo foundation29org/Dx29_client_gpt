@@ -336,37 +336,6 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
-::ng-deep .queue-status-message {
-  margin: 20px 0;
-  color: #606875;
-  text-align: center;
-
-  &__details {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 0.6rem 1rem;
-    padding: 1rem;
-    text-align: left;
-    background: #f3f4f6;
-    border-radius: 10px;
-  }
-
-  &__track {
-    height: 8px;
-    margin: 1rem 0;
-    overflow: hidden;
-    background: #e5e7eb;
-    border-radius: 4px;
-
-    div {
-      height: 100%;
-      background: #4caf50;
-      border-radius: 4px;
-      transition: width 0.3s ease;
-    }
-  }
-}
-
 @media (max-width: 576px) {
   .hero-title {
     font-size: 1.55rem;
