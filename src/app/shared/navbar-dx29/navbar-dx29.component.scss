@@ -287,6 +287,18 @@ i{
     pointer-events: auto;
   }
 
+  /* Con «reducir movimiento», la regla global de styles.css da a todos los elementos (también a los
+     que no tienen transición) 0,01 ms de transición de todas sus propiedades, incluida la
+     `visibility` que heredan del drawer: cuando toggleMenu() pasa el foco a «cerrar», el botón
+     aún está oculto y el foco no llega. Sin transiciones el drawer se abre y se cierra al instante,
+     que es además lo que pide ese ajuste. */
+  @media (prefers-reduced-motion: reduce) {
+    .navbar-collapse,
+    .navbar-collapse * {
+      transition: none !important;
+    }
+  }
+
   .mobile-menu-header {
     display: flex;
     align-items: center;
