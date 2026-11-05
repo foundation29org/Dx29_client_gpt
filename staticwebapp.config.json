@@ -81,7 +81,8 @@
       "/favicon.ico",
       "/robots.txt",
       "/sitemap.xml",
-      "/llms.txt"
+      "/llms.txt",
+      "/.well-known/*"
     ]
   }
 } 
