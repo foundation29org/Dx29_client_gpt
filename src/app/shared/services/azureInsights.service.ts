@@ -146,17 +146,28 @@ export class InsightsService {
       return;
     }
 
-    let stringException;
-    if (typeof exception === 'string') {
-      stringException = exception;
+    // Un Error se envía tal cual: JSON.stringify da "{}" porque message y stack
+    // no son enumerables, y era una de cada cinco excepciones de navegador.
+    let error: Error;
+    if (exception instanceof Error) {
+      error = exception;
+    } else if (typeof exception === 'string') {
+      error = new Error(exception);
     } else if (typeof exception === 'object') {
-      stringException = JSON.stringify(exception);
+      let serialized: string;
+      try {
+        serialized = JSON.stringify(exception);
+      } catch {
+        // Referencias circulares: registrar el error no puede romper a quien lo llama.
+        serialized = String(exception);
+      }
+      error = new Error(serialized);
     } else {
-      stringException = String(exception);
+      error = new Error(String(exception));
     }
 
     const enhancedException = {
-      exception: new Error(stringException),
+      exception: error,
       properties: {
         tenantId: environment.tenantId,
         timestamp: new Date().toISOString(),

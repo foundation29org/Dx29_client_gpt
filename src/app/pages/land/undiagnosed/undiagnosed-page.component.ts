@@ -941,8 +941,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 ); // Azure Web PubSub puede tardar un poco más
     
             } catch (error) {
+                // HttpErrorResponse no es un Error: String() daría "[object Object]".
                 failConnection(
-                    error instanceof Error ? error : new Error(String(error))
+                    error instanceof Error
+                        ? error
+                        : new Error((error as any)?.message || String(error))
                 );
             }
         });
@@ -1139,7 +1142,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             let introText2 = this.translate.instant("land.recommended");
             text = text + '<br><br>' + introText2;
-            this.showError(text, null);
+            this.showValidationError(
+                text,
+                this.callingAI ? 'request_in_progress' : 'description_too_short'
+            );
             return;
         }
         let characters = this.countCharacters(this.medicalTextOriginal);
@@ -1656,6 +1662,22 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     showError(message: string, err: any) {
+        this.showInfoModal(message);
+        if(err!=null){
+            this.insightsService.trackException(err);
+        }else{
+            this.insightsService.trackException(message);
+        }
+    }
+
+    // Lo que el usuario tiene que corregir en el formulario no es un fallo de la
+    // app. Como excepción era más de la mitad de las excepciones de navegador.
+    private showValidationError(message: string, reason: string) {
+        this.showInfoModal(message);
+        this.insightsService.trackEvent('FormValidationShown', { reason });
+    }
+
+    private showInfoModal(message: string) {
         Swal.close();
         Swal.fire({
             icon: 'info',
@@ -1665,11 +1687,6 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             allowOutsideClick: false
         });
         this.callingAI = false;
-        if(err!=null){
-            this.insightsService.trackException(err);
-        }else{
-            this.insightsService.trackException(message);
-        }
     }
 
     showSuccess(message: string) {
@@ -2175,7 +2192,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
           this.differentialTextOriginal = newSymptoms;
           this.verifCallDifferential();
         } else {
-          this.showError(this.translate.instant("land.Select at least one symptom"), null);
+          this.showValidationError(
+              this.translate.instant("land.Select at least one symptom"),
+              'no_symptoms_selected'
+          );
         }
       }
 
@@ -2184,7 +2204,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         if (this.callingAI || this.differentialTextOriginal.length == 0) {
             this.showErrorCall2 = true;
             let msgError = this.translate.instant("land.required");
-            this.showError(msgError, null);
+            this.showValidationError(
+                msgError,
+                this.callingAI ? 'request_in_progress' : 'no_symptoms_selected'
+            );
         }
         if (!this.showErrorCall2) {
             this.callAIDifferential();
@@ -2782,7 +2805,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             }
             let introText2 = this.translate.instant("land.recommended");
             text = text + '<br><br>' + introText2;
-            this.showError(text, null);
+            this.showValidationError(
+                text,
+                this.callingAI ? 'request_in_progress' : 'description_too_short'
+            );
         }
         if (!this.showErrorCall1) {
             let characters = this.countCharacters(this.editmedicalText);
@@ -3114,7 +3140,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     async processFollowUpAnswers() {
         if (!this.hasAnswers()) {
             const msgError = this.translate.instant("land.Please answer at least one question");
-            this.showError(msgError, null);
+            this.showValidationError(msgError, 'no_followup_answers');
             return;
         }
         
