@@ -250,6 +250,7 @@
                 <span class="disease-card__rank" *ngIf="!isEuMode()">{{i + 1}}</span>
                 <div class="disease-card__title-group">
                   <h2 class="disease-card__name" [id]="'disease-name-' + i">{{disease.name}}</h2>
+                  <p class="disease-card__name-en" *ngIf="disease.nameEn" lang="en">{{disease.nameEn}}</p>
                   <p class="disease-card__description">{{disease.description}}</p>
                 </div>
               </div>

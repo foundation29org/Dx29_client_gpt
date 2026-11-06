@@ -1127,6 +1127,14 @@ body {
     line-height: 1.35;
   }
 
+  // Nombre original en inglés bajo el traducido (solo en los idiomas con más errores de traducción)
+  &__name-en {
+    margin: -0.2rem 0 0.35rem 0;
+    font-size: 0.85rem;
+    color: #5f6575;
+    line-height: 1.35;
+  }
+
   &__description {
     margin: 0;
     font-size: 1rem;

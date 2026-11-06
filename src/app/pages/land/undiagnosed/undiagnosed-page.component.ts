@@ -1845,7 +1845,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 <br> <em class="fa fa-check success me-1"></em>${matchingLabel}: ${matchingSymptoms}
                 <br> <em class="fa fa-times danger me-1"></em>${nonMatchingLabel}: ${nonMatchingSymptoms}
             `;
-            this.topRelatedConditions.push({ content, name: disease.diagnosis, url: sponsor?.url || '', description: disease.description, matchingSymptoms: matchingSymptoms, nonMatchingSymptoms: nonMatchingSymptoms });
+            // diagnosis_en solo llega en los idiomas en que el servidor muestra también el nombre en inglés
+            this.topRelatedConditions.push({ content, name: disease.diagnosis, nameEn: disease.diagnosis_en || '', url: sponsor?.url || '', description: disease.description, matchingSymptoms: matchingSymptoms, nonMatchingSymptoms: nonMatchingSymptoms });
         });
 
         this.loadMoreDiseases = false;
