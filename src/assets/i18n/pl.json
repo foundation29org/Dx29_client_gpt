@@ -1082,6 +1082,7 @@
     "Copy results": "Kopiuj wyniki",
     "Download results": "Pobierz wyniki",
     "Generating PDF": "Generowanie PDF",
+    "PDF could not be generated": "Nie udało się wygenerować pliku PDF",
     "page": "strona",
     "Language has changed": "Język został zmieniony",
     "Do you want to start over": "Czy chcesz zacząć od nowa?",

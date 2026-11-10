@@ -2521,6 +2521,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.generatingPDF = false;
             console.error('Error loading PDF service:', error);
             this.insightsService.trackException(error);
+            // Sin PDF, ofrecer copiar los resultados como texto
+            Swal.fire({
+              icon: 'error',
+              title: this.translate.instant('land.PDF could not be generated'),
+              showCancelButton: true,
+              confirmButtonText: this.translate.instant('land.Copy results'),
+              cancelButtonText: this.translate.instant('generics.Close')
+            }).then(result => {
+              if (result.isConfirmed) {
+                this.handleCopyFromModal();
+              }
+            });
           }
         }
       }

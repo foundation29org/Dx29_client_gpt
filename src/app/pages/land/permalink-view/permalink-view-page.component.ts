@@ -261,12 +261,39 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
     } catch (error) {
       console.error('Error generating PDF:', error);
       this.generatingPDF = false;
+      // Sin PDF, ofrecer copiar los diagnósticos como texto
       Swal.fire({
         icon: 'error',
-        title: this.translate.instant('generics.Error'),
-        text: this.translate.instant('generics.Something went wrong')
+        title: this.translate.instant('land.PDF could not be generated'),
+        showCancelButton: true,
+        confirmButtonText: this.translate.instant('land.Copy results'),
+        cancelButtonText: this.translate.instant('generics.Close')
+      }).then(result => {
+        if (result.isConfirmed) {
+          this.copyDiagnoses();
+        }
       });
     }
+  }
+
+  /**
+   * Copia los diagnósticos al portapapeles, con el mismo formato que la página de resultados
+   */
+  private copyDiagnoses(): void {
+    const lines = this.diagnoses
+      .map((d: any) => d.showNameEn && d.nameEn && d.nameEn !== d.name ? `${d.name} (${d.nameEn})` : d.name)
+      .filter(Boolean)
+      .map((name: string) => `- ${name}`);
+    const titleKey = this.isEuMode() ? 'diagnosis.Proposed diagnosesEu' : 'diagnosis.Proposed diagnoses';
+    this.clipboard.copy(lines.length ? `${this.translate.instant(titleKey)}:\n${lines.join('\n')}` : '');
+    Swal.fire({
+      icon: 'success',
+      title: this.translate.instant('land.Results copied to the clipboard'),
+      timer: 3000,
+      showConfirmButton: false,
+      toast: true,
+      position: 'top-end'
+    });
   }
 
   /**
