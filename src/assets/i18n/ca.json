@@ -1082,6 +1082,7 @@
     "Copy results": "Copiar resultats",
     "Download results": "Descarregar resultats",
     "Generating PDF": "Generant PDF",
+    "PDF could not be generated": "No s'ha pogut generar el PDF",
     "page": "pàgina",
     "Language has changed": "El llenguatge ha canviat",
     "Do you want to start over": "Vols començar de nou?",

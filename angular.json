@@ -13,7 +13,8 @@
           "options": {
             "allowedCommonJsDependencies": [
               "sweetalert2",
-              "clipboard"
+              "clipboard",
+              "html2canvas"
             ],
             "outputPath": "dist",
             "index": "src/index.html",

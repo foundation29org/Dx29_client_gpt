@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { needsBrowserRendering } from './pdf-script';
+import type { ReportDisease, ReportTexts } from './pdf-results-image';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +21,40 @@ export class PdfMakeService {
       { year: 'numeric', month: 'long', day: 'numeric' }
     );
 
-    const matchingLabel = isEuMode ? this.translate.instant('diagnosis.Matching symptomsEu') : this.translate.instant('diagnosis.Matching symptoms');
-    const nonMatchingLabel = isEuMode ? this.translate.instant('diagnosis.Non-matching symptomsEu') : this.translate.instant('diagnosis.Non-matching symptoms');
+    const texts = this.getReportTexts(lang, isEuMode);
+    const matchingLabel = texts.matching;
+    const nonMatchingLabel = texts.nonMatching;
+    const fileName = `DxGPT_Report_${new Date().getTime()}.pdf`;
+
+    // Roboto, la única fuente de pdfmake, solo tiene latino, cirílico y griego. Con cualquier otro
+    // alfabeto (hindi, bengalí, árabe, urdu, chino, japonés, tailandés...) el informe lo dibuja el
+    // navegador, que ya muestra bien esos textos en pantalla, y el PDF lleva una imagen por página
+    const diseases: ReportDisease[] = infoDiseases.map(disease => ({
+      name: disease.name,
+      // Nombre original en inglés (hindi, árabe...), como en la pantalla de resultados
+      nameEn: disease.showNameEn && disease.nameEn && disease.nameEn !== disease.name ? disease.nameEn : '',
+      description: disease.description,
+      matchingSymptoms: disease.matchingSymptoms,
+      nonMatchingSymptoms: disease.nonMatchingSymptoms
+    }));
+    const allTexts = [
+      entryText, currentDate,
+      ...Object.values(texts).flat(),
+      ...diseases.flatMap(disease => Object.values(disease))
+    ];
+    if (needsBrowserRendering(allTexts)) {
+      const { downloadResultsImagePdf } = await import('./pdf-results-image');
+      await downloadResultsImagePdf({
+        lang,
+        uiLang: this.translate.currentLang || lang,
+        date: currentDate,
+        entryText: entryText?.trim() ? entryText : '',
+        diseases,
+        texts,
+        images: { logo: logoBase64, qr: qrBase64, check: checkBase64, cross: crossBase64, logoFooter: logoFooterBase64 }
+      }, pdfMakeInstance, fileName);
+      return;
+    }
 
     const diseaseSections = infoDiseases.map(disease => [
       {
@@ -96,7 +130,7 @@ export class PdfMakeService {
             { image: 'logoDxGPT', width: 120, margin: [0, 0, 0, 0] },
             {
               stack: [
-                { text: this.translate.instant('land.diagnosed.timeline.RegDate'), style: 'dateLabel' },
+                { text: texts.regDate, style: 'dateLabel' },
                 { text: currentDate, style: 'dateValue' }
               ],
               alignment: 'center',
@@ -109,18 +143,14 @@ export class PdfMakeService {
           margin: [0, 0, 0, 20],
           verticalAlign: 'middle'
         },
-        { text: this.translate.instant('land.diagnosed.timeline.Report'), style: 'header', margin: [0, 0, 0, 12] },
+        { text: texts.title, style: 'header', margin: [0, 0, 0, 12] },
         {
           style: 'subHeaderIntro',
-          stack: [
-            { text: this.translate.instant('land.diagnosed.timeline.subtitle1') },
-            { text: this.translate.instant('land.diagnosed.timeline.subtitle2') },
-            { text: this.translate.instant('land.diagnosed.timeline.subtitle3') }
-          ],
+          stack: texts.subtitles.map(subtitle => ({ text: subtitle })),
           margin: [0, 0, 0, 18]
         },
         ...(entryText?.trim() ? [
-          { text: this.translate.instant('diagnosis.Patient text entered'), style: 'subheader', margin: [0, 10, 0, 4] },
+          { text: texts.patientText, style: 'subheader', margin: [0, 10, 0, 4] },
           ...this.formatMultilineText(entryText, {
             fontSize: 10,
             color: '#555',
@@ -128,27 +158,22 @@ export class PdfMakeService {
             margin: [0, 0, 0, 10]
           })
         ] : []),
-        { text: isEuMode ? this.translate.instant('diagnosis.Candidate diagnosisEu') : this.translate.instant('diagnosis.Candidate diagnosis'), style: 'subheader', margin: [0, 18, 0, 8] },
-        ...(isEuMode ? [
+        { text: texts.candidates, style: 'subheader', margin: [0, 18, 0, 8] },
+        ...(texts.orderNote ? [
           {
-            text: this.translate.instant('diagnosis.Order does not imply probabilityEu'),
+            text: texts.orderNote,
             style: 'orderNote',
             margin: [0, 0, 0, 12]
           }
         ] : []),
         ...diseaseSections,
         // Bloque completo del "About us"
-        { text: this.translate.instant('generics.Foundation 29'), style: 'footerTitle', margin: [0, 30, 0, 5] },
-        { text: this.translate.instant('land.diagnosed.timeline.footer1'), style: 'footerText' },
-        { text: this.translate.instant('land.diagnosed.timeline.footer2'), style: 'footerText' },
-        { text: this.translate.instant('land.diagnosed.timeline.footer3'), style: 'footerText' },
-        ...(lang === 'es' || lang === 'fr' || lang === 'pt' || lang === 'hi'
-          ? [{ text: this.translate.instant('land.diagnosed.timeline.footer4'), style: 'footerText' }]
-          : []),
+        { text: texts.aboutTitle, style: 'footerTitle', margin: [0, 30, 0, 5] },
+        ...texts.about.map(line => ({ text: line, style: 'footerText' })),
         {
           text: [
             {
-              text: this.translate.instant('land.diagnosed.timeline.footer6') + ' ',
+              text: texts.contact + ' ',
               style: 'footer6Text'
             },
             {
@@ -190,7 +215,7 @@ export class PdfMakeService {
           { image: 'logoFooter', width: 100, margin: [20, 0, 0, 10] },
           {},
           {
-            text: `${this.translate.instant('land.page')} ${currentPage} / ${pageCount}`,
+            text: `${texts.page} ${currentPage} / ${pageCount}`,
             alignment: 'center',
             fontSize: 9,
             color: '#777777',
@@ -211,7 +236,35 @@ export class PdfMakeService {
       })
     };
 
-    pdfMakeInstance.createPdf(docDefinition).download(`DxGPT_Report_${new Date().getTime()}.pdf`);
+    pdfMakeInstance.createPdf(docDefinition).download(fileName);
+  }
+
+  // Textos fijos del informe, comunes al PDF de pdfmake y al dibujado por el navegador
+  private getReportTexts(lang: string, isEuMode: boolean): ReportTexts {
+    const t = (key: string): string => this.translate.instant(key);
+    return {
+      regDate: t('land.diagnosed.timeline.RegDate'),
+      title: t('land.diagnosed.timeline.Report'),
+      subtitles: [
+        t('land.diagnosed.timeline.subtitle1'),
+        t('land.diagnosed.timeline.subtitle2'),
+        t('land.diagnosed.timeline.subtitle3')
+      ],
+      patientText: t('diagnosis.Patient text entered'),
+      candidates: isEuMode ? t('diagnosis.Candidate diagnosisEu') : t('diagnosis.Candidate diagnosis'),
+      orderNote: isEuMode ? t('diagnosis.Order does not imply probabilityEu') : '',
+      matching: isEuMode ? t('diagnosis.Matching symptomsEu') : t('diagnosis.Matching symptoms'),
+      nonMatching: isEuMode ? t('diagnosis.Non-matching symptomsEu') : t('diagnosis.Non-matching symptoms'),
+      aboutTitle: t('generics.Foundation 29'),
+      about: [
+        t('land.diagnosed.timeline.footer1'),
+        t('land.diagnosed.timeline.footer2'),
+        t('land.diagnosed.timeline.footer3'),
+        ...(lang === 'es' || lang === 'fr' || lang === 'pt' || lang === 'hi' ? [t('land.diagnosed.timeline.footer4')] : [])
+      ],
+      contact: t('land.diagnosed.timeline.footer6'),
+      page: t('land.page')
+    };
   }
 
   private async getBase64ImageFromURL(url: string): Promise<string> {
