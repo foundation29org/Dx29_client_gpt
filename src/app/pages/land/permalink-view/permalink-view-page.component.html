@@ -116,6 +116,7 @@
               <div class="diagnosis-number" *ngIf="!isEuMode()">{{ i + 1 }}</div>
               <div class="diagnosis-info">
                 <h3 class="diagnosis-name">{{ diagnosis.name }}</h3>
+                <p class="diagnosis-name-en" *ngIf="diagnosis.showNameEn && diagnosis.nameEn && diagnosis.nameEn !== diagnosis.name" lang="en">{{ diagnosis.nameEn }}</p>
                 <div class="diagnosis-description" [innerHTML]="diagnosis.content"></div>
               </div>
             </div>

@@ -23,8 +23,6 @@
  *   dxgpt     - DxGPT (configuración por defecto)
  *   dxeugpt   - DxGPT EU (GDPR compliant)
  *   salud-gpt - SALUD-GPT
- *   sermas-gpt - SermasGPT
- *   iasalut-ajuda-dx - IASalutAjudaDx
  * 
  * NOTA:
  * ============================================================
@@ -43,8 +41,6 @@
  * node scripts/configure-index-html.js dxeugpt
  * node scripts/configure-index-html.js salud-gpt --dry-run
  * node scripts/configure-index-html.js salud-gpt
- * node scripts/configure-index-html.js sermas-gpt
- * node scripts/configure-index-html.js iasalut-ajuda-dx
  */
 
 const fs = require('fs');
@@ -81,33 +77,11 @@ const TENANT_CONFIGS = {
     ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
     ogUrl: 'https://dxgpt.app',
     favicon: 'favicon-salud.ico'
-  },
-  'sermas-gpt': {
-    name: 'SermasGPT',
-    displayName: 'SermasGPT',
-    title: 'SermasGPT: AI Diagnostic Support for Healthcare Professionals',
-    description: 'SermasGPT is an AI-assisted diagnostic support tool for healthcare professionals. It helps structure clinical information into possible diagnostic hypotheses for professional review.',
-    keywords: 'SermasGPT, diagnostic support, healthcare professionals, clinical decision support, diagnostic hypotheses, artificial intelligence, AI',
-    ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
-    ogUrl: 'https://dxgpt.app',
-    favicon: 'favicon-sermas.ico'
-  },
-  'iasalut-ajuda-dx': {
-    name: 'IASalutAjudaDx',
-    displayName: 'IASalutAjudaDx',
-    title: 'IASalutAjudaDx: AI Diagnostic Support for Healthcare Professionals',
-    description: 'IASalutAjudaDx is an AI-assisted diagnostic support tool for healthcare professionals. It helps structure clinical information into possible diagnostic hypotheses for professional review.',
-    keywords: 'IASalutAjudaDx, diagnostic support, healthcare professionals, clinical decision support, diagnostic hypotheses, artificial intelligence, AI',
-    ogImage: 'https://dxgpt.app/assets/img/logo-Dx29.png',
-    ogUrl: 'https://dxgpt.app',
-    favicon: 'favicon-iasalut.ico'
   }
 };
 
 const TENANT_ALIASES = {
   'SALUD-GPT': 'salud-gpt',
-  'SermasGPT': 'sermas-gpt',
-  'IASalutAjudaDx': 'iasalut-ajuda-dx',
   'DxGPT': 'dxgpt',
   'DxGPT EU': 'dxeugpt'
 };
@@ -276,8 +250,6 @@ Tenants disponibles:
   dxgpt     - DxGPT (configuración por defecto)
   dxeugpt   - DxGPT EU (GDPR compliant)
   salud-gpt - SALUD-GPT
-  sermas-gpt - SermasGPT
-  iasalut-ajuda-dx - IASalutAjudaDx
 
 Opciones:
   --dry-run    Solo muestra qué cambios se harían
@@ -290,8 +262,6 @@ Ejemplos:
   node scripts/configure-index-html.js dxgpt --dry-run
   node scripts/configure-index-html.js dxeugpt
   node scripts/configure-index-html.js salud-gpt
-  node scripts/configure-index-html.js sermas-gpt
-  node scripts/configure-index-html.js iasalut-ajuda-dx
   `);
   process.exit(0);
 }

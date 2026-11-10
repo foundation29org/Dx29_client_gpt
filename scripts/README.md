@@ -24,12 +24,10 @@ Script genérico para preparar el branding y el index.html de cualquier tenant.
 ### Uso
 ```bash
 node scripts/prepare-tenant-release.js salud-gpt
-node scripts/prepare-tenant-release.js sermas-gpt
-node scripts/prepare-tenant-release.js iasalut-ajuda-dx
 node scripts/prepare-tenant-release.js dxeugpt
 ```
 - Ejecuta la configuración de index.html y el reemplazo de branding para el tenant indicado.
-- Usa preferiblemente el id del tenant (`salud-gpt`, `sermas-gpt`, `iasalut-ajuda-dx`). El script mantiene aliases antiguos como `SALUD-GPT`, `SermasGPT` e `IASalutAjudaDx`.
+- Usa preferiblemente el id del tenant (`salud-gpt`). El script mantiene el alias antiguo `SALUD-GPT`.
 - Muestra el estado de los cambios (`git status` y `git diff`).
 - Te deja todo listo para commit.
 
@@ -74,7 +72,7 @@ node scripts/restore-backup.js
    ```bash
    node scripts/prepare-tenant-release.js salud-gpt
    # o para otro tenant
-   node scripts/prepare-tenant-release.js sermas-gpt
+   node scripts/prepare-tenant-release.js dxeugpt
    ```
 3. **Revisar los cambios** (`git diff` o en tu editor)
 4. **Hacer commit** de los archivos modificados

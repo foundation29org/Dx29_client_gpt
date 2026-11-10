@@ -31,6 +31,11 @@ export class PdfMakeService {
               {
                 stack: [
                   { text: disease.name, style: 'diseaseTitle' },
+                  // Nombre original en inglés (hindi, árabe...): la fuente del PDF no
+                  // tiene todos los alfabetos y así queda al menos un nombre legible
+                  ...(disease.showNameEn && disease.nameEn && disease.nameEn !== disease.name
+                    ? [{ text: disease.nameEn, style: 'diseaseNameEn' }]
+                    : []),
                   { text: disease.description, style: 'description' },
                   {
                     columns: [
@@ -163,6 +168,7 @@ export class PdfMakeService {
         subheader: { fontSize: 15, bold: true, color: '#1a2533', margin: [0, 18, 0, 8] },
         body: { fontSize: 10, color: '#444', margin: [0, 0, 0, 6], bold: false },
         diseaseTitle: { fontSize: 13, bold: true, color: '#1a2533', margin: [0, 0, 0, 4] },
+        diseaseNameEn: { fontSize: 10, color: '#555', bold: false, margin: [0, -2, 0, 4] },
         description: { fontSize: 10, color: '#555', bold: false, margin: [0, 0, 0, 8] },
         symptomMatch: { fontSize: 10, color: '#388e3c', bold: false },
         symptomNoMatch: { fontSize: 10, color: '#d32f2f', bold: false },

@@ -287,6 +287,13 @@
       color: var(--permalink-text, #2c3e50);
       margin-bottom: 0.5rem;
     }
+
+    // Nombre original en inglés bajo el traducido (hindi, árabe...)
+    .diagnosis-name-en {
+      font-size: 0.9rem;
+      color: var(--permalink-text, #6c757d);
+      margin: -0.35rem 0 0.5rem 0;
+    }
     
     .diagnosis-description {
       font-size: 1rem;

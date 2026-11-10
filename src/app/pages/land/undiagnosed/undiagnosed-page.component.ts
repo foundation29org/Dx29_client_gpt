@@ -111,6 +111,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     copyMedicalText: string = '';
     modalReference?: NgbModalRef;
     topRelatedConditions: any = [];
+    // El servidor indica si se muestra el nombre original en inglés (hindi, árabe...)
+    showEnglishName: boolean = false;
     diseaseListEn: any = [];
     diseaseListText: string = '';
     lang: string = 'en';
@@ -786,6 +788,36 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    // Un doble toque durante la espera de startSearchAfterPaint() no debe lanzar dos búsquedas
+    private searchStarting = false;
+
+    /**
+     * Deja que el navegador pinte la respuesta al toque antes de montar la pantalla siguiente
+     * (aviso, Swal o progreso del análisis). El INP mide hasta ese primer pintado: sin esta espera
+     * incluía el render completo de la pantalla nueva (~250 ms en móvil). El usuario ve lo mismo,
+     * un frame después. Devuelve false si ya hay una búsqueda arrancando.
+     */
+    private async startSearchAfterPaint(): Promise<boolean> {
+        if (this.searchStarting) {
+            return false;
+        }
+        this.searchStarting = true;
+        await new Promise<void>(resolve => {
+            let resolved = false;
+            const done = () => {
+                if (!resolved) {
+                    resolved = true;
+                    resolve();
+                }
+            };
+            requestAnimationFrame(() => setTimeout(done));
+            // En una pestaña o un iframe ocultos no llega requestAnimationFrame: no bloquear la búsqueda
+            setTimeout(done, 100);
+        });
+        this.searchStarting = false;
+        return true;
+    }
+
     changeTerm($event: any) {
         if ($event.checked) {
             localStorage.setItem('hideIntroLogins', 'true')
@@ -1115,6 +1147,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async checkPopup(contentIntro: any) {
+        if (!(await this.startSearchAfterPaint())) {
+            return;
+        }
         this.showErrorCall1 = false;
         if (this.callingAI || (!this.hasDiagnosticImages && this.medicalTextOriginal.length < 15)) {
             this.showErrorCall1 = true;
@@ -1420,7 +1455,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             // Filtrar parámetros - solo permite campos válidos
             iframeParams: this.filterIframeParams(this.iframeParams),
             uploadId: this.currentUploadId || undefined,
-            forceDiagnosis: this.forceDiagnosisNext === true
+            forceDiagnosis: this.forceDiagnosisNext === true,
+            // diseaseListEn ya va en inglés (diagnosis_en): el servidor no la traduce
+            diseases_list_en: true
         };
         this.forceDiagnosisNext = false;
 
@@ -1619,6 +1656,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.copyMedicalText = this.medicalTextEng;
                 this.dataAnonymize(data.anonymization);//parseChoices0
                 this.detectedLang = data.detectedLang;
+                this.showEnglishName = data.showEnglishName === true;
                 let parseChoices0 = data.data;
                 if (!this.loadMoreDiseases) {
                     this.diseaseListEn = [];
@@ -1845,7 +1883,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 <br> <em class="fa fa-check success me-1"></em>${matchingLabel}: ${matchingSymptoms}
                 <br> <em class="fa fa-times danger me-1"></em>${nonMatchingLabel}: ${nonMatchingSymptoms}
             `;
-            this.topRelatedConditions.push({ content, name: disease.diagnosis, url: sponsor?.url || '', description: disease.description, matchingSymptoms: matchingSymptoms, nonMatchingSymptoms: nonMatchingSymptoms });
+            // diagnosis_en es el nombre original en inglés (llega si la respuesta se tradujo): se usa
+            // para pedir más información en inglés y se muestra solo si el servidor lo indica
+            this.topRelatedConditions.push({ content, name: disease.diagnosis, nameEn: disease.diagnosis_en || '', showNameEn: this.showEnglishName, url: sponsor?.url || '', description: disease.description, matchingSymptoms: matchingSymptoms, nonMatchingSymptoms: nonMatchingSymptoms });
         });
 
         this.loadMoreDiseases = false;
@@ -1893,9 +1933,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         // devolvía texto libre partido por "$" y había que tirar fragmentos basura; con JSON
         // estructurado solo excluía diagnósticos legítimos cortos (MS, SLE, IBS...), que además
         // desalineaban esta lista respecto a topRelatedConditions y "cargar más" los volvía a sugerir.
+        // Con el nombre original en inglés si la respuesta se tradujo (diagnosis_en): así el
+        // servidor no tiene que volver a traducir la lista al pedir más diagnósticos
         text.forEach((item: any) => {
             if (typeof item.diagnosis === 'string' && item.diagnosis.trim()) {
-                this.diseaseListEn.push(item.diagnosis);
+                const english = typeof item.diagnosis_en === 'string' && item.diagnosis_en.trim();
+                this.diseaseListEn.push(english ? item.diagnosis_en : item.diagnosis);
             }
         });
     }
@@ -1960,7 +2003,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         // Se lee de topRelatedConditions: es la lista que pinta la UI y de la que sale el índice.
         // diseaseListEn es una segunda lista que solo coincide en posiciones mientras nada la filtre
         // (antes descartaba diagnósticos de ≤3 caracteres y el índice apuntaba a otra enfermedad).
-        var selectedDiseaseEn = this.topRelatedConditions[this.selectedInfoDiseaseIndex]?.name;
+        // El nombre original en inglés si la respuesta se tradujo: el prompt de información va en
+        // inglés y así no depende de la traducción
+        const selectedCondition = this.topRelatedConditions[this.selectedInfoDiseaseIndex];
+        var selectedDiseaseEn = selectedCondition?.nameEn || selectedCondition?.name;
         /*let index2 = selectedDiseaseEn.indexOf('.');
         if (index2 != -1) {
             var temp = selectedDiseaseEn.split(".");
@@ -2422,7 +2468,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     getPlainInfoDiseases2() {
-        return this.topRelatedConditions.map((condition: any) => condition.name).join("\n");
+        // Con el nombre original en inglés entre paréntesis cuando se muestra (hindi, árabe...)
+        return this.topRelatedConditions
+            .map((condition: any) => condition.showNameEn && condition.nameEn && condition.nameEn !== condition.name
+                ? `${condition.name} (${condition.nameEn})`
+                : condition.name)
+            .join("\n");
+    }
+
+    // Nombre original en inglés de un diagnóstico mostrado (el propio nombre si no se tradujo);
+    // null si el nombre no está en la lista
+    englishDiseaseName(name: string): string | null {
+        const condition = name ? this.topRelatedConditions.find((c: any) => c.name === name) : null;
+        return condition ? (condition.nameEn || condition.name) : null;
     }
 
     /**
@@ -2984,10 +3042,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             this.abortFollowUpWithoutCase('FollowUp - no case');
             return;
         }
+        // En inglés (diagnosis_en) si la respuesta se tradujo; diseases_en evita otra traducción.
+        // Un nombre que no está en la lista puede ir traducido: entonces lo traduce el servidor.
+        const focusDiseaseEn = focusDisease ? this.englishDiseaseName(focusDisease) : null;
         // Llamar a la API para generar preguntas de seguimiento
-        const value = { 
+        const value = {
             description,
-            diseases: focusDisease || this.diseaseListEn.slice(0, 5).join(', '),
+            diseases: focusDisease ? (focusDiseaseEn || focusDisease) : this.diseaseListEn.slice(0, 5).join(', '),
+            diseases_en: !focusDisease || focusDiseaseEn !== null,
             myuuid: this.myuuid,
             lang: this.lang,
             timezone: this.timezone,
@@ -3377,6 +3439,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async analyzeMultimodal() {
+        if (!(await this.startSearchAfterPaint())) {
+            return;
+        }
         if (!(await this.confirmCountry())) {
             return;
         }
