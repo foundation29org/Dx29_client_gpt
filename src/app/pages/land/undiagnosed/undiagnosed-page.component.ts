@@ -788,6 +788,36 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    // Un doble toque durante la espera de startSearchAfterPaint() no debe lanzar dos búsquedas
+    private searchStarting = false;
+
+    /**
+     * Deja que el navegador pinte la respuesta al toque antes de montar la pantalla siguiente
+     * (aviso, Swal o progreso del análisis). El INP mide hasta ese primer pintado: sin esta espera
+     * incluía el render completo de la pantalla nueva (~250 ms en móvil). El usuario ve lo mismo,
+     * un frame después. Devuelve false si ya hay una búsqueda arrancando.
+     */
+    private async startSearchAfterPaint(): Promise<boolean> {
+        if (this.searchStarting) {
+            return false;
+        }
+        this.searchStarting = true;
+        await new Promise<void>(resolve => {
+            let resolved = false;
+            const done = () => {
+                if (!resolved) {
+                    resolved = true;
+                    resolve();
+                }
+            };
+            requestAnimationFrame(() => setTimeout(done));
+            // En una pestaña o un iframe ocultos no llega requestAnimationFrame: no bloquear la búsqueda
+            setTimeout(done, 100);
+        });
+        this.searchStarting = false;
+        return true;
+    }
+
     changeTerm($event: any) {
         if ($event.checked) {
             localStorage.setItem('hideIntroLogins', 'true')
@@ -1117,6 +1147,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async checkPopup(contentIntro: any) {
+        if (!(await this.startSearchAfterPaint())) {
+            return;
+        }
         this.showErrorCall1 = false;
         if (this.callingAI || (!this.hasDiagnosticImages && this.medicalTextOriginal.length < 15)) {
             this.showErrorCall1 = true;
@@ -3406,6 +3439,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     async analyzeMultimodal() {
+        if (!(await this.startSearchAfterPaint())) {
+            return;
+        }
         if (!(await this.confirmCountry())) {
             return;
         }
