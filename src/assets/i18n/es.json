@@ -179,9 +179,9 @@
         "title": "Un banco de pruebas diseñado para desafiar el sistema",
         "description": "La evaluación combina tres conjuntos complementarios:",
         "sources": "Fuentes de casos:",
-        "source1": "Dataset narrativo: 256 casos seleccionados a partir de un corpus de 997 casos representativos, procedentes a su vez de 9.583 casos de MedQA/USMLE, MedBullets, urgencias hospitalarias, Ramebench y ProCheck.",
-        "source2": "Dataset de enfermedades raras: 3.017 casos descritos mediante términos HPO, procedentes de DDD, RAMEDIS, LIRICAL, MyGene2, MME y HMS.",
-        "source3": "Dataset multimodal: MedReaMM contiene 625 casos validados por expertos y 1.746 imágenes. El benchmark actual utiliza una cohorte curada de 100 casos.",
+        "source1": "Casos narrativos: 300 casos en texto libre. La cifra principal sale de los 210 casos reales validados por un médico: 150 casos clínicos publicados en PubMed entre julio y octubre de 2026, casi todos posteriores a la fecha de corte de los modelos, y 60 casos de urgencias en español. Completan el conjunto 60 preguntas de examen (MedQA y MedBullets) y 30 casos sintéticos de enfermedades raras.",
+        "source2": "Enfermedades raras: 2.907 casos descritos con términos HPO, de DDD, RAMEDIS, LIRICAL, MyGene2, MME y HMS.",
+        "source3": "Imágenes: 250 casos de MedReaMM con sus imágenes médicas, validados por expertos.",
         "source4": "Track HPO independiente: 3.017 casos de enfermedades raras de DDD, RAMEDIS, LIRICAL, MyGene2, MME y HMS.",
         "source5": "Track multimodal: MedReaMM contiene 625 casos validados por expertos y 1.746 imágenes; el benchmark emparejado actual utiliza una cohorte curada de 100. MultiCaRe (>90.000 narrativas y >130.000 imágenes) se revisó, pero no se usó para comparar modelos porque carece de un diagnóstico canónico limpio y presenta riesgo de fuga.",
         "conclusion": "Los 256 casos son un conjunto compacto y reproducible para comparar modelos, no todo el banco de pruebas. Los resultados narrativos y HPO se presentan por separado."
@@ -196,7 +196,7 @@
       },
       "methodology": {
         "title": "Una metodología de evaluación que piensa como un clínico",
-        "intro": "Medir la precisión va más allá de un simple 'correcto' o 'incorrecto'. Nuestro proceso de evaluación en cascada de 3 niveles mide lo que realmente importa en la práctica clínica:",
+        "intro": "Medir la precisión va más allá de un simple «correcto» o «incorrecto». Todos los modelos pasan por el mismo proceso, con los mismos casos:",
         "verification": {
           "title": "Verificación objetiva",
           "description": "Compara la hipótesis principal con códigos médicos estandarizados (SNOMED CT, ICD-10) como la 'línea de validación más estricta'."
@@ -211,16 +211,20 @@
         },
         "steps": {
           "step1": {
-            "title": "Emulación (generación DDX)",
-            "text": "El modelo LLM recibe el caso clínico (síntomas, códigos HPO) y genera un diagnóstico diferencial ordenado (top-10)."
+            "title": "Diagnóstico diferencial",
+            "text": "El modelo recibe el caso con las mismas instrucciones que DxGPT y propone cinco diagnósticos ordenados."
           },
           "step2": {
-            "title": "Normalización médica (MedLabeler)",
-            "text": "Azure Text Analytics asigna códigos ICD-10/SNOMED/OMIM/ORPHA a cada diagnóstico generado. Permite comparar con el gold standard mediante ontologías médicas."
+            "title": "Normalización médica",
+            "text": "Cada diagnóstico se codifica con terminologías médicas (SNOMED CT, CIE-10, OMIM y ORPHA)."
           },
           "step3": {
-            "title": "Evaluación por fases (SNOMED → ICD-10 → BERT → juez LLM)",
-            "text": "Coincidencia exacta de códigos médicos → taxonomía ICD-10 → similitud semántica BERT → juez LLM independiente para casos ambiguos."
+            "title": "Coincidencia de códigos",
+            "text": "Si su código SNOMED CT coincide con el del diagnóstico de referencia, cuenta como acierto."
+          },
+          "step4": {
+            "title": "Juez clínico",
+            "text": "Un modelo de lenguaje revisa todas las propuestas y decide si cada una es la misma enfermedad que la de referencia. Solo eso cuenta como acierto."
           }
         },
         "metrics": {
@@ -228,7 +232,7 @@
           "thMetric": "Métrica",
           "thDescription": "Descripción",
           "avgPosition": "Avg Position ↓",
-          "avgPositionDesc": "Posición media del dx correcto en top-10 (menor = mejor)",
+          "avgPositionDesc": "Posición media del diagnóstico correcto cuando aparece en la lista (menor = mejor)",
           "recall1": "Recall@1",
           "recall1Desc": "% de casos donde el dx correcto es el 1.º",
           "recall3": "Recall@3",
@@ -306,15 +310,15 @@
           "descriptionEu": "Todas estas cifras describen el comportamiento técnico de los modelos de IA en bancos de casos estandarizados (benchmarks). No equivalen a tasas de éxito clínico en pacientes reales ni constituyen una evaluación de conformidad del producto. Esta herramienta no ofrece diagnósticos médicos ni recomendaciones de tratamiento. Está pensada únicamente para ayudarte a organizar la información que comentarás con un profesional sanitario. Siempre debes consultar con un profesional médico cualificado para obtener un diagnóstico y tratamiento adecuados."
         },
         "benchmark2026": {
-          "title": "Resultados · 29 de octubre de 2026",
+          "title": "Resultados · noviembre de 2026",
           "description": "Tras garantizar la calidad del dataset y automatizar la evaluación, en 2026 comparamos DxGPT directamente con el estado del arte científico: el paper DeepRare (Nature, 2025), el primer sistema de IA especializado en enfermedades raras evaluado públicamente sobre los mismos benchmarks internacionales.",
           "dataset": {
             "title": "Dataset limpio y publicable",
             "description": "Eliminamos el label leakage y el boilerplate sintético, creando all_256_clean: 256 casos clínicos reales que superan 4 controles de calidad independientes (0% leakage, 0% boilerplate). Es la primera línea base auditable de DxGPT sobre texto narrativo clínico libre."
           },
           "hpo": {
-            "title": "Ver resultados en enfermedades raras · 3.017 casos",
-            "description": "Resultados del modelo actual en seis conjuntos de enfermedades raras"
+            "title": "Ver resultados en enfermedades raras · 2.907 casos",
+            "description": "gpt-6.1-sol frente a gpt-5.6-terra en seis conjuntos de enfermedades raras. La entrada es una lista de términos HPO, sin texto narrativo, y se acepta el nombre de la enfermedad con o sin el gen. Sol acierta más en todos los conjuntos salvo HMS (88 casos), donde la diferencia no es significativa."
           },
           "results": {
             "title": "Ver comparación completa entre modelos",
@@ -326,7 +330,7 @@
           },
           "multimodal": {
             "title": "Evaluación con imágenes",
-            "description": "En una evaluación inicial de 100 casos clínicos con sus imágenes, Terra situó el diagnóstico de referencia en primera posición en el 67%, entre las tres primeras opciones en el 82% y dentro de la lista en el 84%."
+            "description": "En una evaluación inicial de 250 casos clínicos con sus imágenes (MedReaMM), gpt-6.1-sol situó el diagnóstico de referencia en primera posición en el 68,4% de los casos (gpt-5.6-terra: 62,0%) y entre las cinco primeras en el 82,0% (78,0%)."
           },
           "reference": "📊 Resultados completos, metodología y configuración auditables en:",
           "repository": "Repositorio DxGPT-Bench-Lab",
@@ -339,7 +343,7 @@
           "statAvgPos": "Diagnóstico correcto en primera posición",
           "statSuccessRate": "Casos con el diagnóstico correcto entre las hipótesis propuestas",
           "trackATitle": "Comparación entre modelos",
-          "trackASubtitle": "Todos los modelos recibieron los mismos 256 casos narrativos —historia, síntomas y evolución— y se evaluaron con la misma metodología.",
+          "trackASubtitle": "Todos los modelos recibieron los mismos 210 casos reales validados —historia, síntomas y evolución— y se evaluaron con las mismas instrucciones y el mismo juez.",
           "trackACallout": "Este track evalúa la capacidad del modelo con casos clínicos reales en texto libre (historial, síntomas, evolución). Es el formato más parecido al uso real de DxGPT en producción.",
           "avgPosChartCaption": "Diagnóstico correcto en primera posición · escala ampliada del 55 % al 65 % para distinguir diferencias pequeñas",
           "thRank": "Puesto",
@@ -377,9 +381,9 @@
           "deepRareLink": "DeepRare — Nature (2025)",
           "charts": {
             "paretoTitle": "Precisión frente a tiempo de respuesta",
-            "paretoSubtitle": "Las líneas unen distintos niveles de razonamiento de un mismo modelo: pensar durante más segundos no mejora el acierto inicial.",
+            "paretoSubtitle": "Las líneas unen distintos niveles de razonamiento de un mismo modelo: pensar durante más segundos apenas cambia el acierto.",
             "optimalZone": "ZONA ÓPTIMA (MAYOR ACIERTO · MENOR ESPERA)",
-            "xAxisTime": "Tiempo medio por caso (segundos, escala logarítmica)",
+            "xAxisTime": "Tiempo mediano por caso (segundos, escala logarítmica)",
             "legendOptimal": "Zona óptima (mayor acierto, menor espera)",
             "legendEffort": "Niveles de razonamiento del mismo modelo",
             "legendFrontier": "Frontera de eficiencia",
@@ -402,7 +406,9 @@
             "segP23": "2.ª–3.ª posición",
             "segP45": "4.ª–5.ª posición",
             "segP6": "6.ª o posterior"
-          }
+          },
+          "statCaption": "gpt-6.1-sol, el modelo de DxGPT, en los 210 casos reales validados",
+          "historyNote": "Las cifras anteriores (Pipeline V4: 256 casos y 29 modelos) siguen disponibles en el repositorio."
         }
       },
       "user": {

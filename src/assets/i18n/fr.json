@@ -179,9 +179,9 @@
         "title": "Un testbed conçu pour relever le défi",
         "description": "L'évaluation combine trois jeux de données complémentaires :",
         "sources": "Sources de cas:",
-        "source1": "Jeu de données narratif : 256 cas sélectionnés à partir d'un corpus représentatif de 997 cas, lui-même issu de 9 583 cas provenant de MedQA/USMLE, MedBullets, services d'urgences hospitalières, Ramebench et ProCheck.",
-        "source2": "Jeu de données sur les maladies rares : 3 017 cas décrits au moyen de termes HPO, issus de DDD, RAMEDIS, LIRICAL, MyGene2, MME et HMS.",
-        "source3": "Jeu de données multimodal : MedReaMM contient 625 cas validés par des experts et 1 746 images. Le benchmark actuel utilise une cohorte de 100 cas.",
+        "source1": "Cas narratifs : 300 cas en texte libre. Le chiffre principal provient des 210 cas réels validés par un médecin : 150 cas cliniques publiés dans PubMed entre juillet et octobre 2026, presque tous après la date limite d'entraînement des modèles, et 60 cas d'urgences en espagnol. L'ensemble comprend aussi 60 questions d'examen (MedQA et MedBullets) et 30 cas synthétiques de maladies rares.",
+        "source2": "Maladies rares : 2 907 cas décrits avec des termes HPO, issus de DDD, RAMEDIS, LIRICAL, MyGene2, MME et HMS.",
+        "source3": "Images : 250 cas MedReaMM validés par des experts, avec leurs images médicales.",
         "source4": "Track HPO indépendant : 3 017 cas de maladies rares issus de DDD, RAMEDIS, LIRICAL, MyGene2, MME et HMS.",
         "source5": "Track multimodal : MedReaMM contient 625 cas validés par des experts et 1 746 images ; le benchmark apparié actuel utilise une cohorte de 100 cas. MultiCaRe (>90 000 récits et >130 000 images) a été étudié, mais pas utilisé pour comparer les modèles faute de diagnostic canonique propre et en raison du risque de fuite.",
         "conclusion": "Les 256 cas forment un ensemble compact et reproductible pour comparer les modèles, et non l'ensemble du corpus. Les résultats narratifs et HPO sont présentés séparément."
@@ -196,7 +196,7 @@
       },
       "methodology": {
         "title": "Une méthodologie d'évaluation qui pense comme un clinicien",
-        "intro": "Mesurer la précision va au-delà d'un simple 'correct' ou 'incorrect'. Notre processus d'évaluation en cascade de 3 niveaux mesure ce qui compte vraiment dans la pratique clinique:",
+        "intro": "Mesurer la précision va au-delà d'un simple « correct » ou « incorrect ». Tous les modèles suivent le même processus, avec les mêmes cas :",
         "verification": {
           "title": "Vérification objective",
           "description": "Compare la principale hypothèse avec des codes médicaux standardisés (SNOMED CT, ICD-10) comme la 'ligne de validation la plus stricte'."
@@ -211,16 +211,20 @@
         },
         "steps": {
           "step1": {
-            "title": "Émulation (génération DDX)",
-            "text": "Le LLM reçoit le cas clinique (symptômes, codes HPO) et produit un diagnostic différentiel ordonné (top-10)."
+            "title": "Diagnostic différentiel",
+            "text": "Le modèle reçoit le cas avec les mêmes instructions que DxGPT et propose cinq diagnostics classés."
           },
           "step2": {
-            "title": "Normalisation médicale (MedLabeler)",
-            "text": "Azure Text Analytics attribue des codes ICD-10/SNOMED/OMIM/ORPHA à chaque diagnostic généré. Permet la comparaison avec le gold standard via des ontologies médicales."
+            "title": "Normalisation médicale",
+            "text": "Chaque diagnostic est codé avec des terminologies médicales (SNOMED CT, CIM-10, OMIM et ORPHA)."
           },
           "step3": {
-            "title": "Évaluation par étapes (SNOMED → ICD-10 → BERT → juge LLM)",
-            "text": "Correspondance exacte des codes médicaux → taxonomie ICD-10 → similarité sémantique BERT → juge LLM indépendant pour les cas ambigus."
+            "title": "Correspondance des codes",
+            "text": "Si son code SNOMED CT correspond à celui du diagnostic de référence, il compte comme une réussite."
+          },
+          "step4": {
+            "title": "Juge clinique",
+            "text": "Un modèle de langage examine chaque proposition et décide s'il s'agit de la même maladie que celle de référence. Seul ce cas compte comme une réussite."
           }
         },
         "metrics": {
@@ -228,7 +232,7 @@
           "thMetric": "Métrique",
           "thDescription": "Description",
           "avgPosition": "Avg position ↓",
-          "avgPositionDesc": "Rang moyen du diagnostic correct dans le top-10 (plus bas = mieux)",
+          "avgPositionDesc": "Position moyenne du bon diagnostic lorsqu'il figure dans la liste (plus bas = mieux)",
           "recall1": "Recall@1",
           "recall1Desc": "% de cas où le diagnostic correct est en 1re position",
           "recall3": "Recall@3",
@@ -306,15 +310,15 @@
           "descriptionEu": "Tous ces chiffres décrivent le comportement technique des modèles d'IA dans des banques de cas standardisés (benchmarks). Ils n'équivalent pas à des taux de succès clinique chez les patients réels et ne constituent pas une évaluation de conformité du produit. Cet outil ne fournit pas de diagnostics médicaux ni de recommandations de traitement. Il est destiné uniquement à vous aider à organiser les informations que vous discuterez avec un professionnel de santé. Vous devriez toujours consulter un professionnel médical qualifié pour obtenir un diagnostic et un traitement appropriés."
         },
         "benchmark2026": {
-          "title": "Résultats · 29 octobre 2026",
+          "title": "Résultats · novembre 2026",
           "description": "Après avoir garanti la qualité du jeu de données et automatisé l'évaluation, en 2026 nous avons comparé DxGPT directement avec l'état de l'art scientifique : l'article DeepRare (Nature, 2025), le premier système d'IA spécialisé dans les maladies rares évalué publiquement sur les mêmes benchmarks internationaux.",
           "dataset": {
             "title": "Jeu de données propre et publiable",
             "description": "Nous avons éliminé les fuites de labels et le boilerplate synthétique, créant all_256_clean : 256 cas cliniques réels passant 4 contrôles qualité indépendants (0 % de fuite, 0 % de boilerplate). C'est la première baseline auditable de DxGPT sur du texte narratif clinique libre."
           },
           "hpo": {
-            "title": "Voir les résultats sur les maladies rares · 3 017 cas",
-            "description": "Résultats du modèle actuel sur six jeux de données de maladies rares"
+            "title": "Voir les résultats sur les maladies rares · 2 907 cas",
+            "description": "gpt-6.1-sol face à gpt-5.6-terra sur six jeux de données de maladies rares. L'entrée est une liste de termes HPO, sans texte narratif, et le nom de la maladie compte avec ou sans le gène. Sol obtient de meilleurs résultats sur tous les jeux sauf HMS (88 cas), où la différence n'est pas significative."
           },
           "results": {
             "title": "Voir la comparaison complète des modèles",
@@ -326,7 +330,7 @@
           },
           "multimodal": {
             "title": "Évaluation avec images",
-            "description": "Lors d'une première évaluation de 100 cas cliniques accompagnés de leurs images, Terra a placé le diagnostic de référence en première position dans 67 % des cas, parmi les trois premières options dans 82 % et dans la liste dans 84 %."
+            "description": "Dans une première évaluation de 250 cas cliniques avec leurs images (MedReaMM), gpt-6.1-sol a placé le diagnostic de référence en première position dans 68,4 % des cas (gpt-5.6-terra : 62,0 %) et parmi les cinq premiers dans 82,0 % (78,0 %)."
           },
           "reference": "📊 Résultats complets, méthodologie et configuration auditables sur :",
           "repository": "Référentiel DxGPT-Bench-Lab",
@@ -339,7 +343,7 @@
           "statAvgPos": "Diagnostic correct en première position",
           "statSuccessRate": "Cas où le diagnostic correct figure parmi les hypothèses proposées",
           "trackATitle": "Comparaison des modèles",
-          "trackASubtitle": "Tous les modèles ont reçu les mêmes 256 cas narratifs — antécédents, symptômes et évolution — et ont été évalués selon la même méthode.",
+          "trackASubtitle": "Tous les modèles ont reçu les mêmes 210 cas réels validés — antécédents, symptômes et évolution — et ont été évalués avec les mêmes instructions et le même juge.",
           "trackACallout": "Ce track évalue la capacité du modèle sur des cas cliniques réels en texte libre (historique, symptômes, évolution). C'est le format le plus proche de l'utilisation réelle de DxGPT en production.",
           "avgPosChartCaption": "Diagnostic correct en première position · échelle élargie de 55 % à 65 % pour distinguer les petits écarts",
           "thRank": "Position",
@@ -377,9 +381,9 @@
           "deepRareLink": "DeepRare — Nature (2025)",
           "charts": {
             "paretoTitle": "Précision par rapport au temps de réponse",
-            "paretoSubtitle": "Les lignes relient différents niveaux de raisonnement d'un même modèle : réfléchir plus longtemps n'améliore pas la précision initiale.",
+            "paretoSubtitle": "Les lignes relient différents niveaux de raisonnement d'un même modèle : réfléchir plus longtemps change à peine la précision.",
             "optimalZone": "ZONE OPTIMALE (MEILLEURE PRÉCISION · ATTENTE RÉDUITE)",
-            "xAxisTime": "Temps moyen par cas (secondes, échelle logarithmique)",
+            "xAxisTime": "Temps médian par cas (secondes, échelle logarithmique)",
             "legendOptimal": "Zone optimale (meilleure précision, attente réduite)",
             "legendEffort": "Niveaux de raisonnement du même modèle",
             "legendFrontier": "Frontière d'efficacité",
@@ -402,7 +406,9 @@
             "segP23": "2e–3e position",
             "segP45": "4e–5e position",
             "segP6": "6e ou suivante"
-          }
+          },
+          "statCaption": "gpt-6.1-sol, le modèle de DxGPT, sur les 210 cas réels validés",
+          "historyNote": "Les chiffres précédents (Pipeline V4 : 256 cas et 29 modèles) restent disponibles dans le dépôt."
         }
       },
       "user": {
