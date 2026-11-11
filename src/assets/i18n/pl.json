@@ -179,9 +179,9 @@
         "title": "Baza testowa zaprojektowana, aby zakłócać system",
         "description": "Ocena łączy trzy uzupełniające się zbiory danych:",
         "sources": "Źródła przypadków:",
-        "source1": "Narracyjny zbiór danych: 256 przypadków wybranych z reprezentatywnego korpusu 997 przypadków, utworzonego z kolei z 9 583 przypadków pochodzących z MedQA/USMLE, MedBullets, szpitalnych oddziałów ratunkowych, Ramebench i ProCheck.",
-        "source2": "Zbiór danych dotyczący chorób rzadkich: 3 017 przypadków opisanych terminami HPO, pochodzących z DDD, RAMEDIS, LIRICAL, MyGene2, MME i HMS.",
-        "source3": "Multimodalny zbiór danych: MedReaMM zawiera 625 przypadków zweryfikowanych przez ekspertów i 1 746 obrazów. Aktualny benchmark wykorzystuje wyselekcjonowaną kohortę 100 przypadków.",
+        "source1": "Przypadki narracyjne: 300 przypadków w formie wolnego tekstu. Główny wynik pochodzi z 210 rzeczywistych przypadków zweryfikowanych przez lekarza: 150 opisów przypadków opublikowanych w PubMed między lipcem a październikiem 2026 r., prawie wszystkich po dacie odcięcia danych treningowych modeli, oraz 60 przypadków z izby przyjęć w języku hiszpańskim. Zestaw obejmuje też 60 pytań egzaminacyjnych (MedQA i MedBullets) i 30 syntetycznych przypadków chorób rzadkich.",
+        "source2": "Choroby rzadkie: 2907 przypadków opisanych terminami HPO, z DDD, RAMEDIS, LIRICAL, MyGene2, MME i HMS.",
+        "source3": "Obrazy: 250 zweryfikowanych przez ekspertów przypadków MedReaMM wraz z obrazami medycznymi.",
         "source4": "Niezależny tor HPO: 3 017 przypadków chorób rzadkich z DDD, RAMEDIS, LIRICAL, MyGene2, MME i HMS.",
         "source5": "Tor multimodalny: MedReaMM zawiera 625 przypadków zweryfikowanych przez ekspertów i 1 746 obrazów; aktualny benchmark parowany wykorzystuje wyselekcjonowaną kohortę 100 przypadków. MultiCaRe (>90 000 opisów i >130 000 obrazów) przeanalizowano, lecz nie użyto do porównania modeli z powodu braku czystej diagnozy kanonicznej i ryzyka wycieku.",
         "conclusion": "Te 256 przypadków to kompaktowy i powtarzalny zbiór do porównywania modeli, a nie cały korpus testowy. Wyniki narracyjne i HPO są prezentowane osobno."
@@ -196,7 +196,7 @@
       },
       "methodology": {
         "title": "Metodologia oceny, która myśli jak lekarz",
-        "intro": "Mierzenie precyzji wykracza poza proste 'poprawne' lub 'niepoprawne'. Nasz 3-etapowy kaskadowy proces oceny mierzy to, co naprawdę ma znaczenie w praktyce klinicznej:",
+        "intro": "Pomiar trafności to coś więcej niż proste „dobrze” lub „źle”. Wszystkie modele przechodzą ten sam proces, na tych samych przypadkach:",
         "verification": {
           "title": "Obiektywne weryfikacja",
           "description": "Porównuje główną hipotezę z standardowymi kodami medycznymi (SNOMED CT, ICD-10) jako 'najbardziej restrykcyjną linią weryfikacji'."
@@ -211,16 +211,20 @@
         },
         "steps": {
           "step1": {
-            "title": "Emulacja (generowanie DDX)",
-            "text": "LLM otrzymuje opis przypadku (objawy, kody HPO) i generuje uporządkowaną diagnostykę różnicową (top-10)."
+            "title": "Diagnostyka różnicowa",
+            "text": "Model otrzymuje przypadek z tymi samymi instrukcjami co DxGPT i proponuje pięć uporządkowanych rozpoznań."
           },
           "step2": {
-            "title": "Normalizacja medyczna (MedLabeler)",
-            "text": "Azure Text Analytics przypisuje kody ICD-10/SNOMED/OMIM/ORPHA do każdej wygenerowanej diagnozy. Umożliwia porównanie ze złotym standardem w ontologiach medycznych."
+            "title": "Normalizacja medyczna",
+            "text": "Każde rozpoznanie jest kodowane terminologiami medycznymi (SNOMED CT, ICD-10, OMIM i ORPHA)."
           },
           "step3": {
-            "title": "Ocena wieloetapowa (SNOMED → ICD-10 → BERT → sędzia LLM)",
-            "text": "Dokładne dopasowanie kodów medycznych → taksonomia ICD-10 → podobieństwo semantyczne BERT → niezależny sędzia LLM w niejednoznacznych przypadkach."
+            "title": "Zgodność kodów",
+            "text": "Jeśli jego kod SNOMED CT zgadza się z kodem rozpoznania referencyjnego, liczy się jako trafienie."
+          },
+          "step4": {
+            "title": "Sędzia kliniczny",
+            "text": "Model językowy sprawdza każdą propozycję i decyduje, czy to ta sama choroba co referencyjna. Tylko to liczy się jako trafienie."
           }
         },
         "metrics": {
@@ -228,7 +232,7 @@
           "thMetric": "Metryka",
           "thDescription": "Opis",
           "avgPosition": "Avg position ↓",
-          "avgPositionDesc": "Średnia pozycja poprawnej diagnozy w top-10 (niżej = lepiej)",
+          "avgPositionDesc": "Średnia pozycja prawidłowego rozpoznania, gdy znajduje się na liście (niższa = lepsza)",
           "recall1": "Recall@1",
           "recall1Desc": "% przypadków, gdy poprawna diagnoza jest na 1. miejscu",
           "recall3": "Recall@3",
@@ -306,15 +310,15 @@
           "descriptionEu": "Wszystkie te liczby opisują techniczne zachowanie modeli AI w standaryzowanych bankach przypadków (benchmarkach). Nie są równoważne wskaźnikom sukcesu klinicznego u prawdziwych pacjentów ani nie stanowią oceny zgodności produktu. To narzędzie nie zapewnia diagnoz medycznych ani zaleceń dotyczących leczenia. Jest przeznaczone wyłącznie do pomocy w organizowaniu informacji, które omówisz z profesjonalistą zdrowotnym. Zawsze powinieneś skonsultować się z wykwalifikowanym profesjonalistą medycznym, aby uzyskać odpowiednią diagnozę i leczenie."
         },
         "benchmark2026": {
-          "title": "Wyniki · 29 października 2026",
+          "title": "Wyniki · listopad 2026",
           "description": "Po zapewnieniu jakości zbioru danych i automatyzacji oceny, w 2026 roku porównaliśmy DxGPT bezpośrednio z naukowym stanem wiedzy: artykułem DeepRare (Nature, 2025), pierwszym specjalistycznym systemem AI dla rzadkich chorób publicznie ocenionym na tych samych międzynarodowych benchmarkach.",
           "dataset": {
             "title": "Czysty i publikowalny zbiór danych",
             "description": "Wyeliminowaliśmy wycieki etykiet i syntetyczny boilerplate, tworząc all_256_clean: 256 rzeczywistych przypadków klinicznych przechodzących 4 niezależne kontrole jakości (0% wycieków, 0% boilerplate). Jest to pierwsza audytowalna linia bazowa DxGPT na swobodnym narracyjnym tekście klinicznym."
           },
           "hpo": {
-            "title": "Zobacz wyniki dotyczące chorób rzadkich · 3017 przypadków",
-            "description": "Wyniki obecnego modelu w sześciu zbiorach danych dotyczących chorób rzadkich"
+            "title": "Zobacz wyniki dla chorób rzadkich · 2907 przypadków",
+            "description": "gpt-6.1-sol w porównaniu z gpt-5.6-terra w sześciu zbiorach chorób rzadkich. Danymi wejściowymi jest lista terminów HPO, bez tekstu narracyjnego, a nazwa choroby liczy się z genem lub bez. Sol wypada lepiej we wszystkich zbiorach poza HMS (88 przypadków), gdzie różnica nie jest istotna."
           },
           "results": {
             "title": "Zobacz pełne porównanie modeli",
@@ -326,7 +330,7 @@
           },
           "multimodal": {
             "title": "Ocena z obrazami",
-            "description": "We wstępnej ocenie 100 przypadków klinicznych wraz z obrazami Terra umieściła diagnozę referencyjną na pierwszym miejscu w 67%, wśród trzech pierwszych opcji w 82% oraz na liście w 84% przypadków."
+            "description": "We wstępnej ocenie 250 przypadków klinicznych z obrazami (MedReaMM) gpt-6.1-sol umieścił rozpoznanie referencyjne na pierwszym miejscu w 68,4% przypadków (gpt-5.6-terra: 62,0%), a wśród pierwszych pięciu w 82,0% (78,0%)."
           },
           "reference": "📊 Pełne wyniki, metodologia i konfiguracja do wglądu na:",
           "repository": "Repozytorium DxGPT-Bench-Lab",
@@ -339,7 +343,7 @@
           "statAvgPos": "Poprawna diagnoza na pierwszym miejscu",
           "statSuccessRate": "Przypadki z poprawną diagnozą wśród proponowanych hipotez",
           "trackATitle": "Porównanie modeli",
-          "trackASubtitle": "Każdy model otrzymał te same 256 przypadków narracyjnych — historię, objawy i przebieg — i został oceniony tą samą metodą.",
+          "trackASubtitle": "Wszystkie modele otrzymały te same 210 zweryfikowanych rzeczywistych przypadków — wywiad, objawy i przebieg — i zostały ocenione z tymi samymi instrukcjami i przez tego samego sędziego.",
           "trackACallout": "Ten track ocenia możliwości modelu na rzeczywistych przypadkach klinicznych w formie swobodnego tekstu (historia, objawy, przebieg). Jest to format najbliższy realnemu użyciu DxGPT w produkcji.",
           "avgPosChartCaption": "Poprawna diagnoza na pierwszym miejscu · rozszerzona skala 55%–65%, aby pokazać niewielkie różnice",
           "thRank": "Pozycja",
@@ -377,9 +381,9 @@
           "deepRareLink": "DeepRare — Nature (2025)",
           "charts": {
             "paretoTitle": "Trafność a czas odpowiedzi",
-            "paretoSubtitle": "Linie łączą poziomy rozumowania tego samego modelu: dłuższe myślenie nie poprawia trafności na pierwszym miejscu.",
+            "paretoSubtitle": "Linie łączą poziomy rozumowania tego samego modelu: dłuższe myślenie prawie nie zmienia trafności.",
             "optimalZone": "STREFA OPTYMALNA (WYŻSZA TRAFNOŚĆ · KRÓTSZY CZAS)",
-            "xAxisTime": "Średni czas na przypadek (sekundy, skala logarytmiczna)",
+            "xAxisTime": "Mediana czasu na przypadek (sekundy, skala logarytmiczna)",
             "legendOptimal": "Strefa optymalna (wyższa trafność, krótszy czas)",
             "legendEffort": "Poziomy rozumowania tego samego modelu",
             "legendFrontier": "Granica efektywności",
@@ -402,7 +406,9 @@
             "segP23": "2.–3. miejsce",
             "segP45": "4.–5. miejsce",
             "segP6": "6. lub dalsze"
-          }
+          },
+          "statCaption": "gpt-6.1-sol, model DxGPT, w 210 zweryfikowanych rzeczywistych przypadkach",
+          "historyNote": "Wcześniejsze wyniki (Pipeline V4: 256 przypadków i 29 modeli) są nadal dostępne w repozytorium."
         }
       },
       "user": {

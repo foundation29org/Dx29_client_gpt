@@ -179,9 +179,9 @@
         "title": "Ein Testfeld, das das System herausfordert",
         "description": "Die Evaluation kombiniert drei sich ergänzende Datensätze:",
         "sources": "Fallquellen:",
-        "source1": "Narrativer Datensatz: 256 Fälle, ausgewählt aus einem repräsentativen Korpus von 997 Fällen, der wiederum aus 9.583 Fällen von MedQA/USMLE, MedBullets, Krankenhausnotaufnahmen, Ramebench und ProCheck hervorging.",
-        "source2": "Datensatz für seltene Erkrankungen: 3.017 anhand von HPO-Begriffen beschriebene Fälle aus DDD, RAMEDIS, LIRICAL, MyGene2, MME und HMS.",
-        "source3": "Multimodaler Datensatz: MedReaMM enthält 625 von Experten validierte Fälle und 1.746 Bilder. Der aktuelle Benchmark verwendet eine kuratierte Kohorte von 100 Fällen.",
+        "source1": "Narrative Fälle: 300 Fälle im Freitext. Die Hauptkennzahl stammt aus den 210 realen, ärztlich validierten Fällen: 150 Fallberichte, die zwischen Juli und Oktober 2026 in PubMed veröffentlicht wurden, fast alle nach dem Trainingsstichtag der Modelle, und 60 Notaufnahmefälle auf Spanisch. Hinzu kommen 60 Prüfungsfragen (MedQA und MedBullets) und 30 synthetische Fälle seltener Erkrankungen.",
+        "source2": "Seltene Erkrankungen: 2.907 Fälle, beschrieben mit HPO-Begriffen, aus DDD, RAMEDIS, LIRICAL, MyGene2, MME und HMS.",
+        "source3": "Bilder: 250 von Fachleuten validierte MedReaMM-Fälle mit ihren medizinischen Bildern.",
         "source4": "Unabhängiger HPO-Track: 3.017 Fälle seltener Erkrankungen aus DDD, RAMEDIS, LIRICAL, MyGene2, MME und HMS.",
         "source5": "Multimodaler Track: MedReaMM enthält 625 von Experten validierte Fälle und 1.746 Bilder; der aktuelle gepaarte Benchmark verwendet eine kuratierte Kohorte von 100 Fällen. MultiCaRe (>90.000 Narrative und >130.000 Bilder) wurde geprüft, aber wegen fehlender sauberer kanonischer Diagnose und Leakage-Risiko nicht für Modellvergleiche verwendet.",
         "conclusion": "Die 256 Fälle sind ein kompakter, reproduzierbarer Vergleichssatz und nicht der gesamte Testbestand. Narrative und HPO-Ergebnisse werden getrennt ausgewiesen."
@@ -196,7 +196,7 @@
       },
       "methodology": {
         "title": "Eine Evaluationsmethode, die wie ein Kliniker denkt",
-        "intro": "Die Genauigkeit zu messen geht über ein einfaches 'richtig' oder 'falsch' hinaus. Unser 3-stufiger Kaskaden-Evaluationsprozess misst, was in der klinischen Praxis wirklich wichtig ist:",
+        "intro": "Genauigkeit zu messen ist mehr als ein einfaches „richtig“ oder „falsch“. Alle Modelle durchlaufen denselben Prozess mit denselben Fällen:",
         "verification": {
           "title": "Objektive Verifizierung",
           "description": "Vergleicht die Haupthypothese mit standardisierten medizinischen Codes (SNOMED CT, ICD-10) als die 'strikteste Validierungslinie'."
@@ -211,16 +211,20 @@
         },
         "steps": {
           "step1": {
-            "title": "Emulation (DDX-Generierung)",
-            "text": "Das LLM erhält den klinischen Fall (Symptome, HPO-Codes) und erzeugt eine geordnete Differentialdiagnose (Top-10)."
+            "title": "Differenzialdiagnose",
+            "text": "Das Modell erhält den Fall mit denselben Anweisungen wie DxGPT und schlägt fünf geordnete Diagnosen vor."
           },
           "step2": {
-            "title": "Medizinische Normalisierung (MedLabeler)",
-            "text": "Azure Text Analytics weist jeder generierten Diagnose ICD-10/SNOMED/OMIM/ORPHA-Codes zu. Ermöglicht den Vergleich mit dem Goldstandard über medizinische Ontologien."
+            "title": "Medizinische Normalisierung",
+            "text": "Jede Diagnose wird mit medizinischen Terminologien kodiert (SNOMED CT, ICD-10, OMIM und ORPHA)."
           },
           "step3": {
-            "title": "Stufenweise Bewertung (SNOMED → ICD-10 → BERT → LLM-Richter)",
-            "text": "Exakte Übereinstimmung medizinischer Codes → ICD-10-Taxonomie → semantische BERT-Ähnlichkeit → unabhängiger LLM-Richter bei unklaren Fällen."
+            "title": "Code-Abgleich",
+            "text": "Stimmt ihr SNOMED-CT-Code mit dem der Referenzdiagnose überein, zählt sie als Treffer."
+          },
+          "step4": {
+            "title": "Klinischer Prüfer",
+            "text": "Ein Sprachmodell prüft jeden Vorschlag und entscheidet, ob es dieselbe Erkrankung wie die Referenz ist. Nur das zählt als Treffer."
           }
         },
         "metrics": {
@@ -228,7 +232,7 @@
           "thMetric": "Metrik",
           "thDescription": "Beschreibung",
           "avgPosition": "Avg Position ↓",
-          "avgPositionDesc": "Mittlerer Rang der korrekten Diagnose in den Top-10 (niedriger = besser)",
+          "avgPositionDesc": "Durchschnittliche Position der richtigen Diagnose, wenn sie in der Liste steht (niedriger = besser)",
           "recall1": "Recall@1",
           "recall1Desc": "% der Fälle, in denen die richtige Diagnose auf Platz 1 steht",
           "recall3": "Recall@3",
@@ -306,15 +310,15 @@
           "descriptionEu": "Alle diese Zahlen beschreiben das technische Verhalten von KI-Modellen in standardisierten Fallbanken (Benchmarks). Sie entsprechen nicht klinischen Erfolgsraten bei echten Patienten und stellen keine Konformitätsbewertung des Produkts dar. Dieses Tool bietet keine medizinischen Diagnosen oder Behandlungsempfehlungen. Es ist ausschließlich dazu gedacht, Ihnen zu helfen, die Informationen zu organisieren, die Sie mit einem Gesundheitsfachmann besprechen werden. Sie sollten immer einen qualifizierten medizinischen Fachmann konsultieren, um eine angemessene Diagnose und Behandlung zu erhalten."
         },
         "benchmark2026": {
-          "title": "Ergebnisse · 29. Oktober 2026",
+          "title": "Ergebnisse · November 2026",
           "description": "Nach der Sicherstellung der Datensatzqualität und der Automatisierung der Bewertung haben wir DxGPT 2026 direkt mit dem wissenschaftlichen Stand der Technik verglichen: dem DeepRare-Artikel (Nature, 2025), dem ersten spezialisierten KI-System für seltene Erkrankungen, das öffentlich auf denselben internationalen Benchmarks bewertet wurde.",
           "dataset": {
             "title": "Bereinigter und veröffentlichbarer Datensatz",
             "description": "Wir eliminierten Label-Leakage und synthetisches Boilerplate und erstellten all_256_clean: 256 reale klinische Fälle, die 4 unabhängige Qualitätskontrollen bestehen (0 % Leakage, 0 % Boilerplate). Dies ist DxGPTs erste prüfbare Basislinie auf freiem narrativem klinischem Text."
           },
           "hpo": {
-            "title": "Ergebnisse zu seltenen Erkrankungen anzeigen · 3.017 Fälle",
-            "description": "Ergebnisse des aktuellen Modells in sechs Datensätzen zu seltenen Erkrankungen"
+            "title": "Ergebnisse bei seltenen Erkrankungen anzeigen · 2.907 Fälle",
+            "description": "gpt-6.1-sol im Vergleich zu gpt-5.6-terra in sechs Datensätzen seltener Erkrankungen. Eingabe ist eine Liste von HPO-Begriffen ohne Freitext; der Name der Erkrankung zählt mit oder ohne Gen. Sol schneidet in allen Datensätzen besser ab außer bei HMS (88 Fälle), wo der Unterschied nicht signifikant ist."
           },
           "results": {
             "title": "Vollständigen Modellvergleich anzeigen",
@@ -326,7 +330,7 @@
           },
           "multimodal": {
             "title": "Auswertung mit Bildern",
-            "description": "In einer ersten Auswertung von 100 klinischen Fällen mit zugehörigen Bildern setzte Terra die Referenzdiagnose in 67 % auf den ersten Platz, in 82 % unter die ersten drei Optionen und in 84 % in die Liste."
+            "description": "In einer ersten Auswertung von 250 klinischen Fällen mit ihren Bildern (MedReaMM) setzte gpt-6.1-sol die Referenzdiagnose in 68,4 % der Fälle an die erste Stelle (gpt-5.6-terra: 62,0 %) und in 82,0 % unter die ersten fünf (78,0 %)."
           },
           "reference": "📊 Vollständige Ergebnisse, Methodik und Konfiguration einsehbar unter:",
           "repository": "DxGPT-Bench-Lab Repository",
@@ -339,7 +343,7 @@
           "statAvgPos": "Korrekte Diagnose auf dem ersten Platz",
           "statSuccessRate": "Fälle mit der korrekten Diagnose unter den vorgeschlagenen Hypothesen",
           "trackATitle": "Modellvergleich",
-          "trackASubtitle": "Alle Modelle erhielten dieselben 256 narrativen Fälle — Anamnese, Symptome und Verlauf — und wurden mit derselben Methodik bewertet.",
+          "trackASubtitle": "Alle Modelle erhielten dieselben 210 validierten realen Fälle – Anamnese, Symptome und Verlauf – und wurden mit denselben Anweisungen und demselben Prüfer bewertet.",
           "trackACallout": "Dieser Track bewertet die Fähigkeit des Modells anhand realer klinischer Fälle in Freitext (Anamnese, Symptome, Verlauf). Es ist das Format, das der realen Nutzung von DxGPT in der Produktion am nächsten kommt.",
           "avgPosChartCaption": "Korrekte Diagnose auf dem ersten Platz · erweiterte Skala von 55 % bis 65 %, um kleine Unterschiede sichtbar zu machen",
           "thRank": "Platz",
@@ -377,9 +381,9 @@
           "deepRareLink": "DeepRare — Nature (2025)",
           "charts": {
             "paretoTitle": "Genauigkeit gegenüber Antwortzeit",
-            "paretoSubtitle": "Linien verbinden Denkstufen desselben Modells: längeres Nachdenken verbessert die Ersttrefferquote nicht.",
+            "paretoSubtitle": "Linien verbinden Denkstufen desselben Modells: längeres Nachdenken verändert die Trefferquote kaum.",
             "optimalZone": "OPTIMALER BEREICH (HÖHERE TREFFERQUOTE · KÜRZERE WARTEZEIT)",
-            "xAxisTime": "Durchschnittliche Zeit pro Fall (Sekunden, logarithmische Skala)",
+            "xAxisTime": "Mediane Zeit pro Fall (Sekunden, logarithmische Skala)",
             "legendOptimal": "Optimaler Bereich (höhere Trefferquote, kürzere Wartezeit)",
             "legendEffort": "Denkstufen desselben Modells",
             "legendFrontier": "Effizienzgrenze",
@@ -402,7 +406,9 @@
             "segP23": "2.–3. Platz",
             "segP45": "4.–5. Platz",
             "segP6": "6. oder später"
-          }
+          },
+          "statCaption": "gpt-6.1-sol, das Modell von DxGPT, in den 210 validierten realen Fällen",
+          "historyNote": "Frühere Zahlen (Pipeline V4: 256 Fälle und 29 Modelle) sind weiterhin im Repository verfügbar."
         }
       },
       "user": {

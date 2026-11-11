@@ -155,6 +155,13 @@
                 <p>{{ 'aboutUs.evaluation.methodology.steps.step3.text' | translate }}</p>
               </div>
             </div>
+            <div class="methodology-step">
+              <div class="methodology-step__number">4</div>
+              <div>
+                <strong>{{ 'aboutUs.evaluation.methodology.steps.step4.title' | translate }}</strong>
+                <p>{{ 'aboutUs.evaluation.methodology.steps.step4.text' | translate }}</p>
+              </div>
+            </div>
           </div>
 
           <div class="methodology-metrics">
@@ -168,7 +175,6 @@
               <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall1' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.recall1Desc' | translate }}</td></tr>
               <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall3' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.recall3Desc' | translate }}</td></tr>
               <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.recall5' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.recall5Desc' | translate }}</td></tr>
-              <tr><td><strong>{{ 'aboutUs.evaluation.methodology.metrics.coverage' | translate }}</strong></td><td>{{ 'aboutUs.evaluation.methodology.metrics.coverageDesc' | translate }}</td></tr>
             </table>
           </div>
         </div>
@@ -183,14 +189,15 @@
           <!-- Key numbers highlight -->
           <div class="bench-stats-grid">
             <div class="bench-stat bench-stat--violet">
-              <div class="bench-stat__value">63,3%</div>
+              <div class="bench-stat__value">64,8%</div>
               <div class="bench-stat__label">{{ 'aboutUs.evaluation.evolution.benchmark2026.statAvgPos' | translate }}</div>
             </div>
             <div class="bench-stat bench-stat--amber">
-              <div class="bench-stat__value">83,2%</div>
+              <div class="bench-stat__value">86,2%</div>
               <div class="bench-stat__label">{{ 'aboutUs.evaluation.evolution.benchmark2026.statSuccessRate' | translate }}</div>
             </div>
           </div>
+          <p class="bench-viz-sub">{{ 'aboutUs.evaluation.evolution.benchmark2026.statCaption' | translate }}</p>
 
           <!-- Track A: Chart.js bar chart + ranking table -->
           <div class="bench-track">
@@ -241,8 +248,8 @@
                     <button type="button" class="bench-viz-tab" [class.active]="paretoY === 'r3'" (click)="paretoY = 'r3'">
                       {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}
                     </button>
-                    <button type="button" class="bench-viz-tab" [class.active]="paretoY === 'cov'" (click)="paretoY = 'cov'">
-                      {{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}
+                    <button type="button" class="bench-viz-tab" [class.active]="paretoY === 'r5'" (click)="paretoY = 'r5'">
+                      {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}
                     </button>
                   </div>
                 </div>
@@ -282,7 +289,7 @@
                         {{ 'aboutUs.evaluation.evolution.benchmark2026.charts.xAxisTime' | translate }}
                       </text>
                       <text [attr.transform]="'translate(14,' + (pv.padT + pv.plotH / 2) + ') rotate(-90)'" text-anchor="middle" fill="#475569" font-size="11" font-weight="600">
-                        {{ (paretoY === 'r1' ? 'aboutUs.evaluation.evolution.benchmark2026.headingR1' : (paretoY === 'r3' ? 'aboutUs.evaluation.evolution.benchmark2026.headingR3' : 'aboutUs.evaluation.evolution.benchmark2026.thCoverage')) | translate }} (%)
+                        {{ (paretoY === 'r1' ? 'aboutUs.evaluation.evolution.benchmark2026.headingR1' : (paretoY === 'r3' ? 'aboutUs.evaluation.evolution.benchmark2026.headingR3' : 'aboutUs.evaluation.evolution.benchmark2026.headingR5')) | translate }} (%)
                       </text>
 
                       <path *ngFor="let fp of pv.familyPaths" [attr.d]="fp.d" fill="none" [attr.stroke]="fp.color"
@@ -396,8 +403,7 @@
               <strong>{{ tm.name }}</strong><br>
               {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}: <b>{{ tm.r1.toFixed(1) }}%</b> ·
               {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}: <b>{{ tm.r3.toFixed(1) }}%</b><br>
-              {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}: <b>{{ tm.r5.toFixed(1) }}%</b> ·
-              {{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}: <b>{{ tm.cov.toFixed(1) }}%</b><br>
+              {{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}: <b>{{ tm.r5.toFixed(1) }}%</b><br>
               {{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}: {{ tm.avgPos.toFixed(3) }} ·
               {{ 'aboutUs.evaluation.evolution.benchmark2026.thSecPerCase' | translate }}: {{ tm.sec.toFixed(1) }}s
             </div>
@@ -410,7 +416,6 @@
                   <span class="bench-viz-legend-item"><span class="swatch" style="background:#10b981"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.segP1' | translate }}</span>
                   <span class="bench-viz-legend-item"><span class="swatch" style="background:#3b82f6"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.segP23' | translate }}</span>
                   <span class="bench-viz-legend-item"><span class="swatch" style="background:#f59e0b"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.segP45' | translate }}</span>
-                  <span class="bench-viz-legend-item"><span class="swatch" style="background:#a855f7"></span>{{ 'aboutUs.evaluation.evolution.benchmark2026.charts.segP6' | translate }}</span>
                 </div>
                 <div class="bench-table-wrapper">
                 <table class="bench-table bench-table--ranking">
@@ -423,7 +428,6 @@
                     <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
                     <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
                     <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
-                    <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
                     <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thSecPerCase' | translate }}</th>
                   </tr>
                 </thead>
@@ -439,10 +443,9 @@
                     </td>
                     <td class="bench-td-stack" (mousemove)="showTooltip($event, m)" (mouseleave)="hideTooltip()">
                       <div class="bench-inline-stack">
-                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p1 / 256) * 100" style="background:#10b981"></div>
-                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p23 / 256) * 100" style="background:#3b82f6"></div>
-                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p45 / 256) * 100" style="background:#f59e0b"></div>
-                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p6p / 256) * 100" style="background:#a855f7"></div>
+                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p1 / benchTotalCases) * 100" style="background:#10b981"></div>
+                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p23 / benchTotalCases) * 100" style="background:#3b82f6"></div>
+                        <div class="bench-inline-stack__seg" [style.width.%]="(m.p45 / benchTotalCases) * 100" style="background:#f59e0b"></div>
                       </div>
                     </td>
                     <td>
@@ -452,10 +455,6 @@
                     <td>{{ m.r3.toFixed(1).replace('.', ',') }}%</td>
                     <td>{{ m.r5.toFixed(1).replace('.', ',') }}%</td>
                     <td>{{ m.avgPos.toFixed(3).replace('.', ',') }}</td>
-                    <td>
-                      <span *ngIf="m.greenBadgeCov" class="bench-badge bench-badge--green">{{ m.cov.toFixed(1).replace('.', ',') }}%</span>
-                      <ng-container *ngIf="!m.greenBadgeCov">{{ m.cov.toFixed(1).replace('.', ',') }}%</ng-container>
-                    </td>
                     <td>
                       <strong *ngIf="m.fastTime" class="bench-time-good">{{ m.secDisplay }}</strong>
                       <ng-container *ngIf="!m.fastTime">{{ m.secDisplay }}</ng-container>
@@ -486,84 +485,60 @@
             <table class="bench-table">
               <thead>
                 <tr>
-                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thDataset' | translate }}</th>
-                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCases' | translate }}</th>
+                  <th scope="col" rowspan="2">{{ 'aboutUs.evaluation.evolution.benchmark2026.thDataset' | translate }}</th>
+                  <th scope="col" rowspan="2" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCases' | translate }}</th>
+                  <th scope="colgroup" colspan="2" class="is-center">gpt-6.1-sol ⭐</th>
+                  <th scope="colgroup" colspan="2" class="is-center">gpt-5.6-terra</th>
+                </tr>
+                <tr>
                   <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
-                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
                   <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
-                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
-                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
+                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
+                  <td><strong>DDD</strong></td>
+                  <td class="is-center">1.648</td>
+                  <td class="is-center">52,9%</td><td class="is-center">66,3%</td>
+                  <td class="is-center">46,7%</td><td class="is-center">59,8%</td>
+                </tr>
+                <tr>
                   <td><strong>RAMEDIS</strong></td>
-                  <td class="is-center">624</td>
-                  <td class="is-center">32,7%</td><td class="is-center">50,5%</td><td class="is-center">57,1%</td>
-                  <td class="is-center">57,1%</td><td class="is-center">1,820</td>
+                  <td class="is-center">621</td>
+                  <td class="is-center">37,5%</td><td class="is-center">69,4%</td>
+                  <td class="is-center">32,9%</td><td class="is-center">55,1%</td>
                 </tr>
                 <tr>
                   <td><strong>LIRICAL</strong></td>
                   <td class="is-center">370</td>
-                  <td class="is-center">28,4%</td><td class="is-center">40,5%</td><td class="is-center">46,5%</td>
-                  <td class="is-center">46,8%</td><td class="is-center">1,855</td>
+                  <td class="is-center">48,6%</td><td class="is-center">67,3%</td>
+                  <td class="is-center">43,5%</td><td class="is-center">60,5%</td>
+                </tr>
+                <tr>
+                  <td><strong>MyGene2</strong></td>
+                  <td class="is-center">140</td>
+                  <td class="is-center">57,1%</td><td class="is-center">73,6%</td>
+                  <td class="is-center">41,4%</td><td class="is-center">60,7%</td>
                 </tr>
                 <tr>
                   <td><strong>HMS</strong> <em class="bench-em-tiny">Harvard</em></td>
                   <td class="is-center">88</td>
-                  <td class="is-center">42,0%</td><td class="is-center">58,0%</td><td class="is-center">64,8%</td>
-                  <td class="is-center">64,8%</td><td class="is-center">1,737</td>
-                </tr>
-                <tr>
-                  <td><strong>MyGene2</strong></td>
-                  <td class="is-center">146</td>
-                  <td class="is-center">38,4%</td><td class="is-center">50,7%</td><td class="is-center">58,2%</td>
-                  <td class="is-center">58,2%</td><td class="is-center">1,706</td>
+                  <td class="is-center">43,2%</td><td class="is-center">62,5%</td>
+                  <td class="is-center">45,5%</td><td class="is-center">68,2%</td>
                 </tr>
                 <tr>
                   <td><strong>MME</strong> <em class="bench-em-tiny">China</em></td>
                   <td class="is-center">40</td>
-                  <td class="is-center">50,0%</td><td class="is-center">60,0%</td><td class="is-center">65,0%</td>
-                  <td class="is-center">65,0%</td><td class="is-center">1,423</td>
-                </tr>
-                <tr class="bench-row--gold-soft">
-                  <td><strong>DDD</strong> <span class="bench-badge bench-badge--gold bench-badge--xsmall">{{ 'aboutUs.evaluation.evolution.benchmark2026.casesBadgeDdd' | translate }}</span></td>
-                  <td class="is-center"><strong>1.749</strong></td>
-                  <td class="is-center">27,3%</td><td class="is-center">38,0%</td><td class="is-center">40,7%</td>
-                  <td class="is-center">40,7%</td><td class="is-center">1,579</td>
+                  <td class="is-center">67,5%</td><td class="is-center">75,0%</td>
+                  <td class="is-center">52,5%</td><td class="is-center">65,0%</td>
                 </tr>
                 <tr class="bench-row--green">
-                  <td><strong>Σ</strong></td><td class="is-center"><strong>3.017</strong></td>
-                  <td class="is-center"><strong>29,8%</strong></td><td class="is-center"><strong>42,4%</strong></td>
-                  <td class="is-center"><strong>46,6%</strong></td><td class="is-center"><strong>46,7%</strong></td>
-                  <td class="is-center">—</td>
+                  <td><strong>Σ</strong></td><td class="is-center"><strong>2.907</strong></td>
+                  <td class="is-center"><strong>49,2%</strong></td><td class="is-center"><strong>67,4%</strong></td>
+                  <td class="is-center">43,1%</td><td class="is-center">59,2%</td>
                 </tr>
-              </tbody>
-            </table>
-            </div>
-
-            <p class="bench-r-heading">{{ 'aboutUs.evaluation.evolution.benchmark2026.deeprare.title' | translate }}</p>
-            <div class="bench-table-wrapper bench-table-spaced">
-            <table class="bench-table">
-              <thead>
-                <tr>
-                  <th scope="col">{{ 'aboutUs.evaluation.evolution.benchmark2026.thModel' | translate }}</th>
-                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR1' | translate }}</th>
-                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR3' | translate }}</th>
-                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.headingR5' | translate }}</th>
-                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thCoverage' | translate }}</th>
-                  <th scope="col" class="is-center">{{ 'aboutUs.evaluation.evolution.benchmark2026.thAvgPos' | translate }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>gemini-3-pro-preview low</td><td class="is-center">46,6%</td><td class="is-center">52,3%</td><td class="is-center">52,3%</td><td class="is-center">52,3%</td><td class="is-center">1,152</td></tr>
-                <tr><td>gpt-6-astra low</td><td class="is-center">43,2%</td><td class="is-center">54,5%</td><td class="is-center">59,1%</td><td class="is-center">59,1%</td><td class="is-center">1,577</td></tr>
-                <tr><td>gemini-3.1-pro-preview low</td><td class="is-center">43,2%</td><td class="is-center">50,0%</td><td class="is-center">51,1%</td><td class="is-center">51,1%</td><td class="is-center">1,267</td></tr>
-                <tr class="bench-row--green"><td><strong>gpt-5.6-terra low</strong></td><td class="is-center"><strong>42,0%</strong></td><td class="is-center"><strong>58,0%</strong></td><td class="is-center"><strong>64,8%</strong></td><td class="is-center"><strong>64,8%</strong></td><td class="is-center">1,737</td></tr>
-                <tr><td>gemini-3.8-flash low</td><td class="is-center">42,0%</td><td class="is-center">51,1%</td><td class="is-center">54,5%</td><td class="is-center">54,5%</td><td class="is-center">1,521</td></tr>
-                <tr><td>gemini-2.5-pro low</td><td class="is-center">40,9%</td><td class="is-center">55,7%</td><td class="is-center">59,1%</td><td class="is-center">59,1%</td><td class="is-center">1,481</td></tr>
-                <tr><td>gemini-3.5-flash low</td><td class="is-center">38,6%</td><td class="is-center">48,9%</td><td class="is-center">48,9%</td><td class="is-center">48,9%</td><td class="is-center">1,326</td></tr>
-                <tr><td>gpt-5.4-mini low</td><td class="is-center">36,4%</td><td class="is-center">48,9%</td><td class="is-center">54,5%</td><td class="is-center">54,5%</td><td class="is-center">1,646</td></tr>
               </tbody>
             </table>
             </div>
@@ -580,6 +555,7 @@
                 <span class="visually-hidden">({{'a11y.Opens in a new tab' | translate}})</span>
               </a>
             </p>
+            <p class="subsection-text" style="margin-top: 0.5rem;">{{ 'aboutUs.evaluation.evolution.benchmark2026.historyNote' | translate }}</p>
             <p class="subsection-text" style="margin-top: 0.5rem; margin-bottom: 2rem;">
               {{ 'aboutUs.evaluation.evolution.benchmark2026.paperLine' | translate }}
               <a href="https://www.nature.com/articles/s41586-025-10097-9" target="_blank" rel="noopener noreferrer" class="reference-link">

@@ -179,9 +179,9 @@
         "title": "Un banc de proves dissenyat per desafiar el sistema",
         "description": "L'avaluació combina tres conjunts complementaris:",
         "sources": "Fonts de casos:",
-        "source1": "Dataset narratiu: 256 casos seleccionats a partir d'un corpus de 997 casos representatius, procedents al seu torn de 9.583 casos de MedQA/USMLE, MedBullets, urgències hospitalàries, Ramebench i ProCheck.",
-        "source2": "Dataset de malalties rares: 3.017 casos descrits mitjançant termes HPO, procedents de DDD, RAMEDIS, LIRICAL, MyGene2, MME i HMS.",
-        "source3": "Dataset multimodal: MedReaMM conté 625 casos validats per experts i 1.746 imatges. El benchmark actual utilitza una cohort curada de 100 casos.",
+        "source1": "Casos narratius: 300 casos en text lliure. La xifra principal surt dels 210 casos reals validats per un metge: 150 casos clínics publicats a PubMed entre juliol i octubre de 2026, gairebé tots posteriors a la data de tall dels models, i 60 casos d'urgències en castellà. Completen el conjunt 60 preguntes d'examen (MedQA i MedBullets) i 30 casos sintètics de malalties rares.",
+        "source2": "Malalties rares: 2.907 casos descrits amb termes HPO, de DDD, RAMEDIS, LIRICAL, MyGene2, MME i HMS.",
+        "source3": "Imatges: 250 casos de MedReaMM amb les seves imatges mèdiques, validats per experts.",
         "source4": "Track HPO independent: 3.017 casos de malalties rares de DDD, RAMEDIS, LIRICAL, MyGene2, MME i HMS.",
         "source5": "Track multimodal: MedReaMM conté 625 casos validats per experts i 1.746 imatges; el benchmark aparellat actual utilitza una cohort curada de 100. MultiCaRe (>90.000 narratives i >130.000 imatges) es va revisar, però no es va usar per comparar models perquè no té un diagnòstic canònic net i presenta risc de fuga.",
         "conclusion": "Els 256 casos són un conjunt compacte i reproduïble per comparar models, no tot el banc de proves. Els resultats narratius i HPO es presenten per separat."
@@ -196,7 +196,7 @@
       },
       "methodology": {
         "title": "Una metodologia d'avaluació que pensa com un clínic",
-        "intro": "Mesurar la precisió va més enllà d'un simple 'correcte' o 'incorrecte'. El nostre procés d'avaluació en cascada de 3 nivells mesura el que realment importa en la pràctica clínica:",
+        "intro": "Mesurar la precisió va més enllà d'un simple «correcte» o «incorrecte». Tots els models passen pel mateix procés, amb els mateixos casos:",
         "verification": {
           "title": "Verificació objectiva",
           "description": "Compara la hipòtesi principal amb codis mèdics estandarditzats (SNOMED CT, ICD-10) com la 'línia de validació més estricta'."
@@ -211,16 +211,20 @@
         },
         "steps": {
           "step1": {
-            "title": "Emulació (generació DDX)",
-            "text": "El model LLM rep el cas clínic (símptomes, codis HPO) i genera un diagnòstic diferencial ordenat (top-10)."
+            "title": "Diagnòstic diferencial",
+            "text": "El model rep el cas amb les mateixes instruccions que DxGPT i proposa cinc diagnòstics ordenats."
           },
           "step2": {
-            "title": "Normalització mèdica (MedLabeler)",
-            "text": "Azure Text Analytics assigna codis ICD-10/SNOMED/OMIM/ORPHA a cada diagnòstic generat. Permet comparar amb el gold standard mitjançant ontologies mèdiques."
+            "title": "Normalització mèdica",
+            "text": "Cada diagnòstic es codifica amb terminologies mèdiques (SNOMED CT, CIM-10, OMIM i ORPHA)."
           },
           "step3": {
-            "title": "Avaluació per fases (SNOMED → ICD-10 → BERT → jutge LLM)",
-            "text": "Coincidència exacta de codis mèdics → taxonomia ICD-10 → similitud semàntica BERT → jutge LLM independent per a casos ambigus."
+            "title": "Coincidència de codis",
+            "text": "Si el seu codi SNOMED CT coincideix amb el del diagnòstic de referència, compta com a encert."
+          },
+          "step4": {
+            "title": "Jutge clínic",
+            "text": "Un model de llenguatge revisa totes les propostes i decideix si cadascuna és la mateixa malaltia que la de referència. Només això compta com a encert."
           }
         },
         "metrics": {
@@ -228,7 +232,7 @@
           "thMetric": "Mètrica",
           "thDescription": "Descripció",
           "avgPosition": "Avg Position ↓",
-          "avgPositionDesc": "Posició mitjana del dx correcte al top-10 (menor = millor)",
+          "avgPositionDesc": "Posició mitjana del diagnòstic correcte quan apareix a la llista (menor = millor)",
           "recall1": "Recall@1",
           "recall1Desc": "% de casos on el dx correcte és el 1r",
           "recall3": "Recall@3",
@@ -306,15 +310,15 @@
           "descriptionEu": "Totes aquestes xifres descriuen el comportament tècnic dels models d'IA en bancs de casos estandarditzats (benchmarks). No equivalen a taxes d'èxit clínic en pacients reals ni constitueixen una avaluació de conformitat del producte. Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament. Està pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari. Sempre has de consultar amb un professional mèdic qualificat per obtenir un diagnòstic i tractament adequats."
         },
         "benchmark2026": {
-          "title": "Resultats · 29 d'octubre de 2026",
+          "title": "Resultats · novembre de 2026",
           "description": "Després de garantir la qualitat del conjunt de dades i automatitzar l'avaluació, el 2026 vam comparar DxGPT directament amb l'estat de l'art científic: l'article DeepRare (Nature, 2025), el primer sistema d'IA especialitzat en malalties rares avaluat públicament sobre els mateixos benchmarks internacionals.",
           "dataset": {
             "title": "Conjunt de dades net i publicable",
             "description": "Vam eliminar el label leakage i el boilerplate sintètic, creant all_256_clean: 256 casos clínics reals que superen 4 controls de qualitat independents (0 % leakage, 0 % boilerplate). És la primera línia base auditable de DxGPT sobre text narratiu clínic lliure."
           },
           "hpo": {
-            "title": "Veure resultats en malalties rares · 3.017 casos",
-            "description": "Resultats del model actual en sis conjunts de malalties rares"
+            "title": "Veure resultats en malalties rares · 2.907 casos",
+            "description": "gpt-6.1-sol enfront de gpt-5.6-terra en sis conjunts de malalties rares. L'entrada és una llista de termes HPO, sense text narratiu, i s'accepta el nom de la malaltia amb el gen o sense. Sol encerta més en tots els conjunts excepte HMS (88 casos), on la diferència no és significativa."
           },
           "results": {
             "title": "Veure la comparació completa entre models",
@@ -326,7 +330,7 @@
           },
           "multimodal": {
             "title": "Avaluació amb imatges",
-            "description": "En una avaluació inicial de 100 casos clínics amb les seves imatges, Terra va situar el diagnòstic de referència en primera posició en el 67 %, entre les tres primeres opcions en el 82 % i dins de la llista en el 84 %."
+            "description": "En una avaluació inicial de 250 casos clínics amb les seves imatges (MedReaMM), gpt-6.1-sol va situar el diagnòstic de referència en primera posició en el 68,4% dels casos (gpt-5.6-terra: 62,0%) i entre els cinc primers en el 82,0% (78,0%)."
           },
           "reference": "📊 Resultats complets, metodologia i configuració auditables a:",
           "repository": "Repositori DxGPT-Bench-Lab",
@@ -339,7 +343,7 @@
           "statAvgPos": "Diagnòstic correcte en primera posició",
           "statSuccessRate": "Casos amb el diagnòstic correcte entre les hipòtesis proposades",
           "trackATitle": "Comparació entre models",
-          "trackASubtitle": "Tots els models van rebre els mateixos 256 casos narratius —història, símptomes i evolució— i es van avaluar amb la mateixa metodologia.",
+          "trackASubtitle": "Tots els models van rebre els mateixos 210 casos reals validats —història, símptomes i evolució— i es van avaluar amb les mateixes instruccions i el mateix jutge.",
           "trackACallout": "Aquest track avalua la capacitat del model amb casos clínics reals en text lliure (història, símptomes, evolució). És el format més semblant a l'ús real de DxGPT en producció.",
           "avgPosChartCaption": "Diagnòstic correcte en primera posició · escala ampliada del 55 % al 65 % per distingir diferències petites",
           "thRank": "Posició",
@@ -377,9 +381,9 @@
           "deepRareLink": "DeepRare — Nature (2025)",
           "charts": {
             "paretoTitle": "Precisió enfront de temps de resposta",
-            "paretoSubtitle": "Les línies uneixen diferents nivells de raonament d'un mateix model: pensar durant més segons no millora l'encert inicial.",
+            "paretoSubtitle": "Les línies uneixen diferents nivells de raonament d'un mateix model: pensar durant més segons gairebé no canvia l'encert.",
             "optimalZone": "ZONA ÒPTIMA (MÉS ENCERT · MENYS ESPERA)",
-            "xAxisTime": "Temps mitjà per cas (segons, escala logarítmica)",
+            "xAxisTime": "Temps medià per cas (segons, escala logarítmica)",
             "legendOptimal": "Zona òptima (més encert, menys espera)",
             "legendEffort": "Nivells de raonament del mateix model",
             "legendFrontier": "Frontera d'eficiència",
@@ -402,7 +406,9 @@
             "segP23": "2a–3a posició",
             "segP45": "4a–5a posició",
             "segP6": "6a o posterior"
-          }
+          },
+          "statCaption": "gpt-6.1-sol, el model de DxGPT, en els 210 casos reals validats",
+          "historyNote": "Les xifres anteriors (Pipeline V4: 256 casos i 29 models) continuen disponibles al repositori."
         }
       },
       "user": {
