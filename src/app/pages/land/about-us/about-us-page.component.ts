@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { BrandingService } from 'app/shared/services/branding.service';
+import { environment } from 'environments/environment';
 declare let gtag: any;
 import { UuidService } from 'app/shared/services/uuid.service';
 
@@ -40,6 +41,9 @@ export interface BenchModel {
     standalone: false
 })
 export class AboutUsPageComponent {
+
+    // SaludGPT aún no tiene el análisis en profundidad: allí no se marca Fable como tal
+    readonly showAdvancedBadge = !String(environment.tenantId || '').startsWith('salud-gpt');
 
     _startTime: any;
     myuuid: string;

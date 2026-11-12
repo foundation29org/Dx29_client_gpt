@@ -22,6 +22,7 @@ import { LangService } from 'app/shared/services/lang.service';
 import { IframeParams, IframeParamsService } from 'app/shared/services/iframe-params.service';
 import { CountryContextService } from 'app/shared/services/country-context.service';
 import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
+import { ProgressCreep } from 'app/shared/utils/progress-creep';
 
 @Component({
     selector: 'app-beta-page',
@@ -53,6 +54,14 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     private typingInterval?: ReturnType<typeof setInterval>;
     private webSocket: WebSocket | null = null;
     private isWebSocketConnected = false;
+    // Barra de progreso: lo que se ve y el avance simulado mientras se genera la respuesta
+    // (del 50 % al 90 % el servidor no manda nada y tarda 10–20 s)
+    private static readonly PROGRESS_CREEP_MAX = 88;
+    private progressShown = 0;
+    private readonly progressCreep = new ProgressCreep(
+        (value) => this.setProgressBar(Math.max(this.progressShown, value)),
+        () => !!document.getElementById('progress-bar')
+    );
     private readonly startedAt = Date.now();
     private readonly myuuid: string;
     private submittedQuestion = '';
@@ -342,6 +351,9 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
 
     private showLoadingDialog(): void {
+        // Cada pregunta empieza con la barra a cero y sin avance simulado
+        this.progressCreep.stop();
+        this.progressShown = 0;
         const html = `
             <p>${this.translate.instant('land.swal')}</p>
             <p>${this.translate.instant('land.swal2')}</p>
@@ -658,25 +670,36 @@ export class BetaPageComponent implements OnInit, OnDestroy {
     }
 
     private updateWebSocketProgress(progress: number, message: string, phase?: string): void {
-        const progressBar = document.getElementById('progress-bar');
+        this.progressCreep.stop();
+        // Dentro de una pregunta la barra no retrocede aunque el avance simulado vaya por delante
+        const safeProgress = Math.max(this.progressShown, Math.min(100, Number(progress) || 0));
+        this.setProgressBar(safeProgress);
         const progressMessage = document.getElementById('progress-message');
-        const progressPercentage = document.getElementById('progress-percentage');
-        const safeProgress = Math.max(0, Math.min(100, Number(progress) || 0));
-
-        if (progressBar) {
-            progressBar.style.width = `${safeProgress}%`;
-        }
         if (progressMessage) {
             progressMessage.textContent = phase
                 ? this.getProgressMessage(phase, message)
                 : message;
         }
+        // Mientras se genera la respuesta la barra sigue avanzando despacio
+        if (phase === 'medical_question') {
+            this.progressCreep.start(safeProgress, BetaPageComponent.PROGRESS_CREEP_MAX);
+        }
+    }
+
+    private setProgressBar(progress: number): void {
+        this.progressShown = progress;
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercentage = document.getElementById('progress-percentage');
+        if (progressBar) {
+            progressBar.style.width = `${progress}%`;
+        }
         if (progressPercentage) {
-            progressPercentage.textContent = `${Math.round(safeProgress)}%`;
+            progressPercentage.textContent = `${Math.round(progress)}%`;
         }
     }
 
     private finishActiveWork(): void {
+        this.progressCreep.stop();
         this.callingAI = false;
         this.activeRequest?.unsubscribe();
         this.activeRequest = undefined;

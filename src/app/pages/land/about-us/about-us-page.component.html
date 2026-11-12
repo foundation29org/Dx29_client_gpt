@@ -440,7 +440,7 @@
                       <span *ngIf="m.isProd" class="bench-badge bench-badge--green bench-badge--xsmall" style="margin-left:6px">
                         {{ 'aboutUs.evaluation.evolution.benchmark2026.charts.prodBadge' | translate }}
                       </span>
-                      <span *ngIf="m.isAdvanced" class="bench-badge bench-badge--gold bench-badge--xsmall" style="margin-left:6px">
+                      <span *ngIf="m.isAdvanced && showAdvancedBadge" class="bench-badge bench-badge--gold bench-badge--xsmall" style="margin-left:6px">
                         {{ 'aboutUs.evaluation.evolution.benchmark2026.charts.advancedBadge' | translate }}
                       </span>
                     </td>

@@ -21,6 +21,7 @@ import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-mo
 import { IntentEnrichmentService } from 'app/shared/services/intent-enrichment.service';
 import { CountryContextService } from 'app/shared/services/country-context.service';
 import { environment } from 'environments/environment';
+import { ProgressCreep } from 'app/shared/utils/progress-creep';
 import { DIAGNOSTIC_GUIDANCE_QUESTIONS } from 'app/shared/models/diagnostic-guidance-question';
 import {
     compressImagesForRetry,
@@ -138,7 +139,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     resultsAreAdvanced = false;
     // Barra de progreso del diagnóstico: lo que se ve y el avance simulado mientras analiza
     private progressShown = 0;
-    private progressCreepTimer: any = null;
+    // Si el popup ya se cerró (resultado, error o cancelar), el avance se detiene solo
+    private readonly progressCreep = new ProgressCreep(
+        (value) => this.setProgressBar(Math.max(this.progressShown, value)),
+        () => !!document.getElementById('progress-bar')
+    );
     // Primera interacción por visita: permite localizar dónde se pierde el visitante antes de enviar.
     private focusEventSent = false;
     private firstTextEventSent = false;
@@ -1120,32 +1125,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     // Se acerca a PROGRESS_CREEP_MAX sin llegar nunca: a los 20 s va por el 60 %, a los
     // 40 s por el 71 % y a los 60 s por el 75 %. El siguiente paso real del servidor es el 80 %.
     private static readonly PROGRESS_CREEP_MAX = 78;
-    private static readonly PROGRESS_CREEP_TAU_MS = 20000;
-    private static readonly PROGRESS_CREEP_TICK_MS = 700;
 
     private startProgressCreep(from: number) {
-        const max = UndiagnosedPageComponent.PROGRESS_CREEP_MAX;
-        if (from >= max) {
-            return;
-        }
-        const startedAt = Date.now();
-        this.progressCreepTimer = setInterval(() => {
-            // Si el popup ya se cerró (resultado, error o cancelar), no hay nada que mover
-            if (!document.getElementById('progress-bar')) {
-                this.stopProgressCreep();
-                return;
-            }
-            const elapsed = Date.now() - startedAt;
-            const next = max - (max - from) * Math.exp(-elapsed / UndiagnosedPageComponent.PROGRESS_CREEP_TAU_MS);
-            this.setProgressBar(Math.max(this.progressShown, next));
-        }, UndiagnosedPageComponent.PROGRESS_CREEP_TICK_MS);
+        this.progressCreep.start(from, UndiagnosedPageComponent.PROGRESS_CREEP_MAX);
     }
 
     private stopProgressCreep() {
-        if (this.progressCreepTimer) {
-            clearInterval(this.progressCreepTimer);
-            this.progressCreepTimer = null;
-        }
+        this.progressCreep.stop();
     }
 
     private handleWebSocketError(error: any) {
@@ -2726,8 +2712,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    // Webs que aún no tienen el análisis en profundidad. SaludGPT (Aragón), hasta que
+    // apruebe que los casos se procesen con Claude Fable (12-nov-2026). Va a la par con
+    // ADVANCED_EXCLUDED_TENANT_PREFIXES en Server/services/advancedDiagnose.js.
+    private static readonly ADVANCED_EXCLUDED_TENANT_PREFIXES = ['salud-gpt'];
+
     // Una vez por caso, sobre resultados del modelo normal
     get canOfferAdvanced(): boolean {
+        const tenantId = String(environment.tenantId || '');
+        if (UndiagnosedPageComponent.ADVANCED_EXCLUDED_TENANT_PREFIXES.some((prefix) => tenantId.startsWith(prefix))) {
+            return false;
+        }
         return this.topRelatedConditions.length > 0 &&
             !this.advancedUsedForCase &&
             !this.resultsAreAdvanced &&
