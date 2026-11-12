@@ -2726,8 +2726,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    // Webs que aún no tienen el análisis en profundidad. SaludGPT (Aragón), hasta que
+    // apruebe que los casos se procesen con Claude Fable (12-nov-2026). Va a la par con
+    // ADVANCED_EXCLUDED_TENANT_PREFIXES en Server/services/advancedDiagnose.js.
+    private static readonly ADVANCED_EXCLUDED_TENANT_PREFIXES = ['salud-gpt'];
+
     // Una vez por caso, sobre resultados del modelo normal
     get canOfferAdvanced(): boolean {
+        const tenantId = String(environment.tenantId || '');
+        if (UndiagnosedPageComponent.ADVANCED_EXCLUDED_TENANT_PREFIXES.some((prefix) => tenantId.startsWith(prefix))) {
+            return false;
+        }
         return this.topRelatedConditions.length > 0 &&
             !this.advancedUsedForCase &&
             !this.resultsAreAdvanced &&
