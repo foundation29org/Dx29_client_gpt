@@ -747,7 +747,6 @@
       },
       "chooseReason": "Choisissez une raison pour continuer.",
       "confirm": "Analyser en profondeur",
-      "cancel": "Pas maintenant",
       "loading": "Analyse approfondie : elle peut prendre jusqu'à une minute.",
       "badge": "Analyse approfondie",
       "errorUnavailable": "L'analyse approfondie n'est pas disponible pour le moment. Vos résultats précédents sont toujours là.",

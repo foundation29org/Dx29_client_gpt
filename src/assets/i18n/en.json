@@ -747,7 +747,6 @@
       },
       "chooseReason": "Choose a reason to continue.",
       "confirm": "Analyze in depth",
-      "cancel": "Not now",
       "loading": "In-depth analysis: it can take up to a minute.",
       "badge": "In-depth analysis",
       "errorUnavailable": "In-depth analysis isn't available right now. Your previous results are still here.",
