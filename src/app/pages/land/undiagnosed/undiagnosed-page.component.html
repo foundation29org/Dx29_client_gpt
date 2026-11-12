@@ -232,12 +232,14 @@
                 {{'land.followup.modal.description' | translate }}
               </p>
             </div>
-            <button type="button" class="results-action-btn results-action-btn--primary"
-              (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
-              <i class="fa fa-comments" aria-hidden="true"></i>
-              <span *ngIf="!isEuMode()">{{'diagnosis.Improve patient description' | translate }}</span>
-              <span *ngIf="isEuMode()">{{'diagnosis.Improve patient descriptionEu' | translate }}</span>
-            </button>
+            <div class="results-refinement-top__actions">
+              <button type="button" class="results-action-btn results-action-btn--primary"
+                (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
+                <i class="fa fa-comments" aria-hidden="true"></i>
+                <span *ngIf="!isEuMode()">{{'diagnosis.Improve patient description' | translate }}</span>
+                <span *ngIf="isEuMode()">{{'diagnosis.Improve patient descriptionEu' | translate }}</span>
+              </button>
+            </div>
           </div>
 
           <!-- Disease cards -->
@@ -250,6 +252,9 @@
                 <span class="disease-card__rank" *ngIf="!isEuMode()">{{i + 1}}</span>
                 <div class="disease-card__title-group">
                   <h2 class="disease-card__name" [id]="'disease-name-' + i">{{disease.name}}</h2>
+                  <span class="disease-card__advanced" *ngIf="disease.advanced">
+                    <i class="fa fa-bolt" aria-hidden="true"></i>{{'diagnosis.advanced.badge' | translate}}
+                  </span>
                   <p class="disease-card__name-en" *ngIf="disease.showNameEn && disease.nameEn && disease.nameEn !== disease.name" lang="en">{{disease.nameEn}}</p>
                   <p class="disease-card__description">{{disease.description}}</p>
                 </div>
@@ -311,7 +316,8 @@
         <!-- Result feedback and refinement -->
         <div class="results-feedback" *ngIf="topRelatedConditions.length>0">
           <div class="results-feedback__group">
-            <h2 class="results-feedback__title" id="vote-title">{{'land.Indicates the quality of the result' | translate }}</h2>
+            <!-- Con resultados del análisis en profundidad se pregunta por él: su voto se guarda con el modelo de Fable -->
+            <h2 class="results-feedback__title" id="vote-title">{{ (resultsAreAdvanced ? 'diagnosis.advanced.voteTitle' : 'land.Indicates the quality of the result') | translate }}</h2>
             <div class="results-feedback__actions" role="group" aria-labelledby="vote-title">
               <ng-container *ngIf="!sendingVote; else loadingSpinner">
                 <button type="button" class="vote-btn vote-btn--up" (click)="vote('up')"
@@ -334,17 +340,27 @@
             </div>
           </div>
           <div class="results-feedback__divider" aria-hidden="true"></div>
-          <div class="results-feedback__group">
-            <div class="results-feedback__copy">
-              <h2 class="results-feedback__title">
-                <span *ngIf="!isEuMode()">{{'diagnosis.Not satisfied with the results?' | translate }}</span>
-                <span *ngIf="isEuMode()">{{'diagnosis.Not satisfied with the results?Eu' | translate }}</span>
-              </h2>
-              <p *ngIf="!isEuMode()" class="results-feedback__description">{{'land.followup.modal.description' | translate }}</p>
-            </div>
-            <div class="results-feedback__actions">
-              <button type="button" class="results-action-btn results-action-btn--primary" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
+          <!-- Cada forma de afinar la lista en su fila, con lo que hace -->
+          <div class="results-feedback__options">
+            <div class="results-option">
+              <div class="results-feedback__copy">
+                <h2 class="results-feedback__title">
+                  <span *ngIf="!isEuMode()">{{'diagnosis.Not satisfied with the results?' | translate }}</span>
+                  <span *ngIf="isEuMode()">{{'diagnosis.Not satisfied with the results?Eu' | translate }}</span>
+                </h2>
+                <p *ngIf="!isEuMode()" class="results-feedback__description">{{'land.followup.modal.description' | translate }}</p>
+              </div>
+              <button type="button" class="results-action-btn results-action-btn--primary results-option__btn" (click)="handleFollowUpResponse(contentFollowUpQuestions, contentEditDescription)">
                 <i class="fa fa-comments" aria-hidden="true"></i><span *ngIf="!isEuMode()">{{'diagnosis.Improve patient description' | translate }}</span><span *ngIf="isEuMode()">{{'diagnosis.Improve patient descriptionEu' | translate }}</span>
+              </button>
+            </div>
+            <div class="results-option" *ngIf="canOfferAdvanced">
+              <div class="results-feedback__copy">
+                <h2 class="results-feedback__title">{{'diagnosis.advanced.cardTitle' | translate }}</h2>
+                <p class="results-feedback__description">{{'diagnosis.advanced.cardDescription' | translate }}</p>
+              </div>
+              <button type="button" class="results-action-btn results-action-btn--advanced results-option__btn" (click)="offerAdvanced('button')">
+                <i class="fa fa-bolt" aria-hidden="true"></i>{{'diagnosis.advanced.button' | translate }}
               </button>
             </div>
           </div>

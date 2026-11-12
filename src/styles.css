@@ -324,3 +324,85 @@ a:focus
 .swal2-cancel:hover {
   background: rgba(255, 255, 255, 0.22) !important;
 }
+/* Análisis en profundidad: los motivos como botones grandes sobre el popup oscuro */
+.dxgpt-advanced-modal {
+  width: min(32rem, 95vw) !important;
+}
+
+.dxgpt-advanced-modal .advanced-intro {
+  margin: 0 0 1rem;
+  font-size: 0.98rem;
+  color: #c9ced8;
+}
+
+.dxgpt-advanced-modal .advanced-question {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f5f7fb;
+}
+
+.dxgpt-advanced-modal .advanced-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  text-align: left;
+}
+
+.dxgpt-advanced-modal .advanced-reason {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  color: #e8ebf1;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.dxgpt-advanced-modal .advanced-reason:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dxgpt-advanced-modal .advanced-reason:focus-visible {
+  outline: 2px solid #e7a400;
+  outline-offset: 2px;
+}
+
+.dxgpt-advanced-modal .advanced-reason.is-selected {
+  background: rgba(231, 164, 0, 0.16);
+  border-color: #e7a400;
+  color: #fff;
+}
+
+.dxgpt-advanced-modal .advanced-reason__mark {
+  flex-shrink: 0;
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+}
+
+.dxgpt-advanced-modal .advanced-reason.is-selected .advanced-reason__mark {
+  border-color: #e7a400;
+  background: radial-gradient(circle, #e7a400 0 45%, transparent 50%);
+}
+
+.dxgpt-advanced-modal .swal2-confirm {
+  background: #e7a400 !important;
+  color: #1c202a !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+}
+
+.dxgpt-advanced-modal .swal2-confirm:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

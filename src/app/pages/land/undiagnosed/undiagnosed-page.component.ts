@@ -127,6 +127,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     showErrorCall2: boolean = false;
     callingAI: boolean = false;
     private forceDiagnosisNext = false;
+    // Modo avanzado (Claude Fable 5.2): se ofrece tras un voto negativo o desde un botón,
+    // una vez por caso. Antes se pregunta por qué no convencieron los resultados
+    // (motivos cerrados, sin texto libre).
+    readonly advancedReasons = ['missing_suspected', 'too_generic', 'not_matching', 'want_second_opinion', 'other'];
+    private static readonly ADVANCED_MODEL = 'claudefable52';
+    private advancedUsedForCase = false;
+    private pendingAdvanced: { reason: string; source: 'vote_down' | 'button' } | null = null;
+    // Los resultados que se ven ahora vienen del modo avanzado
+    resultsAreAdvanced = false;
+    // Barra de progreso del diagnóstico: lo que se ve y el avance simulado mientras analiza
+    private progressShown = 0;
+    private progressCreepTimer: any = null;
     // Primera interacción por visita: permite localizar dónde se pierde el visitante antes de enviar.
     private focusEventSent = false;
     private firstTextEventSent = false;
@@ -548,6 +560,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.diseaseListText = '';
         this.inferredProfile = null;
         this.forceDiagnosisNext = false;
+        this.advancedUsedForCase = false;
+        this.pendingAdvanced = null;
+        this.resultsAreAdvanced = false;
         this.followUpQuestions = [];
         this.followUpAnswers = {};
         this.showFollowUpQuestions = false;
@@ -848,6 +863,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.stopProgressCreep();
         this.activeMultimodalRun += 1;
         this.multimodalRequestSubscription?.unsubscribe();
         this.multimodalRequestSubscription = null;
@@ -1069,20 +1085,66 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     private updateWebSocketProgress(progress: number, message: string, phase?: string) {
         const displayMessage = phase ? this.getProgressMessage(phase) : message;
-        
-        const progressBar = document.getElementById('progress-bar');
-        const progressMessage = document.getElementById('progress-message');
-        const progressPercentage = document.getElementById('progress-percentage');
-        
-        if (progressBar) {
-            progressBar.style.width = progress + '%';
-            //console.log(`Progress updated: ${progress}% - ${displayMessage}`);
+        this.stopProgressCreep();
+        // Una pasada nueva empieza en «conectando»; dentro de ella la barra no retrocede
+        // aunque el avance simulado haya ido por delante del servidor
+        if (phase === 'connection') {
+            this.progressShown = progress;
+        } else {
+            progress = Math.max(progress, this.progressShown);
         }
+        this.setProgressBar(progress);
+        const progressMessage = document.getElementById('progress-message');
         if (progressMessage) {
             progressMessage.textContent = displayMessage;
         }
+        // Mientras el modelo analiza (de 30 % a 80 % no llega nada del servidor, y con
+        // Sol o el análisis en profundidad son 15–40 s) la barra sigue avanzando despacio
+        if (phase === 'ai_processing') {
+            this.startProgressCreep(progress);
+        }
+    }
+
+    private setProgressBar(progress: number) {
+        this.progressShown = progress;
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercentage = document.getElementById('progress-percentage');
+        if (progressBar) {
+            progressBar.style.width = progress + '%';
+        }
         if (progressPercentage) {
             progressPercentage.textContent = Math.round(progress) + '%';
+        }
+    }
+
+    // Se acerca a PROGRESS_CREEP_MAX sin llegar nunca: a los 20 s va por el 60 %, a los
+    // 40 s por el 71 % y a los 60 s por el 75 %. El siguiente paso real del servidor es el 80 %.
+    private static readonly PROGRESS_CREEP_MAX = 78;
+    private static readonly PROGRESS_CREEP_TAU_MS = 20000;
+    private static readonly PROGRESS_CREEP_TICK_MS = 700;
+
+    private startProgressCreep(from: number) {
+        const max = UndiagnosedPageComponent.PROGRESS_CREEP_MAX;
+        if (from >= max) {
+            return;
+        }
+        const startedAt = Date.now();
+        this.progressCreepTimer = setInterval(() => {
+            // Si el popup ya se cerró (resultado, error o cancelar), no hay nada que mover
+            if (!document.getElementById('progress-bar')) {
+                this.stopProgressCreep();
+                return;
+            }
+            const elapsed = Date.now() - startedAt;
+            const next = max - (max - from) * Math.exp(-elapsed / UndiagnosedPageComponent.PROGRESS_CREEP_TAU_MS);
+            this.setProgressBar(Math.max(this.progressShown, next));
+        }, UndiagnosedPageComponent.PROGRESS_CREEP_TICK_MS);
+    }
+
+    private stopProgressCreep() {
+        if (this.progressCreepTimer) {
+            clearInterval(this.progressCreepTimer);
+            this.progressCreepTimer = null;
         }
     }
 
@@ -1095,11 +1157,25 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             INPUT_TOO_LARGE: 'generics.inputTooLarge',
             DOCUMENT_PAGE_LIMIT_EXCEEDED: 'generics.documentPageLimitExceeded',
             NO_DOCUMENT: 'generics.documentUnreadable',
-            NO_MEDICAL_IMAGE: 'generics.imageNotMedical'
+            NO_MEDICAL_IMAGE: 'generics.imageNotMedical',
+            ADVANCED_MODEL_UNAVAILABLE: 'diagnosis.advanced.errorUnavailable',
+            ADVANCED_MODEL_REFUSED: 'diagnosis.advanced.errorRefused',
+            ADVANCED_MODEL_REJECTED: 'diagnosis.advanced.errorRefused',
+            ADVANCED_IMAGE_TOO_LARGE: 'diagnosis.advanced.errorImageTooLarge'
         };
         let msgError = this.translate.instant(
             messageKeyByType[error?.type] || 'generics.error try again'
         );
+        if (this.pendingAdvanced) {
+            // Los resultados anteriores siguen en pantalla. Si fue algo pasajero se puede
+            // volver a intentar; si el modelo se negó o la petición no puede pasar, no.
+            this.lauchEvent('Advanced error');
+            const finalCodes = ['ADVANCED_MODEL_REFUSED', 'ADVANCED_MODEL_REJECTED', 'ADVANCED_IMAGE_TOO_LARGE'];
+            if (!finalCodes.includes(error?.type)) {
+                this.advancedUsedForCase = false;
+            }
+            this.pendingAdvanced = null;
+        }
         const correlationId = this.getSafeCorrelationId(
             error?.correlationId || this.lastMultimodalCorrelationId
         );
@@ -1347,7 +1423,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         return filteredParams;
     }
 
-    async callAI() {
+    // advanced: el motivo y el origen cuando se pide el modo avanzado (ver offerAdvanced)
+    async callAI(advanced: { reason: string; source: 'vote_down' | 'button' } | null = null) {
         Swal.close();
         if (!this.medicalTextEng?.trim() && !this.currentUploadId) {
             this.callingAI = false;
@@ -1380,7 +1457,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         // Siempre usar WebSocket para mejorar la UX.
         const shouldUseWebSocket = true;
-        
+
         if (shouldUseWebSocket) {
             try {
                 await this.connectWebSocket();
@@ -1388,11 +1465,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 console.error('Error connecting WebSocket:', error);
                 this.showError(this.translate.instant("generics.error try again"), error);
                 this.callingAI = false;
+                if (advanced) {
+                    // No llegó a pedirse: se puede volver a intentar
+                    this.advancedUsedForCase = false;
+                }
                 return;
             }
         }
 
-        const htmlContent = '<p>' + this.translate.instant("land.swal") + '</p>' + 
+        const advancedNotice = advanced
+          ? '<p><strong>' + this.translate.instant('diagnosis.advanced.loading') + '</strong></p>'
+          : '';
+        const htmlContent = advancedNotice + '<p>' + this.translate.instant("land.swal") + '</p>' +
           '<p>' + this.translate.instant("land.swal2") + '</p>' + 
           '<p>' + this.translate.instant("land.swal3") + '</p>' + 
           `<div id="websocket-progress" style="margin: 18px 0 10px 0; padding: 12px 18px; background: rgba(30,34,40,0.95); border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); border: 1px solid #23272f;">
@@ -1429,6 +1513,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         // Inicializar progreso para WebSocket
         this.serverProgressReceived = false;
+        // Cada pasada empieza con la barra a cero y sin avance simulado
+        this.stopProgressCreep();
+        this.progressShown = 0;
         setTimeout(() => {
             if (!this.serverProgressReceived) {
                 this.updateWebSocketProgress(0, 'Conectando...', 'connection');
@@ -1457,9 +1544,18 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             uploadId: this.currentUploadId || undefined,
             forceDiagnosis: this.forceDiagnosisNext === true,
             // diseaseListEn ya va en inglés (diagnosis_en): el servidor no la traduce
-            diseases_list_en: true
+            diseases_list_en: true,
+            ...(advanced ? { advanced: true, advancedReason: advanced.reason, advancedSource: advanced.source } : {})
         };
         this.forceDiagnosisNext = false;
+        // El análisis en profundidad cuenta como usado cuando la petición sale de verdad;
+        // una descripción nueva (o cambiada) lo vuelve a permitir
+        if (advanced) {
+            this.advancedUsedForCase = true;
+        } else if (!this.loadMoreDiseases) {
+            this.advancedUsedForCase = false;
+        }
+        this.pendingAdvanced = advanced;
 
         if (this.loadMoreDiseases) {
             value.diseases_list = this.diseaseListText;
@@ -1524,6 +1620,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 case 'success':
                     this.processAiSuccess(res, value);
                     break;
+                case 'advanced_unavailable':
+                    // El servidor no lo permite en esta petición: los resultados anteriores siguen en pantalla
+                    this.lauchEvent('Advanced unavailable - ' + String(res.code || '').replace('ADVANCED_', '').toLowerCase());
+                    this.pendingAdvanced = null;
+                    this.showInfoModal(this.translate.instant('diagnosis.advanced.errorUnavailable'));
+                    this.callingAI = false;
+                    break;
                 default:
                     this.showError(this.translate.instant("generics.error try again"), null);
                     this.callingAI = false;
@@ -1554,7 +1657,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
     handleAiError(err: any) {
         let msgError = '';
-        
+        if (this.pendingAdvanced) {
+            // La petición no llegó a procesarse: se puede volver a intentar
+            this.advancedUsedForCase = false;
+            this.pendingAdvanced = null;
+        }
+
         // Si el error es un objeto con la propiedad result
         if (err.result === 'translation error') {
             msgError = this.translate.instant('generics.Translation error');
@@ -1660,10 +1768,26 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 let parseChoices0 = data.data;
                 if (!this.loadMoreDiseases) {
                     this.diseaseListEn = [];
+                    // «Cargar más» sigue con el modelo normal y no cambia esta marca
+                    this.resultsAreAdvanced = data.advanced === true;
                 }
+                if (data.advanced === true) {
+                    this.lauchEvent('Advanced finished');
+                }
+                this.pendingAdvanced = null;
                 this.setDiseaseListEn(parseChoices0);
                 this.continuecallAI(parseChoices0);
             }else{
+                if (this.pendingAdvanced) {
+                    // Sin lista del análisis en profundidad: los resultados anteriores siguen
+                    // en pantalla y se puede volver a intentar
+                    this.lauchEvent('Advanced empty result');
+                    this.pendingAdvanced = null;
+                    this.advancedUsedForCase = false;
+                    this.callingAI = false;
+                    this.showInfoModal(this.translate.instant('diagnosis.advanced.errorUnavailable'));
+                    return;
+                }
                 if(data.suggestedPage === 'questions'){
                     this.showWrongPageRedirect('questions');
                     this.lauchEvent("Redirect to medical questions");
@@ -1885,7 +2009,8 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             `;
             // diagnosis_en es el nombre original en inglés (llega si la respuesta se tradujo): se usa
             // para pedir más información en inglés y se muestra solo si el servidor lo indica
-            this.topRelatedConditions.push({ content, name: disease.diagnosis, nameEn: disease.diagnosis_en || '', showNameEn: this.showEnglishName, url: sponsor?.url || '', description: disease.description, matchingSymptoms: matchingSymptoms, nonMatchingSymptoms: nonMatchingSymptoms });
+            // advanced: la tarjeta viene del modo avanzado (las de «cargar más» no)
+            this.topRelatedConditions.push({ content, name: disease.diagnosis, nameEn: disease.diagnosis_en || '', showNameEn: this.showEnglishName, url: sponsor?.url || '', description: disease.description, matchingSymptoms: matchingSymptoms, nonMatchingSymptoms: nonMatchingSymptoms, advanced: this.resultsAreAdvanced && !appendedFromLoadMore });
         });
 
         this.loadMoreDiseases = false;
@@ -2548,33 +2673,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             fileNames = this.selectedFiles.map(file => file.name).join(', ');
         }
 
-        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, versionModel: this.model, fileNames: fileNames }
+        // Con resultados del modo avanzado el voto se guarda con su modelo, para medir si convence más
+        const votedModel = this.resultsAreAdvanced ? UndiagnosedPageComponent.ADVANCED_MODEL : this.model;
+        var value = { value: this.symtpmsLabel + " " + this.medicalTextOriginal + " Call Text: " + this.medicalTextEng, myuuid: this.myuuid, lang: this.lang, vote: valueVote, topRelatedConditions: this.topRelatedConditions, versionModel: votedModel, fileNames: fileNames }
         this.subscription.add(this.apiDx29ServerService.opinion(value)
-            .subscribe((res: any) => {
-                this.analyticsService.trackEvent("user_vote", { vote: valueVote, model: this.model });
+            .subscribe(async (res: any) => {
+                this.analyticsService.trackEvent("user_vote", { vote: valueVote, model: votedModel });
                 if(this.selectedFiles.length > 0){
                     this.analyticsService.trackEvent("fileNames", { fileNames: fileNames });
                 }
-               
+
                 this.sendingVote = false;
-                // Abrir el modal de FeedbackPageComponent
-                if (localStorage.getItem('showFeedbackDxGPT') == null || localStorage.getItem('showFeedbackDxGPT') != 'true') {
-                    let ngbModalOptions: NgbModalOptions = {
-                        backdrop: 'static',
-                        keyboard: false,
-                        ariaLabelledBy: 'feedback-modal-title',
-                        windowClass: 'ModalClass-lg'// xl, lg, sm
-                    };
-                    this.modalReference = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
-                    
-                    // Pasar parámetros al componente del modal
-                    this.modalReference.componentInstance.setModel(this.model);
-                    this.modalReference.componentInstance.setSelectedFiles(fileNames);
-                    this.modalReference.componentInstance.setInferredProfile(this.inferredProfile);
-                }else{
-                    let msgSuccess = this.translate.instant("land.thanks");
-                    this.showSuccess(msgSuccess);
+                // Tras un voto negativo se ofrece el modo avanzado; si lo lanza, el resto
+                // del agradecimiento se omite esta vez
+                if (valueVote === 'down' && this.canOfferAdvanced && await this.offerAdvanced('vote_down')) {
+                    return;
                 }
+                this.showVoteFeedback(fileNames);
 
             }, (err) => {
                 if (err.error.message === 'Invalid request format or content') {
@@ -2588,6 +2703,100 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 console.log(err);
                 this.sendingVote = false;
             }));
+    }
+
+    // Después de votar: la encuesta general la primera vez y, después, solo las gracias
+    private showVoteFeedback(fileNames: string) {
+        if (localStorage.getItem('showFeedbackDxGPT') == null || localStorage.getItem('showFeedbackDxGPT') != 'true') {
+            let ngbModalOptions: NgbModalOptions = {
+                backdrop: 'static',
+                keyboard: false,
+                ariaLabelledBy: 'feedback-modal-title',
+                windowClass: 'ModalClass-lg'// xl, lg, sm
+            };
+            this.modalReference = this.modalService.open(FeedbackPageComponent, ngbModalOptions);
+
+            // Pasar parámetros al componente del modal
+            this.modalReference.componentInstance.setModel(this.model);
+            this.modalReference.componentInstance.setSelectedFiles(fileNames);
+            this.modalReference.componentInstance.setInferredProfile(this.inferredProfile);
+        } else {
+            let msgSuccess = this.translate.instant("land.thanks");
+            this.showSuccess(msgSuccess);
+        }
+    }
+
+    // Una vez por caso, sobre resultados del modelo normal
+    get canOfferAdvanced(): boolean {
+        return this.topRelatedConditions.length > 0 &&
+            !this.advancedUsedForCase &&
+            !this.resultsAreAdvanced &&
+            !this.callingAI;
+    }
+
+    // Pregunta por qué no convencieron los resultados y, si el usuario sigue, pide el
+    // diagnóstico al modo avanzado. Devuelve si se lanzó.
+    async offerAdvanced(source: 'vote_down' | 'button'): Promise<boolean> {
+        if (!this.canOfferAdvanced) {
+            return false;
+        }
+        this.lauchEvent(`Advanced offered - ${source}`);
+        const escapeHtml = (text: string) => String(text)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        // Los motivos como botones grandes que se marcan al pulsar; el de confirmar
+        // se activa al elegir uno
+        const reasonButtons = this.advancedReasons.map((reason) =>
+            `<button type="button" class="advanced-reason" role="radio" aria-checked="false" data-reason="${reason}">` +
+            `<span class="advanced-reason__mark" aria-hidden="true"></span>` +
+            `<span>${escapeHtml(this.translate.instant(`diagnosis.advanced.reasons.${reason}`))}</span></button>`
+        ).join('');
+        let selectedReason = '';
+        const result = await Swal.fire({
+            title: escapeHtml(this.translate.instant('diagnosis.advanced.title')),
+            html: `<p class="advanced-intro">${escapeHtml(this.translate.instant('diagnosis.advanced.intro'))}</p>` +
+                `<p class="advanced-question" id="advanced-question">${escapeHtml(this.translate.instant('diagnosis.advanced.question'))}</p>` +
+                `<div class="advanced-reasons" role="radiogroup" aria-labelledby="advanced-question">${reasonButtons}</div>`,
+            showCancelButton: true,
+            confirmButtonText: this.translate.instant('diagnosis.advanced.confirm'),
+            cancelButtonText: this.translate.instant('diagnosis.advanced.cancel'),
+            reverseButtons: true,
+            allowOutsideClick: false,
+            customClass: { popup: 'dxgpt-advanced-modal' },
+            didOpen: (popup: HTMLElement) => {
+                const confirmButton = Swal.getConfirmButton();
+                if (confirmButton) {
+                    confirmButton.disabled = true;
+                }
+                const buttons = Array.from(popup.querySelectorAll<HTMLButtonElement>('.advanced-reason'));
+                buttons.forEach((button) => button.addEventListener('click', () => {
+                    buttons.forEach((other) => {
+                        other.classList.toggle('is-selected', other === button);
+                        other.setAttribute('aria-checked', String(other === button));
+                    });
+                    selectedReason = button.dataset['reason'] || '';
+                    if (confirmButton) {
+                        confirmButton.disabled = !selectedReason;
+                    }
+                }));
+            },
+            preConfirm: () => {
+                if (!selectedReason) {
+                    Swal.showValidationMessage(this.translate.instant('diagnosis.advanced.chooseReason'));
+                    return false;
+                }
+                return selectedReason;
+            }
+        });
+        if (!result.isConfirmed || !selectedReason) {
+            this.lauchEvent(`Advanced declined - ${source}`);
+            return false;
+        }
+        const reason = selectedReason;
+        this.lauchEvent(`Advanced start - ${reason}`);
+        this.loadMoreDiseases = false;
+        this.callingAI = true;
+        await this.callAI({ reason, source });
+        return true;
     }
 
     countCharacters(text: string) {
@@ -3594,6 +3803,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
 
         // Inicializar progreso para WebSocket
         this.serverProgressReceived = false;
+        // Cada pasada empieza con la barra a cero y sin avance simulado
+        this.stopProgressCreep();
+        this.progressShown = 0;
         setTimeout(() => {
             if (runId === this.activeMultimodalRun && !this.serverProgressReceived) {
                 this.updateWebSocketProgress(0, 'Conectando...', 'connection');
