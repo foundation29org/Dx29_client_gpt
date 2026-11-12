@@ -2753,7 +2753,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 `<div class="advanced-reasons" role="radiogroup" aria-labelledby="advanced-question">${reasonButtons}</div>`,
             showCancelButton: true,
             confirmButtonText: this.translate.instant('diagnosis.advanced.confirm'),
-            cancelButtonText: this.translate.instant('diagnosis.advanced.cancel'),
+            cancelButtonText: this.translate.instant('generics.Cancel'),
             reverseButtons: true,
             allowOutsideClick: false,
             customClass: { popup: 'dxgpt-advanced-modal' },

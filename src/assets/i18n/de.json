@@ -747,7 +747,6 @@
       },
       "chooseReason": "Wählen Sie einen Grund, um fortzufahren.",
       "confirm": "Tiefer analysieren",
-      "cancel": "Jetzt nicht",
       "loading": "Tiefenanalyse: Sie kann bis zu einer Minute dauern.",
       "badge": "Tiefenanalyse",
       "errorUnavailable": "Die Tiefenanalyse ist gerade nicht verfügbar. Ihre bisherigen Ergebnisse bleiben erhalten.",
