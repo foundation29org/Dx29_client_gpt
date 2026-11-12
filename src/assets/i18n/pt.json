@@ -330,7 +330,7 @@
           },
           "multimodal": {
             "title": "Avaliação com imagens",
-            "description": "Numa avaliação inicial de 250 casos clínicos com as suas imagens (MedReaMM), o gpt-6.1-sol colocou o diagnóstico de referência em primeiro lugar em 68,4% dos casos (gpt-5.6-terra: 62,0%) e entre os cinco primeiros em 82,0% (78,0%)."
+            "description": "Numa avaliação de 250 casos clínicos com as suas imagens (MedReaMM), a análise aprofundada (Claude Fable 5.2) colocou o diagnóstico de referência em primeiro lugar em 78,0% dos casos e entre os cinco primeiros em 86,4%. Com os mesmos casos, o gpt-6.1-sol, o modelo padrão, chegou a 71,2% e 82,8%."
           },
           "reference": "📊 Resultados completos, metodologia e configuração disponíveis em:",
           "repository": "Repositório DxGPT-Bench-Lab",
@@ -401,6 +401,7 @@
             "presetNone": "Nenhum",
             "emptySelection": "Selecione pelo menos um modelo na lista acima",
             "prodBadge": "Em produção",
+            "advancedBadge": "Análise aprofundada",
             "thDistribution": "Distribuição por posição",
             "segP1": "1.ª posição",
             "segP23": "2.ª–3.ª posição",
@@ -729,6 +730,30 @@
     "upload_slow_warning": "O envio pode demorar em conexões móveis; mantenha esta janela aberta."
   },
   "diagnosis": {
+    "advanced": {
+      "voteTitle": "A análise aprofundada foi útil?",
+      "cardTitle": "Quer uma análise mais aprofundada?",
+      "cardDescription": "Outro modelo de IA, mais potente, revisa o mesmo caso sem que você precise acrescentar nada. Demora um pouco mais.",
+      "button": "Analisar em profundidade",
+      "title": "Análise aprofundada",
+      "intro": "Outro modelo de IA, mais potente, analisa o mesmo caso novamente. Demora um pouco mais que a análise normal.",
+      "question": "Por que os resultados não foram convincentes?",
+      "reasons": {
+        "missing_suspected": "Não aparece o que eu suspeito",
+        "too_generic": "São gerais demais",
+        "not_matching": "Não combinam com os sintomas, a idade ou o sexo",
+        "want_second_opinion": "Quero confirmá-los",
+        "other": "Outro motivo"
+      },
+      "chooseReason": "Escolha um motivo para continuar.",
+      "confirm": "Analisar em profundidade",
+      "cancel": "Agora não",
+      "loading": "Análise aprofundada: pode levar até um minuto.",
+      "badge": "Análise aprofundada",
+      "errorUnavailable": "A análise aprofundada não está disponível no momento. Seus resultados anteriores continuam aqui.",
+      "errorImageTooLarge": "Uma das imagens é grande demais para a análise aprofundada (mais de cerca de 3,5 MB). Tente com imagens menores. Seus resultados anteriores continuam aqui.",
+      "errorRefused": "Não foi possível fazer a análise aprofundada deste caso. Seus resultados anteriores continuam aqui."
+    },
     "Proposed diagnoses": "Diagnósticos propostos",
     "Proposed diagnosesEu": "Possíveis áreas de avaliação clínica",
     "disclaimerEu": "Esta ferramenta não fornece diagnósticos médicos ou recomendações de tratamento.\n\nEle foi projetado exclusivamente para ajudá-lo a organizar as informações que você discutirá com um profissional de saúde.",

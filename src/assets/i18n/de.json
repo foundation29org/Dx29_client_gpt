@@ -330,7 +330,7 @@
           },
           "multimodal": {
             "title": "Auswertung mit Bildern",
-            "description": "In einer ersten Auswertung von 250 klinischen Fällen mit ihren Bildern (MedReaMM) setzte gpt-6.1-sol die Referenzdiagnose in 68,4 % der Fälle an die erste Stelle (gpt-5.6-terra: 62,0 %) und in 82,0 % unter die ersten fünf (78,0 %)."
+            "description": "In einer Auswertung von 250 klinischen Fällen mit ihren Bildern (MedReaMM) setzte die Tiefenanalyse (Claude Fable 5.2) die Referenzdiagnose in 78,0 % der Fälle an die erste Stelle und in 86,4 % unter die ersten fünf. Bei denselben Fällen erreichte gpt-6.1-sol, das Standardmodell, 71,2 % und 82,8 %."
           },
           "reference": "📊 Vollständige Ergebnisse, Methodik und Konfiguration einsehbar unter:",
           "repository": "DxGPT-Bench-Lab Repository",
@@ -401,6 +401,7 @@
             "presetNone": "Keine",
             "emptySelection": "Wählen Sie oben im Auswahlmenü mindestens ein Modell aus",
             "prodBadge": "In Produktion",
+            "advancedBadge": "Tiefenanalyse",
             "thDistribution": "Aufschlüsselung nach Position",
             "segP1": "1. Platz",
             "segP23": "2.–3. Platz",
@@ -729,6 +730,30 @@
     "upload_slow_warning": "Der Upload kann bei mobilen Verbindungen etwas dauern. Lassen Sie dieses Fenster geöffnet."
   },
   "diagnosis": {
+    "advanced": {
+      "voteTitle": "War die Tiefenanalyse hilfreich?",
+      "cardTitle": "Möchten Sie eine gründlichere Analyse?",
+      "cardDescription": "Ein anderes, leistungsstärkeres KI-Modell prüft denselben Fall, ohne dass Sie etwas ergänzen müssen. Das dauert etwas länger.",
+      "button": "Tiefer analysieren",
+      "title": "Tiefenanalyse",
+      "intro": "Ein anderes, leistungsstärkeres KI-Modell analysiert denselben Fall erneut. Das dauert etwas länger als die normale Analyse.",
+      "question": "Warum haben die Ergebnisse Sie nicht überzeugt?",
+      "reasons": {
+        "missing_suspected": "Meine Vermutung fehlt",
+        "too_generic": "Sie sind zu allgemein",
+        "not_matching": "Sie passen nicht zu den Symptomen, dem Alter oder dem Geschlecht",
+        "want_second_opinion": "Ich möchte sie überprüfen",
+        "other": "Anderer Grund"
+      },
+      "chooseReason": "Wählen Sie einen Grund, um fortzufahren.",
+      "confirm": "Tiefer analysieren",
+      "cancel": "Jetzt nicht",
+      "loading": "Tiefenanalyse: Sie kann bis zu einer Minute dauern.",
+      "badge": "Tiefenanalyse",
+      "errorUnavailable": "Die Tiefenanalyse ist gerade nicht verfügbar. Ihre bisherigen Ergebnisse bleiben erhalten.",
+      "errorImageTooLarge": "Eines der Bilder ist für die Tiefenanalyse zu groß (mehr als etwa 3,5 MB). Versuchen Sie es mit kleineren Bildern. Ihre bisherigen Ergebnisse bleiben erhalten.",
+      "errorRefused": "Die Tiefenanalyse war für diesen Fall nicht möglich. Ihre bisherigen Ergebnisse bleiben erhalten."
+    },
     "Proposed diagnoses": "Vorgeschlagene Diagnosen",
     "Proposed diagnosesEu": "Mögliche Bereiche der klinischen Bewertung",
     "disclaimerEu": "Dieses Tool bietet keine medizinischen Diagnosen oder Behandlungsempfehlungen.\n\nEs ist ausschließlich dazu gedacht, Ihnen bei der Organisation der Informationen zu helfen, die Sie mit einem Gesundheitsfachmann besprechen werden.",

@@ -330,7 +330,7 @@
           },
           "multimodal": {
             "title": "Evaluation with images",
-            "description": "In an initial evaluation of 250 clinical cases with their images (MedReaMM), gpt-6.1-sol ranked the reference diagnosis first in 68.4% of cases (gpt-5.6-terra: 62.0%) and within the top five in 82.0% (78.0%)."
+            "description": "In an evaluation of 250 clinical cases with their images (MedReaMM), in-depth analysis (Claude Fable 5.2) ranked the reference diagnosis first in 78.0% of cases and within the top five in 86.4%. On the same cases, gpt-6.1-sol, the default model, did so in 71.2% and 82.8%."
           },
           "reference": "📊 Full results, methodology and configuration available at:",
           "repository": "DxGPT-Bench-Lab Repository",
@@ -401,6 +401,7 @@
             "presetNone": "None",
             "emptySelection": "Select at least one model in the dropdown above",
             "prodBadge": "In production",
+            "advancedBadge": "In-depth analysis",
             "thDistribution": "Breakdown by position",
             "segP1": "1st position",
             "segP23": "2nd–3rd position",
@@ -729,6 +730,30 @@
     "upload_slow_warning": "Uploading may take a while on mobile connections. Keep this window open."
   },
   "diagnosis": {
+    "advanced": {
+      "voteTitle": "Was the in-depth analysis useful?",
+      "cardTitle": "Want a more thorough analysis?",
+      "cardDescription": "Another, more powerful AI model reviews the same case without you adding anything. It takes a little longer.",
+      "button": "Analyze in depth",
+      "title": "In-depth analysis",
+      "intro": "Another, more powerful AI model analyzes the same case again. It takes a little longer than the usual analysis.",
+      "question": "Why weren't the results convincing?",
+      "reasons": {
+        "missing_suspected": "What I suspect is missing",
+        "too_generic": "They are too general",
+        "not_matching": "They don't fit the symptoms, age or sex",
+        "want_second_opinion": "I want to double-check them",
+        "other": "Another reason"
+      },
+      "chooseReason": "Choose a reason to continue.",
+      "confirm": "Analyze in depth",
+      "cancel": "Not now",
+      "loading": "In-depth analysis: it can take up to a minute.",
+      "badge": "In-depth analysis",
+      "errorUnavailable": "In-depth analysis isn't available right now. Your previous results are still here.",
+      "errorImageTooLarge": "One of the images is too large for the in-depth analysis (over about 3.5 MB). Try smaller images. Your previous results are still here.",
+      "errorRefused": "The in-depth analysis couldn't be done for this case. Your previous results are still here."
+    },
     "Proposed diagnoses": "Proposed diagnoses",
     "Proposed diagnosesEu": "Possible areas of clinical evaluation",
     "disclaimerEu": "This tool does not provide medical diagnoses or treatment recommendations.\n\nIt is designed solely to help you organize the information you will discuss with a healthcare professional.",

@@ -330,7 +330,7 @@
           },
           "multimodal": {
             "title": "Avaluació amb imatges",
-            "description": "En una avaluació inicial de 250 casos clínics amb les seves imatges (MedReaMM), gpt-6.1-sol va situar el diagnòstic de referència en primera posició en el 68,4% dels casos (gpt-5.6-terra: 62,0%) i entre els cinc primers en el 82,0% (78,0%)."
+            "description": "En una avaluació de 250 casos clínics amb les seves imatges (MedReaMM), l'anàlisi en profunditat (Claude Fable 5.2) va situar el diagnòstic de referència en primera posició en el 78,0% dels casos i entre els cinc primers en el 86,4%. Amb els mateixos casos, gpt-6.1-sol, el model per defecte, ho va fer en el 71,2% i el 82,8%."
           },
           "reference": "📊 Resultats complets, metodologia i configuració auditables a:",
           "repository": "Repositori DxGPT-Bench-Lab",
@@ -401,6 +401,7 @@
             "presetNone": "Cap",
             "emptySelection": "Selecciona almenys un model al desplegable superior",
             "prodBadge": "En producció",
+            "advancedBadge": "Anàlisi en profunditat",
             "thDistribution": "Desglossament per posició",
             "segP1": "1a posició",
             "segP23": "2a–3a posició",
@@ -729,6 +730,30 @@
     "upload_slow_warning": "La pujada pot trigar amb connexions mòbils; mantén aquesta finestra oberta."
   },
   "diagnosis": {
+    "advanced": {
+      "voteTitle": "T'ha resultat útil l'anàlisi en profunditat?",
+      "cardTitle": "Vols una anàlisi més a fons?",
+      "cardDescription": "Un altre model d'IA, més potent, revisa el mateix cas sense que hagis d'afegir res. Triga una mica més.",
+      "button": "Analitza en profunditat",
+      "title": "Anàlisi en profunditat",
+      "intro": "Un altre model d'IA, més potent, torna a analitzar el mateix cas. Triga una mica més que l'anàlisi normal.",
+      "question": "Per què no et van convèncer els resultats?",
+      "reasons": {
+        "missing_suspected": "No hi apareix el que sospito",
+        "too_generic": "Són massa generals",
+        "not_matching": "No encaixen amb els símptomes, l'edat o el sexe",
+        "want_second_opinion": "Vull contrastar-los",
+        "other": "Un altre motiu"
+      },
+      "chooseReason": "Tria un motiu per continuar.",
+      "confirm": "Analitza en profunditat",
+      "cancel": "Ara no",
+      "loading": "Anàlisi en profunditat: pot trigar fins a un minut.",
+      "badge": "Anàlisi en profunditat",
+      "errorUnavailable": "L'anàlisi en profunditat no està disponible ara mateix. Els teus resultats anteriors continuen aquí.",
+      "errorImageTooLarge": "Alguna de les imatges pesa massa per a l'anàlisi en profunditat (més d'uns 3,5 MB). Prova amb imatges més petites. Els teus resultats anteriors continuen aquí.",
+      "errorRefused": "No s'ha pogut fer l'anàlisi en profunditat d'aquest cas. Els teus resultats anteriors continuen aquí."
+    },
     "Proposed diagnoses": "Diagnòstics proposats",
     "Proposed diagnosesEu": "Possibles àrees d'avaluació clínica",
     "disclaimerEu": "Aquesta eina no ofereix diagnòstics mèdics ni recomanacions de tractament.\n\nEstà pensada únicament per ajudar-te a organitzar la informació que comentaràs amb un professional sanitari.",

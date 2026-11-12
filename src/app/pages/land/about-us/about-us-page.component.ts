@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { InsightsService } from 'app/shared/services/azureInsights.service';
 import { BrandingService } from 'app/shared/services/branding.service';
+import { environment } from 'environments/environment';
 declare let gtag: any;
 import { UuidService } from 'app/shared/services/uuid.service';
 
@@ -26,6 +27,8 @@ export interface BenchModel {
     radarDefault?: boolean;
     keyLabel?: boolean;
     isProd?: boolean;
+    // En producción como modo avanzado del diagnóstico (Claude Fable 5.2, nov-2026)
+    isAdvanced?: boolean;
     boldModel?: boolean;
     greenBadgeCov?: boolean;
     fastTime?: boolean;
@@ -39,6 +42,9 @@ export interface BenchModel {
 })
 export class AboutUsPageComponent {
 
+    // SaludGPT aún no tiene el análisis en profundidad: allí no se marca Fable como tal
+    readonly showAdvancedBadge = !String(environment.tenantId || '').startsWith('salud-gpt');
+
     _startTime: any;
     myuuid: string;
 
@@ -51,7 +57,7 @@ export class AboutUsPageComponent {
     readonly benchTotalCases = 210;
 
     readonly models: BenchModel[] = [
-        { id: 'fable52', name: 'Claude Fable 5.2 low', short: 'Claude Fable 5.2', family: 'fable', effort: 1, r1: 77.1, r3: 89.5, r5: 91.4, cov: 91.4, avgPos: 1.240, sec: 14.4, secDisplay: '14,4s', p1: 162, p23: 26, p45: 4, p6p: 0, color: '#b91c1c', radarDefault: true, keyLabel: true, boldModel: true },
+        { id: 'fable52', name: 'Claude Fable 5.2 low', short: 'Claude Fable 5.2', family: 'fable', effort: 1, r1: 77.1, r3: 89.5, r5: 91.4, cov: 91.4, avgPos: 1.240, sec: 14.4, secDisplay: '14,4s', p1: 162, p23: 26, p45: 4, p6p: 0, color: '#b91c1c', radarDefault: true, keyLabel: true, boldModel: true, isAdvanced: true },
         { id: 'sol61med', name: 'gpt-6.1-sol medium', short: 'gpt-6.1-sol med', family: 'sol61', effort: 2, r1: 66.7, r3: 80.5, r5: 83.8, cov: 83.8, avgPos: 1.341, sec: 20.8, secDisplay: '20,8s', p1: 140, p23: 29, p45: 7, p6p: 0, color: '#475569', radarDefault: false, keyLabel: false, boldModel: true },
         { id: 'opus55', name: 'Claude Opus 5.5 low', short: 'Claude Opus 5.5', family: 'opus55', effort: 1, r1: 66.2, r3: 82.4, r5: 85.2, cov: 85.2, avgPos: 1.346, sec: 12.8, secDisplay: '12,8s', p1: 139, p23: 34, p45: 6, p6p: 0, color: '#ef4444', radarDefault: true, keyLabel: true, boldModel: true },
         { id: 'gem4carbon', name: 'gemini-4-carbon low', short: 'gemini-4-carbon', family: 'gem4c', effort: 1, r1: 64.8, r3: 82.9, r5: 87.1, cov: 87.1, avgPos: 1.410, sec: 15.2, secDisplay: '15,2s', p1: 136, p23: 38, p45: 9, p6p: 0, color: '#1d4ed8', radarDefault: true, keyLabel: true },

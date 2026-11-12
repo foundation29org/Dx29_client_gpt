@@ -330,7 +330,7 @@
           },
           "multimodal": {
             "title": "Ocena z obrazami",
-            "description": "We wstępnej ocenie 250 przypadków klinicznych z obrazami (MedReaMM) gpt-6.1-sol umieścił rozpoznanie referencyjne na pierwszym miejscu w 68,4% przypadków (gpt-5.6-terra: 62,0%), a wśród pierwszych pięciu w 82,0% (78,0%)."
+            "description": "W ocenie 250 przypadków klinicznych z obrazami (MedReaMM) analiza pogłębiona (Claude Fable 5.2) umieściła rozpoznanie referencyjne na pierwszym miejscu w 78,0% przypadków, a wśród pierwszych pięciu w 86,4%. Na tych samych przypadkach gpt-6.1-sol, model domyślny, osiągnął 71,2% i 82,8%."
           },
           "reference": "📊 Pełne wyniki, metodologia i konfiguracja do wglądu na:",
           "repository": "Repozytorium DxGPT-Bench-Lab",
@@ -401,6 +401,7 @@
             "presetNone": "Żaden",
             "emptySelection": "Wybierz co najmniej jeden model z powyższej listy",
             "prodBadge": "W produkcji",
+            "advancedBadge": "Analiza pogłębiona",
             "thDistribution": "Podział według pozycji",
             "segP1": "1. miejsce",
             "segP23": "2.–3. miejsce",
@@ -729,6 +730,30 @@
     "upload_slow_warning": "Przesyłanie może potrwać dłużej przy połączeniu mobilnym; nie zamykaj tego okna."
   },
   "diagnosis": {
+    "advanced": {
+      "voteTitle": "Czy analiza pogłębiona była pomocna?",
+      "cardTitle": "Chcesz dokładniejszej analizy?",
+      "cardDescription": "Inny, mocniejszy model AI ponownie przeanalizuje ten sam przypadek — nie musisz niczego dodawać. Trwa to nieco dłużej.",
+      "button": "Przeanalizuj dokładniej",
+      "title": "Analiza pogłębiona",
+      "intro": "Inny, mocniejszy model AI ponownie analizuje ten sam przypadek. Trwa to nieco dłużej niż zwykła analiza.",
+      "question": "Dlaczego wyniki Cię nie przekonały?",
+      "reasons": {
+        "missing_suspected": "Brakuje tego, co podejrzewam",
+        "too_generic": "Są zbyt ogólne",
+        "not_matching": "Nie pasują do objawów, wieku lub płci",
+        "want_second_opinion": "Chcę je zweryfikować",
+        "other": "Inny powód"
+      },
+      "chooseReason": "Wybierz powód, aby kontynuować.",
+      "confirm": "Przeanalizuj dokładniej",
+      "cancel": "Nie teraz",
+      "loading": "Analiza pogłębiona: może potrwać do minuty.",
+      "badge": "Analiza pogłębiona",
+      "errorUnavailable": "Analiza pogłębiona jest teraz niedostępna. Twoje poprzednie wyniki nadal tu są.",
+      "errorImageTooLarge": "Jeden z obrazów jest za duży do analizy pogłębionej (ponad ok. 3,5 MB). Spróbuj z mniejszymi obrazami. Twoje poprzednie wyniki nadal tu są.",
+      "errorRefused": "Nie udało się wykonać analizy pogłębionej tego przypadku. Twoje poprzednie wyniki nadal tu są."
+    },
     "Proposed diagnoses": "Proponowane diagnozy",
     "Proposed diagnosesEu": "Możliwe obszary oceny klinicznej",
     "disclaimerEu": "To narzędzie nie zapewnia diagnoz medycznych ani zaleceń dotyczących leczenia.\n\nJest przeznaczone wyłącznie do pomocy w organizowaniu informacji, które omówisz z pracownikiem służby zdrowia.",

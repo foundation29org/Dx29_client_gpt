@@ -219,6 +219,15 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     line-height: 1.4;
   }
 
+  // «Mejorar descripción» y, si se ofrece, el modo avanzado
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.45rem;
+    flex-shrink: 0;
+  }
+
   .results-action-btn {
     flex-shrink: 0;
   }
@@ -278,11 +287,11 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 /* ============================================================
    RESULT FEEDBACK AND REFINEMENT
    ============================================================ */
+// Una fila para el voto y debajo una por cada forma de afinar la lista
 .results-feedback {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
-  gap: 1.5rem;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
   margin-top: 1rem;
   padding: 1.1rem 1.25rem;
   background: #fff;
@@ -326,9 +335,48 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &__divider {
-    width: 1px;
-    height: 46px;
+    width: 100%;
+    height: 1px;
     background: #e5e7eb;
+  }
+
+  // «Mejorar resultados» y «Análisis en profundidad», cada una en su fila con lo que hace
+  &__options {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+}
+
+.results-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-width: 0;
+  padding: 0.7rem 0;
+
+  & + & {
+    border-top: 1px solid #f0f2f5;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  .results-feedback__description {
+    max-width: 30rem;
+  }
+
+  // Los dos botones con el mismo ancho, alineados
+  &__btn {
+    flex-shrink: 0;
+    min-width: 14.5rem;
+    justify-content: center;
   }
 
   &__loading {
@@ -393,6 +441,11 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     gap: 0.75rem;
     padding: 1rem 1.25rem;
 
+    &__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
     .results-action-btn {
       width: 100%;
       justify-content: center;
@@ -405,26 +458,17 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .results-feedback {
-    grid-template-columns: 1fr;
-    gap: 1rem;
     padding: 1rem;
+  }
 
-    &__group {
-      align-items: center;
-    }
+  .results-option {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
 
-    &__divider {
+    &__btn {
       width: 100%;
-      height: 1px;
-    }
-
-    &__group:last-child {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    &__group:last-child .results-feedback__actions {
-      width: 100%;
+      min-width: 0;
     }
   }
 }
@@ -1133,6 +1177,21 @@ body {
     font-size: 0.85rem;
     color: #5f6575;
     line-height: 1.35;
+  }
+
+  // Diagnóstico que viene del modo avanzado
+  &__advanced {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin: 0 0 0.35rem 0;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    background: #fff4d6;
+    color: #6b4e00;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.5;
   }
 
   &__description {

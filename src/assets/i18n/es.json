@@ -330,7 +330,7 @@
           },
           "multimodal": {
             "title": "Evaluación con imágenes",
-            "description": "En una evaluación inicial de 250 casos clínicos con sus imágenes (MedReaMM), gpt-6.1-sol situó el diagnóstico de referencia en primera posición en el 68,4% de los casos (gpt-5.6-terra: 62,0%) y entre las cinco primeras en el 82,0% (78,0%)."
+            "description": "En una evaluación de 250 casos clínicos con sus imágenes (MedReaMM), el análisis en profundidad (Claude Fable 5.2) situó el diagnóstico de referencia en primera posición en el 78,0% de los casos y entre las cinco primeras en el 86,4%. Con los mismos casos, gpt-6.1-sol, el modelo por defecto, lo hizo en el 71,2% y el 82,8%."
           },
           "reference": "📊 Resultados completos, metodología y configuración auditables en:",
           "repository": "Repositorio DxGPT-Bench-Lab",
@@ -401,6 +401,7 @@
             "presetNone": "Ninguno",
             "emptySelection": "Selecciona al menos un modelo en el desplegable superior",
             "prodBadge": "En producción",
+            "advancedBadge": "Análisis en profundidad",
             "thDistribution": "Desglose por posición",
             "segP1": "1.ª posición",
             "segP23": "2.ª–3.ª posición",
@@ -729,6 +730,30 @@
     "upload_slow_warning": "La subida puede tardar con conexiones móviles; mantén esta ventana abierta."
   },
   "diagnosis": {
+    "advanced": {
+      "voteTitle": "¿Te ha resultado útil el análisis en profundidad?",
+      "cardTitle": "¿Quieres un análisis más a fondo?",
+      "cardDescription": "Otro modelo de IA, más potente, revisa el mismo caso sin que tengas que añadir nada. Tarda un poco más.",
+      "button": "Analizar en profundidad",
+      "title": "Análisis en profundidad",
+      "intro": "Otro modelo de IA, más potente, vuelve a analizar el mismo caso. Tarda un poco más que el análisis normal.",
+      "question": "¿Por qué no te convencieron los resultados?",
+      "reasons": {
+        "missing_suspected": "No aparece lo que sospecho",
+        "too_generic": "Son demasiado generales",
+        "not_matching": "No encajan con los síntomas, la edad o el sexo",
+        "want_second_opinion": "Quiero contrastarlos",
+        "other": "Otro motivo"
+      },
+      "chooseReason": "Elige un motivo para continuar.",
+      "confirm": "Analizar en profundidad",
+      "cancel": "Ahora no",
+      "loading": "Análisis en profundidad: puede tardar hasta un minuto.",
+      "badge": "Análisis en profundidad",
+      "errorUnavailable": "El análisis en profundidad no está disponible ahora mismo. Tus resultados anteriores siguen aquí.",
+      "errorImageTooLarge": "Alguna de las imágenes pesa demasiado para el análisis en profundidad (más de unos 3,5 MB). Prueba con imágenes más pequeñas. Tus resultados anteriores siguen aquí.",
+      "errorRefused": "No se ha podido hacer el análisis en profundidad de este caso. Tus resultados anteriores siguen aquí."
+    },
     "Proposed diagnoses": "Diagnósticos propuestos",
     "Proposed diagnosesEu": "Posibles áreas de evaluación clínica",
     "disclaimerEu": "Esta herramienta no ofrece diagnósticos médicos ni recomendaciones de tratamiento.\n\nEstá pensada únicamente para ayudarte a organizar la información que comentarás con un profesional sanitario.",
