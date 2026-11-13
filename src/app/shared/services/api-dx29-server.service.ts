@@ -159,8 +159,9 @@ private postDiagnoseOrAsk(path: string, info: any) {
           return res;
         }),
         catchError((err) => {
+          // Sin trackException: quien llama reintenta y, si el usuario acaba
+          // viendo el error, lo registra él. Aquí salía dos veces por fallo.
           console.log('PubSub negotiation error:', err);
-          this.insightsService.trackException(err);
           return throwError(() => err);
         })
       );
