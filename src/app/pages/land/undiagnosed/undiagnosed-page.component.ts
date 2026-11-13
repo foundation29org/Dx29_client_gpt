@@ -19,6 +19,7 @@ import { BrandingService } from 'app/shared/services/branding.service';
 import { IframeParamsService, IframeParams } from 'app/shared/services/iframe-params.service';
 import { MedicalInfoModalComponent } from '../medical-info-modal/medical-info-modal.component';
 import { IntentEnrichmentService } from 'app/shared/services/intent-enrichment.service';
+import { afterNextPaint } from 'app/shared/utils/after-next-paint';
 import { CountryContextService } from 'app/shared/services/country-context.service';
 import { environment } from 'environments/environment';
 import { ProgressCreep } from 'app/shared/utils/progress-creep';
@@ -822,18 +823,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             return false;
         }
         this.searchStarting = true;
-        await new Promise<void>(resolve => {
-            let resolved = false;
-            const done = () => {
-                if (!resolved) {
-                    resolved = true;
-                    resolve();
-                }
-            };
-            requestAnimationFrame(() => setTimeout(done));
-            // En una pestaña o un iframe ocultos no llega requestAnimationFrame: no bloquear la búsqueda
-            setTimeout(done, 100);
-        });
+        await afterNextPaint();
         this.searchStarting = false;
         return true;
     }
