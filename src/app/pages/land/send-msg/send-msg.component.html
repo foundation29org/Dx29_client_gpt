@@ -53,7 +53,7 @@
                 aria-labelledby="terms-accept-label terms-open-link"
                 [attr.aria-invalid]="!terms.valid && showErrorForm ? 'true' : null"
                 [attr.aria-describedby]="!terms.valid && showErrorForm ? 'terms-error' : null">
-              <span class="checkbox-text"><label for="terms" id="terms-accept-label" class="terms-accept-label">{{'termsform.accept' | translate }}</label> <button type="button" id="terms-open-link" (click)="openModal2(termsModal)" class="terms-link">{{'termsform.terms' | translate }}</button></span>
+              <span class="checkbox-text"><label for="terms" id="terms-accept-label" class="terms-accept-label">{{'termsform.accept' | translate }}</label>{{ ' ' }}<button type="button" id="terms-open-link" (click)="openModal2(termsModal)" class="terms-link">{{'termsform.terms' | translate }}</button></span>
             </div>
             <small class="form-error" id="terms-error" role="alert" *ngIf="!terms.valid && showErrorForm">{{'termsform.acceptterms' | translate }}</small>
           </div>
