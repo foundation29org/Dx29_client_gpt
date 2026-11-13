@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { afterNextPaint } from 'app/shared/utils/after-next-paint';
 
 export type IntentGateMode = 'enrich' | 'explain';
 export type IntentGateChoice = 'ask' | 'questions' | 'continue' | 'edit' | 'upload';
@@ -14,6 +15,7 @@ export class IntentGateModalComponent {
     @Input() mode: IntentGateMode = 'enrich';
     @Input() reason = '';
     @Input() hasUploadedImages = false;
+    private choosing = false;
 
     constructor(public activeModal: NgbActiveModal) {}
 
@@ -126,7 +128,15 @@ export class IntentGateModalComponent {
             : 'land.enrichment.edit_hint';
     }
 
-    choose(choice: IntentGateChoice): void {
+    // Cerrar el modal arranca lo siguiente (respuesta médica, preguntas, análisis) en el mismo frame:
+    // era la mayor parte de los toques lentos en botones que desaparecen al pulsarlos. Se pinta antes
+    // el toque, y un segundo toque durante esa espera no elige otra opción.
+    async choose(choice: IntentGateChoice): Promise<void> {
+        if (this.choosing) {
+            return;
+        }
+        this.choosing = true;
+        await afterNextPaint();
         this.activeModal.close(choice);
     }
 

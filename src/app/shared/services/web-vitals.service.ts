@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import type { CLSMetricWithAttribution, INPMetricWithAttribution, LCPMetricWithAttribution } from 'web-vitals/attribution';
 import { InsightsService } from './azureInsights.service';
 
@@ -18,8 +18,11 @@ type ReportedMetric = CLSMetricWithAttribution | INPMetricWithAttribution | LCPM
 export class WebVitalsService {
   private started = false;
   private readonly landingPage: string;
+  // Últimos elementos tocados o pulsados con el teclado, para atribuir el INP cuando el elemento ya
+  // no está en el DOM al medirlo (p. ej. el botón de un modal que se cierra al pulsarlo)
+  private recentInteractions: { time: number; selector: string }[] = [];
 
-  constructor(private insightsService: InsightsService) {
+  constructor(private insightsService: InsightsService, private ngZone: NgZone) {
     // CrUX atribuye las métricas a la URL con la que se cargó el documento, no a la ruta SPA actual
     const navigation = typeof performance !== 'undefined'
       ? performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
@@ -30,6 +33,14 @@ export class WebVitalsService {
   start(): void {
     if (typeof window === 'undefined' || this.started) return;
     this.started = true;
+
+    // Desde el arranque (el INP puede ser una interacción temprana) y fuera de Angular, para no
+    // añadir detecciones de cambios a cada toque
+    this.ngZone.runOutsideAngular(() => {
+      const remember = (event: Event) => this.rememberInteraction(event);
+      document.addEventListener('pointerdown', remember, { capture: true, passive: true });
+      document.addEventListener('keydown', remember, { capture: true, passive: true });
+    });
 
     // Los observers usan buffered: true, así que cargar la librería en idle no pierde entradas del arranque
     const load = () => {
@@ -81,7 +92,7 @@ export class WebVitalsService {
         const attribution = metric.attribution;
         const longestScript = attribution.longestScript;
         Object.assign(properties, {
-          target: attribution.interactionTarget || '',
+          target: attribution.interactionTarget || this.removedTargetAt(attribution.interactionTime),
           interactionType: attribution.interactionType || '',
           loadState: attribution.loadState,
           inputDelay: Math.round(attribution.inputDelay),
@@ -115,6 +126,47 @@ export class WebVitalsService {
     if (document.visibilityState === 'hidden') {
       this.insightsService.flushOnPageHide();
     }
+  }
+
+  private rememberInteraction(event: Event): void {
+    this.recentInteractions.push({ time: event.timeStamp, selector: this.describeElement(event.target) });
+    if (this.recentInteractions.length > 30) {
+      this.recentInteractions.shift();
+    }
+  }
+
+  // El inicio de la interacción que da web-vitals es el timeStamp de su primer evento (pointerdown
+  // o keydown), el mismo que se guardó al tocar. Se marca «(removed)» para distinguirlo en los datos.
+  private removedTargetAt(interactionTime: number | undefined): string {
+    if (interactionTime === undefined) return '';
+    let closest: { time: number; selector: string } | undefined;
+    for (const interaction of this.recentInteractions) {
+      const gap = Math.abs(interaction.time - interactionTime);
+      if (gap <= 50 && (!closest || gap < Math.abs(closest.time - interactionTime))) {
+        closest = interaction;
+      }
+    }
+    return closest && closest.selector ? '(removed) ' + closest.selector : '';
+  }
+
+  // Selector al estilo de web-vitals (etiqueta, id y clases de hasta tres niveles); nunca texto
+  private describeElement(node: EventTarget | null): string {
+    const parts: string[] = [];
+    let element = node instanceof Element ? node : null;
+    while (element && element !== document.body && parts.length < 3) {
+      let part = element.tagName.toLowerCase();
+      if (element.id) {
+        parts.unshift(part + '#' + element.id);
+        break;
+      }
+      const classes = Array.from(element.classList).slice(0, 3);
+      if (classes.length) {
+        part += '.' + classes.join('.');
+      }
+      parts.unshift(part);
+      element = element.parentElement;
+    }
+    return parts.join('>');
   }
 
   // Las rutas /result/:id llevan el identificador del informe; se agrupan sin él
