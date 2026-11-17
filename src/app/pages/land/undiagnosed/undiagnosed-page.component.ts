@@ -49,6 +49,15 @@ interface MultimodalImageReference {
 
 type MultimodalFileStatus = 'pending' | 'processing' | 'completed' | 'warning' | 'error';
 
+// El intento de abrir el WebSocket ya no sirve: otra petición más reciente se
+// ha quedado con la conexión, el usuario canceló o salió de la página. No es un
+// fallo de red: no se reintenta ni se enseña como error.
+class WebSocketConnectCancelled extends Error {
+    constructor(readonly reason: 'superseded' | 'cancelled' | 'destroyed') {
+        super('WebSocket connection cancelled: ' + reason);
+    }
+}
+
 @Component({
     selector: 'app-undiagnosed-page',
     templateUrl: './undiagnosed-page.component.html',
@@ -240,6 +249,10 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     private static readonly WS_RETRY_DELAY_MS = 1000;
     // Un reintento pendiente no debe abrir un socket con la página ya cerrada.
     private componentDestroyed = false;
+    // Cada conexión que se pide se numera. Solo la última puede quedarse con
+    // this.webSocket: si dos peticiones se solapan (un segundo clic mientras la
+    // primera conecta), la anterior se retira sin cerrar el socket de la nueva.
+    private wsConnectSeq = 0;
     // El diálogo pone «Conectando…» a los 100 ms. Si el servidor ya ha
     // mandado progreso, ese timeout no debe devolver la barra a 0.
     private serverProgressReceived = false;
@@ -904,17 +917,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     // en noviembre de 2026, cuatro de cada cinco que volvían a intentarlo
     // tenían su diagnóstico, pero uno de cada cinco ni lo intentaba.
     // Se reintenta una vez sola antes de mostrar el error.
+    //
+    // Si falla con WebSocketConnectCancelled, quien llama se retira en silencio:
+    // otra petición sigue adelante o ya no hay nada que mostrar.
     private async connectWebSocket(
         expectedMultimodalRun?: number
     ): Promise<void> {
-        const isCancelled = () =>
-            this.componentDestroyed ||
-            (expectedMultimodalRun !== undefined &&
-                expectedMultimodalRun !== this.activeMultimodalRun);
+        const seq = ++this.wsConnectSeq;
+        const flow = expectedMultimodalRun !== undefined ? 'multimodal' : 'diagnose';
         const startedAt = Date.now();
         let firstError: Error;
         try {
             await this.openWebSocket(
+                seq,
                 expectedMultimodalRun,
                 UndiagnosedPageComponent.WS_CONNECT_TIMEOUT_MS
             );
@@ -922,29 +937,77 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         } catch (error) {
             firstError = this.asConnectionError(error);
         }
-        if (isCancelled()) {
-            throw firstError;
+        let cancelled = this.connectCancellation(seq, expectedMultimodalRun, firstError);
+        if (cancelled) {
+            this.trackWebSocketCancelled(cancelled, flow, 1);
+            throw cancelled;
         }
         const firstAttemptMs = Date.now() - startedAt;
         await new Promise((resolve) =>
             setTimeout(resolve, UndiagnosedPageComponent.WS_RETRY_DELAY_MS)
         );
-        if (isCancelled()) {
-            throw firstError;
+        cancelled = this.connectCancellation(seq, expectedMultimodalRun, null);
+        if (cancelled) {
+            this.trackWebSocketCancelled(cancelled, flow, 1);
+            throw cancelled;
         }
         try {
             await this.openWebSocket(
+                seq,
                 expectedMultimodalRun,
                 UndiagnosedPageComponent.WS_RETRY_TIMEOUT_MS
             );
-            this.trackWebSocketRetry(firstError, firstAttemptMs, null);
+            this.trackWebSocketRetry(flow, firstError, firstAttemptMs, null);
         } catch (error) {
             const retryError = this.asConnectionError(error);
-            if (!isCancelled()) {
-                this.trackWebSocketRetry(firstError, firstAttemptMs, retryError);
+            cancelled = this.connectCancellation(seq, expectedMultimodalRun, retryError);
+            if (cancelled) {
+                this.trackWebSocketCancelled(cancelled, flow, 2);
+                throw cancelled;
             }
+            this.trackWebSocketRetry(flow, firstError, firstAttemptMs, retryError);
             throw retryError;
         }
+    }
+
+    // Por qué este intento ya no sirve, o null si sigue vigente y el error
+    // (si lo hay) es de verdad de la conexión.
+    private connectCancellation(
+        seq: number,
+        expectedMultimodalRun: number | undefined,
+        error: Error | null
+    ): WebSocketConnectCancelled | null {
+        if (this.componentDestroyed) {
+            return new WebSocketConnectCancelled('destroyed');
+        }
+        if (seq !== this.wsConnectSeq) {
+            return new WebSocketConnectCancelled('superseded');
+        }
+        if (
+            expectedMultimodalRun !== undefined &&
+            expectedMultimodalRun !== this.activeMultimodalRun
+        ) {
+            return new WebSocketConnectCancelled('cancelled');
+        }
+        return error instanceof WebSocketConnectCancelled ? error : null;
+    }
+
+    // Para comprobar que dejan de solaparse conexiones (antes salían como
+    // «Multimodal analysis cancelled» o «WebSocket connection failed»).
+    private trackWebSocketCancelled(
+        cancelled: WebSocketConnectCancelled,
+        flow: string,
+        attempt: number
+    ): void {
+        if (cancelled.reason === 'destroyed') {
+            return;
+        }
+        this.insightsService.trackEvent('WebSocketConnectCancelled', {
+            myuuid: this.myuuid,
+            reason: cancelled.reason,
+            flow,
+            attempt
+        });
     }
 
     // HttpErrorResponse no es un Error: String() daría "[object Object]".
@@ -957,12 +1020,14 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     // Si el reintento sale bien no hay excepción, solo este evento; si sale mal,
     // el error que ve el usuario se sigue registrando como excepción.
     private trackWebSocketRetry(
+        flow: string,
         firstError: Error,
         firstAttemptMs: number,
         retryError: Error | null
     ): void {
         this.insightsService.trackEvent('WebSocketConnectRetry', {
             myuuid: this.myuuid,
+            flow,
             recovered: retryError ? 'false' : 'true',
             firstError: firstError.message,
             retryError: retryError?.message || '',
@@ -972,6 +1037,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     }
 
     private openWebSocket(
+        seq: number,
         expectedMultimodalRun: number | undefined,
         timeoutMs: number
     ): Promise<void> {
@@ -979,6 +1045,11 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             // La promesa tiene que resolverse siempre: si el socket se descarta
             // al cancelar, el await de analyzeMultimodal quedaría colgado.
             let settled = false;
+            // Si otra conexión más reciente cierra este socket mientras abre, el
+            // navegador lo cuenta como error; no es un fallo de la red.
+            const failure = (message: string): Error =>
+                this.connectCancellation(seq, expectedMultimodalRun, null) ||
+                new Error(message);
             let socket: WebSocket | null = null;
             let timer: ReturnType<typeof setTimeout> | null = null;
             const settle = () => {
@@ -1006,20 +1077,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             };
 
             try {
+                // Un intento ya retirado no puede cerrar el socket de otro
+                const staleAtStart = this.connectCancellation(seq, expectedMultimodalRun, null);
+                if (staleAtStart) {
+                    failConnection(staleAtStart);
+                    return;
+                }
                 // Cerrar conexión existente si la hay
                 if (this.webSocket) {
                     this.webSocket.close();
                     this.webSocket = null;
                 }
-    
+
                 // Obtener token de conexión
                 const response = await this.apiDx29ServerService.negotiatePubSub(this.myuuid).toPromise();
-                if (
-                    this.componentDestroyed ||
-                    (expectedMultimodalRun !== undefined &&
-                        expectedMultimodalRun !== this.activeMultimodalRun)
-                ) {
-                    failConnection(new Error('Multimodal analysis cancelled'));
+                const staleAfterNegotiate = this.connectCancellation(seq, expectedMultimodalRun, null);
+                if (staleAfterNegotiate) {
+                    failConnection(staleAfterNegotiate);
                     return;
                 }
                 const { url } = response as any;
@@ -1030,9 +1104,17 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 this.webSocket = ws;
 
                 ws.onopen = () => {
-                    if (settled || this.webSocket !== ws) {
+                    if (settled) {
                         ws.close();
-                        failConnection(new Error('Multimodal analysis cancelled'));
+                        return;
+                    }
+                    if (this.webSocket !== ws) {
+                        // Alguien soltó el socket mientras abría (cancelar, salir)
+                        ws.close();
+                        failConnection(
+                            this.connectCancellation(seq, expectedMultimodalRun, null) ||
+                                new WebSocketConnectCancelled('cancelled')
+                        );
                         return;
                     }
                     //console.log('WebSocket connected');
@@ -1053,7 +1135,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     if (this.webSocket === ws) {
                         this.isWebSocketConnected = false;
                     }
-                    failConnection(new Error('WebSocket connection failed'));
+                    failConnection(failure('WebSocket connection failed'));
                 };
 
                 ws.onclose = (event) => {
@@ -1061,12 +1143,12 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     if (this.webSocket === ws) {
                         this.isWebSocketConnected = false;
                     }
-                    failConnection(new Error('WebSocket connection closed'));
+                    failConnection(failure('WebSocket connection closed'));
                 };
 
                 // Azure Web PubSub es otro host: en móvil lento el TLS tarda
                 timer = setTimeout(
-                    () => failConnection(new Error('WebSocket connection timeout')),
+                    () => failConnection(failure('WebSocket connection timeout')),
                     timeoutMs
                 );
 
@@ -1532,9 +1614,20 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         const shouldUseWebSocket = true;
 
         if (shouldUseWebSocket) {
+            // Botones desactivados mientras conecta. Desde el aviso de intención,
+            // «cargar más», el seguimiento o al editar se llega aquí con
+            // callingAI a false, y un segundo clic abría otra conexión encima.
+            this.callingAI = true;
             try {
                 await this.connectWebSocket();
             } catch (error) {
+                if (error instanceof WebSocketConnectCancelled) {
+                    // Otra petición más reciente sigue adelante, o ya no hay página
+                    if (advanced) {
+                        this.advancedUsedForCase = false;
+                    }
+                    return;
+                }
                 console.error('Error connecting WebSocket:', error);
                 this.showError(this.translate.instant("generics.error try again"), error);
                 this.callingAI = false;
@@ -3829,6 +3922,13 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             await this.connectWebSocket(runId);
         } catch (error) {
             if (runId !== this.activeMultimodalRun) {
+                return;
+            }
+            if (error instanceof WebSocketConnectCancelled) {
+                // Otra petición más reciente se ha quedado con la conexión. Este
+                // análisis no llegó a enviarse; los botones y el diálogo son de la otra.
+                this.activeMultimodalRun += 1;
+                this.setAllFileStatuses('pending');
                 return;
             }
             console.error('Error connecting WebSocket:', error);
