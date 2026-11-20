@@ -1612,6 +1612,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         }
         // Siempre usar WebSocket para mejorar la UX.
         const shouldUseWebSocket = true;
+        // Si el WebSocket no abre ni al reintentar, el error que lo impidió: el diagnóstico
+        // se pide entonces por HTTP (diagnoseDirect) en vez de mostrar el error
+        let webSocketFailure: Error | null = null;
 
         if (shouldUseWebSocket) {
             // Botones desactivados mientras conecta. Desde el aviso de intención,
@@ -1628,14 +1631,19 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     }
                     return;
                 }
-                console.error('Error connecting WebSocket:', error);
-                this.showError(this.translate.instant("generics.error try again"), error);
-                this.callingAI = false;
-                if (advanced) {
-                    // No llegó a pedirse: se puede volver a intentar
-                    this.advancedUsedForCase = false;
+                const connectionError = this.asConnectionError(error);
+                if (this.canDiagnoseWithoutWebSocket(advanced, connectionError)) {
+                    webSocketFailure = connectionError;
+                } else {
+                    console.error('Error connecting WebSocket:', error);
+                    this.showError(this.translate.instant("generics.error try again"), error);
+                    this.callingAI = false;
+                    if (advanced) {
+                        // No llegó a pedirse: se puede volver a intentar
+                        this.advancedUsedForCase = false;
+                    }
+                    return;
                 }
-                return;
             }
         }
 
@@ -1727,9 +1735,64 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
             value.diseases_list = this.diseaseListText;
         }
 
+        if (webSocketFailure) {
+            this.diagnoseDirect(value, webSocketFailure);
+            return;
+        }
+
         this.apiDx29ServerService.diagnose(value).subscribe(
             (res: any) => this.handledDiagnoseResponse(res, value),
             (err: any) => this.handleAiError(err)
+        );
+    }
+
+    // Plan B cuando el WebSocket no abre ni al reintentar (en noviembre de 2026, ~4 diagnósticos
+    // perdidos al día, 10 de cada 12 con HTTP funcionando: el negotiate respondía y fallaba el wss).
+    // El análisis en profundidad y las imágenes siguen necesitando el WebSocket (el servidor no
+    // los hace síncronos), y un 403 del negotiate es el desafío de Cloudflare, que también
+    // bloquearía esta petición.
+    private canDiagnoseWithoutWebSocket(advanced: unknown, error: Error): boolean {
+        if (advanced || this.currentUploadId) {
+            return false;
+        }
+        const message = error.message || '';
+        return !(message.includes('negotiate') && message.includes('403'));
+    }
+
+    // Pide el diagnóstico con response_mode 'direct': el servidor responde por HTTP con el resultado
+    // entero, el mismo que mandaría por WebSocket. No hay progreso real (la barra avanza simulada).
+    // Static Web Apps corta a los 45 s; los diagnósticos síncronos tardan 16,5 s de mediana y 32 s
+    // en el p99 (13–20 nov 2026). Cancelar en el aviso de carga corta la petición.
+    private diagnoseDirect(value: any, webSocketFailure: Error): void {
+        const startedAt = Date.now();
+        const track = (outcome: string) => {
+            this.insightsService.trackEvent('DiagnoseDirectFallback', {
+                myuuid: this.myuuid,
+                outcome,
+                ms: Date.now() - startedAt,
+                webSocketError: webSocketFailure.message
+            });
+        };
+        // La barra no espera mensajes del servidor: sin esto, «Conectando…» la devolvería a 0
+        this.serverProgressReceived = true;
+        this.updateWebSocketProgress(30, '', 'ai_processing');
+        this.subscription.add(
+            this.apiDx29ServerService.diagnose({ ...value, response_mode: 'direct' }).subscribe(
+                (res: any) => {
+                    this.stopProgressCreep();
+                    track(String(res?.result || 'no_result'));
+                    if (res?.result === 'success') {
+                        // Como al recibir el resultado por WebSocket
+                        Swal.close();
+                    }
+                    this.handledDiagnoseResponse(res, value);
+                },
+                (err: any) => {
+                    this.stopProgressCreep();
+                    track('http_' + (err?.status ?? 'error'));
+                    this.handleAiError(err);
+                }
+            )
         );
     }
 
