@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, ViewChild, ElementRe
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, firstValueFrom } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, timeout } from 'rxjs/operators';
 import { EventsService } from 'app/shared/services/events.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
@@ -1749,20 +1749,23 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     // Plan B cuando el WebSocket no abre ni al reintentar (en noviembre de 2026, ~4 diagnósticos
     // perdidos al día, 10 de cada 12 con HTTP funcionando: el negotiate respondía y fallaba el wss).
     // El análisis en profundidad y las imágenes siguen necesitando el WebSocket (el servidor no
-    // los hace síncronos), y un 403 del negotiate es el desafío de Cloudflare, que también
-    // bloquearía esta petición.
+    // los hace síncronos). Si lo que falló fue el propio negotiate, el HTTP tampoco funciona: un
+    // 403 es el desafío de Cloudflare y un 0 es que no hay red (del 20 al 24 de noviembre, los
+    // 4 planes B tras un negotiate a 0 fallaron, dos tras quedarse colgados 1–2 minutos).
     private canDiagnoseWithoutWebSocket(advanced: unknown, error: Error): boolean {
         if (advanced || this.currentUploadId) {
             return false;
         }
-        const message = error.message || '';
-        return !(message.includes('negotiate') && message.includes('403'));
+        return !(error.message || '').includes('negotiate');
     }
 
     // Pide el diagnóstico con response_mode 'direct': el servidor responde por HTTP con el resultado
     // entero, el mismo que mandaría por WebSocket. No hay progreso real (la barra avanza simulada).
     // Static Web Apps corta a los 45 s; los diagnósticos síncronos tardan 16,5 s de mediana y 32 s
-    // en el p99 (13–20 nov 2026). Cancelar en el aviso de carga corta la petición.
+    // en el p99 (13–20 nov 2026). Cancelar en el aviso de carga corta la petición, y si a los
+    // DIRECT_DIAGNOSE_TIMEOUT_MS no ha llegado nada, la conexión está colgada: se da el error.
+    private static readonly DIRECT_DIAGNOSE_TIMEOUT_MS = 50000;
+
     private diagnoseDirect(value: any, webSocketFailure: Error): void {
         const startedAt = Date.now();
         const track = (outcome: string) => {
@@ -1777,7 +1780,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.serverProgressReceived = true;
         this.updateWebSocketProgress(30, '', 'ai_processing');
         this.subscription.add(
-            this.apiDx29ServerService.diagnose({ ...value, response_mode: 'direct' }).subscribe(
+            this.apiDx29ServerService.diagnose({ ...value, response_mode: 'direct' }).pipe(
+                timeout(UndiagnosedPageComponent.DIRECT_DIAGNOSE_TIMEOUT_MS)
+            ).subscribe(
                 (res: any) => {
                     this.stopProgressCreep();
                     track(String(res?.result || 'no_result'));
@@ -1789,7 +1794,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                 },
                 (err: any) => {
                     this.stopProgressCreep();
-                    track('http_' + (err?.status ?? 'error'));
+                    track(err?.name === 'TimeoutError' ? 'timeout' : 'http_' + (err?.status ?? 'error'));
                     this.handleAiError(err);
                 }
             )
