@@ -10,8 +10,14 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // La clave de suscripción del APIM la añade la Static Web App (backend enlazado), no el cliente
-    const headers = req.headers.set('X-Tenant-Id', environment.tenantId);
+    let headers = req.headers.set('X-Tenant-Id', environment.tenantId);
+
+    // Solo dxgpt prod (environment.prod.ts) lleva clave: el enlace de su Static Web App con el APIM
+    // inyecta una clave que ya no es válida. Las demás builds dejan que la ponga la Static Web App.
+    const apiSubscriptionKey = (environment as { apiSubscriptionKey?: string }).apiSubscriptionKey;
+    if (apiSubscriptionKey) {
+      headers = headers.set('Ocp-Apim-Subscription-Key', apiSubscriptionKey);
+    }
 
     const authReq = req.clone({ headers });
 
