@@ -10,12 +10,8 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let headers = req.headers.set('X-Tenant-Id', environment.tenantId);
-    
-    // Solo agregar el header de APIM si hay una subscription key configurada
-    if (environment.apiSubscriptionKey) {
-      headers = headers.set('Ocp-Apim-Subscription-Key', environment.apiSubscriptionKey);
-    }
+    // La clave de suscripción del APIM la añade la Static Web App (backend enlazado), no el cliente
+    const headers = req.headers.set('X-Tenant-Id', environment.tenantId);
 
     const authReq = req.clone({ headers });
 
