@@ -14,8 +14,15 @@ export class SafePipe implements PipeTransform {
       return '';
     }
 
+    // El servidor ya manda el texto escapado (anonymizedTextHtml va también a los
+    // clientes de la API). Se deshace una sola vez para no escaparlo dos veces y
+    // enseñar "&lt;" o "&#39;"; el escape de abajo lo vuelve a dejar seguro.
+    const htmlEntities: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" };
+    const unescapeHtml = (text: string): string =>
+      text.replace(/&(amp|lt|gt|quot|#39);/g, (_entity, name: string) => htmlEntities[name]);
+
     const escapeHtml = (text: string): string =>
-      text
+      unescapeHtml(text)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
