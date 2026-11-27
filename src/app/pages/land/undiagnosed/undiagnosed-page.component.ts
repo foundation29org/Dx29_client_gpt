@@ -173,6 +173,9 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
     sponsors: any[] = [];
 
     hasAnonymize: boolean = false;
+    // Se taparon datos personales en algún diagnóstico de este caso. hasAnonymize se
+    // borra al volver a diagnosticar el texto ya enmascarado; esto solo con newPatient.
+    caseTextMasked: boolean = false;
     callingAnonymize: boolean = false;
     tienePrisa: boolean = false;
     resultAnonymized: string = '';
@@ -581,6 +584,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         this.resultAnonymized = '';
         this.copyResultAnonymized = '';
         this.hasAnonymize = false;
+        this.caseTextMasked = false;
         this.loadMoreDiseases = false;
         this.diseaseListEn = [];
         this.diseaseListText = '';
@@ -2594,13 +2598,16 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
         try {
             this.creatingPermalink = true;
             
-            // Crear objeto con todos los datos necesarios
+            // El servidor anonimiza el texto antes de guardarlo y pone la fecha.
+            // timezone elige la región del anonimizador, como en /diagnose.
+            // anonymized: el texto ya va enmascarado; el permalink lo avisa. Se exige que
+            // queden asteriscos por si el texto se reescribió sin empezar un paciente nuevo.
             const permalinkData = {
                 medicalDescription: this.medicalTextOriginal,
-                anonymizedDescription: this.resultAnonymized || this.medicalTextOriginal,
+                anonymized: this.caseTextMasked && (this.medicalTextOriginal || '').includes('*'),
                 diagnoses: this.topRelatedConditions.slice(0, 10), // Limitar a top 10
                 lang: this.lang,
-                createdDate: new Date().toISOString(),
+                timezone: this.timezone,
                 myuuid: this.myuuid
             };
 
@@ -3116,6 +3123,7 @@ export class UndiagnosedPageComponent implements OnInit, OnDestroy {
                     this.medicalTextOriginal = this.copyResultAnonymized;
                     this.medicalTextEng = this.copyResultAnonymized;
                     this.hasAnonymize = true;
+                    this.caseTextMasked = true;
                     if (!localStorage.getItem('dontShowSwal')) {
                         const detectePer = this.translate.instant("diagnosis.detected personal information");
                         const procDelete = this.translate.instant("diagnosis.proceeded to delete");
