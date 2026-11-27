@@ -26,7 +26,9 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
 
   // Datos médicos
   medicalDescription: string = '';
-  anonymizedDescription: string = '';
+  // Aviso de datos personales tapados. Los permalinks anteriores al 27-11-2026 no traen
+  // anonymized: lo indicaba que anonymizedDescription fuera distinto del texto.
+  showAnonymizedNotice: boolean = false;
   diagnoses: any[] = [];
   lang: string = 'es';
   createdDate: string = '';
@@ -90,7 +92,9 @@ export class PermalinkViewPageComponent implements OnInit, OnDestroy {
         (res: any) => {
           const permalinkData = res.data; // Acceder a la propiedad 'data'
           this.medicalDescription = permalinkData.medicalDescription || '';
-          this.anonymizedDescription = permalinkData.anonymizedDescription || '';
+          const anonymizedDescription = permalinkData.anonymizedDescription || '';
+          this.showAnonymizedNotice = permalinkData.anonymized === true ||
+            (!!anonymizedDescription && anonymizedDescription !== this.medicalDescription);
           this.diagnoses = permalinkData.diagnoses || [];
           this.lang = permalinkData.lang || 'es';
           this.createdDate = permalinkData.createdDate || '';
